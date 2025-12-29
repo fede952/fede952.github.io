@@ -1,0 +1,33 @@
+baseURL = 'https://federicosella.com/'
+languageCode = 'it-it'
+title = 'Federico Sella'
+theme = 'PaperMod'
+
+[params]
+  defaultTheme = "dark"
+  description = "Cybersecurity Analyst & Developer"
+  
+  [params.profileMode]
+    enabled = true
+    title = "Federico Sella"
+    subtitle = "Industrial Automation | Cybersecurity | Development"
+    imageUrl = "https://github.com/fede952.png"
+    
+    [[params.socialIcons]]
+      name = "linkedin"
+      url = "https://linkedin.com/in/federicosella"
+    [[params.socialIcons]]
+      name = "github"
+      url = "https://github.com/fede952"
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "Chi Sono"
+    url = "/about/"
+    weight = 10
+  [[menu.main]]
+    identifier = "writeups"
+    name = "CTF Writeups"
+    url = "/writeups/"
+    weight = 20
