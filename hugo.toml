@@ -1,17 +1,39 @@
 baseURL = 'https://federicosella.com/'
-languageCode = 'it-it'
+languageCode = 'en-us'
 title = 'Federico Sella'
 theme = 'PaperMod'
+defaultContentLanguage = 'en'
+
+# Fondamentale per evitare conflitti URL
+[permalinks]
+  posts = "/:year/:month/:title/"
 
 [params]
   defaultTheme = "dark"
-  description = "Cybersecurity Analyst & Developer"
-  
+  env = "production"
+  title = "Federico Sella"
+  description = "Portfolio of Federico Sella - Security Developer, SOC Analyst & Red Team Enthusiast. Expert in Industrial Automation (CNC) bridging OT and IT Security."
+  keywords = ["Federico Sella", "Cybersecurity Portfolio", "Red Team", "SOC Analyst", "Industrial Cybersecurity", "CNC Programmer", "Python Developer", "Bergamo"]
+  author = "Federico Sella"
+  images = ["https://github.com/fede952.png"] 
+
+  [params.assets]
+    favicon = "/favicon.png"
+    favicon16x16 = "/favicon.png"
+    favicon32x32 = "/favicon.png"
+    apple_touch_icon = "/favicon.png"
+
   [params.profileMode]
     enabled = true
     title = "Federico Sella"
-    subtitle = "Industrial Automation | Cybersecurity | Development"
-    imageUrl = "https://github.com/fede952.png"
+    subtitle = "Security Developer | Red Teamer | Industrial Specialist"
+    imageUrl = "/images/logo.jpg"
+    imageTitle = "Federico Sella"
+    buttons = [
+      { name = "About Me", url = "/about" },
+      { name = "My Projects", url = "/projects" }, # Ricordati di creare questa pagina prima o poi!
+      { name = "Contact", url = "mailto:fedesella95@gmail.com" }
+    ]
     
     [[params.socialIcons]]
       name = "linkedin"
@@ -19,15 +41,45 @@ theme = 'PaperMod'
     [[params.socialIcons]]
       name = "github"
       url = "https://github.com/fede952"
+    [params.label]
+    text = "Federico Sella"
+    icon = "/images/logo.jpg" # Questo mette il logo piccolo in alto a sinistra vicino al nome
+    iconHeight = 35
 
-[menu]
-  [[menu.main]]
-    identifier = "about"
-    name = "Chi Sono"
-    url = "/about/"
-    weight = 10
-  [[menu.main]]
-    identifier = "writeups"
-    name = "CTF Writeups"
-    url = "/writeups/"
-    weight = 20
+# --- Configurazione Lingue (Fix Menu) ---
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    contentDir = "content/en" # Opzionale, ma aiuta l'ordine. Lasciamo standard per ora.
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About Me"
+        url = "/about/"
+        weight = 10
+      [[languages.en.menu.main]]
+        identifier = "writeups"
+        name = "CTF Writeups"
+        url = "/writeups/"
+        weight = 20
+
+  [languages.it]
+    languageName = "Italiano"
+    weight = 2
+    [languages.it.menu]
+      [[languages.it.menu.main]]
+        identifier = "about"
+        name = "Chi Sono"
+        url = "/about/"
+        weight = 10
+      [[languages.it.menu.main]]
+        identifier = "writeups"
+        name = "CTF Writeups"
+        url = "/writeups/"
+        weight = 20
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
