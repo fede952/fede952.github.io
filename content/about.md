@@ -16,7 +16,7 @@ summary: "From precision mechanics to digital warfare. My journey from CNC Progr
 I am a **Security Developer** and **Red Team Aspirant** with a distinctive edge: I don't just understand networks; I understand the physical machines they control
 
 Before transitioning to Cybersecurity, I spent **over 10 years in the Industrial Sector**, including 7 years as a specialized **CNC Programmer**.
-Writing code for Fanuc and Selca systems instilled in me a strict procedural mindset: in that world, a syntax error doesn't just crash an app—it causes physical damage
+Writing code for Fanuc and Selca systems instilled in me a strict procedural mindset: in that world, a syntax error doesn't just crash an app-it causes physical damage
 
 **I bring that "Zero-Error" precision to Cybersecurity.**
 
@@ -47,5 +47,5 @@ However, my trajectory is firmly set on **Offensive Security**: leverage my codi
 * **Environment:** Linux (Kali/Debian), GitHub, Docker, Retool
 
 ---
-> *"I construct to understand
+> *"I construct to understand.
 > I break to secure"*
