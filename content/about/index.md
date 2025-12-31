@@ -2,7 +2,6 @@
 title: "About Me"
 hidemeta: true
 layout: "about"
-url: "/about/"
 description: "Federico Sella - Security Developer and SOC Analyst. Transitioning from 7+ years in CNC Automation (Fanuc/Selca) to Offensive Security and Red Teaming."
 keywords: ["Cybersecurity", "Red Team", "SOC Analyst", "Developer", "Industrial Automation", "Fanuc", "Selca", "Python", "eJPT", "Bergamo"]
 summary: "From precision mechanics to digital warfare. My journey from CNC Programming to Cybersecurity."

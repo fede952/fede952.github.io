@@ -31,7 +31,7 @@ defaultContentLanguage = 'en'
     imageTitle = "Federico Sella"
     buttons = [
       { name = "About Me", url = "/about" },
-      { name = "My Projects", url = "/projects" }, # Ricordati di creare questa pagina prima o poi!
+      { name = "My Projects", url = "/projects" },
       { name = "Contact", url = "mailto:fedesella95@gmail.com" }
     ]
     
@@ -52,7 +52,6 @@ defaultContentLanguage = 'en'
   [languages.en]
     languageName = "English"
     weight = 1
-    contentDir = "content/en" # Opzionale, ma aiuta l'ordine. Lasciamo standard per ora.
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "about"
