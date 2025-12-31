@@ -5,7 +5,7 @@ tags: ["Python", "Pentesting", "Framework", "Automation", "Red Team"]
 author: "Federico Sella"
 summary: "Un framework modulare ed estensibile progettato per automatizzare i workflow di pentesting e le operazioni Red Team."
 cover:
-    image: "cover.png"
+    image: "/images/projects/penta-framework/cover.png"
     alt: "Console di PentaFramework"
     relative: true
 ---
