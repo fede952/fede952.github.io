@@ -1,0 +1,11 @@
+/* Limita la grandezza dell'immagine di copertina */
+.entry-cover img {
+    max-width: 100px !important; /* Blocca la larghezza a 350px */
+    width: auto !important;
+    margin: 0 auto; /* La centra orizzontalmente */
+    border-radius: 10px; /* (Opzionale) Arrotonda un po' gli angoli */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* (Opzionale) Aggiunge un'ombra elegante */
+}
+
+/* Assicura che nella lista degli articoli (home page) non sia troppo piccola */
+/* Se vuoi che nella home sia diversa, dimmelo, ma così è uniforme */

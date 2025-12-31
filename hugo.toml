@@ -64,6 +64,11 @@ defaultContentLanguage = 'en'
         name = "CTF Writeups"
         url = "/writeups/"
         weight = 20
+      [[languages.en.menu.main]]
+        identifier = "projects"
+        name = "Projects"
+        url = "/projects/"
+        weight = 30
 
   [languages.it]
     languageName = "Italiano"
@@ -79,6 +84,11 @@ defaultContentLanguage = 'en'
         name = "CTF Writeups"
         url = "/writeups/"
         weight = 20
+      [[languages.it.menu.main]]
+        identifier = "projects"
+        name = "Progetti"
+        url = "/projects/"
+        weight = 30
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
