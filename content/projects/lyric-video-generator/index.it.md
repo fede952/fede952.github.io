@@ -1,6 +1,6 @@
 ---
 title: "FLAC Lyric Video Generator"
-date: 2026-02-11
+date: 2026-01-11
 draft: false
 description: "Un tool di automazione per audiofili che permette di unire audio FLAC lossless e testi sincronizzati per i sistemi di bordo auto."
 tags: ["FFmpeg", "PowerShell", "Automazione", "Car Audio"]
