@@ -1,0 +1,13 @@
+{{ $url := .Get "url" }}
+{{ $title := .Get "title" }}
+
+<div class="exercise-box" style="margin: 2rem 0;">
+    <div style="background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-bottom: none; border-radius: 8px 8px 0 0; font-weight: bold;">
+        ☕ Esercizio Java: {{ $title }}
+    </div>
+    
+    <iframe frameborder="0" width="100%" height="500px" 
+            src="{{ $url }}?embed=true" 
+            style="border: 1px solid #ddd; border-radius: 0 0 8px 8px;">
+    </iframe>
+</div>

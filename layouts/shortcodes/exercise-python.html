@@ -1,0 +1,37 @@
+{{ $file := .Get "file" }}
+{{ $title := .Get "title" }}
+{{ $path := printf "static/exercises/%s" $file }}
+
+<div class="exercise-box" style="border: 1px solid #ddd; border-radius: 8px; margin: 2rem 0; overflow: hidden;">
+    
+    <div style="background: #f4f4f4; padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">
+        🐍 Esercizio Python: {{ $title }}
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap;">
+        
+        <div style="flex: 1; min-width: 300px; border-right: 1px solid #ddd; background: #282c34;">
+            {{ $code := readFile $path }}
+            {{ highlight $code "python" "" }}
+        </div>
+
+        <div style="flex: 1; min-width: 300px; padding: 20px;">
+            <h4>Output Interattivo</h4>
+            
+            <label>Input:</label>
+            <input type="text" id="py-input" class="form-control" placeholder="Scrivi qui..." style="width: 100%; padding: 8px; margin-bottom: 10px;">
+            
+            <button id="run-btn" py-click="main_function" style="background: #3b82f6; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">
+                Esegui Codice
+            </button>
+
+            <div id="py-output" style="margin-top: 20px; padding: 10px; background: #eef; border-radius: 4px; min-height: 50px;">
+                </div>
+
+            <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+            <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+            
+            <py-script src="/exercises/{{ $file }}"></py-script>
+        </div>
+    </div>
+</div>
