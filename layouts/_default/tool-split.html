@@ -1,0 +1,64 @@
+{{- define "main" }}
+
+<article class="post-single tool-split-page">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">
+      {{ .Title }}
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+      {{ .Description }}
+    </div>
+    {{- end }}
+  </header>
+
+  <div class="tool-split-container">
+    <!-- Left Panel - Code Explanation -->
+    <div class="tool-left-panel">
+      <h3>How it works</h3>
+      <div class="code-explanation">
+        {{- if .Params.algorithm_code }}
+        {{- highlight .Params.algorithm_code .Params.code_language "linenos=table" }}
+        {{- else }}
+        {{- .Content }}
+        {{- end }}
+      </div>
+
+      {{- if .Params.explanation }}
+      <div class="explanation-text">
+        {{ .Params.explanation | markdownify }}
+      </div>
+      {{- end }}
+    </div>
+
+    <!-- Right Panel - Interactive Tool -->
+    <div class="tool-right-panel">
+      <h3>Try it live</h3>
+      <div class="tool-interactive" id="tool-container">
+        {{- if .Params.tool_html }}
+        {{ .Params.tool_html | safeHTML }}
+        {{- else }}
+        <p>Loading tool...</p>
+        {{- end }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Load JavaScript -->
+  {{- if .Params.tool_js }}
+  <script src="{{ .Params.tool_js }}"></script>
+  {{- end }}
+
+  <footer class="post-footer">
+    {{- if .Params.tags }}
+    <ul class="post-tags">
+      {{- range ($.GetTerms "tags") }}
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </footer>
+</article>
+
+{{- end }}{{/* end main */}}

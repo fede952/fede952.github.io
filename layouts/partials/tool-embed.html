@@ -1,0 +1,15 @@
+{{- $src := .src }}
+{{- $width := .width | default "100%" }}
+{{- $height := .height | default "600" }}
+{{- $title := .title | default "Interactive Tool" }}
+
+<div class="tool-embed-container">
+  <iframe src="{{ $src }}"
+          width="{{ $width }}"
+          height="{{ $height }}"
+          frameborder="0"
+          sandbox="allow-scripts allow-same-origin"
+          title="{{ $title }}"
+          loading="lazy">
+  </iframe>
+</div>

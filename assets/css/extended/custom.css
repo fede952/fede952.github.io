@@ -9,3 +9,473 @@
 
 /* Assicura che nella lista degli articoli (home page) non sia troppo piccola */
 /* Se vuoi che nella home sia diversa, dimmelo, ma così è uniforme */
+
+/* ============================================
+   NEWS SECTION STYLES
+   ============================================ */
+
+.news-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--entry);
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.news-source {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: var(--code-bg);
+  border-left: 3px solid var(--tertiary);
+  border-radius: 4px;
+}
+
+.news-source-link {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   TOOLS SECTION STYLES
+   ============================================ */
+
+.tool-page .post-content {
+  margin-bottom: 2rem;
+}
+
+.tool-interactive,
+.tool-embed-container {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+}
+
+.tool-embed-container iframe {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  background: var(--entry);
+}
+
+.tool-container {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.tool-container textarea,
+.tool-container input {
+  width: 100%;
+  min-height: 150px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  color: var(--content);
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.tool-container button {
+  background: var(--tertiary);
+  color: var(--primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  transition: background 0.2s ease;
+}
+
+.tool-container button:hover {
+  background: var(--secondary);
+}
+
+/* ============================================
+   GAMES SECTION STYLES
+   ============================================ */
+
+.game-page .post-content {
+  margin-bottom: 2rem;
+}
+
+.game-container,
+.game-embed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: var(--code-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.game-container iframe,
+.game-embed-container iframe {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: #000;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .news-card {
+    padding: 1rem;
+  }
+
+  .tool-container {
+    padding: 1rem;
+  }
+
+  .tool-container textarea,
+  .tool-container input {
+    min-height: 120px;
+    font-size: 0.85rem;
+  }
+
+  .tool-container button {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .game-container iframe,
+  .game-embed-container iframe {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .game-container,
+  .game-embed-container {
+    padding: 0.5rem;
+  }
+}
+
+/* ============================================
+   DARK MODE ENHANCEMENTS
+   ============================================ */
+
+.dark .tool-container button {
+  background: var(--tertiary);
+  color: var(--theme);
+}
+
+.dark .tool-container button:hover {
+  background: var(--hljs-bg);
+}
+
+.dark .news-card:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.dark .game-container iframe,
+.dark .game-embed-container iframe {
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   SPLIT VIEW TOOLS LAYOUT
+   ============================================ */
+
+/* Allarga il container principale SOLO per le pagine tool-split */
+.tool-split-page .main {
+  max-width: 1400px;
+  width: 100%;
+}
+
+.tool-split-container {
+  display: grid;
+  /* Griglia intelligente: auto-fit con minimo 450px per colonna */
+  /* Su schermi larghi: 2 colonne affiancate */
+  /* Su schermi stretti: 1 colonna stacked */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.tool-left-panel,
+.tool-right-panel {
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 0; /* Previene overflow forzato del contenuto */
+}
+
+.tool-left-panel h3,
+.tool-right-panel h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--tertiary);
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.code-explanation {
+  margin-bottom: 1.5rem;
+  background: var(--code-bg);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.code-explanation pre {
+  margin: 0;
+  padding: 1rem;
+}
+
+.explanation-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--content);
+}
+
+.explanation-text p {
+  margin-bottom: 1rem;
+}
+
+.explanation-text code {
+  background: var(--code-bg);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* Tool Interactive Area */
+.tool-interactive {
+  min-height: 300px;
+}
+
+.tool-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.tool-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--content);
+}
+
+.tool-input-group input[type="text"],
+.tool-input-group textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--content);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.tool-input-group input[type="text"]:focus,
+.tool-input-group textarea:focus {
+  outline: none;
+  border-color: var(--tertiary);
+}
+
+.tool-input-group input[type="range"] {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.tool-input-group .range-value {
+  display: inline-block;
+  margin-left: 1rem;
+  font-weight: 700;
+  color: var(--tertiary);
+  font-size: 1.1rem;
+}
+
+/* Tool Buttons */
+.tool-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.tool-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--tertiary);
+  color: var(--theme);
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.tool-btn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tool-btn:active {
+  transform: translateY(0);
+}
+
+.tool-btn.secondary {
+  background: var(--border);
+  color: var(--content);
+}
+
+.tool-btn.secondary:hover {
+  background: var(--hljs-bg);
+}
+
+.tool-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tool Output */
+.tool-output {
+  position: relative;
+}
+
+.tool-output textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 0.75rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--content);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--tertiary);
+  color: var(--theme);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.copy-btn:hover {
+  background: var(--secondary);
+}
+
+.copy-btn.copied {
+  background: #10b981;
+}
+
+/* Tool Info/Error Messages */
+.tool-message {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.tool-message.info {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid #3b82f6;
+  color: #3b82f6;
+}
+
+.tool-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid #ef4444;
+  color: #ef4444;
+}
+
+.tool-message.success {
+  background: rgba(16, 185, 129, 0.1);
+  border-left: 3px solid #10b981;
+  color: #10b981;
+}
+
+/* Responsive Split View */
+@media (max-width: 1024px) {
+  .tool-split-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-left-panel {
+    order: 2;
+  }
+
+  .tool-right-panel {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .tool-split-container {
+    gap: 1rem;
+  }
+
+  .tool-left-panel,
+  .tool-right-panel {
+    padding: 1rem;
+  }
+
+  .tool-buttons {
+    flex-direction: column;
+  }
+
+  .tool-btn {
+    width: 100%;
+  }
+
+  .copy-btn {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Dark Mode Specific */
+.dark .tool-btn {
+  background: var(--tertiary);
+  color: var(--theme);
+}
+
+.dark .tool-btn:hover {
+  background: var(--hljs-bg);
+}
+
+.dark .tool-btn.secondary {
+  background: var(--border);
+}
+
+.dark .copy-btn.copied {
+  background: #10b981;
+  color: white;
+}

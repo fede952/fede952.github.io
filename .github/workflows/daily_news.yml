@@ -1,0 +1,58 @@
+name: Fetch Tech News
+
+on:
+  # Run every 6 hours
+  schedule:
+    - cron: '0 */6 * * *'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+# Required permissions for pushing changes
+permissions:
+  contents: write
+
+jobs:
+  fetch-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+
+      - name: Fetch news articles
+        run: |
+          python scripts/fetch_news.py
+
+      - name: Check for changes
+        id: verify_diff
+        run: |
+          git diff --quiet content/news/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push new articles
+        if: steps.verify_diff.outputs.changed == 'true'
+        run: |
+          git config user.name "NewsBot"
+          git config user.email "newsbot@federicosella.com"
+          git add content/news/
+          git add scripts/.news_cache.json
+          git commit -m "🤖 Auto-fetch tech news $(date -u +%Y-%m-%d\ %H:%M\ UTC)"
+          git push
+
+      - name: No new articles
+        if: steps.verify_diff.outputs.changed != 'true'
+        run: |
+          echo "No new articles to commit"

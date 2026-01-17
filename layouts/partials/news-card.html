@@ -1,0 +1,34 @@
+{{- $class := .class | default "news-card" }}
+<div class="{{ $class }}">
+  <article class="post-entry">
+    {{ $isHidden := (.Params.cover.hidden | default .Site.Params.cover.hiddenInList | default .Site.Params.cover.hidden) }}
+    {{- if and .Params.cover (not $isHidden) }}
+    <figure class="entry-cover">
+      <a href="{{ .Permalink }}" aria-label="{{ .Title }}">
+        <img loading="lazy" src="{{ .Params.cover.image }}" alt="{{ .Params.cover.alt }}">
+      </a>
+    </figure>
+    {{- end }}
+
+    <header class="entry-header">
+      <h2>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </h2>
+    </header>
+
+    {{- if .Description }}
+    <div class="entry-content">
+      <p>{{ .Description }}</p>
+    </div>
+    {{- end }}
+
+    <footer class="entry-footer">
+      <span>{{ .Date.Format "January 2, 2006" }}</span>
+      {{- if .Params.source }}
+      <span class="news-source-link">
+        <a href="{{ .Params.source }}" target="_blank" rel="noopener">Source</a>
+      </span>
+      {{- end }}
+    </footer>
+  </article>
+</div>
