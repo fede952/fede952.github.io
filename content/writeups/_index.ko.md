@@ -1,10 +1,12 @@
 ---
 title: "CTF 풀이"
-description: "CTF 챌린지 및 해킹 연습의 상세한 솔루션"
+description: "CTF 챌린지의 상세한 솔루션"
 draft: false
 ---
 
-⚠️ **글로벌 콘텐츠 공지:**
-인터페이스가 번역되어 있지만, 기술 풀이는 기술적 정확성을 유지하기 위해 주로 **영어**로 제공됩니다.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[영어 콘텐츠 보기](/writeups/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/writeups/)
+
+---

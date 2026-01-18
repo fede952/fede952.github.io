@@ -1,10 +1,12 @@
 ---
 title: "الألعاب"
-description: "ألعاب تفاعلية وألعاب صغيرة طورها Federico Sella"
+description: "ألعاب تفاعلية وألعاب صغيرة"
 draft: false
 ---
 
-⚠️ **إشعار المحتوى العالمي:**
-بينما تمت ترجمة واجهتنا، محتوى الألعاب متاح بشكل أساسي **بالإنجليزية**.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[عرض المحتوى بالإنجليزية](/games/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/games/)
+
+---

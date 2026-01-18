@@ -1,5 +1,12 @@
 ---
-title: "My Projects"
-description: "Progetti programmazione, strumenti e sviluppo."
-hidemeta: true
+title: "Progetti"
+description: "Progetti di sviluppo e cybersecurity"
+draft: false
+---
+
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
+
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/projects/)
+
 ---

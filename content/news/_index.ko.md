@@ -4,7 +4,9 @@ description: "사이버 보안, 개발 및 기술에 관한 최신 뉴스"
 draft: false
 ---
 
-⚠️ **글로벌 콘텐츠 공지:**
-인터페이스가 번역되어 있지만, 이 섹션의 기술 기사는 기술적 정확성을 유지하기 위해 주로 **영어**로 제공됩니다.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[영어 콘텐츠 보기](/news/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/news/)
+
+---

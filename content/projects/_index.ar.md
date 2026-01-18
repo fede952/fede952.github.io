@@ -1,10 +1,12 @@
 ---
 title: "المشاريع"
-description: "مشاريع التطوير والأمن السيبراني لـ Federico Sella"
+description: "مشاريع التطوير والأمن السيبراني"
 draft: false
 ---
 
-⚠️ **إشعار المحتوى العالمي:**
-بينما تمت ترجمة واجهتنا، الوثائق التقنية للمشاريع متاحة بشكل أساسي **بالإنجليزية** للحفاظ على الدقة التقنية.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[عرض المحتوى بالإنجليزية](/projects/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/projects/)
+
+---

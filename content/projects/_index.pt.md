@@ -1,10 +1,12 @@
 ---
 title: "Projetos"
-description: "Projetos de desenvolvimento e cibersegurança de Federico Sella"
+description: "Projetos de desenvolvimento e cibersegurança"
 draft: false
 ---
 
-⚠️ **Aviso de Conteúdo Global:**
-Embora nossa interface esteja traduzida, a documentação técnica dos projetos está disponível principalmente em **Inglês** para manter a precisão técnica.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[Ver conteúdo em inglês](/projects/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/projects/)
+
+---

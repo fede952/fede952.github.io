@@ -1,10 +1,12 @@
 ---
 title: "ゲーム"
-description: "Federico Sellaが開発したインタラクティブゲームとミニゲーム"
+description: "インタラクティブゲームとミニゲーム"
 draft: false
 ---
 
-⚠️ **グローバルコンテンツ通知：**
-インターフェースは翻訳されていますが、ゲームコンテンツは主に**英語**で提供されています。
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[英語のコンテンツを見る](/games/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/games/)
+
+---

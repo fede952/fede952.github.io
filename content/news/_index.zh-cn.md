@@ -4,7 +4,9 @@ description: "网络安全、开发和技术的最新新闻"
 draft: false
 ---
 
-⚠️ **全球内容通知：**
-虽然我们的界面已翻译，但本节中的技术文章主要以**英文**提供，以保持技术准确性。
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[查看英文内容](/news/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/news/)
+
+---

@@ -1,8 +1,12 @@
 ---
-title: "Games"
-description: "Browser games, sfide CTF e puzzle di coding interattivi"
-hidemeta: true
-layout: "list"
+title: "Giochi"
+description: "Giochi interattivi e mini-giochi"
+draft: false
 ---
 
-Divertiti con giochi browser-based e sfide di sicurezza. Metti alla prova le tue capacità con puzzle in stile CTF o rilassati con giochi retro classici.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
+
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/games/)
+
+---

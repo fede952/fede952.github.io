@@ -1,10 +1,12 @@
 ---
 title: "CTF解説"
-description: "CTFチャレンジとハッキング演習の詳細な解決策"
+description: "CTFチャレンジの詳細な解決策"
 draft: false
 ---
 
-⚠️ **グローバルコンテンツ通知：**
-インターフェースは翻訳されていますが、技術的な解説は技術的な正確性を維持するため、主に**英語**で提供されています。
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[英語のコンテンツを見る](/writeups/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/writeups/)
+
+---

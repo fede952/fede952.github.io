@@ -4,7 +4,9 @@ description: "آخر الأخبار حول الأمن السيبراني وال�
 draft: false
 ---
 
-⚠️ **إشعار المحتوى العالمي:**
-بينما تمت ترجمة واجهتنا، المقالات التقنية في هذا القسم متاحة بشكل أساسي **بالإنجليزية** للحفاظ على الدقة التقنية.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[عرض المحتوى بالإنجليزية](/news/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/news/)
+
+---

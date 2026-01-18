@@ -1,10 +1,12 @@
 ---
 title: "프로젝트"
-description: "Federico Sella의 개발 및 사이버 보안 프로젝트"
+description: "개발 및 사이버 보안 프로젝트"
 draft: false
 ---
 
-⚠️ **글로벌 콘텐츠 공지:**
-인터페이스가 번역되어 있지만, 프로젝트 기술 문서는 기술적 정확성을 유지하기 위해 주로 **영어**로 제공됩니다.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[영어 콘텐츠 보기](/projects/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/projects/)
+
+---

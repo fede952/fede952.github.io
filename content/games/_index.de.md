@@ -1,10 +1,12 @@
 ---
 title: "Spiele"
-description: "Interaktive Spiele und Mini-Spiele entwickelt von Federico Sella"
+description: "Interaktive Spiele und Mini-Spiele"
 draft: false
 ---
 
-⚠️ **Globaler Inhaltshinweis:**
-Obwohl unsere Benutzeroberfläche übersetzt ist, ist der Spielinhalt hauptsächlich auf **Englisch** verfügbar.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[Inhalt auf Englisch ansehen](/games/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/games/)
+
+---

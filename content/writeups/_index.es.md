@@ -1,10 +1,12 @@
 ---
 title: "CTF Writeups"
-description: "Soluciones detalladas de desafíos CTF y ejercicios de hacking"
+description: "Soluciones detalladas de desafíos CTF"
 draft: false
 ---
 
-⚠️ **Aviso de Contenido Global:**
-Aunque nuestra interfaz está traducida, los writeups técnicos están disponibles principalmente en **Inglés** para mantener la precisión técnica.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[Ver contenido en inglés](/writeups/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/writeups/)
+
+---

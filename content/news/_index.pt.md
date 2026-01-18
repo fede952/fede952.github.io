@@ -4,7 +4,9 @@ description: "Últimas notícias sobre cibersegurança, desenvolvimento e tecnol
 draft: false
 ---
 
-⚠️ **Aviso de Conteúdo Global:**
-Embora nossa interface esteja traduzida, os artigos técnicos desta seção estão disponíveis principalmente em **Inglês** para manter a precisão técnica.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[Ver conteúdo em inglês](/news/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/news/)
+
+---

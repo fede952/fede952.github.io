@@ -1,8 +1,12 @@
 ---
-title: "Tech News"
-description: "Ultime notizie e approfondimenti dal mondo della cybersecurity e della tecnologia"
-hidemeta: true
-layout: "list"
+title: "Notizie Tech"
+description: "Ultime notizie su cybersecurity, sviluppo e tecnologia"
+draft: false
 ---
 
-Rimani aggiornato con notizie tech curate, avvisi di sicurezza e insights dal settore, aggregati automaticamente da fonti affidabili.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
+
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/news/)
+
+---

@@ -1,10 +1,12 @@
 ---
 title: "Projekte"
-description: "Entwicklungs- und Cybersicherheitsprojekte von Federico Sella"
+description: "Entwicklungs- und Cybersicherheitsprojekte"
 draft: false
 ---
 
-⚠️ **Globaler Inhaltshinweis:**
-Obwohl unsere Benutzeroberfläche übersetzt ist, ist die technische Dokumentation der Projekte hauptsächlich auf **Englisch** verfügbar, um technische Genauigkeit zu gewährleisten.
+⚠️ **Global Content Notice:**
+While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-[Inhalt auf Englisch ansehen](/projects/)
+👉 [**View content in English / Vedi contenuti in Inglese**](/en/projects/)
+
+---

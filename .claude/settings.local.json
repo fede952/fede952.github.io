@@ -13,7 +13,8 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(python scripts/generate_i18n_indexes.py:*)",
-      "Bash(python scripts/force_hugo_build.py:*)"
+      "Bash(python scripts/force_hugo_build.py:*)",
+      "Bash(python scripts/fix_language_links.py:*)"
     ]
   }
 }
