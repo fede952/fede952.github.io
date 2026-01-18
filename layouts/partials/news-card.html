@@ -3,7 +3,6 @@
   {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) -}}
 
   <header class="entry-header">
-    {{- /* Logica Icone Categorie sicura */ }}
     {{- $icon := "📰" -}}
     {{- if or (in .Params.categories "cybersecurity") (in .Params.tags "security") (in .Params.tags "hack") -}}
       {{- $icon = "🔒" -}}
