@@ -42,8 +42,10 @@
   </div>
   {{- end }}
 
-  {{/* SOCIAL SHARE BUTTONS - FORZATI PER LE NEWS */}}
-  {{- partial "share-buttons.html" . -}}
+  {{/* SOCIAL SHARE BUTTONS - UNIVERSAL INJECTION */}}
+  <div class="post-footer-share">
+    {{- partial "share-buttons.html" . -}}
+  </div>
 
   <footer class="post-footer">
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
