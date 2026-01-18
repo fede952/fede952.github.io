@@ -3,6 +3,7 @@ languageCode = 'en-us'
 title = 'Federico Sella'
 theme = 'PaperMod'
 defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = true
 
 # Fondamentale per evitare conflitti URL
 [permalinks]
@@ -59,6 +60,7 @@ defaultContentLanguage = 'en'
   [languages.en]
     languageName = "English"
     weight = 1
+    contentDir = "content"
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "about"
@@ -94,6 +96,7 @@ defaultContentLanguage = 'en'
   [languages.it]
     languageName = "Italiano"
     weight = 2
+    contentDir = "content"
     [languages.it.menu]
       [[languages.it.menu.main]]
         identifier = "about"
@@ -123,6 +126,367 @@ defaultContentLanguage = 'en'
       [[languages.it.menu.main]]
         identifier = "projects"
         name = "Progetti"
+        url = "/projects/"
+        weight = 50
+
+  [languages.es]
+    languageName = "Español"
+    weight = 3
+    contentDir = "content"
+    [languages.es.menu]
+      [[languages.es.menu.main]]
+        identifier = "about"
+        name = "Sobre Mí"
+        url = "/about/"
+        weight = 10
+      [[languages.es.menu.main]]
+        identifier = "news"
+        name = "Noticias Tech"
+        url = "/news/"
+        weight = 15
+      [[languages.es.menu.main]]
+        identifier = "tools"
+        name = "Herramientas"
+        url = "/tools/"
+        weight = 25
+      [[languages.es.menu.main]]
+        identifier = "games"
+        name = "Juegos"
+        url = "/games/"
+        weight = 35
+      [[languages.es.menu.main]]
+        identifier = "writeups"
+        name = "CTF Writeups"
+        url = "/writeups/"
+        weight = 40
+      [[languages.es.menu.main]]
+        identifier = "projects"
+        name = "Proyectos"
+        url = "/projects/"
+        weight = 50
+
+  [languages.zh-cn]
+    languageName = "简体中文"
+    weight = 4
+    contentDir = "content"
+    [languages.zh-cn.menu]
+      [[languages.zh-cn.menu.main]]
+        identifier = "about"
+        name = "关于我"
+        url = "/about/"
+        weight = 10
+      [[languages.zh-cn.menu.main]]
+        identifier = "news"
+        name = "科技新闻"
+        url = "/news/"
+        weight = 15
+      [[languages.zh-cn.menu.main]]
+        identifier = "tools"
+        name = "工具"
+        url = "/tools/"
+        weight = 25
+      [[languages.zh-cn.menu.main]]
+        identifier = "games"
+        name = "游戏"
+        url = "/games/"
+        weight = 35
+      [[languages.zh-cn.menu.main]]
+        identifier = "writeups"
+        name = "CTF题解"
+        url = "/writeups/"
+        weight = 40
+      [[languages.zh-cn.menu.main]]
+        identifier = "projects"
+        name = "项目"
+        url = "/projects/"
+        weight = 50
+
+  [languages.hi]
+    languageName = "हिन्दी"
+    weight = 5
+    contentDir = "content"
+    [languages.hi.menu]
+      [[languages.hi.menu.main]]
+        identifier = "about"
+        name = "मेरे बारे में"
+        url = "/about/"
+        weight = 10
+      [[languages.hi.menu.main]]
+        identifier = "news"
+        name = "टेक न्यूज़"
+        url = "/news/"
+        weight = 15
+      [[languages.hi.menu.main]]
+        identifier = "tools"
+        name = "उपकरण"
+        url = "/tools/"
+        weight = 25
+      [[languages.hi.menu.main]]
+        identifier = "games"
+        name = "खेल"
+        url = "/games/"
+        weight = 35
+      [[languages.hi.menu.main]]
+        identifier = "writeups"
+        name = "CTF राइटअप"
+        url = "/writeups/"
+        weight = 40
+      [[languages.hi.menu.main]]
+        identifier = "projects"
+        name = "परियोजनाएं"
+        url = "/projects/"
+        weight = 50
+
+  [languages.ar]
+    languageName = "العربية"
+    weight = 6
+    languagedirection = "rtl"
+    contentDir = "content"
+    [languages.ar.menu]
+      [[languages.ar.menu.main]]
+        identifier = "about"
+        name = "عني"
+        url = "/about/"
+        weight = 10
+      [[languages.ar.menu.main]]
+        identifier = "news"
+        name = "أخبار التقنية"
+        url = "/news/"
+        weight = 15
+      [[languages.ar.menu.main]]
+        identifier = "tools"
+        name = "الأدوات"
+        url = "/tools/"
+        weight = 25
+      [[languages.ar.menu.main]]
+        identifier = "games"
+        name = "الألعاب"
+        url = "/games/"
+        weight = 35
+      [[languages.ar.menu.main]]
+        identifier = "writeups"
+        name = "CTF حلول"
+        url = "/writeups/"
+        weight = 40
+      [[languages.ar.menu.main]]
+        identifier = "projects"
+        name = "المشاريع"
+        url = "/projects/"
+        weight = 50
+
+  [languages.pt]
+    languageName = "Português"
+    weight = 7
+    contentDir = "content"
+    [languages.pt.menu]
+      [[languages.pt.menu.main]]
+        identifier = "about"
+        name = "Sobre Mim"
+        url = "/about/"
+        weight = 10
+      [[languages.pt.menu.main]]
+        identifier = "news"
+        name = "Notícias Tech"
+        url = "/news/"
+        weight = 15
+      [[languages.pt.menu.main]]
+        identifier = "tools"
+        name = "Ferramentas"
+        url = "/tools/"
+        weight = 25
+      [[languages.pt.menu.main]]
+        identifier = "games"
+        name = "Jogos"
+        url = "/games/"
+        weight = 35
+      [[languages.pt.menu.main]]
+        identifier = "writeups"
+        name = "CTF Writeups"
+        url = "/writeups/"
+        weight = 40
+      [[languages.pt.menu.main]]
+        identifier = "projects"
+        name = "Projetos"
+        url = "/projects/"
+        weight = 50
+
+  [languages.fr]
+    languageName = "Français"
+    weight = 8
+    contentDir = "content"
+    [languages.fr.menu]
+      [[languages.fr.menu.main]]
+        identifier = "about"
+        name = "À Propos"
+        url = "/about/"
+        weight = 10
+      [[languages.fr.menu.main]]
+        identifier = "news"
+        name = "Actualités Tech"
+        url = "/news/"
+        weight = 15
+      [[languages.fr.menu.main]]
+        identifier = "tools"
+        name = "Outils"
+        url = "/tools/"
+        weight = 25
+      [[languages.fr.menu.main]]
+        identifier = "games"
+        name = "Jeux"
+        url = "/games/"
+        weight = 35
+      [[languages.fr.menu.main]]
+        identifier = "writeups"
+        name = "CTF Writeups"
+        url = "/writeups/"
+        weight = 40
+      [[languages.fr.menu.main]]
+        identifier = "projects"
+        name = "Projets"
+        url = "/projects/"
+        weight = 50
+
+  [languages.de]
+    languageName = "Deutsch"
+    weight = 9
+    contentDir = "content"
+    [languages.de.menu]
+      [[languages.de.menu.main]]
+        identifier = "about"
+        name = "Über Mich"
+        url = "/about/"
+        weight = 10
+      [[languages.de.menu.main]]
+        identifier = "news"
+        name = "Tech News"
+        url = "/news/"
+        weight = 15
+      [[languages.de.menu.main]]
+        identifier = "tools"
+        name = "Werkzeuge"
+        url = "/tools/"
+        weight = 25
+      [[languages.de.menu.main]]
+        identifier = "games"
+        name = "Spiele"
+        url = "/games/"
+        weight = 35
+      [[languages.de.menu.main]]
+        identifier = "writeups"
+        name = "CTF Writeups"
+        url = "/writeups/"
+        weight = 40
+      [[languages.de.menu.main]]
+        identifier = "projects"
+        name = "Projekte"
+        url = "/projects/"
+        weight = 50
+
+  [languages.ja]
+    languageName = "日本語"
+    weight = 10
+    contentDir = "content"
+    [languages.ja.menu]
+      [[languages.ja.menu.main]]
+        identifier = "about"
+        name = "私について"
+        url = "/about/"
+        weight = 10
+      [[languages.ja.menu.main]]
+        identifier = "news"
+        name = "テックニュース"
+        url = "/news/"
+        weight = 15
+      [[languages.ja.menu.main]]
+        identifier = "tools"
+        name = "ツール"
+        url = "/tools/"
+        weight = 25
+      [[languages.ja.menu.main]]
+        identifier = "games"
+        name = "ゲーム"
+        url = "/games/"
+        weight = 35
+      [[languages.ja.menu.main]]
+        identifier = "writeups"
+        name = "CTF解説"
+        url = "/writeups/"
+        weight = 40
+      [[languages.ja.menu.main]]
+        identifier = "projects"
+        name = "プロジェクト"
+        url = "/projects/"
+        weight = 50
+
+  [languages.ru]
+    languageName = "Русский"
+    weight = 11
+    contentDir = "content"
+    [languages.ru.menu]
+      [[languages.ru.menu.main]]
+        identifier = "about"
+        name = "Обо Мне"
+        url = "/about/"
+        weight = 10
+      [[languages.ru.menu.main]]
+        identifier = "news"
+        name = "Новости"
+        url = "/news/"
+        weight = 15
+      [[languages.ru.menu.main]]
+        identifier = "tools"
+        name = "Инструменты"
+        url = "/tools/"
+        weight = 25
+      [[languages.ru.menu.main]]
+        identifier = "games"
+        name = "Игры"
+        url = "/games/"
+        weight = 35
+      [[languages.ru.menu.main]]
+        identifier = "writeups"
+        name = "CTF Решения"
+        url = "/writeups/"
+        weight = 40
+      [[languages.ru.menu.main]]
+        identifier = "projects"
+        name = "Проекты"
+        url = "/projects/"
+        weight = 50
+
+  [languages.ko]
+    languageName = "한국어"
+    weight = 12
+    contentDir = "content"
+    [languages.ko.menu]
+      [[languages.ko.menu.main]]
+        identifier = "about"
+        name = "소개"
+        url = "/about/"
+        weight = 10
+      [[languages.ko.menu.main]]
+        identifier = "news"
+        name = "기술 뉴스"
+        url = "/news/"
+        weight = 15
+      [[languages.ko.menu.main]]
+        identifier = "tools"
+        name = "도구"
+        url = "/tools/"
+        weight = 25
+      [[languages.ko.menu.main]]
+        identifier = "games"
+        name = "게임"
+        url = "/games/"
+        weight = 35
+      [[languages.ko.menu.main]]
+        identifier = "writeups"
+        name = "CTF 풀이"
+        url = "/writeups/"
+        weight = 40
+      [[languages.ko.menu.main]]
+        identifier = "projects"
+        name = "프로젝트"
         url = "/projects/"
         weight = 50
 [markup]
