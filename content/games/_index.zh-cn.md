@@ -1,12 +1,7 @@
 ---
 title: "游戏"
-description: "交互式游戏和迷你游戏"
+description: "互动游戏和娱乐工具"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 查看英文内容**](/en/games/)
-
----
+探索我们的互动游戏合集。

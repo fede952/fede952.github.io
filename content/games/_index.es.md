@@ -1,12 +1,7 @@
 ---
 title: "Juegos"
-description: "Juegos interactivos y mini-juegos"
+description: "Juegos interactivos y herramientas recreativas"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 Ver contenido en inglés**](/en/games/)
-
----
+Explora nuestra colección de juegos interactivos.

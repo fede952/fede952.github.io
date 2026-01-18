@@ -1,12 +1,7 @@
 ---
-title: "حلول CTF"
-description: "حلول مفصلة لتحديات CTF"
+title: "CTF حلول"
+description: "حلول مفصلة لتحديات CTF وتحليل الأمن"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 عرض المحتوى باللغة الإنجليزية**](/en/writeups/)
-
----
+استكشف مجموعتنا من حلول CTF والتحليلات الأمنية التقنية.

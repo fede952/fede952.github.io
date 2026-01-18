@@ -1,12 +1,7 @@
 ---
 title: "Projets"
-description: "Projets de développement et de cybersécurité"
+description: "Projets open source, outils et contributions techniques"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 Voir le contenu en anglais**](/en/projects/)
-
----
+Découvrez mes projets open source et outils de cybersécurité.

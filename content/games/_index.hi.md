@@ -1,12 +1,7 @@
 ---
 title: "खेल"
-description: "इंटरैक्टिव गेम और मिनी-गेम"
+description: "इंटरैक्टिव गेम्स और मनोरंजन उपकरण"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 अंग्रेजी में सामग्री देखें**](/en/games/)
-
----
+हमारे इंटरैक्टिव गेम्स का संग्रह देखें।

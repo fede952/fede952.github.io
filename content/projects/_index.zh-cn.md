@@ -1,12 +1,7 @@
 ---
 title: "项目"
-description: "开发和网络安全项目"
+description: "开源项目、工具和技术贡献"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 查看英文内容**](/en/projects/)
-
----
+发现我的开源项目和网络安全工具。

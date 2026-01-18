@@ -1,12 +1,7 @@
 ---
 title: "المشاريع"
-description: "مشاريع التطوير والأمن السيبراني"
+description: "مشاريع مفتوحة المصدر، أدوات ومساهمات تقنية"
 draft: false
 ---
 
-⚠️ **Global Content Notice:**
-While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
-
-[**👉 عرض المحتوى باللغة الإنجليزية**](/en/projects/)
-
----
+اكتشف مشاريعي مفتوحة المصدر وأدوات الأمن السيبراني.

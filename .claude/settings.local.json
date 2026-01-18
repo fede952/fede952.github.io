@@ -15,7 +15,8 @@
       "Bash(python scripts/generate_i18n_indexes.py:*)",
       "Bash(python scripts/force_hugo_build.py:*)",
       "Bash(python scripts/fix_language_links.py:*)",
-      "Bash(python scripts/create_password_gen_i18n.py:*)"
+      "Bash(python scripts/create_password_gen_i18n.py:*)",
+      "Bash(python scripts/localize_sections.py:*)"
     ]
   }
 }
