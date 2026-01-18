@@ -1,47 +1,32 @@
-{{- $class := .class | default "news-card" }}
-<div class="{{ $class }}">
-  <article class="post-entry">
-    {{ $isHidden := (.Params.cover.hidden | default .Site.Params.cover.hiddenInList | default .Site.Params.cover.hidden) }}
-    {{- if and .Params.cover (not $isHidden) }}
-    <figure class="entry-cover">
-      <a href="{{ .Permalink }}" aria-label="{{ .Title }}">
-        <img loading="lazy" src="{{ .Params.cover.image }}" alt="{{ .Params.cover.alt }}">
-      </a>
-    </figure>
-    {{- end }}
+<article class="post-entry">
+  {{- $isHidden := .Params.cover.hidden | default .Site.Params.cover.hiddenInList -}}
+  {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) -}}
 
-    <header class="entry-header">
-      <h2>
-        {{- /* Determine category icon based on news-categories */ -}}
-        {{- $icon := "📰" -}}
-        {{- if .Params.news-categories -}}
-          {{- range .Params.news-categories -}}
-            {{- if or (eq . "cybersecurity") (in . "security") (in . "hack") -}}
-              {{- $icon = "🔒" -}}
-            {{- else if or (eq . "ai-ml") (in . "ai") (in . "gpt") -}}
-              {{- $icon = "🤖" -}}
-            {{- else if or (eq . "dev-tools") (in . "dev") (in . "code") -}}
-              {{- $icon = "💻" -}}
-            {{- end -}}
-          {{- end -}}
-        {{- end -}}
-        <a href="{{ .Permalink }}"><span class="news-icon">{{ $icon }}</span> {{ .Title }}</a>
-      </h2>
-    </header>
+  <header class="entry-header">
+    {{- /* Logica Icone Categorie sicura */ }}
+    {{- $icon := "📰" -}}
+    {{- if or (in .Params.categories "cybersecurity") (in .Params.tags "security") (in .Params.tags "hack") -}}
+      {{- $icon = "🔒" -}}
+    {{- else if or (in .Params.categories "ai-ml") (in .Params.tags "ai") (in .Params.tags "gpt") -}}
+      {{- $icon = "🤖" -}}
+    {{- else if or (in .Params.categories "dev-tools") (in .Params.tags "dev") (in .Params.tags "code") -}}
+      {{- $icon = "💻" -}}
+    {{- end -}}
 
-    {{- if .Description }}
-    <div class="entry-content">
-      <p>{{ .Description }}</p>
-    </div>
-    {{- end }}
+    <h2>
+      <span class="entry-icon" style="margin-right: 8px;">{{ $icon }}</span>
+      {{- .Title -}}
+    </h2>
+  </header>
 
-    <footer class="entry-footer">
-      <span>{{ .Date.Format "January 2, 2006" }}</span>
-      {{- if .Params.source }}
-      <span class="news-source-link">
-        <a href="{{ .Params.source }}" target="_blank" rel="noopener">Source</a>
-      </span>
-      {{- end }}
-    </footer>
-  </article>
-</div>
+  {{- if (ne .Params.hideSummary true) -}}
+  <div class="entry-content">
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+  </div>
+  {{- end -}}
+
+  <footer class="entry-footer">
+    {{- partial "post_meta.html" . -}}
+  </footer>
+  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
