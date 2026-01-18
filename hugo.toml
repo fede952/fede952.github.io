@@ -16,6 +16,12 @@ defaultContentLanguageInSubdir = true
   tag = "tags"
   news-category = "news-categories"
 
+# Sitemap configuration for SEO
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
 [params]
   defaultTheme = "dark"
   env = "production"

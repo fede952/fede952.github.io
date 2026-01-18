@@ -479,3 +479,73 @@
   background: #10b981;
   color: white;
 }
+
+/* ============================================
+   CYBER FONTS - HACKER/ENGINEERING AESTHETIC
+   ============================================ */
+
+/* Apply JetBrains Mono to all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Navigation menu cyber font */
+.nav a,
+.menu a,
+.logo a,
+#menu a {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+  font-weight: 500;
+}
+
+/* Code blocks - ensure monospace */
+code,
+pre,
+.hljs,
+kbd,
+samp {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+}
+
+/* Entry headers (post titles) */
+.entry-header h2,
+.post-title,
+.first-entry .entry-header h2 {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+  font-weight: 600;
+}
+
+/* Profile mode title */
+.profile .profile_inner h1 {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+  font-weight: 700;
+}
+
+/* Breadcrumbs */
+.breadcrumbs a {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+}
+
+/* Tags and categories */
+.terms-tags a,
+.post-tags a {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
+  font-weight: 500;
+}
+
+/* Terminal-style aesthetic enhancements */
+h1::before, h2::before {
+  content: "$ ";
+  color: var(--primary);
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+/* Remove prefix from specific contexts */
+.post-title::before,
+.entry-header h2::before,
+.profile h1::before {
+  content: "";
+}
