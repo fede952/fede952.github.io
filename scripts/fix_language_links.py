@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Fix language links in multilingual placeholder _index files
-Updates links to point to /en/ instead of root now that defaultContentLanguageInSubdir = true
+Fix language links in multilingual placeholder _index files with proper localization
+Updates links to point to /en/ with correctly translated link text for each language
 """
 
 import os
@@ -21,6 +21,7 @@ CONTENT_DIR = BASE_DIR / "content"
 LANGUAGES = {
     'es': {
         'name': 'Español',
+        'link_text': '👉 Ver contenido en inglés',
         'sections': {
             'news': {
                 'title': 'Noticias Tecnológicas',
@@ -42,6 +43,7 @@ LANGUAGES = {
     },
     'zh-cn': {
         'name': '简体中文',
+        'link_text': '👉 查看英文内容',
         'sections': {
             'news': {
                 'title': '科技新闻',
@@ -63,6 +65,7 @@ LANGUAGES = {
     },
     'hi': {
         'name': 'हिन्दी',
+        'link_text': '👉 अंग्रेजी में सामग्री देखें',
         'sections': {
             'news': {
                 'title': 'टेक न्यूज़',
@@ -84,6 +87,7 @@ LANGUAGES = {
     },
     'ar': {
         'name': 'العربية',
+        'link_text': '👉 عرض المحتوى باللغة الإنجليزية',
         'sections': {
             'news': {
                 'title': 'أخبار التقنية',
@@ -105,6 +109,7 @@ LANGUAGES = {
     },
     'pt': {
         'name': 'Português',
+        'link_text': '👉 Ver conteúdo em inglês',
         'sections': {
             'news': {
                 'title': 'Notícias Tecnológicas',
@@ -126,6 +131,7 @@ LANGUAGES = {
     },
     'fr': {
         'name': 'Français',
+        'link_text': '👉 Voir le contenu en anglais',
         'sections': {
             'news': {
                 'title': 'Actualités Tech',
@@ -147,6 +153,7 @@ LANGUAGES = {
     },
     'de': {
         'name': 'Deutsch',
+        'link_text': '👉 Inhalt auf Englisch ansehen',
         'sections': {
             'news': {
                 'title': 'Tech News',
@@ -168,6 +175,7 @@ LANGUAGES = {
     },
     'ja': {
         'name': '日本語',
+        'link_text': '👉 英語のコンテンツを見る',
         'sections': {
             'news': {
                 'title': 'テックニュース',
@@ -189,6 +197,7 @@ LANGUAGES = {
     },
     'ru': {
         'name': 'Русский',
+        'link_text': '👉 Посмотреть контент на английском',
         'sections': {
             'news': {
                 'title': 'Новости',
@@ -210,6 +219,7 @@ LANGUAGES = {
     },
     'ko': {
         'name': '한국어',
+        'link_text': '👉 영어로 콘텐츠 보기',
         'sections': {
             'news': {
                 'title': '기술 뉴스',
@@ -231,6 +241,7 @@ LANGUAGES = {
     },
     'it': {
         'name': 'Italiano',
+        'link_text': '👉 Vedi contenuti in inglese',
         'sections': {
             'news': {
                 'title': 'Notizie Tech',
@@ -255,7 +266,7 @@ LANGUAGES = {
 SECTIONS = ['news', 'projects', 'writeups', 'games']
 
 def fix_section_index(section, lang, lang_data):
-    """Fix _index.[lang].md file with correct /en/ link"""
+    """Fix _index.[lang].md file with correct /en/ link and localized text"""
 
     section_dir = CONTENT_DIR / section
     section_dir.mkdir(parents=True, exist_ok=True)
@@ -269,7 +280,10 @@ def fix_section_index(section, lang, lang_data):
     title = section_data.get('title', section.title())
     description = section_data.get('description', '')
 
-    # Build content with CORRECT /en/ link
+    # Get localized link text
+    link_text = lang_data.get('link_text', '👉 View content in English')
+
+    # Build content with CORRECT /en/ link and LOCALIZED text
     content = f"""---
 title: "{title}"
 description: "{description}"
@@ -279,7 +293,7 @@ draft: false
 ⚠️ **Global Content Notice:**
 While our interface is translated, the technical articles in this section are primarily available in **English** to maintain technical accuracy.
 
-👉 [**View content in English / Vedi contenuti in Inglese**](/en/{section}/)
+[**{link_text}**](/en/{section}/)
 
 ---
 """
@@ -294,19 +308,20 @@ While our interface is translated, the technical articles in this section are pr
 def main():
     """Main execution function"""
     print("="*60)
-    print("FIX MULTILINGUAL LANGUAGE LINKS")
+    print("FIX MULTILINGUAL LANGUAGE LINKS - LOCALIZED")
     print("="*60)
     print(f"Base directory: {BASE_DIR}")
     print(f"Content directory: {CONTENT_DIR}")
     print(f"Languages: {len(LANGUAGES)}")
     print(f"Sections: {', '.join(SECTIONS)}")
     print("="*60)
-    print("\nFixing links to point to /en/ instead of root...")
+    print("\nFixing links with properly localized text for each language...")
 
     total_fixed = 0
 
     for lang, lang_data in LANGUAGES.items():
         print(f"\nProcessing language: {lang_data['name']} ({lang})")
+        print(f"  Link text: {lang_data['link_text']}")
         for section in SECTIONS:
             if fix_section_index(section, lang, lang_data):
                 total_fixed += 1
@@ -314,8 +329,10 @@ def main():
     print("\n" + "="*60)
     print(f"SUMMARY: Fixed {total_fixed} index files")
     print("="*60)
-    print("\nAll links now correctly point to /en/[section]/ for English content")
-    print("with defaultContentLanguageInSubdir = true configuration.")
+    print("\nAll links now have:")
+    print("  ✓ Correct absolute path: /en/[section]/")
+    print("  ✓ Localized link text for each language")
+    print("  ✓ Professional user experience")
 
 if __name__ == "__main__":
     main()
