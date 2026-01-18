@@ -12,7 +12,20 @@
 
     <header class="entry-header">
       <h2>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{- /* Determine category icon based on news-categories */ -}}
+        {{- $icon := "📰" -}}
+        {{- if .Params.news-categories -}}
+          {{- range .Params.news-categories -}}
+            {{- if or (eq . "cybersecurity") (in . "security") (in . "hack") -}}
+              {{- $icon = "🔒" -}}
+            {{- else if or (eq . "ai-ml") (in . "ai") (in . "gpt") -}}
+              {{- $icon = "🤖" -}}
+            {{- else if or (eq . "dev-tools") (in . "dev") (in . "code") -}}
+              {{- $icon = "💻" -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        <a href="{{ .Permalink }}"><span class="news-icon">{{ $icon }}</span> {{ .Title }}</a>
       </h2>
     </header>
 

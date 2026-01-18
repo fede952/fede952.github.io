@@ -207,7 +207,7 @@ draft: false
 
     return frontmatter, date_obj, title
 
-def generate_article_body(entry, source_url):
+def generate_article_body(entry, source_url, lang_code=""):
     """Generate article body content"""
     # Clean summary/description
     if 'summary' in entry:
@@ -220,26 +220,31 @@ def generate_article_body(entry, source_url):
     # Split into paragraphs (simple approach: split on double newlines or periods)
     paragraphs = content.split('\n\n') if '\n\n' in content else content.split('. ')
 
-    # Rebuild with ad placeholder after first paragraph
+    # Rebuild with Hugo ad shortcode after first paragraph
     if len(paragraphs) > 1:
         body = paragraphs[0].strip()
         if not body.endswith('.'):
             body += '.'
 
-        # Add ad placeholder
-        body += '\n\n<div class="ad-placeholder"><!-- Ad Space --></div>\n\n'
+        # Add Hugo ad shortcode
+        body += '\n\n{{< ad-banner >}}\n\n'
 
         # Add remaining paragraphs
         body += '\n\n'.join(p.strip() for p in paragraphs[1:] if p.strip())
     else:
         body = content
-        body += '\n\n<div class="ad-placeholder"><!-- Ad Space --></div>'
+        body += '\n\n{{< ad-banner >}}'
 
-    # Add source link
+    # Add source link with language-specific text
     source_name = extract_source_name(source_url)
     original_url = entry.get('link', '')
 
-    body += f'\n\n---\n\n**[Leggi l\'articolo completo su {source_name} ›]({original_url})**'
+    if lang_code == 'it':
+        read_more_text = f"Leggi l'articolo completo su {source_name} ›"
+    else:
+        read_more_text = f"Read full article on {source_name} ›"
+
+    body += f'\n\n---\n\n**[{read_more_text}]({original_url})**'
 
     return body
 
@@ -300,7 +305,7 @@ def fetch_feed(feed_url, lang_code="", cache_data=None):
                     continue
 
                 # Generate body
-                body = generate_article_body(entry, feed_url)
+                body = generate_article_body(entry, feed_url, lang_code)
 
                 # Combine frontmatter + body
                 article_content = frontmatter + '\n' + body
