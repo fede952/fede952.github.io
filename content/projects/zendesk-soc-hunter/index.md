@@ -8,7 +8,6 @@ categories: ["Projects", "Coding", "Cybersecurity Tools", "Browser Extensions", 
 externalLink: "https://github.com/fede952/Zendesk-SOC-Hunter"
 ---
 
-```markdown
 # Hunter - Zendesk SOC Assistant
 
 **Hunter** is a lightweight, high-performance browser extension designed to assist Security Operation Center (SOC) analysts and IT Support teams. It acts as a passive scanner that highlights critical context directly within your ticketing system interface.
