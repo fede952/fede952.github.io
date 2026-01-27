@@ -299,7 +299,10 @@
     "https://www.punto-informatico.it/airalo-connettivita-globale-senza-roaming/",
     "https://www.cybersecurity360.it/legal/digital-networks-act-dna-i-punti-chiave-su-cyber-security-e-protezione-degli-utenti/",
     "https://www.cybersecurity360.it/cybersecurity-nazionale/attacco-cyber-russo-alla-polonia-la-guerra-e-in-ue-e-nessuno-si-sorprende/",
-    "https://www.cybersecurity360.it/news/data-act-ce-un-aggiornamento-delle-faq-cosa-cambia-per-aziende-e-utenti/"
+    "https://www.cybersecurity360.it/news/data-act-ce-un-aggiornamento-delle-faq-cosa-cambia-per-aziende-e-utenti/",
+    "https://www.bleepingcomputer.com/news/security/new-malware-service-guarantees-phishing-extensions-on-chrome-web-store/",
+    "https://www.bleepingcomputer.com/news/security/new-clickfix-attacks-abuse-windows-app-v-scripts-to-push-malware/",
+    "https://www.wired.com/story/judge-delays-minnesota-ice-decision-while-weighing-whether-state-was-being-illegally-punished/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -601,6 +604,9 @@
     "dd86a16b871da39a55cfe7c76048bff7",
     "9b89796832dcb2ebc2c5a651eb05c82c",
     "20731728447c7708c7678b03f16b56e7",
-    "8d3f3a65d3a76f95cbc81945085ad8f5"
+    "8d3f3a65d3a76f95cbc81945085ad8f5",
+    "50b566d98557ba4bf4daa7ec2f166802",
+    "81009bc62a59d126ea9002a67ef2deed",
+    "c1c4e9b5ddc56986876212706fb079e7"
   ]
 }
