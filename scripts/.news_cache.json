@@ -339,7 +339,11 @@
     "https://www.bleepingcomputer.com/news/security/fortinet-blocks-exploited-forticloud-sso-zero-day-until-patch-is-ready/",
     "https://www.bleepingcomputer.com/news/security/chinese-mustang-panda-hackers-deploy-infostealers-via-coolclient-backdoor/",
     "https://www.bleepingcomputer.com/news/security/winrar-path-traversal-flaw-still-exploited-by-numerous-hackers/",
-    "https://www.punto-informatico.it/e-il-segno-che-aspettavi-sconti-hostinger-fino-all80-per-avviare-il-tuo-sito-web/"
+    "https://www.punto-informatico.it/e-il-segno-che-aspettavi-sconti-hostinger-fino-all80-per-avviare-il-tuo-sito-web/",
+    "https://thehackernews.com/2026/01/fortinet-patches-cve-2026-24858-after.html",
+    "https://www.punto-informatico.it/meishi/",
+    "https://www.punto-informatico.it/openai-prism-nuovo-strumento-ricerca-scientifica/",
+    "https://www.punto-informatico.it/google-trasforma-ricerca-chat-ai-overview-ai-mode/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -681,6 +685,10 @@
     "c870b0149e1df5ac6a0de31ab29ecbcf",
     "1cc66479bb293ebc93bbaffba046c194",
     "8ba9ba3697f8d47c6a108018adf2af67",
-    "c54bbc82ecde08fd5fa3a4739baab44e"
+    "c54bbc82ecde08fd5fa3a4739baab44e",
+    "6cfae0082be5ac5985ccb580922056fa",
+    "827ab05e6c092bb6d47f7831f7964b43",
+    "0ded0e040ff1cb681a33095c34054161",
+    "4b4290b87a9d4b1ca0809ddb43d79c51"
   ]
 }
