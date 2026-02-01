@@ -241,9 +241,9 @@
     /* ══ Spawning ══ */
     function spawn() {
         let pool;
-        if (diff < 2.5) pool = W_SHORT;
-        else if (diff < 5) pool = Math.random() < 0.55 ? W_SHORT : W_MED;
-        else { const r = Math.random(); pool = r < 0.25 ? W_SHORT : r < 0.65 ? W_MED : W_LONG; }
+        if (diff < 3.5) pool = W_SHORT;
+        else if (diff < 6) pool = Math.random() < 0.65 ? W_SHORT : W_MED;
+        else { const r = Math.random(); pool = r < 0.30 ? W_SHORT : r < 0.65 ? W_MED : W_LONG; }
 
         const text = pick(pool);
         if (words.some(w => w.text === text)) return;
@@ -251,7 +251,7 @@
         const fs = irand(16, 23);
         const tw = text.length * charW(fs);
         const x = rand(15, Math.max(15, W - tw - 15));
-        const spd = rand(0.35, 0.65) + diff * 0.07;
+        const spd = rand(0.15, 0.30) + diff * 0.04;
 
         // avoid overlap with other words near the top
         for (const ew of words) { if (ew.y < 40 && Math.abs(ew.x - x) < tw + 30) return; }
@@ -265,13 +265,13 @@
         if (state === ST.OVER) { if (glitch > 0) glitch--; updPart(); return; }
 
         frame++;
-        diff = 1 + frame / 3600;
+        diff = 1 + frame / 7200;
 
-        const rate = Math.max(45, 130 - diff * 12);
+        const rate = Math.max(60, 220 - diff * 14);
         spawnCD++;
         if (spawnCD >= rate) {
             spawnCD = 0; spawn();
-            if (diff > 4 && Math.random() < 0.25) spawn();
+            if (diff > 5 && Math.random() < 0.25) spawn();
         }
 
         for (let i = words.length - 1; i >= 0; i--) {
