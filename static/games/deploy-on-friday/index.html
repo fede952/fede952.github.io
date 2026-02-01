@@ -14,7 +14,7 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        canvas { display: block; }
+        canvas { display: block; width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
@@ -30,22 +30,20 @@
     let W, H, dpr;
     function resize() {
         dpr = window.devicePixelRatio || 1;
-        W = window.innerWidth;
-        H = window.innerHeight;
-        canvas.width  = W * dpr;
-        canvas.height = H * dpr;
-        canvas.style.width  = W + 'px';
-        canvas.style.height = H + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        W = canvas.clientWidth  || window.innerWidth;
+        H = canvas.clientHeight || window.innerHeight;
+        canvas.width  = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
+        ctx.scale(dpr, dpr);
     }
     window.addEventListener('resize', resize);
     resize();
 
     /* ── Constants ── */
-    const GRAVITY      = 0.62;
-    const JUMP_FORCE   = -12.5;
-    const BASE_SPEED   = 4.5;
-    const MAX_SPEED    = 13;
+    const GRAVITY      = 0.44;
+    const JUMP_FORCE   = -11.2;
+    const BASE_SPEED   = 2.8;
+    const MAX_SPEED    = 10;
     const GROUND_PAD   = 90;
     const PLAYER_X_PCT = 0.14;
 
@@ -106,7 +104,7 @@
 
     /* ── Player ── */
     const P = {
-        x: 0, y: 0, size: 40, vy: 0,
+        x: 0, y: 0, size: 50, vy: 0,
         jumps: 0, maxJumps: 2, grounded: false,
         shield: false, shieldT: 0,
         coffee: false,  coffeeT: 0,
@@ -208,7 +206,7 @@
                 y: i * lh + rand(0, 5),
                 text: pick(CODE),
                 color: pick(SYNTAX),
-                alpha: rand(0.05, 0.12),
+                alpha: rand(0.03, 0.07),
                 speed: rand(0.3, 0.6),
             });
         }
@@ -251,7 +249,7 @@
     /* ── Spawning ── */
     function trySpawn() {
         if (frame % 3 !== 0) return;
-        const minGap = 200 + speed * 18;
+        const minGap = 300 + speed * 22;
         let rightmost = 0;
         for (const o of obstacles) if (o.x > rightmost) rightmost = o.x;
         for (const p of powerups)  if (p.x > rightmost) rightmost = p.x;
@@ -262,7 +260,7 @@
         if (r < 0.10) {
             // powerup
             const type = Math.random() < 0.5 ? 'coffee' : 'shield';
-            const sz = 32;
+            const sz = 40;
             const fh = rand(30, 70);
             powerups.push({
                 x: W + 50,
@@ -273,7 +271,7 @@
         } else if (r < 0.58) {
             // obstacle
             const t = pick(OBS_TYPES);
-            const sz = rand(34, 44);
+            const sz = rand(42, 54);
             obstacles.push({
                 x: W + 50,
                 y: groundY() - sz,
@@ -289,7 +287,7 @@
 
         frame++;
         scoreFrames++;
-        speed = Math.min(MAX_SPEED, BASE_SPEED + frame * 0.00015);
+        speed = Math.min(MAX_SPEED, BASE_SPEED + frame * 0.00006);
         const spd = P.coffee ? speed * 1.5 : speed;
 
         // Player physics
@@ -351,12 +349,12 @@
 
     /* ── Collisions ── */
     function collisions() {
-        const px = P.x + 6, py = P.y + 6, pw = P.size - 12, ph = P.size - 12;
+        const px = P.x + 8, py = P.y + 8, pw = P.size - 16, ph = P.size - 16;
 
         for (let i = obstacles.length - 1; i >= 0; i--) {
             const o = obstacles[i];
             if (!o.active) continue;
-            const ox = o.x + 6, oy = o.y + 6, ow = o.size - 12, oh = o.size - 12;
+            const ox = o.x + 8, oy = o.y + 8, ow = o.size - 16, oh = o.size - 16;
             if (px < ox + ow && px + pw > ox && py < oy + oh && py + ph > oy) {
                 if (P.shield) {
                     o.active = false;
@@ -532,17 +530,17 @@
 
     function drawHUD() {
         const text = uptimeStr(scoreFrames, false);
-        const hudW = 210, hudH = 36;
+        const hudW = 240, hudH = 42;
         const hudX = W - hudW - 14, hudY = 14;
 
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
         ctx.fillRect(hudX, hudY, hudW, hudH);
-        ctx.strokeStyle = 'rgba(0,255,65,0.35)';
+        ctx.strokeStyle = 'rgba(0,255,65,0.4)';
         ctx.lineWidth = 1;
         ctx.strokeRect(hudX, hudY, hudW, hudH);
 
         ctx.fillStyle = C.hud;
-        ctx.font = 'bold 17px "Courier New",monospace';
+        ctx.font = 'bold 20px "Courier New",monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(text, hudX + hudW / 2, hudY + hudH / 2);
@@ -550,7 +548,7 @@
         // Powerup badges
         let iy = hudY + hudH + 8;
         ctx.textAlign = 'left';
-        ctx.font = '13px "Courier New",monospace';
+        ctx.font = 'bold 14px "Courier New",monospace';
         if (P.shield) {
             ctx.fillStyle = C.shieldGlow;
             ctx.fillText('\u{1F6E1}\uFE0F SHIELD [' + Math.ceil(P.shieldT) + 's]', hudX, iy);
