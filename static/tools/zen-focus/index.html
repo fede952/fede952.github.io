@@ -96,7 +96,20 @@
 
         /* ── Mixer Grid ── */
         .mixer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        @media (max-width: 500px) { .mixer { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .mixer { grid-template-columns: 1fr; }
+            .slider { height: 8px; }
+            .slider::-webkit-slider-thumb { width: 24px; height: 24px; }
+            .slider::-moz-range-thumb { width: 24px; height: 24px; }
+            .btn-mute { width: 44px; height: 44px; font-size: 20px; }
+            .btn-adj { width: 44px; height: 44px; font-size: 16px; }
+            .btn-preset { padding: 14px 14px; font-size: 14px; min-height: 44px; }
+            .btn-t { padding: 12px 24px; font-size: 15px; min-height: 44px; }
+            .btn-share { padding: 10px 18px; min-height: 44px; }
+            .timer-label { font-size: 14px; }
+            .social-btn { font-size: 14px; padding: 10px 18px; min-height: 44px; }
+            .ch-name { font-size: 15px; }
+        }
         .ch-card {
             display: flex; flex-direction: column; gap: 10px; padding: 16px;
             transition: border-color 0.3s;

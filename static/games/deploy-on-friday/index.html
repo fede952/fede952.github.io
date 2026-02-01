@@ -747,6 +747,10 @@
     /* ── Boot ── */
     initCode();
     P.y = groundY() - P.size;
+    window.addEventListener('resize', () => {
+        if (P.grounded) P.y = groundY() - P.size;
+        initCode();
+    });
     loop();
 
 })();

@@ -167,7 +167,7 @@
         e.preventDefault();
         if (state === ST.MENU) { initAudio(); startGame(); }
         else if (state === ST.OVER) state = ST.MENU;
-        else if (isMobile) inp.focus();
+        else inp.focus();
     }, { passive: false });
 
     /* ══ Typing logic ══ */
@@ -631,6 +631,7 @@
     }
 
     mkScanlines();
+    window.addEventListener('resize', mkScanlines);
     loop();
 })();
 </script>
