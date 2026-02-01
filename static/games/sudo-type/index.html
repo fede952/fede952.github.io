@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sudo Type</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background: #000;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        #inp {
+            position: fixed; left: -9999px; top: 0;
+            opacity: 0; width: 1px; height: 1px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<input id="inp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+<script>
+(() => {
+    'use strict';
+
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const inp = document.getElementById('inp');
+
+    /* ══ High-DPI & Resize ══ */
+    let W, H, dpr;
+    function resize() {
+        dpr = window.devicePixelRatio || 1;
+        W = canvas.clientWidth || window.innerWidth;
+        H = canvas.clientHeight || window.innerHeight;
+        canvas.width  = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
+        ctx.scale(dpr, dpr);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    /* ══ Audio (synthesised) ══ */
+    let ac;
+    function initAudio() {
+        if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    function beep(freq, dur, type, vol) {
+        if (!ac) return;
+        const o = ac.createOscillator(), g = ac.createGain();
+        o.type = type || 'square';
+        o.frequency.value = freq;
+        g.gain.value = vol || 0.08;
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + dur);
+        o.connect(g); g.connect(ac.destination);
+        o.start(); o.stop(ac.currentTime + dur);
+    }
+    function sndHit() { beep(1200, 0.08, 'square', 0.10); }
+    function sndKey(n) { beep(500 + n * 100, 0.04, 'square', 0.06); }
+    function sndMiss() { beep(120, 0.12, 'sawtooth', 0.06); }
+    function sndExplode() {
+        if (!ac) return;
+        const len = ac.sampleRate * 0.12;
+        const buf = ac.createBuffer(1, len, ac.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+        const s = ac.createBufferSource(), g = ac.createGain();
+        s.buffer = buf; g.gain.value = 0.12;
+        s.connect(g); g.connect(ac.destination); s.start();
+    }
+    function sndGameOver() {
+        if (!ac) return;
+        const o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sawtooth'; o.frequency.value = 350;
+        o.frequency.linearRampToValueAtTime(60, ac.currentTime + 1.2);
+        g.gain.value = 0.12;
+        g.gain.linearRampToValueAtTime(0.001, ac.currentTime + 1.2);
+        o.connect(g); g.connect(ac.destination);
+        o.start(); o.stop(ac.currentTime + 1.2);
+    }
+
+    /* ══ Constants ══ */
+    const FNT = '"Courier New",monospace';
+    const GREEN   = '#00ff41';
+    const DIM     = '#005a00';
+    const BRIGHT  = '#55ff88';
+    const RED     = '#ff2222';
+    const AMBER   = '#ffaa00';
+    const BG      = '#0a0a0a';
+    const MF_PAD  = 60;
+
+    const W_SHORT = ['sudo','ddos','404','null','void','bash','root',
+                     'ping','grep','curl','ssh','npm','git','tcp',
+                     'dns','port','hex','bug','log','nan'];
+    const W_MED   = ['trojan','rm-rf','kernel','daemon','script',
+                     'socket','proxy','chmod','virus','crack',
+                     'patch','debug','mutex','queue','regex'];
+    const W_LONG  = ['git-push','overflow','undefined','malware',
+                     'firewall','rootkit','segfault','phishing',
+                     'exploit','backdoor','keylogger','deadlock',
+                     'compiler','callback','endpoint'];
+
+    /* ══ State ══ */
+    const ST = { MENU: 0, PLAY: 1, OVER: 2 };
+    let state = ST.MENU;
+    let score = 0, wordsTyped = 0, combo = 0, maxCombo = 0;
+    let frame = 0, diff = 1, spawnCD = 0, glitch = 0;
+    let words = [], particles = [];
+    let target = null;
+    let highScore = loadHi();
+    const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
+    let scanPat = null;
+
+    function loadHi() { try { return parseInt(localStorage.getItem('st_hi')) || 0; } catch { return 0; } }
+    function saveHi(v) { try { localStorage.setItem('st_hi', v); } catch {} }
+
+    /* ══ Helpers ══ */
+    const rand  = (a, b) => a + Math.random() * (b - a);
+    const irand = (a, b) => Math.floor(rand(a, b));
+    const pick  = a => a[irand(0, a.length)];
+    function mfY() { return H - MF_PAD; }
+    // Monospace char width ≈ fontSize * 0.6
+    function charW(fs) { return fs * 0.6; }
+
+    /* ══ Scanline pattern ══ */
+    function mkScanlines() {
+        const c2 = document.createElement('canvas');
+        c2.width = 4; c2.height = 4;
+        const x2 = c2.getContext('2d');
+        x2.fillStyle = 'rgba(0,0,0,0.18)';
+        x2.fillRect(0, 0, 4, 2);
+        scanPat = ctx.createPattern(c2, 'repeat');
+    }
+
+    /* ══ Input ══ */
+    function onKey(e) {
+        if (state === ST.MENU) { initAudio(); startGame(); return; }
+        if (state === ST.OVER) {
+            if (e.key === ' ' || e.key === 'Enter') { state = ST.MENU; }
+            return;
+        }
+        const k = e.key.toLowerCase();
+        if (k.length === 1 && /[a-z0-9\-]/.test(k)) { e.preventDefault(); typed(k); }
+    }
+    document.addEventListener('keydown', onKey);
+
+    inp.addEventListener('input', () => {
+        if (state !== ST.PLAY) return;
+        const v = inp.value;
+        if (v.length) {
+            const k = v[v.length - 1].toLowerCase();
+            if (/[a-z0-9\-]/.test(k)) typed(k);
+            inp.value = '';
+        }
+    });
+    canvas.addEventListener('click', () => {
+        if (state === ST.MENU) { initAudio(); startGame(); }
+        else if (state === ST.OVER) state = ST.MENU;
+        else if (isMobile) inp.focus();
+    });
+    canvas.addEventListener('touchstart', e => {
+        e.preventDefault();
+        if (state === ST.MENU) { initAudio(); startGame(); }
+        else if (state === ST.OVER) state = ST.MENU;
+        else if (isMobile) inp.focus();
+    }, { passive: false });
+
+    /* ══ Typing logic ══ */
+    function typed(k) {
+        // Continue current target
+        if (target) {
+            if (k === target.text[target.tp]) {
+                target.tp++;
+                sndKey(target.tp);
+                if (target.tp >= target.text.length) { destroyWord(target); target = null; }
+            } else {
+                target = null; combo = 0; sndMiss();
+            }
+            return;
+        }
+        // Acquire new target: closest-to-mainframe word starting with k
+        let best = null, bestY = -1;
+        for (const w of words) {
+            if (w.tp === 0 && w.text[0] === k && w.y > bestY) { best = w; bestY = w.y; }
+        }
+        if (best) {
+            target = best;
+            target.tp = 1;
+            sndKey(1);
+            if (target.tp >= target.text.length) { destroyWord(target); target = null; }
+        } else { combo = 0; sndMiss(); }
+    }
+
+    function destroyWord(w) {
+        const pts = w.text.length * 10 * (1 + combo * 0.15);
+        score += Math.floor(pts);
+        wordsTyped++;
+        combo++;
+        if (combo > maxCombo) maxCombo = combo;
+        const cx = w.x + w.text.length * charW(w.fs) / 2;
+        const cy = w.y + w.fs / 2;
+        boom(cx, cy, w.text.length);
+        sndExplode(); sndHit();
+        const i = words.indexOf(w);
+        if (i >= 0) words.splice(i, 1);
+    }
+
+    function boom(x, y, intensity) {
+        const n = intensity * 4 + 12;
+        for (let i = 0; i < n; i++) {
+            particles.push({
+                x: x + rand(-15, 15), y: y + rand(-8, 8),
+                vx: rand(-3.5, 3.5), vy: rand(-4.5, 1.5),
+                life: 1, decay: rand(0.012, 0.03),
+                ch: Math.random() < 0.5 ? '0' : '1',
+                sz: rand(10, 18),
+            });
+        }
+    }
+
+    /* ══ Game flow ══ */
+    function startGame() {
+        state = ST.PLAY;
+        score = 0; wordsTyped = 0; combo = 0; maxCombo = 0;
+        frame = 0; diff = 1; spawnCD = 0; glitch = 0;
+        words = []; particles = []; target = null;
+        if (isMobile) inp.focus();
+    }
+    function die() {
+        if (score > highScore) { highScore = score; saveHi(score); }
+        glitch = 30;
+        sndGameOver();
+        state = ST.OVER;
+    }
+
+    /* ══ Spawning ══ */
+    function spawn() {
+        let pool;
+        if (diff < 2.5) pool = W_SHORT;
+        else if (diff < 5) pool = Math.random() < 0.55 ? W_SHORT : W_MED;
+        else { const r = Math.random(); pool = r < 0.25 ? W_SHORT : r < 0.65 ? W_MED : W_LONG; }
+
+        const text = pick(pool);
+        if (words.some(w => w.text === text)) return;
+
+        const fs = irand(16, 23);
+        const tw = text.length * charW(fs);
+        const x = rand(15, Math.max(15, W - tw - 15));
+        const spd = rand(0.35, 0.65) + diff * 0.07;
+
+        // avoid overlap with other words near the top
+        for (const ew of words) { if (ew.y < 40 && Math.abs(ew.x - x) < tw + 30) return; }
+
+        words.push({ text, x, y: -25, speed: spd, tp: 0, fs });
+    }
+
+    /* ══ Update ══ */
+    function update() {
+        if (state === ST.MENU) { updPart(); return; }
+        if (state === ST.OVER) { if (glitch > 0) glitch--; updPart(); return; }
+
+        frame++;
+        diff = 1 + frame / 3600;
+
+        const rate = Math.max(45, 130 - diff * 12);
+        spawnCD++;
+        if (spawnCD >= rate) {
+            spawnCD = 0; spawn();
+            if (diff > 4 && Math.random() < 0.25) spawn();
+        }
+
+        for (let i = words.length - 1; i >= 0; i--) {
+            const w = words[i];
+            w.y += w.speed;
+            if (w.y >= mfY()) {
+                if (target === w) target = null;
+                glitch = 18;
+                words.splice(i, 1);
+                die();
+                return;
+            }
+        }
+        if (target && !words.includes(target)) target = null;
+        updPart();
+    }
+    function updPart() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy; p.vy += 0.05;
+            p.life -= p.decay;
+            if (p.life <= 0) particles.splice(i, 1);
+        }
+    }
+
+    /* ══════════════════ DRAWING ══════════════════ */
+
+    function draw() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.scale(dpr, dpr);
+
+        if (state === ST.MENU) drawMenu();
+        else if (state === ST.PLAY) drawPlay();
+        else drawOver();
+    }
+
+    /* ── CRT overlay (shared) ── */
+    function drawCRT() {
+        // Scanlines
+        ctx.save();
+        ctx.globalAlpha = 0.05 + Math.random() * 0.03;
+        if (scanPat) { ctx.fillStyle = scanPat; ctx.fillRect(0, 0, W, H); }
+        ctx.restore();
+        // Vignette
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.28, W / 2, H / 2, H * 0.9);
+        vg.addColorStop(0, 'rgba(0,0,0,0)');
+        vg.addColorStop(1, 'rgba(0,0,0,0.45)');
+        ctx.fillStyle = vg;
+        ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+    }
+
+    /* ── Play scene ── */
+    function drawPlay() {
+        // L1: Background
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+
+        // L2: Mainframe line
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        ctx.strokeStyle = GREEN; ctx.lineWidth = 2;
+        ctx.shadowColor = GREEN; ctx.shadowBlur = 18;
+        ctx.beginPath(); ctx.moveTo(0, mfY()); ctx.lineTo(W, mfY()); ctx.stroke();
+        // Label
+        ctx.shadowBlur = 4;
+        ctx.fillStyle = DIM; ctx.font = '11px ' + FNT;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        ctx.fillText('// MAINFRAME DEFENSE LINE', 10, mfY() + 8);
+        // Activity dots
+        ctx.shadowBlur = 0;
+        const dotCount = 12;
+        for (let i = 0; i < dotCount; i++) {
+            const dx = (W / dotCount) * i + 20;
+            const bright = Math.sin(frame * 0.05 + i) > 0.3;
+            ctx.fillStyle = bright ? GREEN : DIM;
+            ctx.fillRect(dx, mfY() + 4, 3, 3);
+        }
+        ctx.restore();
+
+        // L3: Particles
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        for (const p of particles) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.shadowColor = GREEN; ctx.shadowBlur = 5;
+            ctx.fillStyle = GREEN;
+            ctx.font = p.sz + 'px ' + FNT;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(p.ch, p.x, p.y);
+            ctx.restore();
+        }
+        ctx.restore();
+
+        // L4: Words
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        for (const w of words) drawWord(w);
+        ctx.restore();
+
+        // L5: HUD
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        drawHUD();
+        ctx.restore();
+
+        // L6: Glitch flash
+        if (glitch > 0) {
+            ctx.save();
+            ctx.globalAlpha = (glitch / 30) * 0.35;
+            ctx.fillStyle = RED; ctx.fillRect(0, 0, W, H);
+            ctx.restore();
+        }
+
+        // L7: CRT
+        drawCRT();
+    }
+
+    function drawWord(w) {
+        ctx.save();
+        ctx.font = w.fs + 'px ' + FNT;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+
+        // Urgency glow: words near mainframe get a red tint
+        const urgency = Math.max(0, (w.y - mfY() * 0.5) / (mfY() * 0.5));
+
+        let xo = 0;
+        for (let i = 0; i < w.text.length; i++) {
+            const ch = w.text[i];
+            ctx.save();
+            if (i < w.tp) {
+                // Typed char
+                ctx.shadowColor = RED; ctx.shadowBlur = 10;
+                ctx.fillStyle = RED;
+            } else if (i === w.tp && w === target) {
+                // Next to type
+                ctx.shadowColor = BRIGHT; ctx.shadowBlur = 12;
+                ctx.fillStyle = BRIGHT;
+            } else {
+                // Normal
+                const col = urgency > 0.6 ? AMBER : GREEN;
+                ctx.shadowColor = col; ctx.shadowBlur = 6;
+                ctx.fillStyle = col;
+            }
+            ctx.fillText(ch, w.x + xo, w.y);
+            ctx.restore();
+            xo += charW(w.fs);
+        }
+
+        // Target bracket
+        if (w === target) {
+            ctx.strokeStyle = RED; ctx.lineWidth = 1; ctx.shadowBlur = 0;
+            const tw = w.text.length * charW(w.fs);
+            ctx.strokeRect(w.x - 3, w.y - 3, tw + 6, w.fs + 6);
+        }
+        ctx.restore();
+    }
+
+    function drawHUD() {
+        ctx.save();
+        ctx.shadowColor = GREEN; ctx.shadowBlur = 4;
+        ctx.fillStyle = GREEN;
+        ctx.font = 'bold 18px ' + FNT;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        ctx.fillText('SCORE: ' + score, 14, 14);
+
+        if (combo > 1) {
+            ctx.fillStyle = BRIGHT;
+            ctx.font = 'bold 14px ' + FNT;
+            ctx.fillText('COMBO x' + combo, 14, 38);
+        }
+
+        ctx.fillStyle = DIM;
+        ctx.font = '14px ' + FNT;
+        ctx.textAlign = 'right';
+        ctx.fillText('LEVEL ' + Math.floor(diff), W - 14, 14);
+        ctx.fillText('THREATS: ' + words.length, W - 14, 34);
+
+        // Typing prompt
+        if (target) {
+            ctx.shadowBlur = 6;
+            ctx.fillStyle = GREEN;
+            ctx.font = 'bold 15px ' + FNT;
+            ctx.textAlign = 'center';
+            const typed = target.text.substring(0, target.tp);
+            const rest  = target.text.substring(target.tp);
+            const prompt = 'root@mainframe:~$ ';
+            // Draw prompt parts
+            ctx.textAlign = 'left';
+            const px = 14, py = H - 28;
+            ctx.fillStyle = DIM;
+            ctx.fillText(prompt, px, py);
+            const pw = prompt.length * charW(15);
+            ctx.fillStyle = BRIGHT;
+            ctx.fillText(typed, px + pw, py);
+            const tw2 = typed.length * charW(15);
+            ctx.fillStyle = DIM;
+            ctx.fillText(rest, px + pw + tw2, py);
+            // Blinking cursor
+            if (Math.floor(Date.now() / 400) % 2 === 0) {
+                ctx.fillStyle = GREEN;
+                ctx.fillRect(px + pw + tw2, py, 9, 15);
+            }
+        } else {
+            ctx.fillStyle = DIM;
+            ctx.font = '13px ' + FNT;
+            ctx.textAlign = 'left';
+            ctx.fillText('root@mainframe:~$ _', 14, H - 28);
+        }
+        ctx.restore();
+    }
+
+    /* ── Menu ── */
+    function drawMenu() {
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+
+        // Title
+        ctx.shadowColor = GREEN; ctx.shadowBlur = 20;
+        ctx.fillStyle = GREEN;
+        const ts = Math.min(52, W * 0.065);
+        ctx.font = 'bold ' + ts + 'px ' + FNT;
+        ctx.fillText('SUDO TYPE', W / 2, H * 0.22);
+
+        // Subtitle
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = DIM;
+        ctx.font = '15px ' + FNT;
+        ctx.fillText('[ MAINFRAME DEFENSE SYSTEM v1.0 ]', W / 2, H * 0.30);
+
+        // Description
+        ctx.shadowBlur = 3;
+        ctx.fillStyle = GREEN;
+        ctx.font = '14px ' + FNT;
+        ctx.fillText('Threats are falling toward the mainframe.', W / 2, H * 0.42);
+        ctx.fillText('Type the words to neutralize them.', W / 2, H * 0.47);
+        ctx.fillText('Wrong key breaks your lock. Stay sharp.', W / 2, H * 0.52);
+
+        // Controls
+        ctx.fillStyle = BRIGHT;
+        ctx.font = '15px ' + FNT;
+        ctx.fillText('[ TYPE TO DESTROY  |  PROTECT THE LINE ]', W / 2, H * 0.62);
+
+        // High score
+        if (highScore > 0) {
+            ctx.fillStyle = AMBER;
+            ctx.font = '14px ' + FNT;
+            ctx.fillText('BEST SCORE: ' + highScore, W / 2, H * 0.70);
+        }
+
+        // Start blink
+        if (Math.floor(Date.now() / 600) % 2 === 0) {
+            ctx.shadowColor = GREEN; ctx.shadowBlur = 10;
+            ctx.fillStyle = GREEN;
+            ctx.font = 'bold 17px ' + FNT;
+            ctx.fillText('[ PRESS ANY KEY OR TAP TO START ]', W / 2, H * 0.82);
+        }
+
+        if (isMobile) {
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = DIM;
+            ctx.font = '11px ' + FNT;
+            ctx.fillText('Tap to start. Best played on desktop.', W / 2, H * 0.91);
+        }
+
+        ctx.restore();
+        drawCRT();
+    }
+
+    /* ── Game Over ── */
+    function drawOver() {
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+
+        // Remaining particles
+        ctx.save();
+        ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+        for (const p of particles) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.shadowColor = GREEN; ctx.shadowBlur = 5;
+            ctx.fillStyle = GREEN;
+            ctx.font = p.sz + 'px ' + FNT;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(p.ch, p.x, p.y);
+            ctx.restore();
+        }
+        ctx.restore();
+
+        // Glitch flash
+        if (glitch > 0) {
+            ctx.save();
+            ctx.globalAlpha = (glitch / 30) * 0.4;
+            ctx.fillStyle = RED; ctx.fillRect(0, 0, W, H);
+            ctx.restore();
+        }
+
+        // Text
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+
+        ctx.shadowColor = RED; ctx.shadowBlur = 18;
+        ctx.fillStyle = RED;
+        const gs = Math.min(40, W * 0.05);
+        ctx.font = 'bold ' + gs + 'px ' + FNT;
+        ctx.fillText('MAINFRAME BREACHED', W / 2, H * 0.20);
+
+        ctx.shadowColor = GREEN; ctx.shadowBlur = 6;
+        ctx.fillStyle = GREEN;
+        ctx.font = 'bold 22px ' + FNT;
+        ctx.fillText('SCORE: ' + score, W / 2, H * 0.36);
+
+        ctx.font = '16px ' + FNT;
+        ctx.fillStyle = DIM;
+        ctx.fillText('LEVEL: ' + Math.floor(diff), W / 2, H * 0.44);
+        ctx.fillStyle = GREEN;
+        ctx.fillText('WORDS TYPED: ' + wordsTyped, W / 2, H * 0.50);
+        ctx.fillText('MAX COMBO: x' + maxCombo, W / 2, H * 0.56);
+
+        if (highScore > 0) {
+            ctx.fillStyle = AMBER;
+            ctx.font = '15px ' + FNT;
+            ctx.fillText('BEST: ' + highScore, W / 2, H * 0.65);
+        }
+
+        if (Math.floor(Date.now() / 700) % 2 === 0) {
+            ctx.shadowColor = GREEN; ctx.shadowBlur = 8;
+            ctx.fillStyle = GREEN;
+            ctx.font = 'bold 16px ' + FNT;
+            ctx.fillText('[ PRESS SPACE OR TAP TO CONTINUE ]', W / 2, H * 0.80);
+        }
+
+        ctx.restore();
+        drawCRT();
+    }
+
+    /* ══ Loop ══ */
+    function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+    }
+
+    mkScanlines();
+    loop();
+})();
+</script>
+</body>
+</html>
