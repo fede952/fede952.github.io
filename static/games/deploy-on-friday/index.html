@@ -387,41 +387,51 @@
     /* ══════════════════════ DRAWING ══════════════════════ */
 
     function draw() {
-        // Reset transform so clearRect covers every physical pixel
+        // 1. Clear: nuke every pixel on the physical canvas
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Reapply DPI scale and hard-reset alpha for this frame
         ctx.scale(dpr, dpr);
-        ctx.globalAlpha = 1.0;
 
+        // 2. Dispatch (each screen function uses strict isolation)
         if (state === S.MENU) drawMenu();
         else if (state === S.PLAY) drawGame();
         else drawBSOD();
     }
 
-    /* ── Game scene ── */
+    /* ── Scrolling code (stateless helper — caller sets alpha) ── */
+    function drawScrollingCode() {
+        ctx.font = '13px "Courier New",monospace';
+        for (const l of codeLines) {
+            ctx.fillStyle = l.color;
+            ctx.fillText(l.text, l.x, l.y);
+        }
+    }
+
+    /* ── Game scene (strict layer isolation) ── */
     function drawGame() {
-        // Layer 1: Solid opaque background (never rely on CSS bg)
+
+        // ── LAYER 1: Background + Code  (ISOLATED) ──
+        ctx.save();
         ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
         ctx.fillStyle = C.bg;
         ctx.fillRect(0, 0, W, H);
+        ctx.globalAlpha = 0.2;       // low opacity ONLY for code
+        drawScrollingCode();
+        ctx.restore();               // alpha, shadow, font — all gone
 
-        // Layer 2: Scrolling code (low opacity, fenced)
-        drawCodeBG();
-
-        // Layer 3+: All game elements — hard-reset alpha
+        // ── LAYER 2: Ground  (ISOLATED) ──
+        ctx.save();
         ctx.globalAlpha = 1.0;
-
-        // Ground glow
+        ctx.shadowBlur = 0;
+        // glow
         const gg = ctx.createLinearGradient(0, groundY() - 12, 0, groundY() + 12);
         gg.addColorStop(0, 'transparent');
         gg.addColorStop(0.5, C.groundGlow);
         gg.addColorStop(1, 'transparent');
         ctx.fillStyle = gg;
         ctx.fillRect(0, groundY() - 12, W, 24);
-
-        // Ground line
-        ctx.save();
+        // line (shadow is local to this layer)
         ctx.strokeStyle = C.ground;
         ctx.lineWidth = 2;
         ctx.shadowColor = C.ground;
@@ -430,92 +440,76 @@
         ctx.moveTo(0, groundY());
         ctx.lineTo(W, groundY());
         ctx.stroke();
-        ctx.restore();
-
-        // Below-ground tint
+        // below-ground tint (shadow already scoped)
+        ctx.shadowBlur = 0;
         ctx.fillStyle = 'rgba(0,255,65,0.015)';
         ctx.fillRect(0, groundY(), W, H - groundY());
+        ctx.restore();               // shadow, lineWidth — all gone
 
+        // ── LAYER 3: Game Entities  (ISOLATED) ──
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+        ctx.imageSmoothingEnabled = false;
         drawParticles();
         drawObstacles();
         drawPowerups();
         drawPlayer();
+        ctx.restore();               // any leftover state — gone
+
+        // ── LAYER 4: UI / HUD  (ISOLATED) ──
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
         drawHUD();
+        ctx.restore();
     }
 
-    function drawCodeBG() {
+    /* ── Particles (own save/restore inside entity layer) ── */
+    function drawParticles() {
         ctx.save();
-        ctx.globalAlpha = 0.2;
-        ctx.font = '13px "Courier New",monospace';
-        for (const l of codeLines) {
-            ctx.fillStyle = l.color;
-            ctx.fillText(l.text, l.x, l.y);
+        for (const p of particles) {
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
         }
         ctx.restore();
-        // Defensive: never trust restore alone for alpha
-        ctx.globalAlpha = 1.0;
     }
 
-    function drawPlayer() {
-        const bob = P.grounded ? Math.sin(P.bob) * 2 : 0;
-        const px = P.x, py = P.y + bob;
-
-        // Shield aura
-        if (P.shield) {
-            ctx.save();
-            ctx.shadowColor = C.shieldGlow;
-            ctx.shadowBlur = 20;
-            ctx.beginPath();
-            ctx.arc(px + P.size / 2, py + P.size / 2, P.size * 0.72, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(0,100,255,0.12)';
-            ctx.fill();
-            ctx.strokeStyle = 'rgba(0,150,255,0.55)';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-            ctx.restore();
-        }
-
-        // Coffee aura
-        if (P.coffee) {
-            ctx.save();
-            ctx.shadowColor = C.coffeeGlow;
-            ctx.shadowBlur = 14;
-            ctx.beginPath();
-            ctx.arc(px + P.size / 2, py + P.size / 2, P.size * 0.6, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255,170,0,0.08)';
-            ctx.fill();
-            ctx.restore();
-        }
-
-        ctx.globalAlpha = 1.0;
-        ctx.font = P.size + 'px serif';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
-        ctx.fillText('\u{1F605}', px, py); // 😅
-    }
-
+    /* ── Obstacles (force opaque, force color, sans-serif) ── */
     function drawObstacles() {
+        ctx.save();
         ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         for (const o of obstacles) {
-            ctx.font = o.size + 'px serif';
+            ctx.fillStyle = 'black';
+            ctx.font = o.size + 'px sans-serif';
             ctx.fillText(o.type.emoji, o.x, o.y);
         }
+        ctx.restore();
     }
 
+    /* ── Powerups (force opaque) ── */
     function drawPowerups() {
+        ctx.save();
         ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         for (const pu of powerups) {
             if (pu.type === 'coffee') {
-                ctx.font = pu.size + 'px serif';
-                ctx.fillText('\u2615', pu.x, pu.y); // ☕
+                ctx.fillStyle = 'black';
+                ctx.font = pu.size + 'px sans-serif';
+                ctx.fillText('\u2615', pu.x, pu.y);
             } else {
                 drawSO(pu.x, pu.y, pu.size);
             }
         }
+        ctx.restore();
     }
 
     function drawSO(x, y, s) {
@@ -529,23 +523,55 @@
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('SO', cx, cy);
+    }
+
+    /* ── Player (force opaque, force color, sans-serif) ── */
+    function drawPlayer() {
+        const bob = P.grounded ? Math.sin(P.bob) * 2 : 0;
+        const px = P.x, py = P.y + bob;
+
+        // Shield aura (own isolation)
+        if (P.shield) {
+            ctx.save();
+            ctx.globalAlpha = 1.0;
+            ctx.shadowColor = C.shieldGlow;
+            ctx.shadowBlur = 20;
+            ctx.beginPath();
+            ctx.arc(px + P.size / 2, py + P.size / 2, P.size * 0.72, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0,100,255,0.12)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0,150,255,0.55)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Coffee aura (own isolation)
+        if (P.coffee) {
+            ctx.save();
+            ctx.globalAlpha = 1.0;
+            ctx.shadowColor = C.coffeeGlow;
+            ctx.shadowBlur = 14;
+            ctx.beginPath();
+            ctx.arc(px + P.size / 2, py + P.size / 2, P.size * 0.6, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,170,0,0.08)';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Emoji sprite (own isolation — nothing can bleed in)
+        ctx.save();
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'black';
+        ctx.font = P.size + 'px sans-serif';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-    }
-
-    function drawParticles() {
-        ctx.save();
-        for (const p of particles) {
-            ctx.globalAlpha = Math.max(0, p.life);
-            ctx.fillStyle = p.color;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
+        ctx.fillText('\u{1F605}', px, py);
         ctx.restore();
-        ctx.globalAlpha = 1.0;
     }
 
+    /* ── HUD ── */
     function drawHUD() {
         const text = uptimeStr(scoreFrames, false);
         const hudW = 240, hudH = 42;
@@ -576,17 +602,24 @@
             ctx.fillStyle = C.coffeeGlow;
             ctx.fillText('\u2615 BOOST [' + Math.ceil(P.coffeeT) + 's]', hudX, iy);
         }
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
     }
 
-    /* ── Menu screen ── */
+    /* ── Menu screen (strict isolation) ── */
     function drawMenu() {
+        // ── LAYER 1: Background + Code  (ISOLATED) ──
+        ctx.save();
         ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
         ctx.fillStyle = C.bg;
         ctx.fillRect(0, 0, W, H);
-        drawCodeBG();
+        ctx.globalAlpha = 0.2;
+        drawScrollingCode();
+        ctx.restore();
+
+        // ── LAYER 2: Menu UI  (ISOLATED) ──
+        ctx.save();
         ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
 
         // Vignette
         const v = ctx.createRadialGradient(W / 2, H / 2, H * 0.25, W / 2, H / 2, H * 0.85);
@@ -615,7 +648,8 @@
         ctx.fillText('\u{1F605} Junior Dev Simulator', W / 2, H * 0.45);
 
         // Emojis
-        ctx.font = '28px serif';
+        ctx.fillStyle = 'black';
+        ctx.font = '32px sans-serif';
         ctx.fillText('\u{1F41B}  \u26A0\uFE0F  \u{1F525}  \u2615  \u{1F4BB}', W / 2, H * 0.55);
 
         // High score
@@ -638,12 +672,15 @@
         ctx.fillText('SPACE / TAP = Jump  \u2502  Double Jump available', W / 2, H * 0.84);
         ctx.fillText('Dodge bugs \u{1F41B}, grab coffee \u2615, survive the deploy', W / 2, H * 0.89);
 
-        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        ctx.restore();
     }
 
-    /* ── BSOD ── */
+    /* ── BSOD (strict isolation) ── */
     function drawBSOD() {
+        ctx.save();
         ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+
         ctx.fillStyle = '#0078d7';
         ctx.fillRect(0, 0, W, H);
 
@@ -696,7 +733,7 @@
             ctx.fillText('[ PRESS SPACE OR TAP TO REBOOT ]', W / 2, H * 0.9);
         }
 
-        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        ctx.restore();
     }
 
     /* ── Loop ── */
