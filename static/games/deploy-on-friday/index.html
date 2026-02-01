@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Deploy on Friday</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background: #1e1e1e;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(() => {
+    'use strict';
+
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+
+    /* ── High-DPI & Resize ── */
+    let W, H, dpr;
+    function resize() {
+        dpr = window.devicePixelRatio || 1;
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width  = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width  = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    /* ── Constants ── */
+    const GRAVITY      = 0.62;
+    const JUMP_FORCE   = -12.5;
+    const BASE_SPEED   = 4.5;
+    const MAX_SPEED    = 13;
+    const GROUND_PAD   = 90;
+    const PLAYER_X_PCT = 0.14;
+
+    const C = {
+        bg: '#1e1e1e', ground: '#00ff41', groundGlow: 'rgba(0,255,65,0.15)',
+        hud: '#00ff41', shieldGlow: '#4488ff', coffeeGlow: '#ffaa00',
+    };
+
+    const SYNTAX = ['#569cd6','#4ec9b0','#ce9178','#d4d4d4','#608b4e','#dcdcaa','#c586c0','#9cdcfe'];
+
+    const CODE = [
+        'function deployToProduction() {',
+        '  if (isFriday()) return panic();',
+        '  const server = await connect();',
+        '  try { await deploy(build); }',
+        '  catch(e) { rollback(); cry(); }',
+        '  console.log("LGTM!");',
+        '  rm -rf node_modules && pray',
+        '  git push --force origin main',
+        '  // TODO: fix this later',
+        '  // HACK: don\'t touch this',
+        '  while (!weekend) { work(); }',
+        '  if (tests.pass) deploy();',
+        '  else deploy(); // yolo',
+        '  docker.restart("please");',
+        '  SELECT * FROM production;',
+        '  sudo chmod 777 everything',
+        '  npm install is-even is-odd',
+        '  var x = undefined + null;',
+        '  // works on my machine',
+        '  export default disaster;',
+        '  await sleep(untilMonday);',
+        '  throw new FridayError();',
+        '  const fix = stackoverflow();',
+        '  this.bugs = this.bugs + 1;',
+        '  return "it compiles, ship it";',
+        '  } // end of TODO from 2019',
+        '  const prod = require("luck");',
+        '  if (env === "prod") cry();',
+        '  // dear future me, sorry',
+        '  const π = Math.PI.toFixed(2);',
+    ];
+
+    const OBS_TYPES = [
+        { emoji: '\u{1F41B}', name: 'bug'   },   // 🐛
+        { emoji: '\u26A0\uFE0F', name: 'error' }, // ⚠️
+        { emoji: '\u{1F525}', name: 'fire'  },    // 🔥
+    ];
+
+    /* ── State ── */
+    const S = { MENU: 0, PLAY: 1, OVER: 2 };
+    let state = S.MENU;
+    let scoreFrames = 0;
+    let speed = BASE_SPEED;
+    let frame = 0;
+    let dustCD = 0;
+    let highScore = loadHigh();
+
+    /* ── Player ── */
+    const P = {
+        x: 0, y: 0, size: 40, vy: 0,
+        jumps: 0, maxJumps: 2, grounded: false,
+        shield: false, shieldT: 0,
+        coffee: false,  coffeeT: 0,
+        bob: 0,
+    };
+
+    /* ── Entity arrays ── */
+    let obstacles  = [];
+    let powerups   = [];
+    let particles  = [];
+    let codeLines  = [];
+
+    /* ── Helpers ── */
+    const rand  = (a, b) => a + Math.random() * (b - a);
+    const irand = (a, b) => Math.floor(rand(a, b));
+    const pad2  = n => String(n).padStart(2, '0');
+    const pick  = a => a[irand(0, a.length)];
+
+    function groundY() { return H - GROUND_PAD; }
+
+    function loadHigh() {
+        try { return parseFloat(localStorage.getItem('dof_hi')) || 0; } catch { return 0; }
+    }
+    function saveHigh(v) {
+        try { localStorage.setItem('dof_hi', v); } catch {}
+    }
+
+    function uptimeStr(frames, withSec) {
+        const mins  = frames / 60;
+        const h = Math.floor(mins / 60);
+        const m = Math.floor(mins % 60);
+        if (!withSec) return `Uptime: ${pad2(h)}h ${pad2(m)}m`;
+        const s = Math.floor((mins % 1) * 60);
+        return `${pad2(h)}h ${pad2(m)}m ${pad2(s)}s`;
+    }
+
+    /* ── Input ── */
+    let keyHeld = false;
+
+    function onInput() {
+        if (state === S.MENU) { startGame(); return; }
+        if (state === S.OVER) { state = S.MENU; return; }
+        if (state === S.PLAY) jump();
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.code === 'Space' || e.code === 'ArrowUp') {
+            e.preventDefault();
+            if (!keyHeld) { keyHeld = true; onInput(); }
+        }
+    });
+    document.addEventListener('keyup', e => {
+        if (e.code === 'Space' || e.code === 'ArrowUp') keyHeld = false;
+    });
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); onInput(); }, { passive: false });
+    canvas.addEventListener('mousedown',  e => { e.preventDefault(); onInput(); });
+
+    /* ── Game logic ── */
+    function jump() {
+        if (P.jumps < P.maxJumps) {
+            P.vy = JUMP_FORCE;
+            P.jumps++;
+            P.grounded = false;
+            spawnBurst(P.x + P.size / 2, groundY(), 5, 'rgba(255,255,255,0.4)', 3, -3);
+        }
+    }
+
+    function startGame() {
+        state = S.PLAY;
+        scoreFrames = 0;
+        speed = BASE_SPEED;
+        frame = 0;
+        obstacles = [];
+        powerups  = [];
+        particles = [];
+        P.y = groundY() - P.size;
+        P.vy = 0; P.jumps = 0; P.grounded = true;
+        P.shield = false; P.shieldT = 0;
+        P.coffee  = false; P.coffeeT = 0;
+        P.bob = 0;
+    }
+
+    function die() {
+        if (scoreFrames > highScore) {
+            highScore = scoreFrames;
+            saveHigh(highScore);
+        }
+        state = S.OVER;
+    }
+
+    /* ── Code background ── */
+    function initCode() {
+        codeLines = [];
+        const lh = 20;
+        const n = Math.ceil(H / lh) + 5;
+        for (let i = 0; i < n; i++) {
+            codeLines.push({
+                x: rand(0, W * 1.5),
+                y: i * lh + rand(0, 5),
+                text: pick(CODE),
+                color: pick(SYNTAX),
+                alpha: rand(0.05, 0.12),
+                speed: rand(0.3, 0.6),
+            });
+        }
+    }
+
+    function updateCode() {
+        const m = speed / BASE_SPEED;
+        for (const l of codeLines) {
+            l.x -= l.speed * m;
+            if (l.x < -500) {
+                l.x = W + rand(20, 250);
+                l.text  = pick(CODE);
+                l.color = pick(SYNTAX);
+            }
+        }
+    }
+
+    /* ── Particles ── */
+    function spawnBurst(x, y, n, color, vxR, vyR) {
+        for (let i = 0; i < n; i++) {
+            particles.push({
+                x, y,
+                vx: (Math.random() - 0.5) * (vxR || 4),
+                vy: (Math.random() - 1)   * Math.abs(vyR || 4),
+                life: 1, decay: rand(0.02, 0.05),
+                size: rand(2, 4), color,
+            });
+        }
+    }
+
+    function updateParticles() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy; p.vy += 0.1;
+            p.life -= p.decay;
+            if (p.life <= 0) particles.splice(i, 1);
+        }
+    }
+
+    /* ── Spawning ── */
+    function trySpawn() {
+        if (frame % 3 !== 0) return;
+        const minGap = 200 + speed * 18;
+        let rightmost = 0;
+        for (const o of obstacles) if (o.x > rightmost) rightmost = o.x;
+        for (const p of powerups)  if (p.x > rightmost) rightmost = p.x;
+
+        if (rightmost > W - minGap) return;
+
+        const r = Math.random();
+        if (r < 0.10) {
+            // powerup
+            const type = Math.random() < 0.5 ? 'coffee' : 'shield';
+            const sz = 32;
+            const fh = rand(30, 70);
+            powerups.push({
+                x: W + 50,
+                y: groundY() - sz - fh,
+                baseY: groundY() - sz - fh,
+                size: sz, type, bob: rand(0, Math.PI * 2), active: true,
+            });
+        } else if (r < 0.58) {
+            // obstacle
+            const t = pick(OBS_TYPES);
+            const sz = rand(34, 44);
+            obstacles.push({
+                x: W + 50,
+                y: groundY() - sz,
+                size: sz, type: t, active: true,
+            });
+        }
+    }
+
+    /* ── Update ── */
+    function update() {
+        if (state === S.MENU) { updateCode(); updateParticles(); return; }
+        if (state !== S.PLAY) return;
+
+        frame++;
+        scoreFrames++;
+        speed = Math.min(MAX_SPEED, BASE_SPEED + frame * 0.00015);
+        const spd = P.coffee ? speed * 1.5 : speed;
+
+        // Player physics
+        if (!P.grounded) {
+            P.vy += GRAVITY;
+            P.y  += P.vy;
+            if (P.y >= groundY() - P.size) {
+                P.y = groundY() - P.size;
+                P.vy = 0; P.grounded = true; P.jumps = 0;
+                spawnBurst(P.x + P.size / 2, groundY(), 3, 'rgba(180,180,180,0.3)', 2, -1.5);
+            }
+        }
+        if (P.grounded) P.bob += 0.15;
+
+        // Running dust
+        dustCD += spd;
+        if (P.grounded && dustCD > 35) {
+            dustCD = 0;
+            particles.push({
+                x: P.x, y: groundY() - 2,
+                vx: rand(-2, -0.5), vy: rand(-1.5, 0),
+                life: 0.5, decay: 0.02, size: rand(1.5, 3),
+                color: 'rgba(140,140,140,0.25)',
+            });
+        }
+
+        // Powerup timers
+        if (P.shield) { P.shieldT -= 1 / 60; if (P.shieldT <= 0) P.shield = false; }
+        if (P.coffee)  { P.coffeeT -= 1 / 60; if (P.coffeeT <= 0) P.coffee = false; }
+
+        // Coffee speed lines
+        if (P.coffee && frame % 3 === 0) {
+            particles.push({
+                x: P.x - 5, y: P.y + rand(0, P.size),
+                vx: rand(-5, -2), vy: rand(-0.3, 0.3),
+                life: 0.35, decay: 0.03, size: 1.5,
+                color: 'rgba(255,200,50,0.45)',
+            });
+        }
+
+        // Move entities
+        for (let i = obstacles.length - 1; i >= 0; i--) {
+            obstacles[i].x -= spd;
+            if (obstacles[i].x < -80) obstacles.splice(i, 1);
+        }
+        for (let i = powerups.length - 1; i >= 0; i--) {
+            const pu = powerups[i];
+            pu.x -= spd;
+            pu.bob += 0.06;
+            pu.y = pu.baseY + Math.sin(pu.bob) * 8;
+            if (pu.x < -80) powerups.splice(i, 1);
+        }
+
+        trySpawn();
+        collisions();
+        updateCode();
+        updateParticles();
+    }
+
+    /* ── Collisions ── */
+    function collisions() {
+        const px = P.x + 6, py = P.y + 6, pw = P.size - 12, ph = P.size - 12;
+
+        for (let i = obstacles.length - 1; i >= 0; i--) {
+            const o = obstacles[i];
+            if (!o.active) continue;
+            const ox = o.x + 6, oy = o.y + 6, ow = o.size - 12, oh = o.size - 12;
+            if (px < ox + ow && px + pw > ox && py < oy + oh && py + ph > oy) {
+                if (P.shield) {
+                    o.active = false;
+                    spawnBurst(o.x + o.size / 2, o.y + o.size / 2, 14, '#4488ff', 7, 7);
+                    obstacles.splice(i, 1);
+                } else {
+                    die();
+                    return;
+                }
+            }
+        }
+
+        for (let i = powerups.length - 1; i >= 0; i--) {
+            const pu = powerups[i];
+            if (!pu.active) continue;
+            const ox = pu.x, oy = pu.y, os = pu.size;
+            if (px < ox + os && px + pw > ox && py < oy + os && py + ph > oy) {
+                if (pu.type === 'coffee') {
+                    P.coffee = true; P.coffeeT = 5;
+                    spawnBurst(pu.x + os / 2, pu.y + os / 2, 8, 'rgba(180,120,40,0.7)', 4, 4);
+                } else {
+                    P.shield = true; P.shieldT = 8;
+                    spawnBurst(pu.x + os / 2, pu.y + os / 2, 10, 'rgba(0,150,255,0.7)', 5, 5);
+                }
+                powerups.splice(i, 1);
+            }
+        }
+    }
+
+    /* ══════════════════════ DRAWING ══════════════════════ */
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        if (state === S.MENU) drawMenu();
+        else if (state === S.PLAY) drawGame();
+        else drawBSOD();
+    }
+
+    /* ── Game scene ── */
+    function drawGame() {
+        ctx.fillStyle = C.bg;
+        ctx.fillRect(0, 0, W, H);
+
+        drawCodeBG();
+
+        // Ground glow
+        const gg = ctx.createLinearGradient(0, groundY() - 12, 0, groundY() + 12);
+        gg.addColorStop(0, 'transparent');
+        gg.addColorStop(0.5, C.groundGlow);
+        gg.addColorStop(1, 'transparent');
+        ctx.fillStyle = gg;
+        ctx.fillRect(0, groundY() - 12, W, 24);
+
+        // Ground line
+        ctx.save();
+        ctx.strokeStyle = C.ground;
+        ctx.lineWidth = 2;
+        ctx.shadowColor = C.ground;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.moveTo(0, groundY());
+        ctx.lineTo(W, groundY());
+        ctx.stroke();
+        ctx.restore();
+
+        // Below-ground tint
+        ctx.fillStyle = 'rgba(0,255,65,0.015)';
+        ctx.fillRect(0, groundY(), W, H - groundY());
+
+        drawParticles();
+        drawObstacles();
+        drawPowerups();
+        drawPlayer();
+        drawHUD();
+    }
+
+    function drawCodeBG() {
+        ctx.save();
+        ctx.font = '13px "Courier New",monospace';
+        for (const l of codeLines) {
+            ctx.globalAlpha = l.alpha;
+            ctx.fillStyle = l.color;
+            ctx.fillText(l.text, l.x, l.y);
+        }
+        ctx.restore();
+    }
+
+    function drawPlayer() {
+        const bob = P.grounded ? Math.sin(P.bob) * 2 : 0;
+        const px = P.x, py = P.y + bob;
+
+        // Shield aura
+        if (P.shield) {
+            ctx.save();
+            ctx.shadowColor = C.shieldGlow;
+            ctx.shadowBlur = 20;
+            ctx.beginPath();
+            ctx.arc(px + P.size / 2, py + P.size / 2, P.size * 0.72, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0,100,255,0.12)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0,150,255,0.55)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Coffee aura
+        if (P.coffee) {
+            ctx.save();
+            ctx.shadowColor = C.coffeeGlow;
+            ctx.shadowBlur = 14;
+            ctx.beginPath();
+            ctx.arc(px + P.size / 2, py + P.size / 2, P.size * 0.6, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,170,0,0.08)';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        ctx.font = P.size + 'px serif';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.fillText('\u{1F605}', px, py); // 😅
+    }
+
+    function drawObstacles() {
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        for (const o of obstacles) {
+            ctx.font = o.size + 'px serif';
+            ctx.fillText(o.type.emoji, o.x, o.y);
+        }
+    }
+
+    function drawPowerups() {
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        for (const pu of powerups) {
+            if (pu.type === 'coffee') {
+                ctx.font = pu.size + 'px serif';
+                ctx.fillText('\u2615', pu.x, pu.y); // ☕
+            } else {
+                drawSO(pu.x, pu.y, pu.size);
+            }
+        }
+    }
+
+    function drawSO(x, y, s) {
+        const cx = x + s / 2, cy = y + s / 2, r = s / 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fillStyle = '#F48024';
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold ' + (s * 0.42) + 'px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('SO', cx, cy);
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+    }
+
+    function drawParticles() {
+        ctx.save();
+        for (const p of particles) {
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+
+    function drawHUD() {
+        const text = uptimeStr(scoreFrames, false);
+        const hudW = 210, hudH = 36;
+        const hudX = W - hudW - 14, hudY = 14;
+
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(hudX, hudY, hudW, hudH);
+        ctx.strokeStyle = 'rgba(0,255,65,0.35)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(hudX, hudY, hudW, hudH);
+
+        ctx.fillStyle = C.hud;
+        ctx.font = 'bold 17px "Courier New",monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, hudX + hudW / 2, hudY + hudH / 2);
+
+        // Powerup badges
+        let iy = hudY + hudH + 8;
+        ctx.textAlign = 'left';
+        ctx.font = '13px "Courier New",monospace';
+        if (P.shield) {
+            ctx.fillStyle = C.shieldGlow;
+            ctx.fillText('\u{1F6E1}\uFE0F SHIELD [' + Math.ceil(P.shieldT) + 's]', hudX, iy);
+            iy += 20;
+        }
+        if (P.coffee) {
+            ctx.fillStyle = C.coffeeGlow;
+            ctx.fillText('\u2615 BOOST [' + Math.ceil(P.coffeeT) + 's]', hudX, iy);
+        }
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+    }
+
+    /* ── Menu screen ── */
+    function drawMenu() {
+        ctx.fillStyle = C.bg;
+        ctx.fillRect(0, 0, W, H);
+        drawCodeBG();
+
+        // Vignette
+        const v = ctx.createRadialGradient(W / 2, H / 2, H * 0.25, W / 2, H / 2, H * 0.85);
+        v.addColorStop(0, 'rgba(0,0,0,0)');
+        v.addColorStop(1, 'rgba(0,0,0,0.75)');
+        ctx.fillStyle = v;
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Terminal prompt
+        ctx.fillStyle = C.ground;
+        ctx.font = 'bold 15px "Courier New",monospace';
+        ctx.fillText('$ npm run deploy --env=production --day=friday', W / 2, H * 0.22);
+
+        // Title
+        ctx.fillStyle = '#ff4444';
+        const ts = Math.min(46, W * 0.055);
+        ctx.font = 'bold ' + ts + 'px "Courier New",monospace';
+        ctx.fillText('DEPLOY ON FRIDAY', W / 2, H * 0.35);
+
+        // Subtitle
+        ctx.fillStyle = '#d4d4d4';
+        ctx.font = '19px "Courier New",monospace';
+        ctx.fillText('\u{1F605} Junior Dev Simulator', W / 2, H * 0.45);
+
+        // Emojis
+        ctx.font = '28px serif';
+        ctx.fillText('\u{1F41B}  \u26A0\uFE0F  \u{1F525}  \u2615  \u{1F4BB}', W / 2, H * 0.55);
+
+        // High score
+        if (highScore > 0) {
+            ctx.fillStyle = '#ffaa00';
+            ctx.font = '15px "Courier New",monospace';
+            ctx.fillText('Best Uptime: ' + uptimeStr(highScore, true), W / 2, H * 0.63);
+        }
+
+        // Blink start
+        if (Math.floor(Date.now() / 600) % 2 === 0) {
+            ctx.fillStyle = C.ground;
+            ctx.font = '17px "Courier New",monospace';
+            ctx.fillText('[ PRESS SPACE OR TAP TO START ]', W / 2, H * 0.74);
+        }
+
+        // Controls
+        ctx.fillStyle = 'rgba(200,200,200,0.45)';
+        ctx.font = '13px "Courier New",monospace';
+        ctx.fillText('SPACE / TAP = Jump  \u2502  Double Jump available', W / 2, H * 0.84);
+        ctx.fillText('Dodge bugs \u{1F41B}, grab coffee \u2615, survive the deploy', W / 2, H * 0.89);
+
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    }
+
+    /* ── BSOD ── */
+    function drawBSOD() {
+        ctx.fillStyle = '#0078d7';
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'white';
+
+        // Sad face
+        const sf = Math.min(90, W * 0.11);
+        ctx.font = sf + 'px "Courier New",monospace';
+        ctx.fillText(':(', W / 2, H * 0.18);
+
+        // Body text
+        const bs = Math.min(22, W * 0.026);
+        ctx.font = bs + 'px "Courier New",monospace';
+        ctx.fillText('Your deployment ran into a problem and needs to', W / 2, H * 0.32);
+        ctx.fillText('rollback. We\'re just collecting some error info,', W / 2, H * 0.32 + bs * 1.6);
+        ctx.fillText('and then we\'ll blame the intern.', W / 2, H * 0.32 + bs * 3.2);
+
+        // Error code
+        ctx.fillStyle = '#ffff00';
+        const cs = Math.min(20, W * 0.025);
+        ctx.font = 'bold ' + cs + 'px "Courier New",monospace';
+        ctx.fillText('CRITICAL_PROCESS_DIED: DEPLOYED_ON_FRIDAY', W / 2, H * 0.54);
+
+        // Uptime
+        ctx.fillStyle = 'white';
+        ctx.font = cs + 'px "Courier New",monospace';
+        ctx.fillText('Uptime before crash: ' + uptimeStr(scoreFrames, true), W / 2, H * 0.62);
+
+        // High score
+        if (highScore > 0) {
+            ctx.fillStyle = '#aaccff';
+            const hs2 = Math.min(16, W * 0.019);
+            ctx.font = hs2 + 'px "Courier New",monospace';
+            ctx.fillText('Best Uptime: ' + uptimeStr(highScore, true), W / 2, H * 0.68);
+        }
+
+        // Details
+        ctx.fillStyle = 'rgba(255,255,255,0.55)';
+        const ds = Math.min(13, W * 0.016);
+        ctx.font = ds + 'px "Courier New",monospace';
+        ctx.fillText('Stop code: FRIDAY_DEPLOY_EXCEPTION', W / 2, H * 0.76);
+        ctx.fillText('git blame: junior-dev | commit: "fix: final final v2"', W / 2, H * 0.76 + ds * 1.6);
+
+        // Restart blink
+        if (Math.floor(Date.now() / 700) % 2 === 0) {
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold ' + Math.min(17, W * 0.021) + 'px "Courier New",monospace';
+            ctx.fillText('[ PRESS SPACE OR TAP TO REBOOT ]', W / 2, H * 0.9);
+        }
+
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    }
+
+    /* ── Loop ── */
+    function loop() {
+        P.x = W * PLAYER_X_PCT;
+        update();
+        draw();
+        requestAnimationFrame(loop);
+    }
+
+    /* ── Boot ── */
+    initCode();
+    P.y = groundY() - P.size;
+    loop();
+
+})();
+</script>
+</body>
+</html>
