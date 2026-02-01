@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlitchForge</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --neon:#00ff41;--neon-dim:#00cc33;--neon-glow:rgba(0,255,65,.25);
+  --bg:#0a0a0a;--panel:#111;--border:#1a1a1a;--text:#c0c0c0;
+  --mono:'Courier New',Consolas,'Liberation Mono',monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);overflow-x:hidden}
+a{color:var(--neon)}
+
+/* ── Layout ── */
+.app{display:flex;flex-direction:column;min-height:100vh;padding:12px;gap:12px}
+.header{text-align:center;padding:12px 0;border-bottom:2px solid var(--neon)}
+.header h1{font-size:clamp(20px,4vw,32px);color:var(--neon);text-transform:uppercase;letter-spacing:6px;text-shadow:0 0 20px var(--neon-glow)}
+.header .badge{display:inline-block;margin-top:8px;padding:4px 12px;border:1px solid #333;font-size:11px;color:#888;letter-spacing:1px}
+.main{display:flex;gap:16px;flex:1;min-height:0}
+.canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:#000;border:2px solid var(--neon);position:relative;min-height:300px;overflow:hidden}
+.controls{width:280px;display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.footer{text-align:center;padding:8px 0;font-size:11px;color:#555;border-top:1px solid #1a1a1a}
+
+/* ── Drop zone ── */
+.drop-zone{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
+.drop-zone.has-image{display:none}
+.drop-zone.drag-over{background:rgba(0,255,65,.06)}
+.drop-icon{font-size:48px;margin-bottom:12px}
+.drop-text{font-size:14px;color:#888;text-align:center;line-height:1.6}
+.drop-text span{color:var(--neon);text-decoration:underline;cursor:pointer}
+.drop-text small{display:block;margin-top:6px;font-size:11px;color:#555}
+
+/* ── Canvas ── */
+#canvas{display:none;max-width:100%;max-height:100%;image-rendering:auto}
+#canvas.visible{display:block}
+
+/* ── Controls panel ── */
+.ctrl-section{background:var(--panel);border:1px solid var(--border);padding:12px}
+.ctrl-section h3{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--neon);margin-bottom:10px;border-bottom:1px solid #222;padding-bottom:6px}
+.ctrl-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ctrl-row:last-child{margin-bottom:0}
+.ctrl-label{font-size:12px;color:#999;flex-shrink:0}
+.ctrl-val{font-size:12px;color:var(--neon);width:36px;text-align:right;flex-shrink:0}
+.slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;margin:0 10px;background:#222;outline:none;border-radius:2px;cursor:pointer}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--neon);cursor:pointer;box-shadow:0 0 6px var(--neon-glow)}
+.slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--neon);cursor:pointer;border:none;box-shadow:0 0 6px var(--neon-glow)}
+
+/* ── Buttons ── */
+.btn{display:block;width:100%;padding:14px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:2px;cursor:pointer;border:2px solid;text-align:center;transition:all .15s}
+.btn-export{background:transparent;color:var(--neon);border-color:var(--neon)}
+.btn-export:hover{background:var(--neon);color:#000}
+.btn-export:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:var(--neon)}
+.btn-reset{background:transparent;color:#f44;border-color:#f44;font-size:11px;padding:10px}
+.btn-reset:hover{background:#f44;color:#000}
+.btn-reset:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:#f44}
+
+/* ── Presets ── */
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.btn-preset{padding:8px 6px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1px;background:transparent;color:var(--text);border:1px solid #333;cursor:pointer;transition:all .15s}
+.btn-preset:hover,.btn-preset.active{border-color:var(--neon);color:var(--neon)}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .main{flex-direction:column}
+  .controls{width:100%;order:2}
+  .canvas-wrap{min-height:260px;order:1}
+  .slider{height:8px}
+  .slider::-webkit-slider-thumb{width:24px;height:24px}
+  .slider::-moz-range-thumb{width:24px;height:24px}
+  .btn{min-height:44px}
+  .btn-preset{min-height:44px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>GlitchForge</h1>
+    <div class="badge">&#x1f512; Runs Offline &mdash; Your photos never leave your device</div>
+  </div>
+
+  <div class="main">
+    <div class="canvas-wrap" id="canvasWrap">
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-icon">&#x1f4c2;</div>
+        <div class="drop-text">
+          Drag &amp; drop an image here<br>
+          or <span id="browseBtn">browse files</span>
+          <small>JPG / PNG &bull; Processed locally</small>
+        </div>
+      </div>
+      <canvas id="canvas"></canvas>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden>
+    </div>
+
+    <div class="controls" id="controls">
+      <div class="ctrl-section">
+        <h3>Presets</h3>
+        <div class="presets">
+          <button class="btn-preset" data-preset="vhs">VHS</button>
+          <button class="btn-preset" data-preset="cyber">Cyberpunk</button>
+          <button class="btn-preset" data-preset="corrupt">Corrupt</button>
+          <button class="btn-preset" data-preset="subtle">Subtle</button>
+        </div>
+      </div>
+      <div class="ctrl-section">
+        <h3>Effects</h3>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Amount</span>
+          <input class="slider" type="range" id="sAmount" min="0" max="100" value="0">
+          <span class="ctrl-val" id="vAmount">0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">RGB Shift</span>
+          <input class="slider" type="range" id="sRgb" min="0" max="100" value="0">
+          <span class="ctrl-val" id="vRgb">0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Scanlines</span>
+          <input class="slider" type="range" id="sScan" min="0" max="100" value="0">
+          <span class="ctrl-val" id="vScan">0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Pixel Sort</span>
+          <input class="slider" type="range" id="sSort" min="0" max="100" value="0">
+          <span class="ctrl-val" id="vSort">0</span>
+        </div>
+      </div>
+      <button class="btn btn-export" id="btnExport" disabled>&#x2B07; Download Cyberpunk Image</button>
+      <button class="btn btn-reset" id="btnReset" disabled>Reset Image</button>
+    </div>
+  </div>
+
+  <div class="footer">GlitchForge &mdash; 100% client-side &bull; No data collected</div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── DOM refs ── */
+const canvas    = document.getElementById('canvas');
+const ctx       = canvas.getContext('2d', {willReadFrequently: true});
+const wrap      = document.getElementById('canvasWrap');
+const dropZone  = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const btnExport = document.getElementById('btnExport');
+const btnReset  = document.getElementById('btnReset');
+
+const sliders = {
+  amount: document.getElementById('sAmount'),
+  rgb:    document.getElementById('sRgb'),
+  scan:   document.getElementById('sScan'),
+  sort:   document.getElementById('sSort')
+};
+const vals = {
+  amount: document.getElementById('vAmount'),
+  rgb:    document.getElementById('vRgb'),
+  scan:   document.getElementById('vScan'),
+  sort:   document.getElementById('vSort')
+};
+
+/* ── State ── */
+let srcImg  = null;   // original Image element
+let srcData = null;   // original ImageData (clean copy)
+let w = 0, h = 0;
+let raf = 0;
+let dirty = true;
+
+/* ── File handling ── */
+document.getElementById('browseBtn').addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('click', e => { if (e.target === dropZone || dropZone.contains(e.target)) fileInput.click(); });
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) loadFile(f);
+});
+
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => initImage(img);
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function initImage(img) {
+  srcImg = img;
+
+  /* fit canvas to wrapper */
+  const maxW = wrap.clientWidth - 4;
+  const maxH = wrap.clientHeight - 4;
+  const scale = Math.min(1, maxW / img.width, maxH / img.height);
+  w = Math.round(img.width * scale);
+  h = Math.round(img.height * scale);
+  canvas.width = w;
+  canvas.height = h;
+
+  /* draw and store clean copy */
+  ctx.drawImage(img, 0, 0, w, h);
+  srcData = ctx.getImageData(0, 0, w, h);
+
+  dropZone.classList.add('has-image');
+  canvas.classList.add('visible');
+  btnExport.disabled = false;
+  btnReset.disabled = false;
+  dirty = true;
+  scheduleRender();
+}
+
+/* ── Slider events ── */
+for (const key of Object.keys(sliders)) {
+  sliders[key].addEventListener('input', () => {
+    vals[key].textContent = sliders[key].value;
+    dirty = true;
+    scheduleRender();
+  });
+}
+
+/* ── Presets ── */
+const PRESETS = {
+  vhs:     {amount:45, rgb:60, scan:70, sort:10},
+  cyber:   {amount:65, rgb:80, scan:40, sort:35},
+  corrupt: {amount:85, rgb:50, scan:20, sort:90},
+  subtle:  {amount:20, rgb:25, scan:15, sort:5}
+};
+
+document.querySelectorAll('.btn-preset').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const p = PRESETS[btn.dataset.preset];
+    if (!p) return;
+    document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    for (const k of Object.keys(p)) {
+      sliders[k].value = p[k];
+      vals[k].textContent = p[k];
+    }
+    dirty = true;
+    scheduleRender();
+  });
+});
+
+/* ── Reset ── */
+btnReset.addEventListener('click', () => {
+  for (const k of Object.keys(sliders)) {
+    sliders[k].value = 0;
+    vals[k].textContent = '0';
+  }
+  document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+  dirty = true;
+  scheduleRender();
+});
+
+/* ── Export ── */
+btnExport.addEventListener('click', () => {
+  if (!srcImg) return;
+  /* render at full resolution for export */
+  const expC = document.createElement('canvas');
+  const expCtx = expC.getContext('2d', {willReadFrequently: true});
+  expC.width = srcImg.width;
+  expC.height = srcImg.height;
+  expCtx.drawImage(srcImg, 0, 0);
+  const expSrc = expCtx.getImageData(0, 0, srcImg.width, srcImg.height);
+  applyEffects(expCtx, expSrc, srcImg.width, srcImg.height);
+  const link = document.createElement('a');
+  link.download = 'glitchforge-export.png';
+  link.href = expC.toDataURL('image/png');
+  link.click();
+});
+
+/* ── Render loop ── */
+function scheduleRender() {
+  if (raf) return;
+  raf = requestAnimationFrame(render);
+}
+
+function render() {
+  raf = 0;
+  if (!srcData || !dirty) return;
+  dirty = false;
+  ctx.putImageData(srcData, 0, 0);
+  const data = ctx.getImageData(0, 0, w, h);
+  applyEffects(ctx, data, w, h);
+}
+
+/* ── Effect pipeline ── */
+function applyEffects(c, imgData, fw, fh) {
+  const amt  = +sliders.amount.value / 100;
+  const rgb  = +sliders.rgb.value / 100;
+  const scan = +sliders.scan.value / 100;
+  const sort = +sliders.sort.value / 100;
+
+  if (amt === 0 && rgb === 0 && scan === 0 && sort === 0) return;
+
+  const d = imgData.data;
+  const len = d.length;
+
+  /* 1. Global Amount — contrast boost + noise injection */
+  if (amt > 0) {
+    const contrast = 1 + amt * 0.6;
+    const nAmt = amt * 40;
+    for (let i = 0; i < len; i += 4) {
+      for (let c = 0; c < 3; c++) {
+        let v = d[i + c];
+        v = ((v / 255 - 0.5) * contrast + 0.5) * 255;
+        v += (Math.random() - 0.5) * nAmt;
+        d[i + c] = v < 0 ? 0 : v > 255 ? 255 : v;
+      }
+    }
+  }
+
+  /* 2. RGB Channel Shift */
+  if (rgb > 0) {
+    const shift = Math.round(rgb * fw * 0.04);
+    const copy = new Uint8ClampedArray(d);
+    for (let y = 0; y < fh; y++) {
+      for (let x = 0; x < fw; x++) {
+        const i = (y * fw + x) * 4;
+        /* shift red channel right */
+        const rx = x - shift;
+        if (rx >= 0 && rx < fw) {
+          d[i] = copy[(y * fw + rx) * 4];
+        }
+        /* shift blue channel left */
+        const bx = x + shift;
+        if (bx >= 0 && bx < fw) {
+          d[i + 2] = copy[(y * fw + bx) * 4 + 2];
+        }
+      }
+    }
+  }
+
+  /* 3. Pixel Sort (vertical, brightness-based) */
+  if (sort > 0) {
+    const threshold = 1 - sort;
+    const maxRun = Math.max(4, Math.round(fh * sort * 0.5));
+    for (let x = 0; x < fw; x += 2) {
+      let y0 = 0;
+      while (y0 < fh) {
+        /* find start of bright run */
+        const idx0 = (y0 * fw + x) * 4;
+        const lum0 = (d[idx0] * 0.299 + d[idx0+1] * 0.587 + d[idx0+2] * 0.114) / 255;
+        if (lum0 < threshold) { y0++; continue; }
+        /* collect run */
+        let y1 = y0 + 1;
+        while (y1 < fh && (y1 - y0) < maxRun) {
+          const idx1 = (y1 * fw + x) * 4;
+          const lum1 = (d[idx1] * 0.299 + d[idx1+1] * 0.587 + d[idx1+2] * 0.114) / 255;
+          if (lum1 < threshold) break;
+          y1++;
+        }
+        /* sort the run by luminance */
+        const run = [];
+        for (let yy = y0; yy < y1; yy++) {
+          const ii = (yy * fw + x) * 4;
+          run.push({r:d[ii], g:d[ii+1], b:d[ii+2], a:d[ii+3],
+                    l: d[ii]*0.299+d[ii+1]*0.587+d[ii+2]*0.114});
+        }
+        run.sort((a,b) => a.l - b.l);
+        for (let j = 0; j < run.length; j++) {
+          const ii = ((y0+j) * fw + x) * 4;
+          d[ii]   = run[j].r;
+          d[ii+1] = run[j].g;
+          d[ii+2] = run[j].b;
+          d[ii+3] = run[j].a;
+        }
+        y0 = y1;
+      }
+    }
+  }
+
+  c.putImageData(imgData, 0, 0);
+
+  /* 4. Scanlines (drawn on top via compositing) */
+  if (scan > 0) {
+    c.save();
+    c.globalAlpha = scan * 0.5;
+    const gap = Math.max(2, Math.round(4 - scan * 2));
+    c.fillStyle = '#000';
+    for (let y = 0; y < fh; y += gap) {
+      c.fillRect(0, y, fw, 1);
+    }
+    c.globalAlpha = 1;
+    c.restore();
+  }
+
+  /* 5. Random horizontal glitch bars (driven by Amount) */
+  if (amt > 0.25) {
+    const barCount = Math.round(amt * 8);
+    c.save();
+    for (let i = 0; i < barCount; i++) {
+      const by = Math.floor(Math.random() * fh);
+      const bh = Math.floor(Math.random() * 4 + 1);
+      const bShift = Math.round((Math.random() - 0.5) * fw * amt * 0.15);
+      const slice = c.getImageData(0, by, fw, bh);
+      c.putImageData(slice, bShift, by);
+    }
+    c.restore();
+  }
+}
+
+/* ── Resize handling ── */
+window.addEventListener('resize', () => {
+  if (!srcImg) return;
+  const maxW = wrap.clientWidth - 4;
+  const maxH = wrap.clientHeight - 4;
+  const scale = Math.min(1, maxW / srcImg.width, maxH / srcImg.height);
+  const nw = Math.round(srcImg.width * scale);
+  const nh = Math.round(srcImg.height * scale);
+  if (nw === w && nh === h) return;
+  w = nw; h = nh;
+  canvas.width = w;
+  canvas.height = h;
+  ctx.drawImage(srcImg, 0, 0, w, h);
+  srcData = ctx.getImageData(0, 0, w, h);
+  dirty = true;
+  scheduleRender();
+});
+
+})();
+</script>
+</body>
+</html>
