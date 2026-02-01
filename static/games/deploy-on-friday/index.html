@@ -387,7 +387,13 @@
     /* ══════════════════════ DRAWING ══════════════════════ */
 
     function draw() {
-        ctx.clearRect(0, 0, W, H);
+        // Reset transform so clearRect covers every physical pixel
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Reapply DPI scale and hard-reset alpha for this frame
+        ctx.scale(dpr, dpr);
+        ctx.globalAlpha = 1.0;
+
         if (state === S.MENU) drawMenu();
         else if (state === S.PLAY) drawGame();
         else drawBSOD();
@@ -395,10 +401,16 @@
 
     /* ── Game scene ── */
     function drawGame() {
+        // Layer 1: Solid opaque background (never rely on CSS bg)
+        ctx.globalAlpha = 1.0;
         ctx.fillStyle = C.bg;
         ctx.fillRect(0, 0, W, H);
 
+        // Layer 2: Scrolling code (low opacity, fenced)
         drawCodeBG();
+
+        // Layer 3+: All game elements — hard-reset alpha
+        ctx.globalAlpha = 1.0;
 
         // Ground glow
         const gg = ctx.createLinearGradient(0, groundY() - 12, 0, groundY() + 12);
@@ -433,13 +445,15 @@
 
     function drawCodeBG() {
         ctx.save();
+        ctx.globalAlpha = 0.2;
         ctx.font = '13px "Courier New",monospace';
         for (const l of codeLines) {
-            ctx.globalAlpha = l.alpha;
             ctx.fillStyle = l.color;
             ctx.fillText(l.text, l.x, l.y);
         }
         ctx.restore();
+        // Defensive: never trust restore alone for alpha
+        ctx.globalAlpha = 1.0;
     }
 
     function drawPlayer() {
@@ -473,6 +487,7 @@
             ctx.restore();
         }
 
+        ctx.globalAlpha = 1.0;
         ctx.font = P.size + 'px serif';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
@@ -480,6 +495,7 @@
     }
 
     function drawObstacles() {
+        ctx.globalAlpha = 1.0;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         for (const o of obstacles) {
@@ -489,6 +505,7 @@
     }
 
     function drawPowerups() {
+        ctx.globalAlpha = 1.0;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         for (const pu of powerups) {
@@ -526,6 +543,7 @@
             ctx.fill();
         }
         ctx.restore();
+        ctx.globalAlpha = 1.0;
     }
 
     function drawHUD() {
@@ -564,9 +582,11 @@
 
     /* ── Menu screen ── */
     function drawMenu() {
+        ctx.globalAlpha = 1.0;
         ctx.fillStyle = C.bg;
         ctx.fillRect(0, 0, W, H);
         drawCodeBG();
+        ctx.globalAlpha = 1.0;
 
         // Vignette
         const v = ctx.createRadialGradient(W / 2, H / 2, H * 0.25, W / 2, H / 2, H * 0.85);
@@ -623,6 +643,7 @@
 
     /* ── BSOD ── */
     function drawBSOD() {
+        ctx.globalAlpha = 1.0;
         ctx.fillStyle = '#0078d7';
         ctx.fillRect(0, 0, W, H);
 
