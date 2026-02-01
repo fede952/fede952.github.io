@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZenFocus: Ambient Noise Mixer & Pomodoro</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background-attachment: fixed;
+            -webkit-user-select: none; user-select: none;
+        }
+        .app {
+            max-width: 720px; margin: 0 auto;
+            padding: 16px 16px 80px;
+            display: flex; flex-direction: column; gap: 14px;
+        }
+
+        /* ── Glass Panel ── */
+        .glass {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        /* ── Header ── */
+        .header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 8px 0;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { font-size: 28px; }
+        .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+        .btn-share {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+            color: #e0e0e0; padding: 8px 16px; border-radius: 10px; cursor: pointer;
+            font-size: 14px; font-weight: 500; transition: background 0.2s;
+        }
+        .btn-share:hover { background: rgba(255,255,255,0.14); }
+
+        /* ── Timer ── */
+        .timer { text-align: center; }
+        .timer-display {
+            font-size: clamp(48px, 12vw, 76px); font-family: 'Courier New', monospace;
+            font-weight: 700; color: #f59e0b;
+            text-shadow: 0 0 24px rgba(245,158,11,0.35);
+            line-height: 1.1; padding: 8px 0;
+        }
+        .timer-bar-wrap {
+            width: 80%; max-width: 300px; height: 4px; margin: 6px auto 14px;
+            background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
+        }
+        .timer-bar {
+            height: 100%; width: 100%; background: #f59e0b;
+            border-radius: 2px; transition: width 0.4s linear;
+        }
+        .timer-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
+        .btn-t {
+            background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+            color: #f59e0b; padding: 9px 22px; border-radius: 10px; cursor: pointer;
+            font-size: 14px; font-weight: 600; transition: background 0.2s;
+        }
+        .btn-t:hover { background: rgba(245,158,11,0.25); }
+        .btn-t.active { background: rgba(245,158,11,0.35); }
+        .timer-adjust { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-adj {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            color: #aaa; width: 34px; height: 34px; border-radius: 8px; cursor: pointer;
+            font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .btn-adj:hover { background: rgba(255,255,255,0.12); color: #e0e0e0; }
+        .timer-label { color: #888; font-size: 13px; min-width: 52px; text-align: center; }
+
+        /* ── Presets ── */
+        .presets { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-preset {
+            flex: 1 1 auto; min-width: 120px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            color: #ccc; padding: 10px 14px; border-radius: 12px; cursor: pointer;
+            font-size: 13px; font-weight: 500; transition: all 0.2s; text-align: center;
+        }
+        .btn-preset:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .btn-preset.on { background: rgba(245,158,11,0.18); border-color: rgba(245,158,11,0.35); color: #f59e0b; }
+
+        /* ── Master Volume ── */
+        .master { display: flex; align-items: center; gap: 14px; padding: 14px 20px; }
+        .master-label { font-size: 14px; font-weight: 500; white-space: nowrap; }
+        .master .slider { flex: 1; }
+
+        /* ── Mixer Grid ── */
+        .mixer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (max-width: 500px) { .mixer { grid-template-columns: 1fr; } }
+        .ch-card {
+            display: flex; flex-direction: column; gap: 10px; padding: 16px;
+            transition: border-color 0.3s;
+        }
+        .ch-card.active { border-color: rgba(245,158,11,0.3); }
+        .ch-head { display: flex; align-items: center; justify-content: space-between; }
+        .ch-name { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+        .ch-icon { font-size: 20px; }
+        .btn-mute {
+            background: none; border: 1px solid rgba(255,255,255,0.1);
+            color: #888; width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
+            font-size: 16px; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .btn-mute:hover { background: rgba(255,255,255,0.08); }
+        .btn-mute.muted { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+        /* ── Slider ── */
+        .slider {
+            -webkit-appearance: none; appearance: none;
+            width: 100%; height: 6px;
+            background: rgba(255,255,255,0.10); border-radius: 3px; outline: none;
+            cursor: pointer;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 18px; height: 18px; border-radius: 50%;
+            background: #f59e0b; border: none; cursor: pointer;
+            box-shadow: 0 0 8px rgba(245,158,11,0.4);
+        }
+        .slider::-moz-range-thumb {
+            width: 18px; height: 18px; border-radius: 50%;
+            background: #f59e0b; border: none; cursor: pointer;
+            box-shadow: 0 0 8px rgba(245,158,11,0.4);
+        }
+
+        /* ── Social Bar ── */
+        .social-bar {
+            display: flex; justify-content: center; gap: 10px;
+            padding: 8px 0; flex-wrap: wrap;
+        }
+        .social-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: 10px; font-size: 13px;
+            font-weight: 500; text-decoration: none; color: #fff;
+            transition: opacity 0.2s;
+        }
+        .social-btn:hover { opacity: 0.85; }
+        .social-btn.wa  { background: #25d366; }
+        .social-btn.li  { background: #0a66c2; }
+        .social-btn.tw  { background: #1d9bf0; }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+            background: rgba(34,197,94,0.95); color: #fff; padding: 10px 24px;
+            border-radius: 10px; font-size: 14px; font-weight: 500;
+            pointer-events: none; opacity: 0;
+            transition: transform 0.35s ease, opacity 0.35s ease;
+            z-index: 100;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">&#x1F9D8;</span>
+            <span class="logo-text">ZenFocus</span>
+        </div>
+        <button class="btn-share" id="shareBtn">&#x1F4E4; Share</button>
+    </header>
+
+    <!-- Timer -->
+    <section class="timer glass" id="timerSection">
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
+        <div class="timer-controls">
+            <button class="btn-t" id="btnStart">&#9654; Start</button>
+            <button class="btn-t" id="btnReset">&#8635; Reset</button>
+        </div>
+        <div class="timer-adjust">
+            <button class="btn-adj" data-d="-5">&minus;5</button>
+            <button class="btn-adj" data-d="-1">&minus;1</button>
+            <span class="timer-label" id="timerLabel">25 min</span>
+            <button class="btn-adj" data-d="1">+1</button>
+            <button class="btn-adj" data-d="5">+5</button>
+        </div>
+    </section>
+
+    <!-- Presets -->
+    <div class="presets">
+        <button class="btn-preset" data-p="deep">&#x1F9E0; Deep Work</button>
+        <button class="btn-preset" data-p="coffee">&#9749; Coffee Break</button>
+        <button class="btn-preset" data-p="silence">&#x1F507; Silence</button>
+    </div>
+
+    <!-- Master Volume -->
+    <section class="master glass">
+        <span class="master-label">&#x1F50A; Master</span>
+        <input type="range" class="slider" id="masterVol" min="0" max="100" value="70">
+    </section>
+
+    <!-- Mixer Grid (generated by JS) -->
+    <section class="mixer" id="mixer"></section>
+
+    <!-- Social -->
+    <div class="social-bar" id="socialBar"></div>
+</div>
+
+<div class="toast" id="toast">Link copied!</div>
+
+<script>
+(() => {
+    'use strict';
+
+    /* ══════════════════════════════════════════════════
+       CHANNEL DEFINITIONS
+       All sounds are synthesized via Web Audio API.
+       No external audio files required.
+    ══════════════════════════════════════════════════ */
+    const CH_DEF = [
+        { id:'white',   name:'White Noise',  icon:'\u26AA', gen:'white',  filter:null },
+        { id:'pink',    name:'Pink Noise',   icon:'\uD83E\uDDE1', gen:'pink', filter:null },
+        { id:'brown',   name:'Brown Noise',  icon:'\uD83D\uDFE4', gen:'brown', filter:null },
+        { id:'rain',    name:'Rain',         icon:'\uD83C\uDF27\uFE0F', gen:'white',
+            filter:{ type:'highpass', freq:1200, Q:0.7 } },
+        { id:'thunder', name:'Thunder',      icon:'\u26C8\uFE0F',  gen:'brown',
+            filter:{ type:'lowpass', freq:100, Q:0.5 } },
+        { id:'fire',    name:'Fireplace',    icon:'\uD83D\uDD25', gen:'white',
+            filter:{ type:'bandpass', freq:700, Q:0.7 } },
+        { id:'keys',    name:'Keyboard',     icon:'\u2328\uFE0F',  gen:'keys',
+            filter:{ type:'bandpass', freq:2200, Q:1.2 } },
+        { id:'coffee',  name:'Coffee Shop',  icon:'\u2615',  gen:'pink',
+            filter:{ type:'bandpass', freq:1000, Q:0.35 } },
+    ];
+
+    const PRESETS = {
+        deep:    { brown: 70, rain: 50 },
+        coffee:  { coffee: 60, fire: 45 },
+        silence: {},
+    };
+
+    /* ══ State ══ */
+    let ac = null, masterGain = null;
+    const channels = {};
+    let timerTotal = 25 * 60;
+    let timerLeft  = 25 * 60;
+    let timerRunning = false;
+    let timerIv = null;
+    let audioReady = false;
+
+    /* ══ DOM helpers ══ */
+    const $ = id => document.getElementById(id);
+    const $$ = sel => document.querySelectorAll(sel);
+
+    /* ══════════════════════════════════════════════════
+       AUDIO ENGINE — Buffer Generators
+    ══════════════════════════════════════════════════ */
+    function makeBuffer(genFn, seconds) {
+        const len = ac.sampleRate * seconds;
+        const buf = ac.createBuffer(1, len, ac.sampleRate);
+        genFn(buf.getChannelData(0), len, ac.sampleRate);
+        return buf;
+    }
+
+    function genWhite(d, len) {
+        for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    }
+
+    function genPink(d, len) {
+        let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
+        for (let i = 0; i < len; i++) {
+            const w = Math.random() * 2 - 1;
+            b0 = 0.99886*b0 + w*0.0555179;
+            b1 = 0.99332*b1 + w*0.0750759;
+            b2 = 0.96900*b2 + w*0.1538520;
+            b3 = 0.86650*b3 + w*0.3104856;
+            b4 = 0.55000*b4 + w*0.5329522;
+            b5 = -0.7616*b5 - w*0.0168980;
+            d[i] = (b0+b1+b2+b3+b4+b5+b6 + w*0.5362) * 0.11;
+            b6 = w * 0.115926;
+        }
+    }
+
+    function genBrown(d, len) {
+        let last = 0;
+        for (let i = 0; i < len; i++) {
+            const w = Math.random() * 2 - 1;
+            d[i] = (last + 0.02 * w) / 1.02;
+            last = d[i];
+            d[i] *= 3.5;
+        }
+    }
+
+    function genKeys(d, len, sr) {
+        for (let i = 0; i < len; i++) d[i] = 0;
+        const clickLen = Math.floor(sr * 0.012);
+        const numClicks = Math.floor(len / sr * 5);
+        for (let c = 0; c < numClicks; c++) {
+            const pos = Math.floor(Math.random() * (len - clickLen));
+            const vol = 0.3 + Math.random() * 0.7;
+            for (let i = 0; i < clickLen; i++) {
+                const env = Math.exp(-i / (clickLen * 0.18));
+                d[pos + i] += (Math.random() * 2 - 1) * env * vol;
+            }
+        }
+    }
+
+    const GENS = { white: genWhite, pink: genPink, brown: genBrown, keys: genKeys };
+
+    /* ══ Init Audio ══ */
+    function initAudio() {
+        if (audioReady) return;
+        ac = new (window.AudioContext || window.webkitAudioContext)();
+        if (ac.state === 'suspended') ac.resume();
+        masterGain = ac.createGain();
+        masterGain.gain.value = 0.70;
+        masterGain.connect(ac.destination);
+
+        const bufs = {};
+        bufs.white = makeBuffer(genWhite, 3);
+        bufs.pink  = makeBuffer(genPink,  3);
+        bufs.brown = makeBuffer(genBrown, 3);
+        bufs.keys  = makeBuffer(genKeys,  5);
+
+        for (const def of CH_DEF) {
+            const src = ac.createBufferSource();
+            src.buffer = bufs[def.gen];
+            src.loop = true;
+
+            const gain = ac.createGain();
+            gain.gain.value = 0;
+
+            if (def.filter) {
+                const flt = ac.createBiquadFilter();
+                flt.type = def.filter.type;
+                flt.frequency.value = def.filter.freq;
+                flt.Q.value = def.filter.Q;
+                src.connect(flt);
+                flt.connect(gain);
+            } else {
+                src.connect(gain);
+            }
+            gain.connect(masterGain);
+            src.start();
+
+            channels[def.id] = { source: src, gain, vol: 0, muted: false };
+        }
+        audioReady = true;
+    }
+
+    /* ══ Chime (timer end) ══ */
+    function playChime() {
+        if (!ac) return;
+        const now = ac.currentTime;
+        [880, 1108.73, 1318.51].forEach((freq, i) => {
+            const o = ac.createOscillator();
+            const g = ac.createGain();
+            o.type = 'sine';
+            o.frequency.value = freq;
+            g.gain.setValueAtTime(0.13, now + i * 0.28);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.28 + 1.6);
+            o.connect(g); g.connect(ac.destination);
+            o.start(now + i * 0.28);
+            o.stop(now + i * 0.28 + 1.6);
+        });
+    }
+
+    /* ══════════════════════════════════════════════════
+       VOLUME CONTROL
+    ══════════════════════════════════════════════════ */
+    function setChVol(id, pct) {
+        const ch = channels[id];
+        if (!ch) return;
+        ch.vol = pct;
+        if (!ch.muted) {
+            ch.gain.gain.linearRampToValueAtTime(pct / 100, ac.currentTime + 0.05);
+        }
+        const card = document.querySelector(`[data-ch="${id}"]`);
+        if (card) card.classList.toggle('active', pct > 0 && !ch.muted);
+    }
+
+    function setMasterVol(pct) {
+        if (!masterGain) return;
+        masterGain.gain.linearRampToValueAtTime(pct / 100, ac.currentTime + 0.05);
+    }
+
+    function toggleMute(id) {
+        const ch = channels[id];
+        if (!ch) return;
+        ch.muted = !ch.muted;
+        if (ch.muted) {
+            ch.gain.gain.linearRampToValueAtTime(0, ac.currentTime + 0.05);
+        } else {
+            ch.gain.gain.linearRampToValueAtTime(ch.vol / 100, ac.currentTime + 0.05);
+        }
+        const card = document.querySelector(`[data-ch="${id}"]`);
+        if (card) {
+            const btn = card.querySelector('.btn-mute');
+            btn.classList.toggle('muted', ch.muted);
+            btn.textContent = ch.muted ? '\uD83D\uDD07' : '\uD83D\uDD0A';
+            card.classList.toggle('active', ch.vol > 0 && !ch.muted);
+        }
+    }
+
+    /* ══════════════════════════════════════════════════
+       TIMER
+    ══════════════════════════════════════════════════ */
+    function fmtTime(s) {
+        const m = Math.floor(s / 60);
+        return m + ':' + String(s % 60).padStart(2, '0');
+    }
+
+    function updTimerUI() {
+        $('timerDisplay').textContent = fmtTime(timerLeft);
+        const pct = timerTotal > 0 ? (timerLeft / timerTotal) * 100 : 0;
+        $('timerBar').style.width = pct + '%';
+        $('timerLabel').textContent = Math.floor(timerTotal / 60) + ' min';
+    }
+
+    function startPause() {
+        initAudio();
+        if (timerRunning) {
+            clearInterval(timerIv); timerIv = null;
+            timerRunning = false;
+            $('btnStart').innerHTML = '&#9654; Start';
+        } else {
+            if (timerLeft <= 0) { timerLeft = timerTotal; updTimerUI(); }
+            timerRunning = true;
+            $('btnStart').innerHTML = '&#9646;&#9646; Pause';
+            timerIv = setInterval(() => {
+                timerLeft--;
+                if (timerLeft <= 0) {
+                    timerLeft = 0;
+                    clearInterval(timerIv); timerIv = null;
+                    timerRunning = false;
+                    $('btnStart').innerHTML = '&#9654; Start';
+                    playChime();
+                }
+                updTimerUI();
+            }, 1000);
+        }
+    }
+
+    function resetTimer() {
+        if (timerIv) { clearInterval(timerIv); timerIv = null; }
+        timerRunning = false;
+        timerLeft = timerTotal;
+        $('btnStart').innerHTML = '&#9654; Start';
+        updTimerUI();
+    }
+
+    function adjustTimer(delta) {
+        if (timerRunning) return;
+        timerTotal = Math.max(60, Math.min(90 * 60, timerTotal + delta * 60));
+        timerLeft = timerTotal;
+        updTimerUI();
+    }
+
+    /* ══════════════════════════════════════════════════
+       PRESETS
+    ══════════════════════════════════════════════════ */
+    function applyPreset(name) {
+        initAudio();
+        const cfg = PRESETS[name];
+        for (const def of CH_DEF) {
+            const val = cfg[def.id] || 0;
+            setChVol(def.id, val);
+            const slider = document.querySelector(`[data-ch="${def.id}"] .slider`);
+            if (slider) { slider.value = val; updateSliderBg(slider); }
+            if (channels[def.id]) {
+                channels[def.id].muted = false;
+                const btn = document.querySelector(`[data-ch="${def.id}"] .btn-mute`);
+                if (btn) { btn.classList.remove('muted'); btn.textContent = '\uD83D\uDD0A'; }
+            }
+        }
+        $$('.btn-preset').forEach(b => b.classList.toggle('on', b.dataset.p === name));
+    }
+
+    /* ══════════════════════════════════════════════════
+       SHARE & SOCIAL
+    ══════════════════════════════════════════════════ */
+    function getPageUrl() {
+        try { return window.parent.location.href; } catch(e) { return window.location.href; }
+    }
+
+    function share() {
+        const url = getPageUrl();
+        const text = 'Found my flow state with ZenFocus \uD83C\uDFA7 #Focus #Productivity';
+        if (navigator.share) {
+            navigator.share({ title: 'ZenFocus', text, url }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
+        }
+    }
+
+    function showToast(msg) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function buildSocial() {
+        const url = encodeURIComponent(getPageUrl());
+        const txt = encodeURIComponent('Found my flow state with ZenFocus \uD83C\uDFA7 #Focus #Productivity');
+        $('socialBar').innerHTML =
+            `<a class="social-btn wa" href="https://wa.me/?text=${txt}%20${url}" target="_blank" rel="noopener">WhatsApp</a>` +
+            `<a class="social-btn li" href="https://www.linkedin.com/sharing/share-offsite/?url=${url}" target="_blank" rel="noopener">LinkedIn</a>` +
+            `<a class="social-btn tw" href="https://twitter.com/intent/tweet?text=${txt}&url=${url}" target="_blank" rel="noopener">X</a>`;
+    }
+
+    /* ══════════════════════════════════════════════════
+       UI — Build Mixer Grid
+    ══════════════════════════════════════════════════ */
+    function updateSliderBg(el) {
+        const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+        el.style.background = `linear-gradient(to right, #f59e0b ${pct}%, rgba(255,255,255,0.10) ${pct}%)`;
+    }
+
+    function buildMixer() {
+        const grid = $('mixer');
+        let html = '';
+        for (const def of CH_DEF) {
+            html += `
+            <div class="ch-card glass" data-ch="${def.id}">
+                <div class="ch-head">
+                    <span class="ch-name"><span class="ch-icon">${def.icon}</span>${def.name}</span>
+                    <button class="btn-mute" title="Mute">\uD83D\uDD0A</button>
+                </div>
+                <input type="range" class="slider" min="0" max="100" value="0">
+            </div>`;
+        }
+        grid.innerHTML = html;
+
+        grid.querySelectorAll('.ch-card').forEach(card => {
+            const id = card.dataset.ch;
+            const slider = card.querySelector('.slider');
+            const muteBtn = card.querySelector('.btn-mute');
+
+            slider.addEventListener('input', () => {
+                initAudio();
+                const val = parseInt(slider.value);
+                setChVol(id, val);
+                updateSliderBg(slider);
+                if (channels[id] && channels[id].muted && val > 0) {
+                    toggleMute(id);
+                }
+                $$('.btn-preset').forEach(b => b.classList.remove('on'));
+            });
+            muteBtn.addEventListener('click', () => { initAudio(); toggleMute(id); });
+            updateSliderBg(slider);
+        });
+    }
+
+    /* ══════════════════════════════════════════════════
+       INIT
+    ══════════════════════════════════════════════════ */
+    function init() {
+        buildMixer();
+        buildSocial();
+        updTimerUI();
+
+        $('btnStart').addEventListener('click', startPause);
+        $('btnReset').addEventListener('click', resetTimer);
+        $('shareBtn').addEventListener('click', share);
+
+        $$('.btn-adj').forEach(btn => {
+            btn.addEventListener('click', () => adjustTimer(parseInt(btn.dataset.d)));
+        });
+        $$('.btn-preset').forEach(btn => {
+            btn.addEventListener('click', () => applyPreset(btn.dataset.p));
+        });
+
+        const mv = $('masterVol');
+        mv.addEventListener('input', () => {
+            initAudio();
+            setMasterVol(parseInt(mv.value));
+            updateSliderBg(mv);
+        });
+        updateSliderBg(mv);
+    }
+
+    init();
+})();
+</script>
+</body>
+</html>
