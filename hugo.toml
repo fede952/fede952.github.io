@@ -22,6 +22,11 @@ defaultContentLanguageInSubdir = true
   priority = 0.5
   filename = "sitemap.xml"
 
+# Google Analytics 4
+[services]
+  [services.googleAnalytics]
+    ID = 'G-MDQF90PHTW'
+
 [params]
   defaultTheme = "dark"
   env = "production"
