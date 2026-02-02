@@ -1,15 +1,4 @@
-# robots.txt for federicosella.com
-# Allow all search engines to index all content
-
 User-agent: *
 Allow: /
 
-# Disallow admin/system directories (if any)
-# Disallow: /admin/
-# Disallow: /.git/
-
-# Crawl delay (optional, helps with server load)
-# Crawl-delay: 1
-
-# Sitemap location for search engines
 Sitemap: https://federicosella.com/sitemap.xml

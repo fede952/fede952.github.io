@@ -50,8 +50,8 @@ defaultContentLanguageInSubdir = true
     imageUrl = "/images/logo.jpg"
     imageTitle = "Federico Sella"
     buttons = [
-      { name = "About Me", url = "/about" },
-      { name = "My Projects", url = "/projects" },
+      { name = "About Me", url = "about/" },
+      { name = "My Projects", url = "projects/" },
       { name = "Contact", url = "mailto:fedesella95@gmail.com" }
     ]
     
