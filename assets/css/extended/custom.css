@@ -549,3 +549,149 @@ h1::before, h2::before {
 .profile h1::before {
   content: "";
 }
+
+/* ============================================
+   TOOLS PRODUCT GRID (List Page)
+   ============================================ */
+
+/* Widen container for tools grid */
+.main:has(.tools-grid) {
+  max-width: 1100px;
+}
+
+/* Hero header */
+.tools-hero {
+  text-align: center;
+  padding: 1.5rem 0 2rem;
+}
+
+.tools-hero-badge {
+  font-size: 2.75rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.tools-hero h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0 0 0.5rem;
+}
+
+.tools-hero h1::before {
+  content: "";
+}
+
+.tools-hero p {
+  color: var(--secondary);
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Grid container */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+/* Card */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--secondary);
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.12);
+}
+
+.dark .tool-card:hover {
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
+}
+
+.tool-card-icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.tool-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.5rem;
+  line-height: 1.35;
+}
+
+.tool-card-title::before {
+  content: "";
+}
+
+.tool-card-desc {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.6;
+  flex: 1;
+  margin: 0;
+}
+
+.tool-card-cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px;
+  margin-top: 1.25rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--theme);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: opacity 0.15s ease;
+}
+
+.tool-card:hover .tool-card-cta {
+  opacity: 0.85;
+}
+
+/* Optional footer content below grid */
+.tools-footer-content {
+  padding: 1rem 0 2rem;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Responsive: Tablet */
+@media (max-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive: Mobile */
+@media (max-width: 640px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tools-hero h1 {
+    font-size: 1.4rem;
+  }
+
+  .tool-card {
+    padding: 1.25rem;
+  }
+}

@@ -1,0 +1,39 @@
+{{- define "main" }}
+
+<div class="tools-hero">
+  <div class="tools-hero-badge">🧰</div>
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <p>{{ . }}</p>
+  {{- end }}
+</div>
+
+{{- $pages := .RegularPages }}
+
+<div class="tools-grid">
+  {{- range $pages }}
+  {{- $icon := "🛠️" }}
+  {{- if in .RelPermalink "zen-focus" }}{{- $icon = "🎧" }}
+  {{- else if in .RelPermalink "glitch-forge" }}{{- $icon = "🖼️" }}
+  {{- else if in .RelPermalink "easy-cron" }}{{- $icon = "⏰" }}
+  {{- else if in .RelPermalink "base64" }}{{- $icon = "🔄" }}
+  {{- else if in .RelPermalink "caesar" }}{{- $icon = "🔐" }}
+  {{- else if in .RelPermalink "hash" }}{{- $icon = "#️⃣" }}
+  {{- else if in .RelPermalink "password" }}{{- $icon = "🔑" }}
+  {{- end }}
+  <a href="{{ .Permalink }}" class="tool-card">
+    <div class="tool-card-icon">{{ $icon }}</div>
+    <h2 class="tool-card-title">{{ .Title }}</h2>
+    <p class="tool-card-desc">{{ .Description }}</p>
+    <span class="tool-card-cta">Launch Tool 🚀</span>
+  </a>
+  {{- end }}
+</div>
+
+{{- with .Content }}
+<div class="tools-footer-content">
+  {{ . }}
+</div>
+{{- end }}
+
+{{- end }}{{/* end main */}}
