@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RateMate - Freelance Rate Calculator</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f9fc;--bg2:#fff;--bg3:#f0f2f8;
+  --blue:#2563eb;--blue-light:#3b82f6;--blue-bg:rgba(37,99,235,.06);
+  --green:#059669;--green-bg:rgba(5,150,105,.08);
+  --red:#dc2626;--orange:#f59e0b;
+  --text:#1e293b;--text2:#475569;--text3:#94a3b8;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:'SF Mono','Cascadia Code',Consolas,monospace;
+  --radius:10px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg:0 4px 12px rgba(0,0,0,.08);
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+
+.app{max-width:900px;margin:0 auto;padding:24px 16px}
+
+/* Header */
+.header{text-align:center;margin-bottom:28px}
+.header h1{font-size:clamp(22px,4vw,32px);font-weight:800;color:var(--blue)}
+.header h1 span{color:var(--text)}
+.header .sub{font-size:14px;color:var(--text2);margin-top:4px}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+/* Cards */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:20px}
+
+/* Form Controls */
+.field{margin-bottom:18px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px}
+.field input[type="number"]{width:100%;padding:10px 14px;font-family:var(--mono);font-size:15px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s}
+.field input[type="number"]:focus{border-color:var(--blue)}
+
+/* Currency selector */
+.input-group{display:flex;gap:0}
+.input-group select{padding:10px 8px;font-size:13px;font-weight:600;border:1px solid var(--border);border-right:none;border-radius:6px 0 0 6px;background:var(--bg3);color:var(--text2);outline:none;cursor:pointer}
+.input-group input{border-radius:0 6px 6px 0;flex:1}
+
+/* Slider */
+.slider-wrap{display:flex;align-items:center;gap:12px}
+.slider-wrap input[type="range"]{flex:1;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.slider-wrap input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 1px 4px rgba(37,99,235,.3)}
+.slider-wrap input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--blue);cursor:pointer;border:none}
+.slider-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);min-width:44px;text-align:right}
+
+/* Output Cards */
+.result-hero{background:linear-gradient(135deg,#059669,#10b981);border:none;border-radius:var(--radius);padding:28px;text-align:center;color:#fff;box-shadow:var(--shadow-lg)}
+.result-hero .label{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:.85;margin-bottom:6px}
+.result-hero .value{font-size:clamp(36px,7vw,52px);font-weight:900;font-family:var(--mono);line-height:1}
+.result-hero .per{font-size:14px;opacity:.7;margin-top:4px}
+
+.result-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.result-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.result-card .val{font-size:clamp(20px,4vw,28px);font-weight:800;font-family:var(--mono);color:var(--blue)}
+.result-card .lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* Chart Section */
+.chart-wrap{margin-top:16px;position:relative;max-width:260px;margin-left:auto;margin-right:auto}
+.chart-title{text-align:center;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:12px}
+
+/* Ad Placeholder */
+.ad-unit{margin-top:24px;min-height:100px;background:#f1f5f9;border:1px dashed var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;text-transform:uppercase;letter-spacing:2px}
+
+/* Responsive */
+@media(max-width:700px){
+  .layout{grid-template-columns:1fr}
+  .result-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1>Rate<span>Mate</span></h1>
+    <div class="sub">Freelance Rate Calculator</div>
+  </header>
+
+  <div class="layout">
+
+    <!-- INPUTS -->
+    <div class="card">
+      <div class="card-title">Your Parameters</div>
+
+      <div class="field">
+        <label>Desired Annual Net Salary</label>
+        <div class="input-group">
+          <select id="currency">
+            <option value="$">$</option>
+            <option value="€">€</option>
+            <option value="£">£</option>
+          </select>
+          <input type="number" id="salary" value="60000" min="0" step="1000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Billable Days per Year</label>
+        <input type="number" id="days" value="220" min="1" max="365">
+      </div>
+
+      <div class="field">
+        <label>Daily Billable Hours</label>
+        <input type="number" id="hours" value="6" min="1" max="24" step="0.5">
+      </div>
+
+      <div class="field">
+        <label>Tax Rate</label>
+        <div class="slider-wrap">
+          <input type="range" id="tax" min="0" max="60" value="25">
+          <span class="slider-val" id="taxVal">25%</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Monthly Expenses (Software, Rent, etc.)</label>
+        <div class="input-group">
+          <select id="currencyExp" disabled>
+            <option value="$">$</option>
+            <option value="€">€</option>
+            <option value="£">£</option>
+          </select>
+          <input type="number" id="expenses" value="500" min="0" step="50">
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTPUTS -->
+    <div>
+      <div class="result-hero">
+        <div class="label">Your Hourly Rate</div>
+        <div class="value" id="hourlyRate">$0</div>
+        <div class="per">per hour</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card">
+          <div class="val" id="dailyRate">$0</div>
+          <div class="lbl">Daily Rate</div>
+        </div>
+        <div class="result-card">
+          <div class="val" id="monthlyGross">$0</div>
+          <div class="lbl">Monthly Gross</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="chart-title">Where Your Money Goes</div>
+        <div class="chart-wrap">
+          <canvas id="chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ad-unit">Advertisement</div>
+
+</div>
+
+<script>
+/* ── Chart Setup ── */
+var ctx = document.getElementById('chart').getContext('2d');
+var chart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Net Income', 'Taxes', 'Expenses'],
+    datasets: [{
+      data: [60, 25, 15],
+      backgroundColor: ['#059669', '#3b82f6', '#f59e0b'],
+      borderWidth: 0,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '65%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { padding: 16, font: { size: 12, weight: '600' }, usePointStyle: true, pointStyleWidth: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(ctx){ return ctx.label + ': ' + ctx.parsed.toFixed(1) + '%'; }
+        }
+      }
+    }
+  }
+});
+
+/* ── Calculator Logic ── */
+function calculate(){
+  var cur = document.getElementById('currency').value;
+  var salary = parseFloat(document.getElementById('salary').value) || 0;
+  var days = parseFloat(document.getElementById('days').value) || 220;
+  var hours = parseFloat(document.getElementById('hours').value) || 6;
+  var taxPct = parseFloat(document.getElementById('tax').value) || 0;
+  var expenses = parseFloat(document.getElementById('expenses').value) || 0;
+
+  /* Sync expense currency display */
+  document.getElementById('currencyExp').value = cur;
+
+  var annualExpenses = expenses * 12;
+  var taxMultiplier = 1 - (taxPct / 100);
+
+  /* Gross needed = (Net Salary + Annual Expenses) / (1 - Tax Rate) */
+  var annualGross = taxMultiplier > 0 ? (salary + annualExpenses) / taxMultiplier : 0;
+  var annualTaxes = annualGross - salary - annualExpenses;
+
+  var dailyRate = days > 0 ? annualGross / days : 0;
+  var hourlyRate = hours > 0 ? dailyRate / hours : 0;
+  var monthlyGross = annualGross / 12;
+
+  /* Format */
+  var fmt = function(n){ return cur + n.toLocaleString('en-US', { maximumFractionDigits: 0 }); };
+  document.getElementById('hourlyRate').textContent = cur + Math.round(hourlyRate);
+  document.getElementById('dailyRate').textContent = fmt(Math.round(dailyRate));
+  document.getElementById('monthlyGross').textContent = fmt(Math.round(monthlyGross));
+
+  /* Chart percentages */
+  var total = annualGross || 1;
+  var pctNet = (salary / total) * 100;
+  var pctTax = (annualTaxes / total) * 100;
+  var pctExp = (annualExpenses / total) * 100;
+
+  chart.data.datasets[0].data = [pctNet, pctTax, pctExp];
+  chart.update('none');
+}
+
+/* ── Events ── */
+document.getElementById('tax').addEventListener('input', function(e){
+  document.getElementById('taxVal').textContent = e.target.value + '%';
+});
+document.querySelectorAll('input, select').forEach(function(el){
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
+});
+
+/* Initial calculation */
+calculate();
+</script>
+
+<script>
+/* AUTO-RESIZE SENDER */
+(function(){
+  function sendHeight(){
+    var h=document.body.scrollHeight;
+    window.parent.postMessage({type:"setHeight",height:h},"*");
+  }
+  document.documentElement.style.height="auto";
+  document.body.style.height="auto";
+  document.body.style.minHeight="0";
+  window.addEventListener("load",sendHeight);
+  window.addEventListener("resize",sendHeight);
+  window.addEventListener("input",sendHeight);
+  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
+})();
+</script>
+</body>
+</html>
