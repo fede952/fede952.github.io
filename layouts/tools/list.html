@@ -19,6 +19,7 @@
   {{- else if in .RelPermalink "base64" }}{{- $icon = "🔄" }}
   {{- else if in .RelPermalink "caesar" }}{{- $icon = "🔐" }}
   {{- else if in .RelPermalink "hash" }}{{- $icon = "#️⃣" }}
+  {{- else if in .RelPermalink "pass-fort" }}{{- $icon = "🛡️" }}
   {{- else if in .RelPermalink "password" }}{{- $icon = "🔑" }}
   {{- end }}
   <a href="{{ .Permalink }}" class="tool-card">
