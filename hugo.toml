@@ -66,6 +66,24 @@ defaultContentLanguageInSubdir = true
     icon = "images/logo.webp" # Questo mette il logo piccolo in alto a sinistra vicino al nome
     iconHeight = 35
 
+  [[params.featured_tools]]
+    name = "RateMate 💰"
+    description = "Freelance Income & Tax Calculator"
+    url = "tools/freelance-calculator/"
+    color = "linear-gradient(135deg, #10b981 0%, #059669 100%)"
+
+  [[params.featured_tools]]
+    name = "ReflexGrid 🎯"
+    description = "Pro Aim Trainer & Reaction Test"
+    url = "tools/reflex-grid/"
+    color = "linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)"
+
+  [[params.featured_tools]]
+    name = "PassFort 🛡️"
+    description = "Password Security Auditor"
+    url = "tools/pass-fort/"
+    color = "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)"
+
 # --- Configurazione Lingue (Fix Menu) ---
 
 [languages]
