@@ -179,20 +179,20 @@ function setStatus(msg){$('status').innerHTML=msg}
 
 let privacyDeductions=0;
 
-/* ── IP & Location (ip-api.com) ── */
+/* ── IP & Location (ipwho.is — HTTPS) ── */
 async function scanNetwork(){
   setStatus('Scanning network identity<span class="blink">...</span>');
   try{
-    const r=await fetch('https://ip-api.com/json/?fields=query,city,regionName,country,isp,org,as,lat,lon');
+    const r=await fetch('https://ipwho.is/');
     const d=await r.json();
-    setCard('valIp',d.query,'warn');
-    setCard('valIsp',d.isp||d.org||'Unknown');
+    setCard('valIp',d.ip,'warn');
+    setCard('valIsp',(d.connection&&d.connection.isp)||d.org||'Unknown');
     setCard('valLoc',(d.city?d.city+', ':'')+d.country);
     $('cardLoc').querySelector('.card-sub')?.remove();
-    if(d.lat&&d.lon){
+    if(d.latitude&&d.longitude){
       const sub=document.createElement('div');
       sub.className='card-sub';
-      sub.textContent='Lat '+d.lat.toFixed(2)+', Lon '+d.lon.toFixed(2);
+      sub.textContent='Lat '+d.latitude.toFixed(2)+', Lon '+d.longitude.toFixed(2);
       $('cardLoc').appendChild(sub);
     }
     privacyDeductions+=30;
