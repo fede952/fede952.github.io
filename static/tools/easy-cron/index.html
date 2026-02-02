@@ -768,5 +768,20 @@ renderTab();
 update();
 initEvents();
 </script>
+<script>
+/* AUTO-RESIZE SENDER */
+(function(){
+  function sendHeight(){
+    var h=document.body.scrollHeight;
+    window.parent.postMessage({type:"setHeight",height:h},"*");
+  }
+  document.documentElement.style.height="auto";
+  document.body.style.height="auto";
+  document.body.style.minHeight="0";
+  window.addEventListener("load",sendHeight);
+  window.addEventListener("resize",sendHeight);
+  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
+})();
+</script>
 </body>
 </html>
