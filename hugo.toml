@@ -47,7 +47,7 @@ defaultContentLanguageInSubdir = true
     enabled = true
     title = "Federico Sella"
     subtitle = "Security Developer | Red Teamer | Industrial Specialist"
-    imageUrl = "/images/logo.webp"
+    imageUrl = "images/logo.webp"
     imageTitle = "Federico Sella"
     buttons = [
       { name = "About Me", url = "about/" },
@@ -63,7 +63,7 @@ defaultContentLanguageInSubdir = true
       url = "https://github.com/fede952"
     [params.label]
     text = "Federico Sella"
-    icon = "/images/logo.webp" # Questo mette il logo piccolo in alto a sinistra vicino al nome
+    icon = "images/logo.webp" # Questo mette il logo piccolo in alto a sinistra vicino al nome
     iconHeight = 35
 
 # --- Configurazione Lingue (Fix Menu) ---
