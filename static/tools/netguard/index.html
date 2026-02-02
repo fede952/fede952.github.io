@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetGuard - Browser Leak & Fingerprint Detector</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#171717;--bg4:#1e1e1e;
+  --green:#00ff41;--green-dim:#00cc33;--green-glow:rgba(0,255,65,.15);
+  --red:#ff3333;--orange:#ff9900;--yellow:#ccff00;--cyan:#00e5ff;
+  --text:#b0b0b0;--text2:#666;--text3:#444;
+  --border:#222;--border2:#2a2a2a;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+
+.app{max-width:780px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+
+/* Header */
+.header{text-align:center;padding:18px 0;border-bottom:2px solid var(--green)}
+.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--green);text-transform:uppercase;letter-spacing:5px;text-shadow:0 0 20px var(--green-glow)}
+.header .sub{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:1.5px}
+
+/* Scan Button */
+.scan-btn{display:block;width:100%;padding:16px;font-family:var(--mono);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:4px;background:transparent;color:var(--green);border:2px solid var(--green);border-radius:6px;cursor:pointer;transition:all .2s;text-align:center}
+.scan-btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 30px var(--green-glow)}
+.scan-btn:disabled{opacity:.5;cursor:not-allowed}
+.scan-btn.scanning{animation:pulse-border 1s infinite}
+@keyframes pulse-border{0%,100%{border-color:var(--green);box-shadow:0 0 10px var(--green-glow)}50%{border-color:var(--green-dim);box-shadow:0 0 30px var(--green-glow)}}
+
+/* Status Bar */
+.status{text-align:center;font-size:12px;color:var(--green);letter-spacing:1px;min-height:18px;opacity:.8}
+.status .blink{animation:blink .6s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;transition:border-color .3s}
+.card.revealed{border-color:var(--green);box-shadow:0 0 8px rgba(0,255,65,.06)}
+.card.warn{border-color:var(--red);box-shadow:0 0 8px rgba(255,51,51,.1)}
+.card.full{grid-column:1 / -1}
+.card-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
+.card-value{font-size:clamp(14px,3vw,20px);color:var(--green);word-break:break-all;line-height:1.4;min-height:24px}
+.card-value.warn{color:var(--red)}
+.card-value.safe{color:var(--green)}
+.card-value.pending{color:var(--text3);font-style:italic;font-size:13px}
+.card-sub{font-size:11px;color:var(--text2);margin-top:4px}
+
+/* Section */
+.section-title{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--cyan);padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:2px;grid-column:1 / -1}
+
+/* Privacy Score */
+.score-wrap{text-align:center;padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.score-ring{position:relative;width:120px;height:120px;margin:0 auto 12px}
+.score-ring svg{width:120px;height:120px;transform:rotate(-90deg)}
+.score-ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.score-ring .bg-ring{stroke:var(--border2)}
+.score-ring .fg-ring{stroke:var(--green);stroke-dasharray:339.292;stroke-dashoffset:339.292;transition:stroke-dashoffset 1.5s ease,stroke 1s ease}
+.score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:var(--green)}
+.score-label{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:2px}
+
+/* Ad Placeholder */
+.ad-unit{min-height:100px;background:#0d0d0d;border:1px dashed var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:2px}
+
+/* WebRTC table */
+.leak-list{list-style:none;padding:0}
+.leak-list li{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px;border-bottom:1px solid var(--border)}
+.leak-list li:last-child{border-bottom:none}
+.leak-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.leak-dot.red{background:var(--red)}
+.leak-dot.green{background:var(--green)}
+
+/* Responsive */
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .card.full{grid-column:1}
+  .section-title{grid-column:1}
+  .app{padding:10px;gap:10px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1>Net<span style="color:#fff">Guard</span></h1>
+    <div class="sub">Browser Leak &amp; Fingerprint Detector</div>
+  </header>
+
+  <div class="ad-unit">Advertisement</div>
+
+  <button class="scan-btn" id="scanBtn">Run Privacy Scan</button>
+  <div class="status" id="status"></div>
+
+  <!-- Privacy Score -->
+  <div class="score-wrap" id="scoreWrap" style="display:none">
+    <div class="score-ring">
+      <svg viewBox="0 0 120 120"><circle class="bg-ring" cx="60" cy="60" r="54"/><circle class="fg-ring" id="scoreArc" cx="60" cy="60" r="54"/></svg>
+      <div class="score-num" id="scoreNum">-</div>
+    </div>
+    <div class="score-label">Privacy Score</div>
+  </div>
+
+  <div class="grid" id="results">
+
+    <div class="section-title">Network &amp; Location</div>
+
+    <div class="card" id="cardIp">
+      <div class="card-label">Public IP Address</div>
+      <div class="card-value pending" id="valIp">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardIsp">
+      <div class="card-label">ISP / Organization</div>
+      <div class="card-value pending" id="valIsp">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardLoc">
+      <div class="card-label">Location</div>
+      <div class="card-value pending" id="valLoc">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardSpeed">
+      <div class="card-label">Connection Speed</div>
+      <div class="card-value pending" id="valSpeed">Waiting for scan...</div>
+    </div>
+
+    <div class="section-title">Browser Fingerprint</div>
+
+    <div class="card" id="cardOs">
+      <div class="card-label">Operating System</div>
+      <div class="card-value pending" id="valOs">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardBrowser">
+      <div class="card-label">Browser</div>
+      <div class="card-value pending" id="valBrowser">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardScreen">
+      <div class="card-label">Screen Resolution</div>
+      <div class="card-value pending" id="valScreen">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardGpu">
+      <div class="card-label">GPU Renderer</div>
+      <div class="card-value pending" id="valGpu">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardBattery">
+      <div class="card-label">Battery Level</div>
+      <div class="card-value pending" id="valBattery">Waiting for scan...</div>
+    </div>
+    <div class="card" id="cardLang">
+      <div class="card-label">Language / Timezone</div>
+      <div class="card-value pending" id="valLang">Waiting for scan...</div>
+    </div>
+
+    <div class="section-title">WebRTC Leak Test</div>
+
+    <div class="card full" id="cardWebrtc">
+      <div class="card-label">WebRTC Local IP Exposure</div>
+      <div class="card-value pending" id="valWebrtc">Waiting for scan...</div>
+      <ul class="leak-list" id="leakList" style="display:none"></ul>
+    </div>
+
+  </div>
+
+  <div class="ad-unit">Advertisement</div>
+
+</div>
+
+<script>
+/* ── Utilities ── */
+function $(id){return document.getElementById(id)}
+function setCard(id,value,cls){
+  const el=$(id);
+  el.textContent=value;
+  el.className='card-value'+(cls?' '+cls:'');
+  const card=el.closest('.card');
+  if(card){card.classList.add(cls==='warn'?'warn':'revealed')}
+}
+function setStatus(msg){$('status').innerHTML=msg}
+
+let privacyDeductions=0;
+
+/* ── IP & Location (ip-api.com) ── */
+async function scanNetwork(){
+  setStatus('Scanning network identity<span class="blink">...</span>');
+  try{
+    const r=await fetch('https://ip-api.com/json/?fields=query,city,regionName,country,isp,org,as,lat,lon');
+    const d=await r.json();
+    setCard('valIp',d.query,'warn');
+    setCard('valIsp',d.isp||d.org||'Unknown');
+    setCard('valLoc',(d.city?d.city+', ':'')+d.country);
+    $('cardLoc').querySelector('.card-sub')?.remove();
+    if(d.lat&&d.lon){
+      const sub=document.createElement('div');
+      sub.className='card-sub';
+      sub.textContent='Lat '+d.lat.toFixed(2)+', Lon '+d.lon.toFixed(2);
+      $('cardLoc').appendChild(sub);
+    }
+    privacyDeductions+=30;
+  }catch(e){
+    setCard('valIp','Could not detect','safe');
+    setCard('valIsp','Hidden');
+    setCard('valLoc','Hidden');
+  }
+}
+
+/* ── Connection Speed ── */
+function scanSpeed(){
+  const c=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+  if(c&&c.downlink){
+    setCard('valSpeed',c.downlink+' Mbps ('+c.effectiveType+')');
+    const sub=document.createElement('div');
+    sub.className='card-sub';
+    sub.textContent='RTT ~'+c.rtt+'ms';
+    $('cardSpeed').appendChild(sub);
+  }else{
+    setCard('valSpeed','API not available','pending');
+  }
+}
+
+/* ── Browser Fingerprint ── */
+function scanFingerprint(){
+  setStatus('Scanning browser fingerprint<span class="blink">...</span>');
+  /* OS */
+  const ua=navigator.userAgent;
+  let os='Unknown';
+  if(ua.includes('Windows NT 10'))os='Windows 10/11';
+  else if(ua.includes('Windows'))os='Windows';
+  else if(ua.includes('Mac OS X'))os='macOS';
+  else if(ua.includes('Android'))os='Android';
+  else if(ua.includes('iPhone')||ua.includes('iPad'))os='iOS';
+  else if(ua.includes('Linux'))os='Linux';
+  else if(ua.includes('CrOS'))os='Chrome OS';
+  setCard('valOs',os);
+  const pf=navigator.platform||'';
+  if(pf){
+    const sub=document.createElement('div');
+    sub.className='card-sub';
+    sub.textContent='Platform: '+pf;
+    $('cardOs').appendChild(sub);
+  }
+
+  /* Browser */
+  let browser='Unknown';
+  if(ua.includes('Firefox/'))browser='Firefox '+ua.split('Firefox/')[1].split(' ')[0];
+  else if(ua.includes('Edg/'))browser='Edge '+ua.split('Edg/')[1].split(' ')[0];
+  else if(ua.includes('OPR/')||ua.includes('Opera'))browser='Opera';
+  else if(ua.includes('Chrome/'))browser='Chrome '+ua.split('Chrome/')[1].split(' ')[0];
+  else if(ua.includes('Safari/'))browser='Safari';
+  setCard('valBrowser',browser);
+
+  /* Screen */
+  setCard('valScreen',screen.width+'x'+screen.height+' @ '+window.devicePixelRatio+'x');
+  const sub2=document.createElement('div');
+  sub2.className='card-sub';
+  sub2.textContent='Viewport: '+window.innerWidth+'x'+window.innerHeight+', Depth: '+screen.colorDepth+'bit';
+  $('cardScreen').appendChild(sub2);
+  privacyDeductions+=10;
+
+  /* GPU */
+  try{
+    const c=document.createElement('canvas');
+    const gl=c.getContext('webgl')||c.getContext('experimental-webgl');
+    if(gl){
+      const dbg=gl.getExtension('WEBGL_debug_renderer_info');
+      if(dbg){
+        const renderer=gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL);
+        const vendor=gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL);
+        setCard('valGpu',renderer,'warn');
+        const sub3=document.createElement('div');
+        sub3.className='card-sub';
+        sub3.textContent='Vendor: '+vendor;
+        $('cardGpu').appendChild(sub3);
+        privacyDeductions+=10;
+      }else{
+        setCard('valGpu','Debug info blocked','safe');
+      }
+    }else{
+      setCard('valGpu','WebGL not available','safe');
+    }
+  }catch(e){
+    setCard('valGpu','Blocked','safe');
+  }
+
+  /* Language / Timezone */
+  const lang=navigator.language||navigator.userLanguage||'Unknown';
+  let tz;
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone}catch(e){tz='Unknown'}
+  setCard('valLang',lang+' / '+tz);
+  privacyDeductions+=5;
+}
+
+/* ── Battery ── */
+async function scanBattery(){
+  try{
+    if(navigator.getBattery){
+      const b=await navigator.getBattery();
+      const pct=Math.round(b.level*100);
+      const charging=b.charging?' (Charging)':' (Discharging)';
+      setCard('valBattery',pct+'%'+charging,'warn');
+      privacyDeductions+=5;
+    }else{
+      setCard('valBattery','API not available','safe');
+    }
+  }catch(e){
+    setCard('valBattery','Blocked by browser','safe');
+  }
+}
+
+/* ── WebRTC Leak ── */
+function scanWebRTC(){
+  return new Promise(resolve=>{
+    setStatus('Testing WebRTC leaks<span class="blink">...</span>');
+    const ips=new Set();
+    try{
+      const pc=new RTCPeerConnection({iceServers:[]});
+      pc.createDataChannel('');
+      pc.createOffer().then(o=>pc.setLocalDescription(o)).catch(()=>{});
+      pc.onicecandidate=e=>{
+        if(!e||!e.candidate){
+          pc.close();
+          showWebRTCResults(ips);
+          resolve();
+          return;
+        }
+        const parts=e.candidate.candidate.split(' ');
+        const ip=parts[4];
+        if(ip&&!ip.includes(':')){
+          /* skip mDNS */
+          if(!ip.endsWith('.local'))ips.add(ip);
+        }
+      };
+      setTimeout(()=>{try{pc.close()}catch(e){}showWebRTCResults(ips);resolve()},4000);
+    }catch(e){
+      setCard('valWebrtc','WebRTC unavailable','safe');
+      resolve();
+    }
+  });
+}
+
+function showWebRTCResults(ips){
+  const list=$('leakList');
+  if(ips.size===0){
+    setCard('valWebrtc','No local IPs leaked','safe');
+    $('cardWebrtc').classList.add('revealed');
+    list.style.display='block';
+    list.innerHTML='<li><span class="leak-dot green"></span> WebRTC is not exposing private IPs</li>';
+  }else{
+    setCard('valWebrtc',ips.size+' IP(s) leaked via WebRTC','warn');
+    $('cardWebrtc').classList.add('warn');
+    list.style.display='block';
+    list.innerHTML='';
+    ips.forEach(ip=>{
+      list.innerHTML+='<li><span class="leak-dot red"></span> '+ip+' <span style="color:var(--text3);font-size:11px">(exposed)</span></li>';
+    });
+    privacyDeductions+=20;
+  }
+}
+
+/* ── Privacy Score ── */
+function showScore(){
+  const score=Math.max(0,100-privacyDeductions);
+  $('scoreWrap').style.display='block';
+  $('scoreNum').textContent=score;
+  const arc=$('scoreArc');
+  const circumference=2*Math.PI*54;
+  const offset=circumference-((score/100)*circumference);
+  arc.style.strokeDashoffset=offset;
+  if(score>=70){
+    arc.style.stroke='var(--green)';
+    $('scoreNum').style.color='var(--green)';
+  }else if(score>=40){
+    arc.style.stroke='var(--orange)';
+    $('scoreNum').style.color='var(--orange)';
+  }else{
+    arc.style.stroke='var(--red)';
+    $('scoreNum').style.color='var(--red)';
+  }
+}
+
+/* ── Main Scan ── */
+async function runScan(){
+  const btn=$('scanBtn');
+  btn.disabled=true;
+  btn.classList.add('scanning');
+  btn.textContent='Scanning...';
+  privacyDeductions=0;
+
+  /* Reset cards */
+  document.querySelectorAll('.card').forEach(c=>{c.classList.remove('revealed','warn')});
+
+  await scanNetwork();
+  scanSpeed();
+  scanFingerprint();
+  await scanBattery();
+  await scanWebRTC();
+
+  showScore();
+  setStatus('Scan complete. Your browser is exposing the data above.');
+  btn.disabled=false;
+  btn.classList.remove('scanning');
+  btn.textContent='Scan Again';
+}
+
+$('scanBtn').addEventListener('click',runScan);
+</script>
+</body>
+</html>
