@@ -80,6 +80,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.en.menu.main]]
+        identifier = "guides"
+        name = "Guides"
+        url = "/guides/"
+        weight = 20
+      [[languages.en.menu.main]]
         identifier = "tools"
         name = "Tools"
         url = "/tools/"
@@ -115,6 +120,11 @@ defaultContentLanguageInSubdir = true
         name = "Tech News"
         url = "/news/"
         weight = 15
+      [[languages.it.menu.main]]
+        identifier = "guides"
+        name = "Guide"
+        url = "/guides/"
+        weight = 20
       [[languages.it.menu.main]]
         identifier = "tools"
         name = "Strumenti"
@@ -152,6 +162,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.es.menu.main]]
+        identifier = "guides"
+        name = "Guías"
+        url = "/guides/"
+        weight = 20
+      [[languages.es.menu.main]]
         identifier = "tools"
         name = "Herramientas"
         url = "/tools/"
@@ -188,6 +203,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.zh-cn.menu.main]]
+        identifier = "guides"
+        name = "教程"
+        url = "/guides/"
+        weight = 20
+      [[languages.zh-cn.menu.main]]
         identifier = "tools"
         name = "工具"
         url = "/tools/"
@@ -223,6 +243,11 @@ defaultContentLanguageInSubdir = true
         name = "टेक न्यूज़"
         url = "/news/"
         weight = 15
+      [[languages.hi.menu.main]]
+        identifier = "guides"
+        name = "गाइड"
+        url = "/guides/"
+        weight = 20
       [[languages.hi.menu.main]]
         identifier = "tools"
         name = "उपकरण"
@@ -261,6 +286,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ar.menu.main]]
+        identifier = "guides"
+        name = "أدلة"
+        url = "/guides/"
+        weight = 20
+      [[languages.ar.menu.main]]
         identifier = "tools"
         name = "الأدوات"
         url = "/tools/"
@@ -296,6 +326,11 @@ defaultContentLanguageInSubdir = true
         name = "Notícias Tech"
         url = "/news/"
         weight = 15
+      [[languages.pt.menu.main]]
+        identifier = "guides"
+        name = "Guias"
+        url = "/guides/"
+        weight = 20
       [[languages.pt.menu.main]]
         identifier = "tools"
         name = "Ferramentas"
@@ -333,6 +368,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.fr.menu.main]]
+        identifier = "guides"
+        name = "Guides"
+        url = "/guides/"
+        weight = 20
+      [[languages.fr.menu.main]]
         identifier = "tools"
         name = "Outils"
         url = "/tools/"
@@ -368,6 +408,11 @@ defaultContentLanguageInSubdir = true
         name = "Tech News"
         url = "/news/"
         weight = 15
+      [[languages.de.menu.main]]
+        identifier = "guides"
+        name = "Anleitungen"
+        url = "/guides/"
+        weight = 20
       [[languages.de.menu.main]]
         identifier = "tools"
         name = "Werkzeuge"
@@ -405,6 +450,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ja.menu.main]]
+        identifier = "guides"
+        name = "ガイド"
+        url = "/guides/"
+        weight = 20
+      [[languages.ja.menu.main]]
         identifier = "tools"
         name = "ツール"
         url = "/tools/"
@@ -441,6 +491,11 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ru.menu.main]]
+        identifier = "guides"
+        name = "Руководства"
+        url = "/guides/"
+        weight = 20
+      [[languages.ru.menu.main]]
         identifier = "tools"
         name = "Инструменты"
         url = "/tools/"
@@ -476,6 +531,11 @@ defaultContentLanguageInSubdir = true
         name = "기술 뉴스"
         url = "/news/"
         weight = 15
+      [[languages.ko.menu.main]]
+        identifier = "guides"
+        name = "가이드"
+        url = "/guides/"
+        weight = 20
       [[languages.ko.menu.main]]
         identifier = "tools"
         name = "도구"
