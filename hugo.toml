@@ -34,7 +34,7 @@ defaultContentLanguageInSubdir = true
   description = "Portfolio of Federico Sella - Security Developer, SOC Analyst & Red Team Enthusiast. Expert in Industrial Automation (CNC) bridging OT and IT Security."
   keywords = ["Federico Sella", "Cybersecurity Portfolio", "Red Team", "SOC Analyst", "Industrial Cybersecurity", "CNC Programmer", "Python Developer", "Bergamo"]
   author = "Federico Sella"
-  images = ["https://github.com/fede952.png"]
+  images = ["images/logo.webp"]
   ShowShareButtons = true
 
   [params.assets]
