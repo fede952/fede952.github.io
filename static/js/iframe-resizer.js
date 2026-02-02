@@ -2,56 +2,41 @@
   'use strict';
 
   var BUFFER = 20;
-  var DEBOUNCE_MS = 200;
+  var THRESHOLD = 15;
+  var DEBOUNCE_MS = 250;
   var managed = new WeakSet();
-  var resizing = false;
 
-  /* Inject CSS override to break 100vh feedback loop */
+  /* Aggressive CSS injection to kill viewport-filling behavior */
   function injectCSS(doc){
     var style = doc.createElement('style');
     style.textContent =
-      'html, body {' +
+      'html, body, #app, .app, .container, .main, [class*="wrap"] {' +
         'height: auto !important;' +
         'min-height: 0 !important;' +
+        'box-sizing: border-box !important;' +
         'overflow-y: hidden !important;' +
       '}';
     doc.head.appendChild(style);
   }
 
-  /* Measure true content height by shrinking first */
-  function measure(iframe){
-    if (resizing) return 0;
-    resizing = true;
+  /* Read content height — NEVER reset iframe height here */
+  function readHeight(iframe){
     try {
-      var doc = iframe.contentWindow.document;
-      var body = doc.body;
-      if (!body) return 0;
-
-      /* Collapse iframe to force content to shrink-wrap */
-      var prev = iframe.style.height;
-      iframe.style.height = '0px';
-
-      /* Read the natural content height */
-      var h = Math.max(
-        body.scrollHeight,
-        body.offsetHeight,
-        doc.documentElement.scrollHeight
-      );
-
-      /* Restore (will be overwritten by caller) */
-      iframe.style.height = prev;
-      return h;
+      var body = iframe.contentWindow.document.body;
+      return body ? body.scrollHeight : 0;
     } catch(e){
       return 0;
-    } finally {
-      resizing = false;
     }
   }
 
-  function applyHeight(iframe){
-    var h = measure(iframe);
-    if (h > 0){
-      iframe.style.height = (h + BUFFER) + 'px';
+  /* Apply height only if change exceeds threshold */
+  function syncHeight(iframe){
+    var newH = readHeight(iframe);
+    if (newH <= 0) return;
+    newH += BUFFER;
+    var curH = parseInt(iframe.style.height, 10) || 0;
+    if (Math.abs(newH - curH) > THRESHOLD){
+      iframe.style.height = newH + 'px';
     }
   }
 
@@ -63,24 +48,30 @@
     };
   }
 
-  function setupResizeObserver(iframe){
+  /* Initial measurement: collapse once to get true content size */
+  function initialMeasure(iframe){
+    try {
+      iframe.style.height = '0px';
+      var body = iframe.contentWindow.document.body;
+      var h = body ? body.scrollHeight : 0;
+      iframe.style.height = (h > 0 ? h + BUFFER : 800) + 'px';
+    } catch(e){
+      iframe.style.height = '800px';
+    }
+  }
+
+  function setupObserver(iframe){
     try {
       var doc = iframe.contentWindow.document;
       if (!doc || !doc.body) return;
 
-      var debouncedApply = debounce(function(){ applyHeight(iframe); }, DEBOUNCE_MS);
+      var debouncedSync = debounce(function(){ syncHeight(iframe); }, DEBOUNCE_MS);
 
-      /* ResizeObserver: fires only on actual size changes, not DOM noise */
       if (typeof ResizeObserver !== 'undefined'){
-        var ro = new ResizeObserver(debouncedApply);
+        var ro = new ResizeObserver(debouncedSync);
         ro.observe(doc.body);
       }
-
-      /* Fallback: also listen inside the iframe for orientation changes */
-      iframe.contentWindow.addEventListener('resize', debouncedApply);
-    } catch(e){
-      /* cross-origin — skip */
-    }
+    } catch(e){}
   }
 
   function initIframe(iframe){
@@ -91,17 +82,14 @@
     iframe.setAttribute('scrolling', 'no');
 
     var onReady = function(){
-      try {
-        var doc = iframe.contentWindow.document;
-        injectCSS(doc);
-      } catch(e){ return; }
+      try { injectCSS(iframe.contentWindow.document); } catch(e){ return; }
 
-      /* Initial measure after CSS override takes effect */
+      /* Let injected CSS take effect, then measure once */
       requestAnimationFrame(function(){
-        applyHeight(iframe);
-        setupResizeObserver(iframe);
-        /* Delayed pass for SPAs that render async */
-        setTimeout(function(){ applyHeight(iframe); }, 600);
+        initialMeasure(iframe);
+        setupObserver(iframe);
+        /* One delayed pass for async SPAs */
+        setTimeout(function(){ syncHeight(iframe); }, 800);
       });
     };
 
@@ -116,20 +104,15 @@
 
   function initAll(){
     var iframes = document.querySelectorAll('iframe[src*="/tools/"]');
-    for (var i = 0; i < iframes.length; i++){
-      initIframe(iframes[i]);
-    }
+    for (var i = 0; i < iframes.length; i++) initIframe(iframes[i]);
   }
 
-  /* Parent window resize (orientation change, browser resize) */
+  /* Parent resize (orientation / browser window) */
   window.addEventListener('resize', debounce(function(){
     var iframes = document.querySelectorAll('iframe[src*="/tools/"]');
-    for (var i = 0; i < iframes.length; i++){
-      applyHeight(iframes[i]);
-    }
+    for (var i = 0; i < iframes.length; i++) syncHeight(iframes[i]);
   }, DEBOUNCE_MS));
 
-  /* Init on DOM ready */
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', initAll);
   } else {
