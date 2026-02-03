@@ -17,7 +17,32 @@
       "Bash(python scripts/fix_language_links.py:*)",
       "Bash(python scripts/create_password_gen_i18n.py:*)",
       "Bash(python scripts/localize_sections.py:*)",
-      "Bash(python scripts/replicate_content_globally.py:*)"
+      "Bash(python scripts/replicate_content_globally.py:*)",
+      "Bash(git -C \"C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\" status)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" status)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" add content/games/sudo-type/ static/games/sudo-type/)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" commit -m \"$\\(cat <<''EOF''\nfeat: added Sudo Type game \\(Typing Defense\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" push)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" pull --rebase)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" stash:*)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" stash pop:*)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" add static/games/sudo-type/index.html)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" commit -m \"$\\(cat <<''EOF''\nfix\\(gameplay\\): rebalanced Sudo Type difficulty \\(easier start\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" add content/tools/zen-focus/ static/tools/zen-focus/)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" commit -m \"$\\(cat <<''EOF''\nfeat: added ZenFocus tool \\(Ambient Mixer + Pomodoro\\) with multilingual SEO pages\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" diff --stat)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" add static/games/deploy-on-friday/index.html static/games/sudo-type/index.html static/tools/zen-focus/index.html)",
+      "Bash(git -C \"C:/Users/fedes/dev/federicosella-site\" commit -m \"$\\(cat <<''EOF''\nfix\\(mobile\\): optimized games and tools for touch devices and small screens\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(test:*)",
+      "Bash(dir \"C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\\\\layouts\" /s)",
+      "Bash(git stash:*)",
+      "Bash(home_info)",
+      "Bash(social \")",
+      "Bash(powershell -Command \"\\(Get-Item ''C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\\\\static\\\\images\\\\logo.jpg''\\).Length\")",
+      "Bash(git check-ignore:*)",
+      "Bash(git rm:*)",
+      "Bash(dir:*)",
+      "Bash(del \"C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\\\\layouts\\\\index.html\")"
     ]
   }
 }
