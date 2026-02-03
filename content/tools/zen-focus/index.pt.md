@@ -1,10 +1,11 @@
 ---
 title: "ZenFocus: Misturador de Sons Ambientes"
-date: 2025-02-01
+date: 2024-01-01
 description: "Aumente seu foco com sons relaxantes e timer Pomodoro."
 hidemeta: true
 showToc: false
 keywords: ["misturador som ambiente", "timer pomodoro", "sons concentração", "ruído branco", "ruído marrom", "produtividade", "sons de chuva"]
+draft: false
 ---
 
 Pesquisas em ciências cognitivas demonstram que o ruído de fundo moderado — um fenômeno chamado **mascaramento auditivo** — pode melhorar significativamente a concentração ao suprimir sons distraidores no seu ambiente. Texturas sonoras constantes como chuva, ruído marrom ou o murmúrio de uma cafeteria criam um cobertor acústico estável que permite ao seu cérebro filtrar interrupções repentinas como conversas, notificações ou trânsito.

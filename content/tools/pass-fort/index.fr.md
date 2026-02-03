@@ -1,10 +1,11 @@
 ---
 title: "PassFort : Générateur de Mots de Passe Sécurisés et Vérificateur de Robustesse"
-date: 2025-02-02
+date: 2024-01-01
 description: "Créez des mots de passe inviolables et auditez votre sécurité en quelques secondes. Calculateur d'entropie, estimateur de temps de cracking et générateur de phrases de passe — 100% côté client, privé et gratuit."
 hidemeta: true
 showToc: false
 keywords: ["générateur mot de passe", "vérificateur robustesse mot de passe", "calculateur entropie", "protection force brute", "mot de passe sécurisé", "générateur passphrase", "outil cybersécurité", "sécurité identité", "audit mot de passe", "temps de cracking"]
+draft: false
 ---
 
 Les mots de passe faibles restent le vecteur d'attaque numéro un en cybersécurité. Plus de **80% des violations de données** impliquent des identifiants volés ou forcés par brute-force, et pourtant la plupart des gens continuent de réutiliser des variations du même mot de passe sur des dizaines de comptes. Le problème n'est pas la sensibilisation — c'est la friction. Générer et évaluer des mots de passe robustes a traditionnellement nécessité de mémoriser des règles complexes ou de faire confiance à un service en ligne avec ses données les plus sensibles.

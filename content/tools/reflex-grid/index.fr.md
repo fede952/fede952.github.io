@@ -1,10 +1,11 @@
 ---
 title: "ReflexGrid : Aim Trainer Gratuit et Test de Temps de Réaction"
-date: 2025-02-02
+date: 2024-01-01
 description: "Testez la précision de votre souris et votre temps de réaction avec cet aim trainer gratuit dans le navigateur. Conçu pour les joueurs FPS — Valorant, CS2, CoD. Suivez vos tirs, votre précision et votre vitesse de réaction en 60 secondes."
 hidemeta: true
 showToc: false
 keywords: ["aim trainer", "test temps de réaction", "test vitesse de clic", "entraînement esports", "test précision souris", "pratique visée FPS", "aim trainer Valorant", "aim trainer CS2", "test réflexes", "jeu de visée"]
+draft: false
 ---
 
 La précision de visée est le facteur le plus déterminant dans les jeux FPS compétitifs, pourtant la plupart des joueurs ne l'entraînent jamais de manière délibérée. Des études sur la performance esport montrent qu'un **entraînement systématique de la visée peut réduire le temps de réaction moyen de 15 à 25%** en quelques semaines, se traduisant directement par de meilleurs ratios kills/morts et une progression de rang. Le problème est que les aim trainers dédiés sont généralement des applications de bureau payantes avec des configurations complexes, laissant de côté les joueurs occasionnels et mobiles.

@@ -1,10 +1,11 @@
 ---
 title: "ZenFocus: Umgebungsgeräusch-Mixer"
-date: 2025-02-01
+date: 2024-01-01
 description: "Steigern Sie Ihre Produktivität mit Umgebungsgeräuschen und Fokus-Timer."
 hidemeta: true
 showToc: false
 keywords: ["Umgebungsgeräusch Mixer", "Pomodoro Timer", "Fokus Sounds", "weißes Rauschen", "braunes Rauschen", "Produktivität", "Regengeräusche"]
+draft: false
 ---
 
 Die kognitive Forschung zeigt, dass moderate Hintergrundgeräusche — ein Phänomen namens **auditorische Maskierung** — die Konzentration erheblich verbessern können, indem sie ablenkende Geräusche in Ihrer Umgebung unterdrücken. Gleichmäßige Klangtexturen wie Regen, braunes Rauschen oder das Gemurmel eines Cafés erzeugen eine stabile akustische Decke, die Ihrem Gehirn ermöglicht, plötzliche Unterbrechungen wie Gespräche, Benachrichtigungen oder Verkehrslärm auszufiltern.

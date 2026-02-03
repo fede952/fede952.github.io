@@ -2,10 +2,11 @@
 title: "PixelShrink"
 description: "在浏览器中本地压缩图片。无需上传，100% 保护隐私。"
 image: "/images/pixel-shrink-icon.png"
-date: 2024-02-03
+date: 2024-01-01
 hidemeta: true
 showToc: false
 keywords: ["图片压缩", "压缩PNG", "压缩JPG", "压缩WebP", "隐私工具", "客户端压缩", "浏览器图片优化", "缩小图片大小", "离线压缩"]
+draft: false
 ---
 
 过大的图片会拖慢网站速度、占用存储空间、浪费带宽。大多数在线压缩工具会强制您将文件上传到远程服务器——这意味着陌生人的机器在处理您的个人照片、截图和文档。对于浏览器本地就能完成的任务来说，这是完全不必要的隐私风险。

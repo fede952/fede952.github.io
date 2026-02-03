@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "프로덕션을 유지할 수 있나요? 개발자를 위한 엔드리스 러너."
 categories: ["게임", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 금요일 오후 4시 55분, 누군가가 main에 머지했습니다. CI/CD 파이프라인이 실행 중입니다. 이제 돌이킬 수 없습니다.

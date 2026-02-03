@@ -2,6 +2,7 @@
 title: "مولد كلمات مرور آمنة"
 description: "إنشاء كلمات مرور آمنة مشفرة مع خيارات قابلة للتخصيص"
 draft: false
+date: 2024-01-01
 ---
 
 ⚠️ **Tool Language Notice:**

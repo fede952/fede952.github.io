@@ -1,10 +1,11 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2025-02-03
+date: 2024-01-01
 description: "ネオンキューブをマージして2048を目指そう。中毒性のあるパズルゲーム。"
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
+draft: false
 ---
 
 光るブロックをグリッド上でスライドさせましょう。同じ数字のブロックがぶつかると合体します。**2048**に到達すれば勝利。さらに高スコアを目指して続けることもできます。

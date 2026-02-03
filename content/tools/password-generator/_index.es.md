@@ -2,6 +2,7 @@
 title: "Generador de Contraseñas Seguras"
 description: "Genera contraseñas crip tográficamente seguras con opciones personalizables"
 draft: false
+date: 2024-01-01
 ---
 
 ⚠️ **Tool Language Notice:**

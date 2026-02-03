@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "本番環境を維持できますか？開発者のためのエンドレスランナー。"
 categories: ["ゲーム", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 金曜日の午後4時55分、誰かがmainにマージしたところです。CI/CDパイプラインが動き出しました。もう止められません。

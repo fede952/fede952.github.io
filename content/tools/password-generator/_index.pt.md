@@ -2,6 +2,7 @@
 title: "Gerador de Senhas Seguras"
 description: "Gere senhas criptograficamente seguras com opções personalizáveis"
 draft: false
+date: 2024-01-01
 ---
 
 ⚠️ **Tool Language Notice:**

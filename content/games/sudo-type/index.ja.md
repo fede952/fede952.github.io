@@ -1,9 +1,10 @@
 ---
 title: "Sudo Type"
-date: 2025-02-01
+date: 2024-01-01
 description: "タイピングでメインフレームを守れ。レトロハッカー風タイピング防衛ゲーム。"
 categories: ["ゲーム", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
+draft: false
 ---
 
 脅威を検知。メインフレームが攻撃を受けている。唯一の武器は？**キーボードだ。**

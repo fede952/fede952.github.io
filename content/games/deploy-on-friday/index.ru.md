@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "Сможешь удержать продакшен? Бесконечный раннер для разработчиков."
 categories: ["Игры", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 Пятница, 16:55, кто-то только что замержил в main. CI/CD пайплайн запущен. Остановить уже нельзя.

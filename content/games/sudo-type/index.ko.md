@@ -1,9 +1,10 @@
 ---
 title: "Sudo Type"
-date: 2025-02-01
+date: 2024-01-01
 description: "타이핑으로 메인프레임을 방어하라. 레트로 해커 타이핑 디펜스 게임."
 categories: ["게임", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
+draft: false
 ---
 
 위협 감지. 메인프레임이 공격받고 있다. 당신의 유일한 무기? **키보드.**

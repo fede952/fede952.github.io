@@ -1,10 +1,11 @@
 ---
 title: "RateMate: Calculadora de Taxa Horária para Freelancers"
-date: 2025-02-02
+date: 2024-01-01
 description: "Calcule a sua taxa horária ideal como freelancer com base no salário desejado, impostos e despesas. Ferramenta gratuita para programadores, designers e consultores."
 hidemeta: true
 showToc: false
 keywords: ["calculadora taxa freelance", "calculadora taxa horária", "calculadora impostos freelance", "conversor salário hora", "ferramenta taxa consultor", "preços freelance", "calculadora rendimento autónomo", "calculadora taxa consultoria", "despesas freelance", "taxa diária"]
+draft: false
 ---
 
 Definir a taxa horária certa é a decisão financeira mais importante para um freelancer, mas a maioria das pessoas simplesmente adivinha. Cobrar pouco demais leva ao burnout a perseguir volume; cobrar demais afasta os clientes. A matemática por trás de uma taxa sustentável é simples mas raramente feita: é preciso partir do **rendimento líquido desejado**, considerar os **impostos de trabalho independente**, somar as **despesas do negócio** e dividir pelas horas efetivamente faturáveis — não as 2.080 horas de um empregado, mas as realistas 1.200–1.400 horas que a maioria dos independentes realmente fatura.

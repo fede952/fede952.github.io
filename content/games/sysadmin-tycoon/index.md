@@ -1,10 +1,11 @@
 ---
 title: "SysAdmin Tycoon"
-date: 2025-02-03
+date: 2024-01-01
 description: "Build and manage your own Data Center. Manage power, cooling, and security in this deep strategy idle game."
 image: "/images/sysadmin-tycoon-icon.png"
 categories: ["Games", "Strategy"]
 tags: ["idle", "tycoon", "sysadmin", "strategy", "html5"]
+draft: false
 ---
 
 Start with a humble laptop and build a server empire. Balance power consumption, cooling, and cash flow while surviving DDOS attacks, power surges, and other IT disasters.

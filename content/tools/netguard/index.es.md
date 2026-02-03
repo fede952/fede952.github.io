@@ -1,10 +1,11 @@
 ---
 title: "NetGuard: Consulta Mi IP y Test de Fugas del Navegador"
-date: 2025-02-02
+date: 2024-01-01
 description: "¿Tu navegador está filtrando datos? Comprueba tu dirección IP pública, estado WebRTC, huella GPU e identidad digital al instante. Auditoría de privacidad gratuita — 100% del lado del cliente."
 hidemeta: true
 showToc: false
 keywords: ["cuál es mi IP", "test fuga WebRTC", "test huella navegador", "test privacidad", "verificar fuga VPN", "búsqueda dirección IP", "huella digital", "herramienta privacidad online", "auditoría seguridad navegador", "huella GPU"]
+draft: false
 ---
 
 Cada vez que visitas un sitio web, tu navegador transmite una cantidad sorprendente de datos personales — tu **dirección IP pública**, ubicación física aproximada, sistema operativo, modelo de GPU, resolución de pantalla, nivel de batería e incluso IPs de red local a través de fugas WebRTC. Los anunciantes y rastreadores utilizan estas señales para construir una **huella digital única** que puede seguirte por toda la web, incluso sin cookies. La mayoría de las personas no tiene idea de cuántos datos está exponiendo simplemente al abrir una pestaña del navegador.

@@ -1,10 +1,11 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2025-02-03
+date: 2024-01-01
 description: "The classic logic puzzle reborn. Merge the neon cubes to reach 2048. Auto-saves progress."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
+draft: false
 ---
 
 Slide the glowing blocks across the grid. When two blocks with the same number collide, they merge into one. Reach **2048** to win — or keep going for an even higher score.

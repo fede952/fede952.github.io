@@ -1,10 +1,11 @@
 ---
 title: "GlitchForge: Glitch-Art-Generator"
-date: 2025-02-01
+date: 2024-01-01
 description: "Verwandle deine Fotos in Cyberpunk-Kunst. Kostenloser, offline-fähiger und datenschutzfreundlicher Glitch-Bildeditor mit RGB-Verschiebung, Pixel-Sorting und Scanlines."
 hidemeta: true
 showToc: false
 keywords: ["Glitch-Art-Generator", "Pixel-Sorting", "RGB-Verschiebung", "Cyberpunk-Fotoeditor", "Data Moshing", "Glitch-Effekt online", "Bild-Glitcher", "Scanline-Effekt"]
+draft: false
 ---
 
 **Glitch Art** ist eine digitale Kunstbewegung, die visuelle Artefakte zelebriert — jene Art von Bildfehler, die entsteht, wenn ein JPEG nicht korrekt dekodiert wird oder ein Videostream Frames verliert. Techniken wie **Data Moshing** (Erzwingen von Inter-Frame-Kompression zwischen nicht zusammenhängenden Bildern) und **Pixel Sorting** (Neuanordnung von Pixeln nach Helligkeit oder Farbton) verwandeln gewöhnliche Fotografien in eindrucksvolle, überirdische Kompositionen. Was einst als Fehler galt, ist heute eine ästhetische Entscheidung, die von Künstlern, Designern und Musikern weltweit genutzt wird.

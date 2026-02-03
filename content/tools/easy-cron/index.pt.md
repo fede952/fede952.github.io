@@ -1,10 +1,11 @@
 ---
 title: "EasyCron: Gerador Visual de Cron Jobs"
-date: 2025-02-02
+date: 2024-01-01
 description: "A forma mais fácil de criar Cron jobs no Linux. Editor visual, explicador de crontab e calculadora de próximas execuções."
 hidemeta: true
 showToc: false
 keywords: ["gerador cron", "editor crontab", "agendamento cron", "sintaxe cron linux", "gerador expressões cron", "agendar tarefas linux", "explicador crontab"]
+draft: false
 ---
 
 A sintaxe cron do Unix — cinco campos separados por espaços que controlam **minuto, hora, dia, mês e dia da semana** — é um dos formatos de agendamento mais utilizados na computação. Alimenta tudo, desde scripts de backup simples até pipelines CI/CD complexos e CronJobs do Kubernetes. No entanto, sua notação concisa (`*/5 9-17 * * 1-5`) continua sendo uma fonte constante de erros, mesmo para engenheiros experientes. Um campo mal posicionado ou um intervalo mal interpretado pode fazer com que um job execute a cada minuto em vez de a cada hora, ou pior, nunca execute.

@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "你能让生产环境存活吗？一款开发者的无尽跑酷游戏。"
 categories: ["游戏", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 周五下午4点55分，有人刚刚合并到了main分支。CI/CD流水线正在运行，已经无法停止了。

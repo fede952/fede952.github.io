@@ -1,10 +1,11 @@
 ---
 title: "PassFort: Secure Password Generator & Strength Checker"
-date: 2025-02-02
+date: 2024-01-01
 description: "Create unhackable passwords and audit your security in seconds. Entropy calculator, brute-force crack time estimator, and passphrase generator — 100% client-side, private, and free."
 hidemeta: true
 showToc: false
 keywords: ["password generator", "password strength checker", "password entropy calculator", "brute force protection", "secure password", "passphrase generator", "cybersecurity tool", "identity safety", "password auditor", "crack time estimator"]
+draft: false
 ---
 
 Weak passwords remain the number one attack vector in cybersecurity. Over **80% of data breaches** involve stolen or brute-forced credentials, yet most people still reuse variations of the same password across dozens of accounts. The problem is not awareness — it's friction. Generating and evaluating strong passwords has traditionally required either memorizing arcane rules or trusting an online service with your most sensitive data.

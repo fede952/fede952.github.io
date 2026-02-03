@@ -2,10 +2,11 @@
 title: "PixelShrink"
 description: "Comprime imágenes PNG, JPG y WebP localmente en tu navegador. Sin subidas, 100% privado."
 image: "/images/pixel-shrink-icon.png"
-date: 2024-02-03
+date: 2024-01-01
 hidemeta: true
 showToc: false
 keywords: ["compresor de imágenes", "comprimir PNG", "comprimir JPG", "comprimir WebP", "herramienta de privacidad", "compresión en el navegador", "optimizador de imágenes", "reducir tamaño de imagen", "compresor sin conexión"]
+draft: false
 ---
 
 Las imágenes pesadas ralentizan los sitios web, consumen almacenamiento y desperdician ancho de banda. La mayoría de los compresores en línea te obligan a subir tus archivos a un servidor remoto — lo que significa que la máquina de un desconocido procesa tus fotos personales, capturas de pantalla y documentos. Un riesgo de privacidad innecesario para una tarea que tu propio navegador puede manejar localmente.

@@ -1,10 +1,11 @@
 ---
 title: "RateMate : Calculateur de Taux Horaire Freelance"
-date: 2025-02-02
+date: 2024-01-01
 description: "Calculez votre taux horaire idéal en freelance selon votre salaire cible, les impôts et les charges. Outil gratuit pour développeurs, designers et consultants."
 hidemeta: true
 showToc: false
 keywords: ["calculateur tarif freelance", "calculateur taux horaire", "calculateur impôts freelance", "convertisseur salaire horaire", "outil tarif consultant", "tarification freelance", "calculateur revenus indépendant", "calculateur tarif consulting", "charges freelance", "taux journalier"]
+draft: false
 ---
 
 Fixer le bon taux horaire est la décision financière la plus importante pour un freelance, pourtant la plupart des gens se contentent de deviner. Facturer trop peu mène au burnout en courant après le volume ; facturer trop fait fuir les clients. Le calcul d'un tarif durable est simple mais rarement fait : il faut partir du **revenu net souhaité**, prendre en compte les **cotisations sociales**, ajouter les **frais professionnels** et diviser par les heures réellement facturables — pas les 2 080 heures d'un salarié, mais les 1 200 à 1 400 heures que la plupart des indépendants facturent réellement.

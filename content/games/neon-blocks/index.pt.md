@@ -1,10 +1,11 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2025-02-03
+date: 2024-01-01
 description: "O clássico puzzle renascido. Combine os cubos neon para chegar a 2048."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
+draft: false
 ---
 
 Deslize os blocos brilhantes pela grade. Quando dois blocos com o mesmo número colidem, eles se fundem. Alcance **2048** para vencer ou continue jogando para superar seu recorde.

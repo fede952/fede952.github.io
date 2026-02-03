@@ -1,10 +1,11 @@
 ---
 title: "RateMate: Calculadora de Tarifa por Hora para Freelancers"
-date: 2025-02-02
+date: 2024-01-01
 description: "Calcula tu tarifa por hora ideal como freelance según tu salario deseado, impuestos y gastos. Herramienta gratuita para desarrolladores, diseñadores y consultores."
 hidemeta: true
 showToc: false
 keywords: ["calculadora tarifa freelance", "calculadora tarifa por hora", "calculadora impuestos freelance", "convertidor salario por hora", "herramienta tarifa consultor", "precios freelance", "calculadora ingresos autónomo", "calculadora tarifa consultoría", "gastos freelance", "tarifa diaria"]
+draft: false
 ---
 
 Establecer la tarifa por hora correcta es la decisión financiera más importante para un freelancer, pero la mayoría simplemente adivina. Cobrar demasiado poco lleva al agotamiento persiguiendo volumen; cobrar demasiado hace desaparecer a los clientes. La matemática detrás de una tarifa sostenible es sencilla pero raramente se hace: necesitas calcular a la inversa desde tu **ingreso neto deseado**, considerar los **impuestos de autónomos**, sumar los **gastos del negocio** y dividir por las horas realmente facturables — no las 2.080 horas corporativas, sino las realistas 1.200–1.400 horas que la mayoría de independientes realmente facturan.

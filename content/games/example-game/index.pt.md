@@ -3,7 +3,8 @@ title: "Example Browser Game"
 description: "A demonstration of how to create browser-based games"
 tags: ["example", "demo", "html5"]
 layout: "game"
-draft: true
+draft: false
+date: 2024-01-01
 ---
 
 _Nota: Para preservar a precisão técnica, este conteúdo é exibido em seu idioma original (Inglês)._

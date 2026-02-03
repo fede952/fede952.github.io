@@ -1,9 +1,10 @@
 ---
 title: "Sudo Type"
-date: 2025-02-01
+date: 2024-01-01
 description: "Defend your mainframe by typing commands. A retro hacker typing defense game."
 categories: ["Games", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
+draft: false
 ---
 
 Incoming threats detected. The mainframe is under attack. Your only weapon? **Your keyboard.**

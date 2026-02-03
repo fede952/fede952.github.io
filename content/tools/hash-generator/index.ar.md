@@ -1,7 +1,7 @@
 ---
 title: "Hash Generator"
 description: "Generate cryptographic hashes (MD5, SHA-1, SHA-256, SHA-512) using Web Crypto API"
-date: 2025-01-17
+date: 2024-01-01
 tags: ["cryptography", "hash", "security", "tool"]
 layout: "tool-split"
 draft: false

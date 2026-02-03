@@ -1,10 +1,11 @@
 ---
 title: "ZenFocus: Mezclador de Sonido Ambiental"
-date: 2025-02-01
+date: 2024-01-01
 description: "Mejora tu concentración con sonidos ambientales y temporizador Pomodoro."
 hidemeta: true
 showToc: false
 keywords: ["mezclador sonido ambiental", "temporizador pomodoro", "sonidos concentración", "ruido blanco", "ruido marrón", "productividad", "sonidos lluvia"]
+draft: false
 ---
 
 La investigación en ciencias cognitivas demuestra que el ruido de fondo moderado — un fenómeno llamado **enmascaramiento auditivo** — puede mejorar significativamente la concentración al suprimir los sonidos distractores de tu entorno. Texturas sonoras constantes como lluvia, ruido marrón o el murmullo de una cafetería crean una manta acústica estable que permite a tu cerebro filtrar interrupciones repentinas como conversaciones, notificaciones o tráfico.

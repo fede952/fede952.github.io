@@ -1,7 +1,7 @@
 ---
 title: "Convertitore Base64"
 description: "Codifica e decodifica testo in/da formato Base64 con supporto UTF-8"
-date: 2025-01-17
+date: 2024-01-01
 tags: ["codifica", "base64", "sicurezza", "tool"]
 layout: "tool-split"
 draft: false

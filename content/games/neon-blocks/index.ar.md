@@ -1,10 +1,11 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2025-02-03
+date: 2024-01-01
 description: "لغز المنطق الكلاسيكي. دمج مكعبات النيون للوصول إلى 2048."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
+draft: false
 ---
 
 حرّك الكتل المتوهجة عبر الشبكة. عندما يصطدم كتلتان بنفس الرقم، تندمجان في واحدة. حقق **2048** للفوز أو استمر للحصول على نتيجة أعلى.

@@ -1,9 +1,10 @@
 ---
 title: "Sudo Type"
-date: 2025-02-01
+date: 2024-01-01
 description: "Difendi il tuo mainframe digitando comandi. Un gioco di difesa typing in stile hacker retro."
 categories: ["Giochi", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
+draft: false
 ---
 
 Minacce in arrivo. Il mainframe è sotto attacco. La tua unica arma? **La tua tastiera.**

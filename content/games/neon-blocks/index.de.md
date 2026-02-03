@@ -1,10 +1,11 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2025-02-03
+date: 2024-01-01
 description: "Das klassische Logikrätsel. Verbinde die Neon-Würfel, um 2048 zu erreichen."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
+draft: false
 ---
 
 Schiebe die leuchtenden Blöcke über das Spielfeld. Wenn zwei Blöcke mit gleicher Zahl aufeinandertreffen, verschmelzen sie. Erreiche **2048**, um zu gewinnen, oder spiele weiter für einen noch höheren Punktestand.

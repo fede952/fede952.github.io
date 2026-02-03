@@ -1,10 +1,11 @@
 ---
 title: "EasyCron: Visual Cron Job Generator"
-date: 2025-02-02
+date: 2024-01-01
 description: "The easiest way to create Linux Cron jobs. Visual editor, crontab explainer, and next-run calculator — no syntax to memorize."
 hidemeta: true
 showToc: false
 keywords: ["cron generator", "crontab editor", "cron schedule builder", "linux cron syntax", "cron expression generator", "visual cron builder", "crontab explainer", "schedule tasks linux"]
+draft: false
 ---
 
 The Unix cron syntax — five space-separated fields controlling **minute, hour, day, month, and weekday** — is one of the most widely used scheduling formats in computing. It powers everything from simple backup scripts to complex CI/CD pipelines and Kubernetes CronJobs. Yet its terse notation (`*/5 9-17 * * 1-5`) remains a constant source of mistakes, even for experienced engineers. A misplaced field or a misunderstood range can cause jobs to fire every minute instead of every hour, or worse, never run at all.

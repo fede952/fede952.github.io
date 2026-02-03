@@ -1,7 +1,7 @@
 ---
 title: "Generatore di Hash"
 description: "Genera hash crittografici (MD5, SHA-1, SHA-256, SHA-512) utilizzando Web Crypto API"
-date: 2025-01-17
+date: 2024-01-01
 tags: ["crittografia", "hash", "sicurezza", "tool"]
 layout: "tool-split"
 draft: false

@@ -1,10 +1,11 @@
 ---
 title: "RateMate: Freelance Hourly Rate Calculator"
-date: 2025-02-02
+date: 2024-01-01
 description: "Calculate your ideal freelance hourly rate based on salary goals, taxes, and business expenses. Free tool for developers, designers, and consultants."
 hidemeta: true
 showToc: false
 keywords: ["freelance rate calculator", "hourly rate calculator", "freelance tax calculator", "salary to hourly converter", "contractor rate tool", "freelance pricing", "self-employed income calculator", "consulting rate calculator", "freelance expenses", "daily rate calculator"]
+draft: false
 ---
 
 Setting the right hourly rate is the single most important financial decision a freelancer makes — yet most people just guess. Charge too little and you burn out chasing volume; charge too much and clients disappear. The math behind a sustainable rate is straightforward but rarely done: you need to reverse-engineer your **desired net income**, account for **self-employment taxes**, factor in **business expenses**, and divide by actual billable hours — not the 2,080-hour corporate year, but the realistic 1,200–1,400 hours most independents actually invoice.

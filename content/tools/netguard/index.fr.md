@@ -1,10 +1,11 @@
 ---
 title: "NetGuard : Vérifier Mon IP et Test de Fuites du Navigateur"
-date: 2025-02-02
+date: 2024-01-01
 description: "Votre navigateur fuit-il des données ? Vérifiez votre adresse IP publique, le statut WebRTC, l'empreinte GPU et votre identité numérique instantanément. Audit de confidentialité gratuit — 100% côté client."
 hidemeta: true
 showToc: false
 keywords: ["quelle est mon IP", "test fuite WebRTC", "test empreinte navigateur", "test confidentialité", "vérification fuite VPN", "recherche adresse IP", "empreinte numérique", "outil confidentialité en ligne", "audit sécurité navigateur", "empreinte GPU"]
+draft: false
 ---
 
 Chaque fois que vous visitez un site web, votre navigateur diffuse une quantité surprenante de données personnelles — votre **adresse IP publique**, votre localisation physique approximative, votre système d'exploitation, le modèle de GPU, la résolution d'écran, le niveau de batterie et même les IPs du réseau local via les fuites WebRTC. Les annonceurs et les traqueurs utilisent ces signaux pour construire une **empreinte numérique unique** qui peut vous suivre à travers le web, même sans cookies. La plupart des gens n'ont aucune idée de la quantité de données qu'ils exposent simplement en ouvrant un onglet de navigateur.

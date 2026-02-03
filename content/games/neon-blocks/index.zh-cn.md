@@ -1,10 +1,11 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2025-02-03
+date: 2024-01-01
 description: "经典逻辑益智游戏重生。合并霓虹方块以达到 2048。"
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
+draft: false
 ---
 
 在网格上滑动发光的方块。当两个相同数字的方块碰撞时，它们会合并。达到 **2048** 即可获胜，或者继续挑战更高分。

@@ -1,10 +1,11 @@
 ---
 title: "ReflexGrid: Aim Trainer Gratuito e Teste de Tempo de Reação"
-date: 2025-02-02
+date: 2024-01-01
 description: "Teste a precisão do mouse e o tempo de reação com este aim trainer gratuito no navegador. Feito para jogadores FPS — Valorant, CS2, CoD. Acompanhe acertos, precisão e velocidade média de reação em 60 segundos."
 hidemeta: true
 showToc: false
 keywords: ["aim trainer", "teste tempo de reação", "teste velocidade de clique", "treino esports", "teste precisão mouse", "prática mira FPS", "aim trainer Valorant", "aim trainer CS2", "teste reflexos", "jogo de mira"]
+draft: false
 ---
 
 A habilidade de mira é o maior diferencial em jogos FPS competitivos, mas a maioria dos jogadores nunca a treina de forma deliberada. Estudos sobre desempenho em esports mostram que o **treino sistemático de mira pode reduzir o tempo médio de reação em 15–25%** em poucas semanas, traduzindo-se diretamente em melhores taxas de abates/mortes e progressão de ranking. O problema é que aim trainers dedicados são tipicamente aplicações desktop pagas com configurações complexas, deixando de fora jogadores casuais e mobile.

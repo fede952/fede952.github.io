@@ -1,9 +1,10 @@
 ---
 title: "Sudo Type"
-date: 2025-02-01
+date: 2024-01-01
 description: "Defiende tu mainframe escribiendo comandos. Un juego retro de defensa por teclado."
 categories: ["Juegos", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
+draft: false
 ---
 
 Amenazas detectadas. El mainframe está bajo ataque. ¿Tu única arma? **Tu teclado.**

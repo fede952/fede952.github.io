@@ -1,10 +1,11 @@
 ---
 title: "PassFort: Generatore di Password Sicure e Analizzatore di Robustezza"
-date: 2025-02-02
+date: 2024-01-01
 description: "Crea password inattaccabili e verifica la tua sicurezza in pochi secondi. Calcolatore di entropia, stimatore del tempo di cracking e generatore di passphrase — 100% lato client, privato e gratuito."
 hidemeta: true
 showToc: false
 keywords: ["generatore password", "verifica robustezza password", "calcolatore entropia password", "protezione brute force", "password sicura", "generatore passphrase", "strumento cybersecurity", "sicurezza identità", "audit password", "tempo di cracking"]
+draft: false
 ---
 
 Le password deboli rimangono il vettore di attacco numero uno nella cybersecurity. Oltre l'**80% delle violazioni di dati** coinvolge credenziali rubate o forzate con brute-force, eppure la maggior parte delle persone continua a riutilizzare variazioni della stessa password su decine di account. Il problema non è la consapevolezza — è la complessità. Generare e valutare password robuste ha tradizionalmente richiesto di memorizzare regole oscure o affidarsi a un servizio online con i propri dati più sensibili.

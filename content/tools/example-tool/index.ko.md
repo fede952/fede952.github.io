@@ -3,7 +3,8 @@ title: "Example Interactive Tool"
 description: "A demonstration of how to create interactive tools"
 tags: ["example", "demo"]
 layout: "tool"
-draft: true
+draft: false
+date: 2024-01-01
 ---
 
 _참고: 기술적 정확성을 유지하기 위해 이 콘텐츠는 원래 언어(영어)로 표시됩니다._

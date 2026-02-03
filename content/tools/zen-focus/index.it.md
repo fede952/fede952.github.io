@@ -1,10 +1,11 @@
 ---
 title: "ZenFocus: Generatore di Rumori Ambientali & Pomodoro"
-date: 2025-02-01
+date: 2024-01-01
 description: "Aumenta la tua produttività con suoni ambientali personalizzabili. Mixa Pioggia, Rumore Bianco e altro."
 hidemeta: true
 showToc: false
 keywords: ["generatore rumore ambientale", "timer pomodoro", "suoni concentrazione", "rumore bianco", "rumore marrone", "produttività", "suoni pioggia"]
+draft: false
 ---
 
 La ricerca nelle scienze cognitive dimostra che un rumore di fondo moderato — un fenomeno chiamato **mascheramento uditivo** — può migliorare significativamente la concentrazione sopprimendo i suoni distraenti nel tuo ambiente. Texture sonore costanti come pioggia, rumore marrone o il brusio di un bar creano una coperta acustica stabile che permette al cervello di filtrare le interruzioni improvvise come conversazioni, notifiche o traffico.

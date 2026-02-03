@@ -1,10 +1,11 @@
 ---
 title: "ZenFocus: Ambient Noise Mixer & Pomodoro"
-date: 2025-02-01
+date: 2024-01-01
 description: "Boost your productivity with custom ambient sounds and a focus timer. Mix Rain, White Noise, and more."
 hidemeta: true
 showToc: false
 keywords: ["ambient noise mixer", "pomodoro timer", "focus sounds", "white noise generator", "productivity tool", "brown noise", "rain sounds", "concentration"]
+draft: false
 ---
 
 Research in cognitive science shows that moderate background noise — a phenomenon called **auditory masking** — can significantly improve concentration by suppressing distracting sounds in your environment. Consistent ambient textures like rain, brown noise, or coffee shop murmur create a stable sonic blanket that lets your brain filter out sudden interruptions such as conversations, notifications, or traffic. Studies published in the *Journal of Consumer Research* found that ambient noise at around 70 dB enhances creative thinking compared to silence.

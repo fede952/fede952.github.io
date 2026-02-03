@@ -1,10 +1,11 @@
 ---
 title: "ReflexGrid: Free Aim Trainer & Reaction Time Test"
-date: 2025-02-02
+date: 2024-01-01
 description: "Test your mouse accuracy and reaction time with this free browser aim trainer. Built for FPS gamers — Valorant, CS2, CoD. Track hits, accuracy, and average reaction speed in a 60-second session."
 hidemeta: true
 showToc: false
 keywords: ["aim trainer", "reaction time test", "click speed test", "esports training", "mouse accuracy test", "FPS aim practice", "Valorant aim trainer", "CS2 aim trainer", "reflex test", "target practice game"]
+draft: false
 ---
 
 Aiming skill is the single biggest differentiator in competitive FPS games, yet most players never train it deliberately. Studies on esports performance show that **systematic aim training can cut average reaction time by 15–25%** within weeks, translating directly into higher kill–death ratios and rank progression. The problem is that dedicated aim trainers are typically paid desktop apps with complex setups, leaving casual and mobile players behind.

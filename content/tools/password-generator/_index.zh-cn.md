@@ -2,6 +2,7 @@
 title: "安全密码生成器"
 description: "生成具有可自定义选项的加密安全密码"
 draft: false
+date: 2024-01-01
 ---
 
 ⚠️ **Tool Language Notice:**

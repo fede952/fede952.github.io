@@ -48,7 +48,9 @@
       "Bash(git -C:*)",
       "Bash(git -C \"C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\" commit -m \"$\\(cat <<''EOF''\nfeat: added SysAdmin Tycoon deep strategy game\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git -C \"C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\" push)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)"
     ]
   }
 }

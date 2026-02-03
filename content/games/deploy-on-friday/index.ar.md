@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "هل يمكنك إبقاء الإنتاج قائماً؟ لعبة جري لا نهائي للمطورين."
 categories: ["ألعاب", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 الساعة 4:55 مساء يوم الجمعة وقام شخص ما بدمج الكود في main. خط أنابيب CI/CD يعمل. لا يمكن إيقافه الآن.

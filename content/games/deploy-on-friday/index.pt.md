@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "Consegue manter a produção no ar? Um endless runner para desenvolvedores."
 categories: ["Jogos", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 São 16:55 de uma sexta-feira e alguém acabou de fazer merge na main. O pipeline CI/CD está rodando. Não tem como parar.

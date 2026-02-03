@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "क्या आप प्रोडक्शन को चालू रख सकते हैं? डेवलपर्स के लिए एक एंडलेस रनर।"
 categories: ["गेम्स", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 शुक्रवार शाम 4:55 बजे हैं और किसी ने अभी main में merge कर दिया। CI/CD पाइपलाइन चल रही है। अब इसे रोका नहीं जा सकता।

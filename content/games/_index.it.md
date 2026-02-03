@@ -2,6 +2,7 @@
 title: "Giochi"
 description: "Giochi interattivi e mini-giochi"
 draft: false
+date: 2024-01-01
 ---
 
 ⚠️ **Global Content Notice:**

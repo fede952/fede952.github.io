@@ -1,9 +1,10 @@
 ---
 title: "Deploy on Friday"
-date: 2025-02-01
+date: 2024-01-01
 description: "Kannst du die Produktion am Laufen halten? Ein Endless Runner für Entwickler."
 categories: ["Spiele", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
+draft: false
 ---
 
 Es ist 16:55 Uhr am Freitag und jemand hat gerade auf main gemergt. Die CI/CD-Pipeline läuft. Es gibt kein Zurück mehr.

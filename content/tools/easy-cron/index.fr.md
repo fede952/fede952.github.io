@@ -1,10 +1,11 @@
 ---
 title: "EasyCron: Générateur Visuel de Tâches Cron"
-date: 2025-02-02
+date: 2024-01-01
 description: "La façon la plus simple de créer des tâches Cron sous Linux. Éditeur visuel, explicateur crontab et calculateur de prochaines exécutions."
 hidemeta: true
 showToc: false
 keywords: ["générateur cron", "éditeur crontab", "planification cron", "syntaxe cron linux", "générateur expressions cron", "planifier tâches linux", "explicateur crontab"]
+draft: false
 ---
 
 La syntaxe cron d'Unix — cinq champs séparés par des espaces contrôlant **minute, heure, jour, mois et jour de la semaine** — est l'un des formats de planification les plus utilisés en informatique. Elle alimente tout, des simples scripts de sauvegarde aux pipelines CI/CD complexes et aux CronJobs Kubernetes. Pourtant, sa notation concise (`*/5 9-17 * * 1-5`) reste une source constante d'erreurs, même pour les ingénieurs expérimentés. Un champ mal placé ou une plage mal interprétée peut provoquer l'exécution d'une tâche chaque minute au lieu de chaque heure, ou pire, ne jamais l'exécuter.

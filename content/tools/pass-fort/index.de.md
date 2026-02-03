@@ -1,10 +1,11 @@
 ---
 title: "PassFort: Sicherer Passwort-Generator & Stärke-Prüfer"
-date: 2025-02-02
+date: 2024-01-01
 description: "Erstellen Sie unknackbare Passwörter und überprüfen Sie Ihre Sicherheit in Sekunden. Entropie-Rechner, Brute-Force-Zeitschätzer und Passphrasen-Generator — 100% clientseitig, privat und kostenlos."
 hidemeta: true
 showToc: false
 keywords: ["Passwort Generator", "Passwort Stärke Prüfer", "Entropie Rechner", "Brute-Force Schutz", "sicheres Passwort", "Passphrasen Generator", "Cybersicherheit Tool", "Identitätssicherheit", "Passwort Audit", "Cracking-Zeit"]
+draft: false
 ---
 
 Schwache Passwörter bleiben der Angriffsvektor Nummer eins in der Cybersicherheit. Über **80% der Datenlecks** betreffen gestohlene oder per Brute-Force geknackte Zugangsdaten, und dennoch verwenden die meisten Menschen weiterhin Variationen desselben Passworts für Dutzende von Konten. Das Problem ist nicht das Bewusstsein — es ist die Komplexität. Das Generieren und Bewerten starker Passwörter erforderte traditionell das Auswendiglernen kryptischer Regeln oder das Vertrauen in einen Online-Dienst mit den sensibelsten Daten.

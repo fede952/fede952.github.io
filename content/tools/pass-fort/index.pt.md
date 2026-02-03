@@ -1,10 +1,11 @@
 ---
 title: "PassFort: Gerador de Senhas Seguras e Verificador de Força"
-date: 2025-02-02
+date: 2024-01-01
 description: "Crie senhas inquebráveis e audite sua segurança em segundos. Calculadora de entropia, estimador de tempo de cracking e gerador de frases-senha — 100% no cliente, privado e gratuito."
 hidemeta: true
 showToc: false
 keywords: ["gerador de senhas", "verificador força senha", "calculadora entropia", "proteção força bruta", "senha segura", "gerador passphrase", "ferramenta cibersegurança", "segurança identidade", "auditor senhas", "tempo de cracking"]
+draft: false
 ---
 
 Senhas fracas continuam sendo o vetor de ataque número um em cibersegurança. Mais de **80% das violações de dados** envolvem credenciais roubadas ou forçadas por brute-force, e mesmo assim a maioria das pessoas continua reutilizando variações da mesma senha em dezenas de contas. O problema não é conscientização — é a complexidade. Gerar e avaliar senhas fortes tradicionalmente exigiu memorizar regras complexas ou confiar em um serviço online com seus dados mais sensíveis.

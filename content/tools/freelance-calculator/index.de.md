@@ -1,10 +1,11 @@
 ---
 title: "RateMate: Freelance-Stundensatz-Rechner"
-date: 2025-02-02
+date: 2024-01-01
 description: "Berechnen Sie Ihren idealen Freelance-Stundensatz basierend auf Gehaltszielen, Steuern und Geschäftsausgaben. Kostenloses Tool für Entwickler, Designer und Berater."
 hidemeta: true
 showToc: false
 keywords: ["Freelance Stundensatz Rechner", "Stundensatz Kalkulator", "Steuerrechner Freelancer", "Gehalt Stundensatz Umrechner", "Berater Honorar Tool", "Freelance Preisgestaltung", "Selbstständige Einkommensrechner", "Beratungshonorar Rechner", "Freelance Ausgaben", "Tagessatz Rechner"]
+draft: false
 ---
 
 Den richtigen Stundensatz festzulegen ist die wichtigste finanzielle Entscheidung für Freelancer — doch die meisten raten einfach. Zu wenig verlangen führt zum Burnout durch Volumenjagd; zu viel verlangen lässt Kunden verschwinden. Die Mathematik hinter einem nachhaltigen Stundensatz ist einfach, wird aber selten gemacht: Man muss vom **gewünschten Nettoeinkommen** ausgehen, die **Selbstständigensteuer** berücksichtigen, **Geschäftsausgaben** einrechnen und durch die tatsächlich abrechenbaren Stunden teilen — nicht die 2.080-Stunden-Angestelltenwoche, sondern die realistischen 1.200–1.400 Stunden, die die meisten Selbstständigen tatsächlich abrechnen.

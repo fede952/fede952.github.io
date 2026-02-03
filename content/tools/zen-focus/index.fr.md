@@ -1,10 +1,11 @@
 ---
 title: "ZenFocus : Mélangeur de Bruits Ambiants"
-date: 2025-02-01
+date: 2024-01-01
 description: "Augmentez votre productivité avec des sons d'ambiance et un minuteur Pomodoro."
 hidemeta: true
 showToc: false
 keywords: ["mélangeur bruit ambiant", "minuteur pomodoro", "sons concentration", "bruit blanc", "bruit brun", "productivité", "sons pluie"]
+draft: false
 ---
 
 La recherche en sciences cognitives montre qu'un bruit de fond modéré — un phénomène appelé **masquage auditif** — peut améliorer significativement la concentration en supprimant les sons distrayants de votre environnement. Des textures sonores constantes comme la pluie, le bruit brun ou le murmure d'un café créent une couverture acoustique stable qui permet à votre cerveau de filtrer les interruptions soudaines telles que les conversations, notifications ou le trafic.

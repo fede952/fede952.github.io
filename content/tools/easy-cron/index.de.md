@@ -1,10 +1,11 @@
 ---
 title: "EasyCron: Visueller Cron-Job-Generator"
-date: 2025-02-02
+date: 2024-01-01
 description: "Der einfachste Weg, Linux-Cron-Jobs zu erstellen. Visueller Editor, Crontab-Erklärer und Berechnung der nächsten Ausführungen."
 hidemeta: true
 showToc: false
 keywords: ["Cron Generator", "Crontab Editor", "Cron Zeitplanung", "Linux Cron Syntax", "Cron Ausdruck Generator", "Linux Aufgaben planen", "Crontab Erklärer"]
+draft: false
 ---
 
 Die Unix-Cron-Syntax — fünf durch Leerzeichen getrennte Felder, die **Minute, Stunde, Tag, Monat und Wochentag** steuern — ist eines der am weitesten verbreiteten Zeitplanungsformate in der Informatik. Sie treibt alles an, von einfachen Backup-Skripten bis hin zu komplexen CI/CD-Pipelines und Kubernetes-CronJobs. Doch ihre knappe Notation (`*/5 9-17 * * 1-5`) bleibt selbst für erfahrene Ingenieure eine ständige Fehlerquelle. Ein falsch platziertes Feld oder ein missverstandener Bereich kann dazu führen, dass ein Job jede Minute statt jeder Stunde ausgeführt wird — oder schlimmer noch, gar nicht.
