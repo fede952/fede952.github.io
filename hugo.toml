@@ -1,4 +1,5 @@
 baseURL = 'https://federicosella.com/'
+buildFuture = true
 languageCode = 'en-us'
 title = 'Federico Sella'
 theme = 'PaperMod'
