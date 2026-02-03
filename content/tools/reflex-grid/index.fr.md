@@ -1,6 +1,6 @@
 ---
 title: "ReflexGrid : Aim Trainer Gratuit et Test de Temps de Réaction"
-date: 2026-02-02
+date: 2025-02-02
 description: "Testez la précision de votre souris et votre temps de réaction avec cet aim trainer gratuit dans le navigateur. Conçu pour les joueurs FPS — Valorant, CS2, CoD. Suivez vos tirs, votre précision et votre vitesse de réaction en 60 secondes."
 hidemeta: true
 showToc: false

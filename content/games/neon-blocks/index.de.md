@@ -1,6 +1,6 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2026-02-03
+date: 2025-02-03
 description: "Das klassische Logikrätsel. Verbinde die Neon-Würfel, um 2048 zu erreichen."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]

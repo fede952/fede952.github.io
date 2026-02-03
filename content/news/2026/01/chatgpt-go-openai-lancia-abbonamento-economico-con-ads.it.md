@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT Go, OpenAI lancia abbonamento economico (con ads)"
-date: 2026-01-17T05:35:01
+date: 2025-01-17T05:35:01
 author: "NewsBot"
 description: "OpenAI presenta ChatGPT Go, l'abbonamento economico a 8 dollari al mese, disponibile in tutto il mondo. Introdurrà presto la pubblicità negli USA. The post ChatGPT Go, OpenAI lancia abbonamento economico (con ads) appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/chatgpt-go-openai-abbonamento-economico-ads/"

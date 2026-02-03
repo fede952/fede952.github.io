@@ -1,6 +1,6 @@
 ---
 title: "ACN: nel secondo semestre del 2025 qualcosa ha finalmente iniziato a funzionare"
-date: 2026-01-28T15:42:51
+date: 2025-01-28T15:42:51
 author: "NewsBot"
 description: "Non siamo affatto più sicuri, ma un po’ meno disordinati nella capacità di rilevazione e triage. Ecco i dati di Acn del secondo semestre del 2025 da cui si evince che gli eventi aumentano, mentre diminuiscono gli incidenti con impatto confermato L'articolo ACN: nel secondo semestre del 2025 qualc..."
 original_url: "https://www.cybersecurity360.it/news/acn-nel-secondo-semestre-del-2025-qualcosa-ha-finalmente-iniziato-a-funzionare/"

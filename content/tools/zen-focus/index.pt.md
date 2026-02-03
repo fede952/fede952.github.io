@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: Misturador de Sons Ambientes"
-date: 2026-02-01
+date: 2025-02-01
 description: "Aumente seu foco com sons relaxantes e timer Pomodoro."
 hidemeta: true
 showToc: false

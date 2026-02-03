@@ -1,6 +1,6 @@
 ---
 title: "Il caso booking.com dimostra che il cyber crimine vince perché ci mancano le basi"
-date: 2026-01-23T09:37:38
+date: 2025-01-23T09:37:38
 author: "NewsBot"
 description: "Una campagna malware rilevata nel 2025 continua a fare vittime. Usa una falsa pagina di booking.com per costringere gli utenti a copiare una porzione di codice e a incollarla nella finestra di dialogo \"Esegui\" di Windows L'articolo Il caso booking.com dimostra che il cyber crimine vince perché ci..."
 original_url: "https://www.cybersecurity360.it/news/booking-com-mancano-basi/"

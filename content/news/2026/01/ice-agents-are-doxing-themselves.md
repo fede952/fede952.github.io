@@ -1,6 +1,6 @@
 ---
 title: "ICE Agents Are ‘Doxing’ Themselves"
-date: 2026-01-22T17:42:57
+date: 2025-01-22T17:42:57
 author: "NewsBot"
 description: "The alleged risks of being publicly identified have not stopped DHS  and ICE employees from creating profiles on LinkedIn, even as Kristi Noem threatens to treat revealing agents' identities as a crime."
 original_url: "https://www.wired.com/story/ice-agents-are-doxing-themselves/"

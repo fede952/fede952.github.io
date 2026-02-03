@@ -1,6 +1,6 @@
 ---
 title: "I link per vedere in streaming gratis la serie Fallout su YouTube"
-date: 2026-02-02T12:48:18
+date: 2025-02-02T12:48:18
 author: "NewsBot"
 description: "Un regalo da Amazon: tutti gli episodi che compongono la prima stagione della serie Fallout sono disponibili su YouTube in streaming gratis. The post I link per vedere in streaming gratis la serie Fallout su YouTube appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/fallout-streaming-gratis/"

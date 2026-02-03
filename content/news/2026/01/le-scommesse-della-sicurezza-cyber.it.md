@@ -1,6 +1,6 @@
 ---
 title: "Le scommesse della sicurezza cyber"
-date: 2026-01-16T15:00:00
+date: 2025-01-16T15:00:00
 author: "NewsBot"
 description: "Affrontare la complessità della sicurezza cyber in modo efficace può essere qualcosa di molto simile a una scommessa, stante l'aleatorietà propria del concetto di rischio e la sorte di eventi quali gli 0-day e i mutamenti di contesto che possono comportare effetti dirompenti e imprevedibili L'art..."
 original_url: "https://www.cybersecurity360.it/cultura-cyber/le-scommesse-della-sicurezza-cyber/"

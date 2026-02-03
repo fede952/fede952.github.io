@@ -1,6 +1,6 @@
 ---
 title: "Netflix lancia il voto in tempo reale come i reality show"
-date: 2026-01-21T06:17:21
+date: 2025-01-21T06:17:21
 author: "NewsBot"
 description: "Netflix introduce il voto in tempo reale. Gli utenti potranno influenzare i contenuti dal vivo direttamente dal telecomando o dall'app. The post Netflix lancia il voto in tempo reale come i reality show appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/netflix-lancia-voto-tempo-reale-come-reality-show/"

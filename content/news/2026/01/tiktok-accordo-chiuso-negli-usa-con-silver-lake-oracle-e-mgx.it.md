@@ -1,6 +1,6 @@
 ---
 title: "TikTok, accordo chiuso negli USA con Silver Lake, Oracle e MGX"
-date: 2026-01-23T05:45:20
+date: 2025-01-23T05:45:20
 author: "NewsBot"
 description: "Chiuso l'accordo per TikTok negli Stati Uniti. Silver Lake, Oracle e MGX sono i tre investitori principali con il 15% ciascuno. The post TikTok, accordo chiuso negli USA con Silver Lake, Oracle e MGX appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/tiktok-accordo-chiuso-usa-silver-lake-oracle-mgx/"

@@ -1,6 +1,6 @@
 ---
 title: "When Cloud Outages Ripple Across the Internet"
-date: 2026-02-03T11:00:00
+date: 2025-02-03T11:00:00
 author: "NewsBot"
 description: "Recent major cloud service outages have been hard to miss. High-profile incidents affecting providers such as AWS, Azure, and Cloudflare have disrupted large parts of the internet, taking down websites and services that many other systems depend on. The resulting ripple effects have halted applic..."
 original_url: "https://thehackernews.com/2026/02/when-cloud-outages-ripple-across.html"

@@ -1,6 +1,6 @@
 ---
 title: "Furto di dati con false comunicazioni INPS"
-date: 2026-01-31T17:42:30
+date: 2025-01-31T17:42:30
 author: "NewsBot"
 description: "Una nuova campagna di smishing sfrutta il logo INPS per rubare numerose informazioni personali che verranno usate per vari tipi di frodi. The post Furto di dati con false comunicazioni INPS appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/furto-di-dati-con-false-comunicazioni-inps/"

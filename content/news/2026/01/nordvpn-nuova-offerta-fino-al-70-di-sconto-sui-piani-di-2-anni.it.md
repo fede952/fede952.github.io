@@ -1,6 +1,6 @@
 ---
 title: "NordVPN, nuova offerta: fino al 70% di sconto sui piani di 2 anni"
-date: 2026-01-17T07:01:04
+date: 2025-01-17T07:01:04
 author: "NewsBot"
 description: "Se durante le vacanze di fine anno si è avvertita la mancanza di una VPN, dopo l’impossibilità di vedere una partita o una serie tv dal proprio smartphone dentro la camera di hotel, la nuova offerta di NordVPN capita al momento giusto: i piani di due anni del servizio di rete privata virtuale pun..."
 original_url: "https://www.punto-informatico.it/nordvpn-nuova-offerta-fino-al-70-di-sconto-sui-piani-di-2-anni/"

@@ -1,6 +1,6 @@
 ---
 title: "Moltbook: bug consente il controllo degli agenti AI"
-date: 2026-02-01T17:34:03
+date: 2025-02-01T17:34:03
 author: "NewsBot"
 description: "Un'errata configurazione del database consentiva di prendere il controllo degli agenti AI iscritti al social network Moltbook. The post Moltbook: bug consente il controllo degli agenti AI appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/moltbook-bug-consente-controllo-agenti-ai/"

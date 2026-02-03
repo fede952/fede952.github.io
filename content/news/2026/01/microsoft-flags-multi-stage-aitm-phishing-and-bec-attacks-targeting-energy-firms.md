@@ -1,6 +1,6 @@
 ---
 title: "Microsoft Flags Multi-Stage AitM Phishing and BEC Attacks Targeting Energy Firms"
-date: 2026-01-23T08:25:00
+date: 2025-01-23T08:25:00
 author: "NewsBot"
 description: "Microsoft has warned of a multi‑stage adversary‑in‑the‑middle (AitM) phishing and business email compromise (BEC) campaign targeting multiple organizations in the energy sector. \"The campaign abused SharePoint file‑sharing services to deliver phishing payloads and relied on inbox rule creation to..."
 original_url: "https://thehackernews.com/2026/01/microsoft-flags-multi-stage-aitm.html"

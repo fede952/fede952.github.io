@@ -1,6 +1,6 @@
 ---
 title: "TikTok USA: dubbi del Congresso sulla vendita"
-date: 2026-01-25T11:39:00
+date: 2025-01-25T11:39:00
 author: "NewsBot"
 description: "Alcune politici statunitensi (anche repubblicani) hanno sollevato dubbi sull'accordo, in particolare sulla gestione dell'algoritmo dei suggerimenti. The post TikTok USA: dubbi del Congresso sulla vendita appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/tiktok-usa-dubbi-del-congresso-sulla-vendita/"

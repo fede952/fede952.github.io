@@ -1,6 +1,6 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2026-02-03
+date: 2025-02-03
 description: "لغز المنطق الكلاسيكي. دمج مكعبات النيون للوصول إلى 2048."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]

@@ -1,6 +1,6 @@
 ---
 title: "Why Secrets in JavaScript Bundles are Still Being Missed"
-date: 2026-01-20T10:45:00
+date: 2025-01-20T10:45:00
 author: "NewsBot"
 description: "Leaked API keys are no longer unusual, nor are the breaches that follow. So why are sensitive tokens still being so easily exposed? To find out, Intruder’s research team looked at what traditional vulnerability scanners actually cover and built a new secrets detection method to address gaps in ex..."
 original_url: "https://thehackernews.com/2026/01/why-secrets-in-javascript-bundles-are.html"

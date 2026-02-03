@@ -1,6 +1,6 @@
 ---
 title: "Hackers breach Fortinet FortiGate devices, steal firewall configs"
-date: 2026-01-22T11:49:12
+date: 2025-01-22T11:49:12
 author: "NewsBot"
 description: "Fortinet FortiGate devices are being targeted in automated attacks that create rogue accounts and steal firewall configuration data, according to cybersecurity company Arctic Wolf. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/hackers-breach-fortinet-fortigate-devices-steal-firewall-configs/"

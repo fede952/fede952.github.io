@@ -1,6 +1,6 @@
 ---
 title: "Cybersecurity Act 2: una revisione mirata alla NIS2 e che potenzia il ruolo dell’Enisa"
-date: 2026-01-21T15:29:16
+date: 2025-01-21T15:29:16
 author: "NewsBot"
 description: "Lo strumento normativo del Cybersecurity Act, adottato nel 2019 per istituire un quadro europeo di certificazione della cyber sicurezza, si aggiorna. Ecco il cuore dell'iniziativa legislativa che risiede nella proposta di revisione del pacchetto normativo, bilanciando l'innalzamento degli standar..."
 original_url: "https://www.cybersecurity360.it/legal/cybersecurity-act-2-una-revisione-mirata-alla-nis2-e-che-potenzia-il-ruolo-dellenisa/"

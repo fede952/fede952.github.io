@@ -1,6 +1,6 @@
 ---
 title: "Sudo Type"
-date: 2026-02-01
+date: 2025-02-01
 description: "टाइपिंग से अपने मेनफ्रेम की रक्षा करें। एक रेट्रो हैकर टाइपिंग डिफेंस गेम।"
 categories: ["गेम्स", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]

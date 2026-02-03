@@ -1,6 +1,6 @@
 ---
 title: "Finto portale SPID su Google Sites: l’ennesima truffa"
-date: 2026-01-19T13:03:40
+date: 2025-01-19T13:03:40
 author: "NewsBot"
 description: "Una nuova campagna di phishing sfrutta il nome di SPID per rubare dati personali e bancari tramite email e un falso portale su Google Sites. The post Finto portale SPID su Google Sites: l’ennesima truffa appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/finto-portale-spid-google-sites-truffa/"

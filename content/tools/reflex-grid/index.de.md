@@ -1,6 +1,6 @@
 ---
 title: "ReflexGrid: Kostenloser Aim Trainer & Reaktionszeit-Test"
-date: 2026-02-02
+date: 2025-02-02
 description: "Teste deine Mausgenauigkeit und Reaktionszeit mit diesem kostenlosen Browser-Aim-Trainer. Entwickelt für FPS-Spieler — Valorant, CS2, CoD. Verfolge Treffer, Genauigkeit und durchschnittliche Reaktionsgeschwindigkeit in 60 Sekunden."
 hidemeta: true
 showToc: false

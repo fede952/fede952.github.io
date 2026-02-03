@@ -1,6 +1,6 @@
 ---
 title: "Quantum computing, una minaccia per la crittografia: come prepararsi oggi"
-date: 2026-01-22T14:43:50
+date: 2025-01-22T14:43:50
 author: "NewsBot"
 description: "Il quantum computing accelera e con esso cresce il rischio per algoritmi e protocolli che oggi sostengono la sicurezza globale. Yaroslav Rosomakho, Chief Scientist di Zscaler, spiega come ripensare architetture, identità, governance e Zero Trust per restare resilienti nella nuova era quantistica ..."
 original_url: "https://www.cybersecurity360.it/soluzioni-aziendali/quantum-computing-sicurezza-proteggere-crittografia/"

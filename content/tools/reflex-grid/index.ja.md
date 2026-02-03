@@ -1,6 +1,6 @@
 ---
 title: "ReflexGrid：無料エイム練習＆反応速度テスト"
-date: 2026-02-02
+date: 2025-02-02
 description: "この無料ブラウザエイムトレーナーでマウス精度と反応速度をテスト。FPSゲーマー向け — Valorant、CS2、CoD。60秒でヒット数・精度・平均反応速度を記録。"
 hidemeta: true
 showToc: false

@@ -1,6 +1,6 @@
 ---
 title: "North Korean PurpleBravo Campaign Targeted 3,136 IP Addresses via Fake Job Interviews"
-date: 2026-01-21T17:17:00
+date: 2025-01-21T17:17:00
 author: "NewsBot"
 description: "As many as 3,136 individual IP addresses linked to likely targets of the Contagious Interview activity have been identified, with the campaign claiming 20 potential victim organizations spanning artificial intelligence (AI), cryptocurrency, financial services, IT services, marketing, and software..."
 original_url: "https://thehackernews.com/2026/01/north-korean-purplebravo-campaign.html"

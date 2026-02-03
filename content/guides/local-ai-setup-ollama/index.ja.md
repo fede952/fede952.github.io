@@ -1,6 +1,6 @@
 ---
 title: "AIにお金を払うのはもうやめよう：DeepSeek と Llama 3 を無料でローカル実行する方法"
-date: 2026-02-02
+date: 2025-02-02
 description: "Ollama を使って DeepSeek や Llama 3 などの強力な AI モデルを自分の PC で無料で実行する方法を解説。完全なプライバシー、月額料金ゼロ、オフライン対応。"
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

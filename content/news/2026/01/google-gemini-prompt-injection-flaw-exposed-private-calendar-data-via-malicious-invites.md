@@ -1,6 +1,6 @@
 ---
 title: "Google Gemini Prompt Injection Flaw Exposed Private Calendar Data via Malicious Invites"
-date: 2026-01-19T17:21:00
+date: 2025-01-19T17:21:00
 author: "NewsBot"
 description: "Cybersecurity researchers have disclosed details of a security flaw that leverages indirect prompt injection targeting Google Gemini as a way to bypass authorization guardrails and use Google Calendar as a data extraction mechanism. The vulnerability, Miggo Security's Head of Research, Liad Eliya..."
 original_url: "https://thehackernews.com/2026/01/google-gemini-prompt-injection-flaw.html"

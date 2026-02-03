@@ -1,6 +1,6 @@
 ---
 title: "Digital Networks Act (Dna): i punti chiave su cyber security e protezione degli utenti"
-date: 2026-01-26T15:07:00
+date: 2025-01-26T15:07:00
 author: "NewsBot"
 description: "Connettività, investimenti infrastrutturali e resilienza digitale sono gli aspetti principali del Digital Networks Act, proposto dalla Commissione europea il 21 gennaio 2026, mira a sostituire il Codice europeo delle comunicazioni Elettroniche del 2018. Ecco le disposizioni rilevanti in materia d..."
 original_url: "https://www.cybersecurity360.it/legal/digital-networks-act-dna-i-punti-chiave-su-cyber-security-e-protezione-degli-utenti/"

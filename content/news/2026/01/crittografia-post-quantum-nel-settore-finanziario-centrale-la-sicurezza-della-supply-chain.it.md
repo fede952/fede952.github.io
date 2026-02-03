@@ -1,6 +1,6 @@
 ---
 title: "Crittografia post quantum nel settore finanziario: centrale la sicurezza della supply chain"
-date: 2026-01-16T16:07:00
+date: 2025-01-16T16:07:00
 author: "NewsBot"
 description: "La rotta del G7 Cyber non prevede nuovi obblighi regolatori, ma offre un quadro di riferimento condiviso: una roadmap per autorità, istituzioni finanziarie e fornitori tecnologici, declinata in sei fasi principali della transizione alla crittografia post quantum in cui al centro c'è la sicurezza ..."
 original_url: "https://www.cybersecurity360.it/news/crittografia-post-quantum-nel-settore-finanziario-centrale-la-sicurezza-della-supply-chain/"

@@ -1,6 +1,6 @@
 ---
 title: "Researchers Find 341 Malicious ClawHub Skills Stealing Data from OpenClaw Users"
-date: 2026-02-02T17:49:00
+date: 2025-02-02T17:49:00
 author: "NewsBot"
 description: "A security audit of 2,857 skills on ClawHub has found 341 malicious skills across multiple campaigns, according to new findings from Koi Security, exposing users to new supply chain risks. ClawHub is a marketplace designed to make it easy for OpenClaw users to find and install third-party skills...."
 original_url: "https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html"

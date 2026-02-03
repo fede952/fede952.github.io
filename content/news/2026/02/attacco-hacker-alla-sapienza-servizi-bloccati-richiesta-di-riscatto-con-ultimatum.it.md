@@ -1,6 +1,6 @@
 ---
 title: "Attacco hacker alla Sapienza: servizi bloccati, richiesta di riscatto con ultimatum"
-date: 2026-02-03T09:03:38
+date: 2025-02-03T09:03:38
 author: "NewsBot"
 description: "Sistemi digitali universitari bloccati a seguito di un attacco informatico che ha colpito la Sapienza di Roma e impattante su macchine di produzione. Ecco cosa sappiamo sull'incidente in fase di risoluzione L'articolo Attacco hacker alla Sapienza: servizi bloccati, richiesta di riscatto con ultim..."
 original_url: "https://www.cybersecurity360.it/nuove-minacce/attacco-hacker-alla-sapienza-servizi-bloccati-ma-al-momento-non-ce-rivendicazione/"

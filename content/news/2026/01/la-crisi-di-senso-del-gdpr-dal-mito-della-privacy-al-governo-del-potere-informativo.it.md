@@ -1,6 +1,6 @@
 ---
 title: "La crisi di senso del GDPR: dal mito della privacy al governo del potere informativo"
-date: 2026-01-30T08:00:00
+date: 2025-01-30T08:00:00
 author: "NewsBot"
 description: "Il GDPR non è una semplice normativa sulla privacy, associata a vincoli, adempimenti e complessità burocratiche, bensì un sistema di protezione delle persone e di legittimazione del potere esercitato attraverso i dati. Ecco come superare questo fraintendimento e ricostruirne le conseguenze cultur..."
 original_url: "https://www.cybersecurity360.it/legal/privacy-dati-personali/la-crisi-di-senso-del-gdpr-dal-mito-della-privacy-al-governo-del-potere-informativo/"

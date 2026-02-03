@@ -1,6 +1,6 @@
 ---
 title: "Attacco hacker contro La Sapienza: sito offline"
-date: 2026-02-02T11:40:34
+date: 2025-02-02T11:40:34
 author: "NewsBot"
 description: "L'università La Sapienza di Roma è stata colpita da un attacco informatico (non ancora rivendicato) che ha messo fuori uso il sito ufficiale. The post Attacco hacker contro La Sapienza: sito offline appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/attacco-hacker-contro-sapienza-sito-offline/"

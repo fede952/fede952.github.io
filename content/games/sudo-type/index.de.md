@@ -1,6 +1,6 @@
 ---
 title: "Sudo Type"
-date: 2026-02-01
+date: 2025-02-01
 description: "Verteidige deinen Mainframe durch Tippen. Ein Retro-Hacker-Tippspiel."
 categories: ["Spiele", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]

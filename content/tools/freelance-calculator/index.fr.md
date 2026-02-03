@@ -1,6 +1,6 @@
 ---
 title: "RateMate : Calculateur de Taux Horaire Freelance"
-date: 2026-02-02
+date: 2025-02-02
 description: "Calculez votre taux horaire idéal en freelance selon votre salaire cible, les impôts et les charges. Outil gratuit pour développeurs, designers et consultants."
 hidemeta: true
 showToc: false

@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek vs ChatGPT：撼动AI行业的开源大语言模型"
-date: 2026-02-02
+date: 2025-02-02
 description: "深度对比DeepSeek-V3与GPT-4o的架构、定价、基准测试、隐私与审查。了解DeepSeek的混合专家模型为何能以1/50的API成本实现GPT-4级性能。"
 tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]

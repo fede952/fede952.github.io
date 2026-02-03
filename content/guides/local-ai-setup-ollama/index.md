@@ -1,6 +1,6 @@
 ---
 title: "Stop Paying for AI: Run DeepSeek & Llama 3 Locally for Free"
-date: 2026-02-02
+date: 2025-02-02
 description: "Learn how to run powerful AI models like DeepSeek and Llama 3 on your own PC for free using Ollama. Complete privacy, zero monthly fees, works offline."
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

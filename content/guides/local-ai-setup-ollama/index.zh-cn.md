@@ -1,6 +1,6 @@
 ---
 title: "别再为 AI 付费了：免费在本地运行 DeepSeek 和 Llama 3"
-date: 2026-02-02
+date: 2025-02-02
 description: "了解如何使用 Ollama 在自己的电脑上免费运行 DeepSeek 和 Llama 3 等强大 AI 模型。完全隐私、零月费、离线可用。"
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

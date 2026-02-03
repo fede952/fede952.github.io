@@ -1,6 +1,6 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2026-02-03
+date: 2025-02-03
 description: "네온 큐브를 합쳐 2048을 만드세요. 사이버펑크 스타일의 클래식 퍼즐."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]

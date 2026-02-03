@@ -1,6 +1,6 @@
 ---
 title: "Why ICE Can Kill With Impunity"
-date: 2026-01-15T18:54:23
+date: 2025-01-15T18:54:23
 author: "NewsBot"
 description: "Over the past decade, US immigration agents have shot and killed more than two dozen people. Not a single agent appears to have faced criminal charges."
 original_url: "https://www.wired.com/story/why-ice-can-kill-with-impunity/"

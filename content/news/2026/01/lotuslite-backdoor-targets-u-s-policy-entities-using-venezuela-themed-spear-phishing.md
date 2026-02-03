@@ -1,6 +1,6 @@
 ---
 title: "LOTUSLITE Backdoor Targets U.S. Policy Entities Using Venezuela-Themed Spear Phishing"
-date: 2026-01-16T10:27:00
+date: 2025-01-16T10:27:00
 author: "NewsBot"
 description: "Security experts have disclosed details of a new campaign that has targeted U.S. government and policy entities using politically themed lures to deliver a backdoor known as LOTUSLITE. The targeted malware campaign leverages decoys related to the recent geopolitical developments between the U.S. ..."
 original_url: "https://thehackernews.com/2026/01/lotuslite-backdoor-targets-us-policy.html"

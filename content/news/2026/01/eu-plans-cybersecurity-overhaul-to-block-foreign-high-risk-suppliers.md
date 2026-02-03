@@ -1,6 +1,6 @@
 ---
 title: "EU plans cybersecurity overhaul to block foreign high-risk suppliers"
-date: 2026-01-20T18:54:38
+date: 2025-01-20T18:54:38
 author: "NewsBot"
 description: "The European Commission has proposed new cybersecurity legislation mandating the removal of high-risk suppliers to secure telecommunications networks and strengthening defenses against state-backed and cybercrime groups targeting critical infrastructure. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/eu-plans-cybersecurity-overhaul-to-block-foreign-high-risk-suppliers/"

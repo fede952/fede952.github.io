@@ -1,6 +1,6 @@
 ---
 title: "Musk vuole fondere SpaceX con Tesla o xAI entro giugno"
-date: 2026-01-30T05:46:47
+date: 2025-01-30T05:46:47
 author: "NewsBot"
 description: "SpaceX potrebbe fondersi con Tesla o xAI prima dell'offerta pubblica iniziale prevista per giugno per consolidare ulteriormente l'impero aziendale. The post Musk vuole fondere SpaceX con Tesla o xAI entro giugno appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/musk-vuole-fondere-spacex-tesla-xai-entro-giugno/"

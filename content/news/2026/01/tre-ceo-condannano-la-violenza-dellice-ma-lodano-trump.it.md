@@ -1,6 +1,6 @@
 ---
 title: "Tre CEO condannano la violenza dell’ICE, ma lodano Trump"
-date: 2026-01-28T18:15:07
+date: 2025-01-28T18:15:07
 author: "NewsBot"
 description: "I CEO di Anthropic, Apple e OpenAI condannano le violenze dell'ICE a Minneapolis, ma apprezzato il lavoro svolto da Donald Trump. The post Tre CEO condannano la violenza dell’ICE, ma lodano Trump appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/tre-ceo-condannano-violenza-ice-lodano-trump/"

@@ -1,6 +1,6 @@
 ---
 title: "Clawdbot diventa Moltbot: come mitigare il rischio dell’infostealer camuffato da Agentic AI"
-date: 2026-01-29T15:56:21
+date: 2025-01-29T15:56:21
 author: "NewsBot"
 description: "Le preoccupazioni relative alla sicurezza del nuovo strumento di Agentic AI, precedentemente noto come Clawdbot, permangono, nonostante il rebranding richiesto da Anthropic per motivi legati al marchio registrato. Ecco i principali rischi di un malware infostealer camuffato da assistente personal..."
 original_url: "https://www.cybersecurity360.it/news/clawdbot-diventa-moltbot-linfostealer-camuffato-da-agentic-ai-cambia-pelle-come-proteggersi/"

@@ -1,6 +1,6 @@
 ---
 title: "FBI seizes RAMP cybercrime forum used by ransomware gangs"
-date: 2026-01-28T17:38:45
+date: 2025-01-28T17:38:45
 author: "NewsBot"
 description: "The FBI has seized the notorious RAMP cybercrime forum, a platform used to advertise a wide range of malware and hacking services, and one of the few remaining forums that openly allowed the promotion of ransomware operations. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/fbi-seizes-ramp-cybercrime-forum-used-by-ransomware-gangs/"

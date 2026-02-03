@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2026-02-01
+date: 2025-02-01
 description: "¿Puedes mantener la producción viva? Un endless runner para desarrolladores."
 categories: ["Juegos", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]

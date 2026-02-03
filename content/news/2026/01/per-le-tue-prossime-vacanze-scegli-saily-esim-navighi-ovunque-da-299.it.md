@@ -1,6 +1,6 @@
 ---
 title: "Per le tue prossime vacanze scegli Saily eSIM: navighi ovunque da 2,99$"
-date: 2026-01-16T19:02:37
+date: 2025-01-16T19:02:37
 author: "NewsBot"
 description: "Con le eSIM di Saily navighi in oltre 200 destinazioni del mondo a zero costi di roaming grazie ai piani a prezzi convenienti. The post Per le tue prossime vacanze scegli Saily eSIM: navighi ovunque da 2,99$ appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/per-le-tue-prossime-vacanze-scegli-saily-esim-navighi-ovunque-da-299/"

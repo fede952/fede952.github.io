@@ -1,6 +1,6 @@
 ---
 title: "Cloudflare presenta ricorso contro la sanzione AGCOM"
-date: 2026-01-28T11:56:52
+date: 2025-01-28T11:56:52
 author: "NewsBot"
 description: "Cloudflare ha presentato ricorso contro la sanzione da 14 milioni di euro inflitta da AGCOM per la violazione della legge antipirateria. The post Cloudflare presenta ricorso contro la sanzione AGCOM appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/cloudflare-presenta-ricorso-contro-sanzione-agcom/"

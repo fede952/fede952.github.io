@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: مازج الأصوات المحيطة"
-date: 2026-02-01
+date: 2025-02-01
 description: "ارفع إنتاجيتك مع الأصوات المحيطة ومؤقت بومودورو."
 hidemeta: true
 showToc: false

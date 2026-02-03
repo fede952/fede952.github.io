@@ -1,6 +1,6 @@
 ---
 title: "Smart App Control: si può riattivare senza reinstallare Windows 11"
-date: 2026-02-02T06:04:48
+date: 2025-02-02T06:04:48
 author: "NewsBot"
 description: "Smart App Control impedisce l'esecuzione di software non affidabili. Ora si può riattivare senza reinstallare il sistema operativo. The post Smart App Control: si può riattivare senza reinstallare Windows 11 appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/smart-app-control-si-puo-riattivare-senza-reinstallare-windows-11/"

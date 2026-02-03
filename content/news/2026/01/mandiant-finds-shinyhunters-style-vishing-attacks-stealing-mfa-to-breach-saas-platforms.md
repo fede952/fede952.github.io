@@ -1,6 +1,6 @@
 ---
 title: "Mandiant Finds ShinyHunters-Style Vishing Attacks Stealing MFA to Breach SaaS Platforms"
-date: 2026-01-31T07:58:00
+date: 2025-01-31T07:58:00
 author: "NewsBot"
 description: "Google-owned Mandiant on Friday said it identified an \"expansion in threat activity\" that uses tradecraft consistent with extortion-themed attacks orchestrated by a financially motivated hacking group known as ShinyHunters. The attacks leverage advanced voice phishing (aka vishing) and bogus cred..."
 original_url: "https://thehackernews.com/2026/01/mandiant-finds-shinyhunters-using.html"

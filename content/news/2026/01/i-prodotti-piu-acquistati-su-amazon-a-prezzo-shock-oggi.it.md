@@ -1,6 +1,6 @@
 ---
 title: "I prodotti più acquistati su Amazon a prezzo shock oggi"
-date: 2026-01-24T05:30:20
+date: 2025-01-24T05:30:20
 author: "NewsBot"
 description: "Scopri tutti i prodotti più acquistati su Amazon oggi in offerta a prezzo shock da acquistare subito, prima che finiscano gli ultimi pezzi. The post I prodotti più acquistati su Amazon a prezzo shock oggi appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/i-prodotti-piu-acquistati-su-amazon-a-prezzo-shock-oggi/"

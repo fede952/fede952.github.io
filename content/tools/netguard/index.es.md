@@ -1,6 +1,6 @@
 ---
 title: "NetGuard: Consulta Mi IP y Test de Fugas del Navegador"
-date: 2026-02-02
+date: 2025-02-02
 description: "¿Tu navegador está filtrando datos? Comprueba tu dirección IP pública, estado WebRTC, huella GPU e identidad digital al instante. Auditoría de privacidad gratuita — 100% del lado del cliente."
 hidemeta: true
 showToc: false

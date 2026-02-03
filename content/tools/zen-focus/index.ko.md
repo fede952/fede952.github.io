@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: 앰비언트 노이즈 믹서"
-date: 2026-02-01
+date: 2025-02-01
 description: "백색 소음과 빗소리로 집중력을 높이세요."
 hidemeta: true
 showToc: false

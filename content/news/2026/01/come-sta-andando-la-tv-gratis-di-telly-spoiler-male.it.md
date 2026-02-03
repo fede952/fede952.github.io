@@ -1,6 +1,6 @@
 ---
 title: "Come sta andando la TV gratis di Telly? Spoiler: male"
-date: 2026-01-23T10:52:07
+date: 2025-01-23T10:52:07
 author: "NewsBot"
 description: "Telly voleva rivoluzionare il mercato con una TV gratuita e pubblicità sempre visibili, ma ad oggi le unità installate sarebbero ben poche. The post Come sta andando la TV gratis di Telly? Spoiler: male appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/come-sta-andando-tv-gratis-telly/"

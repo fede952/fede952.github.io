@@ -1,6 +1,6 @@
 ---
 title: "Sicurezza e resilienza: la mitigazione possibile degli eventi “cigno nero”"
-date: 2026-01-29T14:36:13
+date: 2025-01-29T14:36:13
 author: "NewsBot"
 description: "Progettare sicurezza e resilienza anche per gli eventi a bassa probabilità e ad alto impatto è ora possibile a costi contenuti. Ecco come L'articolo Sicurezza e resilienza: la mitigazione possibile degli eventi “cigno nero” proviene da Cyber Security 360."
 original_url: "https://www.cybersecurity360.it/nuove-minacce/sicurezza-e-resilienza-la-mitigazione-possibile-degli-eventi-cigno-nero/"

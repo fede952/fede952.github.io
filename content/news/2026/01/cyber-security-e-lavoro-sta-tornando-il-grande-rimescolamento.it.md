@@ -1,6 +1,6 @@
 ---
 title: "Cyber security e lavoro: sta tornando il grande rimescolamento"
-date: 2026-01-28T09:54:00
+date: 2025-01-28T09:54:00
 author: "NewsBot"
 description: "La pandemia ci aveva regalato il fenomeno delle dimissioni di massa. Poi questa dinamica si è trasformata e adesso si assiste - soprattutto nella cyber security - alla ripresa in grande stile del great reshuffle: ovvero si cerca un nuovo impiego che dia equilibrio tra lavoro e vita privata. E il ..."
 original_url: "https://www.cybersecurity360.it/outlook/cyber-security-sta-tornando-il-grande-rimescolamento/"

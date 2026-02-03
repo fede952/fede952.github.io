@@ -1,6 +1,6 @@
 ---
 title: "149 Million Usernames and Passwords Exposed by Unsecured Database"
-date: 2026-01-23T11:00:00
+date: 2025-01-23T11:00:00
 author: "NewsBot"
 description: "This “dream wish list for criminals” includes millions of Gmail, Facebook, banking logins, and more. The researcher who discovered it suspects they were collected using infostealing malware."
 original_url: "https://www.wired.com/story/149-million-stolen-usernames-passwords/"

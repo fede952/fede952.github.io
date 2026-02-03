@@ -1,6 +1,6 @@
 ---
 title: "[Webinar] The Smarter SOC Blueprint: Learn What to Build, Buy, and Automate"
-date: 2026-02-03T14:14:00
+date: 2025-02-03T14:14:00
 author: "NewsBot"
 description: "Most security teams today are buried under tools. Too many dashboards. Too much noise. Not enough real progress. Every vendor promises “complete coverage” or “AI-powered automation,” but inside most SOCs, teams are still overwhelmed, stretched thin, and unsure which tools are truly pulling their ..."
 original_url: "https://thehackernews.com/2026/02/webinar-smarter-soc-blueprint-learn.html"

@@ -1,6 +1,6 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2026-02-03
+date: 2025-02-03
 description: "Il classico puzzle logico in stile Cyberpunk. Unisci i cubi al neon per arrivare a 2048."
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]

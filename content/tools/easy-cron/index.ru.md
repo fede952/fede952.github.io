@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: Визуальный Генератор Cron-Задач"
-date: 2026-02-02
+date: 2025-02-02
 description: "Самый простой способ создать Cron-задачи в Linux. Визуальный редактор, объяснение crontab и расчёт следующих запусков."
 hidemeta: true
 showToc: false

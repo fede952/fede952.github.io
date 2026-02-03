@@ -1,6 +1,6 @@
 ---
 title: "Perché i robot umanoidi sono un disastro?"
-date: 2026-01-27T17:45:02
+date: 2025-01-27T17:45:02
 author: "NewsBot"
 description: "L'industria tech promette robot capaci di fare tutto, ma la realtà è ben diversa. Falliscono compiti semplici e hanno poche ore di autonomia. The post Perché i robot umanoidi sono un disastro? appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/perche-robot-umanoidi-sono-disastro/"

@@ -1,6 +1,6 @@
 ---
 title: "US Judge Rules ICE Raids Require Judicial Warrants, Contradicting Secret ICE Memo"
-date: 2026-01-23T22:24:07
+date: 2025-01-23T22:24:07
 author: "NewsBot"
 description: "The ruling in federal court in Minnesota lands as Immigration and Customs Enforcement faces scrutiny over an internal memo claiming judge-signed warrants aren’t needed to enter homes without consent."
 original_url: "https://www.wired.com/story/us-judge-rules-ice-raids-require-judicial-warrants-contradicting-secret-ice-memo/"

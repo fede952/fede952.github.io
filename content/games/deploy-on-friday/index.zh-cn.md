@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2026-02-01
+date: 2025-02-01
 description: "你能让生产环境存活吗？一款开发者的无尽跑酷游戏。"
 categories: ["游戏", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]

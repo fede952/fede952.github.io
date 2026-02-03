@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek vs ChatGPT: AI उद्योग को हिला देने वाला ओपन-सोर्स LLM"
-date: 2026-02-02
+date: 2025-02-02
 description: "DeepSeek-V3 और GPT-4o की आर्किटेक्चर, मूल्य निर्धारण, बेंचमार्क, गोपनीयता और सेंसरशिप पर गहन तुलना। जानें कि DeepSeek का Mixture-of-Experts मॉडल API लागत के 1/50 पर GPT-4 स्तर का प्रदर्शन कैसे देता है।"
 tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]

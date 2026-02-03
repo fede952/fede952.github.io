@@ -1,6 +1,6 @@
 ---
 title: "Apple lancia dispositivo indossabile AI, una spilla con fotocamere?"
-date: 2026-01-22T05:43:19
+date: 2025-01-22T05:43:19
 author: "NewsBot"
 description: "Apple starebbe sviluppando un dispositivo indossabile AI a forma di spilla con due fotocamere e tre microfoni. Potrebbe arrivare nel 2027. The post Apple lancia dispositivo indossabile AI, una spilla con fotocamere? appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/apple-dispositivo-indossabile-ai-spilla-fotocamere/"

@@ -1,6 +1,6 @@
 ---
 title: "توقف عن الدفع مقابل الذكاء الاصطناعي: شغّل DeepSeek و Llama 3 محلياً ومجاناً"
-date: 2026-02-02
+date: 2025-02-02
 description: "تعلّم كيف تشغّل نماذج ذكاء اصطناعي قوية مثل DeepSeek و Llama 3 على حاسوبك مجاناً باستخدام Ollama. خصوصية كاملة، بدون رسوم شهرية، يعمل بدون إنترنت."
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

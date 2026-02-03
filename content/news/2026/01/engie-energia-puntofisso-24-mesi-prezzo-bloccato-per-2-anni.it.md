@@ -1,6 +1,6 @@
 ---
 title: "ENGIE Energia PuntoFisso 24 Mesi: prezzo bloccato per 2 anni"
-date: 2026-01-20T13:00:49
+date: 2025-01-20T13:00:49
 author: "NewsBot"
 description: "Energia PuntoFisso 24 Mesi di ENGIE blocca luce e gas per due anni, con prezzi chiari, energia verde inclusa, gestione digitale e attivazione semplice. The post ENGIE Energia PuntoFisso 24 Mesi: prezzo bloccato per 2 anni appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/engie-energia-puntofisso-24-mesi-prezzo-bloccato-per-2-anni/"

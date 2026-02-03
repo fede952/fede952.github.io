@@ -1,6 +1,6 @@
 ---
 title: "Konni Hackers Deploy AI-Generated PowerShell Backdoor Against Blockchain Developers"
-date: 2026-01-26T08:54:00
+date: 2025-01-26T08:54:00
 author: "NewsBot"
 description: "The North Korean threat actor known as Konni has been observed using PowerShell malware generated using artificial intelligence (AI) tools to target developers and engineering teams in the blockchain sector. The phishing campaign has targeted Japan, Australia, and India, highlighting the adversar..."
 original_url: "https://thehackernews.com/2026/01/konni-hackers-deploy-ai-generated.html"

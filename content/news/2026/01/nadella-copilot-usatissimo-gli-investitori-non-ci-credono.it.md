@@ -1,6 +1,6 @@
 ---
 title: "Nadella: “Copilot usatissimo”, gli investitori non ci credono"
-date: 2026-01-30T12:51:46
+date: 2025-01-30T12:51:46
 author: "NewsBot"
 description: "Satya Nadella assicura che Copilot è usatissimo dopo che il titolo Microsoft perde valore nonostante gli utili record da 81,3 miliardi di dollari. The post Nadella: “Copilot usatissimo”, gli investitori non ci credono appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/nadella-copilot-usatissimo-investitori-non-ci-credono/"

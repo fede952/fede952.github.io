@@ -1,6 +1,6 @@
 ---
 title: "Phishing Attack Uses Stolen Credentials to Install LogMeIn RMM for Persistent Access"
-date: 2026-01-23T11:18:00
+date: 2025-01-23T11:18:00
 author: "NewsBot"
 description: "Cybersecurity researchers have disclosed details of a new dual-vector campaign that leverages stolen credentials to deploy legitimate Remote Monitoring and Management (RMM) software for persistent remote access to compromised hosts. \"Instead of deploying custom viruses, attackers are bypassing se..."
 original_url: "https://thehackernews.com/2026/01/phishing-attack-uses-stolen-credentials.html"

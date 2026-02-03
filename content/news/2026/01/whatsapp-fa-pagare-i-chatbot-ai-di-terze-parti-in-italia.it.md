@@ -1,6 +1,6 @@
 ---
 title: "WhatsApp fa pagare i chatbot AI di terze parti in Italia"
-date: 2026-01-29T05:56:11
+date: 2025-01-29T05:56:11
 author: "NewsBot"
 description: "Dal 16 febbraio Meta farà pagare agli sviluppatori l'uso di chatbot AI su WhatsApp in Italia. Tariffe fino a 0,0572 euro per messaggio. The post WhatsApp fa pagare i chatbot AI di terze parti in Italia appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/whatsapp-fa-pagare-chatbot-ai-terze-parti-italia/"

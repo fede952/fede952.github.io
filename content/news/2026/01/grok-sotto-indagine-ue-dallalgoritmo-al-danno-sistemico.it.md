@@ -1,6 +1,6 @@
 ---
 title: "Grok sotto indagine UE: dall’algoritmo al danno sistemico"
-date: 2026-01-28T13:47:30
+date: 2025-01-28T13:47:30
 author: "NewsBot"
 description: "Con l’apertura di un’indagine formale contro X, la Commissione UE intende verificare se l’integrazione di Grok, il sistema di AI generativa sviluppato dal gruppo di Elon Musk, abbia rispettato gli obblighi europei di valutazione e mitigazione dei rischi sistemici previsti dal DSA. Ecco i possibil..."
 original_url: "https://www.cybersecurity360.it/news/grok-sotto-indagine-ue-dallalgoritmo-al-danno-sistemico/"

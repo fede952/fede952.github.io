@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: ビジュアル Cron ジョブジェネレーター"
-date: 2026-02-02
+date: 2025-02-02
 description: "Linux Cron ジョブを作成する最も簡単な方法。ビジュアルエディタ、Crontab 解説、次回実行日計算機能。"
 hidemeta: true
 showToc: false

@@ -1,6 +1,6 @@
 ---
 title: "NetGuard：查看我的IP地址与浏览器泄漏测试"
-date: 2026-02-02
+date: 2025-02-02
 description: "您的浏览器正在泄漏数据吗？立即检查您的公共IP地址、WebRTC泄漏状态、GPU指纹和数字身份。免费隐私审计 — 100%客户端运行。"
 hidemeta: true
 showToc: false

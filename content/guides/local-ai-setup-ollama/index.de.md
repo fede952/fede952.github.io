@@ -1,6 +1,6 @@
 ---
 title: "Schluss mit KI-Abos: DeepSeek & Llama 3 Kostenlos Lokal Ausführen"
-date: 2026-02-02
+date: 2025-02-02
 description: "Erfahren Sie, wie Sie leistungsstarke KI-Modelle wie DeepSeek und Llama 3 mit Ollama kostenlos auf Ihrem eigenen PC ausführen. Vollständige Privatsphäre, keine monatlichen Kosten, funktioniert offline."
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

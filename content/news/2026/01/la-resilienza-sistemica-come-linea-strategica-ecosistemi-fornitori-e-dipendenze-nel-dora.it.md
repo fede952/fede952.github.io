@@ -1,6 +1,6 @@
 ---
 title: "La resilienza sistemica come linea strategica: ecosistemi, fornitori e dipendenze nel DORA"
-date: 2026-01-23T08:34:50
+date: 2025-01-23T08:34:50
 author: "NewsBot"
 description: "La resilienza non è più solo una capacità interna, ma una linea strategica. Ecco la sua dimensione sistemica, le dipendenze critiche, la gestione del rischio dei fornitori, l’oversight sui servizi ICT critici, la concentrazione del rischio e il ruolo strategico del CdA nel disegnare l’intero ecos..."
 original_url: "https://www.cybersecurity360.it/legal/la-resilienza-sistemica-come-linea-strategica-ecosistemi-fornitori-e-dipendenze-nel-dora/"

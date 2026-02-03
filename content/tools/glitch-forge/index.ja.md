@@ -1,6 +1,6 @@
 ---
 title: "GlitchForge：グリッチアートジェネレーター"
-date: 2026-02-01
+date: 2025-02-01
 description: "写真をサイバーパンクアートに変換。無料、オフライン、プライバシー重視のグリッチ画像エディター。RGBシフト、ピクセルソート、スキャンライン対応。"
 hidemeta: true
 showToc: false

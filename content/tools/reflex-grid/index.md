@@ -1,6 +1,6 @@
 ---
 title: "ReflexGrid: Free Aim Trainer & Reaction Time Test"
-date: 2026-02-02
+date: 2025-02-02
 description: "Test your mouse accuracy and reaction time with this free browser aim trainer. Built for FPS gamers — Valorant, CS2, CoD. Track hits, accuracy, and average reaction speed in a 60-second session."
 hidemeta: true
 showToc: false

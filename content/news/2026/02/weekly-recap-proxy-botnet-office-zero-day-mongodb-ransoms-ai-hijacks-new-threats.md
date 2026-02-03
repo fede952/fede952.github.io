@@ -1,6 +1,6 @@
 ---
 title: "⚡ Weekly Recap: Proxy Botnet, Office Zero-Day, MongoDB Ransoms, AI Hijacks & New Threats"
-date: 2026-02-02T11:59:00
+date: 2025-02-02T11:59:00
 author: "NewsBot"
 description: "Every week brings new discoveries, attacks, and defenses that shape the state of cybersecurity. Some threats are stopped quickly, while others go unseen until they cause real damage. Sometimes a single update, exploit, or mistake changes how we think about risk and protection. Every incident show..."
 original_url: "https://thehackernews.com/2026/02/weekly-recap-proxy-botnet-office-zero.html"

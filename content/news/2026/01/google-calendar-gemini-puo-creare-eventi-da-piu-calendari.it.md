@@ -1,6 +1,6 @@
 ---
 title: "Google Calendar, Gemini può creare eventi da più calendari"
-date: 2026-01-21T12:12:26
+date: 2025-01-21T12:12:26
 author: "NewsBot"
 description: "Gemini su Google Calendar ora supporta i calendari secondari come faceva Google Assistant, ma solo all’interno dello stesso account. The post Google Calendar, Gemini può creare eventi da più calendari appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/google-calendar-gemini-puo-creare-eventi-da-piu-calendari/"

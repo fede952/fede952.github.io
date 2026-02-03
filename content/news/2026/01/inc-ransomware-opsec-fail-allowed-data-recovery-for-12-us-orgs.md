@@ -1,6 +1,6 @@
 ---
 title: "INC ransomware opsec fail allowed data recovery for 12 US orgs"
-date: 2026-01-22T16:21:17
+date: 2025-01-22T16:21:17
 author: "NewsBot"
 description: "An operational security failure allowed researchers to recover data that the INC ransomware gang stole from a dozen U.S. organizations. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/inc-ransomware-opsec-fail-allowed-data-recovery-for-12-us-orgs/"

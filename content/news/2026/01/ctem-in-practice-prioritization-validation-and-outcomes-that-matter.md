@@ -1,6 +1,6 @@
 ---
 title: "CTEM in Practice: Prioritization, Validation, and Outcomes That Matter"
-date: 2026-01-27T11:50:00
+date: 2025-01-27T11:50:00
 author: "NewsBot"
 description: "Cybersecurity teams increasingly want to move beyond looking at threats and vulnerabilities in isolation. It’s not only about what could go wrong (vulnerabilities) or who might attack (threats), but where they intersect in your actual environment to create real, exploitable exposure. Which exposu..."
 original_url: "https://thehackernews.com/2026/01/ctem-in-practice-prioritization.html"

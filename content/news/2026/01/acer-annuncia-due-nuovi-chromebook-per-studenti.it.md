@@ -1,6 +1,6 @@
 ---
 title: "Acer annuncia due nuovi Chromebook per studenti"
-date: 2026-01-24T18:23:59
+date: 2025-01-24T18:23:59
 author: "NewsBot"
 description: "Chromebook 311 e Chromebook Spin 311 sono i nuovi notebook economici di Acer con ChromeOS con caratteristiche adatte agli studenti. The post Acer annuncia due nuovi Chromebook per studenti appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/acer-annuncia-due-nuovi-chromebook-studenti/"

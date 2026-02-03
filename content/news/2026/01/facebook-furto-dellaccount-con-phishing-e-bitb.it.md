@@ -1,6 +1,6 @@
 ---
 title: "Facebook: furto dell’account con phishing e BitB"
-date: 2026-01-18T15:10:35
+date: 2025-01-18T15:10:35
 author: "NewsBot"
 description: "Diversi attacchi di phishing e Browser-in-the-browser (BitB) cercano di rubare le credenziali di login e prendere il controllo degli account Facebook. The post Facebook: furto dell’account con phishing e BitB appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/facebook-furto-account-phishing-bitb/"

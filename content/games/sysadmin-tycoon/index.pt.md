@@ -1,6 +1,6 @@
 ---
 title: "SysAdmin Tycoon"
-date: 2026-02-03
+date: 2025-02-03
 description: "Construa e gerencie seu proprio Data Center. Gerencie energia, resfriamento e seguranca neste jogo idle estrategico."
 image: "/images/sysadmin-tycoon-icon.png"
 categories: ["Games", "Strategy"]

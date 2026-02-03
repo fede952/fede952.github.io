@@ -1,6 +1,6 @@
 ---
 title: "RateMate: Calcolatore Tariffa Oraria Freelance"
-date: 2026-02-02
+date: 2025-02-02
 description: "Calcola la tariffa oraria ideale da freelance in base a obiettivi di stipendio, tasse e spese aziendali. Strumento gratuito per sviluppatori, designer e consulenti."
 hidemeta: true
 showToc: false

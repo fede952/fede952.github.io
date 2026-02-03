@@ -1,6 +1,6 @@
 ---
 title: "Truffatori sfruttano la collaborazione su OpenAI: 3 consigli per le aziende"
-date: 2026-01-23T15:14:18
+date: 2025-01-23T15:14:18
 author: "NewsBot"
 description: "Gli aggressori sfruttano la possibilità di collaborazione della piattaforma di OpenAI per commettere frodi, immettendo testi ingannevoli, link o numeri di telefono fasulli direttamente nel campo destinato al nome dell’organizzazione. Ecco come funziona la nuova tattica fraudolenta che sfrutta la ..."
 original_url: "https://www.cybersecurity360.it/news/truffatori-sfruttano-la-collaborazione-su-openai-3-consigli-per-le-aziende/"

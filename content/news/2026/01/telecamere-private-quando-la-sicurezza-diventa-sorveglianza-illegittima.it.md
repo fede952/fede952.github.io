@@ -1,6 +1,6 @@
 ---
 title: "Telecamere private: quando la sicurezza diventa sorveglianza illegittima"
-date: 2026-01-29T11:37:08
+date: 2025-01-29T11:37:08
 author: "NewsBot"
 description: "Con il provvedimento del 23 ottobre 2025, il Garante Privacy, intervenendo su un caso di videosorveglianza privata protrattasi per anni, in assenza di un reale presidio giuridico e tecnico, ha ribadito le regole per le telecamere private. Ecco cosa comporta la ripresa continuativa di aree condomi..."
 original_url: "https://www.cybersecurity360.it/legal/privacy-dati-personali/telecamere-private-quando-la-sicurezza-diventa-sorveglianza-illegittima/"

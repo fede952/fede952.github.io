@@ -1,6 +1,6 @@
 ---
 title: "Il diario di bordo del CISO: costruire la propria difendibilità"
-date: 2026-02-03T16:28:56
+date: 2025-02-03T16:28:56
 author: "NewsBot"
 description: "La difendibilità del CISO si costruisce prima dell'incidente, non dopo. Il Decision Log documenta rischi identificati, opzioni valutate, decisioni prese e approvazioni formali. Ecco quello che c’è da sapere per usarlo al meglio L'articolo Il diario di bordo del CISO: costruire la propria difendib..."
 original_url: "https://www.cybersecurity360.it/cultura-cyber/il-diario-di-bordo-del-ciso-costruire-la-propria-difendibilita/"

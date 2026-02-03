@@ -1,6 +1,6 @@
 ---
 title: "CCleaner Premium: efficienza e privacy a costo dimezzato"
-date: 2026-01-29T17:50:00
+date: 2025-01-29T17:50:00
 author: "NewsBot"
 description: "CCleaner Premium ottimizza sistema e privacy su PC, Mac e Android con pulizia avanzata e assistenza tecnica, disponibile in offerte scontate per abbonamenti annuali e biennali. The post CCleaner Premium: efficienza e privacy a costo dimezzato appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/ccleaner-premium-efficienza-e-privacy-a-costo-dimezzato/"

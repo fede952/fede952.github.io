@@ -1,6 +1,6 @@
 ---
 title: "Cloudflare misconfiguration behind recent BGP route leak"
-date: 2026-01-26T17:50:35
+date: 2025-01-26T17:50:35
 author: "NewsBot"
 description: "Cloudflare has shared more details about a recent 25-minute Border Gateway Protocol (BGP) route leak affecting IPv6 traffic, which caused measurable congestion, packet loss, and approximately 12 Gbps of dropped traffic. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/cloudflare-misconfiguration-behind-recent-bgp-route-leak/"

@@ -1,6 +1,6 @@
 ---
 title: "WhatsApp: nuove protezioni contro gli spyware"
-date: 2026-01-27T16:58:25
+date: 2025-01-27T16:58:25
 author: "NewsBot"
 description: "Le impostazioni restrittive di WhatsApp disattivano le funzionalità spesso sfruttate per effettuare attacchi sofisticati, come quelli con spyware. The post WhatsApp: nuove protezioni contro gli spyware appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/whatsapp-nuove-protezioni-contro-spyware/"

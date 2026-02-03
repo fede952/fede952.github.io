@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT Go subscription rolls out worldwide at $8, but it'll show you ads"
-date: 2026-01-16T23:43:49
+date: 2025-01-16T23:43:49
 author: "NewsBot"
 description: "OpenAI's $8 ChatGPT Go subscription, which gives you 10x more messages, is now available in the United States and other regions. [...]"
 original_url: "https://www.bleepingcomputer.com/news/artificial-intelligence/chatgpt-go-subscription-rolls-out-worldwide-at-8-but-itll-show-you-ads/"

@@ -1,6 +1,6 @@
 ---
 title: "Microsoft updates Notepad and Paint with more AI features"
-date: 2026-01-22T14:22:23
+date: 2025-01-22T14:22:23
 author: "NewsBot"
 description: "Microsoft is rolling out new artificial intelligence features with the latest updates to the Notepad and Paint apps for Windows 11 Insiders. [...]"
 original_url: "https://www.bleepingcomputer.com/news/microsoft/microsoft-updates-notepad-and-paint-with-more-ai-features/"

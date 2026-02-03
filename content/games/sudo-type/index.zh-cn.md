@@ -1,6 +1,6 @@
 ---
 title: "Sudo Type"
-date: 2026-02-01
+date: 2025-02-01
 description: "通过打字保卫你的主机。一款复古黑客打字防御游戏。"
 categories: ["游戏", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]

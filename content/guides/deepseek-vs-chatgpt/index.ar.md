@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek مقابل ChatGPT: نموذج اللغة مفتوح المصدر الذي يهز صناعة الذكاء الاصطناعي"
-date: 2026-02-02
+date: 2025-02-02
 description: "مقارنة معمقة بين DeepSeek-V3 و GPT-4o تغطي البنية والأسعار والمعايير المرجعية والخصوصية والرقابة. اكتشف لماذا يقدم نموذج Mixture-of-Experts من DeepSeek أداءً بمستوى GPT-4 بـ 1/50 من تكلفة API."
 tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]

@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: Générateur Visuel de Tâches Cron"
-date: 2026-02-02
+date: 2025-02-02
 description: "La façon la plus simple de créer des tâches Cron sous Linux. Éditeur visuel, explicateur crontab et calculateur de prochaines exécutions."
 hidemeta: true
 showToc: false

@@ -1,6 +1,6 @@
 ---
 title: "Malicious AI extensions on VSCode Marketplace steal developer data"
-date: 2026-01-23T20:11:58
+date: 2025-01-23T20:11:58
 author: "NewsBot"
 description: "Two malicious extensions in Microsoft's Visual Studio Code (VSCode) Marketplace that were collectively installed 1.5 million times, exfiltrate developer data to China-based servers. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/malicious-ai-extensions-on-vscode-marketplace-steal-developer-data/"

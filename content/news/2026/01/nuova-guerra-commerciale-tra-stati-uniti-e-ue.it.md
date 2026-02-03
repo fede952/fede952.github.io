@@ -1,6 +1,6 @@
 ---
 title: "Nuova guerra commerciale tra Stati Uniti e UE?"
-date: 2026-01-19T17:34:21
+date: 2025-01-19T17:34:21
 author: "NewsBot"
 description: "L'Unione europea potrebbe imporre dazi per 93 miliardi di dollari in risposta alle minaccia di Trump di introdurre dazi del 10% a 8 paesi europei. The post Nuova guerra commerciale tra Stati Uniti e UE? appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/nuova-guerra-commerciale-stati-uniti-ue/"

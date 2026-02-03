@@ -1,7 +1,7 @@
 ---
 title: "Cifrario di Cesare"
 description: "Cifra e decifra testo utilizzando il classico cifrario di Cesare con chiave di spostamento personalizzabile"
-date: 2026-01-17
+date: 2025-01-17
 tags: ["crittografia", "cifrario", "sicurezza", "tool"]
 layout: "tool-split"
 draft: false

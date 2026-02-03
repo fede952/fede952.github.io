@@ -1,6 +1,6 @@
 ---
 title: "Malicious PyPI Package Impersonates SymPy, Deploys XMRig Miner on Linux Hosts"
-date: 2026-01-22T10:04:00
+date: 2025-01-22T10:04:00
 author: "NewsBot"
 description: "A new malicious package discovered in the Python Package Index (PyPI) has been found to impersonate a popular library for symbolic mathematics to deploy malicious payloads, including a cryptocurrency miner, on Linux hosts. The package, named sympy-dev, mimics SymPy, replicating the latter's proje..."
 original_url: "https://thehackernews.com/2026/01/malicious-pypi-package-impersonates.html"

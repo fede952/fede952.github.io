@@ -1,6 +1,6 @@
 ---
 title: "Cybersecurity Package UE: quando l’ambizione regolatoria si scontra con la sostenibilità"
-date: 2026-01-23T11:49:09
+date: 2025-01-23T11:49:09
 author: "NewsBot"
 description: "Il nuovo Cybersecurity Package UE prevede revisione del Cybersecurity Act, emendamenti NIS2 e potenziamento ENISA. Ma la sovrapposizione con DORA, CRA, AI Act crea stratificazione regolatoria insostenibile e, per le imprese italiane, più obblighi su supply chain e costi di adattamento L'articolo ..."
 original_url: "https://www.cybersecurity360.it/legal/cybersecurity-package-ue-quando-lambizione-regolatoria-si-scontra-con-la-sostenibilita/"

@@ -1,6 +1,6 @@
 ---
 title: "Vulnerabilità di WinRAR sfruttata per spionaggio"
-date: 2026-01-31T15:33:50
+date: 2025-01-31T15:33:50
 author: "NewsBot"
 description: "Una vulnerabilità di WinRAR (già risolta) è stata sfruttata per eseguire numerosi attacchi a scopo di spionaggio da parte di cybercriminali russi. The post Vulnerabilità di WinRAR sfruttata per spionaggio appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/vulnerabilita-winrar-sfruttata-spionaggio/"

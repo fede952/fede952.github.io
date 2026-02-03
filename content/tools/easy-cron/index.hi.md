@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: विज़ुअल क्रॉन जॉब जनरेटर"
-date: 2026-02-02
+date: 2025-02-02
 description: "Linux Cron जॉब बनाने का सबसे आसान तरीका। विज़ुअल एडिटर, Crontab व्याख्याकार और अगले रन कैलकुलेटर।"
 hidemeta: true
 showToc: false

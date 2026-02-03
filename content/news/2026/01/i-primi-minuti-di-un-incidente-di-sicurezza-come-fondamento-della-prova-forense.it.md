@@ -1,6 +1,6 @@
 ---
 title: "I primi minuti di un incidente di sicurezza come fondamento della prova forense"
-date: 2026-01-27T08:30:00
+date: 2025-01-27T08:30:00
 author: "NewsBot"
 description: "La qualità e la spendibilità di una prova forense si giocano nei primi minuti successivi alla scoperta dell’incidente. Ecco il ruolo decisivo del tempo, della volatilità dei dati e dei comportamenti iniziali, e come come azioni banali possano preservare o distruggere le evidenze in maniera irreve..."
 original_url: "https://www.cybersecurity360.it/legal/i-primi-minuti-di-un-incidente-di-sicurezza-come-fondamento-della-prova-forense/"

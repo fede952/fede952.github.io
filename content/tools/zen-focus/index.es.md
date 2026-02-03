@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: Mezclador de Sonido Ambiental"
-date: 2026-02-01
+date: 2025-02-01
 description: "Mejora tu concentración con sonidos ambientales y temporizador Pomodoro."
 hidemeta: true
 showToc: false

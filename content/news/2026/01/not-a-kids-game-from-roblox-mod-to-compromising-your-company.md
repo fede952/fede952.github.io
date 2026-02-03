@@ -1,6 +1,6 @@
 ---
 title: "Not a Kids Game: From Roblox Mod to Compromising Your Company"
-date: 2026-01-29T15:02:12
+date: 2025-01-29T15:02:12
 author: "NewsBot"
 description: "Seemingly harmless game mods can hide infostealer malware that quietly steals identities. Flare shows how Roblox mods can turn a home PC infection into corporate compromise. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/not-a-kids-game-from-roblox-mod-to-compromising-your-company/"

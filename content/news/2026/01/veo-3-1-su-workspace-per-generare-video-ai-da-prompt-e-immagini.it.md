@@ -1,6 +1,6 @@
 ---
 title: "Veo 3.1 su Workspace per generare video AI da prompt e immagini"
-date: 2026-01-17T06:03:50
+date: 2025-01-17T06:03:50
 author: "NewsBot"
 description: "Google Flow è disponibile per tutti gli utenti Workspace. Crea video di 8 secondi con Veo 3.1 da prompt testuali o immagini. The post Veo 3.1 su Workspace per generare video AI da prompt e immagini appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/veo-3-1-workspace-generare-video-ai-prompt-immagini/"

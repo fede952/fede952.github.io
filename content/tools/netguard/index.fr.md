@@ -1,6 +1,6 @@
 ---
 title: "NetGuard : Vérifier Mon IP et Test de Fuites du Navigateur"
-date: 2026-02-02
+date: 2025-02-02
 description: "Votre navigateur fuit-il des données ? Vérifiez votre adresse IP publique, le statut WebRTC, l'empreinte GPU et votre identité numérique instantanément. Audit de confidentialité gratuit — 100% côté client."
 hidemeta: true
 showToc: false

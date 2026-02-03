@@ -1,6 +1,6 @@
 ---
 title: "Cyber attacco agli Uffizi: cosa impariamo per mettere in sicurezza il patrimonio culturale"
-date: 2026-02-03T14:38:31
+date: 2025-02-03T14:38:31
 author: "NewsBot"
 description: "A poche ore dall'attacco a La Sapienza di Roma, mentre sale la tensione per le Olimpiadi invernali di Milano-Cortina 2026, un altro cyber attacco colpisce la Galleria degli Uffizi, simbolo del patrimonio culturale italiano. Ecco cosa sappiamo dell'azione degli hacker e come mettere in sicurezza i..."
 original_url: "https://www.cybersecurity360.it/news/cyber-attacco-agli-uffizi-cosa-impariamo-per-mettere-in-sicurezza-il-patrimonio-culturale/"

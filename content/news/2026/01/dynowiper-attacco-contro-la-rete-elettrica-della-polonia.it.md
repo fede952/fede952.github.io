@@ -1,6 +1,6 @@
 ---
 title: "DynoWiper: attacco contro la rete elettrica della Polonia"
-date: 2026-01-26T16:52:51
+date: 2025-01-26T16:52:51
 author: "NewsBot"
 description: "ESET ha scoperto che l'attacco contro la rete elettrica della Polonia è stato effettuato con il malware DynoWiper dal gruppo russo Sandworm. The post DynoWiper: attacco contro la rete elettrica della Polonia appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/dynowiper-attacco-contro-rete-elettrica-polonia/"

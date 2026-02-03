@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: 비주얼 크론 작업 생성기"
-date: 2026-02-02
+date: 2025-02-02
 description: "Linux Cron 작업을 만드는 가장 쉬운 방법. 비주얼 에디터, Crontab 해설기, 다음 실행 계산기."
 hidemeta: true
 showToc: false

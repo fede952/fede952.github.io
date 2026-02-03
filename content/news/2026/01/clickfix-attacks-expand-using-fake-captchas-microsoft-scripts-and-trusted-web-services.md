@@ -1,6 +1,6 @@
 ---
 title: "ClickFix Attacks Expand Using Fake CAPTCHAs, Microsoft Scripts, and Trusted Web Services"
-date: 2026-01-27T14:38:00
+date: 2025-01-27T14:38:00
 author: "NewsBot"
 description: "Cybersecurity researchers have disclosed details of a new campaign that combines ClickFix-style fake CAPTCHAs with a signed Microsoft Application Virtualization (App-V) script to distribute an information stealer called Amatera. \"Instead of launching PowerShell directly, the attacker uses this sc..."
 original_url: "https://thehackernews.com/2026/01/clickfix-attacks-expand-using-fake.html"

@@ -1,6 +1,6 @@
 ---
 title: "Zendesk SOC Hunter"
-date: 2026-01-18
+date: 2025-01-18
 draft: false
 description: "L'estensione browser per Analisti SOC e supporto Helpdesk che utilizzano Zendesk"
 tags: ["Javascript", "WebExtension", "Automation", "ShadowDOM", "CrossBrowser", "JSON", "Zendesk", "IncidentResponse"]

@@ -1,6 +1,6 @@
 ---
 title: "SysAdmin Tycoon"
-date: 2026-02-03
+date: 2025-02-03
 description: "\u6784\u5efa\u548c\u7ba1\u7406\u4f60\u81ea\u5df1\u7684\u6570\u636e\u4e2d\u5fc3\u3002\u7ba1\u7406\u7535\u529b\u3001\u51b7\u5374\u548c\u5b89\u5168\uff0c\u6df1\u5ea6\u7b56\u7565\u653e\u7f6e\u6e38\u620f\u3002"
 image: "/images/sysadmin-tycoon-icon.png"
 categories: ["Games", "Strategy"]

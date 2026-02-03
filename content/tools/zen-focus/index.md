@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: Ambient Noise Mixer & Pomodoro"
-date: 2026-02-01
+date: 2025-02-01
 description: "Boost your productivity with custom ambient sounds and a focus timer. Mix Rain, White Noise, and more."
 hidemeta: true
 showToc: false

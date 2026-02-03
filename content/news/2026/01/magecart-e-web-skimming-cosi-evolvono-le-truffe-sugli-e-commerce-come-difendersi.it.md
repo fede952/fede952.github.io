@@ -1,6 +1,6 @@
 ---
 title: "Magecart e web skimming, così evolvono le truffe sugli e-commerce: come difendersi"
-date: 2026-01-16T16:20:32
+date: 2025-01-16T16:20:32
 author: "NewsBot"
 description: "È stata identificata una nuova campagna di web skimming basata su Magecart che non colpisce il server in modo tradizionale ma punta direttamente al browser dell’utente durante la fase di pagamento, intercettando i dati nel momento esatto in cui vengono inseriti. Ecco tutti i dettagli e come mitig..."
 original_url: "https://www.cybersecurity360.it/news/magecart-e-web-skimming-cosi-evolvono-le-truffe-sugli-e-commerce-come-difendersi/"

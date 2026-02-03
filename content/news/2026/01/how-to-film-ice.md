@@ -1,6 +1,6 @@
 ---
 title: "How to Film ICE"
-date: 2026-01-31T10:30:00
+date: 2025-01-31T10:30:00
 author: "NewsBot"
 description: "Filming federal agents in public is legal, but avoiding a dangerous—even deadly—confrontation isn’t guaranteed. Here’s how to record ICE and CBP agents as safely as possible and have an impact."
 original_url: "https://www.wired.com/story/how-to-film-ice/"

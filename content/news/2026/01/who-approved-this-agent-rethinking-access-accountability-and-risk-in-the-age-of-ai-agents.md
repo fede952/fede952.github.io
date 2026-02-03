@@ -1,6 +1,6 @@
 ---
 title: "Who Approved This Agent? Rethinking Access, Accountability, and Risk in the Age of AI Agents"
-date: 2026-01-24T08:20:00
+date: 2025-01-24T08:20:00
 author: "NewsBot"
 description: "AI agents are accelerating how work gets done. They schedule meetings, access data, trigger workflows, write code, and take action in real time, pushing productivity beyond human speed across the enterprise. Then comes the moment every security team eventually hits: “Wait… who approved this?” Unl..."
 original_url: "https://thehackernews.com/2026/01/who-approved-this-agent-rethinking.html"

@@ -1,6 +1,6 @@
 ---
 title: "PassFort: Generatore di Password Sicure e Analizzatore di Robustezza"
-date: 2026-02-02
+date: 2025-02-02
 description: "Crea password inattaccabili e verifica la tua sicurezza in pochi secondi. Calcolatore di entropia, stimatore del tempo di cracking e generatore di passphrase — 100% lato client, privato e gratuito."
 hidemeta: true
 showToc: false

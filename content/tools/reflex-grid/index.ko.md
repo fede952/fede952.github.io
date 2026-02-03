@@ -1,6 +1,6 @@
 ---
 title: "ReflexGrid: 무료 에임 트레이너 & 반응속도 테스트"
-date: 2026-02-02
+date: 2025-02-02
 description: "이 무료 브라우저 에임 트레이너로 마우스 정확도와 반응 시간을 테스트하세요. FPS 게이머를 위해 제작 — Valorant, CS2, CoD. 60초 동안 적중, 정확도, 평균 반응 속도를 추적합니다."
 hidemeta: true
 showToc: false

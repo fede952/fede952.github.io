@@ -1,7 +1,7 @@
 ---
 title: "Base64 Encoder/Decoder"
 description: "Encode and decode text to/from Base64 format with UTF-8 support"
-date: 2026-01-17
+date: 2025-01-17
 tags: ["encoding", "base64", "security", "tool"]
 layout: "tool-split"
 draft: false

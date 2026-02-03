@@ -1,6 +1,6 @@
 ---
 title: "Semplificare l’AI Act ha un costo: il monito di EDPB e EDPS sulla credibilità delle regole"
-date: 2026-01-22T16:14:05
+date: 2025-01-22T16:14:05
 author: "NewsBot"
 description: "EDPB ed EDPS hanno pubblicato un parere congiunto sulla proposta di Digital Omnibus AI della Commissione UE per semplificare l’attuazione dell’AI Act. Secondo le Autorità, alleggerire le regole potrebbe significare, in concreto, indebolire la tutela dei diritti. Ecco perché L'articolo Semplificar..."
 original_url: "https://www.cybersecurity360.it/legal/semplificare-lai-act-ha-un-costo-il-monito-di-edpb-e-edps-sulla-credibilita-delle-regole/"

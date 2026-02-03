@@ -1,6 +1,6 @@
 ---
 title: "Ricerca vocale Google Android cambia look, nuovo design"
-date: 2026-01-20T18:38:27
+date: 2025-01-20T18:38:27
 author: "NewsBot"
 description: "La ricerca vocale di Google su Android ha una nuova interfaccia, arco multicolore dinamico ispirato a Gemini, pulsante Cerca una canzone più visibile. The post Ricerca vocale Google Android cambia look, nuovo design appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/ricerca-vocale-google-android-cambia-look-nuovo-design/"

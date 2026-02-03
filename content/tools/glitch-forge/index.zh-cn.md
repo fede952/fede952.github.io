@@ -1,6 +1,6 @@
 ---
 title: "GlitchForge：故障艺术生成器"
-date: 2026-02-01
+date: 2025-02-01
 description: "将您的照片变成赛博朋克艺术。免费、离线、注重隐私的故障图像编辑器，支持RGB偏移、像素排序和扫描线效果。"
 hidemeta: true
 showToc: false

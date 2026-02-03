@@ -1,6 +1,6 @@
 ---
 title: "6 Okta security settings you might have overlooked"
-date: 2026-01-26T15:01:11
+date: 2025-01-26T15:01:11
 author: "NewsBot"
 description: "Okta misconfigurations can quietly weaken identity security as SaaS environments evolve. Nudge Security shows six Okta security settings teams often overlook and how to fix them. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/6-okta-security-settings-you-might-have-overlooked/"

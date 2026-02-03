@@ -1,6 +1,6 @@
 ---
 title: "Starship torna a volare, Musk punta a Marte dopo la Luna"
-date: 2026-01-26T16:07:59
+date: 2025-01-26T16:07:59
 author: "NewsBot"
 description: "Elon Musk conferma, Starship riprende i voli con la versione 3, progettata per essere quasi definitiva. L'obiettivo finale è Marte. The post Starship torna a volare, Musk punta a Marte dopo la Luna appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/starship-torna-volare-musk-punta-marte-dopo-luna/"

@@ -1,6 +1,6 @@
 ---
 title: "Instagram, si potrà uscire dalla lista Amici più stretti di altri utenti"
-date: 2026-01-31T08:34:32
+date: 2025-01-31T08:34:32
 author: "NewsBot"
 description: "Instagram sviluppa una funzione per rimuoversi autonomamente dalla lista Amici più stretti di altri utenti, come confermato da Meta. The post Instagram, si potrà uscire dalla lista Amici più stretti di altri utenti appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/instagram-uscire-lista-amici-piu-stretti-altri-utenti/"

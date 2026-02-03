@@ -1,6 +1,6 @@
 ---
 title: "Teams, codice leggibile da smartphone e feedback sulle chiamate"
-date: 2026-01-29T12:29:31
+date: 2025-01-29T12:29:31
 author: "NewsBot"
 description: "Microsoft Teams introduce i blocchi di codice ottimizzati per il mobile, la nuova interfaccia per il feedback sulle chiamate. The post Teams, codice leggibile da smartphone e feedback sulle chiamate appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/teams-codice-leggibile-smartphone-feedback-chiamate/"

@@ -1,6 +1,6 @@
 ---
 title: "Хватит Платить за ИИ: Запустите DeepSeek и Llama 3 Локально и Бесплатно"
-date: 2026-02-02
+date: 2025-02-02
 description: "Узнайте, как запустить мощные модели ИИ, такие как DeepSeek и Llama 3, на своём ПК бесплатно с помощью Ollama. Полная конфиденциальность, никаких ежемесячных платежей, работает офлайн."
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

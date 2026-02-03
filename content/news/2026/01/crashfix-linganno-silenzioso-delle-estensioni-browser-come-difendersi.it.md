@@ -1,6 +1,6 @@
 ---
 title: "CrashFix, l’inganno silenzioso delle estensioni browser: come difendersi"
-date: 2026-01-23T14:06:00
+date: 2025-01-23T14:06:00
 author: "NewsBot"
 description: "Il gruppo criminale KongTuke ha avviato la campagna CrashFix per distribuire NexShield, una finta estensione di Chrome spacciata per ad blocker che, dopo aver mandato in crash il browser, propone una finta soluzione per coprire le sue attività di intrusione nelle reti aziendali. Dettagli e consig..."
 original_url: "https://www.cybersecurity360.it/news/crashfix-linganno-silenzioso-delle-estensioni-browser-come-difendersi/"

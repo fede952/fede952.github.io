@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT: risposte con citazioni a Grokipedia"
-date: 2026-01-25T15:18:10
+date: 2025-01-25T15:18:10
 author: "NewsBot"
 description: "In molte risposte su determinati argomenti, ChatGPT cita Grokipedia, nonostante sia considerata una fonte di informazioni poco attendibili o false. The post ChatGPT: risposte con citazioni a Grokipedia appeared first on Punto Informatico."
 original_url: "https://www.punto-informatico.it/chatgpt-risposte-citazioni-grokipedia/"

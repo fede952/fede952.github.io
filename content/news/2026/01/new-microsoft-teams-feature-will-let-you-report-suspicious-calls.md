@@ -1,6 +1,6 @@
 ---
 title: "New Microsoft Teams feature will let you report suspicious calls"
-date: 2026-01-29T14:49:47
+date: 2025-01-29T14:49:47
 author: "NewsBot"
 description: "Microsoft plans to introduce a call reporting feature in Teams by mid-March, allowing users to flag suspicious or unwanted calls as potential scams or phishing attempts. [...]"
 original_url: "https://www.bleepingcomputer.com/news/microsoft/new-microsoft-teams-feature-will-let-you-report-suspicious-calls/"

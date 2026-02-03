@@ -1,6 +1,6 @@
 ---
 title: "Deja de Pagar por IA: Ejecuta DeepSeek y Llama 3 en Local Gratis"
-date: 2026-02-02
+date: 2025-02-02
 description: "Aprende a ejecutar modelos de IA potentes como DeepSeek y Llama 3 en tu propio PC gratis con Ollama. Privacidad total, sin cuotas mensuales, funciona sin internet."
 tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]

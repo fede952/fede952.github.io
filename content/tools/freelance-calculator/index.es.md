@@ -1,6 +1,6 @@
 ---
 title: "RateMate: Calculadora de Tarifa por Hora para Freelancers"
-date: 2026-02-02
+date: 2025-02-02
 description: "Calcula tu tarifa por hora ideal como freelance según tu salario deseado, impuestos y gastos. Herramienta gratuita para desarrolladores, diseñadores y consultores."
 hidemeta: true
 showToc: false

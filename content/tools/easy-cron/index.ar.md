@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: مولد مهام Cron المرئي"
-date: 2026-02-02
+date: 2025-02-02
 description: "أسهل طريقة لإنشاء مهام Cron على Linux. محرر مرئي وشارح Crontab وحاسبة التشغيل التالي."
 hidemeta: true
 showToc: false

@@ -1,6 +1,6 @@
 ---
 title: "RateMate: Calculadora de Taxa Horária para Freelancers"
-date: 2026-02-02
+date: 2025-02-02
 description: "Calcule a sua taxa horária ideal como freelancer com base no salário desejado, impostos e despesas. Ferramenta gratuita para programadores, designers e consultores."
 hidemeta: true
 showToc: false

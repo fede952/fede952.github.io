@@ -1,6 +1,6 @@
 ---
 title: "New WhatsApp lockdown feature protects high-risk users from hackers"
-date: 2026-01-28T11:48:26
+date: 2025-01-28T11:48:26
 author: "NewsBot"
 description: "Meta has started rolling out a new WhatsApp lockdown-style security feature designed to protect journalists, public figures, and other high-risk individuals from sophisticated threats, including spyware attacks. [...]"
 original_url: "https://www.bleepingcomputer.com/news/security/whatsapp-gets-new-lockdown-feature-that-blocks-cyberattacks/"

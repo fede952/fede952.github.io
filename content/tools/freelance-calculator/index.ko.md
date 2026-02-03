@@ -1,6 +1,6 @@
 ---
 title: "RateMate: 프리랜서 시급 계산기"
-date: 2026-02-02
+date: 2025-02-02
 description: "목표 연봉, 세금, 사업 비용을 기반으로 이상적인 프리랜서 시급을 계산하세요. 개발자, 디자이너, 컨설턴트를 위한 무료 도구."
 hidemeta: true
 showToc: false

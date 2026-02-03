@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek vs ChatGPT: AI 업계를 뒤흔드는 오픈소스 LLM"
-date: 2026-02-02
+date: 2025-02-02
 description: "DeepSeek-V3와 GPT-4o의 아키텍처, 가격, 벤치마크, 프라이버시, 검열을 심층 비교합니다. DeepSeek의 Mixture-of-Experts 모델이 API 비용 1/50로 GPT-4급 성능을 제공하는 이유를 알아보세요."
 tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]

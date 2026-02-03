@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: 可视化 Cron 定时任务生成器"
-date: 2026-02-02
+date: 2025-02-02
 description: "创建 Linux Cron 定时任务的最简单方式。可视化编辑器、Crontab 解析器和下次运行计算器。"
 hidemeta: true
 showToc: false
