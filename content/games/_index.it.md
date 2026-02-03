@@ -1,5 +1,6 @@
 ---
 title: "Giochi"
+layout: "force-list"
 description: "Giochi interattivi e mini-giochi"
 draft: false
 date: 2024-01-01

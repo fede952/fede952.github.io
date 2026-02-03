@@ -1,5 +1,6 @@
 ---
 title: "기술 뉴스"
+layout: "force-list"
 description: "사이버 보안, 개발 및 기술에 관한 최신 뉴스"
 draft: false
 ---

@@ -1,5 +1,6 @@
 ---
 title: "उपकरण"
+layout: "force-list"
 description: "डेवलपर्स के लिए उपयोगी उपकरण और ऑनलाइन यूटिलिटीज"
 draft: false
 date: 2024-01-01

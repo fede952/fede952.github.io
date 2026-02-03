@@ -1,5 +1,6 @@
 ---
 title: "الأدوات"
+layout: "force-list"
 description: "أدوات مفيدة وبرامج مساعدة عبر الإنترنت للمطورين"
 draft: false
 date: 2024-01-01

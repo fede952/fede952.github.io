@@ -1,5 +1,6 @@
 ---
 title: "Игры"
+layout: "force-list"
 description: "Интерактивные игры и развлекательные инструменты"
 draft: false
 date: 2024-01-01

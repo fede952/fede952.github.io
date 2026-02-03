@@ -1,5 +1,6 @@
 ---
 title: "Новости"
+layout: "force-list"
 description: "Последние новости о кибербезопасности, разработке и технологиях"
 draft: false
 ---

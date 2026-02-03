@@ -1,5 +1,6 @@
 ---
 title: "الألعاب"
+layout: "force-list"
 description: "ألعاب تفاعلية وأدوات ترفيهية"
 draft: false
 date: 2024-01-01

@@ -1,8 +1,8 @@
 ---
 title: "Games"
+layout: "force-list"
 description: "Browser games, CTF challenges and interactive coding puzzles"
 hidemeta: true
-layout: "list"
 date: 2024-01-01
 draft: false
 ---

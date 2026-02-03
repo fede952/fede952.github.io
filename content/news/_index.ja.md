@@ -1,5 +1,6 @@
 ---
 title: "テックニュース"
+layout: "force-list"
 description: "サイバーセキュリティ、開発、テクノロジーに関する最新ニュース"
 draft: false
 ---

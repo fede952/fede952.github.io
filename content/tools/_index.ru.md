@@ -1,5 +1,6 @@
 ---
 title: "Инструменты"
+layout: "force-list"
 description: "Полезные инструменты и онлайн-утилиты для разработчиков"
 draft: false
 date: 2024-01-01

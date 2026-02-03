@@ -1,5 +1,6 @@
 ---
 title: "Notizie Tech"
+layout: "force-list"
 description: "Ultime notizie su cybersecurity, sviluppo e tecnologia"
 draft: false
 ---

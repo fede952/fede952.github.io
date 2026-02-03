@@ -1,8 +1,8 @@
 ---
 title: "Tools"
+layout: "force-list"
 description: "Strumenti interattivi per cybersecurity e sviluppo - tutto client-side, nessun dato inviato a server"
 hidemeta: true
-layout: "list"
 date: 2024-01-01
 draft: false
 ---

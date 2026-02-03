@@ -1,5 +1,6 @@
 ---
 title: "أخبار التقنية"
+layout: "force-list"
 description: "آخر الأخبار حول الأمن السيبراني والتطوير والتكنولوجيا"
 draft: false
 ---

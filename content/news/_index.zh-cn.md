@@ -1,5 +1,6 @@
 ---
 title: "科技新闻"
+layout: "force-list"
 description: "网络安全、开发和技术的最新新闻"
 draft: false
 ---
