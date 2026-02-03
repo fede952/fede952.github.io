@@ -3,89 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PixelShrink - Privacy-First Image Compressor</title>
+<title>PixelShrink Pro - Privacy-First Image Compressor</title>
 <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0a0a;--bg2:#111;--bg3:#171717;--bg4:#1e1e1e;
-  --green:#00ff41;--green-dim:#00cc33;--green-glow:rgba(0,255,65,.15);
-  --red:#ff3333;--orange:#ff9900;--cyan:#00e5ff;
-  --text:#b0b0b0;--text2:#666;--text3:#444;
-  --border:#222;--border2:#2a2a2a;
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
+  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
+  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
+  --green:#00ff88;--red:#ff3355;--orange:#ff9900;
+  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
+  --border:#1e1e30;--border2:#2a2a40;
   --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
 }
 html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
 
-.app{max-width:680px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.app{max-width:720px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
-/* Header */
-.header{text-align:center;padding:20px 0;border-bottom:2px solid var(--green)}
-.header img{width:80px;margin-bottom:12px}
-.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--green);text-transform:uppercase;letter-spacing:5px;text-shadow:0 0 20px var(--green-glow)}
-.header .sub{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:1.5px}
+/* ── Header ── */
+.header{text-align:center;padding:24px 0;border-bottom:2px solid var(--cyan);position:relative}
+.header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
+.header img{width:80px;margin-bottom:12px;filter:drop-shadow(0 0 12px var(--cyan-glow))}
+.header h1{font-size:clamp(22px,5vw,32px);text-transform:uppercase;letter-spacing:6px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:11px;color:var(--text2);margin-top:8px;letter-spacing:2px}
 
-/* Drop Zone */
+/* ── Drop Zone ── */
 .dropzone{
-  position:relative;border:2px dashed var(--border2);border-radius:10px;padding:48px 24px;text-align:center;
-  cursor:pointer;transition:border-color .3s,background .3s;background:var(--bg2);min-height:180px;
+  position:relative;border:2px dashed var(--border2);border-radius:12px;padding:52px 24px;text-align:center;
+  cursor:pointer;transition:all .3s ease;background:var(--bg2);min-height:200px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
 }
-.dropzone:hover,.dropzone.dragover{border-color:var(--green);background:var(--green-glow)}
-.dropzone .icon{font-size:40px;line-height:1;margin-bottom:4px}
-.dropzone .label{font-size:14px;color:var(--text);letter-spacing:1px}
-.dropzone .hint{font-size:11px;color:var(--text3)}
-.dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.dropzone:hover{border-color:var(--cyan);background:var(--cyan-glow);box-shadow:0 0 40px rgba(0,229,255,.05)}
+.dropzone.dragover{border-color:var(--magenta);background:var(--magenta-glow);box-shadow:0 0 60px rgba(255,45,206,.08);transform:scale(1.01)}
+.dropzone .dz-icon{font-size:44px;line-height:1;transition:transform .3s}
+.dropzone.dragover .dz-icon{transform:scale(1.2)}
+.dropzone .dz-label{font-size:14px;color:var(--text);letter-spacing:1px}
+.dropzone .dz-hint{font-size:11px;color:var(--text3)}
+.dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.dropzone.processing{animation:pulse-cyan 1.2s ease infinite}
+@keyframes pulse-cyan{0%,100%{border-color:var(--cyan);box-shadow:0 0 12px var(--cyan-glow)}50%{border-color:var(--magenta);box-shadow:0 0 30px var(--magenta-glow)}}
 
-/* Pulse animation on the drop zone border */
-.dropzone.processing{animation:pulse-border 1s infinite}
-@keyframes pulse-border{0%,100%{border-color:var(--green);box-shadow:0 0 10px var(--green-glow)}50%{border-color:var(--green-dim);box-shadow:0 0 30px var(--green-glow)}}
+/* ── Preview ── */
+.preview{display:none;text-align:center}
+.preview img{max-width:100%;max-height:240px;border-radius:8px;border:1px solid var(--border2);display:block;margin:0 auto 8px}
+.preview-name{font-size:11px;color:var(--text2);word-break:break-all}
+.preview-dim{font-size:11px;color:var(--text3);margin-top:2px}
 
-/* Preview */
-.preview-wrap{display:none;text-align:center}
-.preview-wrap img{max-width:100%;max-height:260px;border-radius:8px;border:1px solid var(--border);margin-bottom:8px}
-.preview-name{font-size:12px;color:var(--text2);word-break:break-all}
+/* ── Controls Grid ── */
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctrl{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px}
+.ctrl-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px;display:block}
+.ctrl select,.ctrl input[type=number]{width:100%;padding:10px;font-family:var(--mono);font-size:13px;background:var(--bg4);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;transition:border-color .2s}
+.ctrl select:focus,.ctrl input[type=number]:focus{border-color:var(--cyan)}
+.ctrl input[type=number]{-moz-appearance:textfield}
+.ctrl input[type=number]::-webkit-inner-spin-button{opacity:1}
 
-/* Settings */
-.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px}
-.settings label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);display:block;margin-bottom:6px}
-.settings input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--bg4);outline:none}
-.settings input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;box-shadow:0 0 8px var(--green-glow)}
-.settings input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;border:none}
-.quality-val{font-size:18px;color:var(--green);font-weight:700;margin-top:4px}
-.settings select{width:100%;padding:10px;font-family:var(--mono);font-size:13px;background:var(--bg4);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;margin-top:4px}
-.settings select:focus{outline:none;border-color:var(--green)}
+/* Slider */
+.slider-row{display:flex;align-items:center;gap:10px}
+.slider-row input[type=range]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--bg4);outline:none}
+.slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 10px var(--cyan-glow)}
+.slider-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;border:none}
+.slider-val{font-size:18px;color:var(--cyan);font-weight:700;min-width:36px;text-align:right}
 
-/* Compress Button */
-.compress-btn{display:block;width:100%;padding:16px;font-family:var(--mono);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:4px;background:transparent;color:var(--green);border:2px solid var(--green);border-radius:6px;cursor:pointer;transition:all .2s;text-align:center}
-.compress-btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 30px var(--green-glow)}
-.compress-btn:disabled{opacity:.4;cursor:not-allowed}
-.compress-btn:disabled:hover{background:transparent;color:var(--green);box-shadow:none}
+/* ── Compress Button ── */
+.compress-btn{display:block;width:100%;padding:16px;font-family:var(--mono);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:4px;background:transparent;color:var(--cyan);border:2px solid var(--cyan);border-radius:8px;cursor:pointer;transition:all .25s;text-align:center}
+.compress-btn:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 40px var(--cyan-glow)}
+.compress-btn:disabled{opacity:.35;cursor:not-allowed}
+.compress-btn:disabled:hover{background:transparent;color:var(--cyan);box-shadow:none}
 
-/* Results */
-.results{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
-.results.visible{display:block;border-color:var(--green);box-shadow:0 0 8px rgba(0,255,65,.06)}
-.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center}
-.result-item .r-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:6px}
-.result-item .r-value{font-size:clamp(16px,3vw,22px);font-weight:700;color:var(--green)}
-.result-item .r-value.saved{color:var(--cyan)}
-
-/* Download Button */
-.download-btn{display:none;width:100%;padding:14px;font-family:var(--mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:3px;background:var(--green);color:var(--bg);border:none;border-radius:6px;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none}
-.download-btn:hover{box-shadow:0 0 30px var(--green-glow);opacity:.9}
-.download-btn.visible{display:block}
-
-/* Status */
-.status{text-align:center;font-size:12px;color:var(--green);letter-spacing:1px;min-height:18px;opacity:.8}
+/* ── Status ── */
+.status{text-align:center;font-size:12px;color:var(--cyan);letter-spacing:1px;min-height:18px;opacity:.85}
 .status .blink{animation:blink .6s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
-/* Responsive */
-@media(max-width:640px){
-  .settings{grid-template-columns:1fr}
-  .results-grid{grid-template-columns:1fr}
-  .results-grid .result-item{padding:8px 0;border-bottom:1px solid var(--border)}
-  .results-grid .result-item:last-child{border-bottom:none}
+/* ── Results ── */
+.results{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:22px;position:relative;overflow:hidden}
+.results::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+.results.visible{display:block}
+.stats-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center}
+.stat-col{text-align:center}
+.stat-heading{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
+.stat-size{font-size:clamp(18px,3.5vw,24px);font-weight:700;color:var(--text)}
+.stat-dim{font-size:11px;color:var(--text3);margin-top:4px}
+.stat-col.after .stat-size{color:var(--cyan)}
+.stat-arrow{font-size:24px;color:var(--magenta);opacity:.7}
+.saved-row{text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.saved-pct{font-size:clamp(22px,4vw,30px);font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.saved-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-top:4px}
+
+/* ── Download ── */
+.download-btn{display:none;width:100%;padding:16px;font-family:var(--mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:3px;background:linear-gradient(135deg,var(--cyan),var(--magenta));color:#fff;border:none;border-radius:8px;cursor:pointer;transition:all .25s;text-align:center;text-decoration:none}
+.download-btn:hover{box-shadow:0 0 40px var(--cyan-glow),0 0 40px var(--magenta-glow);opacity:.92}
+.download-btn.visible{display:block}
+
+/* ── AVIF badge ── */
+.avif-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;background:var(--magenta);color:#fff;vertical-align:middle;margin-left:4px;letter-spacing:1px}
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .controls{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr;gap:8px}
+  .stat-arrow{transform:rotate(90deg);margin:0 auto}
   .app{padding:12px;gap:12px}
 }
 </style>
@@ -95,55 +113,69 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 
   <header class="header">
     <img src="/images/pixel-shrink-icon.png" alt="PixelShrink">
-    <h1>Pixel<span style="color:#fff">Shrink</span></h1>
+    <h1>PixelShrink <span style="font-size:.5em;opacity:.6">PRO</span></h1>
     <div class="sub" id="subtitle"></div>
   </header>
 
+  <!-- Drop Zone -->
   <div class="dropzone" id="dropzone">
-    <div class="icon">&#128444;&#65039;</div>
-    <div class="label" id="dropLabel"></div>
-    <div class="hint" id="dropHint"></div>
-    <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp">
+    <div class="dz-icon">&#128444;&#65039;</div>
+    <div class="dz-label" id="dropLabel"></div>
+    <div class="dz-hint" id="dropHint"></div>
+    <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/avif">
   </div>
 
-  <div class="preview-wrap" id="previewWrap">
+  <!-- Preview -->
+  <div class="preview" id="preview">
     <img id="previewImg" alt="Preview">
     <div class="preview-name" id="previewName"></div>
+    <div class="preview-dim" id="previewDim"></div>
   </div>
 
-  <div class="settings">
-    <div>
-      <label id="qualityLabel"></label>
-      <input type="range" id="qualitySlider" min="0" max="100" value="75">
-      <div class="quality-val" id="qualityVal">75</div>
+  <!-- Controls -->
+  <div class="controls">
+    <div class="ctrl">
+      <span class="ctrl-label" id="formatLabel"></span>
+      <select id="formatSelect"></select>
     </div>
-    <div>
-      <label id="formatLabel"></label>
-      <select id="formatSelect">
-        <option value="keep" id="optKeep"></option>
-        <option value="webp">WebP</option>
-        <option value="jpeg">JPEG</option>
-      </select>
+    <div class="ctrl">
+      <span class="ctrl-label" id="qualityLabel"></span>
+      <div class="slider-row">
+        <input type="range" id="qualitySlider" min="1" max="100" value="75">
+        <span class="slider-val" id="qualityVal">75</span>
+      </div>
+    </div>
+    <div class="ctrl">
+      <span class="ctrl-label" id="maxSizeLabel"></span>
+      <input type="number" id="maxSizeInput" min="0.01" max="100" step="0.1" value="10" placeholder="10">
+    </div>
+    <div class="ctrl">
+      <span class="ctrl-label" id="maxWidthLabel"></span>
+      <input type="number" id="maxWidthInput" min="1" max="16384" step="1" value="4096" placeholder="4096">
     </div>
   </div>
 
   <button class="compress-btn" id="compressBtn" disabled></button>
   <div class="status" id="status"></div>
 
+  <!-- Results -->
   <div class="results" id="results">
-    <div class="results-grid">
-      <div class="result-item">
-        <div class="r-label" id="origLabel"></div>
-        <div class="r-value" id="origSize">-</div>
+    <div class="stats-grid">
+      <div class="stat-col before">
+        <div class="stat-heading" id="beforeLabel"></div>
+        <div class="stat-size" id="beforeSize">-</div>
+        <div class="stat-dim" id="beforeDim"></div>
       </div>
-      <div class="result-item">
-        <div class="r-label" id="compLabel"></div>
-        <div class="r-value" id="compSize">-</div>
+      <div class="stat-arrow">&#10132;</div>
+      <div class="stat-col after">
+        <div class="stat-heading" id="afterLabel"></div>
+        <div class="stat-size" id="afterSize">-</div>
+        <div class="stat-dim" id="afterDim"></div>
       </div>
-      <div class="result-item">
-        <div class="r-label" id="savedLabel"></div>
-        <div class="r-value saved" id="savedPct">-</div>
-      </div>
+    </div>
+    <div class="saved-row">
+      <div class="saved-pct" id="savedPct">-</div>
+      <div class="saved-label" id="savedLabel"></div>
     </div>
   </div>
 
@@ -152,224 +184,429 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 </div>
 
 <script>
-/* ── Multilingual Dictionary ── */
-var LANG = (function(){
-  var dict = {
-    en: {
-      subtitle: "Privacy-First Image Compressor",
-      dropLabel: "Drag & Drop your image here",
-      dropHint: "PNG, JPG, WebP \u2014 Max 50 MB",
-      qualityLabel: "Quality",
-      formatLabel: "Output Format",
-      optKeep: "Keep Original",
-      compressBtn: "Compress Image",
-      compressing: "Compressing",
-      origLabel: "Original",
-      compLabel: "Compressed",
-      savedLabel: "Saved",
-      downloadBtn: "Download Compressed Image",
-      done: "Done! Your image never left your browser.",
-      noFile: "Drop an image first."
-    },
-    it: {
-      subtitle: "Compressore Immagini Privacy-First",
-      dropLabel: "Trascina la tua immagine qui",
-      dropHint: "PNG, JPG, WebP \u2014 Max 50 MB",
-      qualityLabel: "Qualit\u00e0",
-      formatLabel: "Formato Output",
-      optKeep: "Mantieni Originale",
-      compressBtn: "Comprimi Immagine",
-      compressing: "Comprimendo",
-      origLabel: "Originale",
-      compLabel: "Compresso",
-      savedLabel: "Risparmiato",
-      downloadBtn: "Scarica Immagine Compressa",
-      done: "Fatto! La tua immagine non ha mai lasciato il browser.",
-      noFile: "Trascina prima un'immagine."
-    },
-    es: {
-      subtitle: "Compresor de Im\u00e1genes Privado",
-      dropLabel: "Arrastra tu imagen aqu\u00ed",
-      dropHint: "PNG, JPG, WebP \u2014 M\u00e1x 50 MB",
-      qualityLabel: "Calidad",
-      formatLabel: "Formato de Salida",
-      optKeep: "Mantener Original",
-      compressBtn: "Comprimir Imagen",
-      compressing: "Comprimiendo",
-      origLabel: "Original",
-      compLabel: "Comprimido",
-      savedLabel: "Ahorrado",
-      downloadBtn: "Descargar Imagen Comprimida",
-      done: "\u00a1Listo! Tu imagen nunca sali\u00f3 del navegador.",
-      noFile: "Arrastra una imagen primero."
-    },
-    fr: {
-      subtitle: "Compresseur d\u2019Images Priv\u00e9",
-      dropLabel: "Glissez votre image ici",
-      dropHint: "PNG, JPG, WebP \u2014 Max 50 Mo",
-      qualityLabel: "Qualit\u00e9",
-      formatLabel: "Format de Sortie",
-      optKeep: "Garder l\u2019Original",
-      compressBtn: "Compresser l\u2019Image",
-      compressing: "Compression",
-      origLabel: "Original",
-      compLabel: "Compress\u00e9",
-      savedLabel: "\u00c9conomis\u00e9",
-      downloadBtn: "T\u00e9l\u00e9charger l\u2019Image Compress\u00e9e",
-      done: "Termin\u00e9\u00a0! Votre image n\u2019a jamais quitt\u00e9 votre navigateur.",
-      noFile: "Glissez d\u2019abord une image."
-    },
-    de: {
-      subtitle: "Datenschutzfreundlicher Bildkompressor",
-      dropLabel: "Bild hierher ziehen",
-      dropHint: "PNG, JPG, WebP \u2014 Max 50 MB",
-      qualityLabel: "Qualit\u00e4t",
-      formatLabel: "Ausgabeformat",
-      optKeep: "Original beibehalten",
-      compressBtn: "Bild komprimieren",
-      compressing: "Komprimiere",
-      origLabel: "Original",
-      compLabel: "Komprimiert",
-      savedLabel: "Gespart",
-      downloadBtn: "Komprimiertes Bild herunterladen",
-      done: "Fertig! Dein Bild hat nie deinen Browser verlassen.",
-      noFile: "Ziehe zuerst ein Bild hinein."
-    }
-  };
+/* ═══════════════════════════════════════════
+   LANGUAGE DETECTION (Priority Order)
+   1. URL parameter ?lang=xx
+   2. Parent iframe URL path segment /xx/
+   3. navigator.language
+   4. Default: 'en'
+   ═══════════════════════════════════════════ */
+var SUPPORTED_LANGS = ['en','it','es','fr','de','pt','ru','ja','zh'];
 
-  var nav = (navigator.language || "en").toLowerCase();
-  var code = nav.split("-")[0];
-  return dict[code] || dict.en;
+function detectLang() {
+  /* 1. URL parameter */
+  var params = new URLSearchParams(window.location.search);
+  var p = (params.get('lang') || '').toLowerCase().split('-')[0];
+  if (p && SUPPORTED_LANGS.indexOf(p) !== -1) return p;
+
+  /* 2. Parent iframe URL path */
+  try {
+    var parentPath = window.parent.location.pathname || '';
+    var segs = parentPath.split('/').filter(Boolean);
+    if (segs.length > 0) {
+      var first = segs[0].toLowerCase().split('-')[0];
+      if (SUPPORTED_LANGS.indexOf(first) !== -1) return first;
+    }
+  } catch (e) { /* cross-origin — ignore */ }
+
+  /* 3. navigator.language */
+  var nav = (navigator.language || '').toLowerCase().split('-')[0];
+  if (nav && SUPPORTED_LANGS.indexOf(nav) !== -1) return nav;
+
+  /* 4. Default */
+  return 'en';
+}
+
+/* ═══════════════════════════════════════════
+   DICTIONARY (9 languages)
+   ═══════════════════════════════════════════ */
+var DICT = {
+  en: {
+    subtitle: "Privacy-First Image Compressor",
+    dropLabel: "Drag & Drop your image here",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 processed locally",
+    formatLabel: "Output Format",
+    optKeep: "Keep Original",
+    qualityLabel: "Quality",
+    maxSizeLabel: "Max Size (MB)",
+    maxWidthLabel: "Max Width (px)",
+    compressBtn: "Compress Image",
+    processing: "Processing",
+    beforeLabel: "Before",
+    afterLabel: "After",
+    savedLabel: "Space Saved",
+    downloadBtn: "Download Compressed Image",
+    done: "Done! Your image never left your browser.",
+    noFile: "Drop an image first.",
+    avifNotSupported: "AVIF not supported by this browser"
+  },
+  it: {
+    subtitle: "Compressore Immagini Privacy-First",
+    dropLabel: "Trascina la tua immagine qui",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 elaborazione locale",
+    formatLabel: "Formato Output",
+    optKeep: "Mantieni Originale",
+    qualityLabel: "Qualit\u00e0",
+    maxSizeLabel: "Dim. Max (MB)",
+    maxWidthLabel: "Largh. Max (px)",
+    compressBtn: "Comprimi Immagine",
+    processing: "Elaborazione",
+    beforeLabel: "Prima",
+    afterLabel: "Dopo",
+    savedLabel: "Spazio Risparmiato",
+    downloadBtn: "Scarica Immagine Compressa",
+    done: "Fatto! La tua immagine non ha mai lasciato il browser.",
+    noFile: "Trascina prima un\u2019immagine.",
+    avifNotSupported: "AVIF non supportato da questo browser"
+  },
+  es: {
+    subtitle: "Compresor de Im\u00e1genes Privado",
+    dropLabel: "Arrastra tu imagen aqu\u00ed",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 procesado localmente",
+    formatLabel: "Formato de Salida",
+    optKeep: "Mantener Original",
+    qualityLabel: "Calidad",
+    maxSizeLabel: "Tama\u00f1o M\u00e1x (MB)",
+    maxWidthLabel: "Ancho M\u00e1x (px)",
+    compressBtn: "Comprimir Imagen",
+    processing: "Procesando",
+    beforeLabel: "Antes",
+    afterLabel: "Despu\u00e9s",
+    savedLabel: "Espacio Ahorrado",
+    downloadBtn: "Descargar Imagen Comprimida",
+    done: "\u00a1Listo! Tu imagen nunca sali\u00f3 del navegador.",
+    noFile: "Arrastra una imagen primero.",
+    avifNotSupported: "AVIF no soportado por este navegador"
+  },
+  fr: {
+    subtitle: "Compresseur d\u2019Images Priv\u00e9",
+    dropLabel: "Glissez votre image ici",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 traitement local",
+    formatLabel: "Format de Sortie",
+    optKeep: "Garder l\u2019Original",
+    qualityLabel: "Qualit\u00e9",
+    maxSizeLabel: "Taille Max (Mo)",
+    maxWidthLabel: "Largeur Max (px)",
+    compressBtn: "Compresser l\u2019Image",
+    processing: "Traitement",
+    beforeLabel: "Avant",
+    afterLabel: "Apr\u00e8s",
+    savedLabel: "Espace \u00c9conomis\u00e9",
+    downloadBtn: "T\u00e9l\u00e9charger l\u2019Image Compress\u00e9e",
+    done: "Termin\u00e9\u00a0! Votre image n\u2019a jamais quitt\u00e9 votre navigateur.",
+    noFile: "Glissez d\u2019abord une image.",
+    avifNotSupported: "AVIF non support\u00e9 par ce navigateur"
+  },
+  de: {
+    subtitle: "Datenschutzfreundlicher Bildkompressor",
+    dropLabel: "Bild hierher ziehen",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 lokale Verarbeitung",
+    formatLabel: "Ausgabeformat",
+    optKeep: "Original beibehalten",
+    qualityLabel: "Qualit\u00e4t",
+    maxSizeLabel: "Max Gr\u00f6\u00dfe (MB)",
+    maxWidthLabel: "Max Breite (px)",
+    compressBtn: "Bild komprimieren",
+    processing: "Verarbeitung",
+    beforeLabel: "Vorher",
+    afterLabel: "Nachher",
+    savedLabel: "Platz Gespart",
+    downloadBtn: "Komprimiertes Bild herunterladen",
+    done: "Fertig! Dein Bild hat nie deinen Browser verlassen.",
+    noFile: "Ziehe zuerst ein Bild hinein.",
+    avifNotSupported: "AVIF wird von diesem Browser nicht unterst\u00fctzt"
+  },
+  pt: {
+    subtitle: "Compressor de Imagens Privado",
+    dropLabel: "Arraste sua imagem aqui",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 processamento local",
+    formatLabel: "Formato de Sa\u00edda",
+    optKeep: "Manter Original",
+    qualityLabel: "Qualidade",
+    maxSizeLabel: "Tam. M\u00e1x (MB)",
+    maxWidthLabel: "Larg. M\u00e1x (px)",
+    compressBtn: "Comprimir Imagem",
+    processing: "Processando",
+    beforeLabel: "Antes",
+    afterLabel: "Depois",
+    savedLabel: "Espa\u00e7o Economizado",
+    downloadBtn: "Baixar Imagem Comprimida",
+    done: "Pronto! Sua imagem nunca saiu do navegador.",
+    noFile: "Arraste uma imagem primeiro.",
+    avifNotSupported: "AVIF n\u00e3o suportado por este navegador"
+  },
+  ru: {
+    subtitle: "\u041a\u043e\u043c\u043f\u0440\u0435\u0441\u0441\u043e\u0440 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0439 \u0441 \u0437\u0430\u0449\u0438\u0442\u043e\u0439 \u043f\u0440\u0438\u0432\u0430\u0442\u043d\u043e\u0441\u0442\u0438",
+    dropLabel: "\u041f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u0441\u044e\u0434\u0430",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430",
+    formatLabel: "\u0424\u043e\u0440\u043c\u0430\u0442 \u0432\u044b\u0432\u043e\u0434\u0430",
+    optKeep: "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u043e\u0440\u0438\u0433\u0438\u043d\u0430\u043b",
+    qualityLabel: "\u041a\u0430\u0447\u0435\u0441\u0442\u0432\u043e",
+    maxSizeLabel: "\u041c\u0430\u043a\u0441. \u0440\u0430\u0437\u043c\u0435\u0440 (MB)",
+    maxWidthLabel: "\u041c\u0430\u043a\u0441. \u0448\u0438\u0440\u0438\u043d\u0430 (px)",
+    compressBtn: "\u0421\u0436\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+    processing: "\u041e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430",
+    beforeLabel: "\u0414\u043e",
+    afterLabel: "\u041f\u043e\u0441\u043b\u0435",
+    savedLabel: "\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u044f",
+    downloadBtn: "\u0421\u043a\u0430\u0447\u0430\u0442\u044c \u0441\u0436\u0430\u0442\u043e\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+    done: "\u0413\u043e\u0442\u043e\u0432\u043e! \u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u043d\u0435 \u043f\u043e\u043a\u0438\u0434\u0430\u043b\u043e \u0432\u0430\u0448 \u0431\u0440\u0430\u0443\u0437\u0435\u0440.",
+    noFile: "\u0421\u043d\u0430\u0447\u0430\u043b\u0430 \u043f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435.",
+    avifNotSupported: "AVIF \u043d\u0435 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044f \u044d\u0442\u0438\u043c \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u043e\u043c"
+  },
+  ja: {
+    subtitle: "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc\u512a\u5148\u306e\u753b\u50cf\u5727\u7e2e\u30c4\u30fc\u30eb",
+    dropLabel: "\u753b\u50cf\u3092\u3053\u3053\u306b\u30c9\u30e9\u30c3\u30b0\uff06\u30c9\u30ed\u30c3\u30d7",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 \u30ed\u30fc\u30ab\u30eb\u51e6\u7406",
+    formatLabel: "\u51fa\u529b\u5f62\u5f0f",
+    optKeep: "\u5143\u306e\u5f62\u5f0f\u3092\u4fdd\u6301",
+    qualityLabel: "\u54c1\u8cea",
+    maxSizeLabel: "\u6700\u5927\u30b5\u30a4\u30ba (MB)",
+    maxWidthLabel: "\u6700\u5927\u5e45 (px)",
+    compressBtn: "\u753b\u50cf\u3092\u5727\u7e2e",
+    processing: "\u51e6\u7406\u4e2d",
+    beforeLabel: "\u5727\u7e2e\u524d",
+    afterLabel: "\u5727\u7e2e\u5f8c",
+    savedLabel: "\u7bc0\u7d04\u91cf",
+    downloadBtn: "\u5727\u7e2e\u753b\u50cf\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9",
+    done: "\u5b8c\u4e86\uff01\u753b\u50cf\u306f\u30d6\u30e9\u30a6\u30b6\u306e\u5916\u306b\u51fa\u3066\u3044\u307e\u305b\u3093\u3002",
+    noFile: "\u5148\u306b\u753b\u50cf\u3092\u30c9\u30ed\u30c3\u30d7\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+    avifNotSupported: "\u3053\u306e\u30d6\u30e9\u30a6\u30b6\u306fAVIF\u306b\u5bfe\u5fdc\u3057\u3066\u3044\u307e\u305b\u3093"
+  },
+  zh: {
+    subtitle: "\u9690\u79c1\u4f18\u5148\u7684\u56fe\u7247\u538b\u7f29\u5de5\u5177",
+    dropLabel: "\u5c06\u56fe\u7247\u62d6\u653e\u5230\u6b64\u5904",
+    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 \u672c\u5730\u5904\u7406",
+    formatLabel: "\u8f93\u51fa\u683c\u5f0f",
+    optKeep: "\u4fdd\u6301\u539f\u59cb\u683c\u5f0f",
+    qualityLabel: "\u8d28\u91cf",
+    maxSizeLabel: "\u6700\u5927\u5927\u5c0f (MB)",
+    maxWidthLabel: "\u6700\u5927\u5bbd\u5ea6 (px)",
+    compressBtn: "\u538b\u7f29\u56fe\u7247",
+    processing: "\u5904\u7406\u4e2d",
+    beforeLabel: "\u538b\u7f29\u524d",
+    afterLabel: "\u538b\u7f29\u540e",
+    savedLabel: "\u8282\u7701\u7a7a\u95f4",
+    downloadBtn: "\u4e0b\u8f7d\u538b\u7f29\u56fe\u7247",
+    done: "\u5b8c\u6210\uff01\u56fe\u7247\u4ece\u672a\u79bb\u5f00\u60a8\u7684\u6d4f\u89c8\u5668\u3002",
+    noFile: "\u8bf7\u5148\u62d6\u653e\u4e00\u5f20\u56fe\u7247\u3002",
+    avifNotSupported: "\u6b64\u6d4f\u89c8\u5668\u4e0d\u652f\u6301 AVIF"
+  }
+};
+
+var curLang = detectLang();
+var T = DICT[curLang] || DICT.en;
+
+/* ═══════════════════════════════════════════
+   DOM HELPERS
+   ═══════════════════════════════════════════ */
+function $(id) { return document.getElementById(id) }
+function setStatus(html) { $('status').innerHTML = html }
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+  return (b / 1048576).toFixed(2) + ' MB';
+}
+
+/* ═══════════════════════════════════════════
+   AVIF SUPPORT CHECK
+   ═══════════════════════════════════════════ */
+var avifSupported = false;
+(function checkAvif() {
+  var img = new Image();
+  img.onload = function () { avifSupported = img.width > 0; buildFormatSelect() };
+  img.onerror = function () { avifSupported = false; buildFormatSelect() };
+  img.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKBDgABokyCRAAAAAP+I9ngw==';
 })();
 
-/* ── Apply Language ── */
-function $(id){return document.getElementById(id)}
-$("subtitle").textContent = LANG.subtitle;
-$("dropLabel").textContent = LANG.dropLabel;
-$("dropHint").textContent = LANG.dropHint;
-$("qualityLabel").textContent = LANG.qualityLabel;
-$("formatLabel").textContent = LANG.formatLabel;
-$("optKeep").textContent = LANG.optKeep;
-$("compressBtn").textContent = LANG.compressBtn;
-$("origLabel").textContent = LANG.origLabel;
-$("compLabel").textContent = LANG.compLabel;
-$("savedLabel").textContent = LANG.savedLabel;
-$("downloadBtn").textContent = LANG.downloadBtn;
-
-/* ── State ── */
-var selectedFile = null;
-
-/* ── Helpers ── */
-function formatBytes(b){
-  if(b < 1024) return b + " B";
-  if(b < 1048576) return (b/1024).toFixed(1) + " KB";
-  return (b/1048576).toFixed(2) + " MB";
+function buildFormatSelect() {
+  var sel = $('formatSelect');
+  sel.innerHTML = '';
+  var formats = [
+    { value: 'keep', label: T.optKeep },
+    { value: 'jpeg', label: 'JPEG' },
+    { value: 'png',  label: 'PNG' },
+    { value: 'webp', label: 'WebP' }
+  ];
+  if (avifSupported) {
+    formats.push({ value: 'avif', label: 'AVIF' });
+  }
+  formats.forEach(function (f) {
+    var opt = document.createElement('option');
+    opt.value = f.value;
+    opt.textContent = f.label;
+    sel.appendChild(opt);
+  });
 }
-function setStatus(msg){$("status").innerHTML = msg}
 
-/* ── Quality Slider ── */
-$("qualitySlider").addEventListener("input", function(){
-  $("qualityVal").textContent = this.value;
+/* ═══════════════════════════════════════════
+   APPLY LANGUAGE TO UI
+   ═══════════════════════════════════════════ */
+$('subtitle').textContent = T.subtitle;
+$('dropLabel').textContent = T.dropLabel;
+$('dropHint').textContent  = T.dropHint;
+$('formatLabel').textContent  = T.formatLabel;
+$('qualityLabel').textContent = T.qualityLabel;
+$('maxSizeLabel').textContent = T.maxSizeLabel;
+$('maxWidthLabel').textContent = T.maxWidthLabel;
+$('compressBtn').textContent  = T.compressBtn;
+$('beforeLabel').textContent  = T.beforeLabel;
+$('afterLabel').textContent   = T.afterLabel;
+$('savedLabel').textContent   = T.savedLabel;
+$('downloadBtn').textContent  = T.downloadBtn;
+buildFormatSelect();
+
+/* ═══════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════ */
+var selectedFile = null;
+var origWidth = 0, origHeight = 0;
+
+/* ═══════════════════════════════════════════
+   QUALITY SLIDER
+   ═══════════════════════════════════════════ */
+$('qualitySlider').addEventListener('input', function () {
+  $('qualityVal').textContent = this.value;
 });
 
-/* ── Drag & Drop ── */
-var dz = $("dropzone");
+/* ═══════════════════════════════════════════
+   DRAG & DROP
+   ═══════════════════════════════════════════ */
+var dz = $('dropzone');
 
-dz.addEventListener("dragover", function(e){e.preventDefault(); dz.classList.add("dragover")});
-dz.addEventListener("dragleave", function(){dz.classList.remove("dragover")});
-dz.addEventListener("drop", function(e){
+dz.addEventListener('dragover', function (e) { e.preventDefault(); dz.classList.add('dragover') });
+dz.addEventListener('dragleave', function () { dz.classList.remove('dragover') });
+dz.addEventListener('drop', function (e) {
   e.preventDefault();
-  dz.classList.remove("dragover");
-  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  dz.classList.remove('dragover');
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
 });
-$("fileInput").addEventListener("change", function(){
-  if(this.files.length) handleFile(this.files[0]);
+$('fileInput').addEventListener('change', function () {
+  if (this.files.length) handleFile(this.files[0]);
 });
 
-function handleFile(file){
-  if(!file.type.match(/^image\/(png|jpeg|webp)$/)) return;
+function handleFile(file) {
+  if (!file.type.match(/^image\/(png|jpeg|webp|avif)$/)) return;
   selectedFile = file;
-  $("compressBtn").disabled = false;
+  $('compressBtn').disabled = false;
 
-  /* Preview */
   var reader = new FileReader();
-  reader.onload = function(e){
-    $("previewImg").src = e.target.result;
-    $("previewWrap").style.display = "block";
-    $("previewName").textContent = file.name + " (" + formatBytes(file.size) + ")";
+  reader.onload = function (e) {
+    var img = new Image();
+    img.onload = function () {
+      origWidth = img.naturalWidth;
+      origHeight = img.naturalHeight;
+      $('previewDim').textContent = origWidth + ' \u00d7 ' + origHeight + ' px';
+    };
+    img.src = e.target.result;
+    $('previewImg').src = e.target.result;
+    $('preview').style.display = 'block';
+    $('previewName').textContent = file.name + ' (' + formatBytes(file.size) + ')';
   };
   reader.readAsDataURL(file);
 
-  /* Reset results */
-  $("results").classList.remove("visible");
-  $("downloadBtn").classList.remove("visible");
-  setStatus("");
+  /* Reset */
+  $('results').classList.remove('visible');
+  $('downloadBtn').classList.remove('visible');
+  setStatus('');
 }
 
-/* ── Compress ── */
-$("compressBtn").addEventListener("click", async function(){
-  if(!selectedFile){setStatus(LANG.noFile); return}
+/* ═══════════════════════════════════════════
+   COMPRESS
+   ═══════════════════════════════════════════ */
+$('compressBtn').addEventListener('click', async function () {
+  if (!selectedFile) { setStatus(T.noFile); return }
 
-  var btn = $("compressBtn");
+  var btn = $('compressBtn');
   btn.disabled = true;
-  dz.classList.add("processing");
-  setStatus(LANG.compressing + '<span class="blink">...</span>');
+  dz.classList.add('processing');
+  setStatus(T.processing + '<span class="blink">...</span>');
 
-  var quality = parseInt($("qualitySlider").value, 10) / 100;
-  var format = $("formatSelect").value;
+  var quality = parseInt($('qualitySlider').value, 10) / 100;
+  var format  = $('formatSelect').value;
+  var maxMB   = parseFloat($('maxSizeInput').value) || 10;
+  var maxW    = parseInt($('maxWidthInput').value, 10) || 4096;
 
   var options = {
-    maxSizeMB: 50,
+    maxSizeMB: maxMB,
+    maxWidthOrHeight: maxW,
     initialQuality: quality,
     useWebWorker: true,
     preserveExif: false
   };
 
-  if(format === "webp") options.fileType = "image/webp";
-  else if(format === "jpeg") options.fileType = "image/jpeg";
+  /* Format mapping */
+  var mimeMap = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif' };
+  if (format !== 'keep') {
+    if (format === 'avif' && !avifSupported) {
+      setStatus(T.avifNotSupported);
+      btn.disabled = false;
+      dz.classList.remove('processing');
+      return;
+    }
+    options.fileType = mimeMap[format];
+  }
+
+  /* For PNG: preserve transparency by not forcing JPEG conversion */
+  if (format === 'png') {
+    options.fileType = 'image/png';
+  }
 
   try {
     var compressed = await imageCompression(selectedFile, options);
+
     var origSize = selectedFile.size;
     var compSize = compressed.size;
     var saved = origSize > 0 ? Math.round((1 - compSize / origSize) * 100) : 0;
+    if (saved < 0) saved = 0;
 
-    $("origSize").textContent = formatBytes(origSize);
-    $("compSize").textContent = formatBytes(compSize);
-    $("savedPct").textContent = (saved >= 0 ? saved : 0) + "%";
-    $("results").classList.add("visible");
+    /* Before stats */
+    $('beforeSize').textContent = formatBytes(origSize);
+    $('beforeDim').textContent  = origWidth + ' \u00d7 ' + origHeight;
 
-    /* Download link */
-    var url = URL.createObjectURL(compressed);
-    var ext = format === "keep" ? selectedFile.name.split(".").pop() : format;
-    var dlName = selectedFile.name.replace(/\.[^.]+$/, "") + "-compressed." + ext;
-    var dlBtn = $("downloadBtn");
-    dlBtn.href = url;
+    /* Read compressed dimensions */
+    var compURL = URL.createObjectURL(compressed);
+    var tempImg = new Image();
+    tempImg.onload = function () {
+      $('afterDim').textContent = tempImg.naturalWidth + ' \u00d7 ' + tempImg.naturalHeight;
+    };
+    tempImg.src = compURL;
+
+    /* After stats */
+    $('afterSize').textContent = formatBytes(compSize);
+    $('savedPct').textContent  = saved + '%';
+    $('results').classList.add('visible');
+
+    /* Download */
+    var ext = format === 'keep' ? selectedFile.name.split('.').pop() : format;
+    var dlName = selectedFile.name.replace(/\.[^.]+$/, '') + '-compressed.' + ext;
+    var dlBtn = $('downloadBtn');
+    dlBtn.href = compURL;
     dlBtn.download = dlName;
-    dlBtn.classList.add("visible");
+    dlBtn.classList.add('visible');
 
-    setStatus(LANG.done);
-  } catch(e) {
-    setStatus("Error: " + e.message);
+    setStatus(T.done);
+  } catch (e) {
+    setStatus('Error: ' + e.message);
   }
 
-  dz.classList.remove("processing");
+  dz.classList.remove('processing');
   btn.disabled = false;
 });
 </script>
 <script>
 /* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
+(function () {
+  function sendHeight() {
     var h = document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight", height:h}, "*");
+    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
   }
-  document.documentElement.style.height = "auto";
-  document.body.style.height = "auto";
-  document.body.style.minHeight = "0";
-  window.addEventListener("load", sendHeight);
-  window.addEventListener("resize", sendHeight);
-  new MutationObserver(sendHeight).observe(document.body, {subtree:true, childList:true});
+  document.documentElement.style.height = 'auto';
+  document.body.style.height = 'auto';
+  document.body.style.minHeight = '0';
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
 })();
 </script>
 </body>
