@@ -624,9 +624,8 @@ function fmtC(n){
   if(n>=1e12)return'$'+(n/1e12).toFixed(2)+'T';
   if(n>=1e9)return'$'+(n/1e9).toFixed(2)+'B';
   if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';
-  if(n>=1e3)return'$'+(n/1e3).toFixed(2)+'K';
-  if(n<10)return'$'+n.toFixed(2);
-  return'$'+n.toFixed(n<100?1:0);
+  if(n>=1e3)return'$'+Math.floor(n).toLocaleString();
+  return'$'+parseFloat(n).toFixed(1);
 }
 function fmtW(n){
   if(n>=1e6)return(n/1e6).toFixed(1)+'MW';
@@ -638,12 +637,11 @@ function fmtW(n){
    CORE CALCULATIONS
    =================================================== */
 function recalc(){
-  var inc=0,w=0,h=0,maxW=50,maxH=100;
+  var inc=0.0,w=0,h=0,maxW=50,maxH=100;
   SERVERS.forEach(function(s){
     var n=G.inv[s.id]||0;
     if(!n)return;
-    var cost_mult=G.upg.u1?.85:1;
-    var si=s.income*n;
+    var si=parseFloat(s.income)*n;
     if(G.upg.u2)si*=1.1;
     if(G.upg.u4)si*=1.25;
     inc+=si; w+=s.watts*n; h+=s.heat*n;
@@ -664,7 +662,7 @@ function recalc(){
    =================================================== */
 function tick(){
   recalc();
-  if(CALC.income>0){G.cash+=CALC.income;G.totalEarned+=CALC.income;sndTick()}
+  if(CALC.income>0){G.cash=parseFloat(G.cash)+parseFloat(CALC.income);G.totalEarned=parseFloat(G.totalEarned)+parseFloat(CALC.income);sndTick()}
   updateUI();
   checkAlerts();
 }
@@ -906,8 +904,8 @@ function loadGame(){
     if(!raw)return false;
     var s=JSON.parse(raw);
     // Merge saved data into G (handles new keys gracefully)
-    G.cash=s.cash||50;
-    G.totalEarned=s.totalEarned||0;
+    G.cash=parseFloat(s.cash)||50;
+    G.totalEarned=parseFloat(s.totalEarned)||0;
     if(s.inv){for(var k in s.inv)if(G.inv.hasOwnProperty(k))G.inv[k]=s.inv[k]}
     if(s.upg){for(var k in s.upg)if(G.upg.hasOwnProperty(k))G.upg[k]=s.upg[k]}
     // Offline earnings
