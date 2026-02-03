@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixelShrink - Privacy-First Image Compressor</title>
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#171717;--bg4:#1e1e1e;
+  --green:#00ff41;--green-dim:#00cc33;--green-glow:rgba(0,255,65,.15);
+  --red:#ff3333;--orange:#ff9900;--cyan:#00e5ff;
+  --text:#b0b0b0;--text2:#666;--text3:#444;
+  --border:#222;--border2:#2a2a2a;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+
+.app{max-width:680px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+/* Header */
+.header{text-align:center;padding:20px 0;border-bottom:2px solid var(--green)}
+.header img{width:80px;margin-bottom:12px}
+.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--green);text-transform:uppercase;letter-spacing:5px;text-shadow:0 0 20px var(--green-glow)}
+.header .sub{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:1.5px}
+
+/* Drop Zone */
+.dropzone{
+  position:relative;border:2px dashed var(--border2);border-radius:10px;padding:48px 24px;text-align:center;
+  cursor:pointer;transition:border-color .3s,background .3s;background:var(--bg2);min-height:180px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+}
+.dropzone:hover,.dropzone.dragover{border-color:var(--green);background:var(--green-glow)}
+.dropzone .icon{font-size:40px;line-height:1;margin-bottom:4px}
+.dropzone .label{font-size:14px;color:var(--text);letter-spacing:1px}
+.dropzone .hint{font-size:11px;color:var(--text3)}
+.dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* Pulse animation on the drop zone border */
+.dropzone.processing{animation:pulse-border 1s infinite}
+@keyframes pulse-border{0%,100%{border-color:var(--green);box-shadow:0 0 10px var(--green-glow)}50%{border-color:var(--green-dim);box-shadow:0 0 30px var(--green-glow)}}
+
+/* Preview */
+.preview-wrap{display:none;text-align:center}
+.preview-wrap img{max-width:100%;max-height:260px;border-radius:8px;border:1px solid var(--border);margin-bottom:8px}
+.preview-name{font-size:12px;color:var(--text2);word-break:break-all}
+
+/* Settings */
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px}
+.settings label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);display:block;margin-bottom:6px}
+.settings input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--bg4);outline:none}
+.settings input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;box-shadow:0 0 8px var(--green-glow)}
+.settings input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;border:none}
+.quality-val{font-size:18px;color:var(--green);font-weight:700;margin-top:4px}
+.settings select{width:100%;padding:10px;font-family:var(--mono);font-size:13px;background:var(--bg4);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;margin-top:4px}
+.settings select:focus{outline:none;border-color:var(--green)}
+
+/* Compress Button */
+.compress-btn{display:block;width:100%;padding:16px;font-family:var(--mono);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:4px;background:transparent;color:var(--green);border:2px solid var(--green);border-radius:6px;cursor:pointer;transition:all .2s;text-align:center}
+.compress-btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 30px var(--green-glow)}
+.compress-btn:disabled{opacity:.4;cursor:not-allowed}
+.compress-btn:disabled:hover{background:transparent;color:var(--green);box-shadow:none}
+
+/* Results */
+.results{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
+.results.visible{display:block;border-color:var(--green);box-shadow:0 0 8px rgba(0,255,65,.06)}
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center}
+.result-item .r-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:6px}
+.result-item .r-value{font-size:clamp(16px,3vw,22px);font-weight:700;color:var(--green)}
+.result-item .r-value.saved{color:var(--cyan)}
+
+/* Download Button */
+.download-btn{display:none;width:100%;padding:14px;font-family:var(--mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:3px;background:var(--green);color:var(--bg);border:none;border-radius:6px;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none}
+.download-btn:hover{box-shadow:0 0 30px var(--green-glow);opacity:.9}
+.download-btn.visible{display:block}
+
+/* Status */
+.status{text-align:center;font-size:12px;color:var(--green);letter-spacing:1px;min-height:18px;opacity:.8}
+.status .blink{animation:blink .6s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Responsive */
+@media(max-width:640px){
+  .settings{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
+  .results-grid .result-item{padding:8px 0;border-bottom:1px solid var(--border)}
+  .results-grid .result-item:last-child{border-bottom:none}
+  .app{padding:12px;gap:12px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <img src="/images/pixel-shrink-icon.png" alt="PixelShrink">
+    <h1>Pixel<span style="color:#fff">Shrink</span></h1>
+    <div class="sub" id="subtitle"></div>
+  </header>
+
+  <div class="dropzone" id="dropzone">
+    <div class="icon">&#128444;&#65039;</div>
+    <div class="label" id="dropLabel"></div>
+    <div class="hint" id="dropHint"></div>
+    <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp">
+  </div>
+
+  <div class="preview-wrap" id="previewWrap">
+    <img id="previewImg" alt="Preview">
+    <div class="preview-name" id="previewName"></div>
+  </div>
+
+  <div class="settings">
+    <div>
+      <label id="qualityLabel"></label>
+      <input type="range" id="qualitySlider" min="0" max="100" value="75">
+      <div class="quality-val" id="qualityVal">75</div>
+    </div>
+    <div>
+      <label id="formatLabel"></label>
+      <select id="formatSelect">
+        <option value="keep" id="optKeep"></option>
+        <option value="webp">WebP</option>
+        <option value="jpeg">JPEG</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="compress-btn" id="compressBtn" disabled></button>
+  <div class="status" id="status"></div>
+
+  <div class="results" id="results">
+    <div class="results-grid">
+      <div class="result-item">
+        <div class="r-label" id="origLabel"></div>
+        <div class="r-value" id="origSize">-</div>
+      </div>
+      <div class="result-item">
+        <div class="r-label" id="compLabel"></div>
+        <div class="r-value" id="compSize">-</div>
+      </div>
+      <div class="result-item">
+        <div class="r-label" id="savedLabel"></div>
+        <div class="r-value saved" id="savedPct">-</div>
+      </div>
+    </div>
+  </div>
+
+  <a class="download-btn" id="downloadBtn" download></a>
+
+</div>
+
+<script>
+/* ── Multilingual Dictionary ── */
+var LANG = (function(){
+  var dict = {
+    en: {
+      subtitle: "Privacy-First Image Compressor",
+      dropLabel: "Drag & Drop your image here",
+      dropHint: "PNG, JPG, WebP \u2014 Max 50 MB",
+      qualityLabel: "Quality",
+      formatLabel: "Output Format",
+      optKeep: "Keep Original",
+      compressBtn: "Compress Image",
+      compressing: "Compressing",
+      origLabel: "Original",
+      compLabel: "Compressed",
+      savedLabel: "Saved",
+      downloadBtn: "Download Compressed Image",
+      done: "Done! Your image never left your browser.",
+      noFile: "Drop an image first."
+    },
+    it: {
+      subtitle: "Compressore Immagini Privacy-First",
+      dropLabel: "Trascina la tua immagine qui",
+      dropHint: "PNG, JPG, WebP \u2014 Max 50 MB",
+      qualityLabel: "Qualit\u00e0",
+      formatLabel: "Formato Output",
+      optKeep: "Mantieni Originale",
+      compressBtn: "Comprimi Immagine",
+      compressing: "Comprimendo",
+      origLabel: "Originale",
+      compLabel: "Compresso",
+      savedLabel: "Risparmiato",
+      downloadBtn: "Scarica Immagine Compressa",
+      done: "Fatto! La tua immagine non ha mai lasciato il browser.",
+      noFile: "Trascina prima un'immagine."
+    },
+    es: {
+      subtitle: "Compresor de Im\u00e1genes Privado",
+      dropLabel: "Arrastra tu imagen aqu\u00ed",
+      dropHint: "PNG, JPG, WebP \u2014 M\u00e1x 50 MB",
+      qualityLabel: "Calidad",
+      formatLabel: "Formato de Salida",
+      optKeep: "Mantener Original",
+      compressBtn: "Comprimir Imagen",
+      compressing: "Comprimiendo",
+      origLabel: "Original",
+      compLabel: "Comprimido",
+      savedLabel: "Ahorrado",
+      downloadBtn: "Descargar Imagen Comprimida",
+      done: "\u00a1Listo! Tu imagen nunca sali\u00f3 del navegador.",
+      noFile: "Arrastra una imagen primero."
+    },
+    fr: {
+      subtitle: "Compresseur d\u2019Images Priv\u00e9",
+      dropLabel: "Glissez votre image ici",
+      dropHint: "PNG, JPG, WebP \u2014 Max 50 Mo",
+      qualityLabel: "Qualit\u00e9",
+      formatLabel: "Format de Sortie",
+      optKeep: "Garder l\u2019Original",
+      compressBtn: "Compresser l\u2019Image",
+      compressing: "Compression",
+      origLabel: "Original",
+      compLabel: "Compress\u00e9",
+      savedLabel: "\u00c9conomis\u00e9",
+      downloadBtn: "T\u00e9l\u00e9charger l\u2019Image Compress\u00e9e",
+      done: "Termin\u00e9\u00a0! Votre image n\u2019a jamais quitt\u00e9 votre navigateur.",
+      noFile: "Glissez d\u2019abord une image."
+    },
+    de: {
+      subtitle: "Datenschutzfreundlicher Bildkompressor",
+      dropLabel: "Bild hierher ziehen",
+      dropHint: "PNG, JPG, WebP \u2014 Max 50 MB",
+      qualityLabel: "Qualit\u00e4t",
+      formatLabel: "Ausgabeformat",
+      optKeep: "Original beibehalten",
+      compressBtn: "Bild komprimieren",
+      compressing: "Komprimiere",
+      origLabel: "Original",
+      compLabel: "Komprimiert",
+      savedLabel: "Gespart",
+      downloadBtn: "Komprimiertes Bild herunterladen",
+      done: "Fertig! Dein Bild hat nie deinen Browser verlassen.",
+      noFile: "Ziehe zuerst ein Bild hinein."
+    }
+  };
+
+  var nav = (navigator.language || "en").toLowerCase();
+  var code = nav.split("-")[0];
+  return dict[code] || dict.en;
+})();
+
+/* ── Apply Language ── */
+function $(id){return document.getElementById(id)}
+$("subtitle").textContent = LANG.subtitle;
+$("dropLabel").textContent = LANG.dropLabel;
+$("dropHint").textContent = LANG.dropHint;
+$("qualityLabel").textContent = LANG.qualityLabel;
+$("formatLabel").textContent = LANG.formatLabel;
+$("optKeep").textContent = LANG.optKeep;
+$("compressBtn").textContent = LANG.compressBtn;
+$("origLabel").textContent = LANG.origLabel;
+$("compLabel").textContent = LANG.compLabel;
+$("savedLabel").textContent = LANG.savedLabel;
+$("downloadBtn").textContent = LANG.downloadBtn;
+
+/* ── State ── */
+var selectedFile = null;
+
+/* ── Helpers ── */
+function formatBytes(b){
+  if(b < 1024) return b + " B";
+  if(b < 1048576) return (b/1024).toFixed(1) + " KB";
+  return (b/1048576).toFixed(2) + " MB";
+}
+function setStatus(msg){$("status").innerHTML = msg}
+
+/* ── Quality Slider ── */
+$("qualitySlider").addEventListener("input", function(){
+  $("qualityVal").textContent = this.value;
+});
+
+/* ── Drag & Drop ── */
+var dz = $("dropzone");
+
+dz.addEventListener("dragover", function(e){e.preventDefault(); dz.classList.add("dragover")});
+dz.addEventListener("dragleave", function(){dz.classList.remove("dragover")});
+dz.addEventListener("drop", function(e){
+  e.preventDefault();
+  dz.classList.remove("dragover");
+  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+$("fileInput").addEventListener("change", function(){
+  if(this.files.length) handleFile(this.files[0]);
+});
+
+function handleFile(file){
+  if(!file.type.match(/^image\/(png|jpeg|webp)$/)) return;
+  selectedFile = file;
+  $("compressBtn").disabled = false;
+
+  /* Preview */
+  var reader = new FileReader();
+  reader.onload = function(e){
+    $("previewImg").src = e.target.result;
+    $("previewWrap").style.display = "block";
+    $("previewName").textContent = file.name + " (" + formatBytes(file.size) + ")";
+  };
+  reader.readAsDataURL(file);
+
+  /* Reset results */
+  $("results").classList.remove("visible");
+  $("downloadBtn").classList.remove("visible");
+  setStatus("");
+}
+
+/* ── Compress ── */
+$("compressBtn").addEventListener("click", async function(){
+  if(!selectedFile){setStatus(LANG.noFile); return}
+
+  var btn = $("compressBtn");
+  btn.disabled = true;
+  dz.classList.add("processing");
+  setStatus(LANG.compressing + '<span class="blink">...</span>');
+
+  var quality = parseInt($("qualitySlider").value, 10) / 100;
+  var format = $("formatSelect").value;
+
+  var options = {
+    maxSizeMB: 50,
+    initialQuality: quality,
+    useWebWorker: true,
+    preserveExif: false
+  };
+
+  if(format === "webp") options.fileType = "image/webp";
+  else if(format === "jpeg") options.fileType = "image/jpeg";
+
+  try {
+    var compressed = await imageCompression(selectedFile, options);
+    var origSize = selectedFile.size;
+    var compSize = compressed.size;
+    var saved = origSize > 0 ? Math.round((1 - compSize / origSize) * 100) : 0;
+
+    $("origSize").textContent = formatBytes(origSize);
+    $("compSize").textContent = formatBytes(compSize);
+    $("savedPct").textContent = (saved >= 0 ? saved : 0) + "%";
+    $("results").classList.add("visible");
+
+    /* Download link */
+    var url = URL.createObjectURL(compressed);
+    var ext = format === "keep" ? selectedFile.name.split(".").pop() : format;
+    var dlName = selectedFile.name.replace(/\.[^.]+$/, "") + "-compressed." + ext;
+    var dlBtn = $("downloadBtn");
+    dlBtn.href = url;
+    dlBtn.download = dlName;
+    dlBtn.classList.add("visible");
+
+    setStatus(LANG.done);
+  } catch(e) {
+    setStatus("Error: " + e.message);
+  }
+
+  dz.classList.remove("processing");
+  btn.disabled = false;
+});
+</script>
+<script>
+/* AUTO-RESIZE SENDER */
+(function(){
+  function sendHeight(){
+    var h = document.body.scrollHeight;
+    window.parent.postMessage({type:"setHeight", height:h}, "*");
+  }
+  document.documentElement.style.height = "auto";
+  document.body.style.height = "auto";
+  document.body.style.minHeight = "0";
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  new MutationObserver(sendHeight).observe(document.body, {subtree:true, childList:true});
+})();
+</script>
+</body>
+</html>
