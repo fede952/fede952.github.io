@@ -44,17 +44,22 @@
 
   {{/* FULL SCREEN BUTTON - AUTO-INJECT FOR GAMES/TOOLS */}}
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var iframe = document.querySelector('iframe');
-      if (iframe && (window.location.href.indexOf("/games/") !== -1 || window.location.href.indexOf("/tools/") !== -1)) {
-        var btn = document.createElement('a');
-        btn.innerText = "Full Screen Mode";
-        btn.href = iframe.src;
-        btn.target = "_blank";
-        btn.style.cssText = "display:inline-block;margin-bottom:20px;background:#00e5ff;color:#000;padding:10px 20px;text-decoration:none;border-radius:5px;font-weight:bold;text-align:center;font-family:monospace;letter-spacing:1px;";
-        iframe.parentNode.insertBefore(btn, iframe);
-      }
-    });
+    window.onload = function() {
+      var path = window.location.pathname;
+      if (path.indexOf("/games/") === -1 && path.indexOf("/tools/") === -1) return;
+      var iframes = document.querySelectorAll('iframe');
+      if (!iframes.length) return;
+      var iframe = iframes[0];
+      var btn = document.createElement('a');
+      btn.innerText = '\u26A1 Full Screen Mode';
+      btn.href = iframe.src;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      btn.style.cssText = 'display:inline-block;margin:15px 0 20px;background:#00e5ff;color:#000;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;text-align:center;font-family:monospace;letter-spacing:1px;font-size:1rem;transition:all .2s;box-shadow:0 0 10px rgba(0,229,255,0.3);';
+      btn.onmouseover = function(){ this.style.boxShadow='0 0 20px rgba(0,229,255,0.6)'; this.style.transform='scale(1.03)'; };
+      btn.onmouseout = function(){ this.style.boxShadow='0 0 10px rgba(0,229,255,0.3)'; this.style.transform='scale(1)'; };
+      iframe.parentNode.insertBefore(btn, iframe);
+    };
   </script>
 
   {{/* SOCIAL SHARE BUTTONS - UNIVERSAL INJECTION */}}

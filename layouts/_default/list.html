@@ -1,0 +1,105 @@
+{{ define "main" }}
+<main class="main">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
+  </header>
+
+  <style>
+    .cyber-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .cyber-card {
+      background: linear-gradient(145deg, #1a1a24, #101018);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .cyber-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.2);
+      border-color: #00e5ff;
+    }
+    .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+    .card-tag {
+      position: absolute; top: 15px; right: 15px;
+      background: rgba(0, 229, 255, 0.1); color: #00e5ff;
+      padding: 4px 10px; border-radius: 4px; font-size: 0.7rem;
+      border: 1px solid rgba(0, 229, 255, 0.3); text-transform: uppercase;
+    }
+    .cyber-card h2 { font-size: 1.5rem; margin: 0 0 10px 0; color: #fff; }
+    .cyber-card h2 a { text-decoration: none; color: inherit; }
+    .cyber-card p { color: #aaa; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+    .card-footer {
+      padding: 20px 25px;
+      background: rgba(0,0,0,0.2);
+      border-top: 1px solid #2a2a35;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-cyber {
+      background: transparent; border: 1px solid #00e5ff; color: #00e5ff;
+      padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .btn-cyber:hover { background: #00e5ff; color: #000; box-shadow: 0 0 15px rgba(0,229,255,0.4); }
+    .date-meta { font-size: 0.8rem; color: #666; }
+    @media (max-width: 600px) {
+      .cyber-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="cyber-grid">
+    {{ $currentSection := .Section }}
+    {{ $currentLang := .Lang }}
+    {{ $items := slice }}
+
+    {{/* SMART NEWS LOGIC: Local Language + English Fallback ONLY */}}
+    {{ if eq $currentSection "news" }}
+       {{ $allNews := where site.AllPages "Section" "news" }}
+       {{ $localNews := where $allNews "Lang" $currentLang }}
+       {{ $englishNews := where $allNews "Lang" "en" }}
+       {{/* Union merges unique items */}}
+       {{ $items = $localNews | union $englishNews }}
+       {{/* Sort by Date Descending */}}
+       {{ $items = $items.ByDate.Reverse }}
+    {{ else }}
+       {{/* Standard Logic for Games/Tools */}}
+       {{ $items = where site.RegularPages "Section" $currentSection }}
+    {{ end }}
+
+    {{/* Filter only regular pages */}}
+    {{ $items = where $items "Kind" "page" }}
+
+    {{ range $items }}
+      <article class="cyber-card">
+        <span class="card-tag">{{ .Section }}</span>
+        <div class="card-content">
+          <header>
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          </header>
+          {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+        </div>
+        <div class="card-footer">
+          <span class="date-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+          <a class="btn-cyber" href="{{ .Permalink }}">
+            {{ if eq .Section "games" }}Play Now{{ else if eq .Section "tools" }}Use Tool{{ else }}read more &rarr;{{ end }}
+          </a>
+        </div>
+        <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
+      </article>
+    {{ end }}
+  </div>
+</main>
+{{ end }}

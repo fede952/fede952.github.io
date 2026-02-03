@@ -619,11 +619,13 @@ var curTab='servers';
    NUMBER FORMAT
    =================================================== */
 function fmtC(n){
+  n=parseFloat(n)||0;
   if(n<0)n=0;
   if(n>=1e12)return'$'+(n/1e12).toFixed(2)+'T';
   if(n>=1e9)return'$'+(n/1e9).toFixed(2)+'B';
   if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';
   if(n>=1e3)return'$'+(n/1e3).toFixed(2)+'K';
+  if(n<10)return'$'+n.toFixed(2);
   return'$'+n.toFixed(n<100?1:0);
 }
 function fmtW(n){
@@ -636,7 +638,7 @@ function fmtW(n){
    CORE CALCULATIONS
    =================================================== */
 function recalc(){
-  var inc=0,w=0,h=0,maxW=0,maxH=100;
+  var inc=0,w=0,h=0,maxW=50,maxH=100;
   SERVERS.forEach(function(s){
     var n=G.inv[s.id]||0;
     if(!n)return;
