@@ -1,0 +1,26 @@
+{{ define "main" }}
+<div style="background: #222; color: #0f0; padding: 20px; font-family: monospace; white-space: pre-wrap;">
+<h1>SYSTEM DIAGNOSTIC</h1>
+
+HUGO VERSION: {{ hugo.Version }}
+ENVIRONMENT: {{ hugo.Environment }}
+
+--------- SECTION ANALYSIS ---------
+{{ range $section, $pages := site.Sections }}
+SECTION: {{ $section }}
+- Pages found: {{ len $pages.RegularPages }}
+{{ end }}
+
+--------- GLOBAL FILE DUMP (First 50 items) ---------
+{{ range first 50 site.RegularPages }}
+[FILE] Title: {{ .Title }}
+       Section: {{ .Section }}
+       Type: {{ .Type }}
+       Lang: {{ .Lang }}
+       Draft: {{ .Draft }}
+       Date: {{ .Date }}
+       Permalink: {{ .Permalink }}
+---------------------------------------------------
+{{ end }}
+</div>
+{{ end }}
