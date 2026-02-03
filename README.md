@@ -1,110 +1,132 @@
+<div align="center">
+
 # Federico Sella Suite
+### Privacy-First Web Utilities
 
-![Built with Hugo](https://img.shields.io/badge/Built_with-Hugo-ff4088?style=flat-square&logo=hugo)
-![Privacy First](https://img.shields.io/badge/Privacy-First-00e5ff?style=flat-square&logo=shield)
-![100% Client-Side](https://img.shields.io/badge/100%25-Client--Side-00ff88?style=flat-square)
+![Hugo](https://img.shields.io/badge/Hugo-Framework-ff4088?style=for-the-badge&logo=hugo&logoColor=white)
+![Vanilla JS](https://img.shields.io/badge/JS-ES6+-f7df1e?style=for-the-badge&logo=javascript&logoColor=black)
+![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-00c853?style=for-the-badge&logo=shield&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-2196f3?style=for-the-badge)
+
 ![Build Status](https://github.com/fede952/fede952.github.io/actions/workflows/hugo.yaml/badge.svg)
-![License](https://img.shields.io/github/license/fede952/fede952.github.io)
 
-**A collection of privacy-focused, browser-based utilities that never upload your data to the cloud.**
+---
 
-Every tool in this suite runs entirely in your browser. No server-side processing, no telemetry, no accounts. Your files and data stay on your device from start to finish.
+**A collection of high-performance, browser-based tools designed for privacy and speed.**
+**No servers. No tracking. No bloat.**
+
+<br>
+
+[**View Live Demo**](https://federicosella.com/)
+
+</div>
+
+---
+
+## Key Features
+
+- **Global** — Translated into **12 languages**: EN, IT, ES, FR, DE, PT, RU, JA, KO, ZH, AR, HI
+- **Lightweight** — Built with Hugo + Pure JavaScript. No React, no Angular, no framework overhead
+- **Secure** — All processing (image compression, password auditing, fingerprint detection) happens in the browser via Web APIs and JS libraries. Nothing leaves your device
 
 ---
 
 ## The Tools
 
-### NetGuard
-**Browser Leak & Fingerprint Detector**
-
-Instantly audit your digital exposure. NetGuard reveals your public IP, ISP, approximate location, WebRTC leak status, GPU fingerprint, battery level, screen resolution, and browser metadata. Each data point is scored into a final **Privacy Score** (0-100) so you can see exactly how trackable you are. Includes exclusive VPN partner deals for users who want to lock things down.
-
-### PixelShrink Pro
-**Privacy-First Image Compressor**
-
-Compress PNG, JPG, WebP, and AVIF images without uploading a single byte. Powered by `browser-image-compression`, PixelShrink runs locally via JavaScript with full control over quality, output format, maximum file size (MB), and maximum resolution (px). The before/after stats panel shows file size reduction and resolution changes in real time. Available in 9 languages with automatic locale detection.
-
-### PassFort
-**Secure Password Generator**
-
-Generate cryptographically strong passwords with configurable length, character sets, and entropy display. Everything is computed client-side using the Web Crypto API.
-
-### ReflexGrid
-**Reaction Speed Trainer**
-
-A fast-paced grid game that tests and trains your reflexes. Tracks your reaction times and displays statistics. Built for fun, stays private.
-
-### And More
-
-The suite also includes **EasyCron** (visual cron job generator), **GlitchForge** (glitch art creator), **ZenFocus** (Pomodoro timer), **Base64 Encoder/Decoder**, **Caesar Cipher**, **Hash Generator**, and **Freelance Calculator** - all running locally in your browser.
+| Tool | Description | Tech |
+|:-----|:------------|:-----|
+| **NetGuard** | IP leak detector, WebRTC exposure test, GPU fingerprint scanner, Privacy Score (0-100). Includes VPN partner deals. | Fetch API, RTCPeerConnection, WebGL |
+| **PixelShrink Pro** | Client-side image compressor with AVIF/WebP/PNG/JPEG support, quality slider, max file size and resolution controls. 9-language UI. | browser-image-compression.js |
+| **PassFort** | Entropy-based password auditor with brute-force crack time estimator, passphrase generator, and strength scoring. | Web Crypto API |
+| **ReflexGrid** | Cyberpunk aim trainer and reaction time test. 60-second sessions with accuracy and speed tracking. Built for FPS gamers. | Canvas API, requestAnimationFrame |
+| **RateMate** | Freelance hourly rate calculator with tax, expense, and billable hours modeling. | Reactive DOM |
+| **EasyCron** | Visual cron job builder with schedule explainer and next-run calculator. | Custom parser |
+| **GlitchForge** | Glitch art generator with RGB shift, pixel sorting, and scanline effects. | Canvas pixel manipulation |
+| **ZenFocus** | Ambient noise mixer and Pomodoro timer with rain, white noise, and brown noise channels. | Web Audio API |
+| **Hash Generator** | MD5, SHA-1, SHA-256, SHA-512 hash generator. | Web Crypto API |
+| **Base64** | Encode and decode text with full UTF-8 support. | btoa/atob + TextEncoder |
+| **Caesar Cipher** | Classic shift cipher with configurable key. | String manipulation |
 
 ---
 
 ## Why This Exists
 
-Most online tools are data traps. Upload an image to "compress" it and a server you don't control now has a copy. Run a "privacy test" and the test itself fingerprints you. Check your password strength and the password gets sent over the wire.
+Most online tools are data traps. Upload an image to "compress" it and a stranger's server now has a copy. Run a "privacy test" and the test itself fingerprints you. Check your password strength and the password gets sent over the wire.
 
 This suite takes a different approach:
 
-- **Zero uploads.** Files are processed in-browser using modern Web APIs and JavaScript libraries.
-- **Zero tracking.** No analytics, no cookies, no third-party scripts collecting behavioral data.
-- **Zero accounts.** No sign-ups, no email harvesting. Open the tool and use it.
+- **Zero uploads.** Files are processed in-browser using modern Web APIs.
+- **Zero tracking.** No analytics cookies, no third-party scripts harvesting behavioral data.
+- **Zero accounts.** No sign-ups, no email collection. Open the tool and use it.
 - **Open source.** Every line of code is inspectable in this repository.
 
 ---
 
-## Live
+## Quick Start
 
-### **[federicosella.com](https://federicosella.com/)**
+```bash
+# Clone
+git clone https://github.com/fede952/fede952.github.io.git
+cd fede952.github.io
+
+# Init theme submodule
+git submodule update --init --recursive
+
+# Run dev server
+hugo server -D
+```
+
+Open `http://localhost:1313/` in your browser.
+
+> Requires [Hugo Extended](https://gohugo.io/installation/) and Git.
+
+---
+
+## Project Structure
+
+```
+content/
+  about/              Multilingual About page (12 langs)
+  games/              Browser games (Deploy on Friday, Sudo Type)
+  guides/             In-depth tutorials (DeepSeek vs ChatGPT, Local AI Setup)
+  news/               Automated tech news feed (EN + IT)
+  projects/           Portfolio projects
+  tools/              Markdown content for each tool (multilingual)
+  writeups/           CTF walkthroughs
+
+static/
+  tools/              Self-contained HTML/JS/CSS per tool (iframe targets)
+  games/              Game builds
+  js/tools/           Shared JS modules (base64, caesar, hash)
+  images/             Logos, banners, icons
+
+layouts/              Hugo template overrides and shortcodes
+.github/workflows/    CI/CD (Hugo build + deploy, daily news automation)
+```
 
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
-|---|---|
-| **Static Site Generator** | [Hugo](https://gohugo.io/) (Extended) |
-| **Theme** | PaperMod (customized) |
-| **Styling** | CSS Custom Properties, inline scoped styles |
-| **Tools Runtime** | Vanilla JavaScript (ES6+), Web APIs |
-| **Image Compression** | [browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression) via CDN |
-| **Hosting** | GitHub Pages |
-| **CI/CD** | GitHub Actions |
-| **Internationalization** | 11 languages (EN, IT, ES, FR, DE, PT, RU, JA, ZH, KO, AR) |
+|:------|:-----------|
+| Static Site Generator | [Hugo](https://gohugo.io/) Extended |
+| Theme | PaperMod (customized) |
+| Styling | CSS Custom Properties, scoped inline styles |
+| Tools Runtime | Vanilla JavaScript (ES6+), Web APIs |
+| Image Compression | [browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression) v2.0.2 |
+| Hosting | GitHub Pages |
+| CI/CD | GitHub Actions |
+| PWA | Service Worker + Web App Manifest |
+| Internationalization | 12 languages with Hugo i18n |
 
-## Getting Started
-
-```bash
-# Clone the repository
-git clone https://github.com/fede952/fede952.github.io.git
-cd fede952.github.io
-
-# Initialize theme submodule
-git submodule update --init --recursive
-
-# Run the local dev server (drafts included)
-hugo server -D
-```
-
-Open `http://localhost:1313/` in your browser.
-
-## Project Structure
-
-```
-content/
-  tools/           # Markdown content pages for each tool (multilingual)
-  posts/           # Blog posts
-static/
-  tools/           # Self-contained HTML/JS/CSS for each tool (iframe targets)
-  images/          # Logos, banners, and assets
-  js/tools/        # Shared JavaScript modules
-layouts/           # Hugo template overrides
-.github/workflows/ # CI/CD pipeline configuration
-```
+---
 
 ## Deployment
 
-Fully automated. Every push to `main` triggers a GitHub Actions workflow that builds the site with Hugo and deploys to GitHub Pages. No manual steps required.
+Fully automated. Every push to `main` triggers a GitHub Actions workflow that builds the site with Hugo and deploys to GitHub Pages.
+
+---
 
 ## License
 
