@@ -66,16 +66,31 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .tile.merged{animation:merge-flash .2s ease}
 
 /* Game Over overlay */
-.overlay{display:none;position:absolute;inset:0;background:rgba(8,8,12,.88);border-radius:10px;z-index:10;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.overlay{display:none;position:absolute;inset:0;background:rgba(8,8,12,.92);border-radius:10px;z-index:10;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:2px solid var(--magenta);box-shadow:0 0 40px var(--magenta-g),inset 0 0 60px rgba(255,45,206,.05)}
 .overlay.show{display:flex}
-.overlay h2{font-size:clamp(20px,5vw,28px);text-transform:uppercase;letter-spacing:4px;color:var(--magenta);text-shadow:0 0 20px var(--magenta-g)}
-.overlay .final-score{font-size:clamp(28px,8vw,42px);font-weight:700;color:var(--cyan);text-shadow:0 0 20px var(--cyan-g)}
-.overlay .btn{font-size:13px;padding:12px 28px;border-width:2px}
+.overlay h2{font-size:clamp(22px,6vw,32px);text-transform:uppercase;letter-spacing:5px;color:var(--magenta);text-shadow:0 0 20px var(--magenta-g),0 0 40px rgba(255,45,206,.3)}
+.overlay .final-score{font-size:clamp(30px,9vw,48px);font-weight:700;color:var(--cyan);text-shadow:0 0 20px var(--cyan-g)}
+.overlay .go-subtitle{font-size:11px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+
+/* Social share row */
+.share-row{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;justify-content:center}
+.share-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;border-radius:5px;cursor:pointer;transition:all .2s;border:1px solid;text-decoration:none;white-space:nowrap}
+.share-btn svg{width:16px;height:16px;flex-shrink:0;fill:currentColor}
+.share-btn.wa{color:#25d366;border-color:#25d366;background:rgba(37,211,102,.08)}
+.share-btn.wa:hover{background:#25d366;color:var(--bg)}
+.share-btn.fb{color:#1877f2;border-color:#1877f2;background:rgba(24,119,242,.08)}
+.share-btn.fb:hover{background:#1877f2;color:#fff}
+.share-btn.cp{color:var(--cyan);border-color:var(--text3);background:rgba(0,229,255,.05)}
+.share-btn.cp:hover{border-color:var(--cyan);background:var(--cyan);color:var(--bg)}
+.share-btn.cp.copied{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.1)}
+
+.overlay .btn-retry{font-family:var(--mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:3px;padding:12px 32px;border:2px solid var(--cyan);border-radius:5px;background:transparent;color:var(--cyan);cursor:pointer;transition:all .2s;margin-top:6px}
+.overlay .btn-retry:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px var(--cyan-g)}
 
 /* How to play */
 .how{font-size:10px;color:var(--text3);text-align:center;letter-spacing:1px;line-height:1.6}
 
-@media(max-width:400px){:root{--gap:6px}}
+@media(max-width:400px){:root{--gap:6px} .share-btn{padding:7px 10px;font-size:10px}}
 </style>
 </head>
 <body>
@@ -99,7 +114,22 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
     <div class="overlay" id="overlay">
       <h2 id="goText"></h2>
       <div class="final-score" id="goScore"></div>
-      <button class="btn" id="btnRetry"></button>
+      <div class="go-subtitle" id="goSub"></div>
+      <div class="share-row">
+        <a class="share-btn wa" id="btnWA" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a class="share-btn fb" id="btnFB" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span>Facebook</span>
+        </a>
+        <button class="share-btn cp" id="btnCopy">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          <span id="cpLabel"></span>
+        </button>
+      </div>
+      <button class="btn-retry" id="btnRetry"></button>
     </div>
   </div>
 
@@ -107,9 +137,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
+/* ===================================================
    LANGUAGE DETECTION
-   ═══════════════════════════════════════════ */
+   =================================================== */
 var LANGS=['en','it','es','fr','de','pt','ru','ja','ko','zh','ar','hi'];
 function detectLang(){
   var p=new URLSearchParams(location.search),v=(p.get('lang')||'').toLowerCase().split('-')[0];
@@ -121,24 +151,25 @@ function detectLang(){
   return'en';
 }
 var DICT={
-  en:{score:"Score",best:"Best",newGame:"New Game",gameOver:"Game Over",tryAgain:"Try Again",how:"Arrow Keys / WASD to move \u2022 Swipe on mobile"},
-  it:{score:"Punti",best:"Record",newGame:"Nuova Partita",gameOver:"Fine Partita",tryAgain:"Riprova",how:"Frecce / WASD per muovere \u2022 Swipe su mobile"},
-  es:{score:"Puntos",best:"R\u00e9cord",newGame:"Nuevo Juego",gameOver:"Fin del Juego",tryAgain:"Reintentar",how:"Flechas / WASD para mover \u2022 Desliza en m\u00f3vil"},
-  fr:{score:"Score",best:"Meilleur",newGame:"Nouvelle Partie",gameOver:"Partie Termin\u00e9e",tryAgain:"R\u00e9essayer",how:"Fl\u00e8ches / WASD pour d\u00e9placer \u2022 Glissez sur mobile"},
-  de:{score:"Punkte",best:"Rekord",newGame:"Neues Spiel",gameOver:"Spiel Vorbei",tryAgain:"Nochmal",how:"Pfeiltasten / WASD zum Bewegen \u2022 Wischen auf Mobilger\u00e4t"},
-  pt:{score:"Pontos",best:"Recorde",newGame:"Novo Jogo",gameOver:"Fim de Jogo",tryAgain:"Tentar de Novo",how:"Setas / WASD para mover \u2022 Deslize no celular"},
-  ru:{score:"\u0421\u0447\u0451\u0442",best:"\u0420\u0435\u043a\u043e\u0440\u0434",newGame:"\u041d\u043e\u0432\u0430\u044f \u0438\u0433\u0440\u0430",gameOver:"\u041a\u043e\u043d\u0435\u0446 \u0438\u0433\u0440\u044b",tryAgain:"\u0415\u0449\u0451 \u0440\u0430\u0437",how:"\u0421\u0442\u0440\u0435\u043b\u043a\u0438 / WASD \u2022 \u0421\u0432\u0430\u0439\u043f \u043d\u0430 \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u043e\u043c"},
-  ja:{score:"\u30b9\u30b3\u30a2",best:"\u6700\u9ad8",newGame:"\u65b0\u3057\u3044\u30b2\u30fc\u30e0",gameOver:"\u30b2\u30fc\u30e0\u30aa\u30fc\u30d0\u30fc",tryAgain:"\u3082\u3046\u4e00\u5ea6",how:"\u77e2\u5370\u30ad\u30fc / WASD \u2022 \u30b9\u30ef\u30a4\u30d7\u64cd\u4f5c"},
-  ko:{score:"\uc810\uc218",best:"\ucd5c\uace0",newGame:"\uc0c8 \uac8c\uc784",gameOver:"\uac8c\uc784 \uc624\ubc84",tryAgain:"\ub2e4\uc2dc \uc2dc\ub3c4",how:"\ud654\uc0b4\ud45c / WASD \u2022 \ubaa8\ubc14\uc77c \uc2a4\uc640\uc774\ud504"},
-  zh:{score:"\u5206\u6570",best:"\u6700\u9ad8",newGame:"\u65b0\u6e38\u620f",gameOver:"\u6e38\u620f\u7ed3\u675f",tryAgain:"\u518d\u6765\u4e00\u6b21",how:"\u65b9\u5411\u952e / WASD \u2022 \u79fb\u52a8\u7aef\u6ed1\u52a8"},
-  ar:{score:"\u0627\u0644\u0646\u0642\u0627\u0637",best:"\u0627\u0644\u0623\u0641\u0636\u0644",newGame:"\u0644\u0639\u0628\u0629 \u062c\u062f\u064a\u062f\u0629",gameOver:"\u0627\u0646\u062a\u0647\u062a \u0627\u0644\u0644\u0639\u0628\u0629",tryAgain:"\u062d\u0627\u0648\u0644 \u0645\u062c\u062f\u062f\u0627",how:"\u0627\u0644\u0623\u0633\u0647\u0645 / WASD \u2022 \u0627\u0633\u062d\u0628 \u0639\u0644\u0649 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644"},
-  hi:{score:"\u0938\u094d\u0915\u094b\u0930",best:"\u0936\u094d\u0930\u0947\u0937\u094d\u0920",newGame:"\u0928\u092f\u093e \u0916\u0947\u0932",gameOver:"\u0916\u0947\u0932 \u0938\u092e\u093e\u092a\u094d\u0924",tryAgain:"\u092b\u093f\u0930 \u0938\u0947 \u0915\u094b\u0936\u093f\u0936",how:"\u0924\u0940\u0930 \u0915\u0941\u0902\u091c\u093f\u092f\u093e\u0901 / WASD \u2022 \u092e\u094b\u092c\u093e\u0907\u0932 \u092a\u0930 \u0938\u094d\u0935\u093e\u0907\u092a"}
+  en:{score:"Score",best:"Best",newGame:"New Game",gameOver:"Game Over",tryAgain:"Try Again",how:"Arrow Keys / WASD to move \u2022 Swipe on mobile",challenge:"Can you do better?",copy:"Copy Link",copied:"Copied!"},
+  it:{score:"Punti",best:"Record",newGame:"Nuova Partita",gameOver:"Fine Partita",tryAgain:"Riprova",how:"Frecce / WASD per muovere \u2022 Swipe su mobile",challenge:"Riesci a fare meglio?",copy:"Copia Link",copied:"Copiato!"},
+  es:{score:"Puntos",best:"R\u00e9cord",newGame:"Nuevo Juego",gameOver:"Fin del Juego",tryAgain:"Reintentar",how:"Flechas / WASD para mover \u2022 Desliza en m\u00f3vil",challenge:"\u00bfPuedes hacerlo mejor?",copy:"Copiar",copied:"\u00a1Copiado!"},
+  fr:{score:"Score",best:"Meilleur",newGame:"Nouvelle Partie",gameOver:"Partie Termin\u00e9e",tryAgain:"R\u00e9essayer",how:"Fl\u00e8ches / WASD pour d\u00e9placer \u2022 Glissez sur mobile",challenge:"Pouvez-vous faire mieux?",copy:"Copier",copied:"Copi\u00e9!"},
+  de:{score:"Punkte",best:"Rekord",newGame:"Neues Spiel",gameOver:"Spiel Vorbei",tryAgain:"Nochmal",how:"Pfeiltasten / WASD zum Bewegen \u2022 Wischen auf Mobilger\u00e4t",challenge:"Kannst du es besser?",copy:"Kopieren",copied:"Kopiert!"},
+  pt:{score:"Pontos",best:"Recorde",newGame:"Novo Jogo",gameOver:"Fim de Jogo",tryAgain:"Tentar de Novo",how:"Setas / WASD para mover \u2022 Deslize no celular",challenge:"Consegue fazer melhor?",copy:"Copiar",copied:"Copiado!"},
+  ru:{score:"\u0421\u0447\u0451\u0442",best:"\u0420\u0435\u043a\u043e\u0440\u0434",newGame:"\u041d\u043e\u0432\u0430\u044f \u0438\u0433\u0440\u0430",gameOver:"\u041a\u043e\u043d\u0435\u0446 \u0438\u0433\u0440\u044b",tryAgain:"\u0415\u0449\u0451 \u0440\u0430\u0437",how:"\u0421\u0442\u0440\u0435\u043b\u043a\u0438 / WASD \u2022 \u0421\u0432\u0430\u0439\u043f \u043d\u0430 \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u043e\u043c",challenge:"\u0421\u043c\u043e\u0436\u0435\u0442\u0435 \u043b\u0443\u0447\u0448\u0435?",copy:"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",copied:"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!"},
+  ja:{score:"\u30b9\u30b3\u30a2",best:"\u6700\u9ad8",newGame:"\u65b0\u3057\u3044\u30b2\u30fc\u30e0",gameOver:"\u30b2\u30fc\u30e0\u30aa\u30fc\u30d0\u30fc",tryAgain:"\u3082\u3046\u4e00\u5ea6",how:"\u77e2\u5370\u30ad\u30fc / WASD \u2022 \u30b9\u30ef\u30a4\u30d7\u64cd\u4f5c",challenge:"\u3082\u3063\u3068\u9ad8\u5f97\u70b9\u3092\u76ee\u6307\u305b\u308b\uff1f",copy:"\u30b3\u30d4\u30fc",copied:"\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f!"},
+  ko:{score:"\uc810\uc218",best:"\ucd5c\uace0",newGame:"\uc0c8 \uac8c\uc784",gameOver:"\uac8c\uc784 \uc624\ubc84",tryAgain:"\ub2e4\uc2dc \uc2dc\ub3c4",how:"\ud654\uc0b4\ud45c / WASD \u2022 \ubaa8\ubc14\uc77c \uc2a4\uc640\uc774\ud504",challenge:"\ub354 \ub192\uc740 \uc810\uc218\uc5d0 \ub3c4\uc804!",copy:"\ubcf5\uc0ac",copied:"\ubcf5\uc0ac\ub428!"},
+  zh:{score:"\u5206\u6570",best:"\u6700\u9ad8",newGame:"\u65b0\u6e38\u620f",gameOver:"\u6e38\u620f\u7ed3\u675f",tryAgain:"\u518d\u6765\u4e00\u6b21",how:"\u65b9\u5411\u952e / WASD \u2022 \u79fb\u52a8\u7aef\u6ed1\u52a8",challenge:"\u4f60\u80fd\u8d85\u8d8a\u8fd9\u4e2a\u5206\u6570\u5417\uff1f",copy:"\u590d\u5236",copied:"\u5df2\u590d\u5236!"},
+  ar:{score:"\u0627\u0644\u0646\u0642\u0627\u0637",best:"\u0627\u0644\u0623\u0641\u0636\u0644",newGame:"\u0644\u0639\u0628\u0629 \u062c\u062f\u064a\u062f\u0629",gameOver:"\u0627\u0646\u062a\u0647\u062a \u0627\u0644\u0644\u0639\u0628\u0629",tryAgain:"\u062d\u0627\u0648\u0644 \u0645\u062c\u062f\u062f\u0627",how:"\u0627\u0644\u0623\u0633\u0647\u0645 / WASD \u2022 \u0627\u0633\u062d\u0628 \u0639\u0644\u0649 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644",challenge:"\u0647\u0644 \u064a\u0645\u0643\u0646\u0643 \u0627\u0644\u062a\u063a\u0644\u0628 \u0639\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0646\u062a\u064a\u062c\u0629\u061f",copy:"\u0646\u0633\u062e",copied:"\u062a\u0645 \u0627\u0644\u0646\u0633\u062e!"},
+  hi:{score:"\u0938\u094d\u0915\u094b\u0930",best:"\u0936\u094d\u0930\u0947\u0937\u094d\u0920",newGame:"\u0928\u092f\u093e \u0916\u0947\u0932",gameOver:"\u0916\u0947\u0932 \u0938\u092e\u093e\u092a\u094d\u0924",tryAgain:"\u092b\u093f\u0930 \u0938\u0947 \u0915\u094b\u0936\u093f\u0936",how:"\u0924\u0940\u0930 \u0915\u0941\u0902\u091c\u093f\u092f\u093e\u0901 / WASD \u2022 \u092e\u094b\u092c\u093e\u0907\u0932 \u092a\u0930 \u0938\u094d\u0935\u093e\u0907\u092a",challenge:"\u0915\u094d\u092f\u093e \u0906\u092a \u0907\u0938\u0938\u0947 \u092c\u0947\u0939\u0924\u0930 \u0915\u0930 \u0938\u0915\u0924\u0947 \u0939\u0948\u0902?",copy:"\u0915\u0949\u092a\u0940",copied:"\u0915\u0949\u092a\u0940 \u0939\u094b \u0917\u092f\u093e!"}
 };
-var L=DICT[detectLang()]||DICT.en;
+var LANG=detectLang();
+var L=DICT[LANG]||DICT.en;
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    APPLY LANGUAGE
-   ═══════════════════════════════════════════ */
+   =================================================== */
 var $=function(id){return document.getElementById(id)};
 $('lScore').textContent=L.score;
 $('lBest').textContent=L.best;
@@ -146,10 +177,12 @@ $('btnNew').textContent=L.newGame;
 $('goText').textContent=L.gameOver;
 $('btnRetry').textContent=L.tryAgain;
 $('howText').textContent=L.how;
+$('goSub').textContent=L.challenge;
+$('cpLabel').textContent=L.copy;
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    AUDIO ENGINE (Procedural)
-   ═══════════════════════════════════════════ */
+   =================================================== */
 var audioCtx=null,muted=false;
 function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)()}
 function playTone(freq,dur,type,vol){
@@ -172,11 +205,12 @@ $('btnMute').addEventListener('click',function(){
   this.textContent=muted?'\u2716':'\u266B';
 });
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    BOARD SETUP
-   ═══════════════════════════════════════════ */
+   =================================================== */
 var SIZE=4,board,score,bestScore,gameOver,tileElements;
 var boardEl=$('board');
+var GAME_URL='https://federicosella.com/games/neon-blocks/';
 
 function calcCellSize(){
   var wrap=document.querySelector('.board-wrap');
@@ -199,23 +233,31 @@ function cellPos(r,c){
   return{top:gap+r*(cell+gap),left:gap+c*(cell+gap)}
 }
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    GAME STATE
-   ═══════════════════════════════════════════ */
+   =================================================== */
 function init(){
   board=Array.from({length:SIZE},function(){return new Array(SIZE).fill(0)});
   score=0;gameOver=false;tileElements=[];
   bestScore=parseInt(localStorage.getItem('nb_best'))||0;
   $('vBest').textContent=bestScore;
   $('overlay').classList.remove('show');
-  clearTiles();
+
+  /* BUGFIX: Nuke every .tile from the DOM before re-rendering */
+  var stale=boardEl.querySelectorAll('.tile');
+  for(var i=0;i<stale.length;i++)stale[i].remove();
+
   spawnTile();spawnTile();
   render();saveState();
 }
 
 function clearTiles(){
+  /* Remove tracked tile elements */
   tileElements.forEach(function(t){if(t.el&&t.el.parentNode)t.el.parentNode.removeChild(t.el)});
   tileElements=[];
+  /* BUGFIX: Also remove any orphaned .tile nodes that escaped tracking */
+  var orphans=boardEl.querySelectorAll('.tile');
+  for(var i=0;i<orphans.length;i++)orphans[i].remove();
 }
 
 function saveState(){
@@ -240,9 +282,9 @@ function loadState(){
   }catch(e){return false}
 }
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    TILE RENDERING
-   ═══════════════════════════════════════════ */
+   =================================================== */
 function render(){
   clearTiles();
   $('vScore').textContent=score;
@@ -268,9 +310,9 @@ function createTileEl(r,c,val,isSpawn,isMerge){
   return el;
 }
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    SPAWN
-   ═══════════════════════════════════════════ */
+   =================================================== */
 function spawnTile(){
   var empty=[];
   for(var r=0;r<SIZE;r++)for(var c=0;c<SIZE;c++)if(!board[r][c])empty.push({r:r,c:c});
@@ -281,15 +323,52 @@ function spawnTile(){
   createTileEl(cell.r,cell.c,val,true,false);
 }
 
-/* ═══════════════════════════════════════════
+/* ===================================================
+   SOCIAL SHARING
+   =================================================== */
+function getShareText(s){
+  return'I just scored '+s+' in NeonBlocks! \uD83C\uDFAE Can you beat my high score? Play now: '+GAME_URL;
+}
+
+function showGameOver(){
+  gameOver=true;
+  sndGameOver();
+  $('goScore').textContent=score;
+
+  /* Update share hrefs */
+  var msg=getShareText(score);
+  $('btnWA').href='https://wa.me/?text='+encodeURIComponent(msg);
+  $('btnFB').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(GAME_URL)+'&quote='+encodeURIComponent(msg);
+
+  /* Reset copy button state */
+  var cb=$('btnCopy');
+  cb.classList.remove('copied');
+  $('cpLabel').textContent=L.copy;
+
+  $('overlay').classList.add('show');
+}
+
+$('btnCopy').addEventListener('click',function(){
+  var msg=getShareText(score);
+  var cb=$('btnCopy');
+  navigator.clipboard.writeText(msg).then(function(){
+    cb.classList.add('copied');
+    $('cpLabel').textContent=L.copied;
+    setTimeout(function(){
+      cb.classList.remove('copied');
+      $('cpLabel').textContent=L.copy;
+    },2000);
+  });
+});
+
+/* ===================================================
    MOVE LOGIC
-   ═══════════════════════════════════════════ */
+   =================================================== */
 function move(dir){
   if(gameOver)return;
   initAudio();
   var moved=false,mergePositions=[];
 
-  /* Rotate board so we always slide left, then rotate back */
   var rotated=rotateForDir(board,dir);
   for(var r=0;r<SIZE;r++){
     var row=rotated[r].filter(function(v){return v!==0});
@@ -317,10 +396,8 @@ function move(dir){
     sndMove();
     if(score>bestScore){bestScore=score;$('vBest').textContent=bestScore}
 
-    /* Animate: render current state, spawn new, mark merges */
     render();
 
-    /* Mark merged tiles */
     mergePositions.forEach(function(mp){
       var realPos=unrotatePos(mp.r,mp.c,dir);
       tileElements.forEach(function(t){
@@ -332,12 +409,7 @@ function move(dir){
     spawnTile();
     saveState();
 
-    if(checkGameOver()){
-      gameOver=true;
-      sndGameOver();
-      $('goScore').textContent=score;
-      $('overlay').classList.add('show');
-    }
+    if(checkGameOver())showGameOver();
   }
 }
 
@@ -375,9 +447,9 @@ function checkGameOver(){
   return true;
 }
 
-/* ═══════════════════════════════════════════
-   INPUT — Keyboard
-   ═══════════════════════════════════════════ */
+/* ===================================================
+   INPUT - Keyboard
+   =================================================== */
 var keyMap={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',
             a:'left',d:'right',w:'up',s:'down',
             A:'left',D:'right',W:'up',S:'down'};
@@ -386,9 +458,9 @@ document.addEventListener('keydown',function(e){
   if(dir){e.preventDefault();move(dir)}
 });
 
-/* ═══════════════════════════════════════════
-   INPUT — Touch / Swipe
-   ═══════════════════════════════════════════ */
+/* ===================================================
+   INPUT - Touch / Swipe
+   =================================================== */
 var tx=0,ty=0;
 document.addEventListener('touchstart',function(e){
   initAudio();
@@ -403,15 +475,15 @@ document.addEventListener('touchend',function(e){
   else move(dy>0?'down':'up');
 },{passive:true});
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    BUTTONS
-   ═══════════════════════════════════════════ */
+   =================================================== */
 $('btnNew').addEventListener('click',function(){init()});
 $('btnRetry').addEventListener('click',function(){init()});
 
-/* ═══════════════════════════════════════════
+/* ===================================================
    INIT
-   ═══════════════════════════════════════════ */
+   =================================================== */
 function boot(){
   calcCellSize();
   buildBgCells();
