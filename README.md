@@ -1,6 +1,6 @@
 <div align="center">
 
-# Federico Sella Suite
+# Federico Sella
 ### Privacy-First Web Utilities
 
 ![Hugo](https://img.shields.io/badge/Hugo-Framework-ff4088?style=for-the-badge&logo=hugo&logoColor=white)
