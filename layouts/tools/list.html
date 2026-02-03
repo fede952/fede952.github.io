@@ -15,9 +15,12 @@
   </header>
 
   <div class="post-list">
-    {{/* FORCE GLOBAL LOOKUP based on the current section name */}}
-    {{ $section_name := .Section }}
-    {{ $items := where site.RegularPages "Section" $section_name }}
+    {{/* HARDCODED TYPE LOOKUP */}}
+    {{ $items := where site.RegularPages "Type" "tools" }}
+
+    <p style="color: #0f0; font-family: monospace; font-size: 12px;">
+      DEBUG: Searching for Type 'tools'. Found {{ len $items }} items.
+    </p>
 
     {{- range $items }}
       <article class="post-entry" style="border: 1px solid var(--primary); margin-bottom: 1rem; padding: 1rem; border-radius: 8px;">
@@ -39,8 +42,8 @@
 
     {{ if eq (len $items) 0 }}
       <p style="color: red; font-weight: bold;">
-        ERROR: No items found for section "{{ $section_name }}".
-        Please check that content files exist in content/{{ $section_name }}/
+        ERROR: No items found for Type "tools".
+        Please check that content files exist in content/tools/
         and do NOT have 'draft: true'.
       </p>
     {{ end }}
