@@ -15,8 +15,12 @@
   </header>
 
   <div class="post-list">
-    {{- range .Pages }}
-      <article class="post-entry">
+    {{/* FORCE GLOBAL LOOKUP based on the current section name */}}
+    {{ $section_name := .Section }}
+    {{ $items := where site.RegularPages "Section" $section_name }}
+
+    {{- range $items }}
+      <article class="post-entry" style="border: 1px solid var(--primary); margin-bottom: 1rem; padding: 1rem; border-radius: 8px;">
         <header class="entry-header">
           <h2>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
@@ -28,11 +32,18 @@
         </div>
         {{- end }}
         <footer class="entry-footer">
-          {{- if .Date }}<span title='{{ .Date.Format "2006-01-02 15:04:05 MST" }}'>{{ .Date.Format "January 2, 2006" }}</span>{{- end }}
-        </footer>
-        <a class="entry-link" aria-label="Play {{ .Title }}" href="{{ .Permalink }}"></a>
+          </footer>
+        <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
       </article>
     {{- end }}
+
+    {{ if eq (len $items) 0 }}
+      <p style="color: red; font-weight: bold;">
+        ERROR: No items found for section "{{ $section_name }}".
+        Please check that content files exist in content/{{ $section_name }}/
+        and do NOT have 'draft: true'.
+      </p>
+    {{ end }}
   </div>
 </main>
 {{ end }}
