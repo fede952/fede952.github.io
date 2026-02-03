@@ -2,90 +2,100 @@
 <main class="main">
   <header class="page-header">
     <h1>{{ .Title }}</h1>
-    {{ if .Description }}
-    <div class="post-description">{{ .Description }}</div>
-    {{ end }}
+    {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
   </header>
 
   <style>
-    .pro-grid {
+    .cyber-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
-    .pro-card {
-      background: var(--entry);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+    .cyber-card {
+      background: linear-gradient(145deg, #1a1a24, #101018);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
-    .pro-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-      border-color: var(--primary);
+    .cyber-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.2);
+      border-color: #00e5ff;
     }
-    .pro-card h2 {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      margin-top: 0;
+    .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+    .card-tag {
+      position: absolute; top: 15px; right: 15px;
+      background: rgba(0, 229, 255, 0.1); color: #00e5ff;
+      padding: 4px 10px; border-radius: 4px; font-size: 0.7rem;
+      border: 1px solid rgba(0, 229, 255, 0.3); text-transform: uppercase;
     }
-    .pro-card h2 a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-    .pro-card p {
-      color: #b0b0b0;
-      font-size: 0.95rem;
-      flex-grow: 1;
-      line-height: 1.5;
-    }
-    .pro-meta {
-      font-size: 0.8rem;
-      color: #666;
-      margin-top: 15px;
-      border-top: 1px solid var(--border);
-      padding-top: 10px;
+    .cyber-card h2 { font-size: 1.5rem; margin: 0 0 10px 0; color: #fff; }
+    .cyber-card h2 a { text-decoration: none; color: inherit; }
+    .cyber-card p { color: #aaa; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+    .card-footer {
+      padding: 20px 25px;
+      background: rgba(0,0,0,0.2);
+      border-top: 1px solid #2a2a35;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
-    /* Mobile fix */
+    .btn-cyber {
+      background: transparent; border: 1px solid #00e5ff; color: #00e5ff;
+      padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .btn-cyber:hover { background: #00e5ff; color: #000; box-shadow: 0 0 15px rgba(0,229,255,0.4); }
+    .date-meta { font-size: 0.8rem; color: #666; }
     @media (max-width: 600px) {
-      .pro-grid { grid-template-columns: 1fr; }
+      .cyber-grid { grid-template-columns: 1fr; }
     }
   </style>
 
-  <div class="pro-grid">
+  <div class="cyber-grid">
     {{ $currentSection := .Section }}
+    {{ $currentLang := .Lang }}
     {{ $items := slice }}
 
-    {{/* LOGIC: If News, fetch ALL pages from English site to ensure visibility everywhere */}}
+    {{/* SMART NEWS LOGIC: Local Language + English Fallback ONLY */}}
     {{ if eq $currentSection "news" }}
-       {{/* Get English News + Local News */}}
-       {{ $items = where site.AllPages "Section" "news" }}
+       {{ $allNews := where site.AllPages "Section" "news" }}
+       {{ $localNews := where $allNews "Lang" $currentLang }}
+       {{ $englishNews := where $allNews "Lang" "en" }}
+       {{/* Union merges unique items */}}
+       {{ $items = $localNews | union $englishNews }}
+       {{/* Sort by Date Descending */}}
+       {{ $items = $items.ByDate.Reverse }}
     {{ else }}
-       {{/* Normal behavior for Games/Tools (Local Section) */}}
+       {{/* Standard Logic for Games/Tools */}}
        {{ $items = where site.RegularPages "Section" $currentSection }}
     {{ end }}
 
-    {{/* Filter out non-content pages if any */}}
+    {{/* Filter only regular pages */}}
     {{ $items = where $items "Kind" "page" }}
 
     {{ range $items }}
-      <article class="pro-card">
-        <header>
-          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-        </header>
-        {{ if .Description }}
-        <p>{{ .Description }}</p>
-        {{ end }}
-        <div class="pro-meta">
-          <span>{{ .Date.Format "Jan 2, 2006" }}</span>
-          {{ if .Draft }}<span style="color:red;">(DRAFT)</span>{{ end }}
+      <article class="cyber-card">
+        <span class="card-tag">{{ .Section }}</span>
+        <div class="card-content">
+          <header>
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          </header>
+          {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+        </div>
+        <div class="card-footer">
+          <span class="date-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+          <a class="btn-cyber" href="{{ .Permalink }}">
+            {{ if eq .Section "games" }}Play Now{{ else if eq .Section "tools" }}Use Tool{{ else }}read more &rarr;{{ end }}
+          </a>
         </div>
         <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
       </article>
