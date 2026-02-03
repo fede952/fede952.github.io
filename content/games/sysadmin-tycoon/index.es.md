@@ -12,4 +12,4 @@ Empieza con un humilde laptop y construye un imperio de servidores. Equilibra el
 
 SysAdmin Tycoon guarda tu progreso automaticamente y calcula ganancias offline (hasta 8 horas).
 
-<iframe src="/games/sysadmin-tycoon/index.html?lang=es" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html?lang=es" width="100%" height="850px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>

@@ -12,4 +12,4 @@ Starte mit einem bescheidenen Laptop und baue ein Server-Imperium auf. Balancier
 
 SysAdmin Tycoon speichert automatisch und berechnet Offline-Einnahmen (bis zu 8 Stunden).
 
-<iframe src="/games/sysadmin-tycoon/index.html?lang=de" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html?lang=de" width="100%" height="850px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>

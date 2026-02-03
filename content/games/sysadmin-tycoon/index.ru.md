@@ -12,4 +12,4 @@ draft: false
 
 SysAdmin Tycoon \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0441\u043e\u0445\u0440\u0430\u043d\u044f\u0435\u0442 \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441 \u0438 \u0440\u0430\u0441\u0441\u0447\u0438\u0442\u044b\u0432\u0430\u0435\u0442 \u043e\u0444\u0444\u043b\u0430\u0439\u043d-\u0434\u043e\u0445\u043e\u0434 (\u0434\u043e 8 \u0447\u0430\u0441\u043e\u0432).
 
-<iframe src="/games/sysadmin-tycoon/index.html?lang=ru" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html?lang=ru" width="100%" height="850px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>

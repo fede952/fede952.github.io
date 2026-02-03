@@ -12,4 +12,4 @@ draft: false
 
 SysAdmin Tycoon\uc740 \uc9c4\ud589 \uc0c1\ud669\uc744 \uc790\ub3d9 \uc800\uc7a5\ud558\uace0 \uc624\ud504\ub77c\uc778 \uc218\uc775\uc744 \uacc4\uc0b0\ud569\ub2c8\ub2e4 (\ucd5c\ub300 8\uc2dc\uac04).
 
-<iframe src="/games/sysadmin-tycoon/index.html?lang=ko" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html?lang=ko" width="100%" height="850px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>

@@ -12,4 +12,4 @@ Start with a humble laptop and build a server empire. Balance power consumption,
 
 SysAdmin Tycoon auto-saves your progress and calculates offline earnings (up to 8 hours).
 
-<iframe src="/games/sysadmin-tycoon/index.html" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html" width="100%" height="850px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
