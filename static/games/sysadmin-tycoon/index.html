@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>SysAdmin Tycoon</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg2:#101018;--bg3:#16161f;
+  --cyan:#00e5ff;--magenta:#ff2dce;--green:#00ff88;--gold:#ffd700;--red:#ff4444;
+  --cyan-g:rgba(0,229,255,.25);--magenta-g:rgba(255,45,206,.2);--green-g:rgba(0,255,136,.2);--gold-g:rgba(255,215,0,.3);
+  --text:#b0b0c0;--text2:#555568;--text3:#333345;
+  --border:#1a1a2e;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.app{max-width:1400px;margin:0 auto;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:100vh;min-height:100dvh}
+
+/* ── Header ── */
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;flex-wrap:wrap}
+.hdr h1{font-size:clamp(14px,3.5vw,22px);text-transform:uppercase;letter-spacing:2px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;white-space:nowrap}
+.hdr-stats{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.hdr-cash{font-size:clamp(16px,4vw,26px);font-weight:700;color:var(--green)}
+.hdr-income{font-size:clamp(11px,2.5vw,14px);color:var(--text2)}
+.hdr-mute{background:none;border:1px solid var(--text3);color:var(--text2);font-size:14px;width:32px;height:32px;border-radius:4px;cursor:pointer;font-family:var(--mono);transition:all .2s}
+.hdr-mute.on{border-color:var(--magenta);color:var(--magenta)}
+
+/* ── Resource Bars ── */
+.res-bars{display:flex;gap:8px;flex-wrap:wrap}
+.res-bar{flex:1;min-width:140px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:6px 10px}
+.res-label{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:4px;display:flex;justify-content:space-between}
+.bar-track{background:var(--bg3);border-radius:3px;height:18px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:3px;transition:width .4s ease,background .3s;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--bg);min-width:0;overflow:hidden;white-space:nowrap;padding:0 6px}
+.bar-fill.power{background:linear-gradient(90deg,#00e5ff,#0090aa)}
+.bar-fill.heat{background:linear-gradient(90deg,#ff2dce,#aa1488)}
+.bar-fill.warn{background:linear-gradient(90deg,var(--gold),#cc9900) !important}
+.bar-fill.crit{background:linear-gradient(90deg,var(--red),#aa0000) !important;animation:bar-pulse .8s ease infinite}
+@keyframes bar-pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.status-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:3px;margin-left:auto}
+.status-tag.blackout{background:rgba(255,68,68,.15);color:var(--red);border:1px solid var(--red)}
+.status-tag.overheat{background:rgba(255,215,0,.15);color:var(--gold);border:1px solid var(--gold)}
+
+/* ── Game Container ── */
+.game{flex:1;display:flex;flex-direction:column;gap:8px}
+
+/* ── Panels ── */
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;display:none;flex-direction:column;overflow:hidden}
+.panel.active{display:flex}
+
+/* ── Shop ── */
+.shop-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px}
+.tab-btn{padding:7px 4px;font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab-btn.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
+.tab-btn:hover:not(.active){border-color:var(--cyan);color:var(--cyan)}
+.shop-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;max-height:420px;scrollbar-width:thin;scrollbar-color:var(--cyan) var(--bg3)}
+.shop-list::-webkit-scrollbar{width:5px}
+.shop-list::-webkit-scrollbar-track{background:var(--bg3)}
+.shop-list::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px}
+
+.shop-item{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:4px}
+.shop-item:hover{border-color:var(--cyan);box-shadow:0 0 10px var(--cyan-g)}
+.shop-item.locked{opacity:.4;cursor:default;filter:grayscale(.5)}
+.shop-item.locked:hover{border-color:var(--border);box-shadow:none}
+.shop-item.bought{opacity:.5;cursor:default;border-color:var(--green)}
+.shop-item.bought:hover{box-shadow:none}
+.si-row{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.si-name{font-size:12px;font-weight:700;color:var(--cyan);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si-cost{font-size:12px;font-weight:700;color:var(--green);white-space:nowrap}
+.si-cost.no{color:var(--red)}
+.si-own{font-size:10px;color:var(--text2)}
+.si-stats{display:flex;gap:8px;flex-wrap:wrap;font-size:10px;color:var(--text2)}
+.si-stat{display:flex;gap:3px;align-items:center}
+.si-sv{color:var(--text);font-weight:700}
+.si-desc{font-size:10px;color:var(--text2);font-style:italic}
+
+/* ── Server Room ── */
+.room-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:12px;background:var(--bg3);border-radius:6px;min-height:260px}
+.rack-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;width:100%;max-width:380px}
+.rack-slot{aspect-ratio:1;background:var(--bg);border:1px dashed var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:clamp(14px,2.5vw,22px);transition:all .3s;position:relative}
+.rack-slot.filled{border-style:solid;border-color:var(--cyan);background:rgba(0,229,255,.06);box-shadow:0 0 8px var(--cyan-g);animation:rack-glow 3s ease infinite}
+@keyframes rack-glow{0%,100%{box-shadow:0 0 6px var(--cyan-g)}50%{box-shadow:0 0 14px var(--cyan-g)}}
+.rack-slot.t1{border-color:var(--text2);box-shadow:none;animation:none;background:rgba(176,176,192,.04)}
+.rack-slot.t2{border-color:var(--cyan)}
+.rack-slot.t3{border-color:var(--green);box-shadow:0 0 8px var(--green-g)}
+.rack-slot.t4{border-color:var(--magenta);box-shadow:0 0 8px var(--magenta-g)}
+.rack-slot.t5{border-color:var(--gold);box-shadow:0 0 10px var(--gold-g)}
+.rack-slot.t6{border-color:#fff;box-shadow:0 0 12px rgba(255,255,255,.2)}
+.rack-slot.t7{border-color:#fff;box-shadow:0 0 16px rgba(255,255,255,.35),0 0 30px var(--cyan-g);animation:rack-quantum 2s ease infinite}
+@keyframes rack-quantum{0%,100%{box-shadow:0 0 16px rgba(255,255,255,.35),0 0 30px var(--cyan-g)}50%{box-shadow:0 0 24px rgba(255,255,255,.5),0 0 40px var(--magenta-g)}}
+
+/* ── Terminal ── */
+.term{display:flex;flex-direction:column;height:100%;min-height:200px}
+.term-hdr{background:var(--bg3);padding:6px 10px;border-radius:6px 6px 0 0;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--green);border:1px solid var(--border);border-bottom:none;text-transform:uppercase}
+.term-body{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:0 0 6px 6px;padding:8px;overflow-y:auto;font-size:10px;line-height:1.7;max-height:380px;scrollbar-width:thin;scrollbar-color:var(--green) var(--bg3)}
+.term-body::-webkit-scrollbar{width:5px}
+.term-body::-webkit-scrollbar-track{background:var(--bg3)}
+.term-body::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
+.log-e{margin-bottom:4px}
+.log-e .ts{color:var(--text3);margin-right:4px}
+.log-e.ev{color:var(--magenta);font-weight:700}
+.log-e.ok{color:var(--green)}
+.log-e.wr{color:var(--gold)}
+.log-e.er{color:var(--red);font-weight:700}
+
+/* ── Mobile Nav ── */
+.mob-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.mob-btn{padding:9px 4px;font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all .2s}
+.mob-btn.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
+
+/* ── Modals ── */
+.modal{display:none;position:fixed;inset:0;background:rgba(8,8,12,.94);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal.show{display:flex}
+.modal-box{background:var(--bg2);border:2px solid var(--cyan);border-radius:10px;padding:24px;max-width:92%;width:400px;box-shadow:0 0 50px var(--cyan-g)}
+.modal-box h2{font-size:clamp(18px,5vw,26px);text-transform:uppercase;letter-spacing:3px;color:var(--cyan);text-align:center;margin-bottom:12px;text-shadow:0 0 20px var(--cyan-g)}
+.modal-box p{font-size:13px;line-height:1.7;color:var(--text);text-align:center;margin-bottom:18px}
+.modal-box .earn{font-size:clamp(22px,6vw,34px);font-weight:700;color:var(--green);text-align:center;margin-bottom:14px;text-shadow:0 0 12px var(--green-g)}
+.m-btn{width:100%;padding:12px;font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;background:var(--cyan);color:var(--bg);border:none;border-radius:6px;cursor:pointer;transition:all .2s}
+.m-btn:hover{box-shadow:0 0 20px var(--cyan-g)}
+
+/* Event modal */
+.modal-box.event{border-color:var(--magenta);box-shadow:0 0 50px var(--magenta-g)}
+.modal-box.event h2{color:var(--magenta);text-shadow:0 0 20px var(--magenta-g)}
+.ev-btn{width:100%;padding:14px;font-family:var(--mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;background:var(--magenta);color:#fff;border:2px solid var(--magenta);border-radius:6px;cursor:pointer;transition:transform .05s;margin-bottom:10px}
+.ev-btn:active{transform:scale(.94)}
+.ev-bar{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.ev-bar-fill{height:100%;background:var(--green);transition:width .1s;border-radius:4px}
+
+/* ── Desktop 3-col ── */
+@media(min-width:768px){
+  .game{flex-direction:row}
+  .panel{display:flex !important}
+  .p-left{flex:0 0 300px;max-width:300px}
+  .p-center{flex:1;min-width:0}
+  .p-right{flex:0 0 260px;max-width:260px}
+  .mob-nav{display:none}
+  .shop-list{max-height:none}
+  .term-body{max-height:none;flex:1}
+}
+@media(min-width:1100px){
+  .p-left{flex:0 0 340px;max-width:340px}
+  .p-right{flex:0 0 300px;max-width:300px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <h1>SysAdmin<span style="-webkit-text-fill-color:var(--text)">Tycoon</span></h1>
+    <div class="hdr-stats">
+      <span class="hdr-cash" id="vCash">$0</span>
+      <span class="hdr-income" id="vIncome"></span>
+    </div>
+    <button class="hdr-mute" id="btnMute" title="Mute">&#9835;</button>
+  </div>
+
+  <div class="res-bars">
+    <div class="res-bar">
+      <div class="res-label"><span id="lPow"></span><span id="powStat"></span></div>
+      <div class="bar-track"><div class="bar-fill power" id="barPow" style="width:0"></div></div>
+    </div>
+    <div class="res-bar">
+      <div class="res-label"><span id="lHeat"></span><span id="heatStat"></span></div>
+      <div class="bar-track"><div class="bar-fill heat" id="barHeat" style="width:0"></div></div>
+    </div>
+  </div>
+
+  <div class="game">
+    <div class="panel p-left active" id="panShop">
+      <div class="shop-tabs">
+        <button class="tab-btn active" data-tab="servers" id="tSrv"></button>
+        <button class="tab-btn" data-tab="cooling" id="tCool"></button>
+        <button class="tab-btn" data-tab="power" id="tPow"></button>
+        <button class="tab-btn" data-tab="upgrades" id="tUpg"></button>
+      </div>
+      <div class="shop-list" id="shopList"></div>
+    </div>
+    <div class="panel p-center" id="panRoom">
+      <div class="room-wrap"><div class="rack-grid" id="rackGrid"></div></div>
+    </div>
+    <div class="panel p-right" id="panLog">
+      <div class="term">
+        <div class="term-hdr" id="termHdr"></div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mob-nav">
+    <button class="mob-btn active" data-view="panShop" id="nShop"></button>
+    <button class="mob-btn" data-view="panRoom" id="nRoom"></button>
+    <button class="mob-btn" data-view="panLog" id="nLog"></button>
+  </div>
+</div>
+
+<!-- Welcome Back modal -->
+<div class="modal" id="mWelcome">
+  <div class="modal-box">
+    <h2 id="welTitle"></h2>
+    <p id="welMsg"></p>
+    <div class="earn" id="welEarn"></div>
+    <button class="m-btn" id="welBtn"></button>
+  </div>
+</div>
+
+<!-- Event modal -->
+<div class="modal" id="mEvent">
+  <div class="modal-box event">
+    <h2 id="evTitle"></h2>
+    <p id="evDesc"></p>
+    <button class="ev-btn" id="evBtn"></button>
+    <div class="ev-bar"><div class="ev-bar-fill" id="evBar" style="width:0"></div></div>
+  </div>
+</div>
+
+<script>
+/* ===================================================
+   LANGUAGE DETECTION
+   =================================================== */
+var LANGS=['en','it','es','fr','de','pt','ru','ja','ko','zh','ar','hi'];
+function detectLang(){
+  var p=new URLSearchParams(location.search),v=(p.get('lang')||'').toLowerCase().split('-')[0];
+  if(v&&LANGS.indexOf(v)!==-1)return v;
+  try{var s=window.parent.location.pathname.split('/').filter(Boolean);
+    if(s.length){var f=s[0].toLowerCase().split('-')[0];if(LANGS.indexOf(f)!==-1)return f}}catch(e){}
+  var n=(navigator.language||'').toLowerCase().split('-')[0];
+  if(n&&LANGS.indexOf(n)!==-1)return n;
+  return'en';
+}
+
+/* ===================================================
+   i18n DICTIONARY
+   =================================================== */
+var DICT={
+en:{
+  power:"Power",heat:"Heat",ips:"Income/s",
+  servers:"Servers",cooling:"Cooling",powerTab:"Power",upgrades:"Upgrades",
+  shop:"Shop",room:"Room",log:"Log",syslog:"System Log",
+  owned:"owned",locked:"Locked",perSec:"/s",watts:"W",heatU:"Heat",
+  buy:"Buy",maxed:"Owned",
+  s1:"Old Laptop",s2:"Desktop Tower",s3:"Rack Server",s4:"Blade Cluster",s5:"Mainframe",s6:"Supercomputer",s7:"Quantum Core",
+  c1:"Desk Fan",c2:"A/C Unit",c3:"Liquid Cooling",c4:"Cryo System",
+  p1:"Extension Cord",p2:"UPS Battery",p3:"Diesel Generator",p4:"Solar Array",p5:"Nuclear Reactor",
+  u1:"Cable Management",u1d:"Server cost -15%",
+  u2:"RGB Lighting",u2d:"Income +10%",
+  u3:"Monitoring Hub",u3d:"Detailed stats",
+  u4:"AI Optimization",u4d:"Income +25%",
+  ddos:"DDOS Attack!",ddosD:"Click rapidly to defend your servers!",ddosB:"DEFEND",
+  crypto:"Crypto Spike!",cryptoD:"Mining profits doubled for 30s!",
+  surge:"Power Surge!",surgeD:"Watts spiking for 15s!",
+  investor:"Investor Visit!",investorD:"Received a bonus investment!",
+  welBack:"Welcome Back",welMsg:"While you were away, your servers earned:",
+  cont:"Continue",
+  blackout:"BLACKOUT! No income. Upgrade power!",
+  overheat:"OVERHEAT! Income halved. Add cooling!",
+  init:"System initialized. Ready to deploy.",
+  bought:"Purchased: "
+},
+it:{
+  power:"Energia",heat:"Calore",ips:"Reddito/s",
+  servers:"Server",cooling:"Raffr.",powerTab:"Energia",upgrades:"Upgrade",
+  shop:"Shop",room:"Sala",log:"Log",syslog:"Log di Sistema",
+  owned:"posseduti",locked:"Bloccato",perSec:"/s",watts:"W",heatU:"Calore",
+  buy:"Compra",maxed:"Posseduto",
+  s1:"Vecchio Laptop",s2:"Desktop Tower",s3:"Server Rack",s4:"Blade Cluster",s5:"Mainframe",s6:"Supercomputer",s7:"Core Quantistico",
+  c1:"Ventilatore",c2:"Condizionatore",c3:"Raffredd. Liquido",c4:"Sistema Criogenico",
+  p1:"Prolunga",p2:"Batteria UPS",p3:"Generatore Diesel",p4:"Pannelli Solari",p5:"Reattore Nucleare",
+  u1:"Gestione Cavi",u1d:"Costo server -15%",
+  u2:"Luci RGB",u2d:"Reddito +10%",
+  u3:"Hub Monitoraggio",u3d:"Statistiche dettagliate",
+  u4:"Ottimizzazione IA",u4d:"Reddito +25%",
+  ddos:"Attacco DDOS!",ddosD:"Clicca rapidamente per difendere!",ddosB:"DIFENDI",
+  crypto:"Picco Crypto!",cryptoD:"Profitti raddoppiati per 30s!",
+  surge:"Picco Energetico!",surgeD:"Watt in aumento per 15s!",
+  investor:"Visita Investitore!",investorD:"Ricevuto bonus investimento!",
+  welBack:"Bentornato",welMsg:"Mentre eri via, i tuoi server hanno guadagnato:",
+  cont:"Continua",
+  blackout:"BLACKOUT! Nessun reddito. Potenzia l'energia!",
+  overheat:"SURRISCALDAMENTO! Reddito dimezzato. Aggiungi raffreddamento!",
+  init:"Sistema inizializzato. Pronto al deploy.",
+  bought:"Acquistato: "
+},
+es:{
+  power:"Energia",heat:"Calor",ips:"Ingreso/s",
+  servers:"Servidores",cooling:"Refrig.",powerTab:"Energia",upgrades:"Mejoras",
+  shop:"Tienda",room:"Sala",log:"Log",syslog:"Log del Sistema",
+  owned:"propios",locked:"Bloqueado",perSec:"/s",watts:"W",heatU:"Calor",
+  buy:"Comprar",maxed:"Adquirido",
+  s1:"Laptop Viejo",s2:"Torre Desktop",s3:"Servidor Rack",s4:"Blade Cluster",s5:"Mainframe",s6:"Supercomputador",s7:"Core Cuantico",
+  c1:"Ventilador",c2:"Aire Acondicionado",c3:"Refrig. Liquida",c4:"Sistema Criogenico",
+  p1:"Extension",p2:"Bateria UPS",p3:"Generador Diesel",p4:"Panel Solar",p5:"Reactor Nuclear",
+  u1:"Gestion de Cables",u1d:"Coste servidor -15%",
+  u2:"Luces RGB",u2d:"Ingreso +10%",
+  u3:"Hub Monitoreo",u3d:"Estadisticas detalladas",
+  u4:"Optimizacion IA",u4d:"Ingreso +25%",
+  ddos:"Ataque DDOS!",ddosD:"Haz clic rapido para defender!",ddosB:"DEFENDER",
+  crypto:"Pico Crypto!",cryptoD:"Ingresos duplicados por 30s!",
+  surge:"Pico Energetico!",surgeD:"Watts disparados por 15s!",
+  investor:"Visita Inversor!",investorD:"Recibiste un bonus!",
+  welBack:"Bienvenido",welMsg:"Mientras estabas fuera, tus servidores ganaron:",
+  cont:"Continuar",
+  blackout:"APAGON! Sin ingresos. Mejora la energia!",
+  overheat:"SOBRECALENTAMIENTO! Ingresos reducidos. Anade refrigeracion!",
+  init:"Sistema inicializado. Listo para desplegar.",
+  bought:"Comprado: "
+},
+fr:{
+  power:"Energie",heat:"Chaleur",ips:"Revenu/s",
+  servers:"Serveurs",cooling:"Refroid.",powerTab:"Energie",upgrades:"Amelior.",
+  shop:"Boutique",room:"Salle",log:"Log",syslog:"Journal Systeme",
+  owned:"possedes",locked:"Verrouille",perSec:"/s",watts:"W",heatU:"Chaleur",
+  buy:"Acheter",maxed:"Possede",
+  s1:"Vieux Laptop",s2:"Tour Desktop",s3:"Serveur Rack",s4:"Blade Cluster",s5:"Mainframe",s6:"Supercalculateur",s7:"Coeur Quantique",
+  c1:"Ventilateur",c2:"Climatiseur",c3:"Refroid. Liquide",c4:"Systeme Cryogenique",
+  p1:"Rallonge",p2:"Batterie UPS",p3:"Generateur Diesel",p4:"Panneaux Solaires",p5:"Reacteur Nucleaire",
+  u1:"Gestion Cables",u1d:"Cout serveur -15%",
+  u2:"Eclairage RGB",u2d:"Revenu +10%",
+  u3:"Hub Surveillance",u3d:"Statistiques detaillees",
+  u4:"Optimisation IA",u4d:"Revenu +25%",
+  ddos:"Attaque DDOS!",ddosD:"Cliquez vite pour defendre!",ddosB:"DEFENDRE",
+  crypto:"Pic Crypto!",cryptoD:"Revenus doubles pendant 30s!",
+  surge:"Pic Energetique!",surgeD:"Watts en hausse pendant 15s!",
+  investor:"Visite Investisseur!",investorD:"Bonus investissement recu!",
+  welBack:"Bon Retour",welMsg:"Pendant votre absence, vos serveurs ont gagne:",
+  cont:"Continuer",
+  blackout:"PANNE! Aucun revenu. Augmentez l'energie!",
+  overheat:"SURCHAUFFE! Revenu reduit. Ajoutez du refroidissement!",
+  init:"Systeme initialise. Pret au deploiement.",
+  bought:"Achete: "
+},
+de:{
+  power:"Strom",heat:"Hitze",ips:"Einkommen/s",
+  servers:"Server",cooling:"Kuhlung",powerTab:"Strom",upgrades:"Upgrades",
+  shop:"Shop",room:"Raum",log:"Log",syslog:"Systemprotokoll",
+  owned:"besitzt",locked:"Gesperrt",perSec:"/s",watts:"W",heatU:"Hitze",
+  buy:"Kaufen",maxed:"Besitzt",
+  s1:"Alter Laptop",s2:"Desktop Tower",s3:"Rack Server",s4:"Blade Cluster",s5:"Mainframe",s6:"Supercomputer",s7:"Quantenkern",
+  c1:"Tischventilator",c2:"Klimaanlage",c3:"Wasserkuhlung",c4:"Kryosystem",
+  p1:"Verlangerungskabel",p2:"USV Batterie",p3:"Dieselgenerator",p4:"Solaranlage",p5:"Kernreaktor",
+  u1:"Kabelmanagement",u1d:"Serverkosten -15%",
+  u2:"RGB Beleuchtung",u2d:"Einkommen +10%",
+  u3:"Monitoring Hub",u3d:"Detaillierte Statistiken",
+  u4:"KI Optimierung",u4d:"Einkommen +25%",
+  ddos:"DDOS Angriff!",ddosD:"Klicke schnell um zu verteidigen!",ddosB:"VERTEIDIGEN",
+  crypto:"Krypto Spitze!",cryptoD:"Einkommen verdoppelt fur 30s!",
+  surge:"Stromschwankung!",surgeD:"Watt-Anstieg fur 15s!",
+  investor:"Investorenbesuch!",investorD:"Bonus erhalten!",
+  welBack:"Willkommen Zuruck",welMsg:"Wahrend deiner Abwesenheit haben deine Server verdient:",
+  cont:"Weiter",
+  blackout:"STROMAUSFALL! Kein Einkommen. Strom ausbauen!",
+  overheat:"UBERHITZUNG! Einkommen halbiert. Kuhlung hinzufugen!",
+  init:"System initialisiert. Bereit zum Einsatz.",
+  bought:"Gekauft: "
+},
+pt:{
+  power:"Energia",heat:"Calor",ips:"Renda/s",
+  servers:"Servidores",cooling:"Resfr.",powerTab:"Energia",upgrades:"Melhorias",
+  shop:"Loja",room:"Sala",log:"Log",syslog:"Log do Sistema",
+  owned:"possuidos",locked:"Bloqueado",perSec:"/s",watts:"W",heatU:"Calor",
+  buy:"Comprar",maxed:"Adquirido",
+  s1:"Laptop Antigo",s2:"Desktop Torre",s3:"Servidor Rack",s4:"Blade Cluster",s5:"Mainframe",s6:"Supercomputador",s7:"Nucleo Quantico",
+  c1:"Ventilador",c2:"Ar Condicionado",c3:"Resfr. Liquido",c4:"Sistema Criogenico",
+  p1:"Extensao",p2:"Bateria UPS",p3:"Gerador Diesel",p4:"Painel Solar",p5:"Reator Nuclear",
+  u1:"Gestao de Cabos",u1d:"Custo servidor -15%",
+  u2:"Luzes RGB",u2d:"Renda +10%",
+  u3:"Hub Monitoramento",u3d:"Estatisticas detalhadas",
+  u4:"Otimizacao IA",u4d:"Renda +25%",
+  ddos:"Ataque DDOS!",ddosD:"Clique rapido para defender!",ddosB:"DEFENDER",
+  crypto:"Pico Crypto!",cryptoD:"Renda dobrada por 30s!",
+  surge:"Pico Energetico!",surgeD:"Watts em alta por 15s!",
+  investor:"Visita Investidor!",investorD:"Bonus recebido!",
+  welBack:"Bem-vindo de Volta",welMsg:"Enquanto voce estava fora, seus servidores ganharam:",
+  cont:"Continuar",
+  blackout:"APAGAO! Sem renda. Melhore a energia!",
+  overheat:"SUPERAQUECIMENTO! Renda reduzida. Adicione resfriamento!",
+  init:"Sistema inicializado. Pronto para o deploy.",
+  bought:"Comprado: "
+},
+ru:{
+  power:"\u042d\u043d\u0435\u0440\u0433\u0438\u044f",heat:"\u041d\u0430\u0433\u0440\u0435\u0432",ips:"\u0414\u043e\u0445\u043e\u0434/\u0441",
+  servers:"\u0421\u0435\u0440\u0432\u0435\u0440\u044b",cooling:"\u041e\u0445\u043b\u0430\u0436\u0434.",powerTab:"\u042d\u043d\u0435\u0440\u0433\u0438\u044f",upgrades:"\u0423\u043b\u0443\u0447\u0448.",
+  shop:"\u041c\u0430\u0433\u0430\u0437\u0438\u043d",room:"\u0421\u0435\u0440\u0432\u0435\u0440\u043d\u0430\u044f",log:"\u041b\u043e\u0433",syslog:"\u0421\u0438\u0441\u0442\u0435\u043c\u043d\u044b\u0439 \u043b\u043e\u0433",
+  owned:"\u0432 \u043d\u0430\u043b\u0438\u0447\u0438\u0438",locked:"\u0417\u0430\u0431\u043b\u043e\u043a.",perSec:"/\u0441",watts:"\u0412\u0442",heatU:"\u041d\u0430\u0433\u0440\u0435\u0432",
+  buy:"\u041a\u0443\u043f\u0438\u0442\u044c",maxed:"\u041a\u0443\u043f\u043b\u0435\u043d\u043e",
+  s1:"\u0421\u0442\u0430\u0440\u044b\u0439 \u043d\u043e\u0443\u0442\u0431\u0443\u043a",s2:"\u041d\u0430\u0441\u0442\u043e\u043b\u044c\u043d\u044b\u0439 \u041f\u041a",s3:"\u0421\u0442\u043e\u0435\u0447\u043d\u044b\u0439 \u0441\u0435\u0440\u0432\u0435\u0440",s4:"Blade \u043a\u043b\u0430\u0441\u0442\u0435\u0440",s5:"\u041c\u044d\u0439\u043d\u0444\u0440\u0435\u0439\u043c",s6:"\u0421\u0443\u043f\u0435\u0440\u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440",s7:"\u041a\u0432\u0430\u043d\u0442\u043e\u0432\u043e\u0435 \u044f\u0434\u0440\u043e",
+  c1:"\u0412\u0435\u043d\u0442\u0438\u043b\u044f\u0442\u043e\u0440",c2:"\u041a\u043e\u043d\u0434\u0438\u0446\u0438\u043e\u043d\u0435\u0440",c3:"\u0416\u0438\u0434\u043a\u043e\u0441\u0442\u043d\u043e\u0435 \u043e\u0445\u043b.",c4:"\u041a\u0440\u0438\u043e\u0441\u0438\u0441\u0442\u0435\u043c\u0430",
+  p1:"\u0423\u0434\u043b\u0438\u043d\u0438\u0442\u0435\u043b\u044c",p2:"\u0411\u0430\u0442\u0430\u0440\u0435\u044f \u0418\u0411\u041f",p3:"\u0414\u0438\u0437\u0435\u043b\u044c\u043d\u044b\u0439 \u0433\u0435\u043d.",p4:"\u0421\u043e\u043b\u043d\u0435\u0447\u043d\u044b\u0435 \u043f\u0430\u043d\u0435\u043b\u0438",p5:"\u042f\u0434\u0435\u0440\u043d\u044b\u0439 \u0440\u0435\u0430\u043a\u0442\u043e\u0440",
+  u1:"\u0423\u043a\u043b\u0430\u0434\u043a\u0430 \u043a\u0430\u0431\u0435\u043b\u0435\u0439",u1d:"\u0421\u0442\u043e\u0438\u043c. \u0441\u0435\u0440\u0432\u0435\u0440\u043e\u0432 -15%",
+  u2:"RGB \u043f\u043e\u0434\u0441\u0432\u0435\u0442\u043a\u0430",u2d:"\u0414\u043e\u0445\u043e\u0434 +10%",
+  u3:"\u0426\u0435\u043d\u0442\u0440 \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u0438\u043d\u0433\u0430",u3d:"\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0430\u044f \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430",
+  u4:"\u0418\u0418 \u043e\u043f\u0442\u0438\u043c\u0438\u0437\u0430\u0446\u0438\u044f",u4d:"\u0414\u043e\u0445\u043e\u0434 +25%",
+  ddos:"DDOS \u0430\u0442\u0430\u043a\u0430!",ddosD:"\u041a\u043b\u0438\u043a\u0430\u0439\u0442\u0435 \u0431\u044b\u0441\u0442\u0440\u043e \u0434\u043b\u044f \u0437\u0430\u0449\u0438\u0442\u044b!",ddosB:"\u0417\u0410\u0429\u0418\u0422\u0410",
+  crypto:"\u041a\u0440\u0438\u043f\u0442\u043e \u0441\u043a\u0430\u0447\u043e\u043a!",cryptoD:"\u0414\u043e\u0445\u043e\u0434 x2 \u043d\u0430 30\u0441!",
+  surge:"\u0421\u043a\u0430\u0447\u043e\u043a \u043d\u0430\u043f\u0440\u044f\u0436\u0435\u043d\u0438\u044f!",surgeD:"\u0412\u0430\u0442\u0442\u044b \u0440\u0430\u0441\u0442\u0443\u0442 15\u0441!",
+  investor:"\u0412\u0438\u0437\u0438\u0442 \u0438\u043d\u0432\u0435\u0441\u0442\u043e\u0440\u0430!",investorD:"\u041f\u043e\u043b\u0443\u0447\u0435\u043d \u0431\u043e\u043d\u0443\u0441!",
+  welBack:"\u0421 \u0432\u043e\u0437\u0432\u0440\u0430\u0449\u0435\u043d\u0438\u0435\u043c",welMsg:"\u041f\u043e\u043a\u0430 \u0432\u0430\u0441 \u043d\u0435 \u0431\u044b\u043b\u043e, \u0441\u0435\u0440\u0432\u0435\u0440\u044b \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u043b\u0438:",
+  cont:"\u041f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c",
+  blackout:"\u041e\u0411\u0415\u0421\u0422\u041e\u0427\u0415\u041d\u041e! \u041d\u0435\u0442 \u0434\u043e\u0445\u043e\u0434\u0430. \u0423\u043b\u0443\u0447\u0448\u0438\u0442\u0435 \u044d\u043d\u0435\u0440\u0433\u0438\u044e!",
+  overheat:"\u041f\u0415\u0420\u0415\u0413\u0420\u0415\u0412! \u0414\u043e\u0445\u043e\u0434 \u0441\u043d\u0438\u0436\u0435\u043d. \u0414\u043e\u0431\u0430\u0432\u044c\u0442\u0435 \u043e\u0445\u043b\u0430\u0436\u0434\u0435\u043d\u0438\u0435!",
+  init:"\u0421\u0438\u0441\u0442\u0435\u043c\u0430 \u0437\u0430\u043f\u0443\u0449\u0435\u043d\u0430. \u0413\u043e\u0442\u043e\u0432\u043e \u043a \u0440\u0430\u0437\u0432\u0435\u0440\u0442\u044b\u0432\u0430\u043d\u0438\u044e.",
+  bought:"\u041a\u0443\u043f\u043b\u0435\u043d\u043e: "
+},
+ja:{
+  power:"\u96fb\u529b",heat:"\u71b1\u91cf",ips:"\u53ce\u5165/\u79d2",
+  servers:"\u30b5\u30fc\u30d0\u30fc",cooling:"\u51b7\u5374",powerTab:"\u96fb\u529b",upgrades:"\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9",
+  shop:"\u30b7\u30e7\u30c3\u30d7",room:"\u30b5\u30fc\u30d0\u30fc\u5ba4",log:"\u30ed\u30b0",syslog:"\u30b7\u30b9\u30c6\u30e0\u30ed\u30b0",
+  owned:"\u4fdd\u6709",locked:"\u30ed\u30c3\u30af",perSec:"/\u79d2",watts:"W",heatU:"\u71b1",
+  buy:"\u8cfc\u5165",maxed:"\u53d6\u5f97\u6e08",
+  s1:"\u53e4\u3044\u30ce\u30fc\u30c8PC",s2:"\u30c7\u30b9\u30af\u30c8\u30c3\u30d7",s3:"\u30e9\u30c3\u30af\u30b5\u30fc\u30d0\u30fc",s4:"\u30d6\u30ec\u30fc\u30c9\u30af\u30e9\u30b9\u30bf",s5:"\u30e1\u30a4\u30f3\u30d5\u30ec\u30fc\u30e0",s6:"\u30b9\u30fc\u30d1\u30fc\u30b3\u30f3\u30d4\u30e5\u30fc\u30bf",s7:"\u91cf\u5b50\u30b3\u30a2",
+  c1:"\u5353\u4e0a\u30d5\u30a1\u30f3",c2:"\u30a8\u30a2\u30b3\u30f3",c3:"\u6c34\u51b7",c4:"\u6975\u4f4e\u6e29\u30b7\u30b9\u30c6\u30e0",
+  p1:"\u5ef6\u9577\u30b3\u30fc\u30c9",p2:"UPS\u30d0\u30c3\u30c6\u30ea\u30fc",p3:"\u30c7\u30a3\u30fc\u30bc\u30eb\u767a\u96fb\u6a5f",p4:"\u30bd\u30fc\u30e9\u30fc\u30d1\u30cd\u30eb",p5:"\u539f\u5b50\u7089",
+  u1:"\u30b1\u30fc\u30d6\u30eb\u7ba1\u7406",u1d:"\u30b5\u30fc\u30d0\u30fc\u8cbb\u7528-15%",
+  u2:"RGB\u30e9\u30a4\u30c8",u2d:"\u53ce\u5165+10%",
+  u3:"\u76e3\u8996\u30cf\u30d6",u3d:"\u8a73\u7d30\u7d71\u8a08",
+  u4:"AI\u6700\u9069\u5316",u4d:"\u53ce\u5165+25%",
+  ddos:"DDOS\u653b\u6483!",ddosD:"\u7d20\u65e9\u304f\u30af\u30ea\u30c3\u30af\u3057\u3066\u9632\u5fa1!",ddosB:"\u9632\u5fa1",
+  crypto:"\u4eee\u60f3\u901a\u8ca8\u6025\u9a30!",cryptoD:"\u53ce\u5165\u304c30\u79d2\u9593\u500d\u5897!",
+  surge:"\u96fb\u529b\u30b5\u30fc\u30b8!",surgeD:"\u30ef\u30c3\u30c8\u304c15\u79d2\u9593\u6025\u4e0a\u6607!",
+  investor:"\u6295\u8cc7\u5bb6\u8a2a\u554f!",investorD:"\u30dc\u30fc\u30ca\u30b9\u53d7\u9818!",
+  welBack:"\u304a\u304b\u3048\u308a\u306a\u3055\u3044",welMsg:"\u7559\u5b88\u4e2d\u306b\u30b5\u30fc\u30d0\u30fc\u304c\u7a3c\u3044\u3060\u984d:",
+  cont:"\u7d9a\u3051\u308b",
+  blackout:"\u505c\u96fb! \u53ce\u5165\u306a\u3057\u3002\u96fb\u529b\u3092\u5897\u5f37!",
+  overheat:"\u904e\u71b1! \u53ce\u5165\u534a\u6e1b\u3002\u51b7\u5374\u3092\u8ffd\u52a0!",
+  init:"\u30b7\u30b9\u30c6\u30e0\u521d\u671f\u5316\u5b8c\u4e86\u3002\u30c7\u30d7\u30ed\u30a4\u6e96\u5099OK\u3002",
+  bought:"\u8cfc\u5165: "
+},
+ko:{
+  power:"\uc804\ub825",heat:"\uc5f4",ips:"\uc218\uc785/\ucd08",
+  servers:"\uc11c\ubc84",cooling:"\ub0c9\uac01",powerTab:"\uc804\ub825",upgrades:"\uc5c5\uadf8\ub808\uc774\ub4dc",
+  shop:"\uc0c1\uc810",room:"\uc11c\ubc84\uc2e4",log:"\ub85c\uadf8",syslog:"\uc2dc\uc2a4\ud15c \ub85c\uadf8",
+  owned:"\ubcf4\uc720",locked:"\uc7a0\uae40",perSec:"/\ucd08",watts:"W",heatU:"\uc5f4",
+  buy:"\uad6c\ub9e4",maxed:"\ubcf4\uc720\uc911",
+  s1:"\ub0a1\uc740 \ub178\ud2b8\ubd81",s2:"\ub370\uc2a4\ud06c\ud1b1 \ud0c0\uc6cc",s3:"\ub79c \uc11c\ubc84",s4:"\ube14\ub808\uc774\ub4dc \ud074\ub7ec\uc2a4\ud130",s5:"\uba54\uc778\ud504\ub808\uc784",s6:"\uc288\ud37c\ucef4\ud4e8\ud130",s7:"\uc591\uc790 \ucf54\uc5b4",
+  c1:"\ud0c1\uc0c1\ud32c",c2:"\uc5d0\uc5b4\ucee8",c3:"\uc218\ub0c9",c4:"\uadf9\uc800\uc628 \uc2dc\uc2a4\ud15c",
+  p1:"\uc5f0\uc7a5 \ucf54\ub4dc",p2:"UPS \ubc30\ud130\ub9ac",p3:"\ub514\uc824 \ubc1c\uc804\uae30",p4:"\ud0dc\uc591\uad11 \ud328\ub110",p5:"\uc6d0\uc790\ub85c",
+  u1:"\ucf00\uc774\ube14 \uad00\ub9ac",u1d:"\uc11c\ubc84 \ube44\uc6a9 -15%",
+  u2:"RGB \uc870\uba85",u2d:"\uc218\uc785 +10%",
+  u3:"\ubaa8\ub2c8\ud130\ub9c1 \ud5c8\ube0c",u3d:"\uc0c1\uc138 \ud1b5\uacc4",
+  u4:"AI \ucd5c\uc801\ud654",u4d:"\uc218\uc785 +25%",
+  ddos:"DDOS \uacf5\uaca9!",ddosD:"\ube60\ub974\uac8c \ud074\ub9ad\ud558\uc5ec \ubc29\uc5b4!",ddosB:"\ubc29\uc5b4",
+  crypto:"\uc554\ud638\ud654\ud3d0 \uae09\ub4f1!",cryptoD:"30\ucd08\uac04 \uc218\uc785 2\ubc30!",
+  surge:"\uc804\ub825 \uc11c\uc9c0!",surgeD:"15\ucd08\uac04 \uc640\ud2b8 \uae09\uc99d!",
+  investor:"\ud22c\uc790\uc790 \ubc29\ubb38!",investorD:"\ubcf4\ub108\uc2a4 \ud68d\ub4dd!",
+  welBack:"\ub2e4\uc2dc \uc624\uc168\uad70\uc694",welMsg:"\ubd80\uc7ac\uc911 \uc11c\ubc84\uac00 \ubc88 \uae08\uc561:",
+  cont:"\uacc4\uc18d",
+  blackout:"\uc815\uc804! \uc218\uc785 \uc5c6\uc74c. \uc804\ub825\uc744 \uc5c5\uadf8\ub808\uc774\ub4dc\ud558\uc138\uc694!",
+  overheat:"\uacfc\uc5f4! \uc218\uc785 \ubc18\uac10. \ub0c9\uac01\uc744 \ucd94\uac00\ud558\uc138\uc694!",
+  init:"\uc2dc\uc2a4\ud15c \ucd08\uae30\ud654 \uc644\ub8cc. \ubc30\ud3ec \uc900\ube44 OK.",
+  bought:"\uad6c\ub9e4: "
+},
+zh:{
+  power:"\u7535\u529b",heat:"\u70ed\u91cf",ips:"\u6536\u5165/\u79d2",
+  servers:"\u670d\u52a1\u5668",cooling:"\u51b7\u5374",powerTab:"\u7535\u529b",upgrades:"\u5347\u7ea7",
+  shop:"\u5546\u5e97",room:"\u673a\u623f",log:"\u65e5\u5fd7",syslog:"\u7cfb\u7edf\u65e5\u5fd7",
+  owned:"\u62e5\u6709",locked:"\u9501\u5b9a",perSec:"/\u79d2",watts:"W",heatU:"\u70ed",
+  buy:"\u8d2d\u4e70",maxed:"\u5df2\u62e5\u6709",
+  s1:"\u65e7\u7b14\u8bb0\u672c",s2:"\u53f0\u5f0f\u673a",s3:"\u673a\u67b6\u670d\u52a1\u5668",s4:"\u5200\u7247\u96c6\u7fa4",s5:"\u5927\u578b\u673a",s6:"\u8d85\u7ea7\u8ba1\u7b97\u673a",s7:"\u91cf\u5b50\u6838\u5fc3",
+  c1:"\u53f0\u6247",c2:"\u7a7a\u8c03",c3:"\u6db2\u51b7",c4:"\u4f4e\u6e29\u7cfb\u7edf",
+  p1:"\u5ef6\u957f\u7ebf",p2:"UPS\u7535\u6c60",p3:"\u67f4\u6cb9\u53d1\u7535\u673a",p4:"\u592a\u9633\u80fd\u677f",p5:"\u6838\u53cd\u5e94\u5806",
+  u1:"\u7ebf\u7f06\u7ba1\u7406",u1d:"\u670d\u52a1\u5668\u6210\u672c-15%",
+  u2:"RGB\u706f\u5149",u2d:"\u6536\u5165+10%",
+  u3:"\u76d1\u63a7\u4e2d\u5fc3",u3d:"\u8be6\u7ec6\u7edf\u8ba1",
+  u4:"AI\u4f18\u5316",u4d:"\u6536\u5165+25%",
+  ddos:"DDOS\u653b\u51fb!",ddosD:"\u5feb\u901f\u70b9\u51fb\u9632\u5fa1!",ddosB:"\u9632\u5fa1",
+  crypto:"\u52a0\u5bc6\u8d27\u5e01\u98d9\u5347!",cryptoD:"\u6536\u516530\u79d2\u7ffb\u500d!",
+  surge:"\u7535\u529b\u6d6a\u6d8c!",surgeD:"\u74e6\u6570\u98d9\u534715\u79d2!",
+  investor:"\u6295\u8d44\u4eba\u6765\u8bbf!",investorD:"\u83b7\u5f97\u5956\u91d1!",
+  welBack:"\u6b22\u8fce\u56de\u6765",welMsg:"\u79bb\u5f00\u671f\u95f4\u670d\u52a1\u5668\u8d5a\u5f97:",
+  cont:"\u7ee7\u7eed",
+  blackout:"\u65ad\u7535! \u65e0\u6536\u5165\u3002\u5347\u7ea7\u7535\u529b!",
+  overheat:"\u8fc7\u70ed! \u6536\u5165\u51cf\u534a\u3002\u6dfb\u52a0\u51b7\u5374!",
+  init:"\u7cfb\u7edf\u521d\u59cb\u5316\u5b8c\u6210\u3002\u51c6\u5907\u90e8\u7f72\u3002",
+  bought:"\u5df2\u8d2d\u4e70: "
+},
+ar:{
+  power:"\u0627\u0644\u0637\u0627\u0642\u0629",heat:"\u0627\u0644\u062d\u0631\u0627\u0631\u0629",ips:"\u0627\u0644\u062f\u062e\u0644/\u062b",
+  servers:"\u0627\u0644\u062e\u0648\u0627\u062f\u0645",cooling:"\u0627\u0644\u062a\u0628\u0631\u064a\u062f",powerTab:"\u0627\u0644\u0637\u0627\u0642\u0629",upgrades:"\u062a\u0631\u0642\u064a\u0627\u062a",
+  shop:"\u0627\u0644\u0645\u062a\u062c\u0631",room:"\u0627\u0644\u063a\u0631\u0641\u0629",log:"\u0627\u0644\u0633\u062c\u0644",syslog:"\u0633\u062c\u0644 \u0627\u0644\u0646\u0638\u0627\u0645",
+  owned:"\u0645\u0645\u0644\u0648\u0643",locked:"\u0645\u0642\u0641\u0644",perSec:"/\u062b",watts:"\u0648\u0627\u062a",heatU:"\u062d\u0631\u0627\u0631\u0629",
+  buy:"\u0634\u0631\u0627\u0621",maxed:"\u0645\u0645\u0644\u0648\u0643",
+  s1:"\u0644\u0627\u0628\u062a\u0648\u0628 \u0642\u062f\u064a\u0645",s2:"\u0628\u0631\u062c \u0645\u0643\u062a\u0628\u064a",s3:"\u062e\u0627\u062f\u0645 \u0631\u0641\u064a",s4:"\u0639\u0646\u0642\u0648\u062f Blade",s5:"\u0645\u064a\u0646\u0641\u0631\u064a\u0645",s6:"\u062d\u0627\u0633\u0648\u0628 \u062e\u0627\u0631\u0642",s7:"\u0646\u0648\u0627\u0629 \u0643\u0645\u064a\u0629",
+  c1:"\u0645\u0631\u0648\u062d\u0629",c2:"\u0645\u0643\u064a\u0641",c3:"\u062a\u0628\u0631\u064a\u062f \u0633\u0627\u0626\u0644",c4:"\u0646\u0638\u0627\u0645 \u062a\u062c\u0645\u064a\u062f",
+  p1:"\u0633\u0644\u0643 \u062a\u0645\u062f\u064a\u062f",p2:"\u0628\u0637\u0627\u0631\u064a\u0629 UPS",p3:"\u0645\u0648\u0644\u062f \u062f\u064a\u0632\u0644",p4:"\u0623\u0644\u0648\u0627\u062d \u0634\u0645\u0633\u064a\u0629",p5:"\u0645\u0641\u0627\u0639\u0644 \u0646\u0648\u0648\u064a",
+  u1:"\u062a\u0646\u0638\u064a\u0645 \u0627\u0644\u0643\u0627\u0628\u0644\u0627\u062a",u1d:"\u062a\u0643\u0644\u0641\u0629 \u0627\u0644\u062e\u0627\u062f\u0645 -15%",
+  u2:"\u0625\u0636\u0627\u0621\u0629 RGB",u2d:"\u0627\u0644\u062f\u062e\u0644 +10%",
+  u3:"\u0645\u0631\u0643\u0632 \u0627\u0644\u0645\u0631\u0627\u0642\u0628\u0629",u3d:"\u0625\u062d\u0635\u0627\u0626\u064a\u0627\u062a \u0645\u0641\u0635\u0644\u0629",
+  u4:"\u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a",u4d:"\u0627\u0644\u062f\u062e\u0644 +25%",
+  ddos:"\u0647\u062c\u0648\u0645 DDOS!",ddosD:"\u0627\u0646\u0642\u0631 \u0628\u0633\u0631\u0639\u0629 \u0644\u0644\u062f\u0641\u0627\u0639!",ddosB:"\u062f\u0627\u0641\u0639",
+  crypto:"\u0627\u0631\u062a\u0641\u0627\u0639 \u0627\u0644\u0639\u0645\u0644\u0627\u062a!",cryptoD:"\u0627\u0644\u062f\u062e\u0644 \u0645\u0636\u0627\u0639\u0641 \u0644\u0645\u062f\u0629 30\u062b!",
+  surge:"\u0627\u0631\u062a\u0641\u0627\u0639 \u0627\u0644\u0637\u0627\u0642\u0629!",surgeD:"\u0627\u0631\u062a\u0641\u0627\u0639 \u0627\u0644\u0648\u0627\u062a \u0644\u0645\u062f\u0629 15\u062b!",
+  investor:"\u0632\u064a\u0627\u0631\u0629 \u0645\u0633\u062a\u062b\u0645\u0631!",investorD:"\u062a\u0645 \u0627\u0633\u062a\u0644\u0627\u0645 \u0627\u0644\u0645\u0643\u0627\u0641\u0623\u0629!",
+  welBack:"\u0645\u0631\u062d\u0628\u0627 \u0628\u0639\u0648\u062f\u062a\u0643",welMsg:"\u0623\u062b\u0646\u0627\u0621 \u063a\u064a\u0627\u0628\u0643 \u0631\u0628\u062d\u062a \u062e\u0648\u0627\u062f\u0645\u0643:",
+  cont:"\u0645\u062a\u0627\u0628\u0639\u0629",
+  blackout:"\u0627\u0646\u0642\u0637\u0627\u0639! \u0644\u0627 \u062f\u062e\u0644. \u0642\u0645 \u0628\u062a\u0631\u0642\u064a\u0629 \u0627\u0644\u0637\u0627\u0642\u0629!",
+  overheat:"\u0627\u0631\u062a\u0641\u0627\u0639 \u0627\u0644\u062d\u0631\u0627\u0631\u0629! \u0627\u0644\u062f\u062e\u0644 \u0645\u0646\u062e\u0641\u0636. \u0623\u0636\u0641 \u062a\u0628\u0631\u064a\u062f!",
+  init:"\u062a\u0645 \u062a\u0647\u064a\u0626\u0629 \u0627\u0644\u0646\u0638\u0627\u0645. \u062c\u0627\u0647\u0632 \u0644\u0644\u0646\u0634\u0631.",
+  bought:"\u062a\u0645 \u0627\u0644\u0634\u0631\u0627\u0621: "
+},
+hi:{
+  power:"\u092c\u093f\u091c\u0932\u0940",heat:"\u0924\u093e\u092a",ips:"\u0906\u092f/\u0938\u0947",
+  servers:"\u0938\u0930\u094d\u0935\u0930",cooling:"\u0915\u0942\u0932\u093f\u0902\u0917",powerTab:"\u092c\u093f\u091c\u0932\u0940",upgrades:"\u0905\u092a\u0917\u094d\u0930\u0947\u0921",
+  shop:"\u0926\u0941\u0915\u093e\u0928",room:"\u0915\u092e\u0930\u093e",log:"\u0932\u0949\u0917",syslog:"\u0938\u093f\u0938\u094d\u091f\u092e \u0932\u0949\u0917",
+  owned:"\u0938\u094d\u0935\u093e\u092e\u093f\u0924\u094d\u0935",locked:"\u0932\u0949\u0915",perSec:"/\u0938\u0947",watts:"\u0935\u0949\u091f",heatU:"\u0924\u093e\u092a",
+  buy:"\u0916\u0930\u0940\u0926\u0947\u0902",maxed:"\u0916\u0930\u0940\u0926\u093e",
+  s1:"\u092a\u0941\u0930\u093e\u0928\u093e \u0932\u0948\u092a\u091f\u0949\u092a",s2:"\u0921\u0947\u0938\u094d\u0915\u091f\u0949\u092a \u091f\u0949\u0935\u0930",s3:"\u0930\u0948\u0915 \u0938\u0930\u094d\u0935\u0930",s4:"\u092c\u094d\u0932\u0947\u0921 \u0915\u094d\u0932\u0938\u094d\u091f\u0930",s5:"\u092e\u0947\u0928\u092b\u094d\u0930\u0947\u092e",s6:"\u0938\u0941\u092a\u0930\u0915\u0902\u092a\u094d\u092f\u0942\u091f\u0930",s7:"\u0915\u094d\u0935\u093e\u0902\u091f\u092e \u0915\u094b\u0930",
+  c1:"\u091f\u0947\u092c\u0932 \u092b\u0948\u0928",c2:"\u090f\u0938\u0940",c3:"\u0932\u093f\u0915\u094d\u0935\u093f\u0921 \u0915\u0942\u0932\u093f\u0902\u0917",c4:"\u0915\u094d\u0930\u093e\u092f\u094b \u0938\u093f\u0938\u094d\u091f\u092e",
+  p1:"\u090f\u0915\u094d\u0938\u091f\u0947\u0902\u0936\u0928 \u0915\u0949\u0930\u094d\u0921",p2:"UPS \u092c\u0948\u091f\u0930\u0940",p3:"\u0921\u0940\u091c\u0932 \u091c\u0928\u0930\u0947\u091f\u0930",p4:"\u0938\u094b\u0932\u0930 \u092a\u0948\u0928\u0932",p5:"\u092a\u0930\u092e\u093e\u0923\u0941 \u0930\u093f\u090f\u0915\u094d\u091f\u0930",
+  u1:"\u0915\u0947\u092c\u0932 \u092a\u094d\u0930\u092c\u0902\u0927\u0928",u1d:"\u0938\u0930\u094d\u0935\u0930 \u0932\u093e\u0917\u0924 -15%",
+  u2:"RGB \u0932\u093e\u0907\u091f\u093f\u0902\u0917",u2d:"\u0906\u092f +10%",
+  u3:"\u092e\u0949\u0928\u093f\u091f\u0930\u093f\u0902\u0917 \u0939\u092c",u3d:"\u0935\u093f\u0938\u094d\u0924\u0943\u0924 \u0906\u0901\u0915\u0921\u093c\u0947",
+  u4:"AI \u0911\u092a\u094d\u091f\u093f\u092e\u093e\u0907\u091c\u093c\u0947\u0936\u0928",u4d:"\u0906\u092f +25%",
+  ddos:"DDOS \u0939\u092e\u0932\u093e!",ddosD:"\u092c\u091a\u093e\u0935 \u0915\u0947 \u0932\u093f\u090f \u0924\u0947\u091c\u093c\u0940 \u0938\u0947 \u0915\u094d\u0932\u093f\u0915 \u0915\u0930\u0947\u0902!",ddosB:"\u0930\u0915\u094d\u0937\u093e",
+  crypto:"\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u094b \u0909\u091b\u093e\u0932!",cryptoD:"30 \u0938\u0947\u0915\u0902\u0921 \u0915\u0947 \u0932\u093f\u090f \u0906\u092f \u0926\u094b\u0917\u0941\u0928\u0940!",
+  surge:"\u092c\u093f\u091c\u0932\u0940 \u0938\u0930\u094d\u091c!",surgeD:"15 \u0938\u0947\u0915\u0902\u0921 \u0915\u0947 \u0932\u093f\u090f \u0935\u0949\u091f \u092c\u0922\u093c\u0947!",
+  investor:"\u0928\u093f\u0935\u0947\u0936\u0915 \u0906\u092f\u093e!",investorD:"\u092c\u094b\u0928\u0938 \u092a\u094d\u0930\u093e\u092a\u094d\u0924!",
+  welBack:"\u0935\u093e\u092a\u0938 \u0938\u094d\u0935\u093e\u0917\u0924",welMsg:"\u0906\u092a\u0915\u0940 \u0905\u0928\u0941\u092a\u0938\u094d\u0925\u093f\u0924\u093f \u092e\u0947\u0902 \u0938\u0930\u094d\u0935\u0930 \u0928\u0947 \u0915\u092e\u093e\u092f\u093e:",
+  cont:"\u091c\u093e\u0930\u0940 \u0930\u0916\u0947\u0902",
+  blackout:"\u092c\u094d\u0932\u0948\u0915\u0906\u0909\u091f! \u0915\u094b\u0908 \u0906\u092f \u0928\u0939\u0940\u0902\u0964 \u092c\u093f\u091c\u0932\u0940 \u092c\u0922\u093c\u093e\u090f\u0901!",
+  overheat:"\u0913\u0935\u0930\u0939\u0940\u091f! \u0906\u092f \u0906\u0927\u0940\u0964 \u0915\u0942\u0932\u093f\u0902\u0917 \u091c\u094b\u0921\u093c\u0947\u0902!",
+  init:"\u0938\u093f\u0938\u094d\u091f\u092e \u0924\u0948\u092f\u093e\u0930\u0964 \u0921\u093f\u092a\u094d\u0932\u0949\u092f \u0915\u0947 \u0932\u093f\u090f \u0924\u0948\u092f\u093e\u0930\u0964",
+  bought:"\u0916\u0930\u0940\u0926\u093e: "
+}
+};
+var LANG=detectLang();
+var L=DICT[LANG]||DICT.en;
+
+/* ===================================================
+   APPLY LANGUAGE TO DOM
+   =================================================== */
+var $=function(id){return document.getElementById(id)};
+$('lPow').textContent=L.power;
+$('lHeat').textContent=L.heat;
+$('tSrv').textContent=L.servers;
+$('tCool').textContent=L.cooling;
+$('tPow').textContent=L.powerTab;
+$('tUpg').textContent=L.upgrades;
+$('nShop').textContent=L.shop;
+$('nRoom').textContent=L.room;
+$('nLog').textContent=L.log;
+$('termHdr').textContent=L.syslog;
+
+/* ===================================================
+   AUDIO ENGINE (Procedural)
+   =================================================== */
+var audioCtx=null,muted=false;
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)()}
+function playTone(freq,dur,type,vol){
+  if(muted||!audioCtx)return;
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  var o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type=type||'sine';o.frequency.value=freq;
+  g.gain.setValueAtTime(vol||.08,audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+dur);
+  o.connect(g);g.connect(audioCtx.destination);
+  o.start();o.stop(audioCtx.currentTime+dur);
+}
+function sndBuy(){playTone(440,.08,'sine',.1);setTimeout(function(){playTone(660,.08,'sine',.08)},60)}
+function sndTick(){playTone(330,.04,'triangle',.03)}
+function sndEvent(){playTone(880,.15,'square',.1)}
+function sndWarn(){playTone(220,.3,'sawtooth',.08)}
+function sndOk(){playTone(550,.1,'sine',.1);setTimeout(function(){playTone(880,.12,'sine',.08)},80)}
+
+$('btnMute').addEventListener('click',function(){
+  muted=!muted;this.classList.toggle('on',muted);
+  this.textContent=muted?'\u2716':'\u266B';
+});
+
+/* ===================================================
+   SHOP DEFINITIONS
+   =================================================== */
+var SERVERS=[
+  {id:'s1',cost:50,income:.5,watts:10,heat:5,unlock:0},
+  {id:'s2',cost:500,income:5,watts:50,heat:15,unlock:200},
+  {id:'s3',cost:5e3,income:50,watts:200,heat:60,unlock:2e3},
+  {id:'s4',cost:75e3,income:750,watts:800,heat:200,unlock:30e3},
+  {id:'s5',cost:1e6,income:10e3,watts:3e3,heat:500,unlock:500e3},
+  {id:'s6',cost:25e6,income:250e3,watts:10e3,heat:1e3,unlock:10e6},
+  {id:'s7',cost:1e9,income:10e6,watts:50e3,heat:0,unlock:500e6}
+];
+var COOLING=[
+  {id:'c1',cost:100,cap:20,unlock:0},
+  {id:'c2',cost:2e3,cap:100,unlock:500},
+  {id:'c3',cost:50e3,cap:500,unlock:10e3},
+  {id:'c4',cost:2e6,cap:5e3,unlock:1e6}
+];
+var POWER=[
+  {id:'p1',cost:200,cap:100,unlock:0},
+  {id:'p2',cost:3e3,cap:500,unlock:1e3},
+  {id:'p3',cost:80e3,cap:5e3,unlock:20e3},
+  {id:'p4',cost:1e6,cap:20e3,unlock:500e3},
+  {id:'p5',cost:50e6,cap:200e3,unlock:25e6}
+];
+var UPGRADES=[
+  {id:'u1',cost:5e3,unlock:2e3},
+  {id:'u2',cost:50e3,unlock:25e3},
+  {id:'u3',cost:500e3,unlock:250e3},
+  {id:'u4',cost:5e6,unlock:2.5e6}
+];
+var SERVER_ICONS=['\uD83D\uDCBB','\uD83D\uDDA5','\uD83D\uDDC4','\u26A1','\uD83D\uDCE1','\uD83D\uDE80','\u2728'];
+var TIER_CLASS=['t1','t2','t3','t3','t4','t5','t6','t7'];
+
+/* ===================================================
+   GAME STATE
+   =================================================== */
+var G={
+  cash:50,
+  inv:{s1:0,s2:0,s3:0,s4:0,s5:0,s6:0,s7:0,
+       c1:0,c2:0,c3:0,c4:0,
+       p1:0,p2:0,p3:0,p4:0,p5:0},
+  upg:{u1:false,u2:false,u3:false,u4:false},
+  lastSave:Date.now(),
+  totalEarned:0
+};
+var CALC={income:0,watts:0,maxW:0,heat:0,maxH:100,blackout:false,overheat:false,cryptoMul:1};
+var warnedBlack=false,warnedHeat=false,evActive=false,evTimer=null;
+var curTab='servers';
+
+/* ===================================================
+   NUMBER FORMAT
+   =================================================== */
+function fmtC(n){
+  if(n<0)n=0;
+  if(n>=1e12)return'$'+(n/1e12).toFixed(2)+'T';
+  if(n>=1e9)return'$'+(n/1e9).toFixed(2)+'B';
+  if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';
+  if(n>=1e3)return'$'+(n/1e3).toFixed(2)+'K';
+  return'$'+n.toFixed(n<100?1:0);
+}
+function fmtW(n){
+  if(n>=1e6)return(n/1e6).toFixed(1)+'MW';
+  if(n>=1e3)return(n/1e3).toFixed(1)+'KW';
+  return n.toFixed(0)+'W';
+}
+
+/* ===================================================
+   CORE CALCULATIONS
+   =================================================== */
+function recalc(){
+  var inc=0,w=0,h=0,maxW=0,maxH=100;
+  SERVERS.forEach(function(s){
+    var n=G.inv[s.id]||0;
+    if(!n)return;
+    var cost_mult=G.upg.u1?.85:1;
+    var si=s.income*n;
+    if(G.upg.u2)si*=1.1;
+    if(G.upg.u4)si*=1.25;
+    inc+=si; w+=s.watts*n; h+=s.heat*n;
+  });
+  POWER.forEach(function(p){maxW+=p.cap*(G.inv[p.id]||0)});
+  COOLING.forEach(function(c){maxH+=c.cap*(G.inv[c.id]||0)});
+  CALC.income=inc*CALC.cryptoMul;
+  CALC.watts=w; CALC.maxW=maxW;
+  CALC.heat=h; CALC.maxH=maxH;
+  CALC.blackout=(w>maxW&&maxW>0)||(maxW===0&&w>0);
+  CALC.overheat=(h>maxH);
+  if(CALC.blackout)CALC.income=0;
+  else if(CALC.overheat)CALC.income*=.5;
+}
+
+/* ===================================================
+   GAME LOOP
+   =================================================== */
+function tick(){
+  recalc();
+  if(CALC.income>0){G.cash+=CALC.income;G.totalEarned+=CALC.income;sndTick()}
+  updateUI();
+  checkAlerts();
+}
+
+/* ===================================================
+   UI UPDATE
+   =================================================== */
+function updateUI(){
+  $('vCash').textContent=fmtC(G.cash);
+  $('vIncome').textContent=fmtC(CALC.income)+L.perSec;
+  // Power bar
+  var pp=CALC.maxW>0?Math.min(CALC.watts/CALC.maxW*100,100):(CALC.watts>0?100:0);
+  var pb=$('barPow');
+  pb.style.width=pp+'%';
+  pb.className='bar-fill power'+(pp>90?' crit':pp>70?' warn':'');
+  $('powStat').textContent=fmtW(CALC.watts)+' / '+fmtW(CALC.maxW);
+  // Heat bar
+  var hp=CALC.maxH>0?Math.min(CALC.heat/CALC.maxH*100,100):0;
+  var hb=$('barHeat');
+  hb.style.width=hp+'%';
+  hb.className='bar-fill heat'+(hp>90?' crit':hp>70?' warn':'');
+  $('heatStat').textContent=CALC.heat.toFixed(0)+' / '+CALC.maxH.toFixed(0);
+}
+
+function checkAlerts(){
+  if(CALC.blackout&&!warnedBlack){addLog(L.blackout,'er');sndWarn();warnedBlack=true}
+  else if(!CALC.blackout)warnedBlack=false;
+  if(CALC.overheat&&!warnedHeat){addLog(L.overheat,'wr');sndWarn();warnedHeat=true}
+  else if(!CALC.overheat)warnedHeat=false;
+}
+
+/* ===================================================
+   TERMINAL LOG
+   =================================================== */
+function addLog(msg,cls){
+  var b=$('termBody');
+  var d=document.createElement('div');
+  d.className='log-e'+(cls?' '+cls:'');
+  var t=new Date();
+  var ts=('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)+':'+('0'+t.getSeconds()).slice(-2);
+  d.innerHTML='<span class="ts">['+ts+']</span> '+msg;
+  b.appendChild(d);
+  b.scrollTop=b.scrollHeight;
+  while(b.children.length>80)b.removeChild(b.firstChild);
+}
+
+/* ===================================================
+   SERVER ROOM GRID
+   =================================================== */
+function renderRoom(){
+  var grid=$('rackGrid');
+  grid.innerHTML='';
+  var slots=[];
+  SERVERS.forEach(function(s,idx){
+    var n=G.inv[s.id]||0;
+    for(var i=0;i<n;i++)slots.push(idx);
+  });
+  var total=49;
+  for(var i=0;i<total;i++){
+    var sl=document.createElement('div');
+    sl.className='rack-slot';
+    if(i<slots.length){
+      var ti=slots[i];
+      sl.classList.add('filled',TIER_CLASS[ti+1]||'t1');
+      sl.textContent=SERVER_ICONS[ti]||'';
+    }
+    grid.appendChild(sl);
+  }
+}
+
+/* ===================================================
+   SHOP RENDERING
+   =================================================== */
+function renderShop(){
+  var list=$('shopList');
+  list.innerHTML='';
+  if(curTab==='servers')SERVERS.forEach(function(s,i){renderServerItem(list,s,i)});
+  else if(curTab==='cooling')COOLING.forEach(function(c){renderInfraItem(list,c,'cooling')});
+  else if(curTab==='power')POWER.forEach(function(p){renderInfraItem(list,p,'power')});
+  else if(curTab==='upgrades')UPGRADES.forEach(function(u){renderUpgItem(list,u)});
+}
+
+function itemCost(base){return G.upg.u1?Math.floor(base*.85):base}
+
+function renderServerItem(list,s,idx){
+  var locked=G.totalEarned<s.unlock&&G.inv[s.id]===0;
+  var cost=itemCost(s.cost);
+  var afford=G.cash>=cost;
+  var d=document.createElement('div');
+  d.className='shop-item'+(locked?' locked':'');
+  d.innerHTML='<div class="si-row"><span class="si-name">'+SERVER_ICONS[idx]+' '+(L[s.id]||s.id)+'</span>'
+    +'<span class="si-own">'+G.inv[s.id]+' '+L.owned+'</span>'
+    +'<span class="si-cost'+(afford?'':' no')+'">'+fmtC(cost)+'</span></div>'
+    +'<div class="si-stats">'
+    +'<span class="si-stat"><span class="si-sv">'+fmtC(s.income)+'</span>'+L.perSec+'</span>'
+    +'<span class="si-stat"><span class="si-sv">'+s.watts+'</span>'+L.watts+'</span>'
+    +'<span class="si-stat"><span class="si-sv">'+s.heat+'</span> '+L.heatU+'</span>'
+    +'</div>';
+  if(!locked)d.addEventListener('click',function(){buyItem('servers',s,cost)});
+  list.appendChild(d);
+}
+
+function renderInfraItem(list,item,cat){
+  var locked=G.totalEarned<item.unlock&&G.inv[item.id]===0;
+  var afford=G.cash>=item.cost;
+  var label=cat==='cooling'?('-'+item.cap+' '+L.heatU):('+'+fmtW(item.cap));
+  var d=document.createElement('div');
+  d.className='shop-item'+(locked?' locked':'');
+  d.innerHTML='<div class="si-row"><span class="si-name">'+(L[item.id]||item.id)+'</span>'
+    +'<span class="si-own">'+G.inv[item.id]+' '+L.owned+'</span>'
+    +'<span class="si-cost'+(afford?'':' no')+'">'+fmtC(item.cost)+'</span></div>'
+    +'<div class="si-stats"><span class="si-stat"><span class="si-sv">'+label+'</span></span></div>';
+  if(!locked)d.addEventListener('click',function(){buyItem(cat,item,item.cost)});
+  list.appendChild(d);
+}
+
+function renderUpgItem(list,u){
+  var locked=G.totalEarned<u.unlock&&!G.upg[u.id];
+  var bought=G.upg[u.id];
+  var afford=G.cash>=u.cost;
+  var d=document.createElement('div');
+  d.className='shop-item'+(locked?' locked':'')+(bought?' bought':'');
+  d.innerHTML='<div class="si-row"><span class="si-name">'+(L[u.id]||u.id)+'</span>'
+    +(bought?'<span class="si-own">'+L.maxed+'</span>':'<span class="si-cost'+(afford?'':' no')+'">'+fmtC(u.cost)+'</span>')
+    +'</div>'
+    +'<div class="si-desc">'+(L[u.id+'d']||'')+'</div>';
+  if(!locked&&!bought)d.addEventListener('click',function(){buyUpg(u)});
+  list.appendChild(d);
+}
+
+/* ===================================================
+   PURCHASE LOGIC
+   =================================================== */
+function buyItem(cat,item,cost){
+  if(G.cash<cost)return;
+  initAudio();
+  G.cash-=cost;
+  G.inv[item.id]=(G.inv[item.id]||0)+1;
+  sndBuy();
+  addLog(L.bought+(L[item.id]||item.id),'ok');
+  recalc();renderShop();renderRoom();updateUI();saveGame();
+}
+
+function buyUpg(u){
+  if(G.cash<u.cost||G.upg[u.id])return;
+  initAudio();
+  G.cash-=u.cost;
+  G.upg[u.id]=true;
+  sndBuy();
+  addLog(L.bought+(L[u.id]||u.id),'ok');
+  recalc();renderShop();updateUI();saveGame();
+}
+
+/* ===================================================
+   RANDOM EVENTS
+   =================================================== */
+function scheduleEvent(){
+  var delay=30000+Math.random()*60000;
+  evTimer=setTimeout(function(){
+    if(!evActive&&CALC.income>0)triggerEvent();
+    scheduleEvent();
+  },delay);
+}
+
+function triggerEvent(){
+  var pool=['ddos','crypto','surge','investor'];
+  var ev=pool[Math.floor(Math.random()*pool.length)];
+  evActive=true;
+  if(ev==='ddos')runDDOS();
+  else if(ev==='crypto')runCrypto();
+  else if(ev==='surge')runSurge();
+  else runInvestor();
+}
+
+function runDDOS(){
+  initAudio();sndEvent();
+  var clicks=0,need=20,left=10;
+  showModal('mEvent');
+  $('evTitle').textContent=L.ddos;
+  $('evDesc').textContent=L.ddosD;
+  var btn=$('evBtn');
+  btn.textContent=L.ddosB;
+  $('evBar').style.width='0';
+  btn.onclick=function(){
+    clicks++;
+    $('evBar').style.width=Math.min(clicks/need*100,100)+'%';
+    if(clicks>=need){clearInterval(tmr);sndOk();addLog(L.ddos+' Mitigated!','ev');hideModal('mEvent');evActive=false}
+  };
+  var tmr=setInterval(function(){
+    left--;
+    if(left<=0||clicks>=need){
+      clearInterval(tmr);
+      if(clicks<need){
+        var loss=CALC.income*30;
+        G.cash=Math.max(0,G.cash-loss);
+        sndWarn();addLog(L.ddos+' Lost '+fmtC(loss),'er');
+      }
+      hideModal('mEvent');evActive=false;
+    }
+  },1000);
+}
+
+function runCrypto(){
+  sndEvent();
+  addLog(L.crypto+' '+L.cryptoD,'ev');
+  CALC.cryptoMul=2;
+  setTimeout(function(){CALC.cryptoMul=1;addLog(L.crypto+' ended','ok');evActive=false},30000);
+}
+
+function runSurge(){
+  sndWarn();
+  addLog(L.surge+' '+L.surgeD,'wr');
+  var saved=CALC.watts;
+  CALC.watts=Math.floor(saved*1.5);
+  setTimeout(function(){CALC.watts=saved;addLog(L.surge+' ended','ok');evActive=false},15000);
+}
+
+function runInvestor(){
+  sndOk();
+  var bonus=Math.max(CALC.income*60,100);
+  G.cash+=bonus;G.totalEarned+=bonus;
+  addLog(L.investor+' +'+fmtC(bonus),'ev');
+  evActive=false;
+}
+
+/* ===================================================
+   SAVE / LOAD
+   =================================================== */
+function saveGame(){
+  G.lastSave=Date.now();
+  try{
+    localStorage.setItem('st_state',JSON.stringify(G));
+  }catch(e){}
+}
+
+function loadGame(){
+  try{
+    var raw=localStorage.getItem('st_state');
+    if(!raw)return false;
+    var s=JSON.parse(raw);
+    // Merge saved data into G (handles new keys gracefully)
+    G.cash=s.cash||50;
+    G.totalEarned=s.totalEarned||0;
+    if(s.inv){for(var k in s.inv)if(G.inv.hasOwnProperty(k))G.inv[k]=s.inv[k]}
+    if(s.upg){for(var k in s.upg)if(G.upg.hasOwnProperty(k))G.upg[k]=s.upg[k]}
+    // Offline earnings
+    if(s.lastSave){
+      var elapsed=(Date.now()-s.lastSave)/1000;
+      var maxOff=8*3600;
+      if(elapsed>60){
+        elapsed=Math.min(elapsed,maxOff);
+        recalc();
+        var earned=CALC.income*elapsed;
+        if(earned>0){
+          G.cash+=earned;G.totalEarned+=earned;
+          showModal('mWelcome');
+          $('welTitle').textContent=L.welBack;
+          $('welMsg').textContent=L.welMsg;
+          $('welEarn').textContent=fmtC(earned);
+          $('welBtn').textContent=L.cont;
+          $('welBtn').onclick=function(){hideModal('mWelcome')};
+        }
+      }
+    }
+    return true;
+  }catch(e){return false}
+}
+
+/* ===================================================
+   MODAL HELPERS
+   =================================================== */
+function showModal(id){$(id).classList.add('show')}
+function hideModal(id){$(id).classList.remove('show')}
+
+/* ===================================================
+   NAVIGATION
+   =================================================== */
+function setupNav(){
+  // Mobile bottom nav
+  document.querySelectorAll('.mob-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.mob-btn').forEach(function(x){x.classList.remove('active')});
+      this.classList.add('active');
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+      $(this.getAttribute('data-view')).classList.add('active');
+    });
+  });
+  // Shop tabs
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});
+      this.classList.add('active');
+      curTab=this.getAttribute('data-tab');
+      renderShop();
+    });
+  });
+}
+
+/* ===================================================
+   INIT
+   =================================================== */
+function boot(){
+  loadGame();
+  setupNav();
+  recalc();
+  renderShop();
+  renderRoom();
+  updateUI();
+  addLog(L.init,'ok');
+  setInterval(function(){tick();renderShop()},1000);
+  setInterval(saveGame,30000);
+  scheduleEvent();
+  // Mobile: show shop panel by default
+  if(window.innerWidth<768)$('panShop').classList.add('active');
+}
+boot();
+</script>
+<script>
+(function(){
+  function h(){window.parent.postMessage({type:'setHeight',height:document.body.scrollHeight},'*')}
+  document.documentElement.style.height='auto';document.body.style.height='auto';document.body.style.minHeight='0';
+  window.addEventListener('load',h);window.addEventListener('resize',h);
+  new MutationObserver(h).observe(document.body,{subtree:true,childList:true});
+})();
+</script>
+</body>
+</html>
