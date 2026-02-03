@@ -1,6 +1,6 @@
 ---
 title: "ReflexGrid：免费瞄准训练器与反应时间测试"
-date: 2024-01-01
+date: 2026-02-03
 description: "使用这款免费浏览器瞄准训练器测试您的鼠标精准度和反应时间。专为FPS玩家打造 — Valorant、CS2、CoD。在60秒内追踪命中数、精准度和平均反应速度。"
 hidemeta: true
 showToc: false

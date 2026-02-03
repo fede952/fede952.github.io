@@ -3,7 +3,7 @@ title: "Games"
 layout: "force-list"
 description: "Browser games, CTF challenges and interactive coding puzzles"
 hidemeta: true
-date: 2024-01-01
+date: 2026-02-03
 draft: false
 ---
 

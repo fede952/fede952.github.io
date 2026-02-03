@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2024-01-01
+date: 2026-02-03
 description: "Сможешь удержать продакшен? Бесконечный раннер для разработчиков."
 categories: ["Игры", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]

@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2024-01-01
+date: 2026-02-03
 description: "هل يمكنك إبقاء الإنتاج قائماً؟ لعبة جري لا نهائي للمطورين."
 categories: ["ألعاب", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]

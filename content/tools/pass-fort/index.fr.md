@@ -1,6 +1,6 @@
 ---
 title: "PassFort : Générateur de Mots de Passe Sécurisés et Vérificateur de Robustesse"
-date: 2024-01-01
+date: 2026-02-03
 description: "Créez des mots de passe inviolables et auditez votre sécurité en quelques secondes. Calculateur d'entropie, estimateur de temps de cracking et générateur de phrases de passe — 100% côté client, privé et gratuit."
 hidemeta: true
 showToc: false

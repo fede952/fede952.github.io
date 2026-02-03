@@ -2,37 +2,93 @@
 <main class="main">
   <header class="page-header">
     <h1>{{ .Title }}</h1>
+    {{ if .Description }}
     <div class="post-description">{{ .Description }}</div>
+    {{ end }}
   </header>
 
-  <div class="post-list" style="margin-top: 2rem;">
-    {{ $currentSection := .Section }}
-    {{ $items := where site.RegularPages "Section" $currentSection }}
+  <style>
+    .pro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    .pro-card {
+      background: var(--entry);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .pro-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      border-color: var(--primary);
+    }
+    .pro-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+    .pro-card h2 a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .pro-card p {
+      color: #b0b0b0;
+      font-size: 0.95rem;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+    .pro-meta {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    /* Mobile fix */
+    @media (max-width: 600px) {
+      .pro-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 
-    {{ range $items }}
-      <article class="post-entry" style="margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid #333;">
-        <header class="entry-header">
-          <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-          </h2>
-        </header>
-        {{ if .Description }}
-        <section class="entry-content">
-          <p>{{ .Description }}</p>
-        </section>
-        {{ end }}
-        <footer class="entry-footer" style="font-size: 0.8rem; color: #888; margin-top: 0.5rem;">
-          {{ .Date.Format "Jan 2, 2006" }}
-        </footer>
-        <a class="entry-link" aria-label="post link to {{ .Title }}" href="{{ .Permalink }}"></a>
-      </article>
+  <div class="pro-grid">
+    {{ $currentSection := .Section }}
+    {{ $items := slice }}
+
+    {{/* LOGIC: If News, fetch ALL pages from English site to ensure visibility everywhere */}}
+    {{ if eq $currentSection "news" }}
+       {{/* Get English News + Local News */}}
+       {{ $items = where site.AllPages "Section" "news" }}
+    {{ else }}
+       {{/* Normal behavior for Games/Tools (Local Section) */}}
+       {{ $items = where site.RegularPages "Section" $currentSection }}
     {{ end }}
 
-    {{ if eq (len $items) 0 }}
-      <p style="color: red; padding: 20px; border: 1px solid red;">
-        CRITICAL ERROR: No pages found for section '{{ $currentSection }}'.
-        <br>Check: 1. Files exist in content/{{ $currentSection }}? 2. Draft is false?
-      </p>
+    {{/* Filter out non-content pages if any */}}
+    {{ $items = where $items "Kind" "page" }}
+
+    {{ range $items }}
+      <article class="pro-card">
+        <header>
+          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        </header>
+        {{ if .Description }}
+        <p>{{ .Description }}</p>
+        {{ end }}
+        <div class="pro-meta">
+          <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+          {{ if .Draft }}<span style="color:red;">(DRAFT)</span>{{ end }}
+        </div>
+        <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
+      </article>
     {{ end }}
   </div>
 </main>

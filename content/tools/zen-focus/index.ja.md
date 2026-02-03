@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: 環境音ミキサー & ポモドーロ"
-date: 2024-01-01
+date: 2026-02-03
 description: "雨音やホワイトノイズで集中力を高めましょう。"
 hidemeta: true
 showToc: false

@@ -1,7 +1,7 @@
 ---
 title: "Caesar Cipher"
 description: "Encrypt and decrypt text using the classic Caesar cipher with customizable shift key"
-date: 2024-01-01
+date: 2026-02-03
 tags: ["cryptography", "cipher", "security", "tool"]
 layout: "tool-split"
 draft: false

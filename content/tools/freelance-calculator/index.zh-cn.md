@@ -1,6 +1,6 @@
 ---
 title: "RateMate：自由职业时薪计算器"
-date: 2024-01-01
+date: 2026-02-03
 description: "根据目标薪资、税率和业务支出计算理想的自由职业时薪。为开发者、设计师和顾问打造的免费工具。"
 hidemeta: true
 showToc: false

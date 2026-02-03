@@ -1,6 +1,6 @@
 ---
 title: "NetGuard：IPアドレス確認＆ブラウザ漏洩テスト"
-date: 2024-01-01
+date: 2026-02-03
 description: "ブラウザがデータを漏洩していませんか？パブリックIPアドレス、WebRTC漏洩状態、GPUフィンガープリント、デジタルアイデンティティを即座に確認。無料プライバシー監査 — 100%クライアント側。"
 hidemeta: true
 showToc: false

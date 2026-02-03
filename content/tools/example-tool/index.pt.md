@@ -4,7 +4,7 @@ description: "A demonstration of how to create interactive tools"
 tags: ["example", "demo"]
 layout: "tool"
 draft: false
-date: 2024-01-01
+date: 2026-02-03
 ---
 
 _Nota: Para preservar a precisão técnica, este conteúdo é exibido em seu idioma original (Inglês)._

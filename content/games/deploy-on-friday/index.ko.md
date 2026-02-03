@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2024-01-01
+date: 2026-02-03
 description: "프로덕션을 유지할 수 있나요? 개발자를 위한 엔드리스 러너."
 categories: ["게임", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]

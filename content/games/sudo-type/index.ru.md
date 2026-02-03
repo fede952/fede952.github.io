@@ -1,6 +1,6 @@
 ---
 title: "Sudo Type"
-date: 2024-01-01
+date: 2026-02-03
 description: "Защити мейнфрейм набирая команды. Ретро-хакерская игра на скорость печати."
 categories: ["Игры", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]

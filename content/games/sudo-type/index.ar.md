@@ -1,6 +1,6 @@
 ---
 title: "Sudo Type"
-date: 2024-01-01
+date: 2026-02-03
 description: "دافع عن حاسوبك المركزي بالكتابة. لعبة دفاع بالكتابة بأسلوب هاكر ريترو."
 categories: ["ألعاب", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]

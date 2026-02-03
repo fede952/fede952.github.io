@@ -2,7 +2,7 @@
 title: "PixelShrink"
 description: "Comprimi immagini PNG, JPG e WebP direttamente nel browser. Nessun upload, privacy totale."
 image: "/images/pixel-shrink-icon.png"
-date: 2024-01-01
+date: 2026-02-03
 hidemeta: true
 showToc: false
 keywords: ["compressore immagini", "comprimi PNG", "comprimi JPG", "comprimi WebP", "strumento immagini privacy", "compressione lato client", "ottimizzatore immagini browser", "ridurre dimensione immagini", "compressore immagini offline"]

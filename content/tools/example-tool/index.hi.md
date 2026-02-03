@@ -4,7 +4,7 @@ description: "A demonstration of how to create interactive tools"
 tags: ["example", "demo"]
 layout: "tool"
 draft: false
-date: 2024-01-01
+date: 2026-02-03
 ---
 
 _नोट: तकनीकी सटीकता बनाए रखने के लिए, यह सामग्री मूल भाषा (अंग्रेजी) में दिखाई गई है।_

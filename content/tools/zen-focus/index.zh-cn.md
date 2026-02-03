@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: 环境噪音混合器"
-date: 2024-01-01
+date: 2026-02-03
 description: "使用自定义环境声音和番茄钟提高工作效率。"
 hidemeta: true
 showToc: false

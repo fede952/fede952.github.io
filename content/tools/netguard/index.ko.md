@@ -1,6 +1,6 @@
 ---
 title: "NetGuard: 내 IP 확인 & 브라우저 유출 테스트"
-date: 2024-01-01
+date: 2026-02-03
 description: "브라우저가 데이터를 유출하고 있나요? 공인 IP 주소, WebRTC 유출 상태, GPU 지문, 디지털 신원을 즉시 확인하세요. 무료 프라이버시 감사 — 100% 클라이언트 측."
 hidemeta: true
 showToc: false

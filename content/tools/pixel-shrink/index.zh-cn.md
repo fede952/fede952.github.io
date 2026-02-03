@@ -2,7 +2,7 @@
 title: "PixelShrink"
 description: "在浏览器中本地压缩图片。无需上传，100% 保护隐私。"
 image: "/images/pixel-shrink-icon.png"
-date: 2024-01-01
+date: 2026-02-03
 hidemeta: true
 showToc: false
 keywords: ["图片压缩", "压缩PNG", "压缩JPG", "压缩WebP", "隐私工具", "客户端压缩", "浏览器图片优化", "缩小图片大小", "离线压缩"]

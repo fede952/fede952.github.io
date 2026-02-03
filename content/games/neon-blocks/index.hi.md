@@ -1,6 +1,6 @@
 ---
 title: "NeonBlocks (2048)"
-date: 2024-01-01
+date: 2026-02-03
 description: "क्लासिक पहेली। 2048 तक पहुँचने के लिए नीयन क्यूब्स को मिलाएं।"
 image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]

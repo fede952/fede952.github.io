@@ -1,6 +1,6 @@
 ---
 title: "RateMate：フリーランス時給計算ツール"
-date: 2024-01-01
+date: 2026-02-03
 description: "目標年収、税金、経費からフリーランスの理想的な時給を計算。開発者、デザイナー、コンサルタント向けの無料ツール。"
 hidemeta: true
 showToc: false

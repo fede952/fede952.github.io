@@ -1,6 +1,6 @@
 ---
 title: "RateMate: Freelance Hourly Rate Calculator"
-date: 2024-01-01
+date: 2026-02-03
 description: "Calculate your ideal freelance hourly rate based on salary goals, taxes, and business expenses. Free tool for developers, designers, and consultants."
 hidemeta: true
 showToc: false

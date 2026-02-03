@@ -1,6 +1,6 @@
 ---
 title: "NetGuard: Controlla il Mio IP e Test Perdite Browser"
-date: 2024-01-01
+date: 2026-02-03
 description: "Il tuo browser sta esponendo dati? Controlla il tuo indirizzo IP pubblico, lo stato WebRTC, l'impronta GPU e la tua identità digitale istantaneamente. Audit privacy gratuito — 100% lato client."
 hidemeta: true
 showToc: false

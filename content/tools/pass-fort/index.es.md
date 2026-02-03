@@ -1,6 +1,6 @@
 ---
 title: "PassFort: Generador de Contraseñas Seguras y Verificador de Fortaleza"
-date: 2024-01-01
+date: 2026-02-03
 description: "Crea contraseñas inquebrantables y audita tu seguridad en segundos. Calculadora de entropía, estimador de tiempo de cracking y generador de frases de contraseña — 100% en el cliente, privado y gratuito."
 hidemeta: true
 showToc: false

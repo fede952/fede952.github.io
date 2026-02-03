@@ -1,6 +1,6 @@
 ---
 title: "NetGuard: Check My IP Address & Browser Leak Test"
-date: 2024-01-01
+date: 2026-02-03
 description: "Is your browser leaking data? Check your public IP address, WebRTC leak status, GPU fingerprint, and digital identity instantly. Free privacy audit — 100% client-side."
 hidemeta: true
 showToc: false

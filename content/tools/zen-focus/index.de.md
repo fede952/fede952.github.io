@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: Umgebungsgeräusch-Mixer"
-date: 2024-01-01
+date: 2026-02-03
 description: "Steigern Sie Ihre Produktivität mit Umgebungsgeräuschen und Fokus-Timer."
 hidemeta: true
 showToc: false

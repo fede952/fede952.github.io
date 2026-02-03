@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2024-01-01
+date: 2026-02-03
 description: "क्या आप प्रोडक्शन को चालू रख सकते हैं? डेवलपर्स के लिए एक एंडलेस रनर।"
 categories: ["गेम्स", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]

@@ -1,6 +1,6 @@
 ---
 title: "GlitchForge: 글리치 아트 생성기"
-date: 2024-01-01
+date: 2026-02-03
 description: "사진을 사이버펑크 아트로 변환하세요. 무료, 오프라인, 프라이버시 중심의 글리치 이미지 편집기. RGB 시프트, 픽셀 소팅, 스캔라인 지원."
 hidemeta: true
 showToc: false

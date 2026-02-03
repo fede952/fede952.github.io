@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: Микшер Фоновых Звуков"
-date: 2024-01-01
+date: 2026-02-03
 description: "Увеличьте продуктивность с помощью фоновых звуков и таймера."
 hidemeta: true
 showToc: false

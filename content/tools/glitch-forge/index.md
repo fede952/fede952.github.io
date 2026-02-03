@@ -1,6 +1,6 @@
 ---
 title: "GlitchForge: Glitch Art Generator"
-date: 2024-01-01
+date: 2026-02-03
 description: "Turn your photos into cyberpunk art. Free, offline, privacy-focused glitch image editor with RGB shift, pixel sorting, and scanlines."
 hidemeta: true
 showToc: false

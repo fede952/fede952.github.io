@@ -1,6 +1,6 @@
 ---
 title: "PassFort: Sicherer Passwort-Generator & Stärke-Prüfer"
-date: 2024-01-01
+date: 2026-02-03
 description: "Erstellen Sie unknackbare Passwörter und überprüfen Sie Ihre Sicherheit in Sekunden. Entropie-Rechner, Brute-Force-Zeitschätzer und Passphrasen-Generator — 100% clientseitig, privat und kostenlos."
 hidemeta: true
 showToc: false

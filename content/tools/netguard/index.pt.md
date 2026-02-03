@@ -1,6 +1,6 @@
 ---
 title: "NetGuard: Verificar Meu IP e Teste de Vazamento do Navegador"
-date: 2024-01-01
+date: 2026-02-03
 description: "O seu navegador está vazando dados? Verifique seu endereço IP público, status WebRTC, impressão digital GPU e identidade digital instantaneamente. Auditoria de privacidade gratuita — 100% no cliente."
 hidemeta: true
 showToc: false

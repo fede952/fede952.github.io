@@ -3,7 +3,7 @@ title: "Tools"
 layout: "force-list"
 description: "Interactive cybersecurity and development tools - all client-side, no data sent to servers"
 hidemeta: true
-date: 2024-01-01
+date: 2026-02-03
 draft: false
 ---
 

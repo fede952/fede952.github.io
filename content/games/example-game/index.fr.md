@@ -4,7 +4,7 @@ description: "A demonstration of how to create browser-based games"
 tags: ["example", "demo", "html5"]
 layout: "game"
 draft: false
-date: 2024-01-01
+date: 2026-02-03
 ---
 
 _Note: Pour préserver la précision technique, ce contenu est affiché dans sa langue d'origine (Anglais)._

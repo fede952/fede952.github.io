@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus: Generatore di Rumori Ambientali & Pomodoro"
-date: 2024-01-01
+date: 2026-02-03
 description: "Aumenta la tua produttività con suoni ambientali personalizzabili. Mixa Pioggia, Rumore Bianco e altro."
 hidemeta: true
 showToc: false

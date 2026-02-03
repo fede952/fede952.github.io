@@ -2,7 +2,7 @@
 title: "Générateur de Mots de Passe Sécurisés"
 description: "Générez des mots de passe cryptographiquement sécurisés avec des options personnalisables"
 draft: false
-date: 2024-01-01
+date: 2026-02-03
 ---
 
 ⚠️ **Tool Language Notice:**

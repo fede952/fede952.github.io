@@ -1,6 +1,6 @@
 ---
 title: "PassFort: Secure Password Generator & Strength Checker"
-date: 2024-01-01
+date: 2026-02-03
 description: "Create unhackable passwords and audit your security in seconds. Entropy calculator, brute-force crack time estimator, and passphrase generator — 100% client-side, private, and free."
 hidemeta: true
 showToc: false

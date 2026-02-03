@@ -1,6 +1,6 @@
 ---
 title: "RateMate: Freelance-Stundensatz-Rechner"
-date: 2024-01-01
+date: 2026-02-03
 description: "Berechnen Sie Ihren idealen Freelance-Stundensatz basierend auf Gehaltszielen, Steuern und Geschäftsausgaben. Kostenloses Tool für Entwickler, Designer und Berater."
 hidemeta: true
 showToc: false

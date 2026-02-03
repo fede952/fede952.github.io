@@ -1,6 +1,6 @@
 ---
 title: "ZenFocus : Mélangeur de Bruits Ambiants"
-date: 2024-01-01
+date: 2026-02-03
 description: "Augmentez votre productivité avec des sons d'ambiance et un minuteur Pomodoro."
 hidemeta: true
 showToc: false

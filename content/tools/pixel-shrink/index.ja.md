@@ -2,7 +2,7 @@
 title: "PixelShrink"
 description: "ブラウザで画像を圧縮します。アップロードなし、プライバシーは完全に守られます。"
 image: "/images/pixel-shrink-icon.png"
-date: 2024-01-01
+date: 2026-02-03
 hidemeta: true
 showToc: false
 keywords: ["画像圧縮", "PNG圧縮", "JPG圧縮", "WebP圧縮", "プライバシーツール", "クライアントサイド圧縮", "ブラウザ画像最適化", "画像サイズ削減", "オフライン圧縮"]

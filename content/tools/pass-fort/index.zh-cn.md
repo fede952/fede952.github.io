@@ -1,6 +1,6 @@
 ---
 title: "PassFort：安全密码生成器与强度检测器"
-date: 2024-01-01
+date: 2026-02-03
 description: "在几秒钟内创建不可破解的密码并审计您的安全性。熵值计算器、暴力破解时间估算器和助记词生成器 — 100%本地运行，私密且免费。"
 hidemeta: true
 showToc: false

@@ -1,6 +1,6 @@
 ---
 title: "EasyCron: Gerador Visual de Cron Jobs"
-date: 2024-01-01
+date: 2026-02-03
 description: "A forma mais fácil de criar Cron jobs no Linux. Editor visual, explicador de crontab e calculadora de próximas execuções."
 hidemeta: true
 showToc: false

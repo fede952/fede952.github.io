@@ -1,6 +1,6 @@
 ---
 title: "Deploy on Friday"
-date: 2024-01-01
+date: 2026-02-03
 description: "本番環境を維持できますか？開発者のためのエンドレスランナー。"
 categories: ["ゲーム", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
