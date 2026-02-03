@@ -1,87 +1,58 @@
-{{- define "main" }}
+{{ define "main" }}
 
-<article class="post-single">
-  <header class="post-header">
-    {{ partial "breadcrumbs.html" . }}
-    <h1 class="post-title entry-hint-parent">
-      {{ .Title }}
-      {{- if .Draft }}
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-      {{- end }}
-    </h1>
-    {{- if .Description }}
-    <div class="post-description">
-      {{ .Description }}
+<main class="main">
+
+  <article class="post-single">
+
+    <header class="post-header">
+      <h1 class="post-title">{{ .Title }}</h1>
+      {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
+    </header>
+
+    {{ if or (eq .Section "games") (eq .Section "tools") }}
+    <div class="fullscreen-btn-container" style="margin-bottom: 20px; text-align: center;">
+      <a id="force-fullscreen-btn" href="#" target="_blank" style="
+        display: inline-block;
+        width: 100%;
+        max-width: 400px;
+        background: #00e5ff;
+        color: #000;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 900;
+        border-radius: 8px;
+        text-transform: uppercase;
+        font-family: monospace;
+        letter-spacing: 1px;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        border: 2px solid #000;
+        cursor: pointer;">
+        OPEN FULL SCREEN MODE
+      </a>
     </div>
-    {{- end }}
-    {{- if not (.Param "hideMeta") }}
-    <div class="post-meta">
-      {{- partial "post_meta.html" . -}}
-      {{- partial "translation_list.html" . -}}
-      {{- partial "edit_post.html" . -}}
-      {{- partial "post_canonical.html" . -}}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          const iframe = document.querySelector('iframe');
+          const btn = document.getElementById('force-fullscreen-btn');
+          if (iframe && btn) {
+            btn.href = iframe.src;
+          } else if (btn) {
+            btn.style.display = 'none';
+          }
+        }, 500);
+      });
+    </script>
+    {{ end }}
+
+    <div class="post-content">
+      {{ .Content }}
     </div>
-    {{- end }}
-  </header>
-  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
-  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
-  {{- end }}
 
-  {{- if .Content }}
-  <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
-  </div>
-  {{- end }}
+  </article>
 
-  {{/* FULL SCREEN BUTTON - AUTO-INJECT FOR GAMES/TOOLS */}}
-  <script>
-    window.onload = function() {
-      var path = window.location.pathname;
-      if (path.indexOf("/games/") === -1 && path.indexOf("/tools/") === -1) return;
-      var iframes = document.querySelectorAll('iframe');
-      if (!iframes.length) return;
-      var iframe = iframes[0];
-      var btn = document.createElement('a');
-      btn.innerText = '\u26A1 Full Screen Mode';
-      btn.href = iframe.src;
-      btn.target = '_blank';
-      btn.rel = 'noopener';
-      btn.style.cssText = 'display:inline-block;margin:15px 0 20px;background:#00e5ff;color:#000;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;text-align:center;font-family:monospace;letter-spacing:1px;font-size:1rem;transition:all .2s;box-shadow:0 0 10px rgba(0,229,255,0.3);';
-      btn.onmouseover = function(){ this.style.boxShadow='0 0 20px rgba(0,229,255,0.6)'; this.style.transform='scale(1.03)'; };
-      btn.onmouseout = function(){ this.style.boxShadow='0 0 10px rgba(0,229,255,0.3)'; this.style.transform='scale(1)'; };
-      iframe.parentNode.insertBefore(btn, iframe);
-    };
-  </script>
+</main>
 
-  {{/* SOCIAL SHARE BUTTONS - UNIVERSAL INJECTION */}}
-  <div class="post-footer-share">
-    {{- partial "share-buttons.html" . -}}
-  </div>
-
-  <footer class="post-footer">
-    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-    <ul class="post-tags">
-      {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-      {{- end }}
-    </ul>
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
-  </footer>
-
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
-</article>
-
-{{- end }}{{/* end main */}}
+{{ end }}

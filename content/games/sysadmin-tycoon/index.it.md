@@ -12,4 +12,4 @@ Inizia con un umile laptop e costruisci un impero di server. Bilancia consumo en
 
 SysAdmin Tycoon salva automaticamente i progressi e calcola i guadagni offline (fino a 8 ore).
 
-<iframe src="/games/sysadmin-tycoon/index.html?lang=it" width="100%" height="720px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html?lang=it" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>

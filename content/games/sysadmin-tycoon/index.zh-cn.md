@@ -12,4 +12,4 @@ draft: false
 
 SysAdmin Tycoon\u81ea\u52a8\u4fdd\u5b58\u8fdb\u5ea6\u5e76\u8ba1\u7b97\u79bb\u7ebf\u6536\u76ca\uff08\u6700\u591a8\u5c0f\u65f6\uff09\u3002
 
-<iframe src="/games/sysadmin-tycoon/index.html?lang=zh" width="100%" height="720px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+<iframe src="/games/sysadmin-tycoon/index.html?lang=zh" width="100%" height="85vh" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
