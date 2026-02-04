@@ -573,7 +573,22 @@
     "https://www.punto-informatico.it/intel-produrra-gpu-dopo-aver-detto-no-alla-faccia-nvidia/",
     "https://www.cybersecurity360.it/legal/privacy-dati-personali/il-mystery-shopping-in-azienda-fra-supervisione-e-privacy-dei-lavoratori/",
     "https://www.cybersecurity360.it/nuove-minacce/ia-agentica-nuovo-complice-degli-hacker-il-rischio-scorciatoia-nella-programmazione/",
-    "https://www.cybersecurity360.it/outlook/aaa-cercasi-igiene-cyber-nel-settore-sanitario-sotto-attacco/"
+    "https://www.cybersecurity360.it/outlook/aaa-cercasi-igiene-cyber-nel-settore-sanitario-sotto-attacco/",
+    "https://thehackernews.com/2026/02/microsoft-develops-scanner-to-detect.html",
+    "https://thehackernews.com/2026/02/deadvax-malware-campaign-deploys.html",
+    "https://thehackernews.com/2026/02/china-linked-amaranth-dragon-exploits.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-vmware-esxi-flaw-now-exploited-in-ransomware-attacks/",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-five-year-old-gitlab-flaw-exploited-in-attacks/",
+    "https://www.bleepingcomputer.com/news/security/the-double-edged-sword-of-non-human-identities/",
+    "https://www.bleepingcomputer.com/news/security/edr-killer-tool-uses-signed-kernel-driver-from-forensic-software/",
+    "https://www.bleepingcomputer.com/news/security/new-amaranth-dragon-cyberespionage-group-exploits-winrar-flaw/",
+    "https://www.punto-informatico.it/google-trasforma-gemini-guida-turistica/",
+    "https://www.punto-informatico.it/microsoft-crea-marketplace-vendere-contenuti-aziende-ai/",
+    "https://www.punto-informatico.it/truffa-danni-inps-false-identita-ai/",
+    "https://www.punto-informatico.it/lancia-il-tuo-progetto-con-hostinger-costa-meno-di-3e-e-hai-tutto-incluso/",
+    "https://www.punto-informatico.it/promo-kena-di-san-valentino-300gb-con-minuti-e-sms-a-599e-al-mese/",
+    "https://www.cybersecurity360.it/news/whatsapp-introduce-le-impostazioni-restrittive-dellaccount-come-attivarle/",
+    "https://www.cybersecurity360.it/nuove-minacce/olimpiadi-milano-cortina-sotto-attacco-ddos-qual-e-la-vera-minaccia/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -1149,6 +1164,21 @@
     "86977bdb132cf9aeaf2766c7b21e254b",
     "f8681605d4d1dbba4e8857b6627b5ba2",
     "4a76d13a0ed705012d3b60389e845cef",
-    "ed593305794fb856b83e8a53fec4a8da"
+    "ed593305794fb856b83e8a53fec4a8da",
+    "910092c1e40a0b5a6ba47254e3c4367d",
+    "2c5930e9bffb3cfc1a59bdeb128911cd",
+    "297aebca2efaae08e0774823edf07b00",
+    "4f28b8840722a5b316adfa0403300f77",
+    "1a04caf270f006f839c2d5c739b25a2a",
+    "37223cda8e38a018085b1f5a28c93864",
+    "2c57d7f2fdac46c3e18d802ec293d33d",
+    "167f4d4c60cac3dba270f9237607bed3",
+    "011e6a477bb3534b8dcf3d82d4645be4",
+    "704f63e385415ccd020c45fac005a4d7",
+    "469a01f5c344be71eb4715b31ffc4c31",
+    "4d32d684c0a3e223bb95d1804f0bc9f3",
+    "7b294d85fd9b153af7d2e62cfcd0168b",
+    "34c26852bb0b9af78c8b7ace5062e6ae",
+    "89c3057141cab30260e2e43ab9ffe137"
   ]
 }
