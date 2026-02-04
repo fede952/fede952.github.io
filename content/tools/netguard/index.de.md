@@ -6,6 +6,7 @@ hidemeta: true
 showToc: false
 keywords: ["was ist meine IP", "WebRTC Leak Test", "Browser Fingerprint Test", "Datenschutz Test", "VPN Leak Prüfung", "IP Adresse Suche", "digitaler Fingerabdruck", "Online Datenschutz Tool", "Browser Sicherheit Audit", "GPU Fingerprint"]
 draft: false
+featured: true
 ---
 
 Jedes Mal, wenn Sie eine Website besuchen, sendet Ihr Browser eine überraschende Menge an persönlichen Daten — Ihre **öffentliche IP-Adresse**, ungefähren physischen Standort, Betriebssystem, GPU-Modell, Bildschirmauflösung, Akkustand und sogar lokale Netzwerk-IPs durch WebRTC-Lecks. Werbetreibende und Tracker nutzen diese Signale, um einen **einzigartigen digitalen Fingerabdruck** zu erstellen, der Ihnen durchs Web folgen kann, auch ohne Cookies. Die meisten Menschen haben keine Ahnung, wie viele Daten sie allein durch das Öffnen eines Browser-Tabs preisgeben.

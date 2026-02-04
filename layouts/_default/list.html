@@ -86,6 +86,8 @@
     {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") }}
 
     {{ $items := slice }}
+
+    {{/* NEWS LOGIC (Keep as is) */}}
     {{ if eq $currentSection "news" }}
        {{ $allNews := where site.AllPages "Section" "news" }}
        {{ $localNews := where $allNews "Lang" $currentLang }}
@@ -93,7 +95,18 @@
        {{ $items = $localNews | union $englishNews }}
        {{ $items = $items.ByDate.Reverse }}
     {{ else }}
-       {{ $items = where site.RegularPages "Section" $currentSection }}
+       {{/* GAMES/TOOLS LOGIC */}}
+       {{ $rawItems := where site.RegularPages "Section" $currentSection }}
+
+       {{/* Split Featured vs Regular */}}
+       {{ $featured := where $rawItems "Params.featured" true }}
+       {{ $regular := where $rawItems "Params.featured" "!=" true }}
+
+       {{/* Sort Regular by Date Descending */}}
+       {{ $regular = $regular.ByDate.Reverse }}
+
+       {{/* Combine: Featured first */}}
+       {{ $items = $featured | append $regular }}
     {{ end }}
 
     {{ $items = where $items "Kind" "page" }}

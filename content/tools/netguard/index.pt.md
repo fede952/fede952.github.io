@@ -6,6 +6,7 @@ hidemeta: true
 showToc: false
 keywords: ["qual é o meu IP", "teste vazamento WebRTC", "teste impressão digital navegador", "teste privacidade", "verificação vazamento VPN", "busca endereço IP", "impressão digital online", "ferramenta privacidade online", "auditoria segurança navegador", "impressão digital GPU"]
 draft: false
+featured: true
 ---
 
 Cada vez que você visita um site, seu navegador transmite uma quantidade surpreendente de dados pessoais — seu **endereço IP público**, localização física aproximada, sistema operacional, modelo de GPU, resolução de tela, nível de bateria e até IPs da rede local através de vazamentos WebRTC. Anunciantes e rastreadores usam esses sinais para construir uma **impressão digital única** que pode segui-lo pela web, mesmo sem cookies. A maioria das pessoas não faz ideia de quantos dados está expondo simplesmente ao abrir uma aba do navegador.

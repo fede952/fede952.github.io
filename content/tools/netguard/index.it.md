@@ -6,6 +6,7 @@ hidemeta: true
 showToc: false
 keywords: ["qual è il mio IP", "test perdita WebRTC", "test impronta browser", "test privacy", "controllo perdita VPN", "ricerca indirizzo IP", "impronta digitale", "strumento privacy online", "audit sicurezza browser", "impronta GPU"]
 draft: false
+featured: true
 ---
 
 Ogni volta che visiti un sito web, il tuo browser trasmette una quantità sorprendente di dati personali — il tuo **indirizzo IP pubblico**, la posizione fisica approssimativa, il sistema operativo, il modello GPU, la risoluzione dello schermo, il livello della batteria e persino gli IP della rete locale tramite perdite WebRTC. Inserzionisti e tracker utilizzano questi segnali per costruire un'**impronta digitale unica** che può seguirti attraverso il web, anche senza cookie. La maggior parte delle persone non ha idea di quanti dati stia esponendo semplicemente aprendo una scheda del browser.

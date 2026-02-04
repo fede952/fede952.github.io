@@ -6,6 +6,7 @@ hidemeta: true
 showToc: false
 keywords: ["cuál es mi IP", "test fuga WebRTC", "test huella navegador", "test privacidad", "verificar fuga VPN", "búsqueda dirección IP", "huella digital", "herramienta privacidad online", "auditoría seguridad navegador", "huella GPU"]
 draft: false
+featured: true
 ---
 
 Cada vez que visitas un sitio web, tu navegador transmite una cantidad sorprendente de datos personales — tu **dirección IP pública**, ubicación física aproximada, sistema operativo, modelo de GPU, resolución de pantalla, nivel de batería e incluso IPs de red local a través de fugas WebRTC. Los anunciantes y rastreadores utilizan estas señales para construir una **huella digital única** que puede seguirte por toda la web, incluso sin cookies. La mayoría de las personas no tiene idea de cuántos datos está exponiendo simplemente al abrir una pestaña del navegador.

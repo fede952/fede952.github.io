@@ -6,6 +6,7 @@ hidemeta: true
 showToc: false
 keywords: ["what is my IP", "WebRTC leak test", "browser fingerprint test", "privacy test", "VPN leak check", "IP address lookup", "digital fingerprint", "online privacy tool", "browser security audit", "GPU fingerprint"]
 draft: false
+featured: true
 ---
 
 Every time you visit a website, your browser broadcasts a surprising amount of personal data — your **public IP address**, approximate physical location, operating system, GPU model, screen resolution, battery level, and even local network IPs through WebRTC leaks. Advertisers and trackers use these signals to build a **unique digital fingerprint** that can follow you across the web, even without cookies. Most people have no idea how much they're exposing simply by opening a browser tab.
