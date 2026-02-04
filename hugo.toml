@@ -9,7 +9,7 @@ defaultContentLanguageInSubdir = true
 # Fondamentale per evitare conflitti URL
 [permalinks]
   posts = "/:year/:month/:title/"
-  news = "/news/:year/:month/:title/"
+  news = "/news/:year/:month/:slug/"
 
 # Taxonomies per categorizzazione contenuti
 [taxonomies]

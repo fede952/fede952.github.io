@@ -15,7 +15,7 @@
   --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
 }
 html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.app{max-width:1400px;margin:0 auto;padding:10px;padding-bottom:80px;display:flex;flex-direction:column;gap:8px;min-height:100vh;min-height:100dvh}
+.app{max-width:1400px;margin:0 auto;padding:10px;padding-bottom:120px;display:flex;flex-direction:column;gap:8px;min-height:100vh;min-height:100dvh}
 
 /* ── Header ── */
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;flex-wrap:wrap}
@@ -104,7 +104,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .log-e.er{color:var(--red);font-weight:700}
 
 /* ── Mobile Nav ── */
-.mob-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px;background:var(--bg2);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;width:100%;z-index:1000;border-radius:0;padding-bottom:env(safe-area-inset-bottom)}
+.mob-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px;background:var(--bg2);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;width:100%;z-index:1000;border-radius:0;padding-bottom:max(30px,env(safe-area-inset-bottom));height:auto}
 .mob-btn{padding:9px 4px;font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all .2s}
 .mob-btn.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
 
