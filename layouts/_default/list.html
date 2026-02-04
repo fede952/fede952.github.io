@@ -6,7 +6,7 @@
   </header>
 
   <style>
-    /* SHARED GRID LAYOUT */
+    /* SHARED GRID */
     .uni-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -14,28 +14,36 @@
       margin-top: 40px;
     }
 
+    /* === COMMON CARD PROPERTIES (Fixes the Glitch) === */
+    .card-base {
+      position: relative; /* CRITICAL: Contains the absolute link */
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+      overflow: hidden; /* Keeps everything inside */
+    }
+
     /* === STYLE A: CYBERPUNK (Games/Tools) === */
     .card-cyber {
       background: linear-gradient(145deg, #101018, #0a0a0e);
       border: 1px solid #333;
       border-radius: 16px;
-      padding: 0;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      position: relative;
     }
     .card-cyber:hover {
       transform: translateY(-7px);
       box-shadow: 0 0 25px rgba(0, 229, 255, 0.2);
       border-color: #00e5ff;
+      z-index: 10; /* Bring hovered card to front */
     }
     .card-cyber h2 { font-family: 'Courier New', monospace; color: #fff; margin: 20px 20px 10px; }
     .card-cyber p { color: #aaa; padding: 0 20px; font-size: 0.9rem; flex-grow: 1; }
+
+    /* Button with z-index 2 to sit ABOVE the full-card link */
     .card-cyber .btn-action {
+      position: relative;
+      z-index: 2;
       margin: 20px; text-align: center; border: 1px solid #00e5ff; color: #00e5ff;
       padding: 10px; border-radius: 6px; text-transform: uppercase; font-weight: bold; font-size: 0.8rem;
       transition: 0.3s; display: block; text-decoration: none;
@@ -44,24 +52,31 @@
 
     /* === STYLE B: PROFESSIONAL (News/Projects) === */
     .card-pro {
-      background: var(--entry); /* Adapts to Light/Dark Theme */
+      background: var(--entry);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 25px;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
     }
     .card-pro:hover {
       transform: translateY(-4px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       border-color: var(--primary);
+      z-index: 10;
     }
     .card-pro h2 { font-size: 1.4rem; margin-bottom: 10px; }
     .card-pro p { color: var(--secondary); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin-bottom: 20px; }
     .card-pro .meta { font-size: 0.8rem; color: var(--secondary); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 15px; }
-    .card-pro .read-link { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .card-pro .read-link { color: var(--primary); text-decoration: none; font-weight: 500; position: relative; z-index: 2; }
+
+    /* === THE INVISIBLE LINK (Fixes the overlap) === */
+    .entry-link {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; /* Sits below the buttons but above background */
+    }
 
   </style>
 
@@ -71,8 +86,6 @@
     {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") }}
 
     {{ $items := slice }}
-
-    {{/* NEWS LOGIC: Local + English Fallback */}}
     {{ if eq $currentSection "news" }}
        {{ $allNews := where site.AllPages "Section" "news" }}
        {{ $localNews := where $allNews "Lang" $currentLang }}
@@ -87,7 +100,7 @@
 
     {{ range $items }}
       {{ if $isGaming }}
-        <article class="card-cyber">
+        <article class="card-base card-cyber">
           <h2><a href="{{ .Permalink }}" style="color:inherit; text-decoration:none;">{{ .Title }}</a></h2>
           {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
           <a class="btn-action" href="{{ .Permalink }}">
@@ -96,7 +109,7 @@
           <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
         </article>
       {{ else }}
-        <article class="card-pro">
+        <article class="card-base card-pro">
           <header>
             <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
           </header>
