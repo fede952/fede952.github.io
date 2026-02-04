@@ -50,7 +50,9 @@
       "Bash(git -C \"C:\\\\Users\\\\fedes\\\\dev\\\\federicosella-site\" push)",
       "Bash(find:*)",
       "Bash(python3:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(copy:*)",
+      "Bash(findstr:*)"
     ]
   }
 }
