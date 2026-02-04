@@ -1,11 +1,11 @@
 <!-- Content Security Policy - allow AdSense, Analytics, Cloudflare, Google Fonts -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://adservice.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://fundingchoicesmessages.google.com;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://adservice.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://fundingchoicesmessages.google.com https://cloud.umami.is;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: blob: https:;
   font-src 'self' https://fonts.gstatic.com;
-  connect-src 'self' https://pagead2.googlesyndication.com https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://adservice.google.com https://fundingchoicesmessages.google.com https://ipwho.is;
+  connect-src 'self' https://pagead2.googlesyndication.com https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://adservice.google.com https://fundingchoicesmessages.google.com https://ipwho.is https://cloud.umami.is;
   frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com;
 ">
 
@@ -25,6 +25,11 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- Umami Analytics (production only) -->
+{{ if hugo.IsProduction }}
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6ce4a218-111c-44d9-99f8-1aa67f2ff23d"></script>
+{{ end }}
 
 <!-- Cyber Fonts - JetBrains Mono -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

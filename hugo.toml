@@ -48,7 +48,7 @@ defaultContentLanguageInSubdir = true
   [params.profileMode]
     enabled = true
     title = "Federico Sella"
-    subtitle = "Security Developer | Red Teamer | Industrial Specialist"
+    subtitle = "Software Developer (.NET / C#) | AI Integration Specialist | Cybersecurity Enthusiast (eJPT) | Full Stack Experimenter"
     imageUrl = "images/logo.webp"
     imageTitle = "Federico Sella"
     buttons = [
