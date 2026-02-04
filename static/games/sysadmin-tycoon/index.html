@@ -108,6 +108,16 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .mob-btn{padding:9px 4px;font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all .2s}
 .mob-btn.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
 
+/* ── Control Buttons ── */
+.ctrl-bar{display:flex;gap:6px;flex-wrap:wrap}
+.ctrl-btn{padding:7px 14px;font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;border-radius:4px;cursor:pointer;transition:all .2s;border:1px solid}
+.btn-sell{background:transparent;border-color:var(--gold);color:var(--gold)}
+.btn-sell:hover{background:var(--gold);color:var(--bg)}
+.btn-sell.active{background:var(--gold);color:#000;box-shadow:0 0 10px var(--gold-g)}
+.btn-reset{background:transparent;border-color:var(--red);color:var(--red)}
+.btn-reset:hover{background:var(--red);color:#fff}
+.rack-slot.sell-highlight{border-color:var(--red) !important;box-shadow:0 0 8px rgba(255,68,68,.4) !important;cursor:crosshair !important}
+
 /* ── Modals ── */
 .modal{display:none;position:fixed;inset:0;background:rgba(8,8,12,.94);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .modal.show{display:flex}
@@ -163,6 +173,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
       <div class="res-label"><span id="lHeat"></span><span id="heatStat"></span></div>
       <div class="bar-track"><div class="bar-fill heat" id="barHeat" style="width:0"></div></div>
     </div>
+  </div>
+
+  <div class="ctrl-bar">
+    <button class="ctrl-btn btn-sell" id="btn-sell" onclick="toggleSellMode()">💰 SELL MODE</button>
+    <button class="ctrl-btn btn-reset" onclick="hardReset()">🗑 RESET</button>
   </div>
 
   <div class="game">
@@ -614,6 +629,7 @@ var G={
 var CALC={income:0,watts:0,maxW:0,heat:0,maxH:100,blackout:false,overheat:false,cryptoMul:1};
 var warnedBlack=false,warnedHeat=false,evActive=false,evTimer=null;
 var curTab='servers';
+var sellMode=false;
 
 /* ===================================================
    NUMBER FORMAT
@@ -728,6 +744,12 @@ function renderRoom(){
       var ti=slots[i];
       sl.classList.add('filled',TIER_CLASS[ti+1]||'t1');
       sl.textContent=SERVER_ICONS[ti]||'';
+      if(sellMode){
+        sl.classList.add('sell-highlight');
+        (function(serverIdx){
+          sl.addEventListener('click',function(){sellMachine(serverIdx)});
+        })(ti);
+      }
     }
     grid.appendChild(sl);
   }
@@ -886,6 +908,39 @@ function runInvestor(){
   G.cash+=bonus;G.totalEarned+=bonus;
   addLog(L.investor+' +'+fmtC(bonus),'ev');
   evActive=false;
+}
+
+/* ===================================================
+   SELL MODE / RESET
+   =================================================== */
+function hardReset(){
+  if(confirm('SYSTEM WARNING: This will wipe your server farm data permanently. Format drive C:\\... Are you sure?')){
+    localStorage.removeItem('st_state');
+    location.reload();
+  }
+}
+
+function toggleSellMode(){
+  sellMode=!sellMode;
+  var btn=$('btn-sell');
+  if(sellMode){
+    btn.classList.add('active');
+    btn.textContent='\u26A0\uFE0F CLICK MACHINE TO SELL';
+  }else{
+    btn.classList.remove('active');
+    btn.textContent='\uD83D\uDCB0 SELL MODE';
+  }
+  renderRoom();
+}
+
+function sellMachine(serverIdx){
+  var s=SERVERS[serverIdx];
+  if(!s||!G.inv[s.id])return;
+  var refund=Math.floor(itemCost(s.cost)*0.5);
+  G.cash+=refund;
+  G.inv[s.id]--;
+  addLog('Sold '+(L[s.id]||s.id)+' +'+fmtC(refund),'wr');
+  recalc();renderShop();renderRoom();updateUI();saveGame();
 }
 
 /* ===================================================

@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="error-404" style="background-color: #050505; color: #00ff41; height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Courier New', monospace; text-align: center; padding: 20px;">
+  <h1 style="font-size: 5rem; margin: 0; text-shadow: 0 0 10px #00ff41;">404</h1>
+  <p style="font-size: 1.5rem; margin-bottom: 20px;">> CRITICAL SYSTEM FAILURE_</p>
+
+  <div style="text-align: left; background: #000; border: 1px solid #333; padding: 20px; width: 100%; max-width: 600px; margin-bottom: 30px; opacity: 0.8;">
+    <p style="margin: 5px 0; color: #aaa;">> Initiating recovery protocol...</p>
+    <p style="margin: 5px 0; color: #aaa;">> Searching for signal...</p>
+    <p style="margin: 5px 0; color: #ff3333;">> Error: Target coordinates void.</p>
+    <p style="margin: 5px 0; color: #fff;">> User location: UNKNOWN SECTOR.</p>
+  </div>
+
+  <a href="/" style="background: transparent; border: 2px solid #00ff41; color: #00ff41; padding: 15px 30px; text-decoration: none; font-weight: bold; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);">
+    [ RETURN TO HOME ]
+  </a>
+
+  <style>
+    .error-404 a:hover { background: #00ff41; color: #000; box-shadow: 0 0 30px rgba(0, 255, 65, 0.8); }
+  </style>
+</div>
+{{ end }}
