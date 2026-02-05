@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON to C# Converter</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
+  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
+  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
+  --green:#00ff88;--red:#ff3355;--orange:#ff9900;
+  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
+  --border:#1e1e30;--border2:#2a2a40;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+
+.app{max-width:960px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+/* -- Header -- */
+.header{text-align:center;padding:24px 0;border-bottom:2px solid var(--cyan);position:relative}
+.header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
+.header h1{font-size:clamp(20px,4.5vw,30px);text-transform:uppercase;letter-spacing:5px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:11px;color:var(--text2);margin-top:8px;letter-spacing:2px}
+
+/* -- Editor Grid -- */
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.col{display:flex;flex-direction:column;min-width:0}
+.col-head{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--bg3);border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0}
+.col-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3)}
+
+/* -- Error Badge -- */
+.error-badge{display:none;font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(255,51,85,.15);color:var(--red);letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.error-badge.visible{display:inline-block;animation:pulse-red .8s ease infinite}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* -- Textarea -- */
+#jsonInput{flex:1;min-height:420px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:0 0 8px 8px;resize:vertical;outline:none;tab-size:2;white-space:pre;overflow:auto}
+#jsonInput:focus{border-color:var(--cyan)}
+#jsonInput.has-error{border-color:var(--red)}
+#jsonInput::placeholder{color:var(--text3)}
+
+/* -- Output Pre -- */
+#outputPre{flex:1;min-height:420px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:0 0 8px 8px;overflow:auto;margin:0;white-space:pre}
+
+/* -- Copy Button -- */
+.copy-btn{padding:4px 12px;font-family:var(--mono);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s}
+.copy-btn:hover{background:var(--cyan);color:var(--bg)}
+.copy-btn.copied{border-color:var(--green);color:var(--green)}
+
+/* -- Syntax Highlighting -- */
+.hl-kw{color:var(--magenta)}
+.hl-type{color:var(--cyan)}
+.hl-cls{color:var(--green)}
+.hl-attr{color:var(--text3)}
+.hl-cmt{color:var(--text3);font-style:italic}
+
+/* -- Empty Hint -- */
+.empty-hint{color:var(--text3);font-style:italic;letter-spacing:.5px}
+
+/* -- Responsive -- */
+@media(max-width:768px){
+  .editor-grid{grid-template-columns:1fr}
+  #jsonInput,#outputPre{min-height:300px}
+  .app{padding:12px;gap:10px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1>JSON &rarr; C#</h1>
+    <div class="sub" id="subtitle"></div>
+  </header>
+
+  <div class="editor-grid">
+    <div class="col">
+      <div class="col-head">
+        <span class="col-label" id="inputLabel"></span>
+        <span class="error-badge" id="errorBadge"></span>
+      </div>
+      <textarea id="jsonInput" spellcheck="false"></textarea>
+    </div>
+    <div class="col">
+      <div class="col-head">
+        <span class="col-label" id="outputLabel"></span>
+        <button class="copy-btn" id="copyBtn"></button>
+      </div>
+      <pre id="outputPre"><code id="csharpOutput"></code></pre>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ===================================================
+   LANGUAGE DETECTION
+   =================================================== */
+var SUPPORTED_LANGS = ['en','it','es','fr','de','pt','ru','ja','zh','hi','ar','ko'];
+
+function detectLang() {
+  var params = new URLSearchParams(window.location.search);
+  var p = (params.get('lang') || '').toLowerCase().split('-')[0];
+  if (p && SUPPORTED_LANGS.indexOf(p) !== -1) return p;
+  try {
+    var parentPath = window.parent.location.pathname || '';
+    var segs = parentPath.split('/').filter(Boolean);
+    if (segs.length > 0) {
+      var first = segs[0].toLowerCase().split('-')[0];
+      if (SUPPORTED_LANGS.indexOf(first) !== -1) return first;
+    }
+  } catch (e) {}
+  var nav = (navigator.language || '').toLowerCase().split('-')[0];
+  if (nav && SUPPORTED_LANGS.indexOf(nav) !== -1) return nav;
+  return 'en';
+}
+
+/* ===================================================
+   DICTIONARY (12 languages)
+   =================================================== */
+var DICT = {
+  en: {
+    subtitle: "Paste JSON, Get C# Classes Instantly",
+    inputLabel: "Input JSON",
+    outputLabel: "C# Output",
+    copyBtn: "Copy",
+    copiedBtn: "Copied!",
+    invalidJson: "Invalid JSON",
+    emptyHint: "Type or paste JSON to generate C# classes",
+    placeholder: "Paste your JSON here..."
+  },
+  it: {
+    subtitle: "Incolla JSON, Ottieni Classi C# Istantaneamente",
+    inputLabel: "JSON in Input",
+    outputLabel: "Output C#",
+    copyBtn: "Copia",
+    copiedBtn: "Copiato!",
+    invalidJson: "JSON Non Valido",
+    emptyHint: "Digita o incolla JSON per generare classi C#",
+    placeholder: "Incolla il tuo JSON qui..."
+  },
+  es: {
+    subtitle: "Pega JSON, Obt\u00e9n Clases C# al Instante",
+    inputLabel: "JSON de Entrada",
+    outputLabel: "Salida C#",
+    copyBtn: "Copiar",
+    copiedBtn: "\u00a1Copiado!",
+    invalidJson: "JSON Inv\u00e1lido",
+    emptyHint: "Escribe o pega JSON para generar clases C#",
+    placeholder: "Pega tu JSON aqu\u00ed..."
+  },
+  fr: {
+    subtitle: "Collez du JSON, Obtenez des Classes C#",
+    inputLabel: "JSON en Entr\u00e9e",
+    outputLabel: "Sortie C#",
+    copyBtn: "Copier",
+    copiedBtn: "Copi\u00e9\u00a0!",
+    invalidJson: "JSON Invalide",
+    emptyHint: "Tapez ou collez du JSON pour g\u00e9n\u00e9rer des classes C#",
+    placeholder: "Collez votre JSON ici..."
+  },
+  de: {
+    subtitle: "JSON einf\u00fcgen, C#-Klassen sofort erhalten",
+    inputLabel: "JSON-Eingabe",
+    outputLabel: "C#-Ausgabe",
+    copyBtn: "Kopieren",
+    copiedBtn: "Kopiert!",
+    invalidJson: "Ung\u00fcltiges JSON",
+    emptyHint: "JSON eingeben oder einf\u00fcgen, um C#-Klassen zu generieren",
+    placeholder: "JSON hier einf\u00fcgen..."
+  },
+  pt: {
+    subtitle: "Cole JSON, Obtenha Classes C# Instantaneamente",
+    inputLabel: "JSON de Entrada",
+    outputLabel: "Sa\u00edda C#",
+    copyBtn: "Copiar",
+    copiedBtn: "Copiado!",
+    invalidJson: "JSON Inv\u00e1lido",
+    emptyHint: "Digite ou cole JSON para gerar classes C#",
+    placeholder: "Cole seu JSON aqui..."
+  },
+  ru: {
+    subtitle: "\u0412\u0441\u0442\u0430\u0432\u044c\u0442\u0435 JSON, \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u0435 \u043a\u043b\u0430\u0441\u0441\u044b C#",
+    inputLabel: "\u0412\u0445\u043e\u0434\u043d\u043e\u0439 JSON",
+    outputLabel: "\u0412\u044b\u0432\u043e\u0434 C#",
+    copyBtn: "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
+    copiedBtn: "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!",
+    invalidJson: "\u041d\u0435\u0432\u0430\u043b\u0438\u0434\u043d\u044b\u0439 JSON",
+    emptyHint: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043b\u0438 \u0432\u0441\u0442\u0430\u0432\u044c\u0442\u0435 JSON \u0434\u043b\u044f \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 \u043a\u043b\u0430\u0441\u0441\u043e\u0432 C#",
+    placeholder: "\u0412\u0441\u0442\u0430\u0432\u044c\u0442\u0435 JSON \u0441\u044e\u0434\u0430..."
+  },
+  ja: {
+    subtitle: "JSON\u3092\u8cbc\u308a\u4ed8\u3051\u3066\u3001C#\u30af\u30e9\u30b9\u3092\u5373\u5ea7\u306b\u53d6\u5f97",
+    inputLabel: "\u5165\u529bJSON",
+    outputLabel: "C#\u51fa\u529b",
+    copyBtn: "\u30b3\u30d4\u30fc",
+    copiedBtn: "\u30b3\u30d4\u30fc\u6e08\u307f!",
+    invalidJson: "\u7121\u52b9\u306aJSON",
+    emptyHint: "JSON\u3092\u5165\u529b\u307e\u305f\u306f\u8cbc\u308a\u4ed8\u3051\u3066C#\u30af\u30e9\u30b9\u3092\u751f\u6210",
+    placeholder: "JSON\u3092\u3053\u3053\u306b\u8cbc\u308a\u4ed8\u3051..."
+  },
+  zh: {
+    subtitle: "\u7c98\u8d34JSON\uff0c\u5373\u65f6\u83b7\u53d6C#\u7c7b",
+    inputLabel: "\u8f93\u5165JSON",
+    outputLabel: "C#\u8f93\u51fa",
+    copyBtn: "\u590d\u5236",
+    copiedBtn: "\u5df2\u590d\u5236!",
+    invalidJson: "\u65e0\u6548JSON",
+    emptyHint: "\u8f93\u5165\u6216\u7c98\u8d34JSON\u4ee5\u751f\u6210C#\u7c7b",
+    placeholder: "\u5728\u6b64\u7c98\u8d34JSON..."
+  },
+  hi: {
+    subtitle: "JSON \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902, C# \u0915\u094d\u0932\u093e\u0938 \u0924\u0941\u0930\u0902\u0924 \u092a\u094d\u0930\u093e\u092a\u094d\u0924 \u0915\u0930\u0947\u0902",
+    inputLabel: "\u0907\u0928\u092a\u0941\u091f JSON",
+    outputLabel: "C# \u0906\u0909\u091f\u092a\u0941\u091f",
+    copyBtn: "\u0915\u0949\u092a\u0940",
+    copiedBtn: "\u0915\u0949\u092a\u0940 \u0939\u094b \u0917\u092f\u093e!",
+    invalidJson: "\u0905\u092e\u093e\u0928\u094d\u092f JSON",
+    emptyHint: "C# \u0915\u094d\u0932\u093e\u0938 \u091c\u0928\u0930\u0947\u091f \u0915\u0930\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f JSON \u091f\u093e\u0907\u092a \u092f\u093e \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902",
+    placeholder: "\u092f\u0939\u093e\u0901 JSON \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902..."
+  },
+  ar: {
+    subtitle: "\u0627\u0644\u0635\u0642 JSON\u060c \u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0641\u0626\u0627\u062a C# \u0641\u0648\u0631\u0627\u064b",
+    inputLabel: "\u0625\u062f\u062e\u0627\u0644 JSON",
+    outputLabel: "\u0645\u062e\u0631\u062c\u0627\u062a C#",
+    copyBtn: "\u0646\u0633\u062e",
+    copiedBtn: "\u062a\u0645 \u0627\u0644\u0646\u0633\u062e!",
+    invalidJson: "JSON \u063a\u064a\u0631 \u0635\u0627\u0644\u062d",
+    emptyHint: "\u0627\u0643\u062a\u0628 \u0623\u0648 \u0627\u0644\u0635\u0642 JSON \u0644\u0625\u0646\u0634\u0627\u0621 \u0641\u0626\u0627\u062a C#",
+    placeholder: "\u0627\u0644\u0635\u0642 JSON \u0647\u0646\u0627..."
+  },
+  ko: {
+    subtitle: "JSON\uc744 \ubd99\uc5ec\ub123\uace0 C# \ud074\ub798\uc2a4\ub97c \uc989\uc2dc \uc0dd\uc131",
+    inputLabel: "\uc785\ub825 JSON",
+    outputLabel: "C# \ucd9c\ub825",
+    copyBtn: "\ubcf5\uc0ac",
+    copiedBtn: "\ubcf5\uc0ac\ub428!",
+    invalidJson: "\uc798\ubabb\ub41c JSON",
+    emptyHint: "JSON\uc744 \uc785\ub825\ud558\uac70\ub098 \ubd99\uc5ec\ub123\uc5b4 C# \ud074\ub798\uc2a4\ub97c \uc0dd\uc131\ud558\uc138\uc694",
+    placeholder: "\uc5ec\uae30\uc5d0 JSON\uc744 \ubd99\uc5ec\ub123\uc73c\uc138\uc694..."
+  }
+};
+
+var curLang = detectLang();
+var T = DICT[curLang] || DICT.en;
+
+/* ===================================================
+   DOM HELPERS
+   =================================================== */
+function $(id) { return document.getElementById(id) }
+
+/* ===================================================
+   APPLY LANGUAGE TO UI
+   =================================================== */
+$('subtitle').textContent = T.subtitle;
+$('inputLabel').textContent = T.inputLabel;
+$('outputLabel').textContent = T.outputLabel;
+$('copyBtn').textContent = T.copyBtn;
+$('errorBadge').textContent = T.invalidJson;
+$('jsonInput').placeholder = T.placeholder;
+
+/* ===================================================
+   SAMPLE JSON
+   =================================================== */
+var SAMPLE = JSON.stringify({
+  "id": 1,
+  "full_name": "John Doe",
+  "email": "john@example.com",
+  "is_active": true,
+  "created_at": "2024-01-15T10:30:00Z",
+  "balance": 150.75,
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "zip_code": "10001"
+  },
+  "tags": ["developer", "admin"],
+  "orders": [
+    {
+      "order_id": 1001,
+      "total": 29.99
+    }
+  ]
+}, null, 2);
+
+/* ===================================================
+   STATE
+   =================================================== */
+var lastPlainCode = '';
+
+/* ===================================================
+   C# GENERATION LOGIC
+   =================================================== */
+function toPascalCase(str) {
+  var result = str
+    .replace(/[^a-zA-Z0-9]+(.)?/g, function (_, c) { return c ? c.toUpperCase() : '' })
+    .replace(/^(.)/, function (c) { return c.toUpperCase() });
+  if (!result) return 'Property';
+  if (/^[0-9]/.test(result)) result = '_' + result;
+  return result;
+}
+
+function singularize(name) {
+  if (name.length <= 2) return name + 'Item';
+  if (name.endsWith('ies')) return name.slice(0, -3) + 'y';
+  if (name.endsWith('ses') || name.endsWith('xes') || name.endsWith('zes') ||
+      name.endsWith('ches') || name.endsWith('shes')) return name.slice(0, -2);
+  if (name.endsWith('s') && !name.endsWith('ss') && !name.endsWith('us')) return name.slice(0, -1);
+  return name + 'Item';
+}
+
+function isDateString(val) {
+  if (typeof val !== 'string') return false;
+  return /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:?\d{2})?)?$/.test(val);
+}
+
+function generateCSharp(jsonStr) {
+  var parsed;
+  try {
+    parsed = JSON.parse(jsonStr);
+  } catch (e) {
+    return { error: e.message, code: '' };
+  }
+
+  if (typeof parsed !== 'object' || parsed === null) {
+    return { error: null, code: '// JSON root must be an object or array of objects' };
+  }
+
+  var classes = [];
+  var classNames = {};
+  var usesLists = false;
+  var usesDateTime = false;
+
+  function getUniqueName(baseName) {
+    if (!classNames[baseName]) {
+      classNames[baseName] = 1;
+      return baseName;
+    }
+    classNames[baseName]++;
+    return baseName + classNames[baseName];
+  }
+
+  function mergeArrayObjects(arr) {
+    var merged = {};
+    arr.forEach(function (item) {
+      if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
+        for (var key in item) {
+          if (!item.hasOwnProperty(key)) continue;
+          if (!(key in merged) || merged[key] === null || merged[key] === undefined) {
+            merged[key] = item[key];
+          }
+        }
+      }
+    });
+    return merged;
+  }
+
+  function getCSharpType(val, propNamePascal) {
+    if (val === null || val === undefined) return 'object';
+    if (typeof val === 'boolean') return 'bool';
+    if (typeof val === 'number') {
+      if (Number.isInteger(val)) {
+        if (val >= -2147483648 && val <= 2147483647) return 'int';
+        return 'long';
+      }
+      return 'double';
+    }
+    if (typeof val === 'string') {
+      if (isDateString(val)) { usesDateTime = true; return 'DateTime'; }
+      return 'string';
+    }
+    if (Array.isArray(val)) {
+      usesLists = true;
+      if (val.length === 0) return 'List<object>';
+      var first = val[0];
+      if (first !== null && typeof first === 'object' && !Array.isArray(first)) {
+        var elemClassName = singularize(propNamePascal);
+        elemClassName = getUniqueName(elemClassName);
+        var merged = mergeArrayObjects(val);
+        processObject(merged, elemClassName);
+        return 'List<' + elemClassName + '>';
+      }
+      var elemType = getCSharpType(first, propNamePascal);
+      return 'List<' + elemType + '>';
+    }
+    if (typeof val === 'object') {
+      var nestedClassName = getUniqueName(propNamePascal);
+      processObject(val, nestedClassName);
+      return nestedClassName;
+    }
+    return 'object';
+  }
+
+  function processObject(obj, className) {
+    var properties = [];
+    for (var key in obj) {
+      if (!obj.hasOwnProperty(key)) continue;
+      var pascalName = toPascalCase(key);
+      var csType = getCSharpType(obj[key], pascalName);
+      properties.push({ jsonKey: key, name: pascalName, type: csType });
+    }
+    classes.push({ name: className, properties: properties });
+  }
+
+  classNames['Root'] = 1;
+  var isRootArray = false;
+
+  if (Array.isArray(parsed)) {
+    isRootArray = true;
+    if (parsed.length > 0) {
+      var merged = mergeArrayObjects(parsed);
+      if (Object.keys(merged).length > 0) {
+        processObject(merged, 'Root');
+      }
+    }
+  } else {
+    processObject(parsed, 'Root');
+  }
+
+  classes.reverse();
+
+  /* Format output */
+  var lines = [];
+  if (usesLists) lines.push('using System.Collections.Generic;');
+  lines.push('using System.Text.Json.Serialization;');
+  lines.push('');
+  if (isRootArray) lines.push('// Deserialize as: List<Root>');
+
+  classes.forEach(function (cls, idx) {
+    if (idx > 0 || isRootArray) lines.push('');
+    lines.push('public class ' + cls.name);
+    lines.push('{');
+    cls.properties.forEach(function (prop, pIdx) {
+      if (pIdx > 0) lines.push('');
+      lines.push('    [JsonPropertyName("' + prop.jsonKey + '")]');
+      lines.push('    public ' + prop.type + ' ' + prop.name + ' { get; set; }');
+    });
+    lines.push('}');
+  });
+
+  return { error: null, code: lines.join('\n') };
+}
+
+/* ===================================================
+   SYNTAX HIGHLIGHTING
+   =================================================== */
+function highlightType(type) {
+  var primitives = ['string','int','long','double','bool','object','DateTime','Guid','void'];
+  var listMatch = type.match(/^List<(.+)>$/);
+  if (listMatch) {
+    var inner = highlightType(listMatch[1]);
+    return '<span class="hl-type">List</span>&lt;' + inner + '&gt;';
+  }
+  if (primitives.indexOf(type) !== -1) return '<span class="hl-type">' + type + '</span>';
+  return '<span class="hl-cls">' + type + '</span>';
+}
+
+function highlightCSharp(code) {
+  return code.split('\n').map(function (line) {
+    /* Comments */
+    if (line.trimStart().indexOf('//') === 0) {
+      return '<span class="hl-cmt">' + line.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>';
+    }
+    /* Using */
+    if (line.indexOf('using ') === 0) {
+      return '<span class="hl-kw">using</span>' + line.slice(5).replace(/</g, '&lt;').replace(/>/g, '&gt;') + ';'.slice(0, 0);
+    }
+    /* Class declaration */
+    var clsMatch = line.match(/^(public class )(\w+)$/);
+    if (clsMatch) {
+      return '<span class="hl-kw">public</span> <span class="hl-kw">class</span> <span class="hl-cls">' + clsMatch[2] + '</span>';
+    }
+    /* Attribute */
+    if (line.indexOf('[JsonPropertyName') !== -1) {
+      return line.replace(/(\s*)(\[JsonPropertyName\(")([^"]*)("\)\])/, '$1<span class="hl-attr">$2$3$4</span>');
+    }
+    /* Property line */
+    var propMatch = line.match(/^(\s*)(public )(\S+)( )(\w+)( \{ get; set; \})$/);
+    if (propMatch) {
+      var hlType = highlightType(propMatch[3]);
+      return propMatch[1] + '<span class="hl-kw">public</span> ' + hlType + ' ' + propMatch[5] + ' { <span class="hl-kw">get</span>; <span class="hl-kw">set</span>; }';
+    }
+    return line;
+  }).join('\n');
+}
+
+/* ===================================================
+   CONVERT
+   =================================================== */
+function convert() {
+  var input = $('jsonInput').value.trim();
+
+  if (!input) {
+    $('errorBadge').classList.remove('visible');
+    $('jsonInput').classList.remove('has-error');
+    $('csharpOutput').innerHTML = '<span class="empty-hint">' + T.emptyHint + '</span>';
+    lastPlainCode = '';
+    return;
+  }
+
+  var result = generateCSharp(input);
+
+  if (result.error) {
+    $('errorBadge').classList.add('visible');
+    $('jsonInput').classList.add('has-error');
+    $('csharpOutput').innerHTML = '<span class="hl-cmt">// ' + result.error.replace(/</g, '&lt;') + '</span>';
+    lastPlainCode = '';
+    return;
+  }
+
+  $('errorBadge').classList.remove('visible');
+  $('jsonInput').classList.remove('has-error');
+  lastPlainCode = result.code;
+  $('csharpOutput').innerHTML = highlightCSharp(result.code);
+}
+
+/* ===================================================
+   EVENT HANDLERS
+   =================================================== */
+var debounceTimer;
+$('jsonInput').addEventListener('input', function () {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(convert, 120);
+});
+
+/* Tab key inserts spaces */
+$('jsonInput').addEventListener('keydown', function (e) {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    var start = this.selectionStart;
+    var end = this.selectionEnd;
+    this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
+    this.selectionStart = this.selectionEnd = start + 2;
+  }
+});
+
+/* Copy button */
+$('copyBtn').addEventListener('click', function () {
+  if (!lastPlainCode) return;
+  var btn = $('copyBtn');
+  navigator.clipboard.writeText(lastPlainCode).then(function () {
+    btn.textContent = T.copiedBtn;
+    btn.classList.add('copied');
+    setTimeout(function () {
+      btn.textContent = T.copyBtn;
+      btn.classList.remove('copied');
+    }, 1500);
+  });
+});
+
+/* ===================================================
+   INIT
+   =================================================== */
+$('jsonInput').value = SAMPLE;
+convert();
+</script>
+<script>
+/* AUTO-RESIZE SENDER */
+(function () {
+  function sendHeight() {
+    var h = document.body.scrollHeight;
+    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
+  }
+  document.documentElement.style.height = 'auto';
+  document.body.style.height = 'auto';
+  document.body.style.minHeight = '0';
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steganography Lab</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
+  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
+  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
+  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
+  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
+  --border:#1e1e30;--border2:#2a2a40;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+
+.app{max-width:900px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+/* -- Header -- */
+.header{text-align:center;padding:24px 0;border-bottom:2px solid var(--cyan);position:relative}
+.header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
+.header h1{font-size:clamp(20px,4.5vw,30px);text-transform:uppercase;letter-spacing:5px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:11px;color:var(--text2);margin-top:8px;letter-spacing:2px}
+
+/* -- Tabs -- */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border)}
+.tab-btn{flex:1;padding:12px 20px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-bottom:none;cursor:pointer;transition:all .2s;border-radius:8px 8px 0 0;position:relative}
+.tab-btn:hover{background:var(--bg3);color:var(--text)}
+.tab-btn.active{background:var(--bg3);color:var(--cyan);border-color:var(--cyan)}
+.tab-btn.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--cyan)}
+
+/* -- Tab Content -- */
+.tab-content{display:none;padding:20px 0}
+.tab-content.active{display:block}
+
+/* -- Panel -- */
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
+.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.panel-title::before{content:'';flex:1;height:1px;background:var(--border)}
+.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* -- Drop Zone -- */
+.drop-zone{border:2px dashed var(--border2);border-radius:8px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg3);position:relative;overflow:hidden}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--cyan);background:var(--cyan-glow)}
+.drop-zone-icon{font-size:36px;margin-bottom:12px;opacity:0.5}
+.drop-zone-text{font-size:12px;color:var(--text2);letter-spacing:1px}
+.drop-zone-hint{font-size:10px;color:var(--text3);margin-top:8px}
+.drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* -- Preview -- */
+.preview-container{margin-top:16px;text-align:center;display:none}
+.preview-container.visible{display:block}
+.preview-canvas{max-width:100%;max-height:300px;border:1px solid var(--border);border-radius:4px;background:repeating-conic-gradient(var(--bg3) 0% 25%, var(--bg2) 0% 50%) 50% / 20px 20px}
+.image-info{font-size:10px;color:var(--text3);margin-top:8px;letter-spacing:1px}
+
+/* -- Textarea -- */
+.secret-input{width:100%;min-height:120px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:8px;resize:vertical;outline:none;margin-top:16px}
+.secret-input:focus{border-color:var(--cyan)}
+.secret-input::placeholder{color:var(--text3)}
+
+/* -- Capacity Bar -- */
+.capacity-bar{margin-top:16px;display:none}
+.capacity-bar.visible{display:block}
+.capacity-label{font-size:10px;color:var(--text2);display:flex;justify-content:space-between;margin-bottom:6px}
+.capacity-track{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.capacity-fill{height:100%;background:var(--green);transition:width .3s ease,background .3s ease;border-radius:3px}
+.capacity-fill.warning{background:var(--orange)}
+.capacity-fill.danger{background:var(--red)}
+
+/* -- Buttons -- */
+.btn{padding:12px 28px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
+.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn-primary:disabled{opacity:0.4;cursor:not-allowed;box-shadow:none}
+.btn-secondary{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
+.btn-secondary:hover{background:var(--cyan-glow)}
+.btn-group{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+
+/* -- Status Messages -- */
+.status{margin-top:16px;padding:12px 16px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
+.status.visible{display:block}
+.status.success{background:rgba(0,255,136,.1);border:1px solid var(--green);color:var(--green)}
+.status.error{background:rgba(255,51,85,.1);border:1px solid var(--red);color:var(--red)}
+.status.info{background:var(--cyan-glow);border:1px solid var(--cyan);color:var(--cyan)}
+
+/* -- Revealed Text -- */
+.revealed-text{width:100%;min-height:150px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--bg3);color:var(--green);border:1px solid var(--green);border-radius:8px;margin-top:16px;display:none;white-space:pre-wrap;word-break:break-all}
+.revealed-text.visible{display:block}
+
+/* -- Responsive -- */
+@media(max-width:600px){
+  .app{padding:12px}
+  .panel{padding:16px}
+  .drop-zone{padding:30px 16px}
+  .btn{padding:10px 20px;font-size:10px}
+  .btn-group{flex-direction:column}
+  .btn-group .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1 id="mainTitle">Steganography Lab</h1>
+    <div class="sub" id="subtitle"></div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="hide" id="tabHide"></button>
+    <button class="tab-btn" data-tab="reveal" id="tabReveal"></button>
+  </div>
+
+  <!-- HIDE TAB -->
+  <div class="tab-content active" id="hideTab">
+    <div class="panel">
+      <div class="panel-title" id="hideStepLabel"></div>
+
+      <div class="drop-zone" id="hideDropZone">
+        <div class="drop-zone-icon">&#128444;</div>
+        <div class="drop-zone-text" id="hideDropText"></div>
+        <div class="drop-zone-hint" id="hideDropHint"></div>
+        <input type="file" accept="image/*" id="hideFileInput">
+      </div>
+
+      <div class="preview-container" id="hidePreview">
+        <canvas id="hideCanvas" class="preview-canvas"></canvas>
+        <div class="image-info" id="hideImageInfo"></div>
+      </div>
+
+      <textarea class="secret-input" id="secretText" maxlength="100000"></textarea>
+
+      <div class="capacity-bar" id="capacityBar">
+        <div class="capacity-label">
+          <span id="capacityLabel"></span>
+          <span id="capacityValue">0 / 0</span>
+        </div>
+        <div class="capacity-track">
+          <div class="capacity-fill" id="capacityFill"></div>
+        </div>
+      </div>
+
+      <div class="status" id="hideStatus"></div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" id="encodeBtn" disabled></button>
+        <button class="btn btn-secondary" id="resetHideBtn"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVEAL TAB -->
+  <div class="tab-content" id="revealTab">
+    <div class="panel">
+      <div class="panel-title" id="revealStepLabel"></div>
+
+      <div class="drop-zone" id="revealDropZone">
+        <div class="drop-zone-icon">&#128270;</div>
+        <div class="drop-zone-text" id="revealDropText"></div>
+        <div class="drop-zone-hint" id="revealDropHint"></div>
+        <input type="file" accept="image/png" id="revealFileInput">
+      </div>
+
+      <div class="preview-container" id="revealPreview">
+        <canvas id="revealCanvas" class="preview-canvas"></canvas>
+        <div class="image-info" id="revealImageInfo"></div>
+      </div>
+
+      <div class="status" id="revealStatus"></div>
+
+      <div class="revealed-text" id="revealedText"></div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" id="decodeBtn" disabled></button>
+        <button class="btn btn-secondary" id="copyRevealedBtn" style="display:none"></button>
+        <button class="btn btn-secondary" id="resetRevealBtn"></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ===================================================
+   LANGUAGE DETECTION
+   =================================================== */
+var SUPPORTED_LANGS = ['en','it','es','fr','de','pt','ru','ja','zh','hi','ar','ko'];
+
+function detectLang() {
+  var params = new URLSearchParams(window.location.search);
+  var p = (params.get('lang') || '').toLowerCase().split('-')[0];
+  if (p && SUPPORTED_LANGS.indexOf(p) !== -1) return p;
+  try {
+    var parentPath = window.parent.location.pathname || '';
+    var segs = parentPath.split('/').filter(Boolean);
+    if (segs.length > 0) {
+      var first = segs[0].toLowerCase().split('-')[0];
+      if (SUPPORTED_LANGS.indexOf(first) !== -1) return first;
+    }
+  } catch (e) {}
+  var nav = (navigator.language || '').toLowerCase().split('-')[0];
+  if (nav && SUPPORTED_LANGS.indexOf(nav) !== -1) return nav;
+  return 'en';
+}
+
+/* ===================================================
+   DICTIONARY (12 languages)
+   =================================================== */
+var DICT = {
+  en: {
+    title: "Steganography Lab",
+    subtitle: "Hide Secret Messages Inside Images",
+    tabHide: "Hide Message",
+    tabReveal: "Reveal Message",
+    hideStep: "Step 1: Load Image & Enter Secret",
+    revealStep: "Load Encoded Image",
+    dropText: "Drop an image here or click to browse",
+    dropHint: "Supports JPG, PNG, WebP, GIF",
+    dropTextReveal: "Drop a PNG image with hidden message",
+    dropHintReveal: "Only PNG files preserve LSB data",
+    placeholder: "Enter your secret message here...",
+    capacity: "Capacity",
+    encodeBtn: "Encode & Download PNG",
+    decodeBtn: "Decode Hidden Message",
+    resetBtn: "Reset",
+    copyBtn: "Copy Text",
+    copied: "Copied!",
+    successEncode: "Message encoded! Downloading PNG...",
+    successDecode: "Hidden message found!",
+    errorNoImage: "Please load an image first",
+    errorNoMessage: "Please enter a message to hide",
+    errorTooLong: "Message exceeds image capacity",
+    errorNoHidden: "No hidden message found in this image",
+    errorInvalidPng: "Please use a PNG image for decoding",
+    imageInfo: "{w} x {h} px | Capacity: ~{c} characters"
+  },
+  it: {
+    title: "Laboratorio Steganografia",
+    subtitle: "Nascondi Messaggi Segreti nelle Immagini",
+    tabHide: "Nascondi Messaggio",
+    tabReveal: "Rivela Messaggio",
+    hideStep: "Passo 1: Carica Immagine e Inserisci Segreto",
+    revealStep: "Carica Immagine Codificata",
+    dropText: "Trascina un'immagine qui o clicca per sfogliare",
+    dropHint: "Supporta JPG, PNG, WebP, GIF",
+    dropTextReveal: "Trascina un'immagine PNG con messaggio nascosto",
+    dropHintReveal: "Solo i file PNG preservano i dati LSB",
+    placeholder: "Inserisci il tuo messaggio segreto qui...",
+    capacity: "Capacita",
+    encodeBtn: "Codifica e Scarica PNG",
+    decodeBtn: "Decodifica Messaggio Nascosto",
+    resetBtn: "Reset",
+    copyBtn: "Copia Testo",
+    copied: "Copiato!",
+    successEncode: "Messaggio codificato! Download PNG...",
+    successDecode: "Messaggio nascosto trovato!",
+    errorNoImage: "Carica prima un'immagine",
+    errorNoMessage: "Inserisci un messaggio da nascondere",
+    errorTooLong: "Il messaggio supera la capacita dell'immagine",
+    errorNoHidden: "Nessun messaggio nascosto in questa immagine",
+    errorInvalidPng: "Usa un'immagine PNG per la decodifica",
+    imageInfo: "{w} x {h} px | Capacita: ~{c} caratteri"
+  },
+  es: {
+    title: "Laboratorio Esteganografia",
+    subtitle: "Oculta Mensajes Secretos en Imagenes",
+    tabHide: "Ocultar Mensaje",
+    tabReveal: "Revelar Mensaje",
+    hideStep: "Paso 1: Cargar Imagen e Ingresar Secreto",
+    revealStep: "Cargar Imagen Codificada",
+    dropText: "Suelta una imagen aqui o haz clic para buscar",
+    dropHint: "Soporta JPG, PNG, WebP, GIF",
+    dropTextReveal: "Suelta una imagen PNG con mensaje oculto",
+    dropHintReveal: "Solo los PNG preservan datos LSB",
+    placeholder: "Ingresa tu mensaje secreto aqui...",
+    capacity: "Capacidad",
+    encodeBtn: "Codificar y Descargar PNG",
+    decodeBtn: "Decodificar Mensaje Oculto",
+    resetBtn: "Reiniciar",
+    copyBtn: "Copiar Texto",
+    copied: "Copiado!",
+    successEncode: "Mensaje codificado! Descargando PNG...",
+    successDecode: "Mensaje oculto encontrado!",
+    errorNoImage: "Por favor carga una imagen primero",
+    errorNoMessage: "Por favor ingresa un mensaje para ocultar",
+    errorTooLong: "El mensaje excede la capacidad de la imagen",
+    errorNoHidden: "No se encontro mensaje oculto en esta imagen",
+    errorInvalidPng: "Por favor usa una imagen PNG para decodificar",
+    imageInfo: "{w} x {h} px | Capacidad: ~{c} caracteres"
+  },
+  fr: {
+    title: "Laboratoire Steganographie",
+    subtitle: "Cachez des Messages Secrets dans les Images",
+    tabHide: "Cacher Message",
+    tabReveal: "Reveler Message",
+    hideStep: "Etape 1: Charger Image et Entrer Secret",
+    revealStep: "Charger Image Encodee",
+    dropText: "Deposez une image ici ou cliquez pour parcourir",
+    dropHint: "Supporte JPG, PNG, WebP, GIF",
+    dropTextReveal: "Deposez une image PNG avec message cache",
+    dropHintReveal: "Seuls les PNG preservent les donnees LSB",
+    placeholder: "Entrez votre message secret ici...",
+    capacity: "Capacite",
+    encodeBtn: "Encoder et Telecharger PNG",
+    decodeBtn: "Decoder Message Cache",
+    resetBtn: "Reinitialiser",
+    copyBtn: "Copier Texte",
+    copied: "Copie!",
+    successEncode: "Message encode! Telechargement PNG...",
+    successDecode: "Message cache trouve!",
+    errorNoImage: "Veuillez d'abord charger une image",
+    errorNoMessage: "Veuillez entrer un message a cacher",
+    errorTooLong: "Le message depasse la capacite de l'image",
+    errorNoHidden: "Aucun message cache trouve dans cette image",
+    errorInvalidPng: "Veuillez utiliser une image PNG pour decoder",
+    imageInfo: "{w} x {h} px | Capacite: ~{c} caracteres"
+  },
+  de: {
+    title: "Steganographie Labor",
+    subtitle: "Verstecke Geheime Nachrichten in Bildern",
+    tabHide: "Nachricht Verstecken",
+    tabReveal: "Nachricht Enthullen",
+    hideStep: "Schritt 1: Bild Laden und Geheimnis Eingeben",
+    revealStep: "Kodiertes Bild Laden",
+    dropText: "Bild hier ablegen oder klicken zum Durchsuchen",
+    dropHint: "Unterstutzt JPG, PNG, WebP, GIF",
+    dropTextReveal: "PNG-Bild mit versteckter Nachricht ablegen",
+    dropHintReveal: "Nur PNG-Dateien erhalten LSB-Daten",
+    placeholder: "Geben Sie hier Ihre geheime Nachricht ein...",
+    capacity: "Kapazitat",
+    encodeBtn: "Kodieren und PNG Herunterladen",
+    decodeBtn: "Versteckte Nachricht Dekodieren",
+    resetBtn: "Zurucksetzen",
+    copyBtn: "Text Kopieren",
+    copied: "Kopiert!",
+    successEncode: "Nachricht kodiert! PNG wird heruntergeladen...",
+    successDecode: "Versteckte Nachricht gefunden!",
+    errorNoImage: "Bitte laden Sie zuerst ein Bild",
+    errorNoMessage: "Bitte geben Sie eine Nachricht zum Verstecken ein",
+    errorTooLong: "Nachricht uberschreitet Bildkapazitat",
+    errorNoHidden: "Keine versteckte Nachricht in diesem Bild gefunden",
+    errorInvalidPng: "Bitte verwenden Sie ein PNG-Bild zum Dekodieren",
+    imageInfo: "{w} x {h} px | Kapazitat: ~{c} Zeichen"
+  },
+  pt: {
+    title: "Laboratorio Esteganografia",
+    subtitle: "Esconda Mensagens Secretas em Imagens",
+    tabHide: "Esconder Mensagem",
+    tabReveal: "Revelar Mensagem",
+    hideStep: "Passo 1: Carregar Imagem e Inserir Segredo",
+    revealStep: "Carregar Imagem Codificada",
+    dropText: "Solte uma imagem aqui ou clique para navegar",
+    dropHint: "Suporta JPG, PNG, WebP, GIF",
+    dropTextReveal: "Solte uma imagem PNG com mensagem oculta",
+    dropHintReveal: "Apenas PNGs preservam dados LSB",
+    placeholder: "Digite sua mensagem secreta aqui...",
+    capacity: "Capacidade",
+    encodeBtn: "Codificar e Baixar PNG",
+    decodeBtn: "Decodificar Mensagem Oculta",
+    resetBtn: "Redefinir",
+    copyBtn: "Copiar Texto",
+    copied: "Copiado!",
+    successEncode: "Mensagem codificada! Baixando PNG...",
+    successDecode: "Mensagem oculta encontrada!",
+    errorNoImage: "Por favor carregue uma imagem primeiro",
+    errorNoMessage: "Por favor digite uma mensagem para esconder",
+    errorTooLong: "Mensagem excede capacidade da imagem",
+    errorNoHidden: "Nenhuma mensagem oculta encontrada nesta imagem",
+    errorInvalidPng: "Por favor use uma imagem PNG para decodificar",
+    imageInfo: "{w} x {h} px | Capacidade: ~{c} caracteres"
+  },
+  ru: {
+    title: "\u041b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u0438\u044f \u0421\u0442\u0435\u0433\u0430\u043d\u043e\u0433\u0440\u0430\u0444\u0438\u0438",
+    subtitle: "\u0421\u043a\u0440\u044b\u0432\u0430\u0439\u0442\u0435 \u0421\u0435\u043a\u0440\u0435\u0442\u043d\u044b\u0435 \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f \u0432 \u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f\u0445",
+    tabHide: "\u0421\u043a\u0440\u044b\u0442\u044c \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435",
+    tabReveal: "\u0420\u0430\u0441\u043a\u0440\u044b\u0442\u044c \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435",
+    hideStep: "\u0428\u0430\u0433 1: \u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u0438 \u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0421\u0435\u043a\u0440\u0435\u0442",
+    revealStep: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0417\u0430\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+    dropText: "\u041f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u0441\u044e\u0434\u0430 \u0438\u043b\u0438 \u043d\u0430\u0436\u043c\u0438\u0442\u0435 \u0434\u043b\u044f \u0432\u044b\u0431\u043e\u0440\u0430",
+    dropHint: "\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 JPG, PNG, WebP, GIF",
+    dropTextReveal: "\u041f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 PNG \u0441 \u0441\u043a\u0440\u044b\u0442\u044b\u043c \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435\u043c",
+    dropHintReveal: "\u0422\u043e\u043b\u044c\u043a\u043e PNG \u0441\u043e\u0445\u0440\u0430\u043d\u044f\u044e\u0442 LSB-\u0434\u0430\u043d\u043d\u044b\u0435",
+    placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432\u0430\u0448\u0435 \u0441\u0435\u043a\u0440\u0435\u0442\u043d\u043e\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u0437\u0434\u0435\u0441\u044c...",
+    capacity: "\u0415\u043c\u043a\u043e\u0441\u0442\u044c",
+    encodeBtn: "\u0417\u0430\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0438 \u0421\u043a\u0430\u0447\u0430\u0442\u044c PNG",
+    decodeBtn: "\u0414\u0435\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0421\u043a\u0440\u044b\u0442\u043e\u0435 \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435",
+    resetBtn: "\u0421\u0431\u0440\u043e\u0441",
+    copyBtn: "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0422\u0435\u043a\u0441\u0442",
+    copied: "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!",
+    successEncode: "\u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u0437\u0430\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u043e! \u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430 PNG...",
+    successDecode: "\u0421\u043a\u0440\u044b\u0442\u043e\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e!",
+    errorNoImage: "\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0441\u043d\u0430\u0447\u0430\u043b\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+    errorNoMessage: "\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u0434\u043b\u044f \u0441\u043a\u0440\u044b\u0442\u0438\u044f",
+    errorTooLong: "\u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u043f\u0440\u0435\u0432\u044b\u0448\u0430\u0435\u0442 \u0435\u043c\u043a\u043e\u0441\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f",
+    errorNoHidden: "\u0421\u043a\u0440\u044b\u0442\u043e\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0432 \u044d\u0442\u043e\u043c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0438",
+    errorInvalidPng: "\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 PNG \u0434\u043b\u044f \u0434\u0435\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f",
+    imageInfo: "{w} x {h} px | \u0415\u043c\u043a\u043e\u0441\u0442\u044c: ~{c} \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432"
+  },
+  ja: {
+    title: "\u30b9\u30c6\u30ac\u30ce\u30b0\u30e9\u30d5\u30a3\u30fc\u30e9\u30dc",
+    subtitle: "\u753b\u50cf\u306b\u79d8\u5bc6\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u96a0\u3059",
+    tabHide: "\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u96a0\u3059",
+    tabReveal: "\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u660e\u304b\u3059",
+    hideStep: "\u30b9\u30c6\u30c3\u30d71: \u753b\u50cf\u3092\u8aad\u307f\u8fbc\u307f\u3001\u79d8\u5bc6\u3092\u5165\u529b",
+    revealStep: "\u30a8\u30f3\u30b3\u30fc\u30c9\u6e08\u307f\u753b\u50cf\u3092\u8aad\u307f\u8fbc\u307f",
+    dropText: "\u3053\u3053\u306b\u753b\u50cf\u3092\u30c9\u30ed\u30c3\u30d7\u307e\u305f\u306f\u30af\u30ea\u30c3\u30af\u3067\u53c2\u7167",
+    dropHint: "JPG, PNG, WebP, GIF\u5bfe\u5fdc",
+    dropTextReveal: "\u96a0\u3057\u30e1\u30c3\u30bb\u30fc\u30b8\u4ed8\u304dPNG\u3092\u30c9\u30ed\u30c3\u30d7",
+    dropHintReveal: "PNG\u306e\u307f\u304cLSB\u30c7\u30fc\u30bf\u3092\u4fdd\u6301",
+    placeholder: "\u3053\u3053\u306b\u79d8\u5bc6\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u5165\u529b...",
+    capacity: "\u5bb9\u91cf",
+    encodeBtn: "\u30a8\u30f3\u30b3\u30fc\u30c9\u3057\u3066PNG\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9",
+    decodeBtn: "\u96a0\u3057\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u30c7\u30b3\u30fc\u30c9",
+    resetBtn: "\u30ea\u30bb\u30c3\u30c8",
+    copyBtn: "\u30c6\u30ad\u30b9\u30c8\u3092\u30b3\u30d4\u30fc",
+    copied: "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f!",
+    successEncode: "\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u30a8\u30f3\u30b3\u30fc\u30c9\u3057\u307e\u3057\u305f! PNG\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u4e2d...",
+    successDecode: "\u96a0\u3057\u30e1\u30c3\u30bb\u30fc\u30b8\u304c\u898b\u3064\u304b\u308a\u307e\u3057\u305f!",
+    errorNoImage: "\u5148\u306b\u753b\u50cf\u3092\u8aad\u307f\u8fbc\u3093\u3067\u304f\u3060\u3055\u3044",
+    errorNoMessage: "\u96a0\u3059\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044",
+    errorTooLong: "\u30e1\u30c3\u30bb\u30fc\u30b8\u304c\u753b\u50cf\u306e\u5bb9\u91cf\u3092\u8d85\u3048\u3066\u3044\u307e\u3059",
+    errorNoHidden: "\u3053\u306e\u753b\u50cf\u306b\u96a0\u3057\u30e1\u30c3\u30bb\u30fc\u30b8\u306f\u3042\u308a\u307e\u305b\u3093",
+    errorInvalidPng: "\u30c7\u30b3\u30fc\u30c9\u306b\u306fPNG\u753b\u50cf\u3092\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044",
+    imageInfo: "{w} x {h} px | \u5bb9\u91cf: \u7d04{c}\u6587\u5b57"
+  },
+  zh: {
+    title: "\u96b1\u5199\u672f\u5b9e\u9a8c\u5ba4",
+    subtitle: "\u5728\u56fe\u50cf\u4e2d\u96b1\u85cf\u79d8\u5bc6\u4fe1\u606f",
+    tabHide: "\u96b1\u85cf\u4fe1\u606f",
+    tabReveal: "\u63ed\u793a\u4fe1\u606f",
+    hideStep: "\u6b65\u9aa41: \u52a0\u8f7d\u56fe\u50cf\u5e76\u8f93\u5165\u79d8\u5bc6",
+    revealStep: "\u52a0\u8f7d\u7f16\u7801\u56fe\u50cf",
+    dropText: "\u62d6\u653e\u56fe\u50cf\u6216\u70b9\u51fb\u6d4f\u89c8",
+    dropHint: "\u652f\u6301 JPG, PNG, WebP, GIF",
+    dropTextReveal: "\u62d6\u653e\u5305\u542b\u96b1\u85cf\u4fe1\u606f\u7684PNG",
+    dropHintReveal: "\u53ea\u6709PNG\u4fdd\u7559LSB\u6570\u636e",
+    placeholder: "\u5728\u6b64\u8f93\u5165\u60a8\u7684\u79d8\u5bc6\u4fe1\u606f...",
+    capacity: "\u5bb9\u91cf",
+    encodeBtn: "\u7f16\u7801\u5e76\u4e0b\u8f7dPNG",
+    decodeBtn: "\u89e3\u7801\u96b1\u85cf\u4fe1\u606f",
+    resetBtn: "\u91cd\u7f6e",
+    copyBtn: "\u590d\u5236\u6587\u672c",
+    copied: "\u5df2\u590d\u5236!",
+    successEncode: "\u4fe1\u606f\u5df2\u7f16\u7801! \u6b63\u5728\u4e0b\u8f7dPNG...",
+    successDecode: "\u627e\u5230\u96b1\u85cf\u4fe1\u606f!",
+    errorNoImage: "\u8bf7\u5148\u52a0\u8f7d\u56fe\u50cf",
+    errorNoMessage: "\u8bf7\u8f93\u5165\u8981\u96b1\u85cf\u7684\u4fe1\u606f",
+    errorTooLong: "\u4fe1\u606f\u8d85\u8fc7\u56fe\u50cf\u5bb9\u91cf",
+    errorNoHidden: "\u6b64\u56fe\u50cf\u4e2d\u672a\u627e\u5230\u96b1\u85cf\u4fe1\u606f",
+    errorInvalidPng: "\u8bf7\u4f7f\u7528PNG\u56fe\u50cf\u8fdb\u884c\u89e3\u7801",
+    imageInfo: "{w} x {h} px | \u5bb9\u91cf: \u7ea6{c}\u5b57\u7b26"
+  },
+  hi: {
+    title: "\u0938\u094d\u091f\u0947\u0917\u0928\u094b\u0917\u094d\u0930\u093e\u092b\u0940 \u0932\u0948\u092c",
+    subtitle: "\u091b\u0935\u093f\u092f\u094b\u0902 \u092e\u0947\u0902 \u0917\u0941\u092a\u094d\u0924 \u0938\u0902\u0926\u0947\u0936 \u091b\u0941\u092a\u093e\u090f\u0902",
+    tabHide: "\u0938\u0902\u0926\u0947\u0936 \u091b\u0941\u092a\u093e\u090f\u0902",
+    tabReveal: "\u0938\u0902\u0926\u0947\u0936 \u092a\u094d\u0930\u0915\u091f \u0915\u0930\u0947\u0902",
+    hideStep: "\u091a\u0930\u0923 1: \u091b\u0935\u093f \u0932\u094b\u0921 \u0915\u0930\u0947\u0902 \u0914\u0930 \u0930\u0939\u0938\u094d\u092f \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902",
+    revealStep: "\u090f\u0928\u094d\u0915\u094b\u0921\u0947\u0921 \u091b\u0935\u093f \u0932\u094b\u0921 \u0915\u0930\u0947\u0902",
+    dropText: "\u092f\u0939\u093e\u0902 \u091b\u0935\u093f \u0921\u094d\u0930\u0949\u092a \u0915\u0930\u0947\u0902 \u092f\u093e \u092c\u094d\u0930\u093e\u0909\u091c \u0915\u0930\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0915\u094d\u0932\u093f\u0915 \u0915\u0930\u0947\u0902",
+    dropHint: "JPG, PNG, WebP, GIF \u0938\u092e\u0930\u094d\u0925\u093f\u0924",
+    dropTextReveal: "\u0917\u0941\u092a\u094d\u0924 \u0938\u0902\u0926\u0947\u0936 \u0935\u093e\u0932\u0940 PNG \u0921\u094d\u0930\u0949\u092a \u0915\u0930\u0947\u0902",
+    dropHintReveal: "\u0915\u0947\u0935\u0932 PNG LSB \u0921\u0947\u091f\u093e \u0938\u0902\u0930\u0915\u094d\u0937\u093f\u0924 \u0915\u0930\u0924\u0947 \u0939\u0948\u0902",
+    placeholder: "\u092f\u0939\u093e\u0902 \u0905\u092a\u0928\u093e \u0917\u0941\u092a\u094d\u0924 \u0938\u0902\u0926\u0947\u0936 \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902...",
+    capacity: "\u0915\u094d\u0937\u092e\u0924\u093e",
+    encodeBtn: "\u090f\u0928\u094d\u0915\u094b\u0921 \u0915\u0930\u0947\u0902 \u0914\u0930 PNG \u0921\u093e\u0909\u0928\u0932\u094b\u0921 \u0915\u0930\u0947\u0902",
+    decodeBtn: "\u0917\u0941\u092a\u094d\u0924 \u0938\u0902\u0926\u0947\u0936 \u0921\u0940\u0915\u094b\u0921 \u0915\u0930\u0947\u0902",
+    resetBtn: "\u0930\u0940\u0938\u0947\u091f",
+    copyBtn: "\u091f\u0947\u0915\u094d\u0938\u094d\u091f \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902",
+    copied: "\u0915\u0949\u092a\u0940 \u0939\u094b \u0917\u092f\u093e!",
+    successEncode: "\u0938\u0902\u0926\u0947\u0936 \u090f\u0928\u094d\u0915\u094b\u0921\u0947\u0921! PNG \u0921\u093e\u0909\u0928\u0932\u094b\u0921 \u0939\u094b \u0930\u0939\u093e...",
+    successDecode: "\u0917\u0941\u092a\u094d\u0924 \u0938\u0902\u0926\u0947\u0936 \u092e\u093f\u0932\u093e!",
+    errorNoImage: "\u0915\u0943\u092a\u092f\u093e \u092a\u0939\u0932\u0947 \u090f\u0915 \u091b\u0935\u093f \u0932\u094b\u0921 \u0915\u0930\u0947\u0902",
+    errorNoMessage: "\u0915\u0943\u092a\u092f\u093e \u091b\u0941\u092a\u093e\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0938\u0902\u0926\u0947\u0936 \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902",
+    errorTooLong: "\u0938\u0902\u0926\u0947\u0936 \u091b\u0935\u093f \u0915\u094d\u0937\u092e\u0924\u093e \u0938\u0947 \u0905\u0927\u093f\u0915 \u0939\u0948",
+    errorNoHidden: "\u0907\u0938 \u091b\u0935\u093f \u092e\u0947\u0902 \u0915\u094b\u0908 \u0917\u0941\u092a\u094d\u0924 \u0938\u0902\u0926\u0947\u0936 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u093e",
+    errorInvalidPng: "\u0915\u0943\u092a\u092f\u093e \u0921\u0940\u0915\u094b\u0921\u093f\u0902\u0917 \u0915\u0947 \u0932\u093f\u090f PNG \u091b\u0935\u093f \u0915\u093e \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0947\u0902",
+    imageInfo: "{w} x {h} px | \u0915\u094d\u0937\u092e\u0924\u093e: ~{c} \u0905\u0915\u094d\u0937\u0930"
+  },
+  ar: {
+    title: "\u0645\u062e\u062a\u0628\u0631 \u0627\u0644\u0625\u062e\u0641\u0627\u0621",
+    subtitle: "\u0623\u062e\u0641\u0650 \u0631\u0633\u0627\u0626\u0644 \u0633\u0631\u064a\u0629 \u062f\u0627\u062e\u0644 \u0627\u0644\u0635\u0648\u0631",
+    tabHide: "\u0625\u062e\u0641\u0627\u0621 \u0627\u0644\u0631\u0633\u0627\u0644\u0629",
+    tabReveal: "\u0643\u0634\u0641 \u0627\u0644\u0631\u0633\u0627\u0644\u0629",
+    hideStep: "\u0627\u0644\u062e\u0637\u0648\u0629 1: \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0635\u0648\u0631\u0629 \u0648\u0625\u062f\u062e\u0627\u0644 \u0627\u0644\u0633\u0631",
+    revealStep: "\u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0635\u0648\u0631\u0629 \u0627\u0644\u0645\u0634\u0641\u0631\u0629",
+    dropText: "\u0623\u0633\u0642\u0637 \u0635\u0648\u0631\u0629 \u0647\u0646\u0627 \u0623\u0648 \u0627\u0646\u0642\u0631 \u0644\u0644\u062a\u0635\u0641\u062d",
+    dropHint: "\u064a\u062f\u0639\u0645 JPG, PNG, WebP, GIF",
+    dropTextReveal: "\u0623\u0633\u0642\u0637 \u0635\u0648\u0631\u0629 PNG \u0628\u0631\u0633\u0627\u0644\u0629 \u0645\u062e\u0641\u064a\u0629",
+    dropHintReveal: "\u0641\u0642\u0637 PNG \u062a\u062d\u0627\u0641\u0638 \u0639\u0644\u0649 \u0628\u064a\u0627\u0646\u0627\u062a LSB",
+    placeholder: "\u0623\u062f\u062e\u0644 \u0631\u0633\u0627\u0644\u062a\u0643 \u0627\u0644\u0633\u0631\u064a\u0629 \u0647\u0646\u0627...",
+    capacity: "\u0627\u0644\u0633\u0639\u0629",
+    encodeBtn: "\u062a\u0634\u0641\u064a\u0631 \u0648\u062a\u0646\u0632\u064a\u0644 PNG",
+    decodeBtn: "\u0641\u0643 \u062a\u0634\u0641\u064a\u0631 \u0627\u0644\u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u0645\u062e\u0641\u064a\u0629",
+    resetBtn: "\u0625\u0639\u0627\u062f\u0629 \u062a\u0639\u064a\u064a\u0646",
+    copyBtn: "\u0646\u0633\u062e \u0627\u0644\u0646\u0635",
+    copied: "\u062a\u0645 \u0627\u0644\u0646\u0633\u062e!",
+    successEncode: "\u062a\u0645 \u062a\u0634\u0641\u064a\u0631 \u0627\u0644\u0631\u0633\u0627\u0644\u0629! \u062c\u0627\u0631\u064a \u062a\u0646\u0632\u064a\u0644 PNG...",
+    successDecode: "\u062a\u0645 \u0627\u0644\u0639\u062b\u0648\u0631 \u0639\u0644\u0649 \u0631\u0633\u0627\u0644\u0629 \u0645\u062e\u0641\u064a\u0629!",
+    errorNoImage: "\u064a\u0631\u062c\u0649 \u062a\u062d\u0645\u064a\u0644 \u0635\u0648\u0631\u0629 \u0623\u0648\u0644\u0627\u064b",
+    errorNoMessage: "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0631\u0633\u0627\u0644\u0629 \u0644\u0625\u062e\u0641\u0627\u0626\u0647\u0627",
+    errorTooLong: "\u0627\u0644\u0631\u0633\u0627\u0644\u0629 \u062a\u062a\u062c\u0627\u0648\u0632 \u0633\u0639\u0629 \u0627\u0644\u0635\u0648\u0631\u0629",
+    errorNoHidden: "\u0644\u0645 \u064a\u062a\u0645 \u0627\u0644\u0639\u062b\u0648\u0631 \u0639\u0644\u0649 \u0631\u0633\u0627\u0644\u0629 \u0645\u062e\u0641\u064a\u0629 \u0641\u064a \u0647\u0630\u0647 \u0627\u0644\u0635\u0648\u0631\u0629",
+    errorInvalidPng: "\u064a\u0631\u062c\u0649 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0635\u0648\u0631\u0629 PNG \u0644\u0641\u0643 \u0627\u0644\u062a\u0634\u0641\u064a\u0631",
+    imageInfo: "{w} x {h} \u0628\u0643\u0633\u0644 | \u0627\u0644\u0633\u0639\u0629: ~{c} \u062d\u0631\u0641"
+  },
+  ko: {
+    title: "\uc2a4\ud14c\uac00\ub178\uadf8\ub798\ud53c \uc5f0\uad6c\uc2e4",
+    subtitle: "\uc774\ubbf8\uc9c0\uc5d0 \ube44\ubc00 \uba54\uc2dc\uc9c0 \uc228\uae30\uae30",
+    tabHide: "\uba54\uc2dc\uc9c0 \uc228\uae30\uae30",
+    tabReveal: "\uba54\uc2dc\uc9c0 \ud655\uc778",
+    hideStep: "1\ub2e8\uacc4: \uc774\ubbf8\uc9c0 \ub85c\ub4dc \ubc0f \ube44\ubc00 \uc785\ub825",
+    revealStep: "\uc778\ucf54\ub529\ub41c \uc774\ubbf8\uc9c0 \ub85c\ub4dc",
+    dropText: "\uc5ec\uae30\uc5d0 \uc774\ubbf8\uc9c0\ub97c \ub4dc\ub86d\ud558\uac70\ub098 \ud074\ub9ad\ud558\uc5ec \ucc3e\uc544\ubcf4\uae30",
+    dropHint: "JPG, PNG, WebP, GIF \uc9c0\uc6d0",
+    dropTextReveal: "\uc228\uaca8\uc9c4 \uba54\uc2dc\uc9c0\uac00 \uc788\ub294 PNG \ub4dc\ub86d",
+    dropHintReveal: "PNG\ub9cc LSB \ub370\uc774\ud130\ub97c \ubcf4\uc874\ud569\ub2c8\ub2e4",
+    placeholder: "\uc5ec\uae30\uc5d0 \ube44\ubc00 \uba54\uc2dc\uc9c0\ub97c \uc785\ub825\ud558\uc138\uc694...",
+    capacity: "\uc6a9\ub7c9",
+    encodeBtn: "\uc778\ucf54\ub529 \ubc0f PNG \ub2e4\uc6b4\ub85c\ub4dc",
+    decodeBtn: "\uc228\uaca8\uc9c4 \uba54\uc2dc\uc9c0 \ub514\ucf54\ub4dc",
+    resetBtn: "\uc7ac\uc124\uc815",
+    copyBtn: "\ud14d\uc2a4\ud2b8 \ubcf5\uc0ac",
+    copied: "\ubcf5\uc0ac\ub428!",
+    successEncode: "\uba54\uc2dc\uc9c0 \uc778\ucf54\ub529 \uc644\ub8cc! PNG \ub2e4\uc6b4\ub85c\ub4dc \uc911...",
+    successDecode: "\uc228\uaca8\uc9c4 \uba54\uc2dc\uc9c0 \ubc1c\uacac!",
+    errorNoImage: "\uba3c\uc800 \uc774\ubbf8\uc9c0\ub97c \ub85c\ub4dc\ud558\uc138\uc694",
+    errorNoMessage: "\uc228\uae38 \uba54\uc2dc\uc9c0\ub97c \uc785\ub825\ud558\uc138\uc694",
+    errorTooLong: "\uba54\uc2dc\uc9c0\uac00 \uc774\ubbf8\uc9c0 \uc6a9\ub7c9\uc744 \ucd08\uacfc\ud569\ub2c8\ub2e4",
+    errorNoHidden: "\uc774 \uc774\ubbf8\uc9c0\uc5d0\uc11c \uc228\uaca8\uc9c4 \uba54\uc2dc\uc9c0\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4",
+    errorInvalidPng: "\ub514\ucf54\ub4dc\ub97c \uc704\ud574 PNG \uc774\ubbf8\uc9c0\ub97c \uc0ac\uc6a9\ud558\uc138\uc694",
+    imageInfo: "{w} x {h} px | \uc6a9\ub7c9: \uc57d {c}\uc790"
+  }
+};
+
+var curLang = detectLang();
+var T = DICT[curLang] || DICT.en;
+
+/* ===================================================
+   DOM HELPERS
+   =================================================== */
+function $(id) { return document.getElementById(id); }
+
+/* ===================================================
+   APPLY LANGUAGE TO UI
+   =================================================== */
+$('mainTitle').textContent = T.title;
+$('subtitle').textContent = T.subtitle;
+$('tabHide').textContent = T.tabHide;
+$('tabReveal').textContent = T.tabReveal;
+$('hideStepLabel').textContent = T.hideStep;
+$('revealStepLabel').textContent = T.revealStep;
+$('hideDropText').textContent = T.dropText;
+$('hideDropHint').textContent = T.dropHint;
+$('revealDropText').textContent = T.dropTextReveal;
+$('revealDropHint').textContent = T.dropHintReveal;
+$('secretText').placeholder = T.placeholder;
+$('capacityLabel').textContent = T.capacity;
+$('encodeBtn').textContent = T.encodeBtn;
+$('decodeBtn').textContent = T.decodeBtn;
+$('resetHideBtn').textContent = T.resetBtn;
+$('resetRevealBtn').textContent = T.resetBtn;
+$('copyRevealedBtn').textContent = T.copyBtn;
+
+/* ===================================================
+   STATE
+   =================================================== */
+var hideImage = null;
+var revealImage = null;
+var hideCtx = null;
+var revealCtx = null;
+var maxCapacity = 0;
+
+/* ===================================================
+   TAB SWITCHING
+   =================================================== */
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    btn.classList.add('active');
+    $(btn.dataset.tab + 'Tab').classList.add('active');
+  });
+});
+
+/* ===================================================
+   LSB STEGANOGRAPHY ENGINE
+   =================================================== */
+var DELIMITER = '\x00\x00\x00END\x00\x00\x00';
+
+function textToBinary(text) {
+  var encoder = new TextEncoder();
+  var bytes = encoder.encode(text + DELIMITER);
+  var binary = '';
+  for (var i = 0; i < bytes.length; i++) {
+    binary += bytes[i].toString(2).padStart(8, '0');
+  }
+  return binary;
+}
+
+function binaryToText(binary) {
+  var bytes = [];
+  for (var i = 0; i < binary.length; i += 8) {
+    var byte = binary.substr(i, 8);
+    if (byte.length < 8) break;
+    bytes.push(parseInt(byte, 2));
+  }
+  var decoder = new TextDecoder();
+  var text = decoder.decode(new Uint8Array(bytes));
+  var delimIndex = text.indexOf(DELIMITER);
+  if (delimIndex !== -1) {
+    return text.substring(0, delimIndex);
+  }
+  return null;
+}
+
+function encodeMessage(ctx, width, height, message) {
+  var imageData = ctx.getImageData(0, 0, width, height);
+  var data = imageData.data;
+  var binary = textToBinary(message);
+
+  var bitIndex = 0;
+  for (var i = 0; i < data.length && bitIndex < binary.length; i++) {
+    if ((i + 1) % 4 === 0) continue; // Skip alpha channel
+    data[i] = (data[i] & 0xFE) | parseInt(binary[bitIndex], 2);
+    bitIndex++;
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  return true;
+}
+
+function decodeMessage(ctx, width, height) {
+  var imageData = ctx.getImageData(0, 0, width, height);
+  var data = imageData.data;
+  var binary = '';
+
+  for (var i = 0; i < data.length; i++) {
+    if ((i + 1) % 4 === 0) continue; // Skip alpha channel
+    binary += (data[i] & 1).toString();
+  }
+
+  return binaryToText(binary);
+}
+
+function calculateCapacity(width, height) {
+  // 3 bits per pixel (RGB, skip A), 8 bits per character
+  return Math.floor((width * height * 3) / 8) - DELIMITER.length - 10;
+}
+
+/* ===================================================
+   HIDE TAB LOGIC
+   =================================================== */
+function setupDropZone(dropZone, fileInput, callback) {
+  ['dragenter', 'dragover'].forEach(function(event) {
+    dropZone.addEventListener(event, function(e) {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(function(event) {
+    dropZone.addEventListener(event, function(e) {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+    });
+  });
+
+  dropZone.addEventListener('drop', function(e) {
+    var files = e.dataTransfer.files;
+    if (files.length > 0) callback(files[0]);
+  });
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) callback(fileInput.files[0]);
+  });
+}
+
+function loadHideImage(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      hideImage = img;
+      var canvas = $('hideCanvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      hideCtx = canvas.getContext('2d');
+      hideCtx.drawImage(img, 0, 0);
+
+      maxCapacity = calculateCapacity(img.width, img.height);
+
+      $('hidePreview').classList.add('visible');
+      $('hideImageInfo').textContent = T.imageInfo
+        .replace('{w}', img.width)
+        .replace('{h}', img.height)
+        .replace('{c}', maxCapacity.toLocaleString());
+
+      $('capacityBar').classList.add('visible');
+      updateCapacity();
+      $('encodeBtn').disabled = false;
+      showStatus('hideStatus', '', '');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateCapacity() {
+  var text = $('secretText').value;
+  var used = new TextEncoder().encode(text).length;
+  var percent = Math.min((used / maxCapacity) * 100, 100);
+
+  $('capacityValue').textContent = used.toLocaleString() + ' / ' + maxCapacity.toLocaleString();
+  $('capacityFill').style.width = percent + '%';
+
+  $('capacityFill').classList.remove('warning', 'danger');
+  if (percent > 90) {
+    $('capacityFill').classList.add('danger');
+  } else if (percent > 70) {
+    $('capacityFill').classList.add('warning');
+  }
+}
+
+function showStatus(id, message, type) {
+  var el = $(id);
+  el.textContent = message;
+  el.className = 'status' + (message ? ' visible ' + type : '');
+}
+
+function encode() {
+  if (!hideImage) {
+    showStatus('hideStatus', T.errorNoImage, 'error');
+    return;
+  }
+
+  var message = $('secretText').value.trim();
+  if (!message) {
+    showStatus('hideStatus', T.errorNoMessage, 'error');
+    return;
+  }
+
+  var msgBytes = new TextEncoder().encode(message).length;
+  if (msgBytes > maxCapacity) {
+    showStatus('hideStatus', T.errorTooLong, 'error');
+    return;
+  }
+
+  // Redraw original image before encoding
+  hideCtx.drawImage(hideImage, 0, 0);
+
+  encodeMessage(hideCtx, hideImage.width, hideImage.height, message);
+
+  showStatus('hideStatus', T.successEncode, 'success');
+
+  // Download
+  var link = document.createElement('a');
+  link.download = 'stego_' + Date.now() + '.png';
+  link.href = $('hideCanvas').toDataURL('image/png');
+  link.click();
+}
+
+function resetHide() {
+  hideImage = null;
+  hideCtx = null;
+  maxCapacity = 0;
+  $('hidePreview').classList.remove('visible');
+  $('capacityBar').classList.remove('visible');
+  $('secretText').value = '';
+  $('encodeBtn').disabled = true;
+  $('hideFileInput').value = '';
+  showStatus('hideStatus', '', '');
+}
+
+setupDropZone($('hideDropZone'), $('hideFileInput'), loadHideImage);
+$('secretText').addEventListener('input', updateCapacity);
+$('encodeBtn').addEventListener('click', encode);
+$('resetHideBtn').addEventListener('click', resetHide);
+
+/* ===================================================
+   REVEAL TAB LOGIC
+   =================================================== */
+function loadRevealImage(file) {
+  if (!file.type.includes('png')) {
+    showStatus('revealStatus', T.errorInvalidPng, 'error');
+    return;
+  }
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      revealImage = img;
+      var canvas = $('revealCanvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      revealCtx = canvas.getContext('2d');
+      revealCtx.drawImage(img, 0, 0);
+
+      $('revealPreview').classList.add('visible');
+      $('revealImageInfo').textContent = img.width + ' x ' + img.height + ' px';
+      $('decodeBtn').disabled = false;
+      showStatus('revealStatus', '', '');
+      $('revealedText').classList.remove('visible');
+      $('copyRevealedBtn').style.display = 'none';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function decode() {
+  if (!revealImage) {
+    showStatus('revealStatus', T.errorNoImage, 'error');
+    return;
+  }
+
+  var message = decodeMessage(revealCtx, revealImage.width, revealImage.height);
+
+  if (message && message.length > 0) {
+    showStatus('revealStatus', T.successDecode, 'success');
+    $('revealedText').textContent = message;
+    $('revealedText').classList.add('visible');
+    $('copyRevealedBtn').style.display = 'inline-flex';
+  } else {
+    showStatus('revealStatus', T.errorNoHidden, 'error');
+    $('revealedText').classList.remove('visible');
+    $('copyRevealedBtn').style.display = 'none';
+  }
+}
+
+function resetReveal() {
+  revealImage = null;
+  revealCtx = null;
+  $('revealPreview').classList.remove('visible');
+  $('revealedText').classList.remove('visible');
+  $('decodeBtn').disabled = true;
+  $('revealFileInput').value = '';
+  $('copyRevealedBtn').style.display = 'none';
+  showStatus('revealStatus', '', '');
+}
+
+setupDropZone($('revealDropZone'), $('revealFileInput'), loadRevealImage);
+$('decodeBtn').addEventListener('click', decode);
+$('resetRevealBtn').addEventListener('click', resetReveal);
+
+$('copyRevealedBtn').addEventListener('click', function() {
+  var text = $('revealedText').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = $('copyRevealedBtn');
+    btn.textContent = T.copied;
+    setTimeout(function() {
+      btn.textContent = T.copyBtn;
+    }, 1500);
+  });
+});
+
+</script>
+<script>
+/* AUTO-RESIZE SENDER */
+(function () {
+  function sendHeight() {
+    var h = document.body.scrollHeight;
+    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
+  }
+  document.documentElement.style.height = 'auto';
+  document.body.style.height = 'auto';
+  document.body.style.minHeight = '0';
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
+})();
+</script>
+</body>
+</html>
