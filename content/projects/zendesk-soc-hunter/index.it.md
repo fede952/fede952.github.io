@@ -6,16 +6,30 @@ description: "L'estensione browser per Analisti SOC e supporto Helpdesk che util
 tags: ["Javascript", "WebExtension", "Automation", "ShadowDOM", "CrossBrowser", "JSON", "Zendesk", "IncidentResponse"]
 categories: ["Projects", "Coding", "Cybersecurity Tools", "Browser Extensions", "Threat Intelligence", "Productivity"]
 externalLink: "https://github.com/fede952/Zendesk-SOC-Hunter"
+buttons:
+  - name: "Chrome Store"
+    url: "https://chromewebstore.google.com/detail/zendesk-soc-hunter/dafanghmcdcjnokckceghaajgbehffmn"
+    icon: "fab fa-chrome"
+  - name: "Firefox Add-on"
+    url: "https://addons.mozilla.org/en-US/firefox/addon/zendesk-soc-hunter/"
+    icon: "fab fa-firefox-browser"
+  - name: "Edge Add-on"
+    url: "https://microsoftedge.microsoft.com/addons/detail/zendesk-soc-hunter/ehenbakcpfbnlimdohophindiamceipl"
+    icon: "fab fa-edge"
+  - name: "Codice Sorgente"
+    url: "https://github.com/fede952/Zendesk-SOC-Hunter"
+    icon: "fab fa-github"
 ---
 
 # Hunter - Assistente SOC per Zendesk
 
 **Hunter** è un'estensione browser leggera e ad alte prestazioni, progettata per assistere gli analisti del Security Operation Center (SOC) e i team di supporto IT. Agisce come uno scanner passivo che evidenzia il contesto critico direttamente all'interno dell'interfaccia del tuo sistema di ticketing.
 
-## 🔗 Link
+## 🔗 Download
+- [**Chrome Web Store**](https://chromewebstore.google.com/detail/zendesk-soc-hunter/dafanghmcdcjnokckceghaajgbehffmn)
+- [**Firefox Add-ons**](https://addons.mozilla.org/en-US/firefox/addon/zendesk-soc-hunter/)
+- [**Microsoft Edge Add-ons**](https://microsoftedge.microsoft.com/addons/detail/zendesk-soc-hunter/ehenbakcpfbnlimdohophindiamceipl)
 - [**Repository GitHub**](https://github.com/fede952/Zendesk-SOC-Hunter)
-- [**Scarica per Chrome**](#) *(presto disponibile)*
-- [**Scarica per Firefox**](#) *(presto disponibile)*
 
 ---
 

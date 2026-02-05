@@ -2,10 +2,23 @@
 title: "Zendesk SOC Hunter"
 date: 2025-01-18
 draft: false
-description: "The browser extension for SOC Analysts and Helpdesk support using Zendesk"
+description: "ZendeskをSOCアナリストとヘルプデスクサポート向けのブラウザ拡張機能"
 tags: ["Javascript", "WebExtension", "Automation", "ShadowDOM", "CrossBrowser", "JSON", "Zendesk", "IncidentResponse"]
 categories: ["Projects", "Coding", "Cybersecurity Tools", "Browser Extensions", "Threat Intelligence", "Productivity"]
 externalLink: "https://github.com/fede952/Zendesk-SOC-Hunter"
+buttons:
+  - name: "Chrome Store"
+    url: "https://chromewebstore.google.com/detail/zendesk-soc-hunter/dafanghmcdcjnokckceghaajgbehffmn"
+    icon: "fab fa-chrome"
+  - name: "Firefox Add-on"
+    url: "https://addons.mozilla.org/en-US/firefox/addon/zendesk-soc-hunter/"
+    icon: "fab fa-firefox-browser"
+  - name: "Edge Add-on"
+    url: "https://microsoftedge.microsoft.com/addons/detail/zendesk-soc-hunter/ehenbakcpfbnlimdohophindiamceipl"
+    icon: "fab fa-edge"
+  - name: "ソースコード"
+    url: "https://github.com/fede952/Zendesk-SOC-Hunter"
+    icon: "fab fa-github"
 ---
 
 _注意：技術的な正確性を保つため、このコンテンツは元の言語（英語）で表示されます。_
@@ -16,10 +29,11 @@ _注意：技術的な正確性を保つため、このコンテンツは元の�
 
 **Hunter** is a lightweight, high-performance browser extension designed to assist Security Operation Center (SOC) analysts and IT Support teams. It acts as a passive scanner that highlights critical context directly within your ticketing system interface.
 
-## 🔗 Links
+## 🔗 Download
+- [**Chrome Web Store**](https://chromewebstore.google.com/detail/zendesk-soc-hunter/dafanghmcdcjnokckceghaajgbehffmn)
+- [**Firefox Add-ons**](https://addons.mozilla.org/en-US/firefox/addon/zendesk-soc-hunter/)
+- [**Microsoft Edge Add-ons**](https://microsoftedge.microsoft.com/addons/detail/zendesk-soc-hunter/ehenbakcpfbnlimdohophindiamceipl)
 - [**GitHub Repository**](https://github.com/fede952/Zendesk-SOC-Hunter)
-- [**Download for Chrome**](#) *(soon)*
-- [**Download for Firefox**](#) *(soon)*
 
 ---
 
