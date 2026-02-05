@@ -754,24 +754,31 @@ function encode() {
 
   encodeMessage(hideCtx, hideImage.width, hideImage.height, message);
 
-  // Robust download method (Firefox compatibility)
-  try {
-    var dataUrl = $('hideCanvas').toDataURL('image/png');
+  // Modern Blob download method (handles large images, no URL length limits)
+  var canvas = $('hideCanvas');
+  canvas.toBlob(function(blob) {
+    if (!blob) {
+      console.error('Steganography: Canvas toBlob returned null');
+      showStatus('hideStatus', 'Error: Canvas is empty or tainted.', 'error');
+      return;
+    }
+
+    var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
     link.download = 'stego_' + Date.now() + '.png';
-    link.href = dataUrl;
+    link.href = url;
 
-    // CRITICAL: Append to body, click, then remove (required by Firefox)
+    // Append, click, cleanup (required by Firefox)
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
+    // Release memory after short delay
+    setTimeout(function() { URL.revokeObjectURL(url); }, 150);
+
     showStatus('hideStatus', T.successEncode, 'success');
-    console.log('Steganography: Download triggered successfully.');
-  } catch (e) {
-    console.error('Steganography: Download failed:', e);
-    showStatus('hideStatus', 'Error saving image: ' + e.message, 'error');
-  }
+    console.log('Steganography: Blob download triggered successfully.');
+  }, 'image/png');
 }
 
 function resetHide() {
