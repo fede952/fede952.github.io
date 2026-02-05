@@ -592,7 +592,13 @@
     "https://www.bleepingcomputer.com/news/security/hackers-compromise-nginx-servers-to-redirect-user-traffic/",
     "https://www.bleepingcomputer.com/news/security/critical-n8n-flaws-disclosed-along-with-public-exploits/",
     "https://www.wired.com/story/notepad-plus-plus-china-hackers-update-infrastructure/",
-    "https://www.punto-informatico.it/fintech/criptovalute/criptovalute-coinbase-one-azzera-le-commissioni-di-trading/"
+    "https://www.punto-informatico.it/fintech/criptovalute/criptovalute-coinbase-one-azzera-le-commissioni-di-trading/",
+    "https://thehackernews.com/2026/02/critical-n8n-flaw-cve-2026-25049.html",
+    "https://thehackernews.com/2026/02/hackers-exploit-react2shell-to-hijack.html",
+    "https://www.punto-informatico.it/con-hostinger-crei-tuo-sito-pochi-secondi-con-meno-di-3-euro/",
+    "https://www.punto-informatico.it/sempre-connesso-ovunque-mondo-senza-roaming-esim-saily/",
+    "https://www.punto-informatico.it/gemini-vola-750-milioni-utenti-attivi-mensili-insegue-chatgpt/",
+    "https://www.punto-informatico.it/anthropic-critica-pubblicita-chatgpt-sam-altman-non-ci-sta/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -1187,6 +1193,12 @@
     "8a7c1875716c5704aca85dc57a1d704e",
     "b2ce49bc656651d7d5d961f496c0aed5",
     "9e89c5720fd00b12e872de85168e9ec3",
-    "ec4c1b7be5b3cceed0df273f0057a025"
+    "ec4c1b7be5b3cceed0df273f0057a025",
+    "8bc1d9efe77e48b2cd575902be49f8c3",
+    "1726c6fad39dacf7e130573253ac2c5b",
+    "aad29a1d9320e4b02b36cbddea2e3f51",
+    "53dfe87d4e2674460618010ba8bf545b",
+    "21d15e4aef2113c4b997bcfbf9518233",
+    "f183a7ee291a01348dc7ef00d245725e"
   ]
 }
