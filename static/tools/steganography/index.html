@@ -754,13 +754,24 @@ function encode() {
 
   encodeMessage(hideCtx, hideImage.width, hideImage.height, message);
 
-  showStatus('hideStatus', T.successEncode, 'success');
+  // Robust download method (Firefox compatibility)
+  try {
+    var dataUrl = $('hideCanvas').toDataURL('image/png');
+    var link = document.createElement('a');
+    link.download = 'stego_' + Date.now() + '.png';
+    link.href = dataUrl;
 
-  // Download
-  var link = document.createElement('a');
-  link.download = 'stego_' + Date.now() + '.png';
-  link.href = $('hideCanvas').toDataURL('image/png');
-  link.click();
+    // CRITICAL: Append to body, click, then remove (required by Firefox)
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showStatus('hideStatus', T.successEncode, 'success');
+    console.log('Steganography: Download triggered successfully.');
+  } catch (e) {
+    console.error('Steganography: Download failed:', e);
+    showStatus('hideStatus', 'Error saving image: ' + e.message, 'error');
+  }
 }
 
 function resetHide() {
