@@ -589,11 +589,13 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
 /* ===================================================
    LSB STEGANOGRAPHY ENGINE
    =================================================== */
+var MAGIC_SIGNATURE = 'STEGO_V1::';
 var DELIMITER = '\x00\x00\x00END\x00\x00\x00';
 
 function textToBinary(text) {
   var encoder = new TextEncoder();
-  var bytes = encoder.encode(text + DELIMITER);
+  // Prepend magic signature for validation on decode
+  var bytes = encoder.encode(MAGIC_SIGNATURE + text + DELIMITER);
   var binary = '';
   for (var i = 0; i < bytes.length; i++) {
     binary += bytes[i].toString(2).padStart(8, '0');
@@ -610,11 +612,33 @@ function binaryToText(binary) {
   }
   var decoder = new TextDecoder();
   var text = decoder.decode(new Uint8Array(bytes));
+
+  // Validate magic signature
+  if (!text.startsWith(MAGIC_SIGNATURE)) {
+    return null; // No valid hidden message
+  }
+
+  // Remove magic signature
+  text = text.substring(MAGIC_SIGNATURE.length);
+
   var delimIndex = text.indexOf(DELIMITER);
   if (delimIndex !== -1) {
     return text.substring(0, delimIndex);
   }
   return null;
+}
+
+// Helper: Create canvas context with anti-aliasing disabled
+function createCleanContext(canvas, img) {
+  canvas.width = img.naturalWidth || img.width;
+  canvas.height = img.naturalHeight || img.height;
+  var ctx = canvas.getContext('2d', { willReadFrequently: true });
+  // CRITICAL: Disable all image smoothing to preserve LSB data
+  ctx.imageSmoothingEnabled = false;
+  ctx.mozImageSmoothingEnabled = false;
+  ctx.webkitImageSmoothingEnabled = false;
+  ctx.msImageSmoothingEnabled = false;
+  return ctx;
 }
 
 function encodeMessage(ctx, width, height, message) {
@@ -686,17 +710,18 @@ function loadHideImage(file) {
     img.onload = function() {
       hideImage = img;
       var canvas = $('hideCanvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      hideCtx = canvas.getContext('2d');
+      // Use helper to set exact dimensions and disable smoothing
+      hideCtx = createCleanContext(canvas, img);
       hideCtx.drawImage(img, 0, 0);
 
-      maxCapacity = calculateCapacity(img.width, img.height);
+      var w = img.naturalWidth || img.width;
+      var h = img.naturalHeight || img.height;
+      maxCapacity = calculateCapacity(w, h) - MAGIC_SIGNATURE.length;
 
       $('hidePreview').classList.add('visible');
       $('hideImageInfo').textContent = T.imageInfo
-        .replace('{w}', img.width)
-        .replace('{h}', img.height)
+        .replace('{w}', w)
+        .replace('{h}', h)
         .replace('{c}', maxCapacity.toLocaleString());
 
       $('capacityBar').classList.add('visible');
@@ -749,10 +774,14 @@ function encode() {
     return;
   }
 
-  // Redraw original image before encoding
+  // Redraw original image before encoding (with smoothing disabled)
+  var canvas = $('hideCanvas');
+  var w = hideImage.naturalWidth || hideImage.width;
+  var h = hideImage.naturalHeight || hideImage.height;
+  hideCtx = createCleanContext(canvas, hideImage);
   hideCtx.drawImage(hideImage, 0, 0);
 
-  encodeMessage(hideCtx, hideImage.width, hideImage.height, message);
+  encodeMessage(hideCtx, w, h, message);
 
   // Modern Blob download method (handles large images, no URL length limits)
   var canvas = $('hideCanvas');
@@ -813,13 +842,15 @@ function loadRevealImage(file) {
     img.onload = function() {
       revealImage = img;
       var canvas = $('revealCanvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      revealCtx = canvas.getContext('2d');
+      // Use helper to set exact dimensions and disable smoothing
+      revealCtx = createCleanContext(canvas, img);
       revealCtx.drawImage(img, 0, 0);
 
+      var w = img.naturalWidth || img.width;
+      var h = img.naturalHeight || img.height;
+
       $('revealPreview').classList.add('visible');
-      $('revealImageInfo').textContent = img.width + ' x ' + img.height + ' px';
+      $('revealImageInfo').textContent = w + ' x ' + h + ' px';
       $('decodeBtn').disabled = false;
       showStatus('revealStatus', '', '');
       $('revealedText').classList.remove('visible');
@@ -836,7 +867,9 @@ function decode() {
     return;
   }
 
-  var message = decodeMessage(revealCtx, revealImage.width, revealImage.height);
+  var w = revealImage.naturalWidth || revealImage.width;
+  var h = revealImage.naturalHeight || revealImage.height;
+  var message = decodeMessage(revealCtx, w, h);
 
   if (message && message.length > 0) {
     showStatus('revealStatus', T.successDecode, 'success');
