@@ -13,4 +13,4 @@ draft: false
 
 **隐写术实验室**使用LSB（最低有效位）编码在图像中隐藏文本。通过修改每个颜色通道（RGB）的最低有效位，该工具可以在图像中嵌入数千个字符，而这些变化对人眼是不可察觉的。加载任何图像，输入您的秘密消息，然后下载内部隐藏数据的PNG。要检索消息，只需在"揭示"选项卡中加载编码后的PNG。一切都在您的浏览器中本地运行——没有服务器，没有上传，完全隐私。
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

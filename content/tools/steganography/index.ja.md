@@ -13,4 +13,4 @@ draft: false
 
 **ステガノグラフィーラボ**はLSB（最下位ビット）エンコーディングを使用して画像内にテキストを隠します。各カラーチャンネル（RGB）の最下位ビットを変更することで、ツールは人間の目には知覚できない変更で画像に数千文字を埋め込むことができます。任意の画像をロードし、秘密のメッセージを入力し、データが内部に隠されたPNGをダウンロードします。メッセージを取り出すには、「明かす」タブでエンコードされたPNGをロードするだけです。すべてがブラウザ内でローカルに実行されます — サーバーなし、アップロードなし、完全なプライバシー。
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

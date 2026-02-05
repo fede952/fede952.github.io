@@ -13,4 +13,4 @@ draft: false
 
 **스테가노그래피 연구실**은 LSB(최하위 비트) 인코딩을 사용하여 이미지 안에 텍스트를 숨깁니다. 각 색상 채널(RGB)의 최하위 비트를 수정함으로써, 이 도구는 인간의 눈에는 감지할 수 없는 변화로 이미지에 수천 개의 문자를 삽입할 수 있습니다. 아무 이미지나 로드하고, 비밀 메시지를 입력하고, 데이터가 숨겨진 PNG를 다운로드하세요. 메시지를 검색하려면 "확인" 탭에서 인코딩된 PNG를 로드하기만 하면 됩니다. 모든 것이 브라우저에서 로컬로 실행됩니다 — 서버 없음, 업로드 없음, 완전한 프라이버시.
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

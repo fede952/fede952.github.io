@@ -13,4 +13,4 @@ draft: false
 
 **स्टेगनोग्राफी लैब** छवियों के अंदर टेक्स्ट छुपाने के लिए LSB (लीस्ट सिग्निफिकेंट बिट) एन्कोडिंग का उपयोग करता है। प्रत्येक कलर चैनल (RGB) के सबसे कम महत्वपूर्ण बिट को संशोधित करके, टूल मानव आंख के लिए अगोचर परिवर्तनों के साथ एक छवि में हजारों वर्ण एम्बेड कर सकता है। कोई भी छवि लोड करें, अपना गुप्त संदेश टाइप करें, और अंदर छिपे डेटा के साथ PNG डाउनलोड करें। संदेश प्राप्त करने के लिए, बस "प्रकट करें" टैब में एन्कोडेड PNG लोड करें। सब कुछ आपके ब्राउज़र में स्थानीय रूप से चलता है — कोई सर्वर नहीं, कोई अपलोड नहीं, पूर्ण गोपनीयता।
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

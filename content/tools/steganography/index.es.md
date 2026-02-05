@@ -13,4 +13,4 @@ La esteganografia es el arte de ocultar informacion a plena vista — incrustar 
 
 **Laboratorio de Esteganografia** usa codificacion LSB (Bit Menos Significativo) para ocultar texto dentro de imagenes. Al modificar el bit menos significativo de cada canal de color (RGB), la herramienta puede incrustar miles de caracteres en una imagen con cambios imperceptibles al ojo humano. Carga cualquier imagen, escribe tu mensaje secreto y descarga un PNG con los datos ocultos dentro. Para recuperar el mensaje, simplemente carga el PNG codificado en la pestana "Revelar". Todo se ejecuta localmente en tu navegador — sin servidor, sin subidas, privacidad completa.
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

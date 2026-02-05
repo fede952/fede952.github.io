@@ -13,4 +13,4 @@ draft: false
 
 **Лаборатория Стеганографии** использует LSB-кодирование (младший значащий бит) для скрытия текста внутри изображений. Изменяя младший значащий бит каждого цветового канала (RGB), инструмент может встроить тысячи символов в изображение с изменениями, незаметными для человеческого глаза. Загрузите любое изображение, введите ваше секретное сообщение и скачайте PNG со скрытыми данными внутри. Чтобы получить сообщение, просто загрузите закодированный PNG во вкладке "Раскрыть". Все работает локально в вашем браузере — без сервера, без загрузок, полная конфиденциальность.
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

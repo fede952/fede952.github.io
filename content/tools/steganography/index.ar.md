@@ -13,4 +13,4 @@ draft: false
 
 **مختبر الإخفاء** يستخدم ترميز LSB (البت الأقل أهمية) لإخفاء النص داخل الصور. من خلال تعديل البت الأقل أهمية لكل قناة لون (RGB)، يمكن للأداة تضمين آلاف الأحرف في صورة مع تغييرات غير محسوسة للعين البشرية. حمّل أي صورة، اكتب رسالتك السرية، وقم بتنزيل PNG مع البيانات المخفية بداخلها. لاسترداد الرسالة، ما عليك سوى تحميل PNG المشفر في علامة التبويب "كشف". كل شيء يعمل محليًا في متصفحك — بدون خادم، بدون تحميلات، خصوصية كاملة.
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

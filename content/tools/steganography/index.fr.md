@@ -13,4 +13,4 @@ La steganographie est l'art de cacher des informations a la vue de tous — inco
 
 **Laboratoire de Steganographie** utilise l'encodage LSB (Bit de Poids Faible) pour cacher du texte dans les images. En modifiant le bit de poids faible de chaque canal de couleur (RVB), l'outil peut integrer des milliers de caracteres dans une image avec des changements imperceptibles a l'oeil humain. Chargez n'importe quelle image, tapez votre message secret et telechargez un PNG avec les donnees cachees a l'interieur. Pour recuperer le message, chargez simplement le PNG encode dans l'onglet "Reveler". Tout fonctionne localement dans votre navigateur — pas de serveur, pas de telechargement, confidentialite complete.
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>

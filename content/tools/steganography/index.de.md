@@ -13,4 +13,4 @@ Steganographie ist die Kunst, Informationen vor aller Augen zu verstecken — ge
 
 **Steganographie Labor** verwendet LSB-Kodierung (Least Significant Bit), um Text in Bildern zu verstecken. Durch Modifikation des niedrigstwertigen Bits jedes Farbkanals (RGB) kann das Tool Tausende von Zeichen in ein Bild einbetten, mit Anderungen, die fur das menschliche Auge nicht wahrnehmbar sind. Laden Sie ein beliebiges Bild, geben Sie Ihre geheime Nachricht ein und laden Sie ein PNG mit den versteckten Daten herunter. Um die Nachricht abzurufen, laden Sie einfach das kodierte PNG im Tab "Enthullen". Alles lauft lokal in Ihrem Browser — kein Server, kein Upload, vollstandige Privatsphare.
 
-<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
+<iframe src="/tools/steganography/index.html" width="100%" height="900px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"></iframe>
