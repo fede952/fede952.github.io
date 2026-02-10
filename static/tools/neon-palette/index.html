@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Matrix</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
+  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
+  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
+  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
+  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
+  --border:#1e1e30;--border2:#2a2a40;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+.app{max-width:700px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+.header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
+.header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
+.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
+.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.color-input-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.color-picker-big{width:64px;height:64px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:var(--bg3);padding:2px;flex-shrink:0}
+.color-fields{display:flex;flex-direction:column;gap:8px;flex:1}
+.field-row{display:flex;gap:8px;align-items:center}
+.field-row label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;width:36px;flex-shrink:0}
+.field-row input{flex:1;padding:8px 10px;font-family:var(--mono);font-size:12px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;transition:border-color .2s}
+.field-row input:focus{border-color:var(--cyan)}
+
+.preview-bar{height:48px;border-radius:8px;border:1px solid var(--border);margin-top:16px;transition:background .2s;position:relative;overflow:hidden}
+.preview-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 50%,rgba(255,255,255,.05));pointer-events:none}
+
+.copy-mini{padding:4px 10px;font-family:var(--mono);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.copy-mini:hover{background:var(--cyan-glow)}
+
+.btn{padding:10px 24px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-neon{background:linear-gradient(135deg,var(--magenta),#a020f0);color:#fff;font-weight:700}
+.btn-neon:hover{box-shadow:0 0 20px var(--magenta-glow),0 0 40px rgba(160,32,240,.2)}
+
+.palette-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.palette-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s,border-color .2s;cursor:pointer}
+.palette-card:hover{transform:translateY(-3px);border-color:var(--cyan)}
+.palette-swatch{height:80px;position:relative}
+.palette-swatch::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 50%);pointer-events:none}
+.palette-info{padding:10px;background:var(--bg3);font-size:10px;color:var(--text);letter-spacing:1px;display:flex;flex-direction:column;gap:4px}
+.palette-hex{font-weight:700;color:var(--cyan);font-size:12px}
+.palette-rgb,.palette-hsl{color:var(--text2);font-size:9px}
+
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
+.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
+
+@media(max-width:600px){
+  .color-input-row{flex-direction:column;align-items:stretch}
+  .color-picker-big{width:100%;height:48px}
+  .palette-grid{grid-template-columns:1fr}
+  .palette-swatch{height:60px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1 data-i18n="title">$ NeonPalette</h1>
+    <div class="sub" data-i18n="subtitle">Color Matrix</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title" data-i18n="converterSection">Color Converter</div>
+    <div class="color-input-row">
+      <input type="color" class="color-picker-big" id="color-picker" value="#00e5ff">
+      <div class="color-fields">
+        <div class="field-row">
+          <label>HEX</label>
+          <input type="text" id="hex-input" value="#00E5FF" maxlength="7">
+          <button class="copy-mini" onclick="copyField('hex-input')">Copy</button>
+        </div>
+        <div class="field-row">
+          <label>RGB</label>
+          <input type="text" id="rgb-input" value="rgb(0, 229, 255)" readonly>
+          <button class="copy-mini" onclick="copyField('rgb-input')">Copy</button>
+        </div>
+        <div class="field-row">
+          <label>HSL</label>
+          <input type="text" id="hsl-input" value="hsl(186, 100%, 50%)" readonly>
+          <button class="copy-mini" onclick="copyField('hsl-input')">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="preview-bar" id="preview-bar" style="background:#00e5ff"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title" data-i18n="generatorSection">Cyberpunk Generator</div>
+    <button class="btn btn-neon" onclick="generatePalette()" data-i18n="generatePalette">Generate Neon Palette</button>
+    <div class="palette-grid" id="palette-grid"></div>
+  </div>
+
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+const T = {
+  en: {
+    title:'$ NeonPalette',subtitle:'Color Matrix',converterSection:'Color Converter',
+    generatorSection:'Cyberpunk Generator',generatePalette:'Generate Neon Palette',
+    copied:'Copied!',paletteGenerated:'Neon palette generated!'
+  },
+  it: {
+    title:'$ NeonPalette',subtitle:'Matrice Colori',converterSection:'Convertitore Colori',
+    generatorSection:'Generatore Cyberpunk',generatePalette:'Genera Palette Neon',
+    copied:'Copiato!',paletteGenerated:'Palette neon generata!'
+  },
+  es: {
+    title:'$ NeonPalette',subtitle:'Matriz de Colores',converterSection:'Convertidor de Colores',
+    generatorSection:'Generador Cyberpunk',generatePalette:'Generar Paleta Neón',
+    copied:'¡Copiado!',paletteGenerated:'¡Paleta neón generada!'
+  },
+  fr: {
+    title:'$ NeonPalette',subtitle:'Matrice de Couleurs',converterSection:'Convertisseur de Couleurs',
+    generatorSection:'Générateur Cyberpunk',generatePalette:'Générer Palette Néon',
+    copied:'Copié !',paletteGenerated:'Palette néon générée !'
+  },
+  de: {
+    title:'$ NeonPalette',subtitle:'Farbmatrix',converterSection:'Farbkonverter',
+    generatorSection:'Cyberpunk-Generator',generatePalette:'Neon-Palette generieren',
+    copied:'Kopiert!',paletteGenerated:'Neon-Palette generiert!'
+  },
+  pt: {
+    title:'$ NeonPalette',subtitle:'Matriz de Cores',converterSection:'Conversor de Cores',
+    generatorSection:'Gerador Cyberpunk',generatePalette:'Gerar Paleta Neon',
+    copied:'Copiado!',paletteGenerated:'Paleta neon gerada!'
+  },
+  ru: {
+    title:'$ NeonPalette',subtitle:'Цветовая матрица',converterSection:'Конвертер цветов',
+    generatorSection:'Генератор Cyberpunk',generatePalette:'Сгенерировать неон-палитру',
+    copied:'Скопировано!',paletteGenerated:'Неоновая палитра создана!'
+  },
+  ja: {
+    title:'$ NeonPalette',subtitle:'カラーマトリックス',converterSection:'カラー変換',
+    generatorSection:'サイバーパンクジェネレーター',generatePalette:'ネオンパレット生成',
+    copied:'コピーしました！',paletteGenerated:'ネオンパレットを生成しました！'
+  },
+  ko: {
+    title:'$ NeonPalette',subtitle:'컬러 매트릭스',converterSection:'색상 변환기',
+    generatorSection:'사이버펑크 생성기',generatePalette:'네온 팔레트 생성',
+    copied:'복사됨!',paletteGenerated:'네온 팔레트가 생성되었습니다!'
+  },
+  'zh-cn': {
+    title:'$ NeonPalette',subtitle:'色彩矩阵',converterSection:'颜色转换器',
+    generatorSection:'赛博朋克生成器',generatePalette:'生成霓虹调色板',
+    copied:'已复制！',paletteGenerated:'霓虹调色板已生成！'
+  },
+  ar: {
+    title:'$ NeonPalette',subtitle:'مصفوفة الألوان',converterSection:'محول الألوان',
+    generatorSection:'مولد سايبربانك',generatePalette:'إنشاء لوحة نيون',
+    copied:'تم النسخ!',paletteGenerated:'تم إنشاء لوحة النيون!'
+  },
+  hi: {
+    title:'$ NeonPalette',subtitle:'रंग मैट्रिक्स',converterSection:'रंग कनवर्टर',
+    generatorSection:'साइबरपंक जनरेटर',generatePalette:'नियॉन पैलेट बनाएं',
+    copied:'कॉपी हो गया!',paletteGenerated:'नियॉन पैलेट बनाया गया!'
+  }
+};
+
+function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+const LANG=detectLang();
+const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
+
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
+  if(LANG==='ar')document.body.style.direction='rtl';
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  const n = parseInt(hex, 16);
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  if (max === min) { h = s = 0; }
+  else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+function updateFromHex(hex) {
+  if (!/^#[0-9a-f]{6}$/i.test(hex)) return;
+  const { r, g, b } = hexToRgb(hex);
+  const { h, s, l } = rgbToHsl(r, g, b);
+  document.getElementById('hex-input').value = hex.toUpperCase();
+  document.getElementById('rgb-input').value = `rgb(${r}, ${g}, ${b})`;
+  document.getElementById('hsl-input').value = `hsl(${h}, ${s}%, ${l}%)`;
+  document.getElementById('preview-bar').style.background = hex;
+  document.getElementById('color-picker').value = hex;
+}
+
+document.getElementById('color-picker').addEventListener('input', e => updateFromHex(e.target.value));
+document.getElementById('hex-input').addEventListener('input', e => {
+  let v = e.target.value;
+  if (v.length === 7 && /^#[0-9a-f]{6}$/i.test(v)) updateFromHex(v);
+});
+
+function copyField(id) {
+  const val = document.getElementById(id).value;
+  navigator.clipboard.writeText(val).then(() => showStatus(t('copied'), 'success'));
+}
+
+function showStatus(msg, type) {
+  const s = document.getElementById('status');
+  s.textContent = msg;
+  s.className = 'status ' + type;
+  setTimeout(() => s.className = 'status', 3000);
+}
+
+// Cyberpunk neon palette generator
+const neonHues = [
+  { name: 'Cyan', range: [170, 195] },
+  { name: 'Magenta', range: [290, 330] },
+  { name: 'Electric Blue', range: [210, 250] },
+  { name: 'Neon Green', range: [100, 150] },
+  { name: 'Hot Pink', range: [330, 355] },
+  { name: 'Violet', range: [260, 290] },
+  { name: 'Neon Orange', range: [15, 40] },
+  { name: 'Neon Yellow', range: [50, 70] }
+];
+
+function hslToHex(h, s, l) {
+  s /= 100; l /= 100;
+  const a = s * Math.min(l, 1 - l);
+  const f = n => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+function generatePalette() {
+  const grid = document.getElementById('palette-grid');
+  grid.innerHTML = '';
+  const shuffled = [...neonHues].sort(() => Math.random() - 0.5);
+  const selected = shuffled.slice(0, 3);
+
+  selected.forEach(hue => {
+    const h = hue.range[0] + Math.random() * (hue.range[1] - hue.range[0]);
+    const s = 85 + Math.random() * 15;
+    const l = 45 + Math.random() * 15;
+    const hex = hslToHex(Math.round(h), Math.round(s), Math.round(l));
+    const { r, g, b } = hexToRgb(hex);
+    const hsl = rgbToHsl(r, g, b);
+
+    const card = document.createElement('div');
+    card.className = 'palette-card';
+    card.onclick = () => { updateFromHex(hex); };
+    card.innerHTML = `
+      <div class="palette-swatch" style="background:${hex}"></div>
+      <div class="palette-info">
+        <span class="palette-hex">${hex.toUpperCase()}</span>
+        <span class="palette-rgb">rgb(${r}, ${g}, ${b})</span>
+        <span class="palette-hsl">hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  showStatus(t('paletteGenerated'), 'success');
+}
+
+applyI18n();
+generatePalette();
+</script>
+</body>
+</html>

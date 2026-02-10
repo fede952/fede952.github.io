@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIX Timestamp Converter</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
+  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
+  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
+  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
+  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
+  --border:#1e1e30;--border2:#2a2a40;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+.app{max-width:700px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+.header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
+.header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
+.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+
+.live-clock{text-align:center;padding:16px;background:var(--bg2);border:1px solid var(--cyan);border-radius:8px;position:relative;overflow:hidden}
+.live-clock::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan-glow),transparent);pointer-events:none}
+.clock-label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;position:relative}
+.clock-value{font-size:clamp(24px,5vw,36px);font-weight:700;color:var(--cyan);letter-spacing:2px;position:relative;font-variant-numeric:tabular-nums}
+.clock-human{font-size:11px;color:var(--text2);margin-top:6px;position:relative}
+
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
+.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.converter-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.converter-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;transition:border-color .2s}
+.converter-card:hover{border-color:var(--cyan)}
+.converter-card label{display:block;font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.converter-card input{width:100%;padding:10px;font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;transition:border-color .2s}
+.converter-card input:focus{border-color:var(--cyan)}
+
+.result-box{margin-top:12px;padding:10px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.result-value{font-size:13px;color:var(--green);word-break:break-all;flex:1}
+.result-empty{color:var(--text3);font-size:11px;font-style:italic}
+.copy-mini{padding:4px 10px;font-family:var(--mono);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.copy-mini:hover{background:var(--cyan-glow)}
+
+.btn{padding:10px 24px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
+.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+
+.arrow{text-align:center;font-size:20px;color:var(--text3);display:flex;align-items:center;justify-content:center}
+
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
+.status.error{display:block;background:rgba(255,51,85,.08);border:1px solid var(--red);color:var(--red)}
+.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
+
+@media(max-width:600px){
+  .converter-grid{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg);padding:8px 0}
+  .btn-group{flex-direction:column}
+  .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1 data-i18n="title">$ ChronoSync</h1>
+    <div class="sub" data-i18n="subtitle">UNIX Timestamp Converter</div>
+  </div>
+
+  <div class="live-clock">
+    <div class="clock-label" data-i18n="currentTimestamp">Current UNIX Timestamp</div>
+    <div class="clock-value" id="live-ts">0</div>
+    <div class="clock-human" id="live-human"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title" data-i18n="converterSection">Converter</div>
+    <div class="converter-grid">
+      <div class="converter-card">
+        <label data-i18n="timestampToDate">Timestamp → Date</label>
+        <input type="text" id="ts-input" placeholder="1700000000" data-i18n-placeholder="tsPlaceholder">
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="tsToDate()" data-i18n="convertBtn">Convert</button>
+        </div>
+        <div class="result-box" id="ts-result">
+          <span class="result-empty" data-i18n="resultPlaceholder">Result will appear here</span>
+        </div>
+      </div>
+
+      <div class="converter-card">
+        <label data-i18n="dateToTimestamp">Date → Timestamp</label>
+        <input type="datetime-local" id="date-input" step="1">
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="dateToTs()" data-i18n="convertBtn">Convert</button>
+        </div>
+        <div class="result-box" id="date-result">
+          <span class="result-empty" data-i18n="resultPlaceholder">Result will appear here</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+const T = {
+  en: {
+    title:'$ ChronoSync',subtitle:'UNIX Timestamp Converter',currentTimestamp:'Current UNIX Timestamp',
+    converterSection:'Converter',timestampToDate:'Timestamp → Date',dateToTimestamp:'Date → Timestamp',
+    convertBtn:'Convert',resultPlaceholder:'Result will appear here',tsPlaceholder:'1700000000',
+    invalidTs:'Invalid timestamp. Enter a number.',invalidDate:'Please select a date.',copied:'Copied!'
+  },
+  it: {
+    title:'$ ChronoSync',subtitle:'Convertitore Timestamp UNIX',currentTimestamp:'Timestamp UNIX Attuale',
+    converterSection:'Convertitore',timestampToDate:'Timestamp → Data',dateToTimestamp:'Data → Timestamp',
+    convertBtn:'Converti',resultPlaceholder:'Il risultato apparirà qui',tsPlaceholder:'1700000000',
+    invalidTs:'Timestamp non valido. Inserisci un numero.',invalidDate:'Seleziona una data.',copied:'Copiato!'
+  },
+  es: {
+    title:'$ ChronoSync',subtitle:'Convertidor Timestamp UNIX',currentTimestamp:'Timestamp UNIX Actual',
+    converterSection:'Convertidor',timestampToDate:'Timestamp → Fecha',dateToTimestamp:'Fecha → Timestamp',
+    convertBtn:'Convertir',resultPlaceholder:'El resultado aparecerá aquí',tsPlaceholder:'1700000000',
+    invalidTs:'Timestamp inválido. Introduce un número.',invalidDate:'Selecciona una fecha.',copied:'¡Copiado!'
+  },
+  fr: {
+    title:'$ ChronoSync',subtitle:'Convertisseur Timestamp UNIX',currentTimestamp:'Timestamp UNIX Actuel',
+    converterSection:'Convertisseur',timestampToDate:'Timestamp → Date',dateToTimestamp:'Date → Timestamp',
+    convertBtn:'Convertir',resultPlaceholder:'Le résultat apparaîtra ici',tsPlaceholder:'1700000000',
+    invalidTs:'Timestamp invalide. Entrez un nombre.',invalidDate:'Sélectionnez une date.',copied:'Copié !'
+  },
+  de: {
+    title:'$ ChronoSync',subtitle:'UNIX-Zeitstempel Konverter',currentTimestamp:'Aktueller UNIX-Zeitstempel',
+    converterSection:'Konverter',timestampToDate:'Zeitstempel → Datum',dateToTimestamp:'Datum → Zeitstempel',
+    convertBtn:'Konvertieren',resultPlaceholder:'Ergebnis erscheint hier',tsPlaceholder:'1700000000',
+    invalidTs:'Ungültiger Zeitstempel. Geben Sie eine Zahl ein.',invalidDate:'Bitte wählen Sie ein Datum.',copied:'Kopiert!'
+  },
+  pt: {
+    title:'$ ChronoSync',subtitle:'Conversor Timestamp UNIX',currentTimestamp:'Timestamp UNIX Atual',
+    converterSection:'Conversor',timestampToDate:'Timestamp → Data',dateToTimestamp:'Data → Timestamp',
+    convertBtn:'Converter',resultPlaceholder:'O resultado aparecerá aqui',tsPlaceholder:'1700000000',
+    invalidTs:'Timestamp inválido. Insira um número.',invalidDate:'Selecione uma data.',copied:'Copiado!'
+  },
+  ru: {
+    title:'$ ChronoSync',subtitle:'Конвертер UNIX Timestamp',currentTimestamp:'Текущий UNIX Timestamp',
+    converterSection:'Конвертер',timestampToDate:'Timestamp → Дата',dateToTimestamp:'Дата → Timestamp',
+    convertBtn:'Конвертировать',resultPlaceholder:'Результат появится здесь',tsPlaceholder:'1700000000',
+    invalidTs:'Неверный timestamp. Введите число.',invalidDate:'Выберите дату.',copied:'Скопировано!'
+  },
+  ja: {
+    title:'$ ChronoSync',subtitle:'UNIXタイムスタンプ変換',currentTimestamp:'現在のUNIXタイムスタンプ',
+    converterSection:'変換',timestampToDate:'タイムスタンプ → 日付',dateToTimestamp:'日付 → タイムスタンプ',
+    convertBtn:'変換',resultPlaceholder:'結果がここに表示されます',tsPlaceholder:'1700000000',
+    invalidTs:'無効なタイムスタンプです。数値を入力してください。',invalidDate:'日付を選択してください。',copied:'コピーしました！'
+  },
+  ko: {
+    title:'$ ChronoSync',subtitle:'UNIX 타임스탬프 변환기',currentTimestamp:'현재 UNIX 타임스탬프',
+    converterSection:'변환기',timestampToDate:'타임스탬프 → 날짜',dateToTimestamp:'날짜 → 타임스탬프',
+    convertBtn:'변환',resultPlaceholder:'결과가 여기에 표시됩니다',tsPlaceholder:'1700000000',
+    invalidTs:'잘못된 타임스탬프입니다. 숫자를 입력하세요.',invalidDate:'날짜를 선택하세요.',copied:'복사됨!'
+  },
+  'zh-cn': {
+    title:'$ ChronoSync',subtitle:'UNIX时间戳转换器',currentTimestamp:'当前UNIX时间戳',
+    converterSection:'转换器',timestampToDate:'时间戳 → 日期',dateToTimestamp:'日期 → 时间戳',
+    convertBtn:'转换',resultPlaceholder:'结果将显示在这里',tsPlaceholder:'1700000000',
+    invalidTs:'无效的时间戳。请输入数字。',invalidDate:'请选择日期。',copied:'已复制！'
+  },
+  ar: {
+    title:'$ ChronoSync',subtitle:'محول الطابع الزمني UNIX',currentTimestamp:'الطابع الزمني الحالي',
+    converterSection:'المحول',timestampToDate:'طابع زمني → تاريخ',dateToTimestamp:'تاريخ → طابع زمني',
+    convertBtn:'تحويل',resultPlaceholder:'ستظهر النتيجة هنا',tsPlaceholder:'1700000000',
+    invalidTs:'طابع زمني غير صالح. أدخل رقمًا.',invalidDate:'يرجى تحديد تاريخ.',copied:'تم النسخ!'
+  },
+  hi: {
+    title:'$ ChronoSync',subtitle:'UNIX टाइमस्टैम्प कनवर्टर',currentTimestamp:'वर्तमान UNIX टाइमस्टैम्प',
+    converterSection:'कनवर्टर',timestampToDate:'टाइमस्टैम्प → दिनांक',dateToTimestamp:'दिनांक → टाइमस्टैम्प',
+    convertBtn:'कनवर्ट',resultPlaceholder:'परिणाम यहां दिखेगा',tsPlaceholder:'1700000000',
+    invalidTs:'अमान्य टाइमस्टैम्प। एक संख्या दर्ज करें।',invalidDate:'कृपया एक दिनांक चुनें।',copied:'कॉपी हो गया!'
+  }
+};
+
+function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+const LANG=detectLang();
+const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
+
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)});
+  if(LANG==='ar')document.body.style.direction='rtl';
+}
+
+function updateClock() {
+  const now = Math.floor(Date.now() / 1000);
+  document.getElementById('live-ts').textContent = now;
+  document.getElementById('live-human').textContent = new Date(now * 1000).toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+}
+
+function showStatus(msg, type) {
+  const s = document.getElementById('status');
+  s.textContent = msg;
+  s.className = 'status ' + type;
+  setTimeout(() => s.className = 'status', 4000);
+}
+
+function setResult(containerId, value) {
+  const box = document.getElementById(containerId);
+  box.innerHTML = `<span class="result-value">${value}</span><button class="copy-mini" onclick="copyVal(this)">${t('copied').replace('!','').replace('！','')}</button>`;
+}
+
+function copyVal(btn) {
+  const val = btn.previousElementSibling.textContent;
+  navigator.clipboard.writeText(val).then(() => {
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = t('copied').replace('!','').replace('！',''), 2000);
+  });
+}
+
+function tsToDate() {
+  const input = document.getElementById('ts-input').value.trim();
+  const ts = parseInt(input, 10);
+  if (isNaN(ts)) { showStatus(t('invalidTs'), 'error'); return; }
+  const date = new Date(ts * 1000);
+  const utc = date.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+  const local = date.toLocaleString();
+  setResult('ts-result', `${utc}\n${local}`);
+}
+
+function dateToTs() {
+  const input = document.getElementById('date-input').value;
+  if (!input) { showStatus(t('invalidDate'), 'error'); return; }
+  const ts = Math.floor(new Date(input).getTime() / 1000);
+  setResult('date-result', ts.toString());
+}
+
+// Set datetime-local default to now
+const now = new Date();
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+document.getElementById('date-input').value = now.toISOString().slice(0, 19);
+
+setInterval(updateClock, 1000);
+updateClock();
+applyI18n();
+</script>
+</body>
+</html>

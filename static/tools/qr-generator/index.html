@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
+  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
+  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
+  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
+  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
+  --border:#1e1e30;--border2:#2a2a40;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+.app{max-width:700px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+.header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
+.header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
+.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
+.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.input-group{margin-bottom:16px}
+.input-group label{display:block;font-size:11px;color:var(--text2);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}
+.input-group textarea,.input-group input[type="text"]{width:100%;padding:12px;font-family:var(--mono);font-size:13px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;resize:vertical;outline:none;transition:border-color .2s}
+.input-group textarea:focus,.input-group input[type="text"]:focus{border-color:var(--cyan)}
+.input-group textarea{min-height:80px}
+
+.options-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.option-item{display:flex;flex-direction:column;gap:6px}
+.option-item label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
+.option-item select{padding:8px 10px;font-family:var(--mono);font-size:12px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;cursor:pointer}
+.option-item select:focus{border-color:var(--cyan)}
+.color-picker-wrap{display:flex;align-items:center;gap:8px}
+.color-picker-wrap input[type="color"]{width:36px;height:36px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:var(--bg3);padding:2px}
+.color-picker-wrap .color-hex{font-size:12px;color:var(--text2)}
+
+.btn{padding:10px 24px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
+.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn-secondary{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
+.btn-secondary:hover{background:var(--cyan-glow)}
+.btn-group{display:flex;gap:10px;flex-wrap:wrap}
+
+.qr-output{text-align:center;margin-top:16px;display:none}
+.qr-output.visible{display:block}
+.qr-canvas-wrap{display:inline-block;padding:16px;background:#fff;border-radius:8px;border:2px solid var(--border)}
+.qr-canvas-wrap canvas{display:block}
+
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
+.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
+.status.error{display:block;background:rgba(255,51,85,.08);border:1px solid var(--red);color:var(--red)}
+
+@media(max-width:600px){
+  .options-row{grid-template-columns:1fr}
+  .btn-group{flex-direction:column}
+  .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1 data-i18n="title">$ QuickLinker</h1>
+    <div class="sub" data-i18n="subtitle">QR Code Generator</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title" data-i18n="inputSection">Input</div>
+    <div class="input-group">
+      <label data-i18n="inputLabel">URL or Text</label>
+      <textarea id="qr-input" placeholder="https://example.com" data-i18n-placeholder="inputPlaceholder"></textarea>
+    </div>
+
+    <div class="panel-title" data-i18n="optionsSection">Options</div>
+    <div class="options-row">
+      <div class="option-item">
+        <label data-i18n="fgColor">Foreground</label>
+        <div class="color-picker-wrap">
+          <input type="color" id="fg-color" value="#000000">
+          <span class="color-hex" id="fg-hex">#000000</span>
+        </div>
+      </div>
+      <div class="option-item">
+        <label data-i18n="bgColor">Background</label>
+        <div class="color-picker-wrap">
+          <input type="color" id="bg-color" value="#ffffff">
+          <span class="color-hex" id="bg-hex">#FFFFFF</span>
+        </div>
+      </div>
+      <div class="option-item">
+        <label data-i18n="errorLevel">Error Correction</label>
+        <select id="ec-level">
+          <option value="L">L (7%)</option>
+          <option value="M" selected>M (15%)</option>
+          <option value="Q">Q (25%)</option>
+          <option value="H">H (30%)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="generateQR()" data-i18n="generateBtn">Generate QR</button>
+      <button class="btn btn-secondary" id="download-btn" onclick="downloadQR()" style="display:none" data-i18n="downloadBtn">Download .PNG</button>
+    </div>
+  </div>
+
+  <div class="qr-output" id="qr-output">
+    <div class="panel">
+      <div class="panel-title" data-i18n="resultSection">Result</div>
+      <div class="qr-canvas-wrap">
+        <canvas id="qr-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+const T = {
+  en: {
+    title: '$ QuickLinker', subtitle: 'QR Code Generator',
+    inputSection: 'Input', inputLabel: 'URL or Text', inputPlaceholder: 'https://example.com',
+    optionsSection: 'Options', fgColor: 'Foreground', bgColor: 'Background',
+    errorLevel: 'Error Correction', generateBtn: 'Generate QR', downloadBtn: 'Download .PNG',
+    resultSection: 'Result', errorEmpty: 'Please enter a URL or text.',
+    success: 'QR code generated successfully.', errorGenerate: 'Error generating QR code.'
+  },
+  it: {
+    title: '$ QuickLinker', subtitle: 'Generatore di Codici QR',
+    inputSection: 'Input', inputLabel: 'URL o Testo', inputPlaceholder: 'https://esempio.com',
+    optionsSection: 'Opzioni', fgColor: 'Primo Piano', bgColor: 'Sfondo',
+    errorLevel: 'Correzione Errore', generateBtn: 'Genera QR', downloadBtn: 'Scarica .PNG',
+    resultSection: 'Risultato', errorEmpty: 'Inserisci un URL o testo.',
+    success: 'Codice QR generato con successo.', errorGenerate: 'Errore nella generazione del codice QR.'
+  },
+  es: {
+    title: '$ QuickLinker', subtitle: 'Generador de Códigos QR',
+    inputSection: 'Entrada', inputLabel: 'URL o Texto', inputPlaceholder: 'https://ejemplo.com',
+    optionsSection: 'Opciones', fgColor: 'Primer Plano', bgColor: 'Fondo',
+    errorLevel: 'Corrección de Error', generateBtn: 'Generar QR', downloadBtn: 'Descargar .PNG',
+    resultSection: 'Resultado', errorEmpty: 'Introduce una URL o texto.',
+    success: 'Código QR generado exitosamente.', errorGenerate: 'Error al generar el código QR.'
+  },
+  fr: {
+    title: '$ QuickLinker', subtitle: 'Générateur de Codes QR',
+    inputSection: 'Entrée', inputLabel: 'URL ou Texte', inputPlaceholder: 'https://exemple.com',
+    optionsSection: 'Options', fgColor: 'Premier Plan', bgColor: 'Arrière-plan',
+    errorLevel: "Correction d'Erreur", generateBtn: 'Générer QR', downloadBtn: 'Télécharger .PNG',
+    resultSection: 'Résultat', errorEmpty: 'Veuillez entrer une URL ou un texte.',
+    success: 'Code QR généré avec succès.', errorGenerate: 'Erreur lors de la génération du code QR.'
+  },
+  de: {
+    title: '$ QuickLinker', subtitle: 'QR-Code Generator',
+    inputSection: 'Eingabe', inputLabel: 'URL oder Text', inputPlaceholder: 'https://beispiel.de',
+    optionsSection: 'Optionen', fgColor: 'Vordergrund', bgColor: 'Hintergrund',
+    errorLevel: 'Fehlerkorrektur', generateBtn: 'QR Generieren', downloadBtn: '.PNG Herunterladen',
+    resultSection: 'Ergebnis', errorEmpty: 'Bitte geben Sie eine URL oder Text ein.',
+    success: 'QR-Code erfolgreich generiert.', errorGenerate: 'Fehler beim Generieren des QR-Codes.'
+  },
+  pt: {
+    title: '$ QuickLinker', subtitle: 'Gerador de Códigos QR',
+    inputSection: 'Entrada', inputLabel: 'URL ou Texto', inputPlaceholder: 'https://exemplo.com',
+    optionsSection: 'Opções', fgColor: 'Primeiro Plano', bgColor: 'Fundo',
+    errorLevel: 'Correção de Erro', generateBtn: 'Gerar QR', downloadBtn: 'Baixar .PNG',
+    resultSection: 'Resultado', errorEmpty: 'Insira uma URL ou texto.',
+    success: 'Código QR gerado com sucesso.', errorGenerate: 'Erro ao gerar o código QR.'
+  },
+  ru: {
+    title: '$ QuickLinker', subtitle: 'Генератор QR-кодов',
+    inputSection: 'Ввод', inputLabel: 'URL или Текст', inputPlaceholder: 'https://пример.com',
+    optionsSection: 'Настройки', fgColor: 'Передний план', bgColor: 'Фон',
+    errorLevel: 'Коррекция ошибок', generateBtn: 'Создать QR', downloadBtn: 'Скачать .PNG',
+    resultSection: 'Результат', errorEmpty: 'Введите URL или текст.',
+    success: 'QR-код успешно создан.', errorGenerate: 'Ошибка при создании QR-кода.'
+  },
+  ja: {
+    title: '$ QuickLinker', subtitle: 'QRコードジェネレーター',
+    inputSection: '入力', inputLabel: 'URLまたはテキスト', inputPlaceholder: 'https://example.com',
+    optionsSection: 'オプション', fgColor: '前景色', bgColor: '背景色',
+    errorLevel: 'エラー訂正', generateBtn: 'QR生成', downloadBtn: '.PNGダウンロード',
+    resultSection: '結果', errorEmpty: 'URLまたはテキストを入力してください。',
+    success: 'QRコードが正常に生成されました。', errorGenerate: 'QRコードの生成中にエラーが発生しました。'
+  },
+  ko: {
+    title: '$ QuickLinker', subtitle: 'QR 코드 생성기',
+    inputSection: '입력', inputLabel: 'URL 또는 텍스트', inputPlaceholder: 'https://example.com',
+    optionsSection: '옵션', fgColor: '전경색', bgColor: '배경색',
+    errorLevel: '오류 정정', generateBtn: 'QR 생성', downloadBtn: '.PNG 다운로드',
+    resultSection: '결과', errorEmpty: 'URL 또는 텍스트를 입력하세요.',
+    success: 'QR 코드가 성공적으로 생성되었습니다.', errorGenerate: 'QR 코드 생성 중 오류가 발생했습니다.'
+  },
+  'zh-cn': {
+    title: '$ QuickLinker', subtitle: 'QR码生成器',
+    inputSection: '输入', inputLabel: 'URL或文本', inputPlaceholder: 'https://example.com',
+    optionsSection: '选项', fgColor: '前景色', bgColor: '背景色',
+    errorLevel: '纠错等级', generateBtn: '生成QR码', downloadBtn: '下载.PNG',
+    resultSection: '结果', errorEmpty: '请输入URL或文本。',
+    success: 'QR码生成成功。', errorGenerate: '生成QR码时出错。'
+  },
+  ar: {
+    title: '$ QuickLinker', subtitle: 'مولد رمز QR',
+    inputSection: 'إدخال', inputLabel: 'رابط أو نص', inputPlaceholder: 'https://example.com',
+    optionsSection: 'خيارات', fgColor: 'اللون الأمامي', bgColor: 'لون الخلفية',
+    errorLevel: 'تصحيح الأخطاء', generateBtn: 'إنشاء QR', downloadBtn: 'تحميل .PNG',
+    resultSection: 'النتيجة', errorEmpty: 'يرجى إدخال رابط أو نص.',
+    success: 'تم إنشاء رمز QR بنجاح.', errorGenerate: 'خطأ في إنشاء رمز QR.'
+  },
+  hi: {
+    title: '$ QuickLinker', subtitle: 'QR कोड जनरेटर',
+    inputSection: 'इनपुट', inputLabel: 'URL या टेक्स्ट', inputPlaceholder: 'https://example.com',
+    optionsSection: 'विकल्प', fgColor: 'अग्रभूमि', bgColor: 'पृष्ठभूमि',
+    errorLevel: 'त्रुटि सुधार', generateBtn: 'QR बनाएं', downloadBtn: '.PNG डाउनलोड',
+    resultSection: 'परिणाम', errorEmpty: 'कृपया URL या टेक्स्ट दर्ज करें।',
+    success: 'QR कोड सफलतापूर्वक बनाया गया।', errorGenerate: 'QR कोड बनाने में त्रुटि।'
+  }
+};
+
+function detectLang() {
+  try { const l = window.parent.document.documentElement.lang; if (l) return l.toLowerCase(); } catch(e) {}
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('lang')) return p.get('lang').toLowerCase();
+  const path = window.location.pathname;
+  const m = path.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);
+  if (m) return m[1];
+  return navigator.language.split('-')[0].toLowerCase();
+}
+
+const LANG = detectLang();
+const t = (key) => (T[LANG] || T[LANG.split('-')[0]] || T.en)[key] || T.en[key] || key;
+
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+  if (LANG === 'ar') document.body.style.direction = 'rtl';
+}
+
+document.getElementById('fg-color').addEventListener('input', e => {
+  document.getElementById('fg-hex').textContent = e.target.value.toUpperCase();
+});
+document.getElementById('bg-color').addEventListener('input', e => {
+  document.getElementById('bg-hex').textContent = e.target.value.toUpperCase();
+});
+
+function showStatus(msg, type) {
+  const s = document.getElementById('status');
+  s.textContent = msg;
+  s.className = 'status ' + type;
+  setTimeout(() => s.className = 'status', 4000);
+}
+
+function generateQR() {
+  const text = document.getElementById('qr-input').value.trim();
+  if (!text) { showStatus(t('errorEmpty'), 'error'); return; }
+  const ecLevel = document.getElementById('ec-level').value;
+  const fg = document.getElementById('fg-color').value;
+  const bg = document.getElementById('bg-color').value;
+
+  try {
+    const ecMap = { L: 1, M: 0, Q: 3, H: 2 };
+    const qr = qrcode(0, ecMap[ecLevel] !== undefined ? ecLevel : 'M');
+    qr.addData(text);
+    qr.make();
+
+    const moduleCount = qr.getModuleCount();
+    const cellSize = Math.max(4, Math.floor(280 / moduleCount));
+    const size = moduleCount * cellSize;
+    const canvas = document.getElementById('qr-canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, size, size);
+
+    ctx.fillStyle = fg;
+    for (let row = 0; row < moduleCount; row++) {
+      for (let col = 0; col < moduleCount; col++) {
+        if (qr.isDark(row, col)) {
+          ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    document.getElementById('qr-output').classList.add('visible');
+    document.getElementById('download-btn').style.display = '';
+    showStatus(t('success'), 'success');
+  } catch (e) {
+    showStatus(t('errorGenerate') + ' ' + e.message, 'error');
+  }
+}
+
+function downloadQR() {
+  const canvas = document.getElementById('qr-canvas');
+  const link = document.createElement('a');
+  link.download = 'qrcode.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+applyI18n();
+</script>
+</body>
+</html>
