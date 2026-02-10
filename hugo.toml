@@ -115,15 +115,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.en.menu.main]]
+        identifier = "cheatsheets"
+        name = "Cheatsheets"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.en.menu.main]]
         identifier = "games"
         name = "Games"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.en.menu.main]]
         identifier = "writeups"
         name = "CTF Writeups"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.en.menu.main]]
         identifier = "projects"
         name = "Projects"
@@ -156,15 +161,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.it.menu.main]]
+        identifier = "cheatsheets"
+        name = "Cheatsheet"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.it.menu.main]]
         identifier = "games"
         name = "Giochi"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.it.menu.main]]
         identifier = "writeups"
         name = "CTF Writeups"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.it.menu.main]]
         identifier = "projects"
         name = "Progetti"
@@ -197,15 +207,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.es.menu.main]]
+        identifier = "cheatsheets"
+        name = "Cheatsheets"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.es.menu.main]]
         identifier = "games"
         name = "Juegos"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.es.menu.main]]
         identifier = "writeups"
         name = "CTF Writeups"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.es.menu.main]]
         identifier = "projects"
         name = "Proyectos"
@@ -238,15 +253,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.zh-cn.menu.main]]
+        identifier = "cheatsheets"
+        name = "速查表"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.zh-cn.menu.main]]
         identifier = "games"
         name = "游戏"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.zh-cn.menu.main]]
         identifier = "writeups"
         name = "CTF题解"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.zh-cn.menu.main]]
         identifier = "projects"
         name = "项目"
@@ -279,15 +299,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.hi.menu.main]]
+        identifier = "cheatsheets"
+        name = "चीटशीट"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.hi.menu.main]]
         identifier = "games"
         name = "खेल"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.hi.menu.main]]
         identifier = "writeups"
         name = "CTF राइटअप"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.hi.menu.main]]
         identifier = "projects"
         name = "परियोजनाएं"
@@ -321,15 +346,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ar.menu.main]]
+        identifier = "cheatsheets"
+        name = "ملخصات"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.ar.menu.main]]
         identifier = "games"
         name = "الألعاب"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.ar.menu.main]]
         identifier = "writeups"
         name = "CTF حلول"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.ar.menu.main]]
         identifier = "projects"
         name = "المشاريع"
@@ -362,15 +392,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.pt.menu.main]]
+        identifier = "cheatsheets"
+        name = "Cheatsheets"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.pt.menu.main]]
         identifier = "games"
         name = "Jogos"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.pt.menu.main]]
         identifier = "writeups"
         name = "CTF Writeups"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.pt.menu.main]]
         identifier = "projects"
         name = "Projetos"
@@ -403,15 +438,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.fr.menu.main]]
+        identifier = "cheatsheets"
+        name = "Aide-mémoire"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.fr.menu.main]]
         identifier = "games"
         name = "Jeux"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.fr.menu.main]]
         identifier = "writeups"
         name = "CTF Writeups"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.fr.menu.main]]
         identifier = "projects"
         name = "Projets"
@@ -444,15 +484,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.de.menu.main]]
+        identifier = "cheatsheets"
+        name = "Spickzettel"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.de.menu.main]]
         identifier = "games"
         name = "Spiele"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.de.menu.main]]
         identifier = "writeups"
         name = "CTF Writeups"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.de.menu.main]]
         identifier = "projects"
         name = "Projekte"
@@ -485,15 +530,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ja.menu.main]]
+        identifier = "cheatsheets"
+        name = "チートシート"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.ja.menu.main]]
         identifier = "games"
         name = "ゲーム"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.ja.menu.main]]
         identifier = "writeups"
         name = "CTF解説"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.ja.menu.main]]
         identifier = "projects"
         name = "プロジェクト"
@@ -526,15 +576,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ru.menu.main]]
+        identifier = "cheatsheets"
+        name = "Шпаргалки"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.ru.menu.main]]
         identifier = "games"
         name = "Игры"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.ru.menu.main]]
         identifier = "writeups"
         name = "CTF Решения"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.ru.menu.main]]
         identifier = "projects"
         name = "Проекты"
@@ -567,15 +622,20 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ko.menu.main]]
+        identifier = "cheatsheets"
+        name = "치트시트"
+        url = "/cheatsheets/"
+        weight = 35
+      [[languages.ko.menu.main]]
         identifier = "games"
         name = "게임"
         url = "/games/"
-        weight = 35
+        weight = 40
       [[languages.ko.menu.main]]
         identifier = "writeups"
         name = "CTF 풀이"
         url = "/writeups/"
-        weight = 40
+        weight = 45
       [[languages.ko.menu.main]]
         identifier = "projects"
         name = "프로젝트"

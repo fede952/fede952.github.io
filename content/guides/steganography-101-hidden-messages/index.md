@@ -16,7 +16,7 @@ schema_json: >
   }
 ---
 
-## $ System_Init
+## System Init
 
 A photograph of a sunset. A profile picture. A meme shared on social media. To any observer, they are ordinary image files. But buried inside the pixel data — invisible to the human eye — there can be a hidden message waiting to be extracted by someone who knows where to look.
 
@@ -26,7 +26,7 @@ This guide explains the most common digital steganography technique — **Least 
 
 ---
 
-## $ What_Is_Steganography
+## What Is Steganography
 
 The word comes from Greek: *steganos* (covered) + *graphein* (writing). Literally, "covered writing."
 
@@ -47,7 +47,7 @@ The most powerful approach combines both: encrypt the message first, then embed 
 
 ---
 
-## $ How_LSB_Works
+## How LSB Works
 
 Digital images are made of pixels. Each pixel stores color values — typically Red, Green, and Blue (RGB) — with each channel using 8 bits (values 0-255).
 
@@ -95,7 +95,7 @@ That is enough to hide an entire document inside a single photograph.
 
 ---
 
-## $ Detection_And_Limits
+## Detection And Limits
 
 LSB steganography is not perfect. Here are the known vulnerabilities:
 
@@ -120,7 +120,7 @@ Resizing, cropping, rotating, or applying filters (brightness, contrast, etc.) a
 
 ---
 
-## $ Try_It_Yourself
+## Try It Yourself
 
 Theory is nothing without practice. Use our free, client-side **[Steganography Lab](/tools/steganography/)** to encode your own hidden messages into images — directly in your browser.
 
@@ -136,7 +136,7 @@ No uploads, no server processing. Your data stays on your machine.
 
 ---
 
-## $ FAQ_Database
+## FAQ
 
 **Can steganography be detected?**
 
