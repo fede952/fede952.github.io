@@ -42,7 +42,7 @@
     const emptyState = document.getElementById('search-empty');
     const trigger = document.getElementById('search-trigger');
     const backdrop = modal.querySelector('.search-backdrop');
-    const searchIndexURL = {{ "index.json" | absLangURL | jsonify }};
+    const searchIndexURL = {{ "index.json" | relLangURL | jsonify }};
 
     let fuse = null;
     let activeIndex = -1;
@@ -52,8 +52,11 @@
     async function loadIndex() {
         if (fuse) return;
         try {
+            console.log('[Search] Fetching index from:', searchIndexURL);
             const res = await fetch(searchIndexURL);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
+            console.log('[Search] Loaded', data.length, 'entries');
             fuse = new Fuse(data, {
                 keys: [
                     { name: 'title', weight: 0.5 },

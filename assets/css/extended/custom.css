@@ -751,14 +751,21 @@ details p, details pre {
 }
 
 /* ============================================
-   COMMAND PALETTE - TRIGGER BUTTON
+   COMMAND PALETTE - NAV & TRIGGER BUTTON
    ============================================ */
 
-/* The <li> wrapper inside #menu */
-.search-li {
-    list-style: none;
+/* Keep nav items + search on same row */
+.nav {
+    flex-wrap: nowrap !important;
+    align-items: center;
 }
 
+#menu {
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+/* Search trigger — sits after #menu as a direct .nav child */
 #search-trigger {
     display: inline-flex;
     align-items: center;
@@ -773,6 +780,8 @@ details p, details pre {
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
+    flex-shrink: 0;
+    margin: auto var(--gap);
 }
 
 #search-trigger:hover {
@@ -803,6 +812,7 @@ details p, details pre {
     }
     #search-trigger {
         padding: 5px 8px;
+        margin: auto 0 auto var(--gap);
     }
 }
 
