@@ -751,35 +751,64 @@ details p, details pre {
 }
 
 /* ============================================
+   GLOBAL OVERFLOW FIX
+   ============================================ */
+
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100%;
+}
+
+/* ============================================
+   COMPACT NAVIGATION
+   ============================================ */
+
+#menu {
+    gap: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#menu::-webkit-scrollbar {
+    display: none;
+}
+
+#menu li + li {
+    margin-inline-start: 0; /* Override PaperMod's default gap */
+}
+
+#menu a {
+    font-size: 14px;
+}
+
+/* ============================================
    COMMAND PALETTE - TRIGGER BUTTON
    ============================================ */
 
-/* Search item sits inside #menu as a regular <li> */
 .search-item {
     list-style: none;
 }
 
 #search-trigger {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid #333;
-    color: #888;
-    padding: 4px 10px;
+    color: #ccc;
+    padding: 6px 10px;
     border-radius: 4px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    transition: all 0.3s ease;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    line-height: 1;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
     white-space: nowrap;
     vertical-align: middle;
+    margin-left: 4px;
 }
 
 #search-trigger svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     flex-shrink: 0;
     stroke: currentColor;
 }
@@ -787,11 +816,12 @@ details p, details pre {
 #search-trigger:hover {
     border-color: #00ff41;
     color: #fff;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
 }
 
 .search-label {
     font-size: 11px;
+    white-space: nowrap;
     opacity: 0.6;
     padding: 1px 5px;
     background: rgba(255, 255, 255, 0.06);
@@ -799,9 +829,13 @@ details p, details pre {
     border-radius: 3px;
 }
 
-@media (max-width: 768px) {
+/* Hide "Ctrl K" on laptops and below — icon only */
+@media (max-width: 1400px) {
     .search-label {
         display: none;
+    }
+    #search-trigger {
+        padding: 6px;
     }
 }
 
