@@ -754,26 +754,31 @@ details p, details pre {
    COMMAND PALETTE - TRIGGER BUTTON
    ============================================ */
 
+/* The <li> wrapper inside #menu */
+.search-li {
+    list-style: none;
+}
+
 #search-trigger {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 14px;
-    background: rgba(255, 255, 255, 0.05);
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.06);
     border: 1px solid #333;
-    border-radius: 8px;
+    border-radius: 6px;
     color: #888;
     font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-right: 8px;
+    white-space: nowrap;
 }
 
 #search-trigger:hover {
-    border-color: #00e5ff;
-    color: #00e5ff;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+    border-color: #00ff41;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
 }
 
 #search-trigger svg {
@@ -797,8 +802,7 @@ details p, details pre {
         display: none;
     }
     #search-trigger {
-        padding: 6px 8px;
-        margin-right: 4px;
+        padding: 5px 8px;
     }
 }
 
