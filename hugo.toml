@@ -701,6 +701,9 @@ defaultContentLanguageInSubdir = true
         name = "프로젝트"
         url = "/projects/"
         weight = 50
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]

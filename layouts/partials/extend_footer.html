@@ -12,3 +12,172 @@
 
 <!-- Iframe auto-resizer for embedded tools -->
 <script src="{{ "js/iframe-resizer.js" | absURL }}"></script>
+
+<!-- Command Palette Modal -->
+<div id="search-modal" class="search-modal" aria-hidden="true">
+    <div class="search-backdrop"></div>
+    <div class="search-dialog">
+        <div class="search-input-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="search-input" type="text" placeholder="Search articles, tools, cheatsheets..." autocomplete="off" spellcheck="false">
+            <kbd class="search-esc">ESC</kbd>
+        </div>
+        <ul id="search-results" class="search-results"></ul>
+        <div id="search-empty" class="search-empty" style="display:none;">No results found.</div>
+        <div class="search-footer">
+            <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigate</span>
+            <span><kbd>&crarr;</kbd> Open</span>
+            <span><kbd>ESC</kbd> Close</span>
+        </div>
+    </div>
+</div>
+
+<!-- Fuse.js + Search Logic -->
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function() {
+    const modal = document.getElementById('search-modal');
+    const input = document.getElementById('search-input');
+    const resultsList = document.getElementById('search-results');
+    const emptyState = document.getElementById('search-empty');
+    const trigger = document.getElementById('search-trigger');
+    const backdrop = modal.querySelector('.search-backdrop');
+
+    let fuse = null;
+    let activeIndex = -1;
+    let results = [];
+
+    // Lazy-load index on first open
+    async function loadIndex() {
+        if (fuse) return;
+        try {
+            const res = await fetch('/index.json');
+            const data = await res.json();
+            fuse = new Fuse(data, {
+                keys: [
+                    { name: 'title', weight: 0.5 },
+                    { name: 'section', weight: 0.2 },
+                    { name: 'summary', weight: 0.3 }
+                ],
+                threshold: 0.4,
+                minMatchCharLength: 2,
+                includeScore: true
+            });
+        } catch(e) {
+            console.error('Search index load failed:', e);
+        }
+    }
+
+    function openModal() {
+        loadIndex();
+        modal.setAttribute('aria-hidden', 'false');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => input.focus(), 50);
+    }
+
+    function closeModal() {
+        modal.setAttribute('aria-hidden', 'true');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        input.value = '';
+        resultsList.innerHTML = '';
+        emptyState.style.display = 'none';
+        activeIndex = -1;
+        results = [];
+    }
+
+    function renderResults(hits) {
+        results = hits.slice(0, 8);
+        activeIndex = results.length > 0 ? 0 : -1;
+
+        if (results.length === 0 && input.value.length >= 2) {
+            resultsList.innerHTML = '';
+            emptyState.style.display = 'block';
+            return;
+        }
+        emptyState.style.display = 'none';
+
+        resultsList.innerHTML = results.map((r, i) => {
+            const item = r.item;
+            const sectionLabel = item.section || 'Page';
+            return `<li class="${i === 0 ? 'active' : ''}">
+                <a href="${item.permalink}" class="search-result-link">
+                    <span class="search-result-section">${sectionLabel}</span>
+                    <span class="search-result-title">${item.title}</span>
+                </a>
+            </li>`;
+        }).join('');
+    }
+
+    function updateActive() {
+        const items = resultsList.querySelectorAll('li');
+        items.forEach((li, i) => {
+            li.classList.toggle('active', i === activeIndex);
+        });
+        if (items[activeIndex]) {
+            items[activeIndex].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    // Event: Trigger button
+    trigger.addEventListener('click', openModal);
+
+    // Event: Backdrop click
+    backdrop.addEventListener('click', closeModal);
+
+    // Event: Keyboard
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+K / Cmd+K
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            if (modal.classList.contains('active')) {
+                closeModal();
+            } else {
+                openModal();
+            }
+            return;
+        }
+
+        if (!modal.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            closeModal();
+            return;
+        }
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (results.length > 0) {
+                activeIndex = (activeIndex + 1) % results.length;
+                updateActive();
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (results.length > 0) {
+                activeIndex = (activeIndex - 1 + results.length) % results.length;
+                updateActive();
+            }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (activeIndex >= 0 && results[activeIndex]) {
+                window.location.href = results[activeIndex].item.permalink;
+            }
+        }
+    });
+
+    // Event: Input
+    input.addEventListener('input', function() {
+        const query = this.value.trim();
+        if (!fuse || query.length < 2) {
+            resultsList.innerHTML = '';
+            emptyState.style.display = 'none';
+            results = [];
+            activeIndex = -1;
+            return;
+        }
+        const hits = fuse.search(query);
+        renderResults(hits);
+    });
+})();
+</script>

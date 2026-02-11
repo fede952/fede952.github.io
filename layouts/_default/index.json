@@ -1,0 +1,13 @@
+{{- $pages := where .Site.RegularPages "Kind" "page" -}}
+[
+{{- range $i, $p := $pages -}}
+  {{- if $i }},{{ end }}
+  {
+    "title": {{ $p.Title | jsonify }},
+    "permalink": {{ $p.Permalink | jsonify }},
+    "section": {{ ($p.Section | humanize | title) | jsonify }},
+    "summary": {{ (substr ($p.Plain | replaceRE "\\s+" " ") 0 100) | jsonify }},
+    "date": {{ $p.Date.Format "2006-01-02" | jsonify }}
+  }
+{{- end }}
+]
