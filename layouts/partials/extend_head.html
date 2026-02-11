@@ -26,6 +26,13 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<!-- Custom Schema.org JSON-LD from frontmatter -->
+{{- if .Params.schema_json }}
+<script type="application/ld+json">
+{{ .Params.schema_json | safeHTML }}
+</script>
+{{- end }}
+
 <!-- Umami Analytics (production only) -->
 {{ if hugo.IsProduction }}
 <script defer src="https://cloud.umami.is/script.js" data-website-id="6ce4a218-111c-44d9-99f8-1aa67f2ff23d"></script>

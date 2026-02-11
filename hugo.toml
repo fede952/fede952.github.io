@@ -29,7 +29,7 @@ defaultContentLanguageInSubdir = true
     ID = 'G-MDQF90PHTW'
 
 [params]
-  mainSections = ["games", "tools", "news", "posts"]
+  mainSections = ["games", "tools", "news", "posts", "cheatsheets"]
   defaultTheme = "dark"
   env = "production"
   title = "Federico Sella"

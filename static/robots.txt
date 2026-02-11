@@ -1,4 +1,23 @@
+# Federico Sella — federicosella.com
+# Allow all search engines to index everything
+
 User-agent: *
 Allow: /
+Disallow: /private/
+Disallow: /admin/
 
+# Sitemap declaration (all languages auto-included by Hugo)
 Sitemap: https://federicosella.com/sitemap.xml
+
+# AI Crawlers — allowed for visibility and exposure
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
