@@ -12,4 +12,6 @@ The Unix cron syntax — five space-separated fields controlling **minute, hour,
 
 EasyCron eliminates the guesswork. The **visual builder** lets you pick exact values through checkboxes and quick-select helpers instead of writing raw expressions. A **sticky result bar** shows your generated cron string in real time alongside the next five scheduled run dates so you can verify the schedule instantly. Need to decode someone else's crontab? The **reverse translator** accepts any standard five-field expression and explains it in plain English. The entire tool runs client-side — nothing is sent to any server.
 
+**Related Resources:** Master the full Linux command line with our [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/). Running cron-style schedules in K8s? See the [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/).
+
 <iframe src="/tools/easy-cron/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

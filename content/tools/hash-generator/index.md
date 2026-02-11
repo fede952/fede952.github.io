@@ -127,3 +127,5 @@ tool_html: |
 ---
 
 Generate cryptographic hashes in real-time using the browser's native Web Crypto API. All computations happen client-side - your data never leaves your device.
+
+**Related Resource:** Want to script hashing and security automation? Check our [Python Security Scripting Cheatsheet](/cheatsheets/python-security-scripts/).

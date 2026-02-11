@@ -12,4 +12,6 @@ Weak passwords remain the number one attack vector in cybersecurity. Over **80% 
 
 PassFort solves both problems in a single tool. The **Generator** tab creates cryptographically random passwords using the Web Crypto API — the same entropy source used by password managers and banking software. Choose character classes, adjust length up to 128 characters, or switch to **Passphrase Mode** for memorable XKCD-style word combinations like `Correct-Horse-Battery-Staple`. The **Auditor** tab lets you paste any existing password to instantly see its entropy score, estimated brute-force crack time (at 10 billion guesses per second), and a detailed checklist of strength criteria. Everything runs locally in your browser — the password never touches a network.
 
+**Related Resource:** Managing users and passwords on Linux servers? See our [Linux SysAdmin: Permissions & User Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+
 <iframe src="/tools/pass-fort/index.html" width="100%" height="850px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

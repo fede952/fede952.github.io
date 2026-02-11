@@ -13,4 +13,6 @@ Every time you visit a website, your browser broadcasts a surprising amount of p
 
 NetGuard makes the invisible visible. Click **Run Privacy Scan** to launch a comprehensive audit of everything your browser is revealing right now. The tool fetches your public IP and geolocation, detects your hardware fingerprint (OS, browser, GPU renderer via WebGL), checks your **battery status** and connection speed, and runs a **WebRTC leak test** to see if your private IP addresses are exposed. Each data point is displayed on a hacker-style dashboard with a final **Privacy Score** from 0 to 100. Everything runs in your browser — no data is stored or sent to our servers.
 
+**Related Resource:** Want to go deeper? Learn manual network scanning with our [Nmap Network Scanning Field Manual](/cheatsheets/nmap-network-scanning/).
+
 <iframe src="/tools/netguard/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

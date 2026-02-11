@@ -98,3 +98,5 @@ tool_html: |
 ---
 
 Use this tool to encode text to Base64 or decode Base64 strings back to plain text. Fully supports UTF-8 characters including emojis and international alphabets.
+
+**Related Resource:** Base64 encoding is commonly used to obfuscate payloads. See our [SQL Injection Pentester's Cheatsheet](/cheatsheets/sql-injection-payloads-database/) for real-world examples.

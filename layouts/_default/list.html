@@ -83,7 +83,7 @@
   <div class="uni-grid">
     {{ $currentSection := .Section }}
     {{ $currentLang := .Lang }}
-    {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") }}
+    {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "cheatsheets") }}
 
     {{ $items := slice }}
 
@@ -117,7 +117,7 @@
           <h2><a href="{{ .Permalink }}" style="color:inherit; text-decoration:none;">{{ .Title }}</a></h2>
           {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
           <a class="btn-action" href="{{ .Permalink }}">
-             {{ if eq .Section "games" }}🎮 Play Now{{ else }}🛠️ Launch Tool{{ end }}
+             {{ if eq .Section "games" }}🎮 Play Now{{ else if eq .Section "cheatsheets" }}📖 Read Cheatsheet{{ else }}🛠️ Launch Tool{{ end }}
           </a>
           <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
         </article>
