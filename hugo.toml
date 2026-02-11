@@ -29,7 +29,7 @@ defaultContentLanguageInSubdir = true
     ID = 'G-MDQF90PHTW'
 
 [params]
-  mainSections = ["games", "tools", "news", "posts", "cheatsheets", "debug-sys"]
+  mainSections = ["games", "tools", "news", "posts", "cheatsheets", "debug-sys", "interviews"]
   defaultTheme = "dark"
   env = "production"
   title = "Federico Sella"
@@ -120,6 +120,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.en.menu.main]]
+        identifier = "interviews"
+        name = "Career"
+        url = "/interviews/"
+        weight = 38
+      [[languages.en.menu.main]]
         identifier = "games"
         name = "Games"
         url = "/games/"
@@ -165,6 +170,11 @@ defaultContentLanguageInSubdir = true
         name = "Cheatsheet"
         url = "/cheatsheets/"
         weight = 35
+      [[languages.it.menu.main]]
+        identifier = "interviews"
+        name = "Carriera"
+        url = "/interviews/"
+        weight = 38
       [[languages.it.menu.main]]
         identifier = "games"
         name = "Giochi"
@@ -212,6 +222,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.es.menu.main]]
+        identifier = "interviews"
+        name = "Carrera"
+        url = "/interviews/"
+        weight = 38
+      [[languages.es.menu.main]]
         identifier = "games"
         name = "Juegos"
         url = "/games/"
@@ -258,6 +273,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.zh-cn.menu.main]]
+        identifier = "interviews"
+        name = "职业"
+        url = "/interviews/"
+        weight = 38
+      [[languages.zh-cn.menu.main]]
         identifier = "games"
         name = "游戏"
         url = "/games/"
@@ -303,6 +323,11 @@ defaultContentLanguageInSubdir = true
         name = "चीटशीट"
         url = "/cheatsheets/"
         weight = 35
+      [[languages.hi.menu.main]]
+        identifier = "interviews"
+        name = "करियर"
+        url = "/interviews/"
+        weight = 38
       [[languages.hi.menu.main]]
         identifier = "games"
         name = "खेल"
@@ -351,6 +376,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.ar.menu.main]]
+        identifier = "interviews"
+        name = "مسيرة مهنية"
+        url = "/interviews/"
+        weight = 38
+      [[languages.ar.menu.main]]
         identifier = "games"
         name = "الألعاب"
         url = "/games/"
@@ -396,6 +426,11 @@ defaultContentLanguageInSubdir = true
         name = "Cheatsheets"
         url = "/cheatsheets/"
         weight = 35
+      [[languages.pt.menu.main]]
+        identifier = "interviews"
+        name = "Carreira"
+        url = "/interviews/"
+        weight = 38
       [[languages.pt.menu.main]]
         identifier = "games"
         name = "Jogos"
@@ -443,6 +478,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.fr.menu.main]]
+        identifier = "interviews"
+        name = "Carrière"
+        url = "/interviews/"
+        weight = 38
+      [[languages.fr.menu.main]]
         identifier = "games"
         name = "Jeux"
         url = "/games/"
@@ -488,6 +528,11 @@ defaultContentLanguageInSubdir = true
         name = "Spickzettel"
         url = "/cheatsheets/"
         weight = 35
+      [[languages.de.menu.main]]
+        identifier = "interviews"
+        name = "Karriere"
+        url = "/interviews/"
+        weight = 38
       [[languages.de.menu.main]]
         identifier = "games"
         name = "Spiele"
@@ -535,6 +580,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.ja.menu.main]]
+        identifier = "interviews"
+        name = "キャリア"
+        url = "/interviews/"
+        weight = 38
+      [[languages.ja.menu.main]]
         identifier = "games"
         name = "ゲーム"
         url = "/games/"
@@ -581,6 +631,11 @@ defaultContentLanguageInSubdir = true
         url = "/cheatsheets/"
         weight = 35
       [[languages.ru.menu.main]]
+        identifier = "interviews"
+        name = "Карьера"
+        url = "/interviews/"
+        weight = 38
+      [[languages.ru.menu.main]]
         identifier = "games"
         name = "Игры"
         url = "/games/"
@@ -626,6 +681,11 @@ defaultContentLanguageInSubdir = true
         name = "치트시트"
         url = "/cheatsheets/"
         weight = 35
+      [[languages.ko.menu.main]]
+        identifier = "interviews"
+        name = "커리어"
+        url = "/interviews/"
+        weight = 38
       [[languages.ko.menu.main]]
         identifier = "games"
         name = "게임"
