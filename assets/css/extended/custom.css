@@ -695,3 +695,57 @@ h1::before, h2::before {
     padding: 1.25rem;
   }
 }
+
+/* ============================================
+   CYBERPUNK ACCORDION (Interview Q&A)
+   ============================================ */
+
+details {
+    background: #0d0d0d;
+    border: 1px solid #333;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+details[open] {
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    list-style: none;
+    padding: 10px 0;
+    position: relative;
+    padding-left: 25px;
+}
+
+summary::before {
+    content: "►";
+    color: #00ff41;
+    position: absolute;
+    left: 0;
+    transition: transform 0.2s;
+}
+
+details[open] summary::before {
+    transform: rotate(90deg);
+    color: #ff00ff;
+}
+
+details p, details pre {
+    margin-top: 10px;
+    border-top: 1px dashed #333;
+    padding-top: 10px;
+    color: #ccc;
+    animation: glitch-reveal 0.3s ease-in-out;
+}
+
+@keyframes glitch-reveal {
+    0% { opacity: 0; transform: translateY(-5px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
