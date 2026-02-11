@@ -10,7 +10,7 @@
     {{- with .Sitemap.ChangeFreq | default "weekly" }}
     <changefreq>{{ . }}</changefreq>
     {{- end }}
-    {{- if or (eq .Section "cheatsheets") (eq .Section "tools") }}
+    {{- if or (eq .Section "cheatsheets") (eq .Section "tools") (eq .Section "debug-sys") }}
     <priority>0.9</priority>
     {{- else if or (eq .Section "games") (eq .Section "guides") }}
     <priority>0.7</priority>
