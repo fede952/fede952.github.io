@@ -760,11 +760,13 @@ html, body {
 }
 
 /* ============================================
-   COMPACT NAVIGATION
+   NAVIGATION - CYBERPUNK POLISH
    ============================================ */
 
 #menu {
-    gap: 10px;
+    gap: 0;
+    display: flex;
+    align-items: center;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -773,12 +775,57 @@ html, body {
     display: none;
 }
 
+#menu li {
+    list-style: none;
+    display: inline-block;
+}
+
 #menu li + li {
-    margin-inline-start: 0; /* Override PaperMod's default gap */
+    margin-inline-start: 0;
 }
 
 #menu a {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 14px;
+    position: relative;
+    transition: color 0.2s ease;
+    text-decoration: none;
+}
+
+/* Cyberpunk separator slash between items */
+#menu li:not(:last-child) a::after {
+    content: "/";
+    position: absolute;
+    right: -2px;
+    color: #333;
+    font-weight: 300;
+    pointer-events: none;
+}
+
+#menu a:hover {
+    color: #00ff41;
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+
+/* Language switcher visual separation */
+.lang-switch {
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid #333;
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    #menu a {
+        font-size: 14px;
+        padding: 0 8px;
+    }
+    .lang-switch {
+        margin-left: 10px;
+        padding-left: 10px;
+    }
 }
 
 /* ============================================
