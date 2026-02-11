@@ -20,3 +20,6 @@ Hackers stole email addresses and other personal information from 1.4 million ac
 ---
 
 **[Read full article on BleepingComputer ›](https://www.bleepingcomputer.com/news/security/data-breach-at-fintech-firm-betterment-exposes-14-million-accounts/)**
+
+---
+**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/cheatsheets/sql-injection-payloads-database/).

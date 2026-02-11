@@ -20,3 +20,6 @@ The package, named sympy-dev, mimics SymPy, replicating the latter's project des
 ---
 
 **[Read full article on Feeds ›](https://thehackernews.com/2026/01/malicious-pypi-package-impersonates.html)**
+
+---
+**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) bookmarked.

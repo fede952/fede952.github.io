@@ -20,3 +20,6 @@ A newly documented Linux botnet named SSHStalker is using the IRC (Internet Rela
 ---
 
 **[Read full article on BleepingComputer ›](https://www.bleepingcomputer.com/news/security/new-linux-botnet-sshstalker-uses-old-school-irc-for-c2-comms/)**
+
+---
+**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) bookmarked.

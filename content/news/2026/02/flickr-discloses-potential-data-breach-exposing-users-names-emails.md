@@ -20,3 +20,6 @@ Photo-sharing platform Flickr is notifying users of a potential data breach aft
 ---
 
 **[Read full article on BleepingComputer ›](https://www.bleepingcomputer.com/news/security/flickr-discloses-potential-data-breach-exposing-users-names-emails/)**
+
+---
+**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/cheatsheets/sql-injection-payloads-database/).

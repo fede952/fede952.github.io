@@ -22,3 +22,6 @@ The vulnerability, tracked as CVE-2026-21643, has a CVSS rating of 9.1 out of a 
 ---
 
 **[Read full article on Feeds ›](https://thehackernews.com/2026/02/fortinet-patches-critical-sqli-flaw.html)**
+
+---
+**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/cheatsheets/sql-injection-payloads-database/).

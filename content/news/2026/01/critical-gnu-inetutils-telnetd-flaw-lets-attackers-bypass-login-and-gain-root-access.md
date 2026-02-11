@@ -24,3 +24,6 @@ It affects all versions of GNU InetUtils from version 1.9.3 up to and including 
 ---
 
 **[Read full article on Feeds ›](https://thehackernews.com/2026/01/critical-gnu-inetutils-telnetd-flaw.html)**
+
+---
+**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) bookmarked.
