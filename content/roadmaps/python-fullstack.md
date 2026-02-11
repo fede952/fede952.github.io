@@ -21,10 +21,10 @@ This roadmap covers the backend fundamentals that separate junior developers fro
 
 {{< roadmap >}}
 
-{{< roadmap_step title="Step 1: Python Fundamentals" description="Master Python scripting: sockets, subprocess, file parsing, and the standard library tools every developer needs." link="/cheatsheets/python-security-scripts/" >}}
+{{< roadmap_step title="Step 1: Python Fundamentals" description="Master Python scripting: sockets, subprocess, file parsing, and the standard library tools every developer needs." link="/en/cheatsheets/python-security-scripts/" >}}
 
-{{< roadmap_step title="Step 2: Database Design" description="Learn SQL, normalization, indexing, transactions, and query optimization with 20 interactive interview questions." link="/interviews/sql-database-interview-questions/" >}}
+{{< roadmap_step title="Step 2: Database Design" description="Learn SQL, normalization, indexing, transactions, and query optimization with 20 interactive interview questions." link="/en/interviews/sql-database-interview-questions/" >}}
 
-{{< roadmap_step title="Step 3: Backend Security" description="Understand SQL injection, parameterized queries, input validation, and the OWASP Top 10 from a developer's perspective." link="/cheatsheets/sql-injection-payloads-database/" >}}
+{{< roadmap_step title="Step 3: Backend Security" description="Understand SQL injection, parameterized queries, input validation, and the OWASP Top 10 from a developer's perspective." link="/en/cheatsheets/sql-injection-payloads-database/" >}}
 
 {{< /roadmap >}}

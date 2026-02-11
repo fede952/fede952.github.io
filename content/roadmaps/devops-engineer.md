@@ -21,12 +21,12 @@ This roadmap takes you from Linux fundamentals to production Kubernetes — the 
 
 {{< roadmap >}}
 
-{{< roadmap_step title="Step 1: Linux Mastery" description="Learn file permissions, process management, systemd, and networking. The foundation of every DevOps role." link="/cheatsheets/linux-sysadmin-permissions/" >}}
+{{< roadmap_step title="Step 1: Linux Mastery" description="Learn file permissions, process management, systemd, and networking. The foundation of every DevOps role." link="/en/cheatsheets/linux-sysadmin-permissions/" >}}
 
-{{< roadmap_step title="Step 2: Docker & Containers" description="Master containerization: images, volumes, networking, Compose, and production security hardening." link="/cheatsheets/docker-container-commands/" >}}
+{{< roadmap_step title="Step 2: Docker & Containers" description="Master containerization: images, volumes, networking, Compose, and production security hardening." link="/en/cheatsheets/docker-container-commands/" >}}
 
-{{< roadmap_step title="Step 3: Kubernetes Orchestration" description="Deploy, scale, and manage containerized applications. Learn pods, services, RBAC, and troubleshooting." link="/cheatsheets/kubernetes-kubectl-cheat-sheet/" >}}
+{{< roadmap_step title="Step 3: Kubernetes Orchestration" description="Deploy, scale, and manage containerized applications. Learn pods, services, RBAC, and troubleshooting." link="/en/cheatsheets/kubernetes-kubectl-cheat-sheet/" >}}
 
-{{< roadmap_step title="Step 4: Get Hired" description="Prepare for Senior DevOps interviews with 20 real-world Docker questions and production scenarios." link="/interviews/docker-interview-questions/" >}}
+{{< roadmap_step title="Step 4: Get Hired" description="Prepare for Senior DevOps interviews with 20 real-world Docker questions and production scenarios." link="/en/interviews/docker-interview-questions/" >}}
 
 {{< /roadmap >}}
