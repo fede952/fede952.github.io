@@ -790,20 +790,20 @@ html, body {
 }
 
 #search-trigger {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #333;
-    color: #ccc;
-    padding: 6px 10px;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid #444;
+    color: #ddd;
+    padding: 0 15px;
+    border-radius: 6px;
     cursor: pointer;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    height: 36px;
     transition: all 0.2s ease;
+    margin-left: 15px;
+    font-family: inherit;
     flex-shrink: 0;
-    white-space: nowrap;
-    vertical-align: middle;
-    margin-left: 4px;
 }
 
 #search-trigger svg {
@@ -811,31 +811,29 @@ html, body {
     height: 14px;
     flex-shrink: 0;
     stroke: currentColor;
+    display: block;
 }
 
 #search-trigger:hover {
     border-color: #00ff41;
     color: #fff;
-    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.15);
 }
 
 .search-label {
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    display: inline-block;
     white-space: nowrap;
-    opacity: 0.6;
-    padding: 1px 5px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid #444;
-    border-radius: 3px;
 }
 
-/* Hide "Ctrl K" on laptops and below — icon only */
-@media (max-width: 1400px) {
+@media (max-width: 1024px) {
     .search-label {
         display: none;
     }
     #search-trigger {
-        padding: 6px;
+        padding: 0 10px;
     }
 }
 

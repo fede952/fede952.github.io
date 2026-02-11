@@ -42,7 +42,7 @@
     const emptyState = document.getElementById('search-empty');
     const trigger = document.getElementById('search-trigger');
     const backdrop = modal.querySelector('.search-backdrop');
-    const searchIndexURL = {{ "index.json" | relLangURL | jsonify }};
+    const searchIndexURL = '{{ "index.json" | absLangURL }}';
 
     let fuse = null;
     let activeIndex = -1;
@@ -52,10 +52,15 @@
     async function loadIndex() {
         if (fuse) return;
         try {
-            console.log('[Search] Fetching index from:', searchIndexURL);
+            console.log('[Search] Fetching:', searchIndexURL);
             const res = await fetch(searchIndexURL);
             if (!res.ok) throw new Error('HTTP ' + res.status);
+            const contentType = res.headers.get('content-type') || '';
+            if (!contentType.includes('json')) {
+                throw new Error('Not JSON: ' + contentType);
+            }
             const data = await res.json();
+            if (!Array.isArray(data)) throw new Error('Index is not an array');
             console.log('[Search] Loaded', data.length, 'entries');
             fuse = new Fuse(data, {
                 keys: [
