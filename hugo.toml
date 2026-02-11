@@ -29,7 +29,7 @@ defaultContentLanguageInSubdir = true
     ID = 'G-MDQF90PHTW'
 
 [params]
-  mainSections = ["games", "tools", "news", "posts", "cheatsheets", "debug-sys", "interviews"]
+  mainSections = ["games", "tools", "news", "posts", "cheatsheets", "debug-sys", "interviews", "roadmaps"]
   defaultTheme = "dark"
   env = "production"
   title = "Federico Sella"
@@ -125,6 +125,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.en.menu.main]]
+        identifier = "roadmaps"
+        name = "Roadmaps"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.en.menu.main]]
         identifier = "games"
         name = "Games"
         url = "/games/"
@@ -175,6 +180,11 @@ defaultContentLanguageInSubdir = true
         name = "Carriera"
         url = "/interviews/"
         weight = 38
+      [[languages.it.menu.main]]
+        identifier = "roadmaps"
+        name = "Percorsi"
+        url = "/roadmaps/"
+        weight = 39
       [[languages.it.menu.main]]
         identifier = "games"
         name = "Giochi"
@@ -227,6 +237,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.es.menu.main]]
+        identifier = "roadmaps"
+        name = "Rutas"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.es.menu.main]]
         identifier = "games"
         name = "Juegos"
         url = "/games/"
@@ -278,6 +293,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.zh-cn.menu.main]]
+        identifier = "roadmaps"
+        name = "路线图"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.zh-cn.menu.main]]
         identifier = "games"
         name = "游戏"
         url = "/games/"
@@ -328,6 +348,11 @@ defaultContentLanguageInSubdir = true
         name = "करियर"
         url = "/interviews/"
         weight = 38
+      [[languages.hi.menu.main]]
+        identifier = "roadmaps"
+        name = "रोडमैप"
+        url = "/roadmaps/"
+        weight = 39
       [[languages.hi.menu.main]]
         identifier = "games"
         name = "खेल"
@@ -381,6 +406,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.ar.menu.main]]
+        identifier = "roadmaps"
+        name = "خرائط الطريق"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.ar.menu.main]]
         identifier = "games"
         name = "الألعاب"
         url = "/games/"
@@ -431,6 +461,11 @@ defaultContentLanguageInSubdir = true
         name = "Carreira"
         url = "/interviews/"
         weight = 38
+      [[languages.pt.menu.main]]
+        identifier = "roadmaps"
+        name = "Roteiros"
+        url = "/roadmaps/"
+        weight = 39
       [[languages.pt.menu.main]]
         identifier = "games"
         name = "Jogos"
@@ -483,6 +518,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.fr.menu.main]]
+        identifier = "roadmaps"
+        name = "Parcours"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.fr.menu.main]]
         identifier = "games"
         name = "Jeux"
         url = "/games/"
@@ -533,6 +573,11 @@ defaultContentLanguageInSubdir = true
         name = "Karriere"
         url = "/interviews/"
         weight = 38
+      [[languages.de.menu.main]]
+        identifier = "roadmaps"
+        name = "Roadmaps"
+        url = "/roadmaps/"
+        weight = 39
       [[languages.de.menu.main]]
         identifier = "games"
         name = "Spiele"
@@ -585,6 +630,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.ja.menu.main]]
+        identifier = "roadmaps"
+        name = "ロードマップ"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.ja.menu.main]]
         identifier = "games"
         name = "ゲーム"
         url = "/games/"
@@ -636,6 +686,11 @@ defaultContentLanguageInSubdir = true
         url = "/interviews/"
         weight = 38
       [[languages.ru.menu.main]]
+        identifier = "roadmaps"
+        name = "Дорожные Карты"
+        url = "/roadmaps/"
+        weight = 39
+      [[languages.ru.menu.main]]
         identifier = "games"
         name = "Игры"
         url = "/games/"
@@ -686,6 +741,11 @@ defaultContentLanguageInSubdir = true
         name = "커리어"
         url = "/interviews/"
         weight = 38
+      [[languages.ko.menu.main]]
+        identifier = "roadmaps"
+        name = "로드맵"
+        url = "/roadmaps/"
+        weight = 39
       [[languages.ko.menu.main]]
         identifier = "games"
         name = "게임"

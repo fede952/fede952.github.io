@@ -83,7 +83,7 @@
   <div class="uni-grid">
     {{ $currentSection := .Section }}
     {{ $currentLang := .Lang }}
-    {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "cheatsheets") (eq $currentSection "debug-sys") (eq $currentSection "interviews") (eq $currentSection "guides") (eq $currentSection "projects") (eq $currentSection "writeups") }}
+    {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "cheatsheets") (eq $currentSection "debug-sys") (eq $currentSection "interviews") (eq $currentSection "guides") (eq $currentSection "projects") (eq $currentSection "writeups") (eq $currentSection "roadmaps") }}
 
     {{ $items := slice }}
 
@@ -117,7 +117,7 @@
           <h2><a href="{{ .Permalink }}" style="color:inherit; text-decoration:none;">{{ .Title }}</a></h2>
           {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
           <a class="btn-action" href="{{ .Permalink }}">
-             {{ if eq .Section "games" }}🎮 Play Now{{ else if eq .Section "cheatsheets" }}📖 Read Cheatsheet{{ else if eq .Section "debug-sys" }}🐛 Read Fix{{ else if eq .Section "interviews" }}🎯 Start Prep{{ else if eq .Section "guides" }}📚 Read Guide{{ else if eq .Section "projects" }}🚀 View Project{{ else if eq .Section "writeups" }}🔍 Read Writeup{{ else }}🛠️ Launch Tool{{ end }}
+             {{ if eq .Section "games" }}🎮 Play Now{{ else if eq .Section "cheatsheets" }}📖 Read Cheatsheet{{ else if eq .Section "debug-sys" }}🐛 Read Fix{{ else if eq .Section "interviews" }}🎯 Start Prep{{ else if eq .Section "guides" }}📚 Read Guide{{ else if eq .Section "projects" }}🚀 View Project{{ else if eq .Section "writeups" }}🔍 Read Writeup{{ else if eq .Section "roadmaps" }}🗺️ Start Path{{ else }}🛠️ Launch Tool{{ end }}
           </a>
           <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
         </article>

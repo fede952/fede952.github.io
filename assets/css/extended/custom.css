@@ -899,6 +899,97 @@ html, body {
 }
 
 /* ============================================
+   ROADMAP TIMELINE
+   ============================================ */
+
+.roadmap-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px 20px 20px 40px;
+}
+
+.roadmap-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background: linear-gradient(to bottom, #00ff41, #333);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+.roadmap-step {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 40px;
+}
+
+.roadmap-step::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background: #0d0d0d;
+    border: 2px solid #00ff41;
+    border-radius: 50%;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.roadmap-step:hover::before {
+    background: #00ff41;
+    box-shadow: 0 0 15px #00ff41;
+}
+
+.roadmap-step h3 {
+    color: #00ff41;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.roadmap-step h3::before {
+    content: "";
+}
+
+.roadmap-step p {
+    color: #ccc;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.roadmap-btn {
+    display: inline-block;
+    padding: 6px 18px;
+    border: 1px solid #333;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.roadmap-btn:hover {
+    background: #00ff41;
+    color: #000;
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+@media (max-width: 768px) {
+    .roadmap-timeline {
+        padding: 10px 10px 10px 30px;
+    }
+    .roadmap-step {
+        padding-left: 30px;
+    }
+}
+
+/* ============================================
    COMMAND PALETTE - MODAL
    ============================================ */
 
