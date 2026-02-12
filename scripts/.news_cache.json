@@ -794,7 +794,15 @@
     "https://www.cybersecurity360.it/news/report-acn-sugli-infostealer-ecco-le-raccomandazioni-contro-il-vettore-fantasma-dei-cyber-attacchi/",
     "https://www.cybersecurity360.it/news/evoluzione-delle-campagne-malevole-in-italia-i-numeri-nel-2025/",
     "https://www.cybersecurity360.it/legal/il-gdpr-davanti-ai-giudici-cosa-cambia-dopo-la-sentenza-della-corte-di-giustizia-ue-su-whatsapp/",
-    "https://www.cybersecurity360.it/news/cybersecurity-formazione-online/"
+    "https://www.cybersecurity360.it/news/cybersecurity-formazione-online/",
+    "https://thehackernews.com/2026/02/first-malicious-outlook-add-in-found.html",
+    "https://www.bleepingcomputer.com/news/security/apple-fixes-zero-day-flaw-used-in-extremely-sophisticated-attacks/",
+    "https://www.bleepingcomputer.com/news/microsoft/windows-11-notepad-flaw-let-files-execute-silently-via-markdown-links/",
+    "https://www.bleepingcomputer.com/news/security/microsoft-store-outlook-add-in-hijacked-to-steal-4-000-microsoft-accounts/",
+    "https://www.bleepingcomputer.com/news/security/crazy-ransomware-gang-abuses-employee-monitoring-tool-in-attacks/",
+    "https://www.bleepingcomputer.com/news/security/police-arrest-seller-of-jokerotp-mfa-passcode-capturing-tool/",
+    "https://www.wired.com/story/ice-crashing-us-court-system-minnesota/",
+    "https://www.cybersecurity360.it/news/patch-tuesday-febbraio-2026-59-bug-corretti-sei-zero-day-e-un-segnale-chiaro-per-i-ciso/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -1591,6 +1599,14 @@
     "653179bedd43e1507de496a7c56f38b6",
     "16df02507ee3dc2bb1547c0e56654eaa",
     "acb54f9d9b17915c80915b6bcb8f44c1",
-    "794ee0f5d37dd793c3036d23bd4987c6"
+    "794ee0f5d37dd793c3036d23bd4987c6",
+    "7be58848bd62fdc0b01ec17de299f50b",
+    "4debda0fb8438a47c59296d64c333377",
+    "cf2484e2827833a0a00dc6d3cdecede8",
+    "391ae8c28c98dc595701b2059102cdd1",
+    "ce8c0d5f71a0f2705d41271dfc60c6f7",
+    "a9ef4e1aaa6d92ae82f2687df83933d5",
+    "64832ac0dce5c1462dedcec832f1577a",
+    "ad25cf2f23f5548920e533bbb1ff96a9"
   ]
 }
