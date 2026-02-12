@@ -1,46 +1,46 @@
 ---
-title: "モダン JavaScript チートシート：ES6+、Async/Await & 配列メソッド"
-description: "フロントエンド開発者のための完全な ES6+ リファレンス。アロー関数、分割代入、スプレッド演算子、Promise、async/await、map/filter/reduce、Fetch API をコピペ可能な例で習得しましょう。"
+title: "Cheatsheet de JavaScript Moderno: ES6+, Async/Await y Métodos de Array"
+description: "La referencia completa de ES6+ para desarrolladores frontend. Domina arrow functions, destructuring, spread operator, promesas, async/await, map/filter/reduce y la Fetch API con ejemplos listos para copiar y pegar."
 date: 2026-02-10
 tags: ["javascript", "cheatsheet", "frontend", "es6", "web-dev"]
-keywords: ["javascript チートシート", "es6 チートシート", "ウェブ開発 学習", "js 構文", "javascript 配列メソッド", "async await チュートリアル", "フロントエンド 面接", "react 開発者 javascript", "map filter reduce", "分割代入 javascript", "スプレッド演算子", "fetch api 例", "promise チェーン", "アロー関数", "テンプレートリテラル"]
+keywords: ["cheatsheet javascript", "cheatsheet es6", "aprender desarrollo web", "sintaxis js", "métodos array javascript", "tutorial async await", "entrevista frontend", "javascript desarrollador react", "map filter reduce", "destructuring javascript", "spread operator", "ejemplos fetch api", "encadenamiento de promesas", "arrow functions", "template literals"]
 draft: false
 schema_json: >
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "name": "モダン JavaScript チートシート：ES6+、Async/Await & 配列メソッド",
-    "description": "アロー関数、分割代入、Promise、async/await、配列メソッドを網羅したフロントエンド開発者向け完全 ES6+ リファレンス。",
+    "name": "Cheatsheet de JavaScript Moderno: ES6+, Async/Await y Métodos de Array",
+    "description": "Referencia completa de ES6+ que cubre arrow functions, destructuring, promesas, async/await y métodos de array para desarrolladores frontend.",
     "proficiencyLevel": "Intermediate",
-    "inLanguage": "ja"
+    "inLanguage": "es"
   }
 ---
 
-## ランタイム初期化
+## Inicializando el Runtime
 
-JavaScript は単純なスクリプト言語から、モダン Web 開発の基盤へと進化しました。ES6 以降では、コードをよりクリーンで予測可能、保守しやすくする機能が導入されました——アロー関数、分割代入、モジュール、async/await、そして冗長なループを宣言的な変換に置き換える強力な配列メソッドです。React コンポーネントの構築、API コールの処理、フロントエンド面接の準備のいずれにおいても、このチートシートは毎日使う JS 構文をカバーしています。すべてのスニペットは本番環境対応済みです。コピー、ペースト、デプロイ。
+JavaScript ha evolucionado de un simple lenguaje de scripting a la columna vertebral del desarrollo web moderno. ES6 y versiones posteriores introdujeron características que hacen el código más limpio, predecible y fácil de mantener — arrow functions, destructuring, módulos, async/await y poderosos métodos de array que reemplazan bucles verbosos con transformaciones declarativas. Ya sea que estés construyendo componentes React, manejando llamadas a API o preparándote para una entrevista frontend, este cheatsheet cubre la sintaxis JS que usarás todos los días. Cada fragmento está listo para producción. Copia, pega, despliega.
 
 ---
 
-## 変数宣言
+## Declaraciones de Variables
 
-`var` は忘れましょう。モダン JavaScript では予測可能なスコープのために `let` と `const` を使います。
+Olvida `var`. El JavaScript moderno usa `let` y `const` para un alcance predecible.
 
 ```javascript
-// const for values that won't be reassigned
+// const para valores que no serán reasignados
 const API_URL = "https://api.example.com";
 const MAX_RETRIES = 3;
 
-// let for values that will change
+// let para valores que cambiarán
 let currentUser = null;
 let retryCount = 0;
 
-// const does NOT mean immutable — objects and arrays can still be mutated
+// const NO significa inmutable — los objetos y arrays aún pueden ser mutados
 const config = { theme: "dark" };
-config.theme = "light"; // ✅ This works
+config.theme = "light"; // ✅ Esto funciona
 // config = {};          // ❌ TypeError: Assignment to constant variable
 
-// Block scoping — let and const are confined to their block
+// Alcance de bloque — let y const están confinados a su bloque
 if (true) {
   let blockScoped = "only here";
   var functionScoped = "leaks out";
@@ -51,62 +51,62 @@ if (true) {
 
 ---
 
-## アロー関数
+## Arrow Functions
 
-より短い構文、レキシカルな `this` バインディング、React コンポーネントの基本ツール。
+Sintaxis más corta, enlace léxico de `this` y la base de los componentes React.
 
 ```javascript
-// Traditional function
+// Función tradicional
 function add(a, b) {
   return a + b;
 }
 
-// Arrow function (explicit return)
+// Arrow function (return explícito)
 const add = (a, b) => {
   return a + b;
 };
 
-// Arrow function (implicit return — single expression)
+// Arrow function (return implícito — expresión única)
 const add = (a, b) => a + b;
 
-// Single parameter — parentheses optional
+// Parámetro único — paréntesis opcionales
 const double = n => n * 2;
 
-// No parameters — empty parentheses required
+// Sin parámetros — paréntesis vacíos obligatorios
 const getTimestamp = () => Date.now();
 
-// Returning an object literal — wrap in parentheses
+// Devolver un objeto literal — envolver en paréntesis
 const createUser = (name, role) => ({ name, role, active: true });
 
-// Arrow functions do NOT have their own `this`
+// Las arrow functions NO tienen su propio `this`
 const counter = {
   count: 0,
-  // ❌ Arrow function inherits `this` from outer scope (not the object)
+  // ❌ La arrow function hereda `this` del ámbito exterior (no del objeto)
   incrementBad: () => { this.count++; },
-  // ✅ Regular function binds `this` to the object
+  // ✅ La función regular enlaza `this` al objeto
   increment() { this.count++; },
 };
 ```
 
 ---
 
-## テンプレートリテラル
+## Template Literals
 
-文字列補間、複数行文字列、タグ付きテンプレート。
+Interpolación de cadenas, cadenas multilínea y templates etiquetados.
 
 ```javascript
 const name = "Federico";
 const role = "developer";
 
-// String interpolation
+// Interpolación de cadenas
 const greeting = `Hello, ${name}! You are a ${role}.`;
 
-// Expressions inside templates
+// Expresiones dentro de templates
 const price = 29.99;
 const tax = 0.21;
 const total = `Total: $${(price * (1 + tax)).toFixed(2)}`;
 
-// Multiline strings
+// Cadenas multilínea
 const html = `
   <div class="card">
     <h2>${name}</h2>
@@ -114,7 +114,7 @@ const html = `
   </div>
 `;
 
-// Tagged templates (used in libraries like styled-components)
+// Templates etiquetados (usados en librerías como styled-components)
 function highlight(strings, ...values) {
   return strings.reduce((result, str, i) => {
     return `${result}${str}<mark>${values[i] || ""}</mark>`;
@@ -125,92 +125,92 @@ const message = highlight`Welcome ${name}, your role is ${role}`;
 
 ---
 
-## 分割代入
+## Destructuring
 
-オブジェクトや配列から一行で値を抽出。React の props に不可欠な JS 構文。
+Extrae valores de objetos y arrays en una sola línea. Sintaxis JS esencial para las props de React.
 
 ```javascript
-// Object destructuring
+// Destructuring de objetos
 const user = { name: "Ada", age: 36, role: "engineer" };
 const { name, age, role } = user;
 
-// Rename variables
+// Renombrar variables
 const { name: userName, role: userRole } = user;
 
-// Default values
+// Valores por defecto
 const { name, country = "Unknown" } = user;
 
-// Nested destructuring
+// Destructuring anidado
 const response = { data: { users: [{ id: 1, name: "Ada" }] } };
 const { data: { users: [firstUser] } } = response;
 
-// Array destructuring
+// Destructuring de arrays
 const rgb = [255, 128, 0];
 const [red, green, blue] = rgb;
 
-// Skip elements
+// Saltar elementos
 const [first, , third] = [1, 2, 3];
 
-// Swap variables without temp
+// Intercambiar variables sin temp
 let a = 1, b = 2;
 [a, b] = [b, a]; // a=2, b=1
 
-// Function parameter destructuring (React pattern)
+// Destructuring de parámetros de función (patrón React)
 function UserCard({ name, role, avatar = "/default.png" }) {
   return `${name} (${role})`;
 }
 
-// Rest in destructuring
+// Rest en destructuring
 const { name, ...rest } = { name: "Ada", age: 36, role: "engineer" };
 // rest = { age: 36, role: "engineer" }
 ```
 
 ---
 
-## スプレッド & レスト演算子
+## Operadores Spread y Rest
 
-`...` 演算子——スプレッドで展開、レストで収集。
+El operador `...` — spread para expandir, rest para recopilar.
 
 ```javascript
-// Spread: expand an array
+// Spread: expandir un array
 const nums = [1, 2, 3];
 const more = [...nums, 4, 5]; // [1, 2, 3, 4, 5]
 
-// Spread: clone an array (shallow copy)
+// Spread: clonar un array (copia superficial)
 const clone = [...nums];
 
-// Spread: merge objects (later keys overwrite)
+// Spread: fusionar objetos (las claves posteriores sobrescriben)
 const defaults = { theme: "dark", lang: "en" };
 const userPrefs = { lang: "it" };
 const config = { ...defaults, ...userPrefs };
 // { theme: "dark", lang: "it" }
 
-// Spread: immutable state update (React pattern)
+// Spread: actualización inmutable del estado (patrón React)
 const state = { count: 0, loading: false };
 const newState = { ...state, count: state.count + 1 };
 
-// Spread: pass array as function arguments
+// Spread: pasar un array como argumentos de función
 const scores = [90, 85, 92, 88];
 const highest = Math.max(...scores); // 92
 
-// Rest: collect remaining arguments
+// Rest: recopilar argumentos restantes
 function sum(...numbers) {
   return numbers.reduce((total, n) => total + n, 0);
 }
 sum(1, 2, 3, 4); // 10
 
-// Rest: collect remaining array elements
+// Rest: recopilar elementos restantes del array
 const [head, ...tail] = [1, 2, 3, 4];
 // head = 1, tail = [2, 3, 4]
 ```
 
 ---
 
-## 配列メソッド：map、filter、reduce
+## Métodos de Array: map, filter, reduce
 
-配列変換の三種の神器。ループを宣言的でチェーン可能な操作に置き換えます。
+La sagrada trinidad de la transformación de arrays. Reemplaza bucles con operaciones declarativas y encadenables.
 
-### map — すべての要素を変換
+### map — Transformar cada elemento
 
 ```javascript
 const users = [
@@ -219,52 +219,52 @@ const users = [
   { name: "Cat", age: 30 },
 ];
 
-// Transform to new array
+// Transformar a un nuevo array
 const names = users.map(user => user.name);
 // ["Ada", "Bob", "Cat"]
 
-// Transform with index
+// Transformar con índice
 const numbered = users.map((user, i) => `${i + 1}. ${user.name}`);
 // ["1. Ada", "2. Bob", "3. Cat"]
 
-// Extract and reshape (common in React)
+// Extraer y remodelar (común en React)
 const options = users.map(({ name, age }) => ({
   label: `${name} (${age})`,
   value: name.toLowerCase(),
 }));
 ```
 
-### filter — テストに合格した要素を保持
+### filter — Mantener elementos que pasan una prueba
 
 ```javascript
-// Filter by condition
+// Filtrar por condición
 const adults = users.filter(user => user.age >= 30);
 // [{ name: "Ada", age: 36 }, { name: "Cat", age: 30 }]
 
-// Remove falsy values
+// Eliminar valores falsy
 const mixed = [0, "hello", null, 42, undefined, "world", false];
 const clean = mixed.filter(Boolean);
 // ["hello", 42, "world"]
 
-// Remove duplicates (with Set)
+// Eliminar duplicados (con Set)
 const dupes = [1, 2, 2, 3, 3, 3];
 const unique = [...new Set(dupes)]; // [1, 2, 3]
 
-// Chain map + filter
+// Encadenar map + filter
 const activeEmails = users
   .filter(u => u.age >= 30)
   .map(u => `${u.name.toLowerCase()}@example.com`);
 // ["ada@example.com", "cat@example.com"]
 ```
 
-### reduce — 単一の値に集約
+### reduce — Acumular en un solo valor
 
 ```javascript
-// Sum an array
+// Sumar un array
 const numbers = [10, 20, 30, 40];
 const total = numbers.reduce((acc, n) => acc + n, 0); // 100
 
-// Count occurrences
+// Contar ocurrencias
 const fruits = ["apple", "banana", "apple", "cherry", "banana", "apple"];
 const count = fruits.reduce((acc, fruit) => {
   acc[fruit] = (acc[fruit] || 0) + 1;
@@ -272,7 +272,7 @@ const count = fruits.reduce((acc, fruit) => {
 }, {});
 // { apple: 3, banana: 2, cherry: 1 }
 
-// Group by property
+// Agrupar por propiedad
 const grouped = users.reduce((acc, user) => {
   const key = user.age >= 30 ? "senior" : "junior";
   acc[key] = acc[key] || [];
@@ -280,12 +280,12 @@ const grouped = users.reduce((acc, user) => {
   return acc;
 }, {});
 
-// Flatten nested arrays (or just use .flat())
+// Aplanar arrays anidados (o simplemente usa .flat())
 const nested = [[1, 2], [3, 4], [5]];
 const flat = nested.reduce((acc, arr) => [...acc, ...arr], []);
 // [1, 2, 3, 4, 5]
 
-// Pipeline: chain map + filter + reduce
+// Pipeline: encadenar map + filter + reduce
 const totalSeniorAge = users
   .filter(u => u.age >= 30)
   .map(u => u.age)
@@ -294,43 +294,43 @@ const totalSeniorAge = users
 
 ---
 
-## その他の必須配列メソッド
+## Otros Métodos de Array Esenciales
 
 ```javascript
 const items = [1, 2, 3, 4, 5];
 
-// find — first element that matches
+// find — primer elemento que coincide
 items.find(n => n > 3); // 4
 
-// findIndex — index of first match
+// findIndex — índice de la primera coincidencia
 items.findIndex(n => n > 3); // 3
 
-// some — does ANY element pass the test?
+// some — ¿ALGÚN elemento pasa la prueba?
 items.some(n => n > 4); // true
 
-// every — do ALL elements pass the test?
+// every — ¿TODOS los elementos pasan la prueba?
 items.every(n => n > 0); // true
 
-// includes — does the array contain the value?
+// includes — ¿el array contiene el valor?
 items.includes(3); // true
 
-// flat — flatten nested arrays
+// flat — aplanar arrays anidados
 [[1, 2], [3, [4, 5]]].flat(Infinity); // [1, 2, 3, 4, 5]
 
-// flatMap — map + flatten in one pass
+// flatMap — map + flatten en una sola pasada
 const sentences = ["hello world", "foo bar"];
 sentences.flatMap(s => s.split(" "));
 // ["hello", "world", "foo", "bar"]
 
-// at — negative indexing
-items.at(-1); // 5 (last element)
+// at — indexación negativa
+items.at(-1); // 5 (último elemento)
 items.at(-2); // 4
 
-// Array.from — create arrays from iterables
+// Array.from — crear arrays desde iterables
 Array.from({ length: 5 }, (_, i) => i + 1); // [1, 2, 3, 4, 5]
 Array.from("hello"); // ["h", "e", "l", "l", "o"]
 
-// Object.entries + map (iterate objects like arrays)
+// Object.entries + map (iterar objetos como arrays)
 const scores = { math: 90, science: 85, english: 92 };
 Object.entries(scores).map(([subject, score]) => `${subject}: ${score}`);
 // ["math: 90", "science: 85", "english: 92"]
@@ -338,12 +338,12 @@ Object.entries(scores).map(([subject, score]) => `${subject}: ${score}`);
 
 ---
 
-## Promise
+## Promesas
 
-Promise は将来利用可能になる値を表します。非同期 JavaScript の基盤です。
+Las promesas representan un valor que estará disponible en el futuro. La base del JavaScript asíncrono.
 
 ```javascript
-// Create a promise
+// Crear una promesa
 const fetchData = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -357,20 +357,20 @@ const fetchData = () => {
   });
 };
 
-// Consume with .then/.catch
+// Consumir con .then/.catch
 fetchData()
   .then(data => console.log(data))
   .catch(err => console.error(err))
   .finally(() => console.log("Done"));
 
-// Promise.all — run in parallel, fail if ANY rejects
+// Promise.all — ejecutar en paralelo, falla si ALGUNA es rechazada
 const [users, posts, comments] = await Promise.all([
   fetch("/api/users").then(r => r.json()),
   fetch("/api/posts").then(r => r.json()),
   fetch("/api/comments").then(r => r.json()),
 ]);
 
-// Promise.allSettled — run in parallel, never rejects
+// Promise.allSettled — ejecutar en paralelo, nunca rechaza
 const results = await Promise.allSettled([
   fetch("/api/fast"),
   fetch("/api/slow"),
@@ -378,7 +378,7 @@ const results = await Promise.allSettled([
 ]);
 // results[2].status === "rejected"
 
-// Promise.race — first to settle wins
+// Promise.race — el primero en resolverse gana
 const fastest = await Promise.race([
   fetch("/api/server-a"),
   fetch("/api/server-b"),
@@ -389,23 +389,23 @@ const fastest = await Promise.race([
 
 ## Async / Await
 
-Promise のシンタックスシュガー。同期コードのように読める非同期コードを書けます。
+Azúcar sintáctico sobre promesas. Escribe código asíncrono que se lee como código síncrono.
 
 ```javascript
-// Basic async function
+// Función async básica
 async function getUser(id) {
   const response = await fetch(`/api/users/${id}`);
   const user = await response.json();
   return user;
 }
 
-// Arrow function version
+// Versión arrow function
 const getUser = async (id) => {
   const response = await fetch(`/api/users/${id}`);
   return response.json();
 };
 
-// Error handling with try/catch
+// Manejo de errores con try/catch
 async function fetchWithRetry(url, retries = 3) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -414,31 +414,31 @@ async function fetchWithRetry(url, retries = 3) {
       return await response.json();
     } catch (err) {
       if (i === retries - 1) throw err;
-      console.warn(`Attempt ${i + 1} failed, retrying...`);
+      console.warn(`Intento ${i + 1} fallido, reintentando...`);
       await new Promise(r => setTimeout(r, 1000 * (i + 1)));
     }
   }
 }
 
-// Sequential vs Parallel execution
-// ❌ Sequential — each awaits the previous (slow)
+// Ejecución secuencial vs paralela
+// ❌ Secuencial — cada await espera al anterior (lento)
 const user = await getUser(1);
 const posts = await getPosts(user.id);
 
-// ✅ Parallel — fire both at once (fast)
+// ✅ Paralelo — lanza ambos a la vez (rápido)
 const [user, posts] = await Promise.all([
   getUser(1),
   getPosts(1),
 ]);
 
-// Async iteration
+// Iteración asíncrona
 async function processItems(items) {
   for (const item of items) {
-    await processItem(item); // sequential, one at a time
+    await processItem(item); // secuencial, uno a la vez
   }
 }
 
-// Top-level await (ES2022, supported in modules)
+// Top-level await (ES2022, soportado en módulos)
 const config = await fetch("/config.json").then(r => r.json());
 ```
 
@@ -446,31 +446,31 @@ const config = await fetch("/config.json").then(r => r.json());
 
 ## Fetch API
 
-XMLHttpRequest のモダンな代替。すべてのブラウザと Node 18+ でネイティブサポート。
+El reemplazo moderno de XMLHttpRequest. Nativo en todos los navegadores y Node 18+.
 
 ```javascript
-// GET request
+// Petición GET
 const response = await fetch("https://api.example.com/users");
 const users = await response.json();
 
-// POST request with JSON body
+// Petición POST con cuerpo JSON
 const newUser = await fetch("https://api.example.com/users", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ name: "Ada", role: "engineer" }),
 });
 
-// PUT request
+// Petición PUT
 await fetch(`/api/users/${id}`, {
   method: "PUT",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(updatedUser),
 });
 
-// DELETE request
+// Petición DELETE
 await fetch(`/api/users/${id}`, { method: "DELETE" });
 
-// Handle HTTP errors (fetch does NOT reject on 4xx/5xx)
+// Manejar errores HTTP (fetch NO rechaza en 4xx/5xx)
 async function safeFetch(url) {
   const response = await fetch(url);
   if (!response.ok) {
@@ -479,22 +479,22 @@ async function safeFetch(url) {
   return response.json();
 }
 
-// Upload a file with FormData
+// Subir un archivo con FormData
 const form = new FormData();
 form.append("avatar", fileInput.files[0]);
 await fetch("/api/upload", { method: "POST", body: form });
 
-// Abort a request with AbortController
+// Cancelar una petición con AbortController
 const controller = new AbortController();
-setTimeout(() => controller.abort(), 5000); // 5s timeout
+setTimeout(() => controller.abort(), 5000); // timeout de 5s
 
 try {
   const data = await fetch("/api/slow", { signal: controller.signal });
 } catch (err) {
-  if (err.name === "AbortError") console.log("Request timed out");
+  if (err.name === "AbortError") console.log("La petición expiró");
 }
 
-// Fetch with authorization header
+// Fetch con encabezado de autorización
 const data = await fetch("/api/protected", {
   headers: { Authorization: `Bearer ${token}` },
 }).then(r => r.json());
@@ -502,51 +502,51 @@ const data = await fetch("/api/protected", {
 
 ---
 
-## モジュール（import / export）
+## Módulos (import / export)
 
-コードを再利用可能な独立したファイルに整理します。
+Organiza el código en archivos reutilizables y aislados.
 
 ```javascript
-// Named exports (utils.js)
+// Exports con nombre (utils.js)
 export const API_URL = "https://api.example.com";
 export function formatDate(date) {
   return new Intl.DateTimeFormat("en").format(date);
 }
 export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 
-// Default export (UserService.js)
+// Export por defecto (UserService.js)
 export default class UserService {
   async getAll() { /* ... */ }
   async getById(id) { /* ... */ }
 }
 
-// Named imports
+// Imports con nombre
 import { API_URL, formatDate } from "./utils.js";
 
-// Rename on import
+// Renombrar al importar
 import { formatDate as fmt } from "./utils.js";
 
-// Default import
+// Import por defecto
 import UserService from "./UserService.js";
 
-// Import everything as namespace
+// Importar todo como namespace
 import * as utils from "./utils.js";
 utils.formatDate(new Date());
 
-// Dynamic import (code splitting / lazy loading)
+// Import dinámico (code splitting / carga lazy)
 const module = await import("./heavy-module.js");
 module.doSomething();
 
-// Re-export (barrel file pattern — index.js)
+// Re-export (patrón barrel file — index.js)
 export { formatDate, capitalize } from "./utils.js";
 export { default as UserService } from "./UserService.js";
 ```
 
 ---
 
-## オプショナルチェーンと Null 合体演算子
+## Optional Chaining y Nullish Coalescing
 
-冗長なチェックなしでネストされたオブジェクトを安全にナビゲートし、null/undefined を処理します。
+Navega de forma segura por objetos anidados y maneja null/undefined sin verificaciones verbosas.
 
 ```javascript
 const user = {
@@ -559,48 +559,48 @@ const user = {
 
 // Optional chaining (?.)
 user.address?.city;      // "London"
-user.address?.zipCode;   // undefined (no error)
-user.social?.twitter;    // undefined (no error)
+user.address?.zipCode;   // undefined (sin error)
+user.social?.twitter;    // undefined (sin error)
 user.getFullName?.();    // "Ada"
-user.nonExistent?.();    // undefined (no error)
+user.nonExistent?.();    // undefined (sin error)
 
-// Array access
+// Acceso a arrays
 const users = [{ name: "Ada" }];
 users?.[0]?.name;  // "Ada"
 users?.[5]?.name;  // undefined
 
-// Nullish coalescing (??) — only null/undefined trigger the fallback
-const port = config.port ?? 3000;        // 3000 if port is null/undefined
-const debug = config.debug ?? false;     // false if debug is null/undefined
+// Nullish coalescing (??) — solo null/undefined activan el fallback
+const port = config.port ?? 3000;        // 3000 si port es null/undefined
+const debug = config.debug ?? false;     // false si debug es null/undefined
 
-// Compare with || (logical OR) — 0, "", false trigger the fallback
-0 || 42;       // 42  (0 is falsy)
-0 ?? 42;       // 0   (0 is not null/undefined)
+// Comparar con || (OR lógico) — 0, "", false activan el fallback
+0 || 42;       // 42  (0 es falsy)
+0 ?? 42;       // 0   (0 no es null/undefined)
 "" || "default"; // "default"
 "" ?? "default"; // ""
 
-// Nullish coalescing assignment (??=)
+// Asignación nullish coalescing (??=)
 let username;
 username ??= "Anonymous"; // "Anonymous"
 ```
 
 ---
 
-## モダンなオブジェクトテクニック
+## Trucos Modernos de Objetos
 
 ```javascript
-// Shorthand properties
+// Propiedades abreviadas
 const name = "Ada";
 const age = 36;
 const user = { name, age }; // { name: "Ada", age: 36 }
 
-// Computed property names
+// Nombres de propiedades computados
 const field = "email";
 const obj = { [field]: "ada@example.com" }; // { email: "ada@example.com" }
 
-// Method shorthand
+// Método abreviado
 const api = {
-  getUsers() { /* ... */ },      // instead of getUsers: function() {}
+  getUsers() { /* ... */ },      // en lugar de getUsers: function() {}
   async fetchData() { /* ... */ },
 };
 
@@ -611,40 +611,40 @@ Object.values(config);  // ["localhost", 3000, true]
 Object.entries(config);
 // [["host", "localhost"], ["port", 3000], ["debug", true]]
 
-// Object.fromEntries — reverse of Object.entries
+// Object.fromEntries — inverso de Object.entries
 const params = new URLSearchParams("name=Ada&role=dev");
 const obj = Object.fromEntries(params);
 // { name: "Ada", role: "dev" }
 
-// Structured clone (deep copy, ES2022)
+// Clonación estructurada (copia profunda, ES2022)
 const original = { nested: { value: 42 } };
 const deep = structuredClone(original);
 deep.nested.value = 99;
-original.nested.value; // still 42
+original.nested.value; // sigue siendo 42
 ```
 
 ---
 
-## クイックリファレンス表
+## Tabla de Referencia Rápida
 
-| 機能 | 構文 | 用途 |
+| Característica | Sintaxis | Caso de uso |
 |---|---|---|
-| `const` / `let` | `const x = 1` | ブロックスコープ宣言 |
-| アロー関数 | `(a, b) => a + b` | コールバック、React コンポーネント |
-| テンプレートリテラル | `` `Hello ${name}` `` | 文字列補間 |
-| 分割代入 | `const { a, b } = obj` | オブジェクト/配列から値を抽出 |
-| スプレッド | `{ ...obj, key: val }` | クローン、マージ、イミュータブル更新 |
-| レスト | `(...args) => {}` | 引数の収集 |
-| `map` | `arr.map(fn)` | すべての要素を変換 |
-| `filter` | `arr.filter(fn)` | 条件に一致する要素を保持 |
-| `reduce` | `arr.reduce(fn, init)` | 単一の値に集約 |
-| `?.` | `obj?.prop` | 安全なネストアクセス |
-| `??` | `val ?? fallback` | null/undefined のみのデフォルト値 |
-| `async/await` | `const x = await fn()` | 読みやすい非同期コード |
-| `Promise.all` | `await Promise.all([...])` | 並列非同期操作 |
+| `const` / `let` | `const x = 1` | Declaraciones con alcance de bloque |
+| Arrow function | `(a, b) => a + b` | Callbacks, componentes React |
+| Template literal | `` `Hello ${name}` `` | Interpolación de cadenas |
+| Destructuring | `const { a, b } = obj` | Extraer valores de objetos/arrays |
+| Spread | `{ ...obj, key: val }` | Clonar, fusionar, actualizaciones inmutables |
+| Rest | `(...args) => {}` | Recopilar argumentos |
+| `map` | `arr.map(fn)` | Transformar cada elemento |
+| `filter` | `arr.filter(fn)` | Mantener elementos que cumplen la condición |
+| `reduce` | `arr.reduce(fn, init)` | Acumular en un solo valor |
+| `?.` | `obj?.prop` | Acceso seguro a propiedades anidadas |
+| `??` | `val ?? fallback` | Default solo para null/undefined |
+| `async/await` | `const x = await fn()` | Código asíncrono legible |
+| `Promise.all` | `await Promise.all([...])` | Operaciones asíncronas en paralelo |
 
 ---
 
-## 送信完了
+## Fin de la Transmisión
 
-このチートシートは、すべてのフロントエンド開発者が知っておくべきモダン JavaScript をカバーしています——ES6 の基礎から非同期パターン、Fetch API まで。ブックマークして、フロントエンド面接で参照し、クリーンで宣言的な JS 構文でより速く開発しましょう。Web は JavaScript で動いています。あなたも JavaScript を使いこなしましょう。
+Este cheatsheet cubre el JavaScript moderno que todo desarrollador frontend necesita conocer — desde los fundamentos de ES6 hasta patrones asíncronos y la Fetch API. Guárdalo en marcadores, consúltalo durante entrevistas frontend y construye más rápido con sintaxis JS limpia y declarativa. La web funciona con JavaScript. Ahora tú dominas JavaScript.

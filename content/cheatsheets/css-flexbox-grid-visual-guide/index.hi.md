@@ -1,7 +1,7 @@
 ---
 title: "CSS लेआउट चीटशीट: Flexbox और Grid विज़ुअल गाइड"
 description: "CSS Flexbox और Grid का निश्चित संदर्भ। div को केंद्रित करना, रेस्पॉन्सिव लेआउट बनाना, मीडिया क्वेरीज़ में महारत हासिल करना, और मॉडर्न CSS वेरिएबल्स का उपयोग कॉपी-पेस्ट उदाहरणों के साथ सीखें।"
-date: 2026-02-11
+date: 2026-02-10
 tags: ["css", "cheatsheet", "frontend", "flexbox", "grid", "web-dev"]
 keywords: ["css flexbox चीटशीट", "css grid ट्यूटोरियल", "css div केंद्रित करें", "वेब डेवलपमेंट सीखें", "css रेस्पॉन्सिव लेआउट", "मीडिया क्वेरीज़", "css वेरिएबल्स", "फ्रंटएंड इंटरव्यू", "flexbox vs grid", "css लेआउट गाइड", "css grid उदाहरण", "flexbox align items", "css gap प्रॉपर्टी", "मॉडर्न css 2026"]
 draft: false

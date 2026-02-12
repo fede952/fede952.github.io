@@ -1,35 +1,35 @@
 ---
-title: "궁극의 React Hooks 치트시트 (2026)"
-description: "모든 React Hook을 복사-붙여넣기 가능한 코드 스니펫으로 설명합니다. useState, useEffect, useContext, useRef, useMemo, 커스텀 훅, 프로덕션 React 애플리케이션에서 사용되는 성능 패턴을 마스터하세요."
+title: "Полное Руководство по React Hooks (2026)"
+description: "Каждый React Hook объяснён с готовыми фрагментами кода. Освойте useState, useEffect, useContext, useRef, useMemo, пользовательские хуки и паттерны производительности, используемые в продакшн-приложениях React."
 date: 2026-02-10
 tags: ["react", "cheatsheet", "frontend", "hooks", "web-dev"]
-keywords: ["react hooks 치트시트", "usestate useeffect", "react hooks 튜토리얼", "웹 개발 배우기", "프론트엔드 면접", "커스텀 hooks react", "react 성능", "usememo usecallback", "react context 튜토리얼", "useref react", "react 패턴 2026", "react hooks 예제"]
+keywords: ["react hooks руководство", "usestate useeffect", "react hooks туториал", "изучение веб-разработки", "собеседование фронтенд", "custom hooks react", "react производительность", "usememo usecallback", "react context туториал", "useref react", "react паттерны 2026", "react hooks примеры"]
 draft: false
 schema_json: >
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "name": "궁극의 React Hooks 치트시트 (2026)",
-    "description": "useState, useEffect, useContext, 커스텀 훅, 성능 최적화를 위한 복사-붙여넣기 스니펫이 포함된 완벽한 React Hooks 레퍼런스.",
+    "name": "Полное Руководство по React Hooks (2026)",
+    "description": "Полный справочник по React Hooks с готовыми сниппетами для useState, useEffect, useContext, пользовательских хуков и оптимизации производительности.",
     "proficiencyLevel": "Intermediate",
-    "inLanguage": "ko"
+    "inLanguage": "ru"
   }
 ---
 
-## 컴포넌트 온라인
+## Компонент Онлайн
 
-React Hooks는 상태와 사이드 이펙트를 관리하는 표준 방법으로 클래스 컴포넌트를 대체했습니다. React 16.8 이후로 모든 프로덕션 애플리케이션은 훅으로 구축되며, 면접관은 여러분이 이를 완벽하게 알고 있기를 기대합니다. 이 치트시트는 모든 훅의 복사-붙여넣기 가능한 스니펫과 프론트엔드 면접 및 일상 개발에서 만나게 될 실전 패턴을 제공합니다. 이론 강의는 없습니다. 어떤 컴포넌트에든 넣을 수 있는 작동하는 코드만 있습니다.
+React Hooks заменили классовые компоненты как стандартный способ управления состоянием и побочными эффектами. С версии React 16.8 каждое продакшн-приложение строится на хуках — и интервьюеры ожидают, что вы знаете их в совершенстве. Это руководство предоставляет готовые фрагменты кода для каждого хука и реальные паттерны, с которыми вы столкнётесь на собеседованиях по фронтенду и в повседневной разработке. Никаких теоретических лекций. Только рабочий код, который можно вставить в любой компонент.
 
 ---
 
-## useState — 상태 관리
+## useState — Управление Состоянием
 
-가장 기본적인 훅. 상태 변수와 세터 함수를 선언합니다.
+Самый базовый хук. Объявляет переменную состояния и функцию-сеттер.
 
 ```jsx
 import { useState } from "react";
 
-// Basic state
+// Базовое состояние
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -42,25 +42,25 @@ function Counter() {
   );
 }
 
-// Functional updater (when new state depends on previous state)
+// Функциональный апдейтер (когда новое состояние зависит от предыдущего)
 function SafeCounter() {
   const [count, setCount] = useState(0);
 
   const increment = () => {
-    // ✅ Always use functional form when depending on previous state
+    // ✅ Всегда используйте функциональную форму при зависимости от предыдущего состояния
     setCount(prev => prev + 1);
   };
 
   return <button onClick={increment}>{count}</button>;
 }
 
-// Object state
+// Состояние-объект
 function Form() {
   const [form, setForm] = useState({ name: "", email: "", role: "dev" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // ✅ Spread previous state, override one field
+    // ✅ Распространяем предыдущее состояние, перезаписываем одно поле
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
@@ -72,7 +72,7 @@ function Form() {
   );
 }
 
-// Array state
+// Состояние-массив
 function TodoList() {
   const [todos, setTodos] = useState([]);
 
@@ -101,7 +101,7 @@ function TodoList() {
   );
 }
 
-// Lazy initialization (expensive initial value)
+// Ленивая инициализация (дорогое начальное значение)
 const [data, setData] = useState(() => {
   return JSON.parse(localStorage.getItem("appData")) || {};
 });
@@ -109,42 +109,42 @@ const [data, setData] = useState(() => {
 
 ---
 
-## useEffect — 사이드 이펙트
+## useEffect — Побочные Эффекты
 
-렌더링 후 코드를 실행합니다. API 호출, 구독, 타이머, DOM 조작을 처리합니다.
+Выполняет код после рендера. Обрабатывает API-вызовы, подписки, таймеры и манипуляцию DOM.
 
 ```jsx
 import { useState, useEffect } from "react";
 
-// Run on EVERY render (no dependency array)
+// Выполнять при КАЖДОМ рендере (нет массива зависимостей)
 useEffect(() => {
   console.log("Rendered");
 });
 
-// Run ONCE on mount (empty dependency array)
+// Выполнить ОДИН РАЗ при монтировании (пустой массив зависимостей)
 useEffect(() => {
-  console.log("Component mounted");
+  console.log("Компонент смонтирован");
 }, []);
 
-// Run when specific values change
+// Выполнять при изменении конкретных значений
 useEffect(() => {
-  console.log(`User changed to: ${userId}`);
+  console.log(`Пользователь изменён на: ${userId}`);
 }, [userId]);
 
-// Cleanup function (unmount or before re-run)
+// Функция очистки (размонтирование или перед повторным запуском)
 useEffect(() => {
   const timer = setInterval(() => console.log("tick"), 1000);
-  return () => clearInterval(timer); // cleanup
+  return () => clearInterval(timer); // очистка
 }, []);
 
-// Fetch data on mount
+// Загрузка данных при монтировании
 function UserProfile({ userId }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let cancelled = false; // prevent state update on unmounted component
+    let cancelled = false; // предотвращаем обновление состояния размонтированного компонента
 
     async function fetchUser() {
       setLoading(true);
@@ -165,19 +165,19 @@ function UserProfile({ userId }) {
     return () => { cancelled = true; };
   }, [userId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Загрузка...</p>;
+  if (error) return <p>Ошибка: {error}</p>;
   return <h1>{user.name}</h1>;
 }
 
-// Event listener with cleanup
+// Обработчик событий с очисткой
 useEffect(() => {
   const handleResize = () => console.log(window.innerWidth);
   window.addEventListener("resize", handleResize);
   return () => window.removeEventListener("resize", handleResize);
 }, []);
 
-// Debounced search input
+// Поле поиска с debounce
 function Search() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -199,17 +199,17 @@ function Search() {
 
 ---
 
-## useContext — Props 없는 전역 상태
+## useContext — Глобальное Состояние Без Props
 
-prop 드릴링 없이 컴포넌트 트리 전체에서 값을 공유합니다.
+Передавайте значения по дереву компонентов без prop drilling.
 
 ```jsx
 import { createContext, useContext, useState } from "react";
 
-// 1. Create the context
+// 1. Создаём контекст
 const ThemeContext = createContext();
 
-// 2. Create a provider component
+// 2. Создаём компонент-провайдер
 function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("dark");
   const toggle = () => setTheme(prev => (prev === "dark" ? "light" : "dark"));
@@ -221,18 +221,18 @@ function ThemeProvider({ children }) {
   );
 }
 
-// 3. Consume with useContext (any child component)
+// 3. Потребляем через useContext (любой дочерний компонент)
 function ThemeButton() {
   const { theme, toggle } = useContext(ThemeContext);
 
   return (
     <button onClick={toggle}>
-      Current theme: {theme}
+      Текущая тема: {theme}
     </button>
   );
 }
 
-// 4. Wrap your app
+// 4. Оборачиваем приложение
 function App() {
   return (
     <ThemeProvider>
@@ -242,7 +242,7 @@ function App() {
 }
 ```
 
-### 인증 Context 패턴 (프로덕션)
+### Паттерн Auth Context (Продакшн)
 
 ```jsx
 const AuthContext = createContext(null);
@@ -280,14 +280,14 @@ function AuthProvider({ children }) {
   );
 }
 
-// Custom hook for cleaner usage
+// Пользовательский хук для более чистого использования
 function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be inside AuthProvider");
+  if (!context) throw new Error("useAuth должен быть внутри AuthProvider");
   return context;
 }
 
-// Usage in any component
+// Использование в любом компоненте
 function Dashboard() {
   const { user, logout } = useAuth();
   return <button onClick={logout}>Logout {user.name}</button>;
@@ -296,14 +296,14 @@ function Dashboard() {
 
 ---
 
-## useRef — 변경 가능한 참조
+## useRef — Изменяемые Ссылки
 
-리렌더링을 발생시키지 않으면서 렌더링 간에 유지되는 변경 가능한 값을 보유합니다.
+Хранит изменяемое значение, которое сохраняется между рендерами, не вызывая повторных рендеров.
 
 ```jsx
 import { useRef, useEffect } from "react";
 
-// Access a DOM element
+// Доступ к DOM-элементу
 function AutoFocusInput() {
   const inputRef = useRef(null);
 
@@ -311,10 +311,10 @@ function AutoFocusInput() {
     inputRef.current.focus();
   }, []);
 
-  return <input ref={inputRef} placeholder="I auto-focus on mount" />;
+  return <input ref={inputRef} placeholder="Автофокус при монтировании" />;
 }
 
-// Store a mutable value (does NOT trigger re-render)
+// Хранение изменяемого значения (НЕ вызывает повторный рендер)
 function StopWatch() {
   const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
@@ -336,7 +336,7 @@ function StopWatch() {
   );
 }
 
-// Track previous value
+// Отслеживание предыдущего значения
 function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
@@ -345,28 +345,28 @@ function usePrevious(value) {
   return ref.current;
 }
 
-// Scroll to element
+// Прокрутка к элементу
 function ScrollDemo() {
   const sectionRef = useRef(null);
   const scrollToSection = () => {
     sectionRef.current.scrollIntoView({ behavior: "smooth" });
   };
-  return <div ref={sectionRef}>Target</div>;
+  return <div ref={sectionRef}>Цель</div>;
 }
 ```
 
 ---
 
-## useMemo & useCallback — 성능
+## useMemo & useCallback — Производительность
 
-비용이 큰 계산을 메모이제이션하고 함수 참조를 안정화합니다.
+Мемоизируйте дорогие вычисления и стабилизируйте ссылки на функции.
 
 ```jsx
 import { useMemo, useCallback, useState } from "react";
 
-// useMemo — cache a computed value
+// useMemo — кэширование вычисленного значения
 function FilteredList({ items, query }) {
-  // Only recomputes when items or query change
+  // Пересчитывает только при изменении items или query
   const filtered = useMemo(() => {
     return items.filter(item =>
       item.name.toLowerCase().includes(query.toLowerCase())
@@ -380,7 +380,7 @@ function FilteredList({ items, query }) {
   );
 }
 
-// useMemo — expensive calculation
+// useMemo — дорогое вычисление
 function Dashboard({ transactions }) {
   const stats = useMemo(() => ({
     total: transactions.reduce((sum, t) => sum + t.amount, 0),
@@ -390,56 +390,56 @@ function Dashboard({ transactions }) {
       : 0,
   }), [transactions]);
 
-  return <p>Total: ${stats.total} ({stats.count} transactions)</p>;
+  return <p>Итого: ${stats.total} ({stats.count} транзакций)</p>;
 }
 
-// useCallback — stabilize a function reference
+// useCallback — стабилизация ссылки на функцию
 function Parent() {
   const [count, setCount] = useState(0);
 
-  // Without useCallback, handleClick is recreated every render
-  // causing Child to re-render even if it uses React.memo
+  // Без useCallback handleClick пересоздаётся при каждом рендере,
+  // вызывая повторный рендер Child, даже если он использует React.memo
   const handleClick = useCallback((id) => {
-    console.log(`Clicked item ${id}`);
-  }, []); // stable reference
+    console.log(`Нажат элемент ${id}`);
+  }, []); // стабильная ссылка
 
   return <MemoizedChild onClick={handleClick} />;
 }
 
 const MemoizedChild = React.memo(function Child({ onClick }) {
-  console.log("Child rendered");
+  console.log("Child отрендерен");
   return <button onClick={() => onClick(1)}>Click</button>;
 });
 ```
 
-### 사용 시점 (그리고 사용하지 말아야 할 때)
+### Когда использовать (и когда НЕТ)
 
 ```jsx
-// ✅ Use useMemo when:
-// - Filtering/sorting large lists
-// - Complex calculations (aggregations, formatting)
-// - Creating objects passed to memoized children
+// ✅ Используйте useMemo когда:
+// - Фильтрация/сортировка больших списков
+// - Сложные вычисления (агрегации, форматирование)
+// - Создание объектов, передаваемых мемоизированным дочерним компонентам
 
-// ✅ Use useCallback when:
-// - Passing callbacks to React.memo components
-// - Passing callbacks as useEffect dependencies
+// ✅ Используйте useCallback когда:
+// - Передаёте колбэки в компоненты React.memo
+// - Передаёте колбэки как зависимости useEffect
 
-// ❌ Do NOT use for:
-// - Simple expressions (a + b, string concatenation)
-// - Functions that are not passed to children
-// - Premature optimization — measure first
+// ❌ НЕ используйте для:
+// - Простых выражений (a + b, конкатенация строк)
+// - Функций, которые не передаются дочерним компонентам
+// - Преждевременной оптимизации — сначала измерьте
 ```
 
 ---
 
-## useReducer — 복잡한 상태 로직
+## useReducer — Сложная Логика Состояния
 
-useState와 비슷하지만 액션에 의존하는 상태 전환을 위한 것. Redux를 알고 있다면 익숙할 것입니다.
+Как useState, но для переходов состояния, зависящих от действий. Знакомо, если вы знаете Redux.
 
 ```jsx
 import { useReducer } from "react";
 
-// Define reducer function
+// Определяем функцию-редюсер
 function todoReducer(state, action) {
   switch (action.type) {
     case "ADD":
@@ -453,7 +453,7 @@ function todoReducer(state, action) {
     case "CLEAR_DONE":
       return state.filter(t => !t.done);
     default:
-      throw new Error(`Unknown action: ${action.type}`);
+      throw new Error(`Неизвестное действие: ${action.type}`);
   }
 }
 
@@ -472,7 +472,7 @@ function TodoApp() {
     <div>
       <form onSubmit={handleSubmit}>
         <input value={text} onChange={e => setText(e.target.value)} />
-        <button type="submit">Add</button>
+        <button type="submit">Добавить</button>
       </form>
       <ul>
         {todos.map(t => (
@@ -490,7 +490,7 @@ function TodoApp() {
         ))}
       </ul>
       <button onClick={() => dispatch({ type: "CLEAR_DONE" })}>
-        Clear Completed
+        Очистить Выполненные
       </button>
     </div>
   );
@@ -499,9 +499,9 @@ function TodoApp() {
 
 ---
 
-## 커스텀 Hooks — 재사용 가능한 로직
+## Пользовательские Хуки — Переиспользуемая Логика
 
-컴포넌트 로직을 재사용 가능한 함수로 추출합니다. React에서 가장 강력한 패턴.
+Извлекайте логику компонентов в переиспользуемые функции. Самый мощный паттерн в React.
 
 ### useLocalStorage
 
@@ -523,7 +523,7 @@ function useLocalStorage(key, initialValue) {
   return [value, setValue];
 }
 
-// Usage
+// Использование
 const [theme, setTheme] = useLocalStorage("theme", "dark");
 ```
 
@@ -554,12 +554,12 @@ function useFetch(url) {
   return { data, loading, error };
 }
 
-// Usage
+// Использование
 function UserList() {
   const { data: users, loading, error } = useFetch("/api/users");
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Загрузка...</p>;
+  if (error) return <p>Ошибка: {error}</p>;
   return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
 }
 ```
@@ -578,7 +578,7 @@ function useDebounce(value, delay = 300) {
   return debounced;
 }
 
-// Usage
+// Использование
 function Search() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
@@ -604,7 +604,7 @@ function useToggle(initial = false) {
   return [value, toggle];
 }
 
-// Usage
+// Использование
 const [isOpen, toggleOpen] = useToggle();
 const [isDark, toggleTheme] = useToggle(true);
 ```
@@ -630,58 +630,58 @@ function useWindowSize() {
   return size;
 }
 
-// Usage
+// Использование
 const { width } = useWindowSize();
 const isMobile = width < 768;
 ```
 
 ---
 
-## Hook 규칙
+## Правила Хуков
 
-React 훅은 두 가지 엄격한 규칙을 따릅니다. 이를 어기면 디버깅이 거의 불가능한 버그가 발생합니다.
+React хуки следуют двум строгим правилам. Нарушьте их — и получите баги, которые практически невозможно отладить.
 
 ```jsx
-// ✅ Rule 1: Only call hooks at the TOP LEVEL
-// Never inside conditions, loops, or nested functions
+// ✅ Правило 1: Вызывайте хуки только на ВЕРХНЕМ УРОВНЕ
+// Никогда внутри условий, циклов или вложенных функций
 function Component({ showExtra }) {
-  const [count, setCount] = useState(0);     // ✅ Always called
+  const [count, setCount] = useState(0);     // ✅ Всегда вызывается
   // if (showExtra) {
-  //   const [extra, setExtra] = useState(""); // ❌ Conditional hook
+  //   const [extra, setExtra] = useState(""); // ❌ Условный хук
   // }
-  const [extra, setExtra] = useState("");     // ✅ Always called
-  // Then conditionally render instead
+  const [extra, setExtra] = useState("");     // ✅ Всегда вызывается
+  // Затем условно рендерим вместо этого
 
   return showExtra ? <p>{extra}</p> : null;
 }
 
-// ✅ Rule 2: Only call hooks from React functions
-// React components or custom hooks — never from plain functions
-function useMyHook() {        // ✅ Custom hook (starts with "use")
+// ✅ Правило 2: Вызывайте хуки только из React-функций
+// React-компоненты или пользовательские хуки — никогда из обычных функций
+function useMyHook() {        // ✅ Пользовательский хук (начинается с "use")
   const [val, setVal] = useState(0);
   return val;
 }
-// function helperFunction() {   // ❌ Not a hook, not a component
+// function helperFunction() {   // ❌ Не хук, не компонент
 //   const [val, setVal] = useState(0);
 // }
 ```
 
 ---
 
-## 빠른 참조 표
+## Таблица Быстрого Справочника
 
-| Hook | 목적 | 리렌더링 발생? |
+| Хук | Назначение | Вызывает ре-рендер? |
 |---|---|---|
-| `useState` | 컴포넌트 상태 관리 | 예 |
-| `useEffect` | 사이드 이펙트 (fetch, 타이머, DOM) | 아니오 (렌더 후 실행) |
-| `useContext` | prop 드릴링 없이 context 읽기 | 예 (context 변경 시) |
-| `useRef` | 변경 가능한 ref / DOM 접근 | 아니오 |
-| `useMemo` | 비용 큰 계산 캐시 | 아니오 (캐시된 값 반환) |
-| `useCallback` | 함수 참조 안정화 | 아니오 (캐시된 함수 반환) |
-| `useReducer` | 액션 기반 복잡한 상태 | 예 |
+| `useState` | Управление состоянием компонента | Да |
+| `useEffect` | Побочные эффекты (fetch, таймеры, DOM) | Нет (выполняется после рендера) |
+| `useContext` | Чтение контекста без prop drilling | Да (при изменении контекста) |
+| `useRef` | Изменяемая ссылка / доступ к DOM | Нет |
+| `useMemo` | Кэширование дорогих вычислений | Нет (возвращает кэшированное значение) |
+| `useCallback` | Стабилизация ссылок на функции | Нет (возвращает кэшированную функцию) |
+| `useReducer` | Сложное состояние с действиями | Да |
 
 ---
 
-## 전송 완료
+## Конец Передачи
 
-이 치트시트는 프로덕션 코드베이스와 프론트엔드 면접에서 만나게 될 모든 React Hook 패턴을 다룹니다. 기본적인 상태 관리부터 재사용 가능한 로직을 캡슐화하는 커스텀 훅까지 — 이것들이 모던 React의 기본 구성 요소입니다. 북마크하고, 패턴을 복사하고, 구축하세요.
+Это руководство охватывает каждый паттерн React Hooks, с которым вы столкнётесь в продакшн-кодовых базах и на собеседованиях по фронтенду. От базового управления состоянием до пользовательских хуков, инкапсулирующих переиспользуемую логику — это строительные блоки современного React. Добавьте в закладки, копируйте паттерны и создавайте.

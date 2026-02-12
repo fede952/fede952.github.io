@@ -1,7 +1,7 @@
 ---
 title: "现代 JavaScript 速查表：ES6+、Async/Await 与数组方法"
 description: "面向前端开发者的完整 ES6+ 参考手册。掌握箭头函数、解构赋值、展开运算符、Promise、async/await、map/filter/reduce 以及 Fetch API，附带可直接复制粘贴的示例。"
-date: 2026-02-11
+date: 2026-02-10
 tags: ["javascript", "cheatsheet", "frontend", "es6", "web-dev"]
 keywords: ["javascript 速查表", "es6 速查表", "学习前端开发", "js 语法", "javascript 数组方法", "async await 教程", "前端面试", "react 开发者 javascript", "map filter reduce", "解构赋值 javascript", "展开运算符", "fetch api 示例", "promise 链式调用", "箭头函数", "模板字符串"]
 draft: false

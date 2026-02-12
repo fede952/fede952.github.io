@@ -1,7 +1,7 @@
 ---
 title: "ورقة مرجعية لتخطيطات CSS: دليل Flexbox و Grid المرئي"
 description: "المرجع النهائي لـ CSS Flexbox و Grid. تعلم توسيط العناصر، بناء التخطيطات المتجاوبة، إتقان استعلامات الوسائط، واستخدام متغيرات CSS الحديثة مع أمثلة جاهزة للنسخ واللصق."
-date: 2026-02-11
+date: 2026-02-10
 tags: ["css", "cheatsheet", "frontend", "flexbox", "grid", "web-dev"]
 keywords: ["ورقة مرجعية css flexbox", "شرح css grid", "توسيط div css", "تعلم تطوير الويب", "تخطيط متجاوب css", "استعلامات الوسائط", "متغيرات css", "مقابلة الواجهة الأمامية", "flexbox مقابل grid", "دليل تخطيط css", "أمثلة css grid", "flexbox محاذاة العناصر", "خاصية gap css", "css حديث 2026"]
 draft: false

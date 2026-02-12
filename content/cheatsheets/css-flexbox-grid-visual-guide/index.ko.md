@@ -1,7 +1,7 @@
 ---
 title: "CSS 레이아웃 치트시트: Flexbox & Grid 비주얼 가이드"
 description: "완벽한 CSS Flexbox와 Grid 레퍼런스. div 중앙 정렬, 반응형 레이아웃 구축, 미디어 쿼리 마스터, 복사-붙여넣기 가능한 예제로 모던 CSS 변수 사용법을 배우세요."
-date: 2026-02-11
+date: 2026-02-10
 tags: ["css", "cheatsheet", "frontend", "flexbox", "grid", "web-dev"]
 keywords: ["css flexbox 치트시트", "css grid 튜토리얼", "div 중앙 정렬 css", "웹 개발 배우기", "반응형 레이아웃 css", "미디어 쿼리", "css 변수", "프론트엔드 면접", "flexbox vs grid", "css 레이아웃 가이드", "css grid 예제", "flexbox align items", "css gap 속성", "모던 css 2026"]
 draft: false

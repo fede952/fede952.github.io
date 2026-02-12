@@ -1,7 +1,7 @@
 ---
 title: "आधुनिक JavaScript चीटशीट: ES6+, Async/Await और Array Methods"
 description: "फ्रंटएंड डेवलपर्स के लिए संपूर्ण ES6+ संदर्भ। एरो फंक्शन, डिस्ट्रक्चरिंग, स्प्रेड ऑपरेटर, प्रॉमिस, async/await, map/filter/reduce और Fetch API को कॉपी-पेस्ट उदाहरणों के साथ सीखें।"
-date: 2026-02-11
+date: 2026-02-10
 tags: ["javascript", "cheatsheet", "frontend", "es6", "web-dev"]
 keywords: ["javascript चीटशीट", "es6 चीटशीट", "वेब डेवलपमेंट सीखें", "js सिंटैक्स", "javascript array methods", "async await ट्यूटोरियल", "फ्रंटएंड इंटरव्यू", "react डेवलपर javascript", "map filter reduce", "डिस्ट्रक्चरिंग javascript", "स्प्रेड ऑपरेटर", "fetch api उदाहरण", "promise चेनिंग", "एरो फंक्शन", "टेम्पलेट लिटरल"]
 draft: false

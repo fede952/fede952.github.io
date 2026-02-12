@@ -1,35 +1,35 @@
 ---
-title: "궁극의 React Hooks 치트시트 (2026)"
-description: "모든 React Hook을 복사-붙여넣기 가능한 코드 스니펫으로 설명합니다. useState, useEffect, useContext, useRef, useMemo, 커스텀 훅, 프로덕션 React 애플리케이션에서 사용되는 성능 패턴을 마스터하세요."
+title: "O Guia Definitivo de React Hooks (2026)"
+description: "Cada React Hook explicado com trechos de código prontos para copiar e colar. Domine useState, useEffect, useContext, useRef, useMemo, hooks personalizados e padrões de performance usados em aplicações React em produção."
 date: 2026-02-10
 tags: ["react", "cheatsheet", "frontend", "hooks", "web-dev"]
-keywords: ["react hooks 치트시트", "usestate useeffect", "react hooks 튜토리얼", "웹 개발 배우기", "프론트엔드 면접", "커스텀 hooks react", "react 성능", "usememo usecallback", "react context 튜토리얼", "useref react", "react 패턴 2026", "react hooks 예제"]
+keywords: ["react hooks guia", "usestate useeffect", "react hooks tutorial", "aprender desenvolvimento web", "entrevista frontend", "custom hooks react", "react performance", "usememo usecallback", "react context tutorial", "useref react", "react padrões 2026", "react hooks exemplos"]
 draft: false
 schema_json: >
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "name": "궁극의 React Hooks 치트시트 (2026)",
-    "description": "useState, useEffect, useContext, 커스텀 훅, 성능 최적화를 위한 복사-붙여넣기 스니펫이 포함된 완벽한 React Hooks 레퍼런스.",
+    "name": "O Guia Definitivo de React Hooks (2026)",
+    "description": "Referência completa de React Hooks com snippets prontos para copiar e colar para useState, useEffect, useContext, hooks personalizados e otimização de performance.",
     "proficiencyLevel": "Intermediate",
-    "inLanguage": "ko"
+    "inLanguage": "pt"
   }
 ---
 
-## 컴포넌트 온라인
+## Componente Online
 
-React Hooks는 상태와 사이드 이펙트를 관리하는 표준 방법으로 클래스 컴포넌트를 대체했습니다. React 16.8 이후로 모든 프로덕션 애플리케이션은 훅으로 구축되며, 면접관은 여러분이 이를 완벽하게 알고 있기를 기대합니다. 이 치트시트는 모든 훅의 복사-붙여넣기 가능한 스니펫과 프론트엔드 면접 및 일상 개발에서 만나게 될 실전 패턴을 제공합니다. 이론 강의는 없습니다. 어떤 컴포넌트에든 넣을 수 있는 작동하는 코드만 있습니다.
+Os React Hooks substituíram os componentes de classe como a forma padrão de gerenciar estado e efeitos colaterais. Desde o React 16.8, toda aplicação em produção é construída com hooks — e os entrevistadores esperam que você os domine perfeitamente. Este guia oferece snippets prontos para copiar e colar para cada hook e os padrões do mundo real que você encontrará em entrevistas frontend e no desenvolvimento diário. Sem aulas teóricas. Apenas código funcional que você pode inserir em qualquer componente.
 
 ---
 
-## useState — 상태 관리
+## useState — Gerenciamento de Estado
 
-가장 기본적인 훅. 상태 변수와 세터 함수를 선언합니다.
+O hook mais fundamental. Declara uma variável de estado e uma função setter.
 
 ```jsx
 import { useState } from "react";
 
-// Basic state
+// Estado básico
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -42,25 +42,25 @@ function Counter() {
   );
 }
 
-// Functional updater (when new state depends on previous state)
+// Atualizador funcional (quando o novo estado depende do estado anterior)
 function SafeCounter() {
   const [count, setCount] = useState(0);
 
   const increment = () => {
-    // ✅ Always use functional form when depending on previous state
+    // ✅ Sempre use a forma funcional quando depender do estado anterior
     setCount(prev => prev + 1);
   };
 
   return <button onClick={increment}>{count}</button>;
 }
 
-// Object state
+// Estado objeto
 function Form() {
   const [form, setForm] = useState({ name: "", email: "", role: "dev" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // ✅ Spread previous state, override one field
+    // ✅ Espalhe o estado anterior, sobrescreva um campo
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
@@ -72,7 +72,7 @@ function Form() {
   );
 }
 
-// Array state
+// Estado array
 function TodoList() {
   const [todos, setTodos] = useState([]);
 
@@ -101,7 +101,7 @@ function TodoList() {
   );
 }
 
-// Lazy initialization (expensive initial value)
+// Inicialização preguiçosa (valor inicial custoso)
 const [data, setData] = useState(() => {
   return JSON.parse(localStorage.getItem("appData")) || {};
 });
@@ -109,42 +109,42 @@ const [data, setData] = useState(() => {
 
 ---
 
-## useEffect — 사이드 이펙트
+## useEffect — Efeitos Colaterais
 
-렌더링 후 코드를 실행합니다. API 호출, 구독, 타이머, DOM 조작을 처리합니다.
+Execute código após o render. Gerencia chamadas de API, assinaturas, timers e manipulação do DOM.
 
 ```jsx
 import { useState, useEffect } from "react";
 
-// Run on EVERY render (no dependency array)
+// Executar em CADA render (sem array de dependências)
 useEffect(() => {
   console.log("Rendered");
 });
 
-// Run ONCE on mount (empty dependency array)
+// Executar UMA VEZ na montagem (array de dependências vazio)
 useEffect(() => {
-  console.log("Component mounted");
+  console.log("Componente montado");
 }, []);
 
-// Run when specific values change
+// Executar quando valores específicos mudam
 useEffect(() => {
-  console.log(`User changed to: ${userId}`);
+  console.log(`Usuário mudou para: ${userId}`);
 }, [userId]);
 
-// Cleanup function (unmount or before re-run)
+// Função de limpeza (desmontagem ou antes de re-executar)
 useEffect(() => {
   const timer = setInterval(() => console.log("tick"), 1000);
-  return () => clearInterval(timer); // cleanup
+  return () => clearInterval(timer); // limpeza
 }, []);
 
-// Fetch data on mount
+// Buscar dados na montagem
 function UserProfile({ userId }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let cancelled = false; // prevent state update on unmounted component
+    let cancelled = false; // prevenir atualização de estado em componente desmontado
 
     async function fetchUser() {
       setLoading(true);
@@ -165,19 +165,19 @@ function UserProfile({ userId }) {
     return () => { cancelled = true; };
   }, [userId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>Erro: {error}</p>;
   return <h1>{user.name}</h1>;
 }
 
-// Event listener with cleanup
+// Event listener com limpeza
 useEffect(() => {
   const handleResize = () => console.log(window.innerWidth);
   window.addEventListener("resize", handleResize);
   return () => window.removeEventListener("resize", handleResize);
 }, []);
 
-// Debounced search input
+// Campo de busca com debounce
 function Search() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -199,17 +199,17 @@ function Search() {
 
 ---
 
-## useContext — Props 없는 전역 상태
+## useContext — Estado Global Sem Props
 
-prop 드릴링 없이 컴포넌트 트리 전체에서 값을 공유합니다.
+Compartilhe valores pela árvore de componentes sem prop drilling.
 
 ```jsx
 import { createContext, useContext, useState } from "react";
 
-// 1. Create the context
+// 1. Criar o contexto
 const ThemeContext = createContext();
 
-// 2. Create a provider component
+// 2. Criar um componente provider
 function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("dark");
   const toggle = () => setTheme(prev => (prev === "dark" ? "light" : "dark"));
@@ -221,18 +221,18 @@ function ThemeProvider({ children }) {
   );
 }
 
-// 3. Consume with useContext (any child component)
+// 3. Consumir com useContext (qualquer componente filho)
 function ThemeButton() {
   const { theme, toggle } = useContext(ThemeContext);
 
   return (
     <button onClick={toggle}>
-      Current theme: {theme}
+      Tema atual: {theme}
     </button>
   );
 }
 
-// 4. Wrap your app
+// 4. Envolver sua app
 function App() {
   return (
     <ThemeProvider>
@@ -242,7 +242,7 @@ function App() {
 }
 ```
 
-### 인증 Context 패턴 (프로덕션)
+### Padrão Auth Context (Produção)
 
 ```jsx
 const AuthContext = createContext(null);
@@ -280,14 +280,14 @@ function AuthProvider({ children }) {
   );
 }
 
-// Custom hook for cleaner usage
+// Hook personalizado para uso mais limpo
 function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be inside AuthProvider");
+  if (!context) throw new Error("useAuth deve estar dentro de AuthProvider");
   return context;
 }
 
-// Usage in any component
+// Uso em qualquer componente
 function Dashboard() {
   const { user, logout } = useAuth();
   return <button onClick={logout}>Logout {user.name}</button>;
@@ -296,14 +296,14 @@ function Dashboard() {
 
 ---
 
-## useRef — 변경 가능한 참조
+## useRef — Referências Mutáveis
 
-리렌더링을 발생시키지 않으면서 렌더링 간에 유지되는 변경 가능한 값을 보유합니다.
+Mantém um valor mutável que persiste entre renders sem causar re-renders.
 
 ```jsx
 import { useRef, useEffect } from "react";
 
-// Access a DOM element
+// Acessar um elemento DOM
 function AutoFocusInput() {
   const inputRef = useRef(null);
 
@@ -311,10 +311,10 @@ function AutoFocusInput() {
     inputRef.current.focus();
   }, []);
 
-  return <input ref={inputRef} placeholder="I auto-focus on mount" />;
+  return <input ref={inputRef} placeholder="Foco automático na montagem" />;
 }
 
-// Store a mutable value (does NOT trigger re-render)
+// Armazenar um valor mutável (NÃO dispara re-render)
 function StopWatch() {
   const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
@@ -336,7 +336,7 @@ function StopWatch() {
   );
 }
 
-// Track previous value
+// Rastrear valor anterior
 function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
@@ -345,28 +345,28 @@ function usePrevious(value) {
   return ref.current;
 }
 
-// Scroll to element
+// Rolar até um elemento
 function ScrollDemo() {
   const sectionRef = useRef(null);
   const scrollToSection = () => {
     sectionRef.current.scrollIntoView({ behavior: "smooth" });
   };
-  return <div ref={sectionRef}>Target</div>;
+  return <div ref={sectionRef}>Destino</div>;
 }
 ```
 
 ---
 
-## useMemo & useCallback — 성능
+## useMemo & useCallback — Performance
 
-비용이 큰 계산을 메모이제이션하고 함수 참조를 안정화합니다.
+Memoize cálculos custosos e estabilize referências de funções.
 
 ```jsx
 import { useMemo, useCallback, useState } from "react";
 
-// useMemo — cache a computed value
+// useMemo — cachear um valor calculado
 function FilteredList({ items, query }) {
-  // Only recomputes when items or query change
+  // Só recalcula quando items ou query mudam
   const filtered = useMemo(() => {
     return items.filter(item =>
       item.name.toLowerCase().includes(query.toLowerCase())
@@ -380,7 +380,7 @@ function FilteredList({ items, query }) {
   );
 }
 
-// useMemo — expensive calculation
+// useMemo — cálculo custoso
 function Dashboard({ transactions }) {
   const stats = useMemo(() => ({
     total: transactions.reduce((sum, t) => sum + t.amount, 0),
@@ -390,56 +390,56 @@ function Dashboard({ transactions }) {
       : 0,
   }), [transactions]);
 
-  return <p>Total: ${stats.total} ({stats.count} transactions)</p>;
+  return <p>Total: ${stats.total} ({stats.count} transações)</p>;
 }
 
-// useCallback — stabilize a function reference
+// useCallback — estabilizar uma referência de função
 function Parent() {
   const [count, setCount] = useState(0);
 
-  // Without useCallback, handleClick is recreated every render
-  // causing Child to re-render even if it uses React.memo
+  // Sem useCallback, handleClick é recriado a cada render
+  // fazendo Child re-renderizar mesmo usando React.memo
   const handleClick = useCallback((id) => {
-    console.log(`Clicked item ${id}`);
-  }, []); // stable reference
+    console.log(`Item clicado ${id}`);
+  }, []); // referência estável
 
   return <MemoizedChild onClick={handleClick} />;
 }
 
 const MemoizedChild = React.memo(function Child({ onClick }) {
-  console.log("Child rendered");
+  console.log("Child renderizado");
   return <button onClick={() => onClick(1)}>Click</button>;
 });
 ```
 
-### 사용 시점 (그리고 사용하지 말아야 할 때)
+### Quando usar (e quando NÃO)
 
 ```jsx
-// ✅ Use useMemo when:
-// - Filtering/sorting large lists
-// - Complex calculations (aggregations, formatting)
-// - Creating objects passed to memoized children
+// ✅ Use useMemo quando:
+// - Filtrar/ordenar listas grandes
+// - Cálculos complexos (agregações, formatação)
+// - Criar objetos passados para filhos memoizados
 
-// ✅ Use useCallback when:
-// - Passing callbacks to React.memo components
-// - Passing callbacks as useEffect dependencies
+// ✅ Use useCallback quando:
+// - Passar callbacks para componentes React.memo
+// - Passar callbacks como dependências de useEffect
 
-// ❌ Do NOT use for:
-// - Simple expressions (a + b, string concatenation)
-// - Functions that are not passed to children
-// - Premature optimization — measure first
+// ❌ NÃO use para:
+// - Expressões simples (a + b, concatenação de strings)
+// - Funções que não são passadas para filhos
+// - Otimização prematura — meça primeiro
 ```
 
 ---
 
-## useReducer — 복잡한 상태 로직
+## useReducer — Lógica de Estado Complexa
 
-useState와 비슷하지만 액션에 의존하는 상태 전환을 위한 것. Redux를 알고 있다면 익숙할 것입니다.
+Como useState mas para transições de estado que dependem de ações. Familiar se você conhece Redux.
 
 ```jsx
 import { useReducer } from "react";
 
-// Define reducer function
+// Definir função reducer
 function todoReducer(state, action) {
   switch (action.type) {
     case "ADD":
@@ -453,7 +453,7 @@ function todoReducer(state, action) {
     case "CLEAR_DONE":
       return state.filter(t => !t.done);
     default:
-      throw new Error(`Unknown action: ${action.type}`);
+      throw new Error(`Ação desconhecida: ${action.type}`);
   }
 }
 
@@ -472,7 +472,7 @@ function TodoApp() {
     <div>
       <form onSubmit={handleSubmit}>
         <input value={text} onChange={e => setText(e.target.value)} />
-        <button type="submit">Add</button>
+        <button type="submit">Adicionar</button>
       </form>
       <ul>
         {todos.map(t => (
@@ -490,7 +490,7 @@ function TodoApp() {
         ))}
       </ul>
       <button onClick={() => dispatch({ type: "CLEAR_DONE" })}>
-        Clear Completed
+        Limpar Concluídos
       </button>
     </div>
   );
@@ -499,9 +499,9 @@ function TodoApp() {
 
 ---
 
-## 커스텀 Hooks — 재사용 가능한 로직
+## Hooks Personalizados — Lógica Reutilizável
 
-컴포넌트 로직을 재사용 가능한 함수로 추출합니다. React에서 가장 강력한 패턴.
+Extraia a lógica dos componentes em funções reutilizáveis. O padrão mais poderoso em React.
 
 ### useLocalStorage
 
@@ -523,7 +523,7 @@ function useLocalStorage(key, initialValue) {
   return [value, setValue];
 }
 
-// Usage
+// Uso
 const [theme, setTheme] = useLocalStorage("theme", "dark");
 ```
 
@@ -554,12 +554,12 @@ function useFetch(url) {
   return { data, loading, error };
 }
 
-// Usage
+// Uso
 function UserList() {
   const { data: users, loading, error } = useFetch("/api/users");
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>Erro: {error}</p>;
   return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
 }
 ```
@@ -578,7 +578,7 @@ function useDebounce(value, delay = 300) {
   return debounced;
 }
 
-// Usage
+// Uso
 function Search() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
@@ -604,7 +604,7 @@ function useToggle(initial = false) {
   return [value, toggle];
 }
 
-// Usage
+// Uso
 const [isOpen, toggleOpen] = useToggle();
 const [isDark, toggleTheme] = useToggle(true);
 ```
@@ -630,58 +630,58 @@ function useWindowSize() {
   return size;
 }
 
-// Usage
+// Uso
 const { width } = useWindowSize();
 const isMobile = width < 768;
 ```
 
 ---
 
-## Hook 규칙
+## Regras dos Hooks
 
-React 훅은 두 가지 엄격한 규칙을 따릅니다. 이를 어기면 디버깅이 거의 불가능한 버그가 발생합니다.
+Os React hooks seguem duas regras rigorosas. Quebre-as e você terá bugs quase impossíveis de depurar.
 
 ```jsx
-// ✅ Rule 1: Only call hooks at the TOP LEVEL
-// Never inside conditions, loops, or nested functions
+// ✅ Regra 1: Só chame hooks no NÍVEL SUPERIOR
+// Nunca dentro de condições, loops ou funções aninhadas
 function Component({ showExtra }) {
-  const [count, setCount] = useState(0);     // ✅ Always called
+  const [count, setCount] = useState(0);     // ✅ Sempre chamado
   // if (showExtra) {
-  //   const [extra, setExtra] = useState(""); // ❌ Conditional hook
+  //   const [extra, setExtra] = useState(""); // ❌ Hook condicional
   // }
-  const [extra, setExtra] = useState("");     // ✅ Always called
-  // Then conditionally render instead
+  const [extra, setExtra] = useState("");     // ✅ Sempre chamado
+  // Então renderize condicionalmente em vez disso
 
   return showExtra ? <p>{extra}</p> : null;
 }
 
-// ✅ Rule 2: Only call hooks from React functions
-// React components or custom hooks — never from plain functions
-function useMyHook() {        // ✅ Custom hook (starts with "use")
+// ✅ Regra 2: Só chame hooks de funções React
+// Componentes React ou hooks personalizados — nunca de funções comuns
+function useMyHook() {        // ✅ Hook personalizado (começa com "use")
   const [val, setVal] = useState(0);
   return val;
 }
-// function helperFunction() {   // ❌ Not a hook, not a component
+// function helperFunction() {   // ❌ Não é um hook, não é um componente
 //   const [val, setVal] = useState(0);
 // }
 ```
 
 ---
 
-## 빠른 참조 표
+## Tabela de Referência Rápida
 
-| Hook | 목적 | 리렌더링 발생? |
+| Hook | Propósito | Causa re-render? |
 |---|---|---|
-| `useState` | 컴포넌트 상태 관리 | 예 |
-| `useEffect` | 사이드 이펙트 (fetch, 타이머, DOM) | 아니오 (렌더 후 실행) |
-| `useContext` | prop 드릴링 없이 context 읽기 | 예 (context 변경 시) |
-| `useRef` | 변경 가능한 ref / DOM 접근 | 아니오 |
-| `useMemo` | 비용 큰 계산 캐시 | 아니오 (캐시된 값 반환) |
-| `useCallback` | 함수 참조 안정화 | 아니오 (캐시된 함수 반환) |
-| `useReducer` | 액션 기반 복잡한 상태 | 예 |
+| `useState` | Gerenciar estado do componente | Sim |
+| `useEffect` | Efeitos colaterais (fetch, timers, DOM) | Não (executa após o render) |
+| `useContext` | Ler contexto sem prop drilling | Sim (quando o contexto muda) |
+| `useRef` | Ref mutável / acesso DOM | Não |
+| `useMemo` | Cache para cálculos custosos | Não (retorna valor em cache) |
+| `useCallback` | Estabilizar referências de funções | Não (retorna função em cache) |
+| `useReducer` | Estado complexo com ações | Sim |
 
 ---
 
-## 전송 완료
+## Fim da Transmissão
 
-이 치트시트는 프로덕션 코드베이스와 프론트엔드 면접에서 만나게 될 모든 React Hook 패턴을 다룹니다. 기본적인 상태 관리부터 재사용 가능한 로직을 캡슐화하는 커스텀 훅까지 — 이것들이 모던 React의 기본 구성 요소입니다. 북마크하고, 패턴을 복사하고, 구축하세요.
+Este guia cobre cada padrão de React Hooks que você encontrará em codebases de produção e entrevistas frontend. Do gerenciamento básico de estado aos hooks personalizados que encapsulam lógica reutilizável — estes são os blocos de construção do React moderno. Salve nos favoritos, copie os padrões e construa.

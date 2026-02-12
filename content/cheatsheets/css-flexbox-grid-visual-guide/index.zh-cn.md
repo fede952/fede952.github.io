@@ -1,7 +1,7 @@
 ---
 title: "CSS 布局速查表：Flexbox 与 Grid 可视化指南"
 description: "权威的 CSS Flexbox 和 Grid 参考手册。学习居中 div、构建响应式布局、掌握媒体查询，以及使用现代 CSS 变量，附带可复制粘贴的示例。"
-date: 2026-02-11
+date: 2026-02-10
 tags: ["css", "cheatsheet", "frontend", "flexbox", "grid", "web-dev"]
 keywords: ["css flexbox 速查表", "css grid 教程", "css 居中 div", "学习前端开发", "css 响应式布局", "媒体查询", "css 变量", "前端面试", "flexbox vs grid", "css 布局指南", "css grid 示例", "flexbox align items", "css gap 属性", "现代 css 2026"]
 draft: false

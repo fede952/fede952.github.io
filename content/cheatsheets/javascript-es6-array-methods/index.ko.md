@@ -1,7 +1,7 @@
 ---
 title: "모던 JavaScript 치트시트: ES6+, Async/Await & 배열 메서드"
 description: "프론트엔드 개발자를 위한 완벽한 ES6+ 레퍼런스. 화살표 함수, 구조 분해 할당, 스프레드 연산자, Promise, async/await, map/filter/reduce, Fetch API를 복사-붙여넣기 가능한 예제로 마스터하세요."
-date: 2026-02-11
+date: 2026-02-10
 tags: ["javascript", "cheatsheet", "frontend", "es6", "web-dev"]
 keywords: ["javascript 치트시트", "es6 치트시트", "웹 개발 배우기", "js 문법", "javascript 배열 메서드", "async await 튜토리얼", "프론트엔드 면접", "react 개발자 javascript", "map filter reduce", "구조 분해 할당 javascript", "스프레드 연산자", "fetch api 예제", "promise 체이닝", "화살표 함수", "템플릿 리터럴"]
 draft: false
