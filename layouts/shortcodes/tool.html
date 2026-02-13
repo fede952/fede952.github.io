@@ -1,0 +1,10 @@
+<div class="stack-tool-card">
+    <div class="stack-tool-icon">{{ .Get "icon" | default "🔧" }}</div>
+    <div class="stack-tool-info">
+        <h3>{{ .Get "name" }}</h3>
+        <p>{{ .Get "desc" }}</p>
+        {{ if .Get "link" }}
+        <a href="{{ .Get "link" }}" target="_blank" rel="nofollow sponsored" class="stack-tool-link">Get It →</a>
+        {{ end }}
+    </div>
+</div>
