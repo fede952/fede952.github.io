@@ -868,7 +868,10 @@
     "https://www.punto-informatico.it/smart-glass-meta-riconoscimento-facciale/",
     "https://www.punto-informatico.it/saily-e-in-offerta-esim-in-sconto-del-5-sui-piani-da-10gb/",
     "https://www.cybersecurity360.it/cultura-cyber/sicuri-del-business-sicuro/",
-    "https://www.cybersecurity360.it/nuove-minacce/openai-equilibrio-tra-accelerazione-difensiva-e-rischio-abuso-che-cambia-col-trusted-access-for-cyber/"
+    "https://www.cybersecurity360.it/nuove-minacce/openai-equilibrio-tra-accelerazione-difensiva-e-rischio-abuso-che-cambia-col-trusted-access-for-cyber/",
+    "https://www.bleepingcomputer.com/news/security/fake-job-recruiters-hide-malware-in-developer-coding-challenges/",
+    "https://www.bleepingcomputer.com/news/security/claude-llm-artifacts-abused-to-push-mac-infostealers-in-clickfix-attack/",
+    "https://www.cybersecurity360.it/news/garante-privacy-e-inl-i-3-profili-di-illiceita-nelle-ispezioni-su-centri-logistici-di-amazon/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -1739,6 +1742,9 @@
     "3b7f2a51838eed05a47fa3dc4f468ea4",
     "b4ec2cb2e259b3002a957b3d434d9e10",
     "114d4c3795b57262d5a9b4c8988334b6",
-    "f524754ee9421ff1f46a042c12d7db2b"
+    "f524754ee9421ff1f46a042c12d7db2b",
+    "8ff49b79cc611346d6d7d21e421b13d1",
+    "08489630686b406fcb93510c63529486",
+    "3a44b97d0eae803cc99146ba88396327"
   ]
 }
