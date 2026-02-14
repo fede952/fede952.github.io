@@ -1,68 +1,55 @@
-<!-- AdBlock Detection Trap -->
-<script src="/js/ads.js" async></script>
+<!-- Honeypot Trap: AdBlockers auto-hide elements with ad-sounding classes -->
+<div id="ad-trap" class="adsbox ad-banner doubleclick" style="position:absolute;top:-999px;left:-999px;width:1px;height:1px;background:transparent;"></div>
 
-<!-- AdBlock Modal -->
-<div id="adblock-modal" class="adblock-modal" style="display:none;">
-  <div class="adblock-backdrop"></div>
-  <div class="adblock-dialog">
-    <div class="adblock-glitch" data-text="NETWORK ANOMALY DETECTED">NETWORK ANOMALY DETECTED</div>
-    <div class="adblock-icon">&#9888;</div>
-    <p class="adblock-msg">
-      Our scanners indicate your <strong>AdBlocker</strong> is active.<br>
-      This node relies on ad revenue to maintain the servers.<br>
-      Please disable it to proceed.
-    </p>
-    <button id="adblock-dismiss" class="adblock-btn">I understand</button>
+<!-- AdBlock Modal (hidden by default) -->
+<div id="adblock-modal" class="adblock-overlay adblock-hidden">
+  <div class="adblock-content">
+    <div class="adblock-glitch" data-text="SYSTEM ALERT">SYSTEM ALERT</div>
+    <p class="adblock-warning">&#9888; AD-BLOCKER DETECTED</p>
+    <p class="adblock-msg">Your neural interface is blocking our signal.</p>
+    <p class="adblock-msg">This node relies on ads to keep the servers running. Please disable your blockers to support the network.</p>
+    <button id="adblock-close" class="adblock-btn">ACKNOWLEDGE & PROCEED</button>
   </div>
 </div>
 
 <style>
-.adblock-modal {
+.adblock-hidden { display: none !important; }
+
+.adblock-overlay {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 999999;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
-.adblock-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.adblock-dialog {
+.adblock-content {
   position: relative;
-  max-width: 460px;
+  max-width: 500px;
   width: 90%;
-  background: #0a0a0a;
+  background: #111;
   border: 2px solid #ff003c;
   border-radius: 12px;
   padding: 40px 30px;
   text-align: center;
-  box-shadow: 0 0 40px rgba(255, 0, 60, 0.3), inset 0 0 30px rgba(255, 0, 60, 0.05);
+  box-shadow: 0 0 40px rgba(255, 0, 60, 0.4), inset 0 0 30px rgba(255, 0, 60, 0.05);
   animation: adblockSlideIn 0.3s ease-out;
-}
-
-.adblock-icon {
-  font-size: 3rem;
-  color: #ff003c;
-  margin-bottom: 15px;
-  text-shadow: 0 0 20px rgba(255, 0, 60, 0.6);
 }
 
 .adblock-glitch {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 1.1rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #ff003c;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   position: relative;
+  text-shadow: 2px 2px 0px #00ff41;
   animation: adblockGlitch 2.5s infinite;
 }
 
@@ -88,15 +75,21 @@
   clip-path: inset(0 0 0 65%);
 }
 
+.adblock-warning {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
 .adblock-msg {
   color: #aaa;
   font-size: 0.9rem;
   line-height: 1.7;
-  margin: 20px 0 25px;
-}
-
-.adblock-msg strong {
-  color: #ff003c;
+  margin: 0 0 10px;
 }
 
 .adblock-btn {
@@ -112,6 +105,7 @@
   transition: all 0.2s;
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-top: 20px;
 }
 
 .adblock-btn:hover {
@@ -147,25 +141,42 @@
 </style>
 
 <script>
-(function() {
-  function showAdblockModal() {
-    var modal = document.getElementById('adblock-modal');
-    if (modal) modal.style.display = 'flex';
+document.addEventListener("DOMContentLoaded", function() {
+  var trap = document.getElementById('ad-trap');
+  var modal = document.getElementById('adblock-modal');
+  var closeBtn = document.getElementById('adblock-close');
+  var detected = false;
+
+  function showModal() {
+    if (detected) return;
+    detected = true;
+    modal.classList.remove('adblock-hidden');
+    document.body.style.overflow = 'hidden';
   }
 
-  // Check after a short delay to let ads.js load
+  // Check 1: Honeypot CSS trap (primary method)
+  // AdBlockers hide elements with ad-sounding class names
   setTimeout(function() {
-    if (typeof canRunAds === 'undefined') {
-      showAdblockModal();
+    if (!trap) return;
+    var height = trap.offsetHeight;
+    var style = window.getComputedStyle(trap);
+    if (height === 0 || style.display === 'none' || style.visibility === 'hidden') {
+      showModal();
     }
-  }, 1500);
+  }, 2000);
 
-  // Dismiss button
-  document.addEventListener('click', function(e) {
-    if (e.target && e.target.id === 'adblock-dismiss') {
-      var modal = document.getElementById('adblock-modal');
-      if (modal) modal.style.display = 'none';
-    }
+  // Check 2: Network fetch to known ad domain (fallback)
+  fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
+    method: 'HEAD',
+    mode: 'no-cors'
+  }).catch(function() {
+    showModal();
   });
-})();
+
+  // Close button
+  closeBtn.addEventListener('click', function() {
+    modal.classList.add('adblock-hidden');
+    document.body.style.overflow = '';
+  });
+});
 </script>
