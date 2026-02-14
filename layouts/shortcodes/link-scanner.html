@@ -1,0 +1,456 @@
+<div class="hazmat-container">
+  <div class="hazmat-header">
+    <h2>URL FORENSICS LAB</h2>
+  </div>
+
+  <div class="hazmat-input-group">
+    <input type="text" id="hazmat-url-input" placeholder="Paste suspicious link here (e.g. http://paypal-login.security-check.xyz)..." spellcheck="false">
+    <button id="hazmat-scan-btn">INITIATE SCAN</button>
+  </div>
+
+  <div id="hazmat-results" class="hazmat-hidden">
+    <div class="hazmat-score-panel">
+      <div id="hazmat-risk-badge" class="hazmat-badge hazmat-safe">WAITING</div>
+      <p id="hazmat-risk-text">Ready to analyze.</p>
+    </div>
+
+    <div class="hazmat-forensics-grid">
+      <div class="hazmat-f-card">
+        <span class="hazmat-label">PROTOCOL</span>
+        <span id="hazmat-res-proto" class="hazmat-value">---</span>
+      </div>
+      <div class="hazmat-f-card">
+        <span class="hazmat-label">DOMAIN</span>
+        <span id="hazmat-res-domain" class="hazmat-value">---</span>
+      </div>
+      <div class="hazmat-f-card">
+        <span class="hazmat-label">TLD (Extension)</span>
+        <span id="hazmat-res-tld" class="hazmat-value">---</span>
+      </div>
+      <div class="hazmat-f-card">
+        <span class="hazmat-label">TRICKS DETECTED</span>
+        <span id="hazmat-res-tricks" class="hazmat-value">---</span>
+      </div>
+    </div>
+
+    <div class="hazmat-deep-scan">
+      <h3>RUN DEEP SCAN (EXTERNAL)</h3>
+      <div class="hazmat-button-row">
+        <a id="hazmat-btn-vt" href="#" target="_blank" rel="noopener noreferrer" class="hazmat-ext-btn">VirusTotal</a>
+        <a id="hazmat-btn-google" href="#" target="_blank" rel="noopener noreferrer" class="hazmat-ext-btn">Google Transparency</a>
+        <a id="hazmat-btn-urlscan" href="#" target="_blank" rel="noopener noreferrer" class="hazmat-ext-btn">Urlscan.io</a>
+      </div>
+
+      <div class="hazmat-affiliate-alert">
+        <p>&#9888; <strong>Is it malware?</strong> Don't click it directly.</p>
+        <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=140342&url_id=858" target="_blank" rel="noopener noreferrer" class="hazmat-promo-link">&#128737; Open safely with NordVPN Threat Protection</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hazmat-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 25px;
+  border: 1px solid #333;
+  background: #0d0d0d;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.hazmat-header h2 {
+  color: #00ff41;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+}
+
+.hazmat-header h2::before {
+  content: "";
+}
+
+.hazmat-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+#hazmat-url-input {
+  flex: 1;
+  padding: 15px;
+  background: #111;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#hazmat-url-input:focus {
+  border-color: #00ff41;
+}
+
+#hazmat-scan-btn {
+  padding: 15px 25px;
+  background: #00ff41;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+#hazmat-scan-btn:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+  transform: translateY(-1px);
+}
+
+.hazmat-hidden {
+  display: none;
+}
+
+/* Score Panel */
+.hazmat-score-panel {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+}
+
+.hazmat-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.hazmat-badge.hazmat-safe {
+  background: #00ff41;
+  color: #000;
+}
+
+.hazmat-badge.hazmat-warning {
+  background: #ff9900;
+  color: #000;
+}
+
+.hazmat-badge.hazmat-danger {
+  background: #ff003c;
+  color: #fff;
+}
+
+#hazmat-risk-text {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Forensics Grid */
+.hazmat-forensics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.hazmat-f-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-left: 3px solid #333;
+  border-radius: 0 4px 4px 0;
+  transition: border-color 0.3s;
+}
+
+.hazmat-f-card .hazmat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hazmat-f-card .hazmat-value {
+  display: block;
+  color: #fff;
+  font-size: 1rem;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+/* Deep Scan */
+.hazmat-deep-scan {
+  border-top: 1px solid #333;
+  padding-top: 25px;
+  text-align: center;
+}
+
+.hazmat-deep-scan h3 {
+  color: #888;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  margin: 0 0 15px;
+}
+
+.hazmat-deep-scan h3::before {
+  content: "";
+}
+
+.hazmat-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.hazmat-ext-btn {
+  padding: 10px 20px;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  transition: all 0.2s;
+}
+
+.hazmat-ext-btn:hover {
+  background: #00ff41;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+/* Affiliate Alert */
+.hazmat-affiliate-alert {
+  margin-top: 25px;
+  padding: 15px;
+  border: 1px dashed #333;
+  border-radius: 6px;
+  background: rgba(255, 0, 60, 0.03);
+}
+
+.hazmat-affiliate-alert p {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin: 0 0 10px;
+}
+
+.hazmat-affiliate-alert strong {
+  color: #ff003c;
+}
+
+.hazmat-promo-link {
+  display: inline-block;
+  color: #ff003c;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.hazmat-promo-link:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hazmat-input-group {
+    flex-direction: column;
+  }
+
+  #hazmat-scan-btn {
+    width: 100%;
+  }
+
+  .hazmat-forensics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hazmat-button-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hazmat-ext-btn {
+    text-align: center;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var scanBtn = document.getElementById('hazmat-scan-btn');
+  var urlInput = document.getElementById('hazmat-url-input');
+
+  scanBtn.addEventListener('click', function() {
+    var rawInput = urlInput.value.trim();
+    if (!rawInput) return;
+
+    var url;
+    try {
+      url = new URL(rawInput.match(/^https?:\/\//) ? rawInput : 'http://' + rawInput);
+    } catch (e) {
+      alert('Invalid URL format');
+      return;
+    }
+
+    var resultsArea = document.getElementById('hazmat-results');
+    resultsArea.classList.remove('hazmat-hidden');
+
+    var protocol = url.protocol;
+    var domain = url.hostname;
+    var parts = domain.split('.');
+    var tld = parts[parts.length - 1];
+
+    // Heuristic checks
+    var riskScore = 0;
+    var tricks = [];
+
+    // HTTP check
+    if (protocol === 'http:') {
+      riskScore++;
+      tricks.push('Unencrypted (HTTP)');
+    }
+
+    // IP address as hostname
+    if (/^\d+\.\d+\.\d+\.\d+$/.test(domain)) {
+      riskScore += 2;
+      tricks.push('IP Address Hostname');
+    }
+
+    // @ symbol (credential obfuscation)
+    if (rawInput.indexOf('@') !== -1) {
+      riskScore += 2;
+      tricks.push('Obfuscated Login (@)');
+    }
+
+    // Suspicious TLDs
+    var suspiciousTLDs = ['xyz', 'top', 'gq', 'zip', 'mov', 'tk', 'ml', 'ga', 'cf', 'buzz', 'icu', 'cam'];
+    if (suspiciousTLDs.indexOf(tld) !== -1) {
+      riskScore++;
+      tricks.push('Suspicious TLD (.' + tld + ')');
+    }
+
+    // Long domain
+    if (domain.length > 50) {
+      riskScore++;
+      tricks.push('Abnormally Long Domain (' + domain.length + ' chars)');
+    }
+
+    // Too many subdomains
+    if (parts.length > 4) {
+      riskScore++;
+      tricks.push('Excessive Subdomains (' + parts.length + ' levels)');
+    }
+
+    // Punycode / IDN homograph
+    if (domain.indexOf('xn--') !== -1) {
+      riskScore += 2;
+      tricks.push('Internationalized Domain (Punycode)');
+    }
+
+    // Hyphen-heavy domains (e.g. paypal-login-secure-verify.com)
+    var hyphenCount = (domain.match(/-/g) || []).length;
+    if (hyphenCount >= 3) {
+      riskScore++;
+      tricks.push('Hyphen-Heavy Domain (' + hyphenCount + ' hyphens)');
+    }
+
+    // Base64 or encoded params
+    if (/[?&](redirect|url|goto|next|redir|link)=/i.test(url.search)) {
+      riskScore++;
+      tricks.push('Redirect Parameter Detected');
+    }
+
+    // Brand spoofing keywords in subdomain
+    var brandKeywords = ['paypal', 'apple', 'google', 'microsoft', 'amazon', 'netflix', 'bank', 'secure', 'login', 'verify', 'account'];
+    for (var i = 0; i < brandKeywords.length; i++) {
+      if (domain.indexOf(brandKeywords[i]) !== -1 && parts.length > 2) {
+        riskScore += 2;
+        tricks.push('Brand Keyword in Subdomain ("' + brandKeywords[i] + '")');
+        break;
+      }
+    }
+
+    // Update UI - Protocol
+    var protoEl = document.getElementById('hazmat-res-proto');
+    protoEl.innerText = protocol.toUpperCase().replace(':', '');
+    protoEl.style.color = (protocol === 'https:') ? '#00ff41' : '#ff003c';
+
+    // Update UI - Domain
+    document.getElementById('hazmat-res-domain').innerText = domain;
+
+    // Update UI - TLD
+    document.getElementById('hazmat-res-tld').innerText = '.' + tld;
+
+    // Update UI - Tricks
+    var tricksEl = document.getElementById('hazmat-res-tricks');
+    if (tricks.length > 0) {
+      tricksEl.innerHTML = tricks.join('<br>');
+      tricksEl.style.color = '#ff003c';
+    } else {
+      tricksEl.innerText = 'None Detected';
+      tricksEl.style.color = '#00ff41';
+    }
+
+    // Update UI - Badge
+    var badge = document.getElementById('hazmat-risk-badge');
+    var riskText = document.getElementById('hazmat-risk-text');
+
+    if (riskScore === 0) {
+      badge.className = 'hazmat-badge hazmat-safe';
+      badge.innerText = 'LOW RISK';
+      riskText.innerText = 'Standard URL structure. Still verify the domain owner.';
+    } else if (riskScore <= 2) {
+      badge.className = 'hazmat-badge hazmat-warning';
+      badge.innerText = 'SUSPICIOUS';
+      riskText.innerText = 'Caution advised. Unusual patterns detected.';
+    } else {
+      badge.className = 'hazmat-badge hazmat-danger';
+      badge.innerText = 'HIGH RISK';
+      riskText.innerText = 'Multiple red flags detected. Do not enter personal info.';
+    }
+
+    // Update border colors on f-cards based on risk
+    var cards = document.querySelectorAll('.hazmat-f-card');
+    var borderColor = riskScore === 0 ? '#00ff41' : riskScore <= 2 ? '#ff9900' : '#ff003c';
+    for (var j = 0; j < cards.length; j++) {
+      cards[j].style.borderLeftColor = borderColor;
+    }
+
+    // External scanner links
+    document.getElementById('hazmat-btn-vt').href = 'https://www.virustotal.com/gui/search/' + encodeURIComponent(domain);
+    document.getElementById('hazmat-btn-google').href = 'https://transparencyreport.google.com/safe-browsing/search?url=' + encodeURIComponent(url.href);
+    document.getElementById('hazmat-btn-urlscan').href = 'https://urlscan.io/search/#' + encodeURIComponent(domain);
+
+    // Scroll to results
+    resultsArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  // Allow Enter key to trigger scan
+  urlInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      scanBtn.click();
+    }
+  });
+})();
+</script>
