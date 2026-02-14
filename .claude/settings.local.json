@@ -52,7 +52,12 @@
       "Bash(python3:*)",
       "Bash(python:*)",
       "Bash(copy:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(where:*)",
+      "Bash(node --version:*)",
+      "Bash(node _audit.js:*)",
+      "Bash(xargs cat:*)",
+      "Bash(git status:*)"
     ]
   }
 }

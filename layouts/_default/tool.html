@@ -1,5 +1,11 @@
 {{- define "main" }}
 
+{{- if .Params.schema_json }}
+<script type="application/ld+json">
+{{ .Params.schema_json | safeJS }}
+</script>
+{{- end }}
+
 <article class="post-single tool-page">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
@@ -13,21 +19,23 @@
     {{- end }}
   </header>
 
-  <div class="tool-description post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
-  </div>
-
   {{- if .Params.tool_file }}
   <div class="tool-interactive">
     <iframe src="{{ .Params.tool_file }}"
             width="100%"
             height="{{ .Params.tool_height | default "600" }}"
             frameborder="0"
-            sandbox="allow-scripts allow-same-origin"
+            sandbox="allow-scripts allow-same-origin allow-downloads"
             title="{{ .Title }}">
     </iframe>
+  </div>
+  {{- end }}
+
+  {{- if .Content }}
+  <div class="tool-description post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
   </div>
   {{- end }}
 
