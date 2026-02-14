@@ -3,7 +3,7 @@
 <head>
     {{- partial "head.html" . }}
 </head>
-<body class="dark">
+<body class="dark links-page">
     <div class="links-container">
 
         {{/* Profile Picture */}}
@@ -11,20 +11,20 @@
 
         {{/* Name & Title */}}
         <h1 class="links-name">Federico Sella</h1>
-        <p class="links-bio">Cyber Security & DevOps</p>
+        <p class="links-bio">Cyber Security & DevOps Engineer</p>
 
         {{/* Link Buttons */}}
         <div class="links-list">
-            <a href="/stack/" class="link-btn">
+            <a href="{{ "stack/" | absLangURL }}" class="link-btn">
                 <span>🚀</span> My Developer Stack
             </a>
-            <a href="/roadmaps/" class="link-btn">
+            <a href="{{ "roadmaps/" | absLangURL }}" class="link-btn">
                 <span>🗺️</span> Career Roadmaps
             </a>
-            <a href="/games/code-breaker-typing/" class="link-btn">
-                <span>🕹️</span> Play Code Breaker
+            <a href="{{ "games/" | absLangURL }}" class="link-btn">
+                <span>🕹️</span> Arcade & Games
             </a>
-            <a href="https://linkedin.com/in/federicosella" class="link-btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/federico-sella/" class="link-btn" target="_blank" rel="noopener noreferrer">
                 <span>💼</span> LinkedIn
             </a>
             <a href="https://github.com/fede952" class="link-btn" target="_blank" rel="noopener noreferrer">
@@ -37,7 +37,7 @@
 
         {{/* Social Icons Footer */}}
         <div class="links-social">
-            <a href="https://linkedin.com/in/federicosella" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/federico-sella/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
             <a href="https://github.com/fede952" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
