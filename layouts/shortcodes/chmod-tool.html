@@ -1,0 +1,390 @@
+<div class="chmod-calculator">
+
+  <div class="chmod-grid">
+    <div class="chmod-header"></div>
+    <div class="chmod-header">Read (4)</div>
+    <div class="chmod-header">Write (2)</div>
+    <div class="chmod-header">Execute (1)</div>
+
+    <div class="chmod-label">Owner</div>
+    <label class="switch"><input type="checkbox" data-who="owner" data-perm="4" checked><span class="slider"></span></label>
+    <label class="switch"><input type="checkbox" data-who="owner" data-perm="2" checked><span class="slider"></span></label>
+    <label class="switch"><input type="checkbox" data-who="owner" data-perm="1" checked><span class="slider"></span></label>
+
+    <div class="chmod-label">Group</div>
+    <label class="switch"><input type="checkbox" data-who="group" data-perm="4" checked><span class="slider"></span></label>
+    <label class="switch"><input type="checkbox" data-who="group" data-perm="2"><span class="slider"></span></label>
+    <label class="switch"><input type="checkbox" data-who="group" data-perm="1" checked><span class="slider"></span></label>
+
+    <div class="chmod-label">Public</div>
+    <label class="switch"><input type="checkbox" data-who="public" data-perm="4" checked><span class="slider"></span></label>
+    <label class="switch"><input type="checkbox" data-who="public" data-perm="2"><span class="slider"></span></label>
+    <label class="switch"><input type="checkbox" data-who="public" data-perm="1" checked><span class="slider"></span></label>
+  </div>
+
+  <div class="chmod-filename-wrap">
+    <label for="chmod-filename" class="chmod-filename-label">Filename:</label>
+    <input type="text" id="chmod-filename" class="chmod-filename-input" value="script.sh" spellcheck="false">
+  </div>
+
+  <div class="chmod-result-box">
+    <div class="chmod-result-line">
+      <span class="chmod-prompt">$</span>
+      <span class="chmod-cmd">chmod</span>
+      <span id="chmod-octal" class="chmod-octal">755</span>
+      <span id="chmod-file-display" class="chmod-file">script.sh</span>
+    </div>
+    <div class="chmod-symbol-line" id="chmod-symbol">-rwxr-xr-x</div>
+  </div>
+
+  <button class="chmod-copy-btn" id="chmod-copy-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    Copy Command
+  </button>
+
+  <div class="chmod-presets">
+    <span class="chmod-presets-label">Quick presets:</span>
+    <button class="chmod-preset-btn" data-preset="755">755</button>
+    <button class="chmod-preset-btn" data-preset="644">644</button>
+    <button class="chmod-preset-btn" data-preset="777">777</button>
+    <button class="chmod-preset-btn" data-preset="600">600</button>
+    <button class="chmod-preset-btn" data-preset="444">444</button>
+  </div>
+
+</div>
+
+<style>
+.chmod-calculator {
+  max-width: 620px;
+  margin: 2rem auto;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.chmod-grid {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 1fr);
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 25px 20px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.chmod-label {
+  color: #00ff41;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.chmod-header {
+  color: #888;
+  text-align: center;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Neon Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  justify-self: center;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #222;
+  border: 1px solid #444;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #666;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: rgba(0, 255, 65, 0.15);
+  border-color: #00ff41;
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.4);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+  background-color: #00ff41;
+  box-shadow: 0 0 6px #00ff41;
+}
+
+/* Filename Input */
+.chmod-filename-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 0 5px;
+}
+
+.chmod-filename-label {
+  color: #888;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.chmod-filename-input {
+  flex: 1;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chmod-filename-input:focus {
+  border-color: #00ff41;
+}
+
+/* Result Terminal Box */
+.chmod-result-box {
+  margin-top: 20px;
+  background: #0a0a0a;
+  border: 1px solid #00ff41;
+  border-radius: 8px;
+  padding: 20px 25px;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+.chmod-result-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.chmod-prompt {
+  color: #00ff41;
+  font-weight: bold;
+}
+
+.chmod-cmd {
+  color: #888;
+}
+
+.chmod-octal {
+  color: #ff00ff;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+}
+
+.chmod-file {
+  color: #00e5ff;
+}
+
+.chmod-symbol-line {
+  margin-top: 10px;
+  color: #555;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+/* Copy Button */
+.chmod-copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px auto;
+  background: transparent;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.chmod-copy-btn:hover {
+  background: #00ff41;
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.chmod-copy-btn.copied {
+  background: #00ff41;
+  color: #000;
+  border-color: #00ff41;
+}
+
+/* Presets */
+.chmod-presets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.chmod-presets-label {
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.chmod-preset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  color: #aaa;
+  padding: 5px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.chmod-preset-btn:hover {
+  border-color: #00ff41;
+  color: #00ff41;
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
+}
+
+@media (max-width: 480px) {
+  .chmod-grid {
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .chmod-label {
+    font-size: 0.8rem;
+  }
+
+  .chmod-header {
+    font-size: 0.7rem;
+  }
+
+  .switch {
+    width: 42px;
+    height: 22px;
+  }
+
+  .slider:before {
+    height: 14px;
+    width: 14px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+
+  .chmod-result-line {
+    font-size: 1.1rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const checkboxes = document.querySelectorAll('.chmod-calculator input[type="checkbox"]');
+  const octalEl = document.getElementById('chmod-octal');
+  const symbolEl = document.getElementById('chmod-symbol');
+  const fileDisplay = document.getElementById('chmod-file-display');
+  const filenameInput = document.getElementById('chmod-filename');
+  const copyBtn = document.getElementById('chmod-copy-btn');
+  const presetBtns = document.querySelectorAll('.chmod-preset-btn');
+
+  function calculate() {
+    const perms = { owner: 0, group: 0, public: 0 };
+
+    checkboxes.forEach(function(cb) {
+      if (cb.checked) {
+        perms[cb.dataset.who] += parseInt(cb.dataset.perm);
+      }
+    });
+
+    const octal = '' + perms.owner + perms.group + perms['public'];
+    octalEl.textContent = octal;
+
+    // Build symbolic representation
+    const symbol = '-' +
+      toSymbol(perms.owner) +
+      toSymbol(perms.group) +
+      toSymbol(perms['public']);
+    symbolEl.textContent = symbol;
+  }
+
+  function toSymbol(val) {
+    return (val & 4 ? 'r' : '-') +
+           (val & 2 ? 'w' : '-') +
+           (val & 1 ? 'x' : '-');
+  }
+
+  function applyPreset(octalStr) {
+    var digits = octalStr.split('').map(Number);
+    var groups = ['owner', 'group', 'public'];
+    checkboxes.forEach(function(cb) {
+      var groupIndex = groups.indexOf(cb.dataset.who);
+      var permVal = parseInt(cb.dataset.perm);
+      cb.checked = (digits[groupIndex] & permVal) !== 0;
+    });
+    calculate();
+  }
+
+  checkboxes.forEach(function(cb) {
+    cb.addEventListener('change', calculate);
+  });
+
+  filenameInput.addEventListener('input', function() {
+    fileDisplay.textContent = this.value || 'filename';
+  });
+
+  copyBtn.addEventListener('click', function() {
+    var cmd = 'chmod ' + octalEl.textContent + ' ' + (filenameInput.value || 'filename');
+    navigator.clipboard.writeText(cmd).then(function() {
+      copyBtn.classList.add('copied');
+      copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+      setTimeout(function() {
+        copyBtn.classList.remove('copied');
+        copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Command';
+      }, 2000);
+    });
+  });
+
+  presetBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      applyPreset(this.dataset.preset);
+    });
+  });
+
+  // Initial calculation
+  calculate();
+})();
+</script>
