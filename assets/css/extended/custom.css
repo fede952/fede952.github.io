@@ -1633,3 +1633,33 @@ body.links-page {
     .mine-cell { font-size: 0.8rem; }
     .mines-header { font-size: 0.95rem; }
 }
+
+/* ============================================
+   ARCADE OVERLAY STYLES (Arkanoid / Invaders)
+   ============================================ */
+
+.arcade-container canvas {
+    background: #000;
+}
+
+.overlay-screen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    z-index: 20;
+}
+
+.press-start {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 1.2rem;
+    color: #00ff41;
+    animation: blink 1s infinite;
+    cursor: pointer;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
