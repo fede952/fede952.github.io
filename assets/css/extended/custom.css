@@ -1369,6 +1369,7 @@ body.links-page {
 }
 
 .hidden-ui { display: none !important; }
+.hidden { display: none !important; }
 
 .neon-btn {
     background: transparent;
