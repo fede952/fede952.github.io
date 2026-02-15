@@ -19,6 +19,20 @@
             Left click: reveal | Right click / long press: flag 🚩
         </p>
     </div>
+    <div id="share-modal" class="share-overlay">
+        <div class="share-box">
+            <div class="share-title">Mission Report</div>
+            <p style="color:#888;font-family:monospace;margin-bottom:15px;">Score: <span id="final-score-display">0</span></p>
+            <div class="share-grid">
+                <a id="btn-x" class="share-btn" target="_blank" rel="noopener"><span class="share-icon">𝕏</span>Twitter</a>
+                <a id="btn-wa" class="share-btn" target="_blank" rel="noopener"><span class="share-icon">💬</span>WhatsApp</a>
+                <a id="btn-tg" class="share-btn" target="_blank" rel="noopener"><span class="share-icon">✈️</span>Telegram</a>
+                <a id="btn-li" class="share-btn" target="_blank" rel="noopener"><span class="share-icon">💼</span>LinkedIn</a>
+                <button id="btn-copy" class="share-btn"><span class="share-icon">📋</span>Copy</button>
+            </div>
+            <button onclick="closeShare()" class="close-share">CLOSE TERMINAL</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -197,8 +211,23 @@
     document.getElementById('mines-start-btn').addEventListener('click', startGame);
     document.getElementById('mines-restart-btn').addEventListener('click', startGame);
     document.getElementById('mines-share-btn').addEventListener('click', function(){
-        const text = encodeURIComponent('I defused the Node Defuser grid in '+seconds+'s! Can you beat me? Play here: https://federicosella.com/games/node-defuser/');
-        window.open('https://twitter.com/intent/tweet?text='+text, '_blank');
+        openShare(seconds + 's', 'Node Defuser');
     });
 })();
+function openShare(score, gameName) {
+    document.getElementById('final-score-display').innerText = score;
+    document.getElementById('share-modal').classList.add('active');
+    var url = window.location.href;
+    var text = 'I scored ' + score + ' in ' + gameName + '! Can you beat my high score? \uD83C\uDFAE #CyberpunkGames #FedericoSella';
+    document.getElementById('btn-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+    document.getElementById('btn-wa').href = 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url);
+    document.getElementById('btn-tg').href = 'https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text);
+    document.getElementById('btn-li').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url);
+    document.getElementById('btn-copy').onclick = function() {
+        navigator.clipboard.writeText(text + ' ' + url);
+        this.innerHTML = '<span class="share-icon">\u2705</span>Copied';
+        var b = this; setTimeout(function(){ b.innerHTML = '<span class="share-icon">\uD83D\uDCCB</span>Copy'; }, 2000);
+    };
+}
+function closeShare() { document.getElementById('share-modal').classList.remove('active'); }
 </script>
