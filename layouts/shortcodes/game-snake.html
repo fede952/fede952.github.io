@@ -1,0 +1,190 @@
+<div class="arcade-container" id="snake-wrapper">
+    <canvas id="snake-canvas" width="400" height="400"></canvas>
+    <div class="score-display" id="snake-score">SCORE: 0</div>
+    <div class="game-ui" id="snake-start-screen">
+        <h2 style="color:#00ff41;text-shadow:0 0 15px #00ff41;font-family:monospace;margin:0 0 10px;">CYBER SNAKE</h2>
+        <p style="color:#888;font-family:monospace;margin:0 0 20px;font-size:0.9rem;">Consume data. Grow. Don't crash.</p>
+        <button class="neon-btn" id="snake-start-btn">START</button>
+    </div>
+    <div class="game-ui hidden-ui" id="snake-game-over">
+        <h2 style="color:#ff0055;text-shadow:0 0 15px #ff0055;font-family:monospace;margin:0 0 5px;">FIREWALL HIT</h2>
+        <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="snake-final-score">SCORE: 0</p>
+        <p style="color:#00ff41;font-family:monospace;margin:0 0 15px;" id="snake-high-score">HIGH SCORE: 0</p>
+        <button class="neon-btn" id="snake-restart-btn">RETRY</button>
+        <button class="neon-btn" id="snake-share-btn" style="border-color:#00e5ff;color:#00e5ff;">SHARE SCORE</button>
+    </div>
+    <div class="arcade-touch-controls" id="snake-controls">
+        <button class="touch-btn" id="s-left">&#9664;</button>
+        <button class="touch-btn" id="s-down">&#9660;</button>
+        <button class="touch-btn" id="s-up">&#9650;</button>
+        <button class="touch-btn" id="s-right">&#9654;</button>
+    </div>
+</div>
+
+<script>
+(function(){
+    const canvas = document.getElementById('snake-canvas');
+    const ctx = canvas.getContext('2d');
+    const GRID = 20, CELLS = 20;
+    const W = CELLS * GRID, H = CELLS * GRID;
+
+    let snake, dir, nextDir, food, score, highScore, gameOver, gameStarted, loopTimer, speed;
+
+    highScore = parseInt(localStorage.getItem('cyberSnakeHigh') || '0');
+
+    function init(){
+        snake = [{x:10,y:10},{x:9,y:10},{x:8,y:10}];
+        dir = {x:1,y:0}; nextDir = {x:1,y:0};
+        score = 0; gameOver = false; speed = 120;
+        spawnFood();
+        updateScore();
+        gameStarted = true;
+        document.getElementById('snake-start-screen').classList.add('hidden-ui');
+        document.getElementById('snake-game-over').classList.add('hidden-ui');
+        clearInterval(loopTimer);
+        loopTimer = setInterval(tick, speed);
+        render();
+    }
+
+    function spawnFood(){
+        let pos;
+        do {
+            pos = {x: Math.floor(Math.random()*CELLS), y: Math.floor(Math.random()*CELLS)};
+        } while(snake.some(s => s.x===pos.x && s.y===pos.y));
+        food = pos;
+    }
+
+    function tick(){
+        if(gameOver) return;
+        dir = nextDir;
+        const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
+
+        // Wall collision
+        if(head.x < 0 || head.x >= CELLS || head.y < 0 || head.y >= CELLS){ endGame(); return; }
+        // Self collision
+        if(snake.some(s => s.x===head.x && s.y===head.y)){ endGame(); return; }
+
+        snake.unshift(head);
+
+        if(head.x === food.x && head.y === food.y){
+            score += 10;
+            updateScore();
+            spawnFood();
+            // Speed up
+            if(speed > 60){
+                speed -= 2;
+                clearInterval(loopTimer);
+                loopTimer = setInterval(tick, speed);
+            }
+        } else {
+            snake.pop();
+        }
+        render();
+    }
+
+    function setDir(x, y){
+        if(gameOver) return;
+        // Prevent reversing
+        if(dir.x === -x && dir.y === -y) return;
+        if(dir.x === x && dir.y === y) return;
+        nextDir = {x, y};
+    }
+
+    function updateScore(){
+        document.getElementById('snake-score').textContent = 'SCORE: '+score;
+    }
+
+    function endGame(){
+        gameOver = true; clearInterval(loopTimer);
+        if(score > highScore){ highScore = score; localStorage.setItem('cyberSnakeHigh', highScore); }
+        document.getElementById('snake-final-score').textContent = 'SCORE: '+score;
+        document.getElementById('snake-high-score').textContent = 'HIGH SCORE: '+highScore;
+        document.getElementById('snake-game-over').classList.remove('hidden-ui');
+    }
+
+    function render(){
+        // Background
+        ctx.fillStyle = '#050505';
+        ctx.fillRect(0,0,W,H);
+        // Grid
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 0.5;
+        for(let i=0;i<=CELLS;i++){
+            ctx.beginPath(); ctx.moveTo(i*GRID,0); ctx.lineTo(i*GRID,H); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0,i*GRID); ctx.lineTo(W,i*GRID); ctx.stroke();
+        }
+
+        // Snake
+        snake.forEach(function(seg, i){
+            const alpha = 1 - (i / snake.length) * 0.5;
+            ctx.fillStyle = 'rgba(0,255,65,'+alpha+')';
+            ctx.shadowColor = '#00ff41';
+            ctx.shadowBlur = i === 0 ? 12 : 6;
+            ctx.fillRect(seg.x*GRID+1, seg.y*GRID+1, GRID-2, GRID-2);
+        });
+        ctx.shadowBlur = 0;
+
+        // Food - glitch effect
+        const flicker = Math.random() > 0.15;
+        if(flicker){
+            ctx.fillStyle = '#ff0055';
+            ctx.shadowColor = '#ff0055';
+            ctx.shadowBlur = 10;
+            ctx.fillRect(food.x*GRID+2, food.y*GRID+2, GRID-4, GRID-4);
+            // Glitch lines
+            ctx.fillStyle = 'rgba(255,0,85,0.3)';
+            const offset = Math.floor(Math.random()*4)-2;
+            ctx.fillRect(food.x*GRID+offset, food.y*GRID+4, GRID, 2);
+        }
+        ctx.shadowBlur = 0;
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+        if(!gameStarted || gameOver) return;
+        switch(e.key){
+            case 'ArrowLeft': case 'a': e.preventDefault(); setDir(-1,0); break;
+            case 'ArrowRight': case 'd': e.preventDefault(); setDir(1,0); break;
+            case 'ArrowUp': case 'w': e.preventDefault(); setDir(0,-1); break;
+            case 'ArrowDown': case 's': e.preventDefault(); setDir(0,1); break;
+        }
+    });
+
+    // Touch controls
+    document.getElementById('s-left').addEventListener('click', function(){ setDir(-1,0); });
+    document.getElementById('s-right').addEventListener('click', function(){ setDir(1,0); });
+    document.getElementById('s-up').addEventListener('click', function(){ setDir(0,-1); });
+    document.getElementById('s-down').addEventListener('click', function(){ setDir(0,1); });
+
+    // Touch swipe on canvas
+    let touchStartX, touchStartY;
+    canvas.addEventListener('touchstart', function(e){
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, {passive:true});
+    canvas.addEventListener('touchend', function(e){
+        if(!gameStarted || gameOver) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const absDx = Math.abs(dx), absDy = Math.abs(dy);
+        if(absDx < 15 && absDy < 15) return;
+        if(absDx > absDy){
+            setDir(dx > 0 ? 1 : -1, 0);
+        } else {
+            setDir(0, dy > 0 ? 1 : -1);
+        }
+    }, {passive:true});
+
+    // Buttons
+    document.getElementById('snake-start-btn').addEventListener('click', init);
+    document.getElementById('snake-restart-btn').addEventListener('click', init);
+    document.getElementById('snake-share-btn').addEventListener('click', function(){
+        const text = encodeURIComponent('I scored '+score+' in Cyber Snake! Can you beat me? Play here: https://federicosella.com/games/cyber-snake/');
+        window.open('https://twitter.com/intent/tweet?text='+text, '_blank');
+    });
+
+    // Initial render
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0,0,W,H);
+})();
+</script>

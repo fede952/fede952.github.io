@@ -1338,3 +1338,114 @@ body.links-page {
     font-size: 0.8rem;
     font-family: 'JetBrains Mono', monospace;
 }
+
+/* ============================================
+   ARCADE GAME STYLES
+   ============================================ */
+
+.arcade-container {
+    position: relative;
+    max-width: 500px;
+    margin: 2rem auto;
+    background: #050505;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+.arcade-container canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.game-ui {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.85);
+    z-index: 10;
+}
+
+.hidden-ui { display: none !important; }
+
+.neon-btn {
+    background: transparent;
+    border: 2px solid #00ff41;
+    color: #00ff41;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    margin-top: 10px;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.neon-btn:hover {
+    background: #00ff41;
+    color: #000;
+    box-shadow: 0 0 20px #00ff41;
+}
+
+.score-display {
+    position: absolute;
+    top: 10px; right: 10px;
+    color: #fff;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 1rem;
+    z-index: 5;
+    pointer-events: none;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+}
+
+.arcade-touch-controls {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: #0a0a0a;
+    border-top: 1px solid #222;
+}
+
+.touch-btn {
+    width: 55px;
+    height: 55px;
+    background: transparent;
+    border: 2px solid #333;
+    color: #888;
+    font-size: 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.touch-btn:active {
+    border-color: #00ff41;
+    color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+@media (max-width: 768px) {
+    .arcade-touch-controls {
+        display: flex;
+    }
+    .score-display {
+        font-size: 0.85rem;
+    }
+}
+
+@media (pointer: coarse) {
+    .arcade-touch-controls {
+        display: flex;
+    }
+}

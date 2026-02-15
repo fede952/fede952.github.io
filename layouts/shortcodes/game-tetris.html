@@ -1,0 +1,257 @@
+<div class="arcade-container" id="tetris-wrapper">
+    <canvas id="tetris-canvas" width="300" height="600"></canvas>
+    <div class="score-display" id="tetris-score">SCORE: 0</div>
+    <div class="game-ui" id="tetris-start-screen">
+        <h2 style="color:#00e5ff;text-shadow:0 0 15px #00e5ff;font-family:monospace;margin:0 0 10px;">NEON STACKER</h2>
+        <p style="color:#888;font-family:monospace;margin:0 0 20px;font-size:0.9rem;">Stack blocks. Clear lines. Survive.</p>
+        <button class="neon-btn" id="tetris-start-btn">START</button>
+    </div>
+    <div class="game-ui hidden-ui" id="tetris-game-over">
+        <h2 style="color:#ff0055;text-shadow:0 0 15px #ff0055;font-family:monospace;margin:0 0 5px;">GAME OVER</h2>
+        <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="tetris-final-score">SCORE: 0</p>
+        <p style="color:#00ff41;font-family:monospace;margin:0 0 15px;" id="tetris-high-score">HIGH SCORE: 0</p>
+        <button class="neon-btn" id="tetris-restart-btn">RETRY</button>
+        <button class="neon-btn" id="tetris-share-btn" style="border-color:#00e5ff;color:#00e5ff;">SHARE SCORE</button>
+    </div>
+    <div class="arcade-touch-controls" id="tetris-controls">
+        <button class="touch-btn" id="t-left">&#9664;</button>
+        <button class="touch-btn" id="t-down">&#9660;</button>
+        <button class="touch-btn" id="t-rotate">&#8635;</button>
+        <button class="touch-btn" id="t-right">&#9654;</button>
+    </div>
+</div>
+
+<script>
+(function(){
+    const canvas = document.getElementById('tetris-canvas');
+    const ctx = canvas.getContext('2d');
+    const COLS = 10, ROWS = 20, BLOCK = 30;
+    const COLORS = ['#00e5ff','#ff00ff','#00ff41','#ffff00','#ff6600','#ff0055','#7b68ee'];
+    const SHAPES = [
+        [[1,1,1,1]],
+        [[1,1],[1,1]],
+        [[0,1,0],[1,1,1]],
+        [[1,0,0],[1,1,1]],
+        [[0,0,1],[1,1,1]],
+        [[1,1,0],[0,1,1]],
+        [[0,1,1],[1,1,0]]
+    ];
+
+    let board, piece, pieceX, pieceY, pieceColor, score, highScore, gameOver, gameStarted, dropTimer, dropInterval, animId;
+
+    highScore = parseInt(localStorage.getItem('neonStackerHigh') || '0');
+
+    function init(){
+        board = Array.from({length:ROWS}, ()=> new Array(COLS).fill(0));
+        score = 0; gameOver = false; dropInterval = 500;
+        updateScore();
+        spawnPiece();
+        gameStarted = true;
+        document.getElementById('tetris-start-screen').classList.add('hidden-ui');
+        document.getElementById('tetris-game-over').classList.add('hidden-ui');
+        clearInterval(dropTimer);
+        dropTimer = setInterval(tick, dropInterval);
+        render();
+    }
+
+    function spawnPiece(){
+        const idx = Math.floor(Math.random()*SHAPES.length);
+        piece = SHAPES[idx].map(r=>[...r]);
+        pieceColor = COLORS[idx];
+        pieceX = Math.floor((COLS - piece[0].length)/2);
+        pieceY = 0;
+        if(collides(pieceX, pieceY, piece)){ endGame(); }
+    }
+
+    function collides(px, py, p){
+        for(let r=0;r<p.length;r++){
+            for(let c=0;c<p[r].length;c++){
+                if(p[r][c]){
+                    const nx=px+c, ny=py+r;
+                    if(nx<0||nx>=COLS||ny>=ROWS) return true;
+                    if(ny>=0 && board[ny][nx]) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function merge(){
+        for(let r=0;r<piece.length;r++){
+            for(let c=0;c<piece[r].length;c++){
+                if(piece[r][c]){
+                    const ny=pieceY+r;
+                    if(ny>=0) board[ny][pieceX+c] = pieceColor;
+                }
+            }
+        }
+    }
+
+    function clearLines(){
+        let cleared = 0;
+        for(let r=ROWS-1;r>=0;r--){
+            if(board[r].every(c=>c)){
+                board.splice(r,1);
+                board.unshift(new Array(COLS).fill(0));
+                cleared++; r++;
+            }
+        }
+        if(cleared){
+            const pts = [0,100,300,500,800];
+            score += pts[cleared] || cleared*200;
+            updateScore();
+            // Speed up
+            dropInterval = Math.max(100, 500 - Math.floor(score/500)*25);
+            clearInterval(dropTimer);
+            dropTimer = setInterval(tick, dropInterval);
+        }
+    }
+
+    function rotate(p){
+        const rows=p.length, cols=p[0].length;
+        const rot = Array.from({length:cols},()=>new Array(rows).fill(0));
+        for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) rot[c][rows-1-r]=p[r][c];
+        return rot;
+    }
+
+    function tick(){
+        if(gameOver) return;
+        if(!collides(pieceX, pieceY+1, piece)){ pieceY++; }
+        else { merge(); clearLines(); spawnPiece(); }
+        render();
+    }
+
+    function moveLeft(){ if(!gameOver && !collides(pieceX-1, pieceY, piece)) pieceX--; render(); }
+    function moveRight(){ if(!gameOver && !collides(pieceX+1, pieceY, piece)) pieceX++; render(); }
+    function moveDown(){ if(!gameOver){ tick(); } }
+    function rotatePiece(){
+        if(gameOver) return;
+        const r = rotate(piece);
+        // Wall kick
+        let kick = 0;
+        if(collides(pieceX, pieceY, r)){
+            if(!collides(pieceX-1, pieceY, r)) kick=-1;
+            else if(!collides(pieceX+1, pieceY, r)) kick=1;
+            else if(!collides(pieceX-2, pieceY, r)) kick=-2;
+            else if(!collides(pieceX+2, pieceY, r)) kick=2;
+            else return;
+        }
+        piece = r; pieceX += kick;
+        render();
+    }
+    function hardDrop(){
+        if(gameOver) return;
+        while(!collides(pieceX, pieceY+1, piece)) pieceY++;
+        merge(); clearLines(); spawnPiece(); render();
+    }
+
+    function updateScore(){
+        document.getElementById('tetris-score').textContent = 'SCORE: '+score;
+    }
+
+    function endGame(){
+        gameOver = true; clearInterval(dropTimer);
+        if(score > highScore){ highScore = score; localStorage.setItem('neonStackerHigh', highScore); }
+        document.getElementById('tetris-final-score').textContent = 'SCORE: '+score;
+        document.getElementById('tetris-high-score').textContent = 'HIGH SCORE: '+highScore;
+        document.getElementById('tetris-game-over').classList.remove('hidden-ui');
+    }
+
+    function render(){
+        ctx.fillStyle = '#050505';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        // Grid
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 0.5;
+        for(let r=0;r<=ROWS;r++){ ctx.beginPath(); ctx.moveTo(0,r*BLOCK); ctx.lineTo(COLS*BLOCK,r*BLOCK); ctx.stroke(); }
+        for(let c=0;c<=COLS;c++){ ctx.beginPath(); ctx.moveTo(c*BLOCK,0); ctx.lineTo(c*BLOCK,ROWS*BLOCK); ctx.stroke(); }
+        // Board
+        for(let r=0;r<ROWS;r++){
+            for(let c=0;c<COLS;c++){
+                if(board[r][c]) drawBlock(c,r,board[r][c]);
+            }
+        }
+        // Ghost piece
+        if(!gameOver && piece){
+            let gy = pieceY;
+            while(!collides(pieceX, gy+1, piece)) gy++;
+            ctx.globalAlpha = 0.2;
+            for(let r=0;r<piece.length;r++){
+                for(let c=0;c<piece[r].length;c++){
+                    if(piece[r][c]) drawBlock(pieceX+c, gy+r, pieceColor);
+                }
+            }
+            ctx.globalAlpha = 1;
+        }
+        // Current piece
+        if(!gameOver && piece){
+            for(let r=0;r<piece.length;r++){
+                for(let c=0;c<piece[r].length;c++){
+                    if(piece[r][c]) drawBlock(pieceX+c, pieceY+r, pieceColor);
+                }
+            }
+        }
+    }
+
+    function drawBlock(x,y,color){
+        const px=x*BLOCK, py=y*BLOCK;
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 8;
+        ctx.fillRect(px+1, py+1, BLOCK-2, BLOCK-2);
+        ctx.shadowBlur = 0;
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(px+1, py+1, BLOCK-2, BLOCK-2);
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+        if(!gameStarted || gameOver) return;
+        switch(e.key){
+            case 'ArrowLeft': case 'a': e.preventDefault(); moveLeft(); break;
+            case 'ArrowRight': case 'd': e.preventDefault(); moveRight(); break;
+            case 'ArrowDown': case 's': e.preventDefault(); moveDown(); break;
+            case 'ArrowUp': case 'w': e.preventDefault(); rotatePiece(); break;
+            case ' ': e.preventDefault(); hardDrop(); break;
+        }
+    });
+
+    // Touch controls
+    document.getElementById('t-left').addEventListener('click', moveLeft);
+    document.getElementById('t-right').addEventListener('click', moveRight);
+    document.getElementById('t-down').addEventListener('click', moveDown);
+    document.getElementById('t-rotate').addEventListener('click', rotatePiece);
+
+    // Touch swipe on canvas
+    let touchStartX, touchStartY;
+    canvas.addEventListener('touchstart', function(e){
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, {passive:true});
+    canvas.addEventListener('touchend', function(e){
+        if(!gameStarted || gameOver) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const absDx = Math.abs(dx), absDy = Math.abs(dy);
+        if(absDx < 20 && absDy < 20){ rotatePiece(); return; }
+        if(absDx > absDy){
+            if(dx > 0) moveRight(); else moveLeft();
+        } else {
+            if(dy > 0) hardDrop();
+        }
+    }, {passive:true});
+
+    // Buttons
+    document.getElementById('tetris-start-btn').addEventListener('click', init);
+    document.getElementById('tetris-restart-btn').addEventListener('click', init);
+    document.getElementById('tetris-share-btn').addEventListener('click', function(){
+        const text = encodeURIComponent('I scored '+score+' in Neon Stacker! Can you beat me? Play here: https://federicosella.com/games/neon-stacker/');
+        window.open('https://twitter.com/intent/tweet?text='+text, '_blank');
+    });
+
+    // Initial render
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+})();
+</script>
