@@ -42,270 +42,288 @@
     canvas.width = W; canvas.height = H;
 
     let score, lives, level, balls, paddle, bricks, particles, powerups;
-    let gameRunning = false, animId;
-    let highScore = parseInt(localStorage.getItem('fwBreakerHigh')||'0');
+    let gameRunning = false, animId = null;
+    let highScore = parseInt(localStorage.getItem('fwBreakerHigh') || '0');
     const BRICK_ROWS = 6, BRICK_COLS = 10;
     const BW = W/BRICK_COLS, BH = 20;
     const COLORS = ['#00ff41','#00e5ff','#ff00ff','#ffff00','#ff6600','#ff0055'];
     const PW_TYPES = ['wide','multi','laser'];
 
-    function initGame(){
-        score = 0; lives = 3; level = 1;
+    /* ── Overlay refs ── */
+    const elStart    = document.getElementById('ark-start');
+    const elOver     = document.getElementById('ark-over');
+    const elWin      = document.getElementById('ark-win');
+    const elScore    = document.getElementById('ark-score');
+    const elFinal    = document.getElementById('ark-final');
+    const elHigh     = document.getElementById('ark-high');
+    const elWinScore = document.getElementById('ark-win-score');
+
+    function hideAllOverlays(){
+        elStart.classList.add('hidden');
+        elOver.classList.add('hidden');
+        elWin.classList.add('hidden');
+    }
+
+    function stopLoop(){
+        gameRunning = false;
+        if(animId){ cancelAnimationFrame(animId); animId = null; }
+    }
+
+    /* ── State reset ── */
+    function resetGame(){
+        score     = 0;
+        lives     = 3;
+        level     = 1;
+        balls     = [];
+        bricks    = [];
+        particles = [];
+        powerups  = [];
+        paddle    = null;
+        gameRunning = false;
         updateScore();
-        initLevel();
     }
 
     function initLevel(){
-        paddle = {x:W/2-50, y:H-30, w:100, h:12, speed:8, laser:false, laserTimer:0};
-        balls = [{x:W/2, y:H-45, dx:3*(Math.random()>0.5?1:-1), dy:-4, r:6, stuck:true}];
+        paddle = { x: W/2-50, y: H-30, w: 100, h: 12, speed: 8, laser: false, laserTimer: 0 };
+        balls  = [{ x: W/2, y: H-45, dx: 3*(Math.random()>0.5?1:-1), dy: -4, r: 6, stuck: true }];
         particles = []; powerups = [];
         bricks = [];
-        for(let r=0;r<BRICK_ROWS;r++){
-            for(let c=0;c<BRICK_COLS;c++){
+        for(let r = 0; r < BRICK_ROWS; r++){
+            for(let c = 0; c < BRICK_COLS; c++){
                 let hp = 1;
-                if(r<2 && level>1) hp=2;
-                if(r===0 && level>2 && Math.random()<0.15) hp=99; // unbreakable
-                bricks.push({x:c*BW, y:r*BH+50, w:BW-2, h:BH-2, hp:hp, maxHp:hp, color:COLORS[r%COLORS.length]});
+                if(r < 2 && level > 1) hp = 2;
+                if(r === 0 && level > 2 && Math.random() < 0.15) hp = 99;
+                bricks.push({ x: c*BW, y: r*BH+50, w: BW-2, h: BH-2,
+                               hp: hp, maxHp: hp, color: COLORS[r%COLORS.length] });
             }
         }
     }
 
     function updateScore(){
-        document.getElementById('ark-score').textContent = 'SCORE: '+score+' | LIVES: '+lives;
+        elScore.textContent = 'SCORE: ' + score + ' | LIVES: ' + lives;
     }
 
-    function spawnParticles(x,y,color,count){
-        for(let i=0;i<count;i++){
-            particles.push({x:x,y:y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,life:30+Math.random()*20,color:color,r:2+Math.random()*2});
+    function spawnParticles(x, y, color, count){
+        for(let i = 0; i < count; i++){
+            particles.push({ x:x, y:y, dx:(Math.random()-0.5)*6, dy:(Math.random()-0.5)*6,
+                             life: 30+Math.random()*20, color:color, r: 2+Math.random()*2 });
         }
     }
 
+    /* ── Update ── */
     function update(){
-        // Paddle
         // Powerups
-        for(let i=powerups.length-1;i>=0;i--){
-            const pw=powerups[i];
+        for(let i = powerups.length-1; i >= 0; i--){
+            const pw = powerups[i];
             pw.y += 2.5;
-            if(pw.y > H){powerups.splice(i,1);continue;}
-            if(pw.y+pw.h>=paddle.y && pw.y<=paddle.y+paddle.h && pw.x+pw.w>=paddle.x && pw.x<=paddle.x+paddle.w){
-                if(pw.type==='wide'){paddle.w=Math.min(180,paddle.w+30);}
-                else if(pw.type==='multi'){
-                    const nb=[];
-                    balls.forEach(function(b){if(!b.stuck){nb.push({x:b.x,y:b.y,dx:b.dx*0.8+1,dy:-Math.abs(b.dy),r:b.r,stuck:false});nb.push({x:b.x,y:b.y,dx:b.dx*0.8-1,dy:-Math.abs(b.dy),r:b.r,stuck:false});}});
-                    nb.forEach(function(b){balls.push(b);});
+            if(pw.y > H){ powerups.splice(i,1); continue; }
+            if(pw.y+pw.h >= paddle.y && pw.y <= paddle.y+paddle.h &&
+               pw.x+pw.w >= paddle.x && pw.x <= paddle.x+paddle.w){
+                if(pw.type === 'wide') paddle.w = Math.min(180, paddle.w+30);
+                else if(pw.type === 'multi'){
+                    const nb = [];
+                    balls.forEach(function(b){
+                        if(!b.stuck){
+                            nb.push({ x:b.x, y:b.y, dx:b.dx*0.8+1,  dy:-Math.abs(b.dy), r:b.r, stuck:false });
+                            nb.push({ x:b.x, y:b.y, dx:b.dx*0.8-1, dy:-Math.abs(b.dy), r:b.r, stuck:false });
+                        }
+                    });
+                    nb.forEach(function(b){ balls.push(b); });
                 }
-                else if(pw.type==='laser'){paddle.laser=true;paddle.laserTimer=300;}
+                else if(pw.type === 'laser'){ paddle.laser = true; paddle.laserTimer = 300; }
                 powerups.splice(i,1);
             }
         }
 
-        if(paddle.laser){paddle.laserTimer--;if(paddle.laserTimer<=0)paddle.laser=false;}
+        if(paddle.laser){ paddle.laserTimer--; if(paddle.laserTimer <= 0) paddle.laser = false; }
 
         // Balls
-        for(let i=balls.length-1;i>=0;i--){
-            const b=balls[i];
-            if(b.stuck){b.x=paddle.x+paddle.w/2;b.y=paddle.y-b.r-1;continue;}
-            b.x+=b.dx; b.y+=b.dy;
-            // Wall bounce
-            if(b.x-b.r<=0){b.x=b.r;b.dx=Math.abs(b.dx);}
-            if(b.x+b.r>=W){b.x=W-b.r;b.dx=-Math.abs(b.dx);}
-            if(b.y-b.r<=0){b.y=b.r;b.dy=Math.abs(b.dy);}
-            // Bottom - lose ball
-            if(b.y+b.r>=H){
+        for(let i = balls.length-1; i >= 0; i--){
+            const b = balls[i];
+            if(b.stuck){ b.x = paddle.x+paddle.w/2; b.y = paddle.y-b.r-1; continue; }
+            b.x += b.dx; b.y += b.dy;
+            if(b.x-b.r <= 0){ b.x = b.r; b.dx = Math.abs(b.dx); }
+            if(b.x+b.r >= W){ b.x = W-b.r; b.dx = -Math.abs(b.dx); }
+            if(b.y-b.r <= 0){ b.y = b.r; b.dy = Math.abs(b.dy); }
+            // Bottom — lose ball
+            if(b.y+b.r >= H){
                 balls.splice(i,1);
-                if(balls.length===0){
-                    lives--;
-                    updateScore();
-                    if(lives<=0){endGame();return;}
-                    balls.push({x:paddle.x+paddle.w/2,y:paddle.y-7,dx:3*(Math.random()>0.5?1:-1),dy:-4,r:6,stuck:true});
+                if(balls.length === 0){
+                    lives--; updateScore();
+                    if(lives <= 0){ endGame(); return; }
+                    balls.push({ x: paddle.x+paddle.w/2, y: paddle.y-7,
+                                 dx: 3*(Math.random()>0.5?1:-1), dy: -4, r: 6, stuck: true });
                 }
                 continue;
             }
             // Paddle collision
-            if(b.dy>0 && b.y+b.r>=paddle.y && b.y-b.r<=paddle.y+paddle.h && b.x>=paddle.x && b.x<=paddle.x+paddle.w){
-                b.dy=-Math.abs(b.dy);
-                const hit=(b.x-paddle.x)/paddle.w;
-                b.dx = (hit-0.5)*8;
-                b.y=paddle.y-b.r;
+            if(b.dy > 0 && b.y+b.r >= paddle.y && b.y-b.r <= paddle.y+paddle.h &&
+               b.x >= paddle.x && b.x <= paddle.x+paddle.w){
+                b.dy = -Math.abs(b.dy);
+                b.dx = ((b.x-paddle.x)/paddle.w - 0.5) * 8;
+                b.y  = paddle.y - b.r;
             }
             // Brick collision
-            for(let j=bricks.length-1;j>=0;j--){
-                const br=bricks[j];
-                if(b.x+b.r>br.x && b.x-b.r<br.x+br.w && b.y+b.r>br.y && b.y-b.r<br.y+br.h){
-                    if(br.hp<99) br.hp--;
-                    if(br.hp<=0){
-                        score+=10*level;
-                        updateScore();
-                        spawnParticles(br.x+br.w/2,br.y+br.h/2,br.color,12);
-                        if(Math.random()<0.12){
-                            const pt=PW_TYPES[Math.floor(Math.random()*PW_TYPES.length)];
-                            powerups.push({x:br.x+br.w/2-10,y:br.y,w:20,h:14,type:pt});
+            for(let j = bricks.length-1; j >= 0; j--){
+                const br = bricks[j];
+                if(b.x+b.r > br.x && b.x-b.r < br.x+br.w &&
+                   b.y+b.r > br.y && b.y-b.r < br.y+br.h){
+                    if(br.hp < 99) br.hp--;
+                    if(br.hp <= 0){
+                        score += 10*level; updateScore();
+                        spawnParticles(br.x+br.w/2, br.y+br.h/2, br.color, 12);
+                        if(Math.random() < 0.12){
+                            const pt = PW_TYPES[Math.floor(Math.random()*PW_TYPES.length)];
+                            powerups.push({ x: br.x+br.w/2-10, y: br.y, w: 20, h: 14, type: pt });
                         }
                         bricks.splice(j,1);
                     } else {
-                        spawnParticles(br.x+br.w/2,br.y+br.h/2,'#fff',4);
+                        spawnParticles(br.x+br.w/2, br.y+br.h/2, '#fff', 4);
                     }
-                    // Bounce direction
-                    const overlapX=Math.min(b.x+b.r-br.x, br.x+br.w-(b.x-b.r));
-                    const overlapY=Math.min(b.y+b.r-br.y, br.y+br.h-(b.y-b.r));
-                    if(overlapX<overlapY) b.dx=-b.dx; else b.dy=-b.dy;
+                    const overlapX = Math.min(b.x+b.r-br.x, br.x+br.w-(b.x-b.r));
+                    const overlapY = Math.min(b.y+b.r-br.y, br.y+br.h-(b.y-b.r));
+                    if(overlapX < overlapY) b.dx = -b.dx; else b.dy = -b.dy;
                     break;
                 }
             }
         }
 
         // Particles
-        for(let i=particles.length-1;i>=0;i--){
-            const p=particles[i];
-            p.x+=p.dx; p.y+=p.dy; p.life--;
-            p.dx*=0.96; p.dy*=0.96;
-            if(p.life<=0) particles.splice(i,1);
+        for(let i = particles.length-1; i >= 0; i--){
+            const p = particles[i];
+            p.x += p.dx; p.y += p.dy; p.life--;
+            p.dx *= 0.96; p.dy *= 0.96;
+            if(p.life <= 0) particles.splice(i,1);
         }
 
-        // Win check
-        const breakable=bricks.filter(function(b){return b.hp<99;});
-        if(breakable.length===0){
-            gameRunning=false;
-            cancelAnimationFrame(animId);
-            document.getElementById('ark-win-score').textContent='SCORE: '+score;
-            document.getElementById('ark-win').classList.remove('hidden');
-            return;
+        // Win check — flip flag; overlay shown after render
+        const breakable = bricks.filter(function(b){ return b.hp < 99; });
+        if(breakable.length === 0){
+            gameRunning = false;
+            elWinScore.textContent = 'SCORE: ' + score;
+            elWin.classList.remove('hidden');
         }
     }
 
+    /* ── Render ── */
     function render(){
-        ctx.fillStyle='#000';
-        ctx.fillRect(0,0,W,H);
-        // Grid scanlines
-        ctx.strokeStyle='rgba(0,255,65,0.03)';
-        for(let y=0;y<H;y+=4){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+        ctx.fillStyle = '#000'; ctx.fillRect(0,0,W,H);
+        ctx.strokeStyle = 'rgba(0,255,65,0.03)';
+        for(let y = 0; y < H; y += 4){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
 
-        // Bricks
         bricks.forEach(function(br){
-            let c=br.color;
-            if(br.hp>=99) c='#333';
-            else if(br.hp===2) c='#ffff00';
-            ctx.fillStyle=c;
-            ctx.shadowColor=c;ctx.shadowBlur=6;
-            ctx.fillRect(br.x,br.y,br.w,br.h);
-            ctx.shadowBlur=0;
-            ctx.strokeStyle='rgba(0,0,0,0.4)';ctx.strokeRect(br.x,br.y,br.w,br.h);
+            let c = br.color;
+            if(br.hp >= 99) c = '#333';
+            else if(br.hp === 2) c = '#ffff00';
+            ctx.fillStyle = c; ctx.shadowColor = c; ctx.shadowBlur = 6;
+            ctx.fillRect(br.x, br.y, br.w, br.h); ctx.shadowBlur = 0;
+            ctx.strokeStyle = 'rgba(0,0,0,0.4)'; ctx.strokeRect(br.x, br.y, br.w, br.h);
         });
 
-        // Paddle
-        const pc=paddle.laser?'#ff0055':'#00e5ff';
-        ctx.fillStyle=pc;ctx.shadowColor=pc;ctx.shadowBlur=10;
-        ctx.fillRect(paddle.x,paddle.y,paddle.w,paddle.h);
-        ctx.shadowBlur=0;
+        const pc = paddle.laser ? '#ff0055' : '#00e5ff';
+        ctx.fillStyle = pc; ctx.shadowColor = pc; ctx.shadowBlur = 10;
+        ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h); ctx.shadowBlur = 0;
 
-        // Balls
         balls.forEach(function(b){
-            ctx.fillStyle='#fff';ctx.shadowColor='#fff';ctx.shadowBlur=12;
-            ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();
-            ctx.shadowBlur=0;
+            ctx.fillStyle = '#fff'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 12;
+            ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
         });
 
-        // Powerups
         powerups.forEach(function(pw){
-            const colors={wide:'#00e5ff',multi:'#ff00ff',laser:'#ff0055'};
-            const labels={wide:'W',multi:'M',laser:'L'};
-            ctx.fillStyle=colors[pw.type]||'#fff';
-            ctx.shadowColor=colors[pw.type];ctx.shadowBlur=6;
-            ctx.fillRect(pw.x,pw.y,pw.w,pw.h);
-            ctx.shadowBlur=0;
-            ctx.fillStyle='#000';ctx.font='bold 10px monospace';ctx.textAlign='center';
-            ctx.fillText(labels[pw.type],pw.x+pw.w/2,pw.y+11);
+            const colors = { wide:'#00e5ff', multi:'#ff00ff', laser:'#ff0055' };
+            const labels = { wide:'W', multi:'M', laser:'L' };
+            ctx.fillStyle = colors[pw.type]||'#fff';
+            ctx.shadowColor = colors[pw.type]; ctx.shadowBlur = 6;
+            ctx.fillRect(pw.x, pw.y, pw.w, pw.h); ctx.shadowBlur = 0;
+            ctx.fillStyle = '#000'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'center';
+            ctx.fillText(labels[pw.type], pw.x+pw.w/2, pw.y+11);
         });
 
-        // Particles
         particles.forEach(function(p){
-            ctx.globalAlpha=p.life/50;
-            ctx.fillStyle=p.color;
-            ctx.fillRect(p.x-p.r/2,p.y-p.r/2,p.r,p.r);
+            ctx.globalAlpha = p.life/50; ctx.fillStyle = p.color;
+            ctx.fillRect(p.x-p.r/2, p.y-p.r/2, p.r, p.r);
         });
-        ctx.globalAlpha=1;
+        ctx.globalAlpha = 1;
 
-        // Lives
-        ctx.fillStyle='#00ff41';ctx.font='12px monospace';ctx.textAlign='left';
-        ctx.fillText('LVL '+level, 10, 20);
+        ctx.fillStyle = '#00ff41'; ctx.font = '12px monospace'; ctx.textAlign = 'left';
+        ctx.fillText('LVL ' + level, 10, 20);
     }
 
+    /* ── Loop (safe: only schedules next frame if still running) ── */
     function gameLoop(){
         if(!gameRunning) return;
         update();
         render();
-        animId=requestAnimationFrame(gameLoop);
+        if(gameRunning) animId = requestAnimationFrame(gameLoop);
     }
 
+    /* ── End / Start / Next ── */
     function endGame(){
-        gameRunning=false;cancelAnimationFrame(animId);
-        if(score>highScore){highScore=score;localStorage.setItem('fwBreakerHigh',highScore);}
-        document.getElementById('ark-final').textContent='SCORE: '+score;
-        document.getElementById('ark-high').textContent='HIGH SCORE: '+highScore;
-        document.getElementById('ark-over').classList.remove('hidden');
+        stopLoop();
+        if(score > highScore){ highScore = score; localStorage.setItem('fwBreakerHigh', highScore); }
+        elFinal.textContent = 'SCORE: ' + score;
+        elHigh.textContent  = 'HIGH SCORE: ' + highScore;
+        elOver.classList.remove('hidden');
     }
 
     function startGame(){
-        document.getElementById('ark-start').classList.add('hidden');
-        document.getElementById('ark-over').classList.add('hidden');
-        document.getElementById('ark-win').classList.add('hidden');
-        initGame();
-        gameRunning=true;
-        gameLoop();
+        stopLoop();          // kill any lingering loop
+        hideAllOverlays();   // force-hide every overlay
+        resetGame();         // zero all state
+        initLevel();         // build first level
+        gameRunning = true;
+        animId = requestAnimationFrame(gameLoop);
     }
 
     function nextLevel(){
+        stopLoop();
+        hideAllOverlays();
         level++;
-        document.getElementById('ark-win').classList.add('hidden');
         initLevel();
-        gameRunning=true;
-        gameLoop();
+        gameRunning = true;
+        animId = requestAnimationFrame(gameLoop);
     }
 
-    // Controls - Mouse
+    /* ── Input: Mouse ── */
     const wrapper = document.getElementById('arkanoid-wrapper');
     wrapper.addEventListener('mousemove', function(e){
         if(!gameRunning) return;
-        const rect=canvas.getBoundingClientRect();
-        const scaleX=W/rect.width;
-        const mx=(e.clientX-rect.left)*scaleX;
-        paddle.x=Math.max(0,Math.min(W-paddle.w, mx-paddle.w/2));
+        const rect = canvas.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (W/rect.width);
+        paddle.x = Math.max(0, Math.min(W-paddle.w, mx - paddle.w/2));
     });
     wrapper.addEventListener('click', function(){
         if(!gameRunning) return;
-        balls.forEach(function(b){if(b.stuck) b.stuck=false;});
+        balls.forEach(function(b){ if(b.stuck) b.stuck = false; });
     });
 
-    // Controls - Touch
+    /* ── Input: Touch ── */
     wrapper.addEventListener('touchmove', function(e){
         if(!gameRunning) return;
         e.preventDefault();
-        const rect=canvas.getBoundingClientRect();
-        const scaleX=W/rect.width;
-        const tx=(e.touches[0].clientX-rect.left)*scaleX;
-        paddle.x=Math.max(0,Math.min(W-paddle.w, tx-paddle.w/2));
+        const rect = canvas.getBoundingClientRect();
+        const tx = (e.touches[0].clientX - rect.left) * (W/rect.width);
+        paddle.x = Math.max(0, Math.min(W-paddle.w, tx - paddle.w/2));
     }, {passive:false});
     wrapper.addEventListener('touchstart', function(e){
         if(!gameRunning) return;
-        balls.forEach(function(b){if(b.stuck) b.stuck=false;});
-        // Also move paddle on touch start
-        const rect=canvas.getBoundingClientRect();
-        const scaleX=W/rect.width;
-        const tx=(e.touches[0].clientX-rect.left)*scaleX;
-        paddle.x=Math.max(0,Math.min(W-paddle.w, tx-paddle.w/2));
+        balls.forEach(function(b){ if(b.stuck) b.stuck = false; });
+        const rect = canvas.getBoundingClientRect();
+        const tx = (e.touches[0].clientX - rect.left) * (W/rect.width);
+        paddle.x = Math.max(0, Math.min(W-paddle.w, tx - paddle.w/2));
     }, {passive:true});
 
-    // Buttons
-    document.getElementById('ark-start-btn').addEventListener('click', function(e){e.stopPropagation();startGame();});
-    document.getElementById('ark-retry').addEventListener('click', function(e){e.stopPropagation();startGame();});
-    document.getElementById('ark-next').addEventListener('click', function(e){e.stopPropagation();nextLevel();});
-    document.getElementById('ark-share').addEventListener('click', function(e){
+    /* ── Buttons ── */
+    document.getElementById('ark-start-btn').addEventListener('click', function(e){ e.stopPropagation(); startGame(); });
+    document.getElementById('ark-retry').addEventListener('click',    function(e){ e.stopPropagation(); startGame(); });
+    document.getElementById('ark-next').addEventListener('click',     function(e){ e.stopPropagation(); nextLevel(); });
+    document.getElementById('ark-share').addEventListener('click',    function(e){
         e.stopPropagation();
         openShare(score, 'Firewall Breaker');
     });
 
-    // Initial render
-    ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+    /* ── Boot: black canvas, nothing else ── */
+    ctx.fillStyle = '#000'; ctx.fillRect(0,0,W,H);
 })();
 function openShare(score, gameName) {
     document.getElementById('final-score-display').innerText = score;
