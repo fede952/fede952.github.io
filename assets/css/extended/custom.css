@@ -1449,3 +1449,187 @@ body.links-page {
         display: flex;
     }
 }
+
+/* ============================================
+   SUDOKU GAME STYLES
+   ============================================ */
+
+.sudoku-container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px;
+}
+
+.sudoku-top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 1px;
+    background: #1a1a1a;
+    border: 2px solid #00ff41;
+    margin-bottom: 15px;
+}
+
+.sudoku-cell {
+    background: #050505;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    transition: background 0.15s;
+}
+
+.sudoku-cell:hover {
+    background: #111;
+}
+
+.sudoku-cell.fixed {
+    color: #666;
+    cursor: default;
+}
+
+.sudoku-cell.selected {
+    background: #1a1a1a;
+    box-shadow: inset 0 0 10px #00ff41;
+}
+
+.sudoku-cell.error {
+    color: #ff003c;
+    text-shadow: 0 0 8px #ff003c;
+}
+
+.sudoku-cell.box-right {
+    border-right: 2px solid #00ff41;
+}
+
+.sudoku-cell.box-bottom {
+    border-bottom: 2px solid #00ff41;
+}
+
+.sudoku-numpad {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.sudoku-num-btn {
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: 1px solid #333;
+    color: #00ff41;
+    font-size: 1.1rem;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s;
+}
+
+.sudoku-num-btn:hover {
+    border-color: #00ff41;
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+
+.sudoku-num-btn:active {
+    background: #00ff41;
+    color: #000;
+}
+
+.sudoku-clear-btn {
+    color: #ff003c;
+    border-color: #555;
+}
+
+.sudoku-clear-btn:hover {
+    border-color: #ff003c;
+    box-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
+}
+
+@media (max-width: 400px) {
+    .sudoku-cell { font-size: 0.9rem; }
+    .sudoku-num-btn { width: 34px; height: 34px; font-size: 0.95rem; }
+}
+
+/* ============================================
+   MINESWEEPER GAME STYLES
+   ============================================ */
+
+.mines-container {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px;
+    user-select: none;
+}
+
+.mines-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    color: #00ff41;
+    font-size: 1.1rem;
+}
+
+.mines-grid {
+    display: grid;
+    gap: 1px;
+    background: #222;
+    border: 2px solid #00ff41;
+    margin-bottom: 10px;
+}
+
+.mine-cell {
+    background: #111;
+    aspect-ratio: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 1rem;
+    transition: background 0.1s;
+}
+
+.mine-cell:hover {
+    background: #1a1a1a;
+}
+
+.mine-cell.revealed {
+    background: #050505;
+    cursor: default;
+}
+
+.mine-cell.revealed:hover {
+    background: #050505;
+}
+
+.mine-cell.virus {
+    background: #ff003c !important;
+    color: #000;
+}
+
+.mine-cell.flagged {
+    color: #ffff00;
+}
+
+@media (max-width: 400px) {
+    .mine-cell { font-size: 0.8rem; }
+    .mines-header { font-size: 0.95rem; }
+}

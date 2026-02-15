@@ -1,0 +1,208 @@
+<div class="arcade-container" id="sudoku-wrapper">
+    <div class="sudoku-container">
+        <div class="sudoku-top-bar">
+            <span id="sudoku-timer" style="color:#00ff41;font-family:monospace;font-size:1.1rem;">00:00</span>
+            <span id="sudoku-difficulty" style="color:#888;font-family:monospace;font-size:0.9rem;">MEDIUM</span>
+        </div>
+        <div class="sudoku-grid" id="sudoku-grid"></div>
+        <div class="sudoku-numpad" id="sudoku-numpad"></div>
+        <div class="game-ui" id="sudoku-start-screen" style="position:relative;background:transparent;height:auto;padding:20px 0;">
+            <button class="neon-btn" id="sudoku-start-btn">START</button>
+        </div>
+        <div class="game-ui hidden-ui" id="sudoku-win-screen" style="position:relative;background:transparent;height:auto;padding:20px 0;">
+            <h2 style="color:#00ff41;text-shadow:0 0 15px #00ff41;font-family:monospace;margin:0 0 5px;">GRID SOLVED</h2>
+            <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="sudoku-win-time">TIME: 00:00</p>
+            <button class="neon-btn" id="sudoku-new-btn">NEW GAME</button>
+            <button class="neon-btn" id="sudoku-share-btn" style="border-color:#00e5ff;color:#00e5ff;">SHARE SCORE</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const grid = document.getElementById('sudoku-grid');
+    const numpad = document.getElementById('sudoku-numpad');
+    let board = [], solution = [], fixed = [], selected = -1;
+    let timerInterval, seconds = 0, gameActive = false;
+
+    // Build numpad
+    for(let n=1;n<=9;n++){
+        const btn = document.createElement('button');
+        btn.className = 'sudoku-num-btn';
+        btn.textContent = n;
+        btn.addEventListener('click', function(){ placeNumber(n); });
+        numpad.appendChild(btn);
+    }
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'sudoku-num-btn sudoku-clear-btn';
+    clearBtn.textContent = 'X';
+    clearBtn.addEventListener('click', function(){ placeNumber(0); });
+    numpad.appendChild(clearBtn);
+
+    // Build grid cells
+    for(let i=0;i<81;i++){
+        const cell = document.createElement('div');
+        cell.className = 'sudoku-cell';
+        cell.dataset.idx = i;
+        cell.addEventListener('click', function(){ selectCell(i); });
+        grid.appendChild(cell);
+    }
+
+    function generateSudoku(){
+        // Base valid grid
+        const base = [];
+        for(let r=0;r<9;r++){
+            base[r] = [];
+            for(let c=0;c<9;c++){
+                base[r][c] = ((3*(r%3) + Math.floor(r/3) + c) % 9) + 1;
+            }
+        }
+        // Shuffle rows within bands, cols within stacks, and swap numbers
+        const perm = [1,2,3,4,5,6,7,8,9].sort(()=>Math.random()-0.5);
+        for(let r=0;r<9;r++) for(let c=0;c<9;c++) base[r][c] = perm[base[r][c]-1];
+
+        for(let band=0;band<3;band++){
+            const rows = [band*3, band*3+1, band*3+2];
+            for(let i=rows.length-1;i>0;i--){
+                const j=Math.floor(Math.random()*(i+1));
+                [base[rows[i]], base[rows[j]]] = [base[rows[j]], base[rows[i]]];
+            }
+        }
+        for(let stack=0;stack<3;stack++){
+            const cols = [stack*3, stack*3+1, stack*3+2];
+            for(let i=cols.length-1;i>0;i--){
+                const j=Math.floor(Math.random()*(i+1));
+                for(let r=0;r<9;r++){
+                    [base[r][cols[i]], base[r][cols[j]]] = [base[r][cols[j]], base[r][cols[i]]];
+                }
+            }
+        }
+
+        solution = base.map(r=>[...r]);
+        board = base.map(r=>[...r]);
+        fixed = Array.from({length:9}, ()=>new Array(9).fill(true));
+
+        // Remove ~40 cells for medium difficulty
+        let removed = 0;
+        const positions = [];
+        for(let i=0;i<81;i++) positions.push(i);
+        positions.sort(()=>Math.random()-0.5);
+
+        for(const pos of positions){
+            if(removed >= 40) break;
+            const r = Math.floor(pos/9), c = pos%9;
+            board[r][c] = 0;
+            fixed[r][c] = false;
+            removed++;
+        }
+    }
+
+    function renderGrid(){
+        const cells = grid.children;
+        for(let i=0;i<81;i++){
+            const r = Math.floor(i/9), c = i%9;
+            const cell = cells[i];
+            cell.textContent = board[r][c] || '';
+            cell.className = 'sudoku-cell';
+            if(fixed[r][c]) cell.classList.add('fixed');
+            if(i === selected) cell.classList.add('selected');
+
+            // Highlight errors
+            if(board[r][c] && !fixed[r][c] && hasConflict(r, c, board[r][c])){
+                cell.classList.add('error');
+            }
+
+            // 3x3 box borders
+            if(c === 2 || c === 5) cell.classList.add('box-right');
+            if(r === 2 || r === 5) cell.classList.add('box-bottom');
+        }
+    }
+
+    function hasConflict(row, col, num){
+        // Check row
+        for(let c=0;c<9;c++) if(c!==col && board[row][c]===num) return true;
+        // Check col
+        for(let r=0;r<9;r++) if(r!==row && board[r][col]===num) return true;
+        // Check box
+        const br = Math.floor(row/3)*3, bc = Math.floor(col/3)*3;
+        for(let r=br;r<br+3;r++) for(let c=bc;c<bc+3;c++){
+            if(r!==row || c!==col) if(board[r][c]===num) return true;
+        }
+        return false;
+    }
+
+    function selectCell(idx){
+        if(!gameActive) return;
+        const r = Math.floor(idx/9), c = idx%9;
+        if(fixed[r][c]) return;
+        selected = idx;
+        renderGrid();
+    }
+
+    function placeNumber(n){
+        if(selected < 0 || !gameActive) return;
+        const r = Math.floor(selected/9), c = selected%9;
+        if(fixed[r][c]) return;
+        board[r][c] = n;
+        renderGrid();
+        checkWin();
+    }
+
+    function checkWin(){
+        for(let r=0;r<9;r++) for(let c=0;c<9;c++){
+            if(board[r][c] !== solution[r][c]) return;
+        }
+        // Win!
+        gameActive = false;
+        clearInterval(timerInterval);
+        document.getElementById('sudoku-win-time').textContent = 'TIME: ' + formatTime(seconds);
+        document.getElementById('sudoku-win-screen').classList.remove('hidden-ui');
+        numpad.classList.add('hidden-ui');
+    }
+
+    function formatTime(s){
+        const m = Math.floor(s/60);
+        const sec = s%60;
+        return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+    }
+
+    function startTimer(){
+        seconds = 0;
+        clearInterval(timerInterval);
+        document.getElementById('sudoku-timer').textContent = '00:00';
+        timerInterval = setInterval(function(){
+            seconds++;
+            document.getElementById('sudoku-timer').textContent = formatTime(seconds);
+        }, 1000);
+    }
+
+    function startGame(){
+        generateSudoku();
+        selected = -1;
+        gameActive = true;
+        document.getElementById('sudoku-start-screen').classList.add('hidden-ui');
+        document.getElementById('sudoku-win-screen').classList.add('hidden-ui');
+        numpad.classList.remove('hidden-ui');
+        startTimer();
+        renderGrid();
+    }
+
+    // Keyboard input
+    document.addEventListener('keydown', function(e){
+        if(!gameActive) return;
+        const n = parseInt(e.key);
+        if(n >= 1 && n <= 9){ e.preventDefault(); placeNumber(n); }
+        if(e.key === 'Backspace' || e.key === 'Delete'){ e.preventDefault(); placeNumber(0); }
+    });
+
+    document.getElementById('sudoku-start-btn').addEventListener('click', startGame);
+    document.getElementById('sudoku-new-btn').addEventListener('click', startGame);
+    document.getElementById('sudoku-share-btn').addEventListener('click', function(){
+        const text = encodeURIComponent('I solved Neon Sudoku in '+formatTime(seconds)+'! Can you beat my time? Play here: https://federicosella.com/games/neon-sudoku/');
+        window.open('https://twitter.com/intent/tweet?text='+text, '_blank');
+    });
+
+    // Initial state - hide numpad
+    numpad.classList.add('hidden-ui');
+})();
+</script>
