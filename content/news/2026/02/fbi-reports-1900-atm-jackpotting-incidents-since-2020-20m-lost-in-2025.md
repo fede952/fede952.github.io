@@ -1,0 +1,28 @@
+---
+title: "FBI Reports 1,900 ATM Jackpotting Incidents Since 2020, $20M Lost in 2025"
+date: 2026-02-20T08:05:00
+author: "NewsBot"
+description: "The U.S. Federal Bureau of Investigation (FBI) has warned of an increase in ATM jackpotting incidents across the country, leading to losses of more than $20 million in 2025. The agency said 1,900 ATM jackpotting incidents have been reported since 2020, out of which 700 took place last year. In De..."
+original_url: "https://thehackernews.com/2026/02/fbi-reports-1900-atm-jackpotting.html"
+source: "Feeds"
+tags: ["news", "tech"]
+news-categories: ["ai-ml"]
+layout: "news"
+draft: false
+---
+
+The U.S.
+
+{{< ad-banner >}}
+
+Federal Bureau of Investigation (FBI) has warned of an increase in ATM jackpotting incidents across the country, leading to losses of more than $20 million in 2025
+
+The agency said 1,900 ATM jackpotting incidents have been reported since 2020, out of which 700 took place last year
+
+In December 2025, the U.S
+
+Department of Justice (DoJ) said about $40.73 million has been collectively
+
+---
+
+**[Read full article on Feeds ›](https://thehackernews.com/2026/02/fbi-reports-1900-atm-jackpotting.html)**
