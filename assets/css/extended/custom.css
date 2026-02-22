@@ -1715,3 +1715,72 @@ body.links-page {
 }
 
 .close-share:hover { background: #ff003c; color: #fff; }
+
+/* ============================================
+   SPONSOR TERMINAL WIDGET
+   ============================================ */
+
+.sponsor-terminal {
+    margin: 50px 0 30px 0;
+    border: 1px solid #ff003c;
+    background: #0d0d0d;
+    border-radius: 6px;
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.1);
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+.sponsor-header {
+    background: #ff003c;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sponsor-header .blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+.sponsor-body {
+    padding: 20px;
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.sponsor-body strong {
+    color: #ff003c;
+}
+
+.sponsor-action {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.github-sponsor-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ea4aaa; /* GitHub Sponsor Pink */
+    color: #fff;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.github-sponsor-btn:hover {
+    background: #d03c97;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(234, 74, 170, 0.4);
+}
