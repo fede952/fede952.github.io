@@ -1361,7 +1361,9 @@
     "https://www.punto-informatico.it/come-usare-ai-evitare-perdite-tempo-9-prompt-provare/",
     "https://www.cybersecurity360.it/nuove-minacce/guerra-in-iran-il-blackout-informativo-come-cyber-sabotaggio-luso-dellai-in-battaglia/",
     "https://www.cybersecurity360.it/news/lai-di-anthropic-usata-nei-raid-usa-contro-liran-la-questione-non-e-etica-ma-istituzionale/",
-    "https://www.cybersecurity360.it/news/clawjacked-quando-un-sito-web-prende-il-controllo-del-tuo-agente-ai/"
+    "https://www.cybersecurity360.it/news/clawjacked-quando-un-sito-web-prende-il-controllo-del-tuo-agente-ai/",
+    "https://www.bleepingcomputer.com/news/security/cyberstrikeai-tool-adopted-by-hackers-for-ai-powered-attacks/",
+    "https://www.bleepingcomputer.com/news/security/fake-google-security-site-uses-pwa-app-to-steal-credentials-mfa-codes/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -2725,6 +2727,8 @@
     "800f93312bf0f2b7a9ff66c0989ec729",
     "66072707dde44df33e6c6b81a2a6ee7b",
     "ae1783c6b1ad9343d7b37fb8477119fa",
-    "17ef259f3b1d9693b2cb5cfda917f846"
+    "17ef259f3b1d9693b2cb5cfda917f846",
+    "7518074a6ce65a8e9c5ff15f9f8a3a00",
+    "562375ab043fd9f2d311f0bae286a8ed"
   ]
 }
