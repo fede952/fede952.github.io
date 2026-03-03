@@ -1365,7 +1365,23 @@
     "https://www.bleepingcomputer.com/news/security/cyberstrikeai-tool-adopted-by-hackers-for-ai-powered-attacks/",
     "https://www.bleepingcomputer.com/news/security/fake-google-security-site-uses-pwa-app-to-steal-credentials-mfa-codes/",
     "https://www.punto-informatico.it/claude-strumento-importare-dati-da-altri-chatbot-ai/",
-    "https://www.punto-informatico.it/x-etichetta-contenuti-sponsorizzati-senza-vecchi-hashtag/"
+    "https://www.punto-informatico.it/x-etichetta-contenuti-sponsorizzati-senza-vecchi-hashtag/",
+    "https://thehackernews.com/2026/03/ai-agents-next-wave-identity-dark.html",
+    "https://thehackernews.com/2026/03/starkiller-phishing-suite-uses-aitm.html",
+    "https://thehackernews.com/2026/03/microsoft-warns-oauth-redirect-abuse.html",
+    "https://thehackernews.com/2026/03/google-confirms-cve-2026-21385-in.html",
+    "https://thehackernews.com/2026/03/sloppylemming-targets-pakistan-and.html",
+    "https://www.bleepingcomputer.com/news/technology/amazon-drone-strikes-damaged-aws-data-centers-in-middle-east/",
+    "https://www.bleepingcomputer.com/news/security/star-citizen-game-dev-discloses-breach-affecting-user-data/",
+    "https://www.bleepingcomputer.com/news/security/university-of-hawaii-cancer-center-ransomware-attack-affects-nearly-12-million-people/",
+    "https://www.bleepingcomputer.com/news/security/google-patches-android-zero-day-actively-exploited-in-attacks/",
+    "https://www.wired.com/story/how-journalists-are-reporting-from-iran-with-no-internet/",
+    "https://www.punto-informatico.it/bot-bagarini-mercato-ram/",
+    "https://www.punto-informatico.it/google-traduttore-nuova-interfaccia-traduzione-dal-vivo/",
+    "https://www.punto-informatico.it/starlink-mobile-nuovo-nome-piu-velocita-2026/",
+    "https://www.punto-informatico.it/chatgpt-salute-non-riconosce-emergenze-mediche-studio/",
+    "https://www.punto-informatico.it/motorola-edge-60-pro-medio-gamma-spettacolare-ora-costa-poco/",
+    "https://www.cybersecurity360.it/legal/documenti-come-processo-coerenza-aggiornamento-e-tracciabilita-del-rischio-digitale-nella-nis-2/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -2733,6 +2749,22 @@
     "7518074a6ce65a8e9c5ff15f9f8a3a00",
     "562375ab043fd9f2d311f0bae286a8ed",
     "4bd5c37b62f05c7e224172cd315bd315",
-    "a3b4308726fbda6cef8e007a5c04be8e"
+    "a3b4308726fbda6cef8e007a5c04be8e",
+    "6118ecd044376cd11fc87f050179f5db",
+    "b2261ac798c4cb8c67d397a283bfa1ee",
+    "af1cc368c40d124176cf68ba77cfa5d2",
+    "3163b07f925f211e6d7148584fb66204",
+    "f68d358149d0f72cb8d0a34799c0f12d",
+    "cc64b0895052e3cf8100cc00656bd778",
+    "30806676d7b0c192a389926f0409ccd8",
+    "3a610ef052b3ad553ddc311dd4585def",
+    "b0898182995b60644a73fe0bbab19ced",
+    "b4c2c03cf17b5130c078cc0f43128ed0",
+    "0359b14c987ab9a9fc6cfe2271fbcf0f",
+    "458ac577e29788bbb3b0fdc7afc725b8",
+    "29cbcf02a9ed51d32a1d99a9beb435e4",
+    "6f0095cd63d332ff5be2fb65cee03783",
+    "1f078082e59becea4dddb1f433c11993",
+    "a5d07c9b567d49a34039bbd4bd4b9baf"
   ]
 }
