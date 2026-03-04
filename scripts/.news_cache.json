@@ -1401,7 +1401,11 @@
     "https://www.bleepingcomputer.com/news/technology/facebook-hit-with-worldwide-outage-stating-accounts-are-unavailable/",
     "https://www.bleepingcomputer.com/news/security/microsoft-hackers-abuse-oauth-error-flows-to-spread-malware/",
     "https://www.wired.com/story/coruna-iphone-hacking-toolkit-us-government/",
-    "https://www.cybersecurity360.it/news/telecamere-di-teheran-hackerate-e-ia-larma-letale-del-mossad-per-uccidere-khamenei/"
+    "https://www.cybersecurity360.it/news/telecamere-di-teheran-hackerate-e-ia-larma-letale-del-mossad-per-uccidere-khamenei/",
+    "https://thehackernews.com/2026/03/cisa-adds-actively-exploited-vmware.html",
+    "https://www.punto-informatico.it/claude-code-modalita-vocale-si-programma-parlando/",
+    "https://www.punto-informatico.it/x-lancia-app-messaggistica-separata-x-chat-ios/",
+    "https://www.cybersecurity360.it/outlook/sicurezza-agenti-ai/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -2805,6 +2809,10 @@
     "a2cb455e4d4f36932afaed45d20f4fef",
     "ccaaca69a9f459566f93e19666edbf9f",
     "b18a9b3467d79073174beaa9e70d4ec4",
-    "77ca9cefe95a90dceadc5b69cd5ed439"
+    "77ca9cefe95a90dceadc5b69cd5ed439",
+    "0a2bb52fce7cca38b14b9c3cd8c5b131",
+    "bbbbac00e9d848c0d479c7efe3d76e04",
+    "217c39225be319bec4ca0e6b662a7dae",
+    "12948a5afef9a005af42873eb2c61724"
   ]
 }
