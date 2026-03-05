@@ -1428,7 +1428,13 @@
     "https://www.punto-informatico.it/lai-di-microsoft-giochera-su-xbox-al-posto-tuo/",
     "https://www.punto-informatico.it/pixel-watch-si-paga-tocco-senza-aprire-wallet/",
     "https://www.cybersecurity360.it/cybersecurity-nazionale/la-sicurezza-nazionale-tra-quantum-cyber-e-geopolitica-la-relazione-2026-dellintelligence/",
-    "https://www.cybersecurity360.it/nuove-minacce/phishing-su-zoom-e-meet-la-nuova-frontiera-dellabuso-di-software-legittimo/"
+    "https://www.cybersecurity360.it/nuove-minacce/phishing-su-zoom-e-meet-la-nuova-frontiera-dellabuso-di-software-legittimo/",
+    "https://www.bleepingcomputer.com/news/security/bitwarden-adds-support-for-passkey-login-on-windows-11/",
+    "https://www.bleepingcomputer.com/news/security/mail2shell-zero-click-attack-lets-hackers-hijack-freescout-mail-servers/",
+    "https://www.bleepingcomputer.com/news/microsoft/windows-10-kb5075039-update-fixes-broken-recovery-environment/",
+    "https://www.bleepingcomputer.com/news/security/fake-lastpass-support-email-threads-try-to-steal-vault-passwords/",
+    "https://www.bleepingcomputer.com/news/security/cisco-warns-of-max-severity-secure-fmc-flaws-giving-root-access/",
+    "https://www.wired.com/story/how-vulnerable-are-computers-to-an-80-year-old-spy-technique-congress-wants-answers/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -2859,6 +2865,12 @@
     "f05caf0ed7ddcfb7ff6b61b1cfd52b78",
     "efc01ca928b79016b9ca2b36b8fb24ef",
     "36c48c581d2a3ef7f4238e41975c3365",
-    "9a53e02e7aea29d49c39a162026eed06"
+    "9a53e02e7aea29d49c39a162026eed06",
+    "642b73c3895fde2f44ce9e61563a9cce",
+    "f75794ee7d536d5899c29edc917e08ee",
+    "4f563354f51a3f0ae20ec06ee029b450",
+    "c68b549f6591ff4c069e564adc44fa1b",
+    "0ba6ed2c0c416d4d626135ec1c2e087f",
+    "ab62587e4ee8a038bd5aa158d23bd168"
   ]
 }
