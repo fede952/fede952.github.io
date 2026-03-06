@@ -1468,7 +1468,12 @@
     "https://www.cybersecurity360.it/news/neutralizzata-tycoon-2fa-il-kit-phishing-che-aggirava-lmfa-e-ha-compromesso-migliaia-di-account/",
     "https://www.cybersecurity360.it/cybersecurity-nazionale/la-nuova-dimensione-strategica-della-sicurezza-oltre-il-cyber-tra-ai-e-domini-immateriali/",
     "https://www.cybersecurity360.it/soluzioni-aziendali/esclusioni-e-premi-assicurativi-in-rialzo-leffetto-nis2-e-cyber-resilience-act-sulle-polizze-cyber/",
-    "https://www.cybersecurity360.it/soluzioni-aziendali/quando-il-rischio-torna-nel-mondo-fisico-il-cloud-e-la-sicurezza-che-avevamo-dimenticato/"
+    "https://www.cybersecurity360.it/soluzioni-aziendali/quando-il-rischio-torna-nel-mondo-fisico-il-cloud-e-la-sicurezza-che-avevamo-dimenticato/",
+    "https://www.bleepingcomputer.com/news/security/chinese-state-hackers-target-telcos-with-new-malware-toolkit/",
+    "https://www.bleepingcomputer.com/news/security/bing-ai-promoted-fake-openclaw-github-repo-pushing-info-stealing-malware/",
+    "https://www.bleepingcomputer.com/news/security/wikipedia-hit-by-self-propagating-javascript-worm-that-vandalized-pages/",
+    "https://www.wired.com/story/every-country-directly-impacted-by-the-war-on-iran/",
+    "https://www.wired.com/story/the-controversies-finally-caught-up-to-kristi-noem/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -2939,6 +2944,11 @@
     "0d63a189f11a7ba98e92b9b656084f9e",
     "a9208709574c30a3d0e2708c87e50b2f",
     "9e629670f58560fce29b2347152da45b",
-    "a9dc975a08feb603f707a9359aa2c181"
+    "a9dc975a08feb603f707a9359aa2c181",
+    "940caab5a3be7bf9aadc94de818c4fa3",
+    "4f77a381357c7c52a833b8c76cbaf835",
+    "cde642189456a09b2b352d2b04c5ed7a",
+    "4b25e5996fed9870dbce96aa4fff158b",
+    "44c2a85fcb2e499dfb76588b50f322f1"
   ]
 }
