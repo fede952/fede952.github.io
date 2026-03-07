@@ -1507,7 +1507,15 @@
     "https://www.cybersecurity360.it/cultura-cyber/un-rischio-e-per-sempre/",
     "https://www.cybersecurity360.it/nuove-minacce/prompt-ignition-la-nuova-superficie-dattacco-dei-modelli-linguistici/",
     "https://www.bleepingcomputer.com/news/security/cognizant-trizetto-breach-exposes-health-data-of-34-million-patients/",
-    "https://www.wired.com/story/the-future-of-irans-internet-is-more-uncertain-than-ever/"
+    "https://www.wired.com/story/the-future-of-irans-internet-is-more-uncertain-than-ever/",
+    "https://thehackernews.com/2026/03/anthropic-finds-22-firefox.html",
+    "https://www.wired.com/story/cbp-used-online-ad-data-to-track-phone-locations/",
+    "https://www.wired.com/story/how-each-gulf-country-is-intercepting-iranian-missiles-and-drones/",
+    "https://www.punto-informatico.it/installfix-variante-clickfix-sfrutta-claude-code/",
+    "https://www.punto-informatico.it/openai-codex-security-agente-ai-trova-bug-software/",
+    "https://www.punto-informatico.it/tutti-pazzi-per-pokemon-pokopia-i-segreti-del-nuovo-gioco-per-switch-2/",
+    "https://www.punto-informatico.it/airalo-esim-viaggia-senza-roaming-e-senza-pensieri-in-oltre-200-paesi/",
+    "https://www.punto-informatico.it/octopus-energia-luce-e-gas-a-prezzo-bloccato-per-12-mesi-in-super-offerta-ancora-per-poco/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -3017,6 +3025,14 @@
     "2c6bd5b6cd55144125538b2962b8edd6",
     "ac60dd74cb3ba332586f9e1f0f2de963",
     "e6a75c274a3a7e0fa981343adf0b8f3a",
-    "482754776c119770e0e00246e7f110a4"
+    "482754776c119770e0e00246e7f110a4",
+    "3434643715ef93d469426ab82044aa0f",
+    "6e214525d180091a31d71d4e96284180",
+    "6d1f22d02977b3fe247656c614ef061a",
+    "82d738db3e3d1cd29541032c5077218d",
+    "10cb61018e1dacb1f858506246829034",
+    "eba34544ed0d1da08d679ee038eb7117",
+    "6623ed527054c90e74bf097977c480f9",
+    "ff76af3229e2d7f9172d61a645bd8609"
   ]
 }
