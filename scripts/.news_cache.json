@@ -1786,7 +1786,11 @@
     "https://www.cybersecurity360.it/legal/dora-regolamento-ue-per-la-resilienza-operativa-guida-alla-conformita-per-banche-e-fornitori-ict/",
     "https://thehackernews.com/2026/03/glassworm-attack-uses-stolen-github.html",
     "https://www.bleepingcomputer.com/news/security/stryker-attack-wiped-tens-of-thousands-of-devices-no-malware-needed/",
-    "https://www.punto-informatico.it/nvidia-dlss-5/"
+    "https://www.punto-informatico.it/nvidia-dlss-5/",
+    "https://thehackernews.com/2026/03/cisa-flags-actively-exploited-wing-ftp.html",
+    "https://www.punto-informatico.it/benjamin-netanyahu-deepfake-ai-sei-dita/",
+    "https://www.punto-informatico.it/windows-11-non-vede-dispositivi-bluetooth-update-urgente/",
+    "https://www.punto-informatico.it/foto-minori-rese-esplicite-grok-causa-contro-xai/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -3575,6 +3579,10 @@
     "452ebee63623e46e4ef4b04d3a75236d",
     "816b074ec3fae6e88c7bcfb9f7893a0a",
     "59771af91e14f0618a88b0b5b1bfc8f2",
-    "206d1599f2a0247f856792f584b6f70b"
+    "206d1599f2a0247f856792f584b6f70b",
+    "0af7569e6b5dcc659662a61a069ceaac",
+    "3549ebe247f17b569e0d87da14c3dc22",
+    "ae5921b338c4d6af9991f27dbe24bef5",
+    "e10749f930ba238f85613d2c58ef5b36"
   ]
 }
