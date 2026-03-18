@@ -1841,7 +1841,22 @@
     "https://www.cybersecurity360.it/nuove-minacce/handala-cosa-saper-del-cyber-gruppo-iraniano-che-attacca-loccidente/",
     "https://www.cybersecurity360.it/nuove-minacce/lai-nella-kill-chain-i-vantaggi-e-le-perplessita-nella-guerra-in-iran/",
     "https://www.cybersecurity360.it/outlook/la-sicurezza-dellactive-directory-come-pilastro-della-cyber-security/",
-    "https://www.cybersecurity360.it/news/maxi-truffe-travestite-da-informazioni-finanziarie-sfruttano-ladvertising-di-meta-come-proteggersi/"
+    "https://www.cybersecurity360.it/news/maxi-truffe-travestite-da-informazioni-finanziarie-sfruttano-ladvertising-di-meta-come-proteggersi/",
+    "https://thehackernews.com/2026/03/ofac-sanctions-dprk-it-worker-network.html",
+    "https://thehackernews.com/2026/03/interlock-ransomware-exploits-cisco-fmc.html",
+    "https://www.bleepingcomputer.com/news/security/connectwise-patches-new-flaw-allowing-screenconnect-hijacking/",
+    "https://www.bleepingcomputer.com/news/security/interlock-ransomware-exploited-secure-fmc-flaw-in-zero-day-attacks-since-january/",
+    "https://www.bleepingcomputer.com/news/security/marquis-ransomware-gang-stole-data-of-672-000-people-in-2025-cyberattack/",
+    "https://www.bleepingcomputer.com/news/security/the-refund-fraud-economy-exploiting-major-retailers-and-payment-platforms/",
+    "https://www.bleepingcomputer.com/news/security/new-darksword-ios-exploit-used-in-infostealer-attack-on-iphones/",
+    "https://www.wired.com/story/hundreds-of-millions-of-iphones-can-be-hacked-with-a-new-tool-found-in-the-wild/",
+    "https://www.punto-informatico.it/apple-blocca-update-app-vibe-coding/",
+    "https://www.punto-informatico.it/opera-129-gemini-barra-laterale-correzioni-sicurezza/",
+    "https://www.punto-informatico.it/darksword-exploit-ios-colpisce-milioni-iphone/",
+    "https://www.punto-informatico.it/7-funzioni-di-chatgpt-pochi-conoscono-tu/",
+    "https://www.punto-informatico.it/fintech/criptovalute/bitcoin-regge-rete-offline/",
+    "https://www.cybersecurity360.it/news/storm-2561-e-il-seo-poisoning-cosi-con-falsi-client-vpn-rubano-credenziali/",
+    "https://www.cybersecurity360.it/news/apple-corregge-webkit-senza-aggiornare-ios-debuttano-i-background-security-improvements/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -3685,6 +3700,21 @@
     "083b6bba2ef0dd37fbfbe5eceabbd7d3",
     "a337db67042da358c67f6dbf4bdda327",
     "e3be61cac88248ef2215df7ac3ba3e89",
-    "4cca18eaaeb0ec6a561e7fc8c53c4962"
+    "4cca18eaaeb0ec6a561e7fc8c53c4962",
+    "40df68b7dbcaf4340fbb1285a45a51f3",
+    "18e2414ff29a760e25d6cb99c9fc5b57",
+    "bb5ef6917ae338de528abdb32f2752f8",
+    "15a3314abbaba8c5cfdea94e9535cbc0",
+    "f1729bec2cdc3393f86125be3e87d2cf",
+    "6daad1f1cb4caa7281f2139ee0fb082f",
+    "c921acded9d0deedb40927b5b51b32ee",
+    "4b6097e96a8a7a004cf88bdd44340a23",
+    "9ea04c86075c337ca04da8640f0d79f1",
+    "f53da7dc499cc378100811e11d4c3496",
+    "d4b5306bbba63dbbe75334afa8eb86b6",
+    "85e1e9e33646d7c7e9fece4b842aeef5",
+    "2bcd0f8a6b21a3016f906d13ea3e5aa0",
+    "59765a75f85946179b99da3202a69b56",
+    "0c173d4390bf0449c8265c635f0c7c27"
   ]
 }
