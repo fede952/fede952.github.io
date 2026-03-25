@@ -2042,7 +2042,11 @@
     "https://www.punto-informatico.it/openai-vuole-choice-screen-chatbot-android/",
     "https://www.cybersecurity360.it/nuove-minacce/reati-informatici-e-punibilita-in-italia-un-sistema-aperto-non-e-reato/",
     "https://www.cybersecurity360.it/nuove-minacce/claudy-day-quando-la-prompt-injection-esfiltra-dati-riservati/",
-    "https://www.cybersecurity360.it/cultura-cyber/recensione-pcloud-2026-privacy-svizzera-e-storage-a-vita/"
+    "https://www.cybersecurity360.it/cultura-cyber/recensione-pcloud-2026-privacy-svizzera-e-storage-a-vita/",
+    "https://thehackernews.com/2026/03/teampcp-backdoors-litellm-versions.html",
+    "https://www.bleepingcomputer.com/news/security/ptc-warns-of-imminent-threat-from-critical-windchill-flexplm-rce-bug/",
+    "https://www.bleepingcomputer.com/news/security/popular-litellm-pypi-package-compromised-in-teampcp-supply-chain-attack/",
+    "https://www.bleepingcomputer.com/news/security/fcc-bans-new-routers-made-outside-the-usa-over-security-risks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4087,6 +4091,10 @@
     "7cdad3bb07d75bebaf25a4f81e5ec8ff",
     "54bed34bdb9daf2ebdedbc868704332f",
     "9150df64aa591bb8217001f5f798961e",
-    "dc9f51b17e73bedf531d33517c5e887b"
+    "dc9f51b17e73bedf531d33517c5e887b",
+    "3291c7e1077a983db5ebd0e9a99dc93a",
+    "3e67196f8e65df7fbf668a38b41b1ab1",
+    "4b20f2d3d84e2f5dc0495914a485c6e5",
+    "ead8d30689c9309cbd0bcfc4d49256ac"
   ]
 }
