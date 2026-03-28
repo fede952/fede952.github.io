@@ -2158,7 +2158,9 @@
     "https://www.punto-informatico.it/le-bollette-luce-e-gas-ti-terrorizzano-con-questa-tariffa-blocchi-il-prezzo-di-luce-e-gas-per-un-anno/",
     "https://www.cybersecurity360.it/nuove-minacce/microsoft-iis-fuori-supporto-il-rischio-invisibile-della-mancata-governance-degli-asset/",
     "https://www.cybersecurity360.it/legal/sentenza-cox-vs-sony-corte-suprema-usa-riformula-responsabilita-provider-internet/",
-    "https://www.cybersecurity360.it/cultura-cyber/prevedere-o-indovinare-i-rischi/"
+    "https://www.cybersecurity360.it/cultura-cyber/prevedere-o-indovinare-i-rischi/",
+    "https://www.bleepingcomputer.com/news/security/backdoored-telnyx-pypi-package-pushes-malware-hidden-in-wav-audio/",
+    "https://www.wired.com/story/iranian-hackers-breached-the-fbi-directors-personal-email-but-not-the-fbi/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4319,6 +4321,8 @@
     "065c6364d1582ef1777afdfc691d6d98",
     "e2c7a3ebf78cd07ae1f8507bcc5cdd02",
     "9135ac5d7e902a25339ae38493a47a76",
-    "8ef7ffc3d83261bcf96ce8dce38535ef"
+    "8ef7ffc3d83261bcf96ce8dce38535ef",
+    "9f976937d426f2cb87155b943a8d50b2",
+    "fceffd33c07c22cc58213f5b85f8a239"
   ]
 }
