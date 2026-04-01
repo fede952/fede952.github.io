@@ -2262,7 +2262,14 @@
     "https://www.punto-informatico.it/basta-prompt-ai-rendere-gestibile-qualsiasi-problema/",
     "https://www.punto-informatico.it/babbel-in-offerta-il-piano-di-abbonamento-da-12-mesi-e-in-sconto-del-50/",
     "https://www.cybersecurity360.it/nuove-minacce/reati-informatici-e-punibilita-quando-la-condotta-diventa-reato-prima-del-danno/",
-    "https://www.cybersecurity360.it/cultura-cyber/la-differenza-tra-progetto-e-processo-nella-sicurezza-informatica-come-cambia-la-cyber-in-azienda/"
+    "https://www.cybersecurity360.it/cultura-cyber/la-differenza-tra-progetto-e-processo-nella-sicurezza-informatica-come-cambia-la-cyber-in-azienda/",
+    "https://www.bleepingcomputer.com/news/artificial-intelligence/claude-code-source-code-accidentally-leaked-in-npm-package/",
+    "https://www.bleepingcomputer.com/news/google/google-now-allows-you-to-change-your-gmailcom-address/",
+    "https://www.bleepingcomputer.com/news/security/proton-launches-new-meet-privacy-focused-conferencing-platform/",
+    "https://www.bleepingcomputer.com/news/security/gigabyte-control-center-vulnerable-to-arbitrary-file-write-flaw/",
+    "https://www.bleepingcomputer.com/news/security/claude-ai-finds-vim-emacs-rce-bugs-that-trigger-on-file-open/",
+    "https://www.wired.com/story/apple-will-push-out-rare-backported-patches-to-protect-ios-18-users-from-darksword-hacking-tool/",
+    "https://www.wired.com/story/iran-threatens-to-start-attacking-major-us-tech-firms-on-april-1/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4527,6 +4534,13 @@
     "94f52c843711deda26f16e9a0e4f4ca4",
     "0a3effc819470afc916f579dd11edcf6",
     "b85305e76a257185fc35663e662bba4b",
-    "916feff35bdddb3be246f2341348b39a"
+    "916feff35bdddb3be246f2341348b39a",
+    "c625142b323d540fde347c98272fd93d",
+    "921356043926675e2bb71c917b344a8b",
+    "be8a37fa766d33096afbd6b84d96d9ac",
+    "cdc2678e963ad5d7fe60a0da8b8e9d22",
+    "b9abb6b75f08fde2acece233633f2308",
+    "2374db7720b56f218b23a61a741424ed",
+    "69b54c558e06883eea8bb9024cd129ea"
   ]
 }
