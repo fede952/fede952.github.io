@@ -2269,7 +2269,16 @@
     "https://www.bleepingcomputer.com/news/security/gigabyte-control-center-vulnerable-to-arbitrary-file-write-flaw/",
     "https://www.bleepingcomputer.com/news/security/claude-ai-finds-vim-emacs-rce-bugs-that-trigger-on-file-open/",
     "https://www.wired.com/story/apple-will-push-out-rare-backported-patches-to-protect-ios-18-users-from-darksword-hacking-tool/",
-    "https://www.wired.com/story/iran-threatens-to-start-attacking-major-us-tech-firms-on-april-1/"
+    "https://www.wired.com/story/iran-threatens-to-start-attacking-major-us-tech-firms-on-april-1/",
+    "https://thehackernews.com/2026/04/claude-code-tleaked-via-npm-packaging.html",
+    "https://www.bleepingcomputer.com/news/security/google-drive-ransomware-detection-now-on-by-default-for-paying-users/",
+    "https://www.bleepingcomputer.com/news/microsoft/new-windows-11-kb5086672-emergency-update-fixes-install-issues/",
+    "https://www.punto-informatico.it/veo-3-1-lite/",
+    "https://www.punto-informatico.it/portatili-windows-sempre-piu-cari-apple-abbassa-prezzi-perche/",
+    "https://www.punto-informatico.it/auricolari-wireless-nothing-ear-open-minimo-storico-amazon/",
+    "https://www.punto-informatico.it/apple-watch-se-3-42mm-soli-268-euro-preso-assalto-amazon/",
+    "https://www.punto-informatico.it/steelseries-rival-3-mouse-wireless-veri-gamer-fa-notevole-differenza/",
+    "https://www.cybersecurity360.it/outlook/levoluzione-del-rischio-cyber-a-livello-globale-al-tempo-della-guerra-ibrida/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4541,6 +4550,15 @@
     "cdc2678e963ad5d7fe60a0da8b8e9d22",
     "b9abb6b75f08fde2acece233633f2308",
     "2374db7720b56f218b23a61a741424ed",
-    "69b54c558e06883eea8bb9024cd129ea"
+    "69b54c558e06883eea8bb9024cd129ea",
+    "7abd4ea1fc1d8debe939deac228943e2",
+    "a9a9c24691cc84e04e6244a22facdb29",
+    "78e372ba0edb56a192bad6e1857b6667",
+    "764ef3ddf28917c7ef3e2e596b6ef703",
+    "c537993a605051d55ed6f461e5b90bfc",
+    "1bc824c2f080645d7f084fafed09e626",
+    "853248c883c9e344f1ca7f7f12efe840",
+    "90c2a158eb640bfddc2b1fff1c887a46",
+    "3cae58be2b51dde7b211f53b57e3b406"
   ]
 }
