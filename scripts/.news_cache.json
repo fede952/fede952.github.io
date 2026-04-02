@@ -2329,7 +2329,20 @@
     "https://www.punto-informatico.it/claude-code-scansiona-messaggi-ricerca-parolacce/",
     "https://www.cybersecurity360.it/nuove-minacce/schema-attacco-aitm-adversary-in-the-middle-truffa-phishing-takeover-due-varianti/",
     "https://www.cybersecurity360.it/news/app-server-codex-di-openai-configurazione-insicura-espone-a-esecuzione-di-comandi-remoti/",
-    "https://www.cybersecurity360.it/nuove-minacce/claude-e-firefox-lai-accelera-la-ricerca-di-vulnerabilita-e-diventa-parte-del-devsecops/"
+    "https://www.cybersecurity360.it/nuove-minacce/claude-e-firefox-lai-accelera-la-ricerca-di-vulnerabilita-e-diventa-parte-del-devsecops/",
+    "https://thehackernews.com/2026/04/cisco-patches-98-cvss-imc-and-ssm-flaws.html",
+    "https://thehackernews.com/2026/04/threatsday-bulletin-pre-auth-chains.html",
+    "https://www.bleepingcomputer.com/news/security/drift-loses-280-million-as-hackers-seize-security-council-powers/",
+    "https://www.bleepingcomputer.com/news/security/residential-proxies-evaded-ip-reputation-checks-in-78-percent-of-4b-sessions/",
+    "https://www.bleepingcomputer.com/news/security/adversaries-exploit-vacant-homes-to-intercept-mail-in-hybrid-cybercrime/",
+    "https://www.wired.com/story/heres-what-can-happen-when-the-us-bombs-irans-nuclear-sites/",
+    "https://www.punto-informatico.it/telo-proiettore-fino-100-pollci-amazon-haul/",
+    "https://www.punto-informatico.it/vietati-deepfake-ai-comunicazioni-unione-europea/",
+    "https://www.punto-informatico.it/creare-routine-serale-30-minuti-ai-addormentarsi/",
+    "https://www.punto-informatico.it/fintech/conti/mypos-ultra-il-pos-con-sim-4g-gratis-e-accrediti-immediati-e-in-sconto/",
+    "https://www.punto-informatico.it/produzione-idrogeno-approvato-aiuto-stato-italia/",
+    "https://www.cybersecurity360.it/news/data-leak-claude-code-anthropic-cosa-implica-per-la-cyber-sicurezza/",
+    "https://www.cybersecurity360.it/news/internet-in-russia-al-rallentatore-fra-restrizioni-e-aggiramenti-ecco-il-futuro-della-rete-dello-zar/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4661,6 +4674,19 @@
     "bae71a01b4064571394b0ab39cf6bf51",
     "bbc6902298322441e08909e5e9efc45c",
     "6a0091fdd68b44aca8ac3a62e2d81317",
-    "26b9de8985d6e675cec5550a071e20eb"
+    "26b9de8985d6e675cec5550a071e20eb",
+    "c62487e27432232b61a3023210a7990f",
+    "7a936f55896bd1848b9fe8cc5e8987e2",
+    "1d45f4ee573f864a9e8370c71766128a",
+    "7a8d58f7582782b325dda311a1a37026",
+    "b0bf47460abf77fd3de733019dd75e6c",
+    "3bf04a6f678de6a5e0c38f83e585c328",
+    "723f476e5cb6589dfd20e8cd20116cf3",
+    "b07a16a50be5e08f31d3f397f1320f30",
+    "f06648300732de2249ef2951eb2e8a70",
+    "68f84b4c59c6900f12aa53c7bad9cd21",
+    "8e0bef9b9a8457151fa159ce6c00aa6a",
+    "228a80fd5d12efda3a73bea9b39c2331",
+    "41708532a4f27c1c7bb3da361d78ae98"
   ]
 }
