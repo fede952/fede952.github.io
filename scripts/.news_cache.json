@@ -2410,7 +2410,9 @@
     "https://www.bleepingcomputer.com/news/security/new-fortinet-forticlient-ems-flaw-cve-2026-35616-exploited-in-attacks/",
     "https://www.bleepingcomputer.com/news/security/hackers-exploit-react2shell-in-automated-credential-theft-campaign/",
     "https://www.punto-informatico.it/base-lunare-nasa-violazione-della-legge-internazionale/",
-    "https://www.punto-informatico.it/chat-control-google-continua-scansione-volontaria/"
+    "https://www.punto-informatico.it/chat-control-google-continua-scansione-volontaria/",
+    "https://thehackernews.com/2026/04/285-million-drift-hack-traced-to-six.html",
+    "https://www.bleepingcomputer.com/news/security/traffic-violation-scams-switch-to-qr-codes-in-new-phishing-texts/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4823,6 +4825,8 @@
     "3313474ddb9dfceea4ce0fdc78a7a2f7",
     "5f62f59b8bd2a6444656e2d508a11ac2",
     "96bc95c3d21accb61794857111e20a6c",
-    "5fd5301fe0879edd49cb32431f68b181"
+    "5fd5301fe0879edd49cb32431f68b181",
+    "74f99265f139e27761b87ef7490864a6",
+    "978c0efd22ded9978da37ac251a77e40"
   ]
 }
