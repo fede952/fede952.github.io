@@ -2444,7 +2444,14 @@
     "https://www.bleepingcomputer.com/news/security/german-authorities-identify-revil-and-gangcrab-ransomware-bosses/",
     "https://www.bleepingcomputer.com/news/security/new-gpubreach-attack-enables-system-takeover-via-gpu-rowhammer/",
     "https://www.bleepingcomputer.com/news/security/disgruntled-researcher-leaks-bluehammer-windows-zero-day-exploit/",
-    "https://www.bleepingcomputer.com/news/microsoft/microsoft-fixes-classic-outlook-bug-causing-email-delivery-issues/"
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-fixes-classic-outlook-bug-causing-email-delivery-issues/",
+    "https://thehackernews.com/2026/04/china-linked-storm-1175-exploits-zero.html",
+    "https://thehackernews.com/2026/04/flowise-ai-agent-builder-under-active.html",
+    "https://www.punto-informatico.it/google-ai-edge-eloquent-nuova-app-di-dettatura-ai-anche-offline/",
+    "https://www.punto-informatico.it/artemis-ii-prime-immagini-lato-nascosto-luna/",
+    "https://www.punto-informatico.it/netflix-playground/",
+    "https://www.punto-informatico.it/monitor-da-gaming-msi-23-6-fhd-180hz-grande-occasione-amazon/",
+    "https://www.punto-informatico.it/ai-e-settimana-lavorativa-di-4-giorni-openai-mente-sapendo-di-mentire/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4891,6 +4898,13 @@
     "02d8d0d4c5baf55a3e05993ad39b068f",
     "e1a792917742f9f07084f515ba33a215",
     "9a0ff5e70d1a8ad835e9fc903c03823c",
-    "074eefe8e236b0bd03b0e2e5f272d50b"
+    "074eefe8e236b0bd03b0e2e5f272d50b",
+    "3b7a1921a0ba4bd86c728ee3b84804e6",
+    "c3ff230b9f654c14633c84c9f933df82",
+    "8fa2b207745423c245ecb2a1d65323a5",
+    "29c7575b78dd083aeca866b93ae7d0ba",
+    "50bc302c64e55c98b60297b359cb8051",
+    "91792a91da3edcb431878a5ae8dbf5e3",
+    "b7584b5ae483231c7926e59de7fbd190"
   ]
 }
