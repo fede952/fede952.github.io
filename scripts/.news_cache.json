@@ -2440,7 +2440,11 @@
     "https://www.punto-informatico.it/nuova-vpn-da-attivare-ad-aprile-2026-bastano-2-euro-al-mese-con-questa-offerta/",
     "https://www.punto-informatico.it/prompt-5-perche-problemi-professionali-personali/",
     "https://www.punto-informatico.it/linkedin-accede-estensioni-browser-raccoglie-dati/",
-    "https://www.punto-informatico.it/scoperti-tre-nuovi-attacchi-rowhammer-contro-gpu-nvidia/"
+    "https://www.punto-informatico.it/scoperti-tre-nuovi-attacchi-rowhammer-contro-gpu-nvidia/",
+    "https://www.bleepingcomputer.com/news/security/german-authorities-identify-revil-and-gangcrab-ransomware-bosses/",
+    "https://www.bleepingcomputer.com/news/security/new-gpubreach-attack-enables-system-takeover-via-gpu-rowhammer/",
+    "https://www.bleepingcomputer.com/news/security/disgruntled-researcher-leaks-bluehammer-windows-zero-day-exploit/",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-fixes-classic-outlook-bug-causing-email-delivery-issues/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4883,6 +4887,10 @@
     "3b9eb84537e79c074d01f27301e63f4d",
     "871dc5103916e1af4dde516631907582",
     "fd63e5ed01be5ef476f1363060097248",
-    "d912682e7fbafe958d05bd183cd9473e"
+    "d912682e7fbafe958d05bd183cd9473e",
+    "02d8d0d4c5baf55a3e05993ad39b068f",
+    "e1a792917742f9f07084f515ba33a215",
+    "9a0ff5e70d1a8ad835e9fc903c03823c",
+    "074eefe8e236b0bd03b0e2e5f272d50b"
   ]
 }
