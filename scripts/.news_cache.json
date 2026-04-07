@@ -2463,7 +2463,20 @@
     "https://www.punto-informatico.it/copilot-solo-per-divertimento-microsoft-prova-a-chiarire-lequivoco/",
     "https://www.cybersecurity360.it/news/aggiornamenti-android-aprile-2026-corrette-solo-due-vulnerabilita-ma-meno-non-significa-meglio/",
     "https://www.cybersecurity360.it/cultura-cyber/dal-progetto-al-processo-i-5-errori-che-bloccano-la-sicurezza/",
-    "https://www.cybersecurity360.it/nuove-minacce/esposto-il-codice-sorgente-di-claude-ecco-i-rischi-per-lerroneo-rilascio-da-parte-di-anthropic/"
+    "https://www.cybersecurity360.it/nuove-minacce/esposto-il-codice-sorgente-di-claude-ecco-i-rischi-per-lerroneo-rilascio-da-parte-di-anthropic/",
+    "https://thehackernews.com/2026/04/russian-state-linked-apt28-exploits.html",
+    "https://thehackernews.com/2026/04/docker-cve-2026-34040-lets-attackers.html",
+    "https://www.bleepingcomputer.com/news/security/us-warns-of-iranian-hackers-targeting-critical-infrastructure/",
+    "https://www.bleepingcomputer.com/news/security/max-severity-flowise-rce-vulnerability-now-exploited-in-attacks/",
+    "https://www.bleepingcomputer.com/news/security/authorities-disrupt-dns-hijacks-used-to-steal-microsoft-365-logins/",
+    "https://www.bleepingcomputer.com/news/security/why-your-automated-pentesting-tool-just-hit-a-wall/",
+    "https://www.wired.com/story/anthropic-mythos-preview-project-glasswing/",
+    "https://www.punto-informatico.it/attenzione-offerte-lavoro-pericolo-phishing/",
+    "https://www.punto-informatico.it/artemis-ii-migliori-immagini-scattate-astronauti/",
+    "https://www.punto-informatico.it/airalo-e-lesim-per-i-tuoi-viaggi-del-2026-piani-a-partire-da-pochi-euro/",
+    "https://www.punto-informatico.it/adobe-acrobat-student-spaces/",
+    "https://www.cybersecurity360.it/nuove-minacce/iran-recluta-cyber-criminali-russi-nuova-escalation-nella-guerra-cibernetica-globale/",
+    "https://www.cybersecurity360.it/legal/dallapp-virale-ai-mal-di-testa-globali-quando-il-successo-diventa-un-problema-legale/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -4929,6 +4942,19 @@
     "79cea6a4fa4e9dcafe7d6b38e656f547",
     "84cd687c1e17430883e2d22716b1edef",
     "29d428e91090c6fb0c8bf993a22b66f6",
-    "ee9b974ce6435e795aa5140759df2f08"
+    "ee9b974ce6435e795aa5140759df2f08",
+    "aa4ad929b5c3112338cf4c2581acebf4",
+    "b8f6d81b07800854b2afb5b4412b8a83",
+    "38ac2675c86270d95e7ea55cff649e0e",
+    "0ea394d7ab868c987dec4339a9c5edf6",
+    "9dd5c3883e37ddeb53c36e8bf7209c38",
+    "3a4ce0f3815f477092d751b000fbac62",
+    "8729d8a93fb1484d28ae562b1c666293",
+    "cfd81cdd1523ca93bb78418a11006da5",
+    "d31ac4fbf378920cabcdee091d5c1a66",
+    "8d0d18a8ea4f40fe89cfa6323d1c347a",
+    "acb683a79bd47c4051bb1e5b10ffb835",
+    "b71d58a25391005836cd82f1013472e3",
+    "708782faefedae926a529f037b2f248b"
   ]
 }
