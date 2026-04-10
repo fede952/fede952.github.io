@@ -2577,7 +2577,17 @@
     "https://www.cybersecurity360.it/legal/nis2-e-cybersecurity-aziendale-le-nuove-sfide-per-board-e-it-tra-conformita-e-rischi-reali/",
     "https://www.cybersecurity360.it/news/litellm-perche-la-workstation-dello-sviluppatore-diventa-lobiettivo-principale/",
     "https://www.cybersecurity360.it/news/doppi-agenti-google-cloud/",
-    "https://www.cybersecurity360.it/legal/nis2-e-notifica-degli-incidenti-informatici-cosa-serve-per-essere-pronti/"
+    "https://www.cybersecurity360.it/legal/nis2-e-notifica-degli-incidenti-informatici-cosa-serve-per-essere-pronti/",
+    "https://thehackernews.com/2026/04/glassworm-campaign-uses-zig-dropper-to.html",
+    "https://www.bleepingcomputer.com/news/security/nearly-4-000-us-industrial-devices-exposed-to-iranian-cyberattacks/",
+    "https://www.bleepingcomputer.com/news/security/analysis-of-one-billion-cisa-kev-remediation-records-exposes-limits-of-human-scale-security/",
+    "https://www.wired.com/story/anthropics-mythos-will-force-a-cybersecurity-reckoning-just-not-the-one-you-think/",
+    "https://www.punto-informatico.it/attenzione-sito-fake-microsoft-installa-malware/",
+    "https://www.punto-informatico.it/attacco-cpuid-malware-cpu-z-hwmonitor/",
+    "https://www.punto-informatico.it/cloudflare-emdash/",
+    "https://www.punto-informatico.it/artemis-ii-perdita-elio-nessun-rischio/",
+    "https://www.cybersecurity360.it/nuove-minacce/apocalissi-cyber-in-arrivo-a-causa-dellai-che-dicono-le-mosse-anthropic-e-openai/",
+    "https://www.cybersecurity360.it/cultura-cyber/time-mannaggement/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5157,6 +5167,16 @@
     "aa2b9e07f8b121ffa17758a7cc2075f0",
     "6552248efd69bd3fb380647142689131",
     "a4533cf3d9cc6f174ceada056ac8df9b",
-    "8a2d1639ac056e763338050fe8e956cc"
+    "8a2d1639ac056e763338050fe8e956cc",
+    "0e4e2ea7bfdf7381d0ccf3ba86cd80c0",
+    "ba1d7e436fbed59f236f5f304196ee48",
+    "e3ee69b9646f17febb96596a084e1bfc",
+    "821e33ecf06f76c5f651591fbde19eb2",
+    "5532c0984f650c1f746974791462e52d",
+    "c744a5de74075bb8cd914f3c46fdcfab",
+    "be05b90133098598eec749d2a74993ec",
+    "31656c8c76cd0d1f0a1f3f140e248fa7",
+    "fc4c395a16e0c7e0254d233bcd14085b",
+    "890b8b2f094df5b6e36b441b1eb5a2c5"
   ]
 }
