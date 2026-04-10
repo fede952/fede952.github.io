@@ -2551,7 +2551,11 @@
     "https://www.punto-informatico.it/it-wallet-app-io-accesso-14-anni/",
     "https://www.cybersecurity360.it/cybersecurity-nazionale/cosa-impariamo-dal-paese-ue-piu-massacrato-dalla-disinformazione-russa/",
     "https://www.cybersecurity360.it/news/cyber-attacco-supercomputing-cina-esfiltrazione-dati/",
-    "https://www.cybersecurity360.it/news/data-breach-cloud-in-europa-teampcp-svela-la-fragilita-strutturale-della-sicurezza-multi-tenant/"
+    "https://www.cybersecurity360.it/news/data-breach-cloud-in-europa-teampcp-svela-la-fragilita-strutturale-della-sicurezza-multi-tenant/",
+    "https://thehackernews.com/2026/04/engagelab-sdk-flaw-exposed-50m-android.html",
+    "https://www.bleepingcomputer.com/news/security/new-lucidrook-malware-used-in-targeted-attacks-on-ngos-universities/",
+    "https://www.bleepingcomputer.com/news/security/new-venom-phishing-attacks-steal-senior-executives-microsoft-logins/",
+    "https://www.bleepingcomputer.com/news/security/healthcare-it-solutions-provider-chipsoft-hit-by-ransomware-attack/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5105,6 +5109,10 @@
     "8b6833f66cdeac8d18cd3c22bc56bdfd",
     "b3f4449c87bbae6dbe2789a99e61cc26",
     "5ea33f17f3bd28d94dea88c2b1703fc0",
-    "7d3e519f9fe1a5c7735e78735cb0c077"
+    "7d3e519f9fe1a5c7735e78735cb0c077",
+    "1ec2dc238a864bc350211db9fc17b3a5",
+    "323ae6179753dcafa29b4f2300162953",
+    "cc83af4aac0ba521e74cbf583d9f6d20",
+    "b489588c2516c8c1c422b9dadf0a2232"
   ]
 }
