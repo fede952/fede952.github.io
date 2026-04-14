@@ -2652,7 +2652,16 @@
     "https://thehackernews.com/2026/04/janelarat-malware-targets-latin.html",
     "https://www.bleepingcomputer.com/news/security/european-gym-giant-basic-fit-data-breach-affects-1-million-members/",
     "https://www.bleepingcomputer.com/news/security/stolen-rockstar-games-analytics-data-leaked-by-extortion-gang/",
-    "https://www.bleepingcomputer.com/news/security/critical-flaw-in-wolfssl-library-enables-forged-certificate-use/"
+    "https://www.bleepingcomputer.com/news/security/critical-flaw-in-wolfssl-library-enables-forged-certificate-use/",
+    "https://thehackernews.com/2026/04/showdoc-rce-flaw-cve-2025-0520-actively.html",
+    "https://thehackernews.com/2026/04/cisa-adds-6-known-exploited-flaws-in.html",
+    "https://www.punto-informatico.it/google-pixel-9-pro-xl-top-di-gamma-che-vogliono-tutti-ora-prezzo-accessibile/",
+    "https://www.punto-informatico.it/fintech/6-modi-ridurre-impatto-ambientale-risparmiare-supermercato/",
+    "https://www.punto-informatico.it/google-aggiorna-strumenti-educativi-notebooklm-gemini/",
+    "https://www.punto-informatico.it/xbox-game-pass-prezzi-piu-bassi/",
+    "https://www.punto-informatico.it/power-bank-da-20000mah-con-45w-potenza-esci-casa-senza-pensieri/",
+    "https://www.cybersecurity360.it/news/nis2-le-categorizzazioni-ancora-assenti-frenano-documentazione-e-risk-analysis/",
+    "https://www.cybersecurity360.it/news/identity-management-day-2026-scomparso-il-perimetro-di-rete-focus-sulle-identita-non-umane/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5307,6 +5316,15 @@
     "1648d5cb668157a9c06e835c7cae5166",
     "4606a7d3ff9e58dcde2d758d9e6467d3",
     "82b91b8ff9c19b0346292730fc3990b4",
-    "13ff589a837a896d6341bd86cdaeb827"
+    "13ff589a837a896d6341bd86cdaeb827",
+    "85e6cc9664716a1330fa50213e66a6bf",
+    "986bc3243915b362402ce2c8228b6c00",
+    "336b232e542885eab58c24605a317edb",
+    "f8c6d3b70462efcbbfe48aff2d3ce847",
+    "f63d71702a89ba49d0a454e23b6179c4",
+    "781dc5444b4ce30c77e36e00c5da83f0",
+    "f357da42acf3609c6203294d62ca8863",
+    "93b6688aa436ddbd99abaa600dcfb5ee",
+    "959bac29b72e9ed343906d8b21f50850"
   ]
 }
