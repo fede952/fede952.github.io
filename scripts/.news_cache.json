@@ -2689,7 +2689,11 @@
     "https://www.punto-informatico.it/editori-contro-scraping-ai-addio-wayback-machine/",
     "https://www.punto-informatico.it/agenti-ai-autonomi-copilot-ispirati-openclaw/",
     "https://www.cybersecurity360.it/legal/fornitori-rilevanti-nis-ecco-le-faq-per-una-loro-corretta-individuazione/",
-    "https://www.cybersecurity360.it/soluzioni-aziendali/controlli-di-sicurezza-granulari-proteggere-e-mail-e-backup-senza-bloccare-il-business-e-unarte/"
+    "https://www.cybersecurity360.it/soluzioni-aziendali/controlli-di-sicurezza-granulari-proteggere-e-mail-e-backup-senza-bloccare-il-business-e-unarte/",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-adds-windows-protections-for-malicious-remote-desktop-files/",
+    "https://www.bleepingcomputer.com/news/security/crypto-exchange-kraken-extorted-by-hackers-after-insider-breach/",
+    "https://www.bleepingcomputer.com/news/security/over-100-chrome-extensions-in-web-store-target-users-accounts-and-data/",
+    "https://www.wired.com/story/in-the-wake-of-anthropics-mythos-openai-has-a-new-cybersecurity-model-and-strategy/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5381,6 +5385,10 @@
     "bed50aa4e044f456d985ba6f26728c31",
     "6b67f045e7fe2acba630d439668c7131",
     "296342340cfeaaab0574b298710363d2",
-    "b6cb4a9579b72a91ffc6ac7617767fb7"
+    "b6cb4a9579b72a91ffc6ac7617767fb7",
+    "eeceaff9072a6485220c3a3a8c21169a",
+    "46b5da42df928826ab6c0f8dfd279d68",
+    "acab43debf37afb49abfb26a72511426",
+    "dac030281fd40b0e4ea4317746c0562c"
   ]
 }
