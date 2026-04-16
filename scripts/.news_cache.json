@@ -2727,7 +2727,10 @@
     "https://www.cybersecurity360.it/news/hackerati-i-pc-di-varie-banche-ma-e-un-problema-di-modello-di-sicurezza/",
     "https://www.cybersecurity360.it/nuove-minacce/qr-code-scam-e-ingegneria-sociale-come-evolvono-le-truffe-digitali/",
     "https://www.cybersecurity360.it/news/openai-svela-gpt-5-4-cyber-ecco-lapproccio-graduale-allai-applicata-alla-sicurezza/",
-    "https://www.cybersecurity360.it/news/attivita-promozionali-lagenzia-assicurativa-e-titolare-del-trattamento-la-sanzione-privacy/"
+    "https://www.cybersecurity360.it/news/attivita-promozionali-lagenzia-assicurativa-e-titolare-del-trattamento-la-sanzione-privacy/",
+    "https://www.bleepingcomputer.com/news/security/critical-nginx-ui-auth-bypass-flaw-now-actively-exploited-in-the-wild/",
+    "https://www.bleepingcomputer.com/news/security/new-agingfly-malware-used-in-attacks-on-ukraine-govt-hospitals/",
+    "https://www.bleepingcomputer.com/news/security/wordpress-plugin-suite-hacked-to-push-malware-to-thousands-of-sites/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5457,6 +5460,9 @@
     "be2940395f8cb85c37be6fc6d2d2c907",
     "5b7716b135fcc679fc0784845de5061e",
     "cd1d38bd009cbd0db668002a9b80795e",
-    "51977c20039b7cb57c18613997588580"
+    "51977c20039b7cb57c18613997588580",
+    "5aaa1ba5243f5d9072fddfcb5d24f967",
+    "53b6fb2ca2525a7ff8e42a678f90f795",
+    "b50e024acd21542aaf23b14f552bc7e6"
   ]
 }
