@@ -2769,7 +2769,19 @@
     "https://www.cybersecurity360.it/nuove-minacce/dallattacco-allanalisi-forense-come-investigare-step-by-step-una-compromissione-apt/",
     "https://www.bleepingcomputer.com/news/security/operation-poweroff-identifies-75k-ddos-users-takes-down-53-domains/",
     "https://www.bleepingcomputer.com/news/security/zionsiphon-malware-designed-to-sabotage-water-treatment-systems/",
-    "https://www.bleepingcomputer.com/news/microsoft/new-microsoft-defender-redsun-zero-day-poc-grants-system-privileges/"
+    "https://www.bleepingcomputer.com/news/microsoft/new-microsoft-defender-redsun-zero-day-poc-grants-system-privileges/",
+    "https://thehackernews.com/2026/04/nist-limits-cve-enrichment-after-263.html",
+    "https://thehackernews.com/2026/04/operation-poweroff-seizes-53-ddos.html",
+    "https://thehackernews.com/2026/04/apache-activemq-cve-2026-34197-added-to.html",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-warns-of-reboot-loops-affecting-some-domain-controllers/",
+    "https://www.bleepingcomputer.com/news/security/man-gets-30-months-for-selling-thousands-of-hacked-draftkings-accounts/",
+    "https://www.bleepingcomputer.com/news/security/recently-leaked-windows-zero-days-now-exploited-in-attacks/",
+    "https://www.punto-informatico.it/piu-compri-piu-risparmi-su-amazon-haul-fino-al-18-aprile/",
+    "https://www.punto-informatico.it/le-migliori-offerte-tech-su-ebay-di-oggi-sono-5-approfittane-adesso/",
+    "https://www.punto-informatico.it/openai-codex-desktop-controlla-computer/",
+    "https://www.punto-informatico.it/gemini-genera-immagini-personalizzate-usando-cio-che-sa-noi/",
+    "https://www.punto-informatico.it/ottieni-ora-85-percento-sconto-tuo-cloud-vita-internxt/",
+    "https://www.cybersecurity360.it/legal/privacy-dati-personali/gdpr-quella-del-giornalista-non-e-una-professione-ma-una-funzione-la-responsabilita-che-nessuno-vede/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5541,6 +5553,18 @@
     "98bef53366c8c6e670452ac65a8eca7c",
     "cf79625c75f0118f24240398fea3f114",
     "37696214a82d7885069e1c4f1268f2e5",
-    "a21bf484081b1b03926827b334ef1c84"
+    "a21bf484081b1b03926827b334ef1c84",
+    "0505f3fd5f94a2925ed374926c18804d",
+    "6e910f25a4f4f146dcd26fbe6cf6d91b",
+    "440f21c2fcdd844c233f7377d5c9d54e",
+    "6e98ab9b98e6ea376bbeeffba7a4fb3d",
+    "72465013615665581d77cbd9e9dee911",
+    "57bdfe4bdacc2b2cd20064a0fcb85402",
+    "445b37d78113d45bf9a6fe3a67bb75a7",
+    "dc799035906d6a099c70d04ba663382b",
+    "0a3f56df10c9e2f68abb8785d28899b1",
+    "45d811b929a5fe887233063666a6cf20",
+    "687607089fe5b14383a4fd6dd8482163",
+    "c33dbdeb73be340406f1fc1236283382"
   ]
 }
