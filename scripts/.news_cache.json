@@ -2766,7 +2766,10 @@
     "https://www.punto-informatico.it/character-ai-trasforma-classici-letteratura-giochi-ruolo/",
     "https://www.punto-informatico.it/mercato-smartphone-rosso-costo-ram-guerra/",
     "https://www.cybersecurity360.it/nuove-minacce/google-contro-ipidea-reti-proxy/",
-    "https://www.cybersecurity360.it/nuove-minacce/dallattacco-allanalisi-forense-come-investigare-step-by-step-una-compromissione-apt/"
+    "https://www.cybersecurity360.it/nuove-minacce/dallattacco-allanalisi-forense-come-investigare-step-by-step-una-compromissione-apt/",
+    "https://www.bleepingcomputer.com/news/security/operation-poweroff-identifies-75k-ddos-users-takes-down-53-domains/",
+    "https://www.bleepingcomputer.com/news/security/zionsiphon-malware-designed-to-sabotage-water-treatment-systems/",
+    "https://www.bleepingcomputer.com/news/microsoft/new-microsoft-defender-redsun-zero-day-poc-grants-system-privileges/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5535,6 +5538,9 @@
     "77b268800636e6f6e8aa45535ed5bb1b",
     "bff1622500bba32d917c4529a5e2674f",
     "3dc8bba95ee164fe4155c5451dc00409",
-    "98bef53366c8c6e670452ac65a8eca7c"
+    "98bef53366c8c6e670452ac65a8eca7c",
+    "cf79625c75f0118f24240398fea3f114",
+    "37696214a82d7885069e1c4f1268f2e5",
+    "a21bf484081b1b03926827b334ef1c84"
   ]
 }
