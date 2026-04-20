@@ -2844,7 +2844,22 @@
     "https://www.punto-informatico.it/bomba-atomica-si-trova-oceano-ma-non-sappiamo-dove/",
     "https://www.punto-informatico.it/windows-11-kb5083769-bug-bitlocker-riavvii-continui/",
     "https://www.punto-informatico.it/si-aggiornano-frequenze-alcuni-canali-digitale-terrestre/",
-    "https://www.cybersecurity360.it/news/il-modello-delledpb-sulla-dpia-pro-o-contro-accountability/"
+    "https://www.cybersecurity360.it/news/il-modello-delledpb-sulla-dpia-pro-o-contro-accountability/",
+    "https://thehackernews.com/2026/04/why-most-ai-deployments-stall-after-demo.html",
+    "https://thehackernews.com/2026/04/anthropic-mcp-design-vulnerability.html",
+    "https://thehackernews.com/2026/04/researchers-detect-zionsiphon-malware.html",
+    "https://www.bleepingcomputer.com/news/security/british-scattered-spider-hacker-pleads-guilty-to-crypto-theft-charges/",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-tests-file-explorer-speed-performance-improvements/",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-fixes-teams-client-launch-failures-caused-by-service-update/",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-updates-to-fix-windows-server-issues/",
+    "https://www.wired.com/story/the-weird-twisting-tale-of-how-china-spied-on-alysa-liu-and-her-dad/",
+    "https://www.punto-informatico.it/nsa-usa-claude-mythos-anthropic/",
+    "https://www.punto-informatico.it/claude-mythos-spaventa-banche-ai-troppo-potente/",
+    "https://www.punto-informatico.it/apple-evita-secondo-ban-smartwatch-usa/",
+    "https://www.punto-informatico.it/indagine-francia-contro-x-nessun-aiuto-usa/",
+    "https://www.punto-informatico.it/new-glenn-blue-origin-satellite-orbita-sbagliata/",
+    "https://www.cybersecurity360.it/news/caso-nightmare-eclipse-ci-sono-ancora-due-zero-day-di-microsoft-defender-in-circolazione/",
+    "https://www.cybersecurity360.it/news/cyberladies-talento-disparita/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -5691,6 +5706,21 @@
     "ed196b94c81d814101ef3dc70a25a9b6",
     "6f458c782eada7e963fc132d270f06fc",
     "a07217352f58d310ca00853d043a5151",
-    "92e1d5de1ef1fa273cf0872ccfdb2570"
+    "92e1d5de1ef1fa273cf0872ccfdb2570",
+    "338423fde3e8b081b4dd576ce49049b3",
+    "8c819693b420dcdc79fc8dade9d4794c",
+    "ec5cd3cfe912a8896781da776caede1c",
+    "358b6cd14bbdc5216df6453454efaa03",
+    "99c6118a9208e8b32172709da5c3e82e",
+    "fbb0f60125d7b393eec8a3ab5e440cb5",
+    "0c41c1b01575295c6396f8f9da7f32c8",
+    "54ba90fe490ca3d396f137f2bdfed04e",
+    "7ecce52696039a2f4ee8b55cb057d195",
+    "70ca4ad3f04fd358b82f254aed9ae708",
+    "26bab90388def59ade3398f5f33a5b31",
+    "a0fc2116eecfe9fe7211b2806b85524c",
+    "356025dd854e04ca44a879d9aa854c31",
+    "d5b412c3668607100aad3185b32c0920",
+    "4cd040d6327f6cbd0047b3064b6133cf"
   ]
 }
