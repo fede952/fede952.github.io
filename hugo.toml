@@ -93,6 +93,8 @@ defaultContentLanguageInSubdir = true
     languageName = "English"
     weight = 1
     contentDir = "content"
+    [languages.en.params]
+      description = "Portfolio of Federico Sella - Software Developer (.NET/C#), AI Integration Specialist & Cybersecurity Enthusiast. Expert in Industrial Automation (CNC) bridging OT and IT Security."
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "about"
@@ -149,6 +151,8 @@ defaultContentLanguageInSubdir = true
     languageName = "Italiano"
     weight = 2
     contentDir = "content"
+    [languages.it.params]
+      description = "Portfolio di Federico Sella - Sviluppatore Software (.NET/C#), Specialista Integrazione AI e Appassionato di Cybersecurity. Esperto in Automazione Industriale (CNC) tra sicurezza OT e IT."
     [languages.it.menu]
       [[languages.it.menu.main]]
         identifier = "about"
@@ -205,6 +209,8 @@ defaultContentLanguageInSubdir = true
     languageName = "Español"
     weight = 3
     contentDir = "content"
+    [languages.es.params]
+      description = "Portfolio de Federico Sella - Desarrollador de Software (.NET/C#), Especialista en Integración de IA y Entusiasta de la Ciberseguridad. Experto en Automatización Industrial (CNC) entre seguridad OT e IT."
     [languages.es.menu]
       [[languages.es.menu.main]]
         identifier = "about"
@@ -261,6 +267,8 @@ defaultContentLanguageInSubdir = true
     languageName = "简体中文"
     weight = 4
     contentDir = "content"
+    [languages.zh-cn.params]
+      description = "Federico Sella 的作品集 - 软件开发者（.NET/C#）、AI集成专家和网络安全爱好者。工业自动化（CNC）专家，连接OT与IT安全。"
     [languages.zh-cn.menu]
       [[languages.zh-cn.menu.main]]
         identifier = "about"
@@ -317,6 +325,8 @@ defaultContentLanguageInSubdir = true
     languageName = "हिन्दी"
     weight = 5
     contentDir = "content"
+    [languages.hi.params]
+      description = "Federico Sella का पोर्टफोलियो - सॉफ्टवेयर डेवलपर (.NET/C#), AI इंटीग्रेशन विशेषज्ञ और साइबर सुरक्षा उत्साही। औद्योगिक स्वचालन (CNC) विशेषज्ञ, OT और IT सुरक्षा को जोड़ते हुए।"
     [languages.hi.menu]
       [[languages.hi.menu.main]]
         identifier = "about"
@@ -374,6 +384,8 @@ defaultContentLanguageInSubdir = true
     weight = 6
     languagedirection = "rtl"
     contentDir = "content"
+    [languages.ar.params]
+      description = "محفظة Federico Sella - مطور برمجيات (.NET/C#)، متخصص في تكامل الذكاء الاصطناعي ومتحمس للأمن السيبراني. خبير في الأتمتة الصناعية (CNC) يربط بين أمن OT وIT."
     [languages.ar.menu]
       [[languages.ar.menu.main]]
         identifier = "about"
@@ -430,6 +442,8 @@ defaultContentLanguageInSubdir = true
     languageName = "Português"
     weight = 7
     contentDir = "content"
+    [languages.pt.params]
+      description = "Portfólio de Federico Sella - Desenvolvedor de Software (.NET/C#), Especialista em Integração de IA e Entusiasta de Cibersegurança. Especialista em Automação Industrial (CNC) entre segurança OT e IT."
     [languages.pt.menu]
       [[languages.pt.menu.main]]
         identifier = "about"
@@ -486,6 +500,8 @@ defaultContentLanguageInSubdir = true
     languageName = "Français"
     weight = 8
     contentDir = "content"
+    [languages.fr.params]
+      description = "Portfolio de Federico Sella - Développeur Logiciel (.NET/C#), Spécialiste en Intégration IA et Passionné de Cybersécurité. Expert en Automatisation Industrielle (CNC) entre sécurité OT et IT."
     [languages.fr.menu]
       [[languages.fr.menu.main]]
         identifier = "about"
@@ -542,6 +558,8 @@ defaultContentLanguageInSubdir = true
     languageName = "Deutsch"
     weight = 9
     contentDir = "content"
+    [languages.de.params]
+      description = "Portfolio von Federico Sella - Softwareentwickler (.NET/C#), KI-Integrationsspezialist und Cybersecurity-Enthusiast. Experte für industrielle Automatisierung (CNC) zwischen OT- und IT-Sicherheit."
     [languages.de.menu]
       [[languages.de.menu.main]]
         identifier = "about"
@@ -598,6 +616,8 @@ defaultContentLanguageInSubdir = true
     languageName = "日本語"
     weight = 10
     contentDir = "content"
+    [languages.ja.params]
+      description = "Federico Sellaのポートフォリオ - ソフトウェア開発者（.NET/C#）、AI統合スペシャリスト、サイバーセキュリティ愛好者。産業オートメーション（CNC）の専門家���OTとITセキュリティの架け橋。"
     [languages.ja.menu]
       [[languages.ja.menu.main]]
         identifier = "about"
@@ -654,6 +674,8 @@ defaultContentLanguageInSubdir = true
     languageName = "Русский"
     weight = 11
     contentDir = "content"
+    [languages.ru.params]
+      description = "Портфолио Federico Sella - Разработчик ПО (.NET/C#), специалист по интеграции ИИ и энтузиаст кибербезопасности. Эксперт в промышленной автоматизации (ЧПУ), связывающий безопасность OT и IT."
     [languages.ru.menu]
       [[languages.ru.menu.main]]
         identifier = "about"
@@ -710,6 +732,8 @@ defaultContentLanguageInSubdir = true
     languageName = "한국어"
     weight = 12
     contentDir = "content"
+    [languages.ko.params]
+      description = "Federico Sella 포트폴리오 - 소프트웨어 개발자(.NET/C#), AI 통합 전문가 및 사이버보안 열정가. 산업 자동화(CNC) 전문가, OT와 IT 보안을 연결합니다."
     [languages.ko.menu]
       [[languages.ko.menu.main]]
         identifier = "about"

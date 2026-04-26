@@ -1,3 +1,10 @@
+<!-- hreflang x-default: tells search engines which URL to show when no language matches -->
+{{- range .AllTranslations }}
+  {{- if eq .Lang "en" }}
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
+  {{- end }}
+{{- end }}
+
 <!-- Content Security Policy - allow AdSense, Analytics, Cloudflare, Google Fonts -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
