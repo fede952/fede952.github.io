@@ -792,3 +792,35 @@ defaultContentLanguageInSubdir = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+# Module mounts: expose static/images also under assets/ so Hugo's image
+# pipeline (Resize/Process/WebP) can read them via resources.Get.
+# Files in static/ continue to be served as-is at their original URLs
+# (favicons, OG banner, theme assets all keep working).
+# Note: declaring ANY mount disables Hugo's defaults, so we redeclare them.
+[module]
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  # Virtual mount: makes static/images/* readable as assets/images/*.
+  [[module.mounts]]
+    source = "static/images"
+    target = "assets/images"

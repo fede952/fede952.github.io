@@ -1,0 +1,27 @@
+{{- /*
+  Markdown image render hook.
+  - Local raster images -> processed to WebP via Hugo's image pipeline.
+  - SVG/GIF -> passthrough (animation/vector preserved).
+  - Remote (http://, https://, //) -> passthrough.
+  - All variants get loading="lazy" + decoding="async".
+  - Processed images also emit width/height to prevent CLS.
+*/ -}}
+{{- $u := .Destination -}}
+{{- $alt := .PlainText -}}
+{{- $title := .Title -}}
+{{- $isRemote := or (hasPrefix $u "http://") (hasPrefix $u "https://") (hasPrefix $u "//") -}}
+
+{{- if $isRemote -}}
+  <img src="{{ $u | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- else -}}
+  {{- $key := strings.TrimPrefix "/" $u -}}
+  {{- $ext := lower (path.Ext $key) -}}
+  {{- $skipProcess := in (slice ".svg" ".gif") $ext -}}
+  {{- $img := resources.Get $key -}}
+  {{- if and $img (not $skipProcess) -}}
+    {{- $webp := $img.Process "webp q82" -}}
+    <img src="{{ $webp.RelPermalink }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} width="{{ $webp.Width }}" height="{{ $webp.Height }}" loading="lazy" decoding="async">
+  {{- else -}}
+    <img src="{{ $u | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+  {{- end -}}
+{{- end -}}
