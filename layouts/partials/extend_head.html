@@ -16,9 +16,23 @@
   frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com;
 ">
 
+{{/* Page-class flags used to gate third-party scripts.
+     - $is404:           the 404 error page (Hugo .Kind "404")
+     - $isAbout:         personal portfolio About page (any language)
+     - $isStandaloneApp: interactive tool/game/tool-split single pages
+                         (section list pages stay AdSense-on) */}}
+{{- $is404 := eq .Kind "404" -}}
+{{/* About is a leaf bundle at content/about/index.<lang>.md, so .Section is empty.
+     Detect it via the layout frontmatter the bundle sets. */}}
+{{- $isAbout := or (eq .Layout "about") (eq .Section "about") -}}
+{{- $isStandaloneApp := and (eq .Kind "page") (in (slice "tools" "games") .Section) -}}
+{{- $skipAds := or $is404 $isAbout $isStandaloneApp -}}
+
 <!-- Google AdSense -->
+{{- if not $skipAds }}
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7359888124148067"
      crossorigin="anonymous"></script>
+{{- end }}
 
 <!-- PWA Manifest + Theme Color -->
 <link rel="manifest" href="/manifest.json">
@@ -40,8 +54,8 @@ if ('serviceWorker' in navigator) {
 </script>
 {{- end }}
 
-<!-- Umami Analytics (production only) -->
-{{ if hugo.IsProduction }}
+<!-- Umami Analytics (production only, never on 404) -->
+{{ if and hugo.IsProduction (not $is404) }}
 <script defer src="https://cloud.umami.is/script.js" data-website-id="6ce4a218-111c-44d9-99f8-1aa67f2ff23d"></script>
 {{ end }}
 
