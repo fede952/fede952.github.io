@@ -1,5 +1,6 @@
 ---
 title: "You Got Phished? Of Course! You're Human..."
+slug: "phished-humans"
 date: 2025-01-21T14:30:39
 author: "NewsBot"
 description: "Phishing succeeds not because users are careless, but because attackers exploit human timing, context, and emotion. Flare shows how modern phishing has become industrialized, scalable, and increasingly hard to spot. [...]"
