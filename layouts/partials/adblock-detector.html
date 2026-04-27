@@ -2,10 +2,10 @@
 <div id="ad-trap" class="adsbox ad-banner doubleclick" style="position:absolute;top:-999px;left:-999px;width:1px;height:1px;background:transparent;"></div>
 
 <!-- AdBlock Modal (hidden by default) -->
-<div id="adblock-modal" class="adblock-overlay adblock-hidden">
+<div id="adblock-modal" class="adblock-overlay adblock-hidden" role="dialog" aria-modal="true" aria-labelledby="adblock-title" aria-hidden="true">
   <div class="adblock-content">
-    <div class="adblock-glitch" data-text="SYSTEM ALERT">SYSTEM ALERT</div>
-    <div class="adblock-icon">&#9888;</div>
+    <div id="adblock-title" class="adblock-glitch" data-text="SYSTEM ALERT">SYSTEM ALERT</div>
+    <div class="adblock-icon" aria-hidden="true">&#9888;</div>
     <p class="adblock-warning">AD-BLOCKER DETECTED</p>
     <p class="adblock-msg">Your neural interface is blocking our signal.</p>
     <p class="adblock-msg">Content creation requires resources. Please whitelist <strong>federicosella.com</strong> to support the network.</p>
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var closeBtn = document.getElementById('adblock-close');
   var detected = false;
   var countdown = 5;
+  var previousFocus = null;
 
   function startCountdown() {
     var interval = setInterval(function() {
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
         closeBtn.innerText = "ACKNOWLEDGE & PROCEED";
         closeBtn.classList.remove('adblock-btn-disabled');
         closeBtn.disabled = false;
+        closeBtn.focus();
       }
     }, 1000);
   }
@@ -41,9 +43,24 @@ document.addEventListener("DOMContentLoaded", function() {
     if (detected) return;
     if (sessionStorage.getItem('adblock_acknowledged')) return;
     detected = true;
+    previousFocus = document.activeElement;
     modal.classList.remove('adblock-hidden');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    // Focus the modal container while the button is still disabled (countdown active)
+    modal.setAttribute('tabindex', '-1');
+    modal.focus();
     startCountdown();
+  }
+
+  function dismissModal() {
+    modal.classList.add('adblock-hidden');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('adblock_acknowledged', 'true');
+    if (previousFocus && typeof previousFocus.focus === 'function') {
+      previousFocus.focus();
+    }
   }
 
   // Check 1: Honeypot CSS trap (primary)
@@ -67,9 +84,27 @@ document.addEventListener("DOMContentLoaded", function() {
   // Close button
   closeBtn.addEventListener('click', function() {
     if (countdown <= 0) {
-      modal.classList.add('adblock-hidden');
-      document.body.style.overflow = '';
-      sessionStorage.setItem('adblock_acknowledged', 'true');
+      dismissModal();
+    }
+  });
+
+  // Focus trap + Escape (only after countdown completes — pre-acknowledge dismissal not allowed)
+  modal.addEventListener('keydown', function(e) {
+    if (modal.classList.contains('adblock-hidden')) return;
+    if (e.key === 'Escape' && countdown <= 0) {
+      e.preventDefault();
+      dismissModal();
+      return;
+    }
+    if (e.key === 'Tab') {
+      // Only one focusable element (closeBtn) when countdown is done; lock focus to it.
+      // While countdown runs, closeBtn is disabled so trap focus on the modal container.
+      e.preventDefault();
+      if (countdown <= 0) {
+        closeBtn.focus();
+      } else {
+        modal.focus();
+      }
     }
   });
 });
