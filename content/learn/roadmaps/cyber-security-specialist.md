@@ -13,6 +13,7 @@ schema_json: >
     "description": "Step-by-step roadmap to become a Cyber Security Specialist.",
     "inLanguage": "en"
   }
+aliases: ["/en/roadmaps/cyber-security-specialist/", "/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Your Path to Cyber Security

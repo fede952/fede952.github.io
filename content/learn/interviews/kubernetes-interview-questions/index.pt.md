@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "pt"
   }
+aliases: ["/pt/interviews/kubernetes-interview-questions/"]
 ---
 
 ## Inicialização do Sistema

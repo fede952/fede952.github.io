@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["Minesweeper online", "Logikspiel", "Retro-Spiel", "Rätsel"]
 draft: false
+aliases: ["/de/games/node-defuser/"]
 ---
 
 Das Netzwerk ist mit **15 versteckten Virusknoten** infiziert. Nutze Logik, um sichere Zellen aufzudecken, ohne Malware auszulösen. Zahlen zeigen, wie viele Viren jede Zelle umgeben.

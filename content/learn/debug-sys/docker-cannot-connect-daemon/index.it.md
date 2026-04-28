@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "it"
   }
+aliases: ["/it/debug-sys/docker-cannot-connect-daemon/"]
 ---
 
 ## L'Errore

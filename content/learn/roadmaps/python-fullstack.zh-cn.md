@@ -13,6 +13,7 @@ schema_json: >
     "description": "成为 Python Full Stack 开发者的分步路线图。",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/roadmaps/python-fullstack/"]
 ---
 
 ## 你的 Python Full Stack 之路

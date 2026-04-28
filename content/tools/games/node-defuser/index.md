@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["minesweeper online", "logic game", "retro game", "puzzle"]
 draft: false
+aliases: ["/en/games/node-defuser/", "/games/node-defuser/"]
 ---
 
 The network is infected with **15 hidden virus nodes**. Use logic to reveal safe cells without triggering malware. Numbers tell you how many viruses surround each cell.

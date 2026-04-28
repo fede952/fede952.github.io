@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["sudoku online", "neon sudoku", "logic puzzle", "brain game"]
 draft: false
+aliases: ["/en/games/neon-sudoku/", "/games/neon-sudoku/"]
 ---
 
 The encrypted grid awaits decryption. **Place numbers 1-9 in every row, column, and 3x3 box.** No duplicates. Pure logic.

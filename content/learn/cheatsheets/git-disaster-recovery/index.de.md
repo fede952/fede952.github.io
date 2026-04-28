@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "de"
   }
+aliases: ["/de/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Anderungen Ruckgangig Machen

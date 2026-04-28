@@ -6,6 +6,7 @@ tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]
 author: "Federico Sella"
 draft: false
+aliases: ["/hi/guides/local-ai-setup-ollama/"]
 ---
 
 एक शक्तिशाली AI असिस्टेंट का उपयोग करने के लिए आपको $20/महीने के सब्सक्रिप्शन की जरूरत नहीं है। **Ollama** नामक एक मुफ्त, ओपन-सोर्स टूल के साथ, आप अत्याधुनिक लार्ज लैंग्वेज मॉडल — जिसमें **Meta का Llama 3** और **DeepSeek-R1** शामिल हैं — सीधे अपने कंप्यूटर पर चला सकते हैं। कोई क्लाउड नहीं। कोई अकाउंट नहीं। कोई डेटा कभी आपकी मशीन से बाहर नहीं जाता।

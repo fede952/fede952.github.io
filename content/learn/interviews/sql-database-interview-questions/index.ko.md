@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "ko"
   }
+aliases: ["/ko/interviews/sql-database-interview-questions/"]
 ---
 
 ## 시스템 초기화

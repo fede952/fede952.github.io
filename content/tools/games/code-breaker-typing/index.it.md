@@ -6,6 +6,7 @@ categories: ["Giochi", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/it/games/code-breaker-typing/"]
 ---
 
 Il sistema bersaglio e protetto da un firewall criptato. L'unico modo per entrare? **Digita la sequenza di codice esatta prima che scada il tempo.** Un solo errore e verrai bloccato. Quanto sono veloci le tue dita?

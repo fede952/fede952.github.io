@@ -13,6 +13,7 @@ schema_json: >
     "description": "Step-by-step roadmap to become a Python Full Stack Developer.",
     "inLanguage": "en"
   }
+aliases: ["/en/roadmaps/python-fullstack/", "/roadmaps/python-fullstack/"]
 ---
 
 ## Your Path to Python Full Stack

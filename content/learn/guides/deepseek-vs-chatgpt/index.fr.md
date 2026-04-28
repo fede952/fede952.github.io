@@ -6,6 +6,7 @@ tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]
 author: "Federico Sella"
 draft: false
+aliases: ["/fr/guides/deepseek-vs-chatgpt/"]
 ---
 
 En janvier 2025, un laboratoire d'IA chinois relativement méconnu appelé **DeepSeek** a publié un modèle de langage à poids ouverts qui a provoqué une onde de choc à travers la Silicon Valley — effaçant brièvement près de **600 milliards de dollars** de la capitalisation boursière de NVIDIA en une seule séance de trading. Le modèle, **DeepSeek-V3**, a égalé ou dépassé les benchmarks de classe GPT-4 en mathématiques, programmation et raisonnement, avec un coût d'entraînement déclaré de seulement **5,6 millions de dollars**. Pour comparaison, l'entraînement de GPT-4 d'OpenAI est estimé à plus de 100 millions de dollars.

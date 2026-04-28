@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ar"
   }
+aliases: ["/ar/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## تهيئة بيئة التشغيل

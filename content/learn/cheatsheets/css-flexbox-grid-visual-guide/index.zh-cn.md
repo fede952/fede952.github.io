@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "zh-cn"
   }
+aliases: ["/zh-cn/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## 渲染引擎就绪

@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "es"
   }
+aliases: ["/es/cheatsheets/git-commands-for-hackers/"]
 ---
 
 ## $ System_Init

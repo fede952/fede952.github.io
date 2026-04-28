@@ -5,6 +5,7 @@ tags: ["example", "demo", "html5"]
 layout: "game"
 draft: false
 date: 2026-02-03
+aliases: ["/en/games/example-game/", "/games/example-game/"]
 ---
 
 This is an example game page to demonstrate the game layout.

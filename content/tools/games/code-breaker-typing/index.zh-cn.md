@@ -6,6 +6,7 @@ categories: ["游戏", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/zh-cn/games/code-breaker-typing/"]
 ---
 
 目标系统被加密防火墙锁定。你唯一的入侵方式？**在时间耗尽之前准确输入代码序列。**一次失误就会被锁在外面。你的手速够快吗？

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["数独オンライン", "ネオン数独", "ロジックパズル", "脳トレ"]
 draft: false
+aliases: ["/ja/games/neon-sudoku/"]
 ---
 
 暗号化されたグリッドが解読を待っている。**各行・列・3x3ボックスに1〜9を配置せよ。** 重複禁止。純粋なロジック。

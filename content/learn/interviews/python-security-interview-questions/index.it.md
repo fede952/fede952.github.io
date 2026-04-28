@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "it"
   }
+aliases: ["/it/interviews/python-security-interview-questions/"]
 ---
 
 ## Inizializzazione del Sistema

@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ru"
   }
+aliases: ["/ru/cheatsheets/python-security-scripts/"]
 ---
 
 ## Инициализация системы

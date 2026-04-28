@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "pt"
   }
+aliases: ["/pt/cheatsheets/react-hooks-lifecycle/"]
 ---
 
 ## Componente Online

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["아르카노이드 온라인", "브레이크아웃 게임", "벽돌 깨기", "사이버펑크 아케이드"]
 draft: false
+aliases: ["/ko/games/firewall-breaker/"]
 ---
 
 기업 방화벽이 메인프레임으로 가는 길을 막고 있다. **데이터 패킷을 튕기고, 네온 보안 블록을 부수고, 시스템을 돌파하라.** 파워업을 잡아 우위를 점하라.

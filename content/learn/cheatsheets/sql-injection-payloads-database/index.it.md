@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "it"
   }
+aliases: ["/it/cheatsheets/sql-injection-payloads-database/"]
 ---
 
 ## Inizializzazione del Sistema

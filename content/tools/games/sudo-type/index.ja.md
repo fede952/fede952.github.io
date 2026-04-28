@@ -5,6 +5,7 @@ description: "タイピングでメインフレームを守れ。レトロハッ
 categories: ["ゲーム", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/ja/games/sudo-type/"]
 ---
 
 脅威を検知。メインフレームが攻撃を受けている。唯一の武器は？**キーボードだ。**

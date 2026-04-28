@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ja"
   }
+aliases: ["/ja/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## レンダリングエンジン起動

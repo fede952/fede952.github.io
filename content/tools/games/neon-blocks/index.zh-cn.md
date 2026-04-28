@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/zh-cn/games/neon-blocks/"]
 ---
 
 在网格上滑动发光的方块。当两个相同数字的方块碰撞时，它们会合并。达到 **2048** 即可获胜，或者继续挑战更高分。

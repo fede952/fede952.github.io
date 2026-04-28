@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "retro", "html5", "cyberpunk", "snake"]
 keywords: ["Snake-Spiel", "Retro-Spiel", "Cyberpunk Snake", "Browserspiel"]
 draft: false
+aliases: ["/de/games/cyber-snake/"]
 ---
 
 Du bist ein abtrünniges Datenpaket im Systemraster. **Konsumiere die glitchenden Datenfragmente, um zu wachsen. Triffst du eine Wand oder deinen eigenen Schwanz, beendet die Firewall dich.**

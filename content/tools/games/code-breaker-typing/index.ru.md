@@ -6,6 +6,7 @@ categories: ["Игры", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/ru/games/code-breaker-typing/"]
 ---
 
 Целевая система заблокирована за зашифрованным файрволом. Единственный путь внутрь? **Набери точную последовательность кода до истечения времени.** Одна ошибка — и тебя отключат. Насколько быстры твои пальцы?

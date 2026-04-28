@@ -8,6 +8,7 @@ cover:
     image: "/images/writeups/cap/htb-cap.png"
     alt: "Macchina HTB Cap"
     relative: false
+aliases: ["/it/writeups/htb-cap/"]
 ---
 
 **IP Macchina:** `10.129.28.172` | **Difficoltà:** Easy | **OS:** Linux

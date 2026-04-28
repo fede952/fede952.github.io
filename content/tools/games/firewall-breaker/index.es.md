@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["arkanoid online", "juego breakout", "rompe ladrillos", "arcade cyberpunk"]
 draft: false
+aliases: ["/es/games/firewall-breaker/"]
 ---
 
 El firewall corporativo te separa del mainframe. **Desvía el paquete de datos, destruye los bloques de seguridad neón y vulnera el sistema.** Atrapa los potenciadores para ganar ventaja.

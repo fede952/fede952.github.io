@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["سودوكو أونلاين", "سودوكو نيون", "لغز منطقي", "لعبة ذكاء"]
 draft: false
+aliases: ["/ar/games/neon-sudoku/"]
 ---
 
 الشبكة المشفرة تنتظر فك التشفير. **ضع الأرقام من 1 إلى 9 في كل صف وعمود ومربع 3×3.** بدون تكرار. منطق خالص.

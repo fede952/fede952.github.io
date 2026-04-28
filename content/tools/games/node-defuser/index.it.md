@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["campo minato online", "gioco logico", "gioco retro", "rompicapo"]
 draft: false
+aliases: ["/it/games/node-defuser/"]
 ---
 
 La rete è infetta da **15 nodi virus nascosti**. Usa la logica per rivelare le celle sicure senza attivare il malware. I numeri indicano quanti virus circondano ogni cella.

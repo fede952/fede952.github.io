@@ -5,6 +5,7 @@ description: "دافع عن حاسوبك المركزي بالكتابة. لعب
 categories: ["ألعاب", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/ar/games/sudo-type/"]
 ---
 
 تم اكتشاف تهديدات. الحاسوب المركزي تحت الهجوم. سلاحك الوحيد؟ **لوحة المفاتيح.**

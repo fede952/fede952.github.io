@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "it"
   }
+aliases: ["/it/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## Inizializzazione del Sistema

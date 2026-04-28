@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "retro", "html5", "cyberpunk", "snake"]
 keywords: ["gioco snake", "gioco retro", "snake cyberpunk", "gioco browser"]
 draft: false
+aliases: ["/it/games/cyber-snake/"]
 ---
 
 Sei un pacchetto dati ribelle che naviga nella griglia di sistema. **Consuma i frammenti di dati glitch per crescere. Colpisci un muro o la tua stessa coda e il firewall ti terminerà.**

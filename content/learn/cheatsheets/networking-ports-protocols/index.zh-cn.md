@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## 常用端口

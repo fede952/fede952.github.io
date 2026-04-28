@@ -13,6 +13,7 @@ schema_json: >
     "description": "خارطة طريق خطوة بخطوة لتصبح مهندس DevOps أول.",
     "inLanguage": "ar"
   }
+aliases: ["/ar/roadmaps/devops-engineer/"]
 ---
 
 ## مسارك نحو هندسة DevOps

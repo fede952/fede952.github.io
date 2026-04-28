@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/debug-sys/docker-cannot-connect-daemon/"]
 ---
 
 ## 错误信息

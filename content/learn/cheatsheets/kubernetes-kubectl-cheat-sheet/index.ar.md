@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ar"
   }
+aliases: ["/ar/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## تهيئة النظام

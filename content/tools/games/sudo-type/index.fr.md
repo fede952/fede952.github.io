@@ -5,6 +5,7 @@ description: "Défendez votre mainframe en tapant des commandes. Un jeu de défe
 categories: ["Jeux", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/fr/games/sudo-type/"]
 ---
 
 Menaces détectées. Le mainframe est attaqué. Votre seule arme ? **Votre clavier.**

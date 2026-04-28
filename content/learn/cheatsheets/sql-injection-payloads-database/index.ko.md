@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ko"
   }
+aliases: ["/ko/cheatsheets/sql-injection-payloads-database/"]
 ---
 
 ## 시스템 초기화

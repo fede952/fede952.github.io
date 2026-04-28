@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "retro", "html5", "cyberpunk", "snake"]
 keywords: ["贪吃蛇游戏", "复古游戏", "赛博朋克贪吃蛇", "浏览器游戏"]
 draft: false
+aliases: ["/zh-cn/games/cyber-snake/"]
 ---
 
 你是一个在系统网格中穿行的流氓数据包。**消耗闪烁的数据碎片来成长。撞到墙壁或自己的尾巴，防火墙就会终结你。**

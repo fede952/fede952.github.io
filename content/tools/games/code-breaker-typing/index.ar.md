@@ -6,6 +6,7 @@ categories: ["ألعاب", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/ar/games/code-breaker-typing/"]
 ---
 
 النظام المستهدف محمي خلف جدار حماية مشفّر. طريقك الوحيد للدخول؟ **اكتب تسلسل الكود الصحيح بالضبط قبل انتهاء الوقت.** خطأ واحد وستُحرم من الدخول. ما مدى سرعة أصابعك؟

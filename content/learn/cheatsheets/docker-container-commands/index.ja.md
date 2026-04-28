@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ja"
   }
+aliases: ["/ja/cheatsheets/docker-container-commands/"]
 ---
 
 ## システム初期化

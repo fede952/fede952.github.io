@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "ja"
   }
+aliases: ["/ja/debug-sys/python-pip-ssl-cert-verify-failed/"]
 ---
 
 ## エラー内容

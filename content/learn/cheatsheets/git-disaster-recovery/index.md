@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/git-disaster-recovery/", "/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Undoing Changes

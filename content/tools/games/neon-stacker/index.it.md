@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["tetris online", "puzzle neon", "gioco a blocchi", "gioco browser", "gioco cyberpunk"]
 draft: false
+aliases: ["/it/games/neon-stacker/"]
 ---
 
 I blocchi neon piovono dal cielo digitale. **Impilali. Completa le righe. Sopravvivi il più a lungo possibile.** La griglia accelera — quanto resisterai?

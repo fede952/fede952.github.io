@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
 keywords: ["Space Invaders", "Shooter-Spiel", "Retro-Arcade", "Cyberpunk-Shooter"]
 draft: false
+aliases: ["/de/games/bug-invaders/"]
 ---
 
 Der Kernel wird angegriffen. **Bugs kommen in Formation herab — du bist die letzte Verteidigungslinie.** Bewege dein Antivirusschiff, schieße die Glitch-Invasoren ab und schütze den Kern.

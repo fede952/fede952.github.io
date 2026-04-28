@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["arkanoid en ligne", "jeu breakout", "casse-briques", "arcade cyberpunk"]
 draft: false
+aliases: ["/fr/games/firewall-breaker/"]
 ---
 
 Le pare-feu corporatif se dresse entre vous et le mainframe. **Déviez le paquet de données, brisez les blocs de sécurité néon et pénétrez le système.** Attrapez les bonus pour prendre l'avantage.

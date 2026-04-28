@@ -6,6 +6,7 @@ categories: ["게임", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/ko/games/code-breaker-typing/"]
 ---
 
 대상 시스템은 암호화된 방화벽 뒤에 잠겨 있습니다. 침입하는 유일한 방법은? **시간이 다 되기 전에 정확한 코드 시퀀스를 입력하세요.** 한 번의 실수면 접속이 차단됩니다. 당신의 손가락은 얼마나 빠릅니까?

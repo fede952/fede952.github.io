@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ja"
   }
+aliases: ["/ja/cheatsheets/python-security-scripts/"]
 ---
 
 ## システム初期化

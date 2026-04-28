@@ -4,6 +4,7 @@ layout: "force-list"
 description: "Giochi interattivi e mini-giochi"
 draft: false
 date: 2026-02-03
+aliases: ["/it/games/"]
 ---
 
 ⚠️ **Global Content Notice:**

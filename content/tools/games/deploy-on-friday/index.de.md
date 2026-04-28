@@ -5,6 +5,7 @@ description: "Kannst du die Produktion am Laufen halten? Ein Endless Runner für
 categories: ["Spiele", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/de/games/deploy-on-friday/"]
 ---
 
 Es ist 16:55 Uhr am Freitag und jemand hat gerade auf main gemergt. Die CI/CD-Pipeline läuft. Es gibt kein Zurück mehr.

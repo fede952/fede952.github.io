@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["campo minado online", "jogo lógico", "jogo retro", "quebra-cabeça"]
 draft: false
+aliases: ["/pt/games/node-defuser/"]
 ---
 
 A rede está infectada com **15 nós de vírus ocultos**. Use a lógica para revelar células seguras sem ativar malware. Os números indicam quantos vírus cercam cada célula.

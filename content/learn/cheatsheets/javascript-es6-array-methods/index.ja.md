@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ja"
   }
+aliases: ["/ja/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## ランタイム初期化

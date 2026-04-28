@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "retro", "html5", "cyberpunk", "snake"]
 keywords: ["스네이크 게임", "레트로 게임", "사이버펑크 스네이크", "브라우저 게임"]
 draft: false
+aliases: ["/ko/games/cyber-snake/"]
 ---
 
 시스템 그리드를 탐색하는 반란 데이터 패킷이 되어라. **글리치 데이터 조각을 먹어 성장하라. 벽이나 자신의 꼬리에 부딪히면 방화벽이 널 제거한다.**

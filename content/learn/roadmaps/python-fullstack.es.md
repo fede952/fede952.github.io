@@ -13,6 +13,7 @@ schema_json: >
     "description": "Hoja de ruta paso a paso para convertirte en Desarrollador Python Full Stack.",
     "inLanguage": "es"
   }
+aliases: ["/es/roadmaps/python-fullstack/"]
 ---
 
 ## Tu Ruta hacia Python Full Stack

@@ -13,6 +13,7 @@ schema_json: >
     "description": "シニア DevOps エンジニアになるためのステップバイステップ・ロードマップ。",
     "inLanguage": "ja"
   }
+aliases: ["/ja/roadmaps/devops-engineer/"]
 ---
 
 ## DevOps エンジニアへのキャリアパス

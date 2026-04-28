@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "fr"
   }
+aliases: ["/fr/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## Ports Courants

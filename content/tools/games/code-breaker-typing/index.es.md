@@ -6,6 +6,7 @@ categories: ["Juegos", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/es/games/code-breaker-typing/"]
 ---
 
 El sistema objetivo esta bloqueado detras de un firewall cifrado. Tu unica forma de entrar? **Escribe la secuencia de codigo exacta antes de que se acabe el tiempo.** Un error y quedas fuera. Que tan rapidos son tus dedos?

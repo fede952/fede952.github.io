@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["sudoku online", "neon sudoku", "rompecabezas lógico", "juego mental"]
 draft: false
+aliases: ["/es/games/neon-sudoku/"]
 ---
 
 La cuadrícula encriptada espera ser descifrada. **Coloca los números del 1 al 9 en cada fila, columna y caja 3x3.** Sin duplicados. Lógica pura.

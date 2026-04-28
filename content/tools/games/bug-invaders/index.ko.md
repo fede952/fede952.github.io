@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
 keywords: ["스페이스 인베이더", "슈팅 게임", "레트로 아케이드", "사이버펑크 슈터"]
 draft: false
+aliases: ["/ko/games/bug-invaders/"]
 ---
 
 커널이 공격받고 있다. **버그가 편대를 이루어 내려온다 — 당신이 최후의 방어선이다.** 안티바이러스 함선을 움직이고, 글리치 침략자를 격추하고, 코어를 지켜라.

@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "ja"
   }
+aliases: ["/ja/interviews/sql-database-interview-questions/"]
 ---
 
 ## システム初期化

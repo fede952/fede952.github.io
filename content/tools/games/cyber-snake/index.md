@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "retro", "html5", "cyberpunk", "snake"]
 keywords: ["snake game", "retro game", "cyberpunk snake", "browser game"]
 draft: false
+aliases: ["/en/games/cyber-snake/", "/games/cyber-snake/"]
 ---
 
 You are a rogue data packet navigating the system grid. **Consume the glitching data fragments to grow. Hit a wall or your own tail and the firewall terminates you.**

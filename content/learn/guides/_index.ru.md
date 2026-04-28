@@ -3,4 +3,5 @@ title: "Руководства"
 description: "Подробные руководства по ИИ, кибербезопасности, Linux и разработке ПО — практические знания на долгое время."
 hidemeta: true
 layout: "list"
+aliases: ["/ru/guides/"]
 ---

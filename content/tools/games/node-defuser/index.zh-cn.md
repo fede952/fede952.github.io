@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["扫雷在线", "逻辑游戏", "复古游戏", "解谜"]
 draft: false
+aliases: ["/zh-cn/games/node-defuser/"]
 ---
 
 网络中隐藏着 **15个病毒节点**。用逻辑揭示安全单元格，不要触发恶意软件。数字告诉你每个单元格周围有多少病毒。

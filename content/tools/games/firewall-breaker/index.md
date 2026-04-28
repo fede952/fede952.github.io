@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["arkanoid online", "breakout game", "brick breaker", "cyberpunk arcade"]
 draft: false
+aliases: ["/en/games/firewall-breaker/", "/games/firewall-breaker/"]
 ---
 
 The corporate firewall stands between you and the mainframe. **Deflect the data packet, smash through the neon security blocks, and breach the system.** Catch powerups to gain the advantage.

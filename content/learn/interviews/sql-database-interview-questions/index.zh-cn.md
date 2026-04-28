@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/interviews/sql-database-interview-questions/"]
 ---
 
 ## 系统初始化

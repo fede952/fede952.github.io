@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["스도쿠 온라인", "네온 스도쿠", "논리 퍼즐", "두뇌 게임"]
 draft: false
+aliases: ["/ko/games/neon-sudoku/"]
 ---
 
 암호화된 그리드가 해독을 기다린다. **각 행, 열, 3x3 박스에 1-9를 배치하라.** 중복 불가. 순수한 논리.

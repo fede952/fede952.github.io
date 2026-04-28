@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/docker-container-commands/", "/cheatsheets/docker-container-commands/"]
 ---
 
 ## System Init

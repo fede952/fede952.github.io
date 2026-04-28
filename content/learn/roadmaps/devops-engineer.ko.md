@@ -13,6 +13,7 @@ schema_json: >
     "description": "시니어 DevOps 엔지니어가 되기 위한 단계별 로드맵.",
     "inLanguage": "ko"
   }
+aliases: ["/ko/roadmaps/devops-engineer/"]
 ---
 
 ## DevOps 엔지니어로의 여정

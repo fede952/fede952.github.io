@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "zh-cn"
   }
+aliases: ["/zh-cn/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## 初始化运行时

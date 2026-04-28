@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "ko"
   }
+aliases: ["/ko/debug-sys/python-pip-ssl-cert-verify-failed/"]
 ---
 
 ## 오류 내용

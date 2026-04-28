@@ -13,6 +13,7 @@ schema_json: >
     "description": "सीनियर DevOps इंजीनियर बनने का चरण-दर-चरण रोडमैप।",
     "inLanguage": "hi"
   }
+aliases: ["/hi/roadmaps/devops-engineer/"]
 ---
 
 ## DevOps इंजीनियरिंग की ओर आपका रास्ता

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["buscaminas online", "juego lógico", "juego retro", "rompecabezas"]
 draft: false
+aliases: ["/es/games/node-defuser/"]
 ---
 
 La red está infectada con **15 nodos de virus ocultos**. Usa la lógica para revelar celdas seguras sin activar malware. Los números indican cuántos virus rodean cada celda.

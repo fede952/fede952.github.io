@@ -6,6 +6,7 @@ tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]
 author: "Federico Sella"
 draft: false
+aliases: ["/ko/guides/local-ai-setup-ollama/"]
 ---
 
 강력한 AI 어시스턴트를 사용하기 위해 월 20달러의 구독료가 필요하지 않습니다. **Ollama**라는 무료 오픈소스 도구를 사용하면 **Meta의 Llama 3**와 **DeepSeek-R1**을 포함한 최첨단 대규모 언어 모델을 자신의 컴퓨터에서 직접 실행할 수 있습니다. 클라우드 없이. 계정 없이. 데이터가 기기를 떠나는 일도 없습니다.

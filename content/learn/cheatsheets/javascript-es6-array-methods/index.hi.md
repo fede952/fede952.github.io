@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "hi"
   }
+aliases: ["/hi/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## रनटाइम इनिशियलाइज़ेशन

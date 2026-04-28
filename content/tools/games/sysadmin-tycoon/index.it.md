@@ -6,6 +6,7 @@ image: "/images/sysadmin-tycoon-icon.png"
 categories: ["Games", "Strategy"]
 tags: ["idle", "tycoon", "sysadmin", "strategy", "html5"]
 draft: false
+aliases: ["/it/games/sysadmin-tycoon/"]
 ---
 
 Inizia con un umile laptop e costruisci un impero di server. Bilancia consumo energetico, raffreddamento e flusso di cassa mentre sopravvivi ad attacchi DDOS, picchi di corrente e altri disastri IT.

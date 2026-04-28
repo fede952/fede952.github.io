@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/debug-sys/python-pip-ssl-cert-verify-failed/"]
 ---
 
 ## 错误信息

@@ -5,6 +5,7 @@ description: "Verteidige deinen Mainframe durch Tippen. Ein Retro-Hacker-Tippspi
 categories: ["Spiele", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/de/games/sudo-type/"]
 ---
 
 Bedrohungen erkannt. Der Mainframe wird angegriffen. Deine einzige Waffe? **Deine Tastatur.**

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
 keywords: ["space invaders", "jogo de tiro", "arcade retro", "shooter cyberpunk"]
 draft: false
+aliases: ["/pt/games/bug-invaders/"]
 ---
 
 O kernel está sob ataque. **Bugs estão descendo em formação — você é a última linha de defesa.** Mova sua nave antivírus, abata os invasores glitch e proteja o núcleo.

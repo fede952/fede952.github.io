@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ar"
   }
+aliases: ["/ar/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## محرك العرض متصل

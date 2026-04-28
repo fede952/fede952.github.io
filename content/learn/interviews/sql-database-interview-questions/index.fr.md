@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "fr"
   }
+aliases: ["/fr/interviews/sql-database-interview-questions/"]
 ---
 
 ## Initialisation du Système

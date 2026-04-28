@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## 撤销更改

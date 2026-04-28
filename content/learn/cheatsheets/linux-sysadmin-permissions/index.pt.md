@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "pt"
   }
+aliases: ["/pt/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
 ## Inicialização do Sistema

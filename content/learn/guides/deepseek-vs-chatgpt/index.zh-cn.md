@@ -6,6 +6,7 @@ tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]
 author: "Federico Sella"
 draft: false
+aliases: ["/zh-cn/guides/deepseek-vs-chatgpt/"]
 ---
 
 2025年1月，一家名为**DeepSeek**的相对低调的中国AI实验室发布了一个开放权重的语言模型，在硅谷引发了强烈震荡——一度在单个交易日内抹去了NVIDIA近**6000亿美元**的市值。这款名为**DeepSeek-V3**的模型在数学、编程和推理任务上达到或超越了GPT-4级别的基准测试，而据报道训练成本仅为**560万美元**。作为对比，OpenAI的GPT-4训练成本估计超过1亿美元。

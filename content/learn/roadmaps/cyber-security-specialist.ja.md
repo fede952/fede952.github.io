@@ -13,6 +13,7 @@ schema_json: >
     "description": "Cyber Security Specialistになるためのステップバイステップのロードマップ。",
     "inLanguage": "ja"
   }
+aliases: ["/ja/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Cyber Securityへの道

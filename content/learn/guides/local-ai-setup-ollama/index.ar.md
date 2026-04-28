@@ -6,6 +6,7 @@ tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]
 author: "Federico Sella"
 draft: false
+aliases: ["/ar/guides/local-ai-setup-ollama/"]
 ---
 
 لا تحتاج إلى اشتراك بقيمة 20$/شهرياً لاستخدام مساعد ذكاء اصطناعي قوي. باستخدام أداة مجانية ومفتوحة المصدر تُسمى **Ollama**، يمكنك تشغيل نماذج لغوية كبيرة متطورة — بما في ذلك **Llama 3 من Meta** و **DeepSeek-R1** — مباشرة على حاسوبك. بدون سحابة. بدون حساب. لا تغادر بياناتك جهازك أبداً.

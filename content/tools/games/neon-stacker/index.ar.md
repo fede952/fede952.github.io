@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["تتريس أونلاين", "لغز نيون", "لعبة كتل", "لعبة متصفح", "لعبة سايبربانك"]
 draft: false
+aliases: ["/ar/games/neon-stacker/"]
 ---
 
 الكتل النيونية تتساقط من السماء الرقمية. **كدّسها. أكمل الصفوف. ابقَ على قيد الحياة.** الشبكة تتسارع — كم ستصمد؟

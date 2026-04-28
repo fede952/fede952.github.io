@@ -13,6 +13,7 @@ schema_json: >
     "description": "成为Cyber Security Specialist的分步路线图。",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/roadmaps/cyber-security-specialist/"]
 ---
 
 ## 你的Cyber Security之路

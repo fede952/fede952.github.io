@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
 keywords: ["スペースインベーダー", "シューティングゲーム", "レトロアーケード", "サイバーパンクシューター"]
 draft: false
+aliases: ["/ja/games/bug-invaders/"]
 ---
 
 カーネルが攻撃を受けている。**バグが隊列を組んで降下中——最後の防衛線はあなただ。** アンチウイルス機を動かし、グリッチインベーダーを撃墜し、コアを守れ。

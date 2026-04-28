@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "ru"
   }
+aliases: ["/ru/interviews/sql-database-interview-questions/"]
 ---
 
 ## Инициализация системы

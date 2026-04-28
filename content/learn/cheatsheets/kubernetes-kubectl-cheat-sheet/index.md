@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/kubernetes-kubectl-cheat-sheet/", "/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## System Init

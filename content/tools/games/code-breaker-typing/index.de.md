@@ -6,6 +6,7 @@ categories: ["Spiele", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/de/games/code-breaker-typing/"]
 ---
 
 Das Zielsystem ist hinter einer verschlusselten Firewall gesperrt. Ihr einziger Weg hinein? **Tippen Sie die exakte Code-Sequenz, bevor die Zeit ablauft.** Ein Fehler und Sie werden ausgesperrt. Wie schnell sind Ihre Finger?

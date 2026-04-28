@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "fr"
   }
+aliases: ["/fr/guides/osint-privacy-exif-data/"]
 ---
 
 ## $ System_Init

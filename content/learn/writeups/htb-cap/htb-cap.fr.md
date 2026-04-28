@@ -8,6 +8,7 @@ cover:
     image: "/images/writeups/cap/htb-cap.png"
     alt: "HTB Cap Machine"
     relative: false
+aliases: ["/fr/writeups/htb-cap/"]
 ---
 
 _Note: Pour préserver la précision technique, ce contenu est affiché dans sa langue d'origine (Anglais)._

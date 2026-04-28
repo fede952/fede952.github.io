@@ -13,6 +13,7 @@ schema_json: >
     "description": "Пошаговая дорожная карта для становления Senior DevOps Engineer.",
     "inLanguage": "ru"
   }
+aliases: ["/ru/roadmaps/devops-engineer/"]
 ---
 
 ## Ваш путь в DevOps Engineering

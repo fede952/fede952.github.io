@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "en"
   }
+aliases: ["/en/interviews/sql-database-interview-questions/", "/interviews/sql-database-interview-questions/"]
 ---
 
 ## System Init

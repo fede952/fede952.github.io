@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ko"
   }
+aliases: ["/ko/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## 시스템 초기화

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["arkanoid online", "jogo breakout", "quebra tijolos", "arcade cyberpunk"]
 draft: false
+aliases: ["/pt/games/firewall-breaker/"]
 ---
 
 O firewall corporativo está entre você e o mainframe. **Desvie o pacote de dados, destrua os blocos neon de segurança e invada o sistema.** Capture os power-ups para ganhar vantagem.

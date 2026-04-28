@@ -5,6 +5,7 @@ description: "هل يمكنك إبقاء الإنتاج قائماً؟ لعبة 
 categories: ["ألعاب", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/ar/games/deploy-on-friday/"]
 ---
 
 الساعة 4:55 مساء يوم الجمعة وقام شخص ما بدمج الكود في main. خط أنابيب CI/CD يعمل. لا يمكن إيقافه الآن.

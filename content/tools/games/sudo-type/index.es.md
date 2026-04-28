@@ -5,6 +5,7 @@ description: "Defiende tu mainframe escribiendo comandos. Un juego retro de defe
 categories: ["Juegos", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/es/games/sudo-type/"]
 ---
 
 Amenazas detectadas. El mainframe está bajo ataque. ¿Tu única arma? **Tu teclado.**

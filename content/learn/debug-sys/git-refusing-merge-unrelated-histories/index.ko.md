@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "ko"
   }
+aliases: ["/ko/debug-sys/git-refusing-merge-unrelated-histories/"]
 ---
 
 ## 오류

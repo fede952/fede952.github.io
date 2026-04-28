@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/ru/games/neon-blocks/"]
 ---
 
 Сдвигайте светящиеся блоки по сетке. Когда два блока с одинаковым числом сталкиваются, они сливаются. Достигните **2048**, чтобы победить, или продолжайте игру ради нового рекорда.

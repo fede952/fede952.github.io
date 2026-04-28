@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "hi"
   }
+aliases: ["/hi/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## कॉमन पोर्ट्स

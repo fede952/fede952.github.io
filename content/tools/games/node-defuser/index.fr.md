@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["démineur en ligne", "jeu logique", "jeu rétro", "puzzle"]
 draft: false
+aliases: ["/fr/games/node-defuser/"]
 ---
 
 Le réseau est infecté par **15 nœuds virus cachés**. Utilisez la logique pour révéler les cellules sûres sans déclencher de malware. Les chiffres indiquent combien de virus entourent chaque cellule.

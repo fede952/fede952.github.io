@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ko"
   }
+aliases: ["/ko/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## 런타임 초기화

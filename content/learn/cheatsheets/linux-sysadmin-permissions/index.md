@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/linux-sysadmin-permissions/", "/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
 ## System Init

@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/hi/games/neon-blocks/"]
 ---
 
 चमकते ब्लॉक्स को ग्रिड पर स्लाइड करें। जब दो समान संख्या वाले ब्लॉक टकराते हैं, तो वे एक में मिल जाते हैं। जीतने के लिए **2048** तक पहुँचें या और अधिक अंक बनाने के लिए खेलते रहें।

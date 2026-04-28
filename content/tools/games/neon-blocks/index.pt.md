@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/pt/games/neon-blocks/"]
 ---
 
 Deslize os blocos brilhantes pela grade. Quando dois blocos com o mesmo número colidem, eles se fundem. Alcance **2048** para vencer ou continue jogando para superar seu recorde.

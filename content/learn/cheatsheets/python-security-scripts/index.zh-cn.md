@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/cheatsheets/python-security-scripts/"]
 ---
 
 ## 系统初始化

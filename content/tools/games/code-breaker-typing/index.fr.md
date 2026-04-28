@@ -6,6 +6,7 @@ categories: ["Jeux", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/fr/games/code-breaker-typing/"]
 ---
 
 Le systeme cible est verrouille derriere un pare-feu chiffre. Votre seul moyen d'entrer ? **Tapez la sequence de code exacte avant la fin du temps imparti.** Une seule erreur et vous etes bloque. A quelle vitesse vos doigts peuvent-ils aller ?

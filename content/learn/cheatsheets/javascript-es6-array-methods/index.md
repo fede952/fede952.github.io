@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/javascript-es6-array-methods/", "/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## Initializing Runtime

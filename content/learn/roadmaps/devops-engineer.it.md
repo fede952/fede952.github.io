@@ -13,6 +13,7 @@ schema_json: >
     "description": "Roadmap passo dopo passo per diventare Senior DevOps Engineer.",
     "inLanguage": "it"
   }
+aliases: ["/it/roadmaps/devops-engineer/"]
 ---
 
 ## Il tuo percorso verso il DevOps Engineering

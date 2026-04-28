@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ko"
   }
+aliases: ["/ko/cheatsheets/react-hooks-lifecycle/"]
 ---
 
 ## 컴포넌트 온라인

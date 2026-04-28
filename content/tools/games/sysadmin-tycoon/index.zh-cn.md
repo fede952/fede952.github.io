@@ -6,6 +6,7 @@ image: "/images/sysadmin-tycoon-icon.png"
 categories: ["Games", "Strategy"]
 tags: ["idle", "tycoon", "sysadmin", "strategy", "html5"]
 draft: false
+aliases: ["/zh-cn/games/sysadmin-tycoon/"]
 ---
 
 \u4ece\u4e00\u53f0\u7b80\u964b\u7684\u7b14\u8bb0\u672c\u5f00\u59cb\uff0c\u5efa\u7acb\u670d\u52a1\u5668\u5e1d\u56fd\u3002\u5e73\u8861\u7535\u529b\u6d88\u8017\u3001\u51b7\u5374\u548c\u73b0\u91d1\u6d41\uff0c\u540c\u65f6\u62b5\u5fa1DDOS\u653b\u51fb\u3001\u7535\u529b\u6d6a\u6d8c\u7b49IT\u707e\u96be\u3002

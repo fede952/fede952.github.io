@@ -6,6 +6,7 @@ tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]
 author: "Federico Sella"
 draft: false
+aliases: ["/en/guides/local-ai-setup-ollama/", "/guides/local-ai-setup-ollama/"]
 ---
 
 You don't need a $20/month subscription to use a powerful AI assistant. With a free, open-source tool called **Ollama**, you can run state-of-the-art large language models — including **Meta's Llama 3** and **DeepSeek-R1** — directly on your own computer. No cloud. No account. No data ever leaving your machine.

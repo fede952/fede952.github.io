@@ -5,6 +5,7 @@ description: "你能让生产环境存活吗？一款开发者的无尽跑酷游
 categories: ["游戏", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/zh-cn/games/deploy-on-friday/"]
 ---
 
 周五下午4点55分，有人刚刚合并到了main分支。CI/CD流水线正在运行，已经无法停止了。

@@ -6,6 +6,7 @@ tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]
 author: "Federico Sella"
 draft: false
+aliases: ["/zh-cn/guides/local-ai-setup-ollama/"]
 ---
 
 你不需要每月花 20 美元的订阅费来使用强大的 AI 助手。借助一个名为 **Ollama** 的免费开源工具，你可以直接在自己的电脑上运行最先进的大语言模型——包括 **Meta 的 Llama 3** 和 **DeepSeek-R1**。没有云端、没有账号、数据永远不会离开你的机器。

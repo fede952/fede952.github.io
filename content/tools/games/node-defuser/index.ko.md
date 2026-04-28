@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["지뢰찾기 온라인", "로직 게임", "레트로 게임", "퍼즐"]
 draft: false
+aliases: ["/ko/games/node-defuser/"]
 ---
 
 네트워크에 **15개의 숨겨진 바이러스 노드**가 감염되어 있다. 논리를 사용해 악성코드를 트리거하지 않고 안전한 셀을 열어라. 숫자는 각 셀 주변의 바이러스 수를 나타낸다.

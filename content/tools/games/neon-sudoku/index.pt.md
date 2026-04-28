@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["sudoku online", "neon sudoku", "quebra-cabeça lógico", "jogo cerebral"]
 draft: false
+aliases: ["/pt/games/neon-sudoku/"]
 ---
 
 A grade criptografada aguarda descriptografia. **Coloque os números de 1 a 9 em cada linha, coluna e caixa 3x3.** Sem duplicatas. Lógica pura.

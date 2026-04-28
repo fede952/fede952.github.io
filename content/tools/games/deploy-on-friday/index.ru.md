@@ -5,6 +5,7 @@ description: "Сможешь удержать продакшен? Бесконе
 categories: ["Игры", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/ru/games/deploy-on-friday/"]
 ---
 
 Пятница, 16:55, кто-то только что замержил в main. CI/CD пайплайн запущен. Остановить уже нельзя.

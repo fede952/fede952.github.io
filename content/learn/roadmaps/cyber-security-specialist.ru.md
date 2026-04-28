@@ -13,6 +13,7 @@ schema_json: >
     "description": "Пошаговая дорожная карта, чтобы стать Cyber Security Specialist.",
     "inLanguage": "ru"
   }
+aliases: ["/ru/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Ваш путь в Cyber Security

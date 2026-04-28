@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/python-security-scripts/", "/cheatsheets/python-security-scripts/"]
 ---
 
 ## System Init

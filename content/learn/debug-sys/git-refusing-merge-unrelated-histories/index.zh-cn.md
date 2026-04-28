@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "zh-cn"
   }
+aliases: ["/zh-cn/debug-sys/git-refusing-merge-unrelated-histories/"]
 ---
 
 ## 错误信息

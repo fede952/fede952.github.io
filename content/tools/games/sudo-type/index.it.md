@@ -5,6 +5,7 @@ description: "Difendi il tuo mainframe digitando comandi. Un gioco di difesa typ
 categories: ["Giochi", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/it/games/sudo-type/"]
 ---
 
 Minacce in arrivo. Il mainframe è sotto attacco. La tua unica arma? **La tua tastiera.**

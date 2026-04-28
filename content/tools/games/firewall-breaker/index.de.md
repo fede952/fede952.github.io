@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["Arkanoid online", "Breakout-Spiel", "Steinbrecher", "Cyberpunk-Arcade"]
 draft: false
+aliases: ["/de/games/firewall-breaker/"]
 ---
 
 Die Unternehmens-Firewall steht zwischen dir und dem Mainframe. **Lenke das Datenpaket ab, zerschlage die Neon-Sicherheitsblöcke und dringe ins System ein.** Fange Power-ups für den Vorteil.

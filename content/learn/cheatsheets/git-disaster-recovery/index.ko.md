@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ko"
   }
+aliases: ["/ko/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## 변경 사항 되돌리기

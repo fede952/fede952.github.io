@@ -13,6 +13,7 @@ schema_json: >
     "description": "Feuille de route étape par étape pour devenir Cyber Security Specialist.",
     "inLanguage": "fr"
   }
+aliases: ["/fr/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Votre Parcours vers la Cyber Security

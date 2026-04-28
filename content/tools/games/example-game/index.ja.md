@@ -5,6 +5,7 @@ tags: ["example", "demo", "html5"]
 layout: "game"
 draft: false
 date: 2026-02-03
+aliases: ["/ja/games/example-game/"]
 ---
 
 _注意：技術的な正確性を保つため、このコンテンツは元の言語（英語）で表示されます。_

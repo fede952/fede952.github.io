@@ -6,6 +6,7 @@ categories: ["Jogos", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/pt/games/code-breaker-typing/"]
 ---
 
 O sistema alvo esta trancado atras de um firewall criptografado. Sua unica forma de entrar? **Digite a sequencia exata de codigo antes que o tempo acabe.** Um erro e voce esta fora. Quao rapidos sao seus dedos?

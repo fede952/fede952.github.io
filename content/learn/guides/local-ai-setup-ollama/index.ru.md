@@ -6,6 +6,7 @@ tags: ["AI", "Ollama", "Privacy", "Tutorial", "LocalLLM"]
 categories: ["Guides", "Artificial Intelligence"]
 author: "Federico Sella"
 draft: false
+aliases: ["/ru/guides/local-ai-setup-ollama/"]
 ---
 
 Вам не нужна подписка за 20$/месяц, чтобы пользоваться мощным ИИ-ассистентом. С помощью бесплатного инструмента с открытым исходным кодом **Ollama** вы можете запускать современнейшие большие языковые модели — включая **Llama 3 от Meta** и **DeepSeek-R1** — прямо на своём компьютере. Без облака. Без аккаунта. Данные никогда не покидают вашу машину.

@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/it/games/neon-blocks/"]
 ---
 
 Fai scorrere i blocchi luminosi sulla griglia. Quando due blocchi con lo stesso numero si scontrano, si fondono in uno. Raggiungi **2048** per vincere, oppure continua per un punteggio ancora pi alto.

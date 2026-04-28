@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ko"
   }
+aliases: ["/ko/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## 렌더링 엔진 온라인

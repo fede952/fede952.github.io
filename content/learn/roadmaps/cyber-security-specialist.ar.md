@@ -13,6 +13,7 @@ schema_json: >
     "description": "خارطة طريق خطوة بخطوة لتصبح Cyber Security Specialist.",
     "inLanguage": "ar"
   }
+aliases: ["/ar/roadmaps/cyber-security-specialist/"]
 ---
 
 ## مسارك نحو Cyber Security

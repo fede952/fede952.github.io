@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/ja/games/neon-blocks/"]
 ---
 
 光るブロックをグリッド上でスライドさせましょう。同じ数字のブロックがぶつかると合体します。**2048**に到達すれば勝利。さらに高スコアを目指して続けることもできます。

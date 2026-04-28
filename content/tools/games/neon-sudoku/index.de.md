@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["Sudoku online", "Neon Sudoku", "Logikrätsel", "Gehirnspiel"]
 draft: false
+aliases: ["/de/games/neon-sudoku/"]
 ---
 
 Das verschlüsselte Raster wartet auf Entschlüsselung. **Platziere die Zahlen 1-9 in jeder Zeile, Spalte und jedem 3x3-Feld.** Keine Duplikate. Reine Logik.

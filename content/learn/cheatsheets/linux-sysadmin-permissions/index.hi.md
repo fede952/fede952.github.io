@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "hi"
   }
+aliases: ["/hi/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
 ## सिस्टम आरंभीकरण

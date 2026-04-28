@@ -5,6 +5,7 @@ description: "टाइपिंग से अपने मेनफ्रेम
 categories: ["गेम्स", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/hi/games/sudo-type/"]
 ---
 
 खतरे का पता चला। मेनफ्रेम पर हमला हो रहा है। आपका एकमात्र हथियार? **आपका कीबोर्ड।**

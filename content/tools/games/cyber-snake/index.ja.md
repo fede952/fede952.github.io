@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "retro", "html5", "cyberpunk", "snake"]
 keywords: ["スネークゲーム", "レトロゲーム", "サイバーパンクスネーク", "ブラウザゲーム"]
 draft: false
+aliases: ["/ja/games/cyber-snake/"]
 ---
 
 システムグリッドを移動するローグデータパケット。**グリッチデータを食べて成長せよ。壁か自分の尻尾に当たればファイアウォールに消される。**

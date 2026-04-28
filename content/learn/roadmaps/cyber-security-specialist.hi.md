@@ -13,6 +13,7 @@ schema_json: >
     "description": "Cyber Security Specialist बनने के लिए चरण-दर-चरण रोडमैप।",
     "inLanguage": "hi"
   }
+aliases: ["/hi/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Cyber Security की ओर आपका रास्ता

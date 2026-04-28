@@ -5,6 +5,7 @@ tags: ["example", "demo", "html5"]
 layout: "game"
 draft: false
 date: 2026-02-03
+aliases: ["/ar/games/example-game/"]
 ---
 
 _ملاحظة: للحفاظ على الدقة التقنية، يتم عرض هذا المحتوى بلغته الأصلية (الإنجليزية)._

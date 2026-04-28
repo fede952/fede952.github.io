@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "ko"
   }
+aliases: ["/ko/debug-sys/docker-cannot-connect-daemon/"]
 ---
 
 ## 오류 내용

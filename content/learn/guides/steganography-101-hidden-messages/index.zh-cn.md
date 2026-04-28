@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/guides/steganography-101-hidden-messages/"]
 ---
 
 ## $ System_Init

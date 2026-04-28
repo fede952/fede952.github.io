@@ -5,6 +5,7 @@ description: "本番環境を維持できますか？開発者のためのエン
 categories: ["ゲーム", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/ja/games/deploy-on-friday/"]
 ---
 
 金曜日の午後4時55分、誰かがmainにマージしたところです。CI/CDパイプラインが動き出しました。もう止められません。

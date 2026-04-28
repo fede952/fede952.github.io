@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "hi"
   }
+aliases: ["/hi/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## सिस्टम इनिशियलाइज़ेशन

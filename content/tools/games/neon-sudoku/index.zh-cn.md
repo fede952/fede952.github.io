@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["数独在线", "霓虹数独", "逻辑谜题", "脑力游戏"]
 draft: false
+aliases: ["/zh-cn/games/neon-sudoku/"]
 ---
 
 加密网格等待解密。**在每行、每列和每个3x3宫格中填入1-9。** 不可重复。纯粹逻辑。

@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "it"
   }
+aliases: ["/it/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Annullare le Modifiche

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["テトリスオンライン", "ネオンパズル", "ブロックゲーム", "ブラウザゲーム", "サイバーパンクゲーム"]
 draft: false
+aliases: ["/ja/games/neon-stacker/"]
 ---
 
 ネオンブロックがデジタルの空から降り注ぐ。**積み上げろ。ラインを消せ。できるだけ長く生き残れ。** スピードは加速する——どこまで耐えられるか？

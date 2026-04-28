@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["俄罗斯方块在线", "霓虹拼图", "方块游戏", "浏览器游戏", "赛博朋克游戏"]
 draft: false
+aliases: ["/zh-cn/games/neon-stacker/"]
 ---
 
 霓虹方块从数字天空降落。**堆叠它们。消除整行。尽可能存活更久。** 速度不断加快——你能坚持多久？

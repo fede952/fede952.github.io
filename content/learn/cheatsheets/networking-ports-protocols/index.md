@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/networking-ports-protocols/", "/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## Common Ports

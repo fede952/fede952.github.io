@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Beginner",
     "inLanguage": "pt"
   }
+aliases: ["/pt/debug-sys/git-refusing-merge-unrelated-histories/"]
 ---
 
 ## O Erro

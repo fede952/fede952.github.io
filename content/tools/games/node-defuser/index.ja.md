@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "minesweeper"]
 keywords: ["マインスイーパーオンライン", "ロジックゲーム", "レトロゲーム", "パズル"]
 draft: false
+aliases: ["/ja/games/node-defuser/"]
 ---
 
 ネットワークに**15個の隠れたウイルスノード**が潜んでいる。マルウェアを起動させずに安全なセルを開くためにロジックを使え。数字は各セルの周囲にあるウイルスの数を示す。

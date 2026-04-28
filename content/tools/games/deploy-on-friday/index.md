@@ -5,6 +5,7 @@ description: "Can you keep production alive? An endless runner for developers."
 categories: ["Games", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/en/games/deploy-on-friday/", "/games/deploy-on-friday/"]
 ---
 
 It's 4:55 PM on a Friday and someone just merged to main. The CI/CD pipeline is running. There's no stopping it now.

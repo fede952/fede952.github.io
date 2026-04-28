@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "ar"
   }
+aliases: ["/ar/interviews/kubernetes-interview-questions/"]
 ---
 
 ## تهيئة النظام

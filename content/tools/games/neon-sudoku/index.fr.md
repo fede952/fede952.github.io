@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["sudoku en ligne", "neon sudoku", "puzzle logique", "jeu cérébral"]
 draft: false
+aliases: ["/fr/games/neon-sudoku/"]
 ---
 
 La grille chiffrée attend le décryptage. **Placez les chiffres de 1 à 9 dans chaque ligne, colonne et carré 3x3.** Aucun doublon. Logique pure.

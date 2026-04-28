@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "zh-cn"
   }
+aliases: ["/zh-cn/cheatsheets/react-hooks-lifecycle/"]
 ---
 
 ## 组件上线

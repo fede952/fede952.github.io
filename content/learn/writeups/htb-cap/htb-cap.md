@@ -8,6 +8,7 @@ cover:
     image: "/images/writeups/cap/htb-cap.png"
     alt: "HTB Cap Machine"
     relative: false
+aliases: ["/en/writeups/htb-cap/", "/writeups/htb-cap/"]
 ---
 
 **Machine IP:** `10.129.28.172` | **Difficulty:** Easy | **OS:** Linux

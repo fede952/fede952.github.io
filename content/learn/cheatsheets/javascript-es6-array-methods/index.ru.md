@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "ru"
   }
+aliases: ["/ru/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## Инициализация среды выполнения

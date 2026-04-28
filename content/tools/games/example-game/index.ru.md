@@ -5,6 +5,7 @@ tags: ["example", "demo", "html5"]
 layout: "game"
 draft: false
 date: 2026-02-03
+aliases: ["/ru/games/example-game/"]
 ---
 
 _Примечание: Для сохранения технической точности этот контент отображается на языке оригинала (английском)._

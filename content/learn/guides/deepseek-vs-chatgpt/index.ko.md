@@ -6,6 +6,7 @@ tags: ["DeepSeek", "ChatGPT", "LLM", "OpenSource", "API"]
 categories: ["AI", "Guides", "Tech News"]
 author: "Federico Sella"
 draft: false
+aliases: ["/ko/guides/deepseek-vs-chatgpt/"]
 ---
 
 2025년 1월, **DeepSeek**라는 비교적 알려지지 않은 중국 AI 연구소가 오픈 웨이트 언어 모델을 공개하며 실리콘밸리에 충격파를 보냈습니다. 단 하루 만에 NVIDIA의 시가총액에서 약 **6,000억 달러**가 증발했습니다. **DeepSeek-V3**라는 이 모델은 수학, 코딩, 추론 작업에서 GPT-4급 벤치마크를 달성하거나 초과했으며, 보고된 훈련 비용은 불과 **560만 달러**였습니다. 비교하면, OpenAI의 GPT-4 훈련 비용은 1억 달러 이상으로 추정됩니다.

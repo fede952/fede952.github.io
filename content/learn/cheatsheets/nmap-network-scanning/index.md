@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "en"
   }
+aliases: ["/en/cheatsheets/nmap-network-scanning/", "/cheatsheets/nmap-network-scanning/"]
 ---
 
 ## System Init

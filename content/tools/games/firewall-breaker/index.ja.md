@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["アルカノイドオンライン", "ブロック崩し", "ブリックブレイカー", "サイバーパンクアーケード"]
 draft: false
+aliases: ["/ja/games/firewall-breaker/"]
 ---
 
 企業ファイアウォールがメインフレームへの道を阻む。**データパケットを弾き、ネオンセキュリティブロックを粉砕し、システムを突破せよ。** パワーアップをキャッチして優位に立て。

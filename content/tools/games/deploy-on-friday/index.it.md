@@ -5,6 +5,7 @@ description: "Riesci a tenere su la produzione? Un endless runner per sviluppato
 categories: ["Giochi", "Fun"]
 tags: ["game", "endless-runner", "html5", "dev-humor"]
 draft: false
+aliases: ["/it/games/deploy-on-friday/"]
 ---
 
 Sono le 16:55 di venerdì e qualcuno ha appena fatto merge su main. La pipeline CI/CD è partita. Non si può più fermare.

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["tetris online", "neon puzzle", "block game", "browser game", "cyberpunk game"]
 draft: false
+aliases: ["/en/games/neon-stacker/", "/games/neon-stacker/"]
 ---
 
 Neon blocks rain down from the digital sky. **Stack them. Clear lines. Survive as long as you can.** The grid speeds up — how long can you last?

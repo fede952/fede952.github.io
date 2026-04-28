@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "es"
   }
+aliases: ["/es/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## Motor de Renderizado en Línea

@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
 keywords: ["太空侵略者", "射击游戏", "复古街机", "赛博朋克射击"]
 draft: false
+aliases: ["/zh-cn/games/bug-invaders/"]
 ---
 
 内核正遭受攻击。**Bug列队而下——你是最后一道防线。** 移动你的杀毒飞船，击落故障入侵者，保护核心。

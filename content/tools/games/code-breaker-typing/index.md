@@ -6,6 +6,7 @@ categories: ["Games", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/en/games/code-breaker-typing/", "/games/code-breaker-typing/"]
 ---
 
 The target system is locked behind an encrypted firewall. Your only way in? **Type the exact code sequence before time runs out.** One mistake and you're locked out. How fast are your fingers?

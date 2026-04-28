@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "en"
   }
+aliases: ["/en/interviews/linux-sysadmin-interview-questions/", "/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## System Init

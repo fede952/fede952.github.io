@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "en"
   }
+aliases: ["/en/interviews/docker-interview-questions/", "/interviews/docker-interview-questions/"]
 ---
 
 ## System Init

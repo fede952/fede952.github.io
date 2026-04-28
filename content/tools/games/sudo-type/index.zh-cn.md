@@ -5,6 +5,7 @@ description: "通过打字保卫你的主机。一款复古黑客打字防御游
 categories: ["游戏", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/zh-cn/games/sudo-type/"]
 ---
 
 检测到入侵威胁。主机正在遭受攻击。你唯一的武器？**你的键盘。**

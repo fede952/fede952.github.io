@@ -6,6 +6,7 @@ categories: ["ゲーム", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/ja/games/code-breaker-typing/"]
 ---
 
 ターゲットシステムは暗号化されたファイアウォールの向こうにロックされている。侵入する唯一の方法は？**制限時間内に正確なコードシーケンスを入力すること。** 一つでもミスすればロックアウトされる。君の指はどれだけ速い？

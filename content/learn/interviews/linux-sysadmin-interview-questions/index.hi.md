@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "hi"
   }
+aliases: ["/hi/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## सिस्टम इनिशियलाइज़ेशन

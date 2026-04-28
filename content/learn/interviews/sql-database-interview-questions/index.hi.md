@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "hi"
   }
+aliases: ["/hi/interviews/sql-database-interview-questions/"]
 ---
 
 ## सिस्टम इनिट

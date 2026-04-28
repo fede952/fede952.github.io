@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["테트리스 온라인", "네온 퍼즐", "블록 게임", "브라우저 게임", "사이버펑크 게임"]
 draft: false
+aliases: ["/ko/games/neon-stacker/"]
 ---
 
 네온 블록이 디지털 하늘에서 떨어진다. **쌓아라. 줄을 완성하라. 최대한 오래 살아남아라.** 속도는 점점 빨라진다 — 얼마나 버틸 수 있는가?

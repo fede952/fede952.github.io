@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
 keywords: ["打砖块在线", "弹球游戏", "砖块破坏者", "赛博朋克街机"]
 draft: false
+aliases: ["/zh-cn/games/firewall-breaker/"]
 ---
 
 企业防火墙横亘在你与主机之间。**偏转数据包，粉碎霓虹安全方块，突破系统。** 接住道具获得优势。

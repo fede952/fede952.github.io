@@ -5,6 +5,7 @@ tags: ["example", "demo", "html5"]
 layout: "game"
 draft: false
 date: 2026-02-03
+aliases: ["/zh-cn/games/example-game/"]
 ---
 
 _注意：为了保持技术准确性，此内容显示为原始语言（英语）。_

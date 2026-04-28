@@ -13,6 +13,7 @@ schema_json: >
     "description": "خارطة طريق خطوة بخطوة لتصبح مطور Python Full Stack.",
     "inLanguage": "ar"
   }
+aliases: ["/ar/roadmaps/python-fullstack/"]
 ---
 
 ## مسارك نحو Python Full Stack

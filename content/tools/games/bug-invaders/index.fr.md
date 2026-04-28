@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
 keywords: ["space invaders", "jeu de tir", "arcade rétro", "shooter cyberpunk"]
 draft: false
+aliases: ["/fr/games/bug-invaders/"]
 ---
 
 Le noyau est attaqué. **Les bugs descendent en formation — vous êtes la dernière ligne de défense.** Déplacez votre vaisseau antivirus, abattez les envahisseurs glitch et protégez le cœur.

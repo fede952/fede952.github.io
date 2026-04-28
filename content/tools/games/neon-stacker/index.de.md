@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
 keywords: ["Tetris online", "Neon-Puzzle", "Blockspiel", "Browserspiel", "Cyberpunk-Spiel"]
 draft: false
+aliases: ["/de/games/neon-stacker/"]
 ---
 
 Neon-Blöcke regnen vom digitalen Himmel. **Stapel sie. Räume Reihen ab. Überlebe so lange du kannst.** Das Raster wird schneller — wie lange hältst du durch?

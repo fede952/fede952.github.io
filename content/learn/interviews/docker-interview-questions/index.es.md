@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "es"
   }
+aliases: ["/es/interviews/docker-interview-questions/"]
 ---
 
 ## Inicialización del Sistema

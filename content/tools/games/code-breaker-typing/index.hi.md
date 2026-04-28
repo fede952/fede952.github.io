@@ -6,6 +6,7 @@ categories: ["खेल", "Fun"]
 tags: ["game", "typing", "html5", "cyberpunk", "coding-challenge"]
 layout: "game"
 draft: false
+aliases: ["/hi/games/code-breaker-typing/"]
 ---
 
 लक्ष्य सिस्टम एक एन्क्रिप्टेड फायरवॉल के पीछे बंद है। अंदर जाने का एकमात्र तरीका? **समय खत्म होने से पहले सही कोड सीक्वेंस टाइप करें।** एक गलती और आप बाहर। आपकी उंगलियाँ कितनी तेज़ हैं?

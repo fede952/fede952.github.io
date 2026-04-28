@@ -13,6 +13,7 @@ schema_json: >
     "description": "Пошаговая дорожная карта для становления Python Full Stack разработчиком.",
     "inLanguage": "ru"
   }
+aliases: ["/ru/roadmaps/python-fullstack/"]
 ---
 
 ## Ваш путь к Python Full Stack

@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/ar/games/neon-blocks/"]
 ---
 
 حرّك الكتل المتوهجة عبر الشبكة. عندما يصطدم كتلتان بنفس الرقم، تندمجان في واحدة. حقق **2048** للفوز أو استمر للحصول على نتيجة أعلى.

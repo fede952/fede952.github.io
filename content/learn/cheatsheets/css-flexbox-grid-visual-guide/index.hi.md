@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Intermediate",
     "inLanguage": "hi"
   }
+aliases: ["/hi/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## रेंडरिंग इंजन ऑनलाइन

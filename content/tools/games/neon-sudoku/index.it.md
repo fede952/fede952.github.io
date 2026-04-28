@@ -7,6 +7,7 @@ categories: ["Games"]
 tags: ["game", "puzzle", "html5", "cyberpunk", "sudoku"]
 keywords: ["sudoku online", "neon sudoku", "rompicapo logico", "gioco cervello"]
 draft: false
+aliases: ["/it/games/neon-sudoku/"]
 ---
 
 La griglia criptata attende la decrittazione. **Inserisci i numeri da 1 a 9 in ogni riga, colonna e riquadro 3x3.** Nessun duplicato. Pura logica.

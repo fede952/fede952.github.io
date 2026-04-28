@@ -5,6 +5,7 @@ description: "Defend your mainframe by typing commands. A retro hacker typing de
 categories: ["Games", "Fun"]
 tags: ["game", "typing", "html5", "dev-humor"]
 draft: false
+aliases: ["/en/games/sudo-type/", "/games/sudo-type/"]
 ---
 
 Incoming threats detected. The mainframe is under attack. Your only weapon? **Your keyboard.**

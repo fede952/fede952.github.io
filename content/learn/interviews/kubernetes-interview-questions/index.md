@@ -14,6 +14,7 @@ schema_json: >
     "proficiencyLevel": "Advanced",
     "inLanguage": "en"
   }
+aliases: ["/en/interviews/kubernetes-interview-questions/", "/interviews/kubernetes-interview-questions/"]
 ---
 
 ## System Init

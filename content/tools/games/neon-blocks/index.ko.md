@@ -6,6 +6,7 @@ image: "/images/neon-blocks-icon.png"
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
+aliases: ["/ko/games/neon-blocks/"]
 ---
 
 빛나는 블록을 그리드 위에서 밀어 보세요. 같은 숫자의 블록이 충돌하면 합쳐집니다. **2048**에 도달하면 승리하거나, 더 높은 점수에 도전하세요.

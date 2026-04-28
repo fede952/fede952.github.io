@@ -13,6 +13,7 @@ schema_json: >
     "description": "成为高级 DevOps 工程师的分步路线图。",
     "inLanguage": "zh-CN"
   }
+aliases: ["/zh-cn/roadmaps/devops-engineer/"]
 ---
 
 ## 你的 DevOps 工程师成长之路
