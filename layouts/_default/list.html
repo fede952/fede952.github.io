@@ -8,7 +8,7 @@
   <div class="uni-grid">
     {{ $currentSection := .Section }}
     {{ $currentLang := .Lang }}
-    {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "cheatsheets") (eq $currentSection "debug-sys") (eq $currentSection "interviews") (eq $currentSection "guides") (eq $currentSection "projects") (eq $currentSection "writeups") (eq $currentSection "roadmaps") }}
+    {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "learn") (eq $currentSection "cheatsheets") (eq $currentSection "debug-sys") (eq $currentSection "interviews") (eq $currentSection "guides") (eq $currentSection "projects") (eq $currentSection "writeups") (eq $currentSection "roadmaps") }}
 
     {{ $items := slice }}
 
@@ -20,8 +20,12 @@
        {{ $items = $localNews | union $englishNews }}
        {{ $items = $items.ByDate.Reverse }}
     {{ else }}
-       {{/* GAMES/TOOLS LOGIC */}}
-       {{ $rawItems := where site.RegularPages "Section" $currentSection }}
+       {{/* GAMES/TOOLS/LEARN LOGIC: use current page's descendants so nested
+           sections (e.g. /learn/cheatsheets/) list only their own pages. */}}
+       {{ $rawItems := .RegularPagesRecursive }}
+       {{ if not $rawItems }}
+         {{ $rawItems = where site.RegularPages "Section" $currentSection }}
+       {{ end }}
 
        {{/* Split Featured vs Regular */}}
        {{ $featured := where $rawItems "Params.featured" true }}
@@ -38,11 +42,24 @@
 
     {{ range $items }}
       {{ if $isGaming }}
+        {{/* Detect sub-section for learn/* pages by splitting the URL path. */}}
+        {{ $segs := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
+        {{ $sub := "" }}
+        {{ if ge (len $segs) 3 }}{{ $sub = index $segs 2 }}{{ end }}
         <article class="card-base card-cyber">
           <h2><a href="{{ .Permalink }}" style="color:inherit; text-decoration:none;">{{ .Title }}</a></h2>
           {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
           <a class="btn-action" href="{{ .Permalink }}">
-             {{ if eq .Section "games" }}🎮 Play Now{{ else if eq .Section "cheatsheets" }}📖 Read Cheatsheet{{ else if eq .Section "debug-sys" }}🐛 Read Fix{{ else if eq .Section "interviews" }}🎯 Start Prep{{ else if eq .Section "guides" }}📚 Read Guide{{ else if eq .Section "projects" }}🚀 View Project{{ else if eq .Section "writeups" }}🔍 Read Writeup{{ else if eq .Section "roadmaps" }}🗺️ Start Path{{ else }}🛠️ Launch Tool{{ end }}
+             {{ if or (eq .Section "games") (eq $sub "games") }}🎮 Play Now
+             {{ else if or (eq .Section "cheatsheets") (eq $sub "cheatsheets") }}📖 Read Cheatsheet
+             {{ else if or (eq .Section "debug-sys") (eq $sub "debug-sys") }}🐛 Read Fix
+             {{ else if or (eq .Section "interviews") (eq $sub "interviews") }}🎯 Start Prep
+             {{ else if or (eq .Section "guides") (eq $sub "guides") }}📚 Read Guide
+             {{ else if eq .Section "projects" }}🚀 View Project
+             {{ else if or (eq .Section "writeups") (eq $sub "writeups") }}🔍 Read Writeup
+             {{ else if or (eq .Section "roadmaps") (eq $sub "roadmaps") }}🗺️ Start Path
+             {{ else if eq .Section "learn" }}📚 Read More
+             {{ else }}🛠️ Launch Tool{{ end }}
           </a>
           <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
         </article>

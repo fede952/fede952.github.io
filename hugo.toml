@@ -17,6 +17,22 @@ defaultContentLanguageInSubdir = true
   tag = "tags"
   news-category = "news-categories"
 
+# Related-content config: powers Hugo's `.Related` function used by
+# news/single.html's "Related Posts" block.
+[related]
+  threshold = 60
+  toLower = true
+  includeNewer = true
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "news-categories"
+    weight = 80
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
 # Sitemap configuration for SEO
 [sitemap]
   changefreq = "weekly"
@@ -29,7 +45,7 @@ defaultContentLanguageInSubdir = true
     ID = 'G-MDQF90PHTW'
 
 [params]
-  mainSections = ["games", "tools", "news", "posts", "cheatsheets", "debug-sys", "interviews", "roadmaps"]
+  mainSections = ["news", "tools", "learn"]
   defaultTheme = "dark"
   env = "production"
   title = "Federico Sella"
@@ -107,9 +123,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.en.menu.main]]
-        identifier = "guides"
-        name = "Guides"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Learn"
+        url = "/learn/"
         weight = 20
       [[languages.en.menu.main]]
         identifier = "tools"
@@ -117,35 +133,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.en.menu.main]]
-        identifier = "cheatsheets"
-        name = "Cheatsheets"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.en.menu.main]]
-        identifier = "interviews"
-        name = "Career"
-        url = "/interviews/"
-        weight = 38
-      [[languages.en.menu.main]]
-        identifier = "roadmaps"
-        name = "Roadmaps"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.en.menu.main]]
-        identifier = "games"
-        name = "Games"
-        url = "/games/"
-        weight = 40
-      [[languages.en.menu.main]]
-        identifier = "writeups"
-        name = "CTF Writeups"
-        url = "/writeups/"
-        weight = 45
-      [[languages.en.menu.main]]
         identifier = "projects"
         name = "Projects"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.it]
     languageName = "Italiano"
@@ -165,9 +156,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.it.menu.main]]
-        identifier = "guides"
-        name = "Guide"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Impara"
+        url = "/learn/"
         weight = 20
       [[languages.it.menu.main]]
         identifier = "tools"
@@ -175,35 +166,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.it.menu.main]]
-        identifier = "cheatsheets"
-        name = "Cheatsheet"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.it.menu.main]]
-        identifier = "interviews"
-        name = "Carriera"
-        url = "/interviews/"
-        weight = 38
-      [[languages.it.menu.main]]
-        identifier = "roadmaps"
-        name = "Percorsi"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.it.menu.main]]
-        identifier = "games"
-        name = "Giochi"
-        url = "/games/"
-        weight = 40
-      [[languages.it.menu.main]]
-        identifier = "writeups"
-        name = "CTF Writeups"
-        url = "/writeups/"
-        weight = 45
-      [[languages.it.menu.main]]
         identifier = "projects"
         name = "Progetti"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.es]
     languageName = "Español"
@@ -223,9 +189,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.es.menu.main]]
-        identifier = "guides"
-        name = "Guías"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Aprender"
+        url = "/learn/"
         weight = 20
       [[languages.es.menu.main]]
         identifier = "tools"
@@ -233,35 +199,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.es.menu.main]]
-        identifier = "cheatsheets"
-        name = "Cheatsheets"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.es.menu.main]]
-        identifier = "interviews"
-        name = "Carrera"
-        url = "/interviews/"
-        weight = 38
-      [[languages.es.menu.main]]
-        identifier = "roadmaps"
-        name = "Rutas"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.es.menu.main]]
-        identifier = "games"
-        name = "Juegos"
-        url = "/games/"
-        weight = 40
-      [[languages.es.menu.main]]
-        identifier = "writeups"
-        name = "CTF Writeups"
-        url = "/writeups/"
-        weight = 45
-      [[languages.es.menu.main]]
         identifier = "projects"
         name = "Proyectos"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.zh-cn]
     languageName = "简体中文"
@@ -281,9 +222,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.zh-cn.menu.main]]
-        identifier = "guides"
-        name = "教程"
-        url = "/guides/"
+        identifier = "learn"
+        name = "学习"
+        url = "/learn/"
         weight = 20
       [[languages.zh-cn.menu.main]]
         identifier = "tools"
@@ -291,35 +232,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.zh-cn.menu.main]]
-        identifier = "cheatsheets"
-        name = "速查表"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.zh-cn.menu.main]]
-        identifier = "interviews"
-        name = "职业"
-        url = "/interviews/"
-        weight = 38
-      [[languages.zh-cn.menu.main]]
-        identifier = "roadmaps"
-        name = "路线图"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.zh-cn.menu.main]]
-        identifier = "games"
-        name = "游戏"
-        url = "/games/"
-        weight = 40
-      [[languages.zh-cn.menu.main]]
-        identifier = "writeups"
-        name = "CTF题解"
-        url = "/writeups/"
-        weight = 45
-      [[languages.zh-cn.menu.main]]
         identifier = "projects"
         name = "项目"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.hi]
     languageName = "हिन्दी"
@@ -339,9 +255,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.hi.menu.main]]
-        identifier = "guides"
-        name = "गाइड"
-        url = "/guides/"
+        identifier = "learn"
+        name = "सीखें"
+        url = "/learn/"
         weight = 20
       [[languages.hi.menu.main]]
         identifier = "tools"
@@ -349,35 +265,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.hi.menu.main]]
-        identifier = "cheatsheets"
-        name = "चीटशीट"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.hi.menu.main]]
-        identifier = "interviews"
-        name = "करियर"
-        url = "/interviews/"
-        weight = 38
-      [[languages.hi.menu.main]]
-        identifier = "roadmaps"
-        name = "रोडमैप"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.hi.menu.main]]
-        identifier = "games"
-        name = "खेल"
-        url = "/games/"
-        weight = 40
-      [[languages.hi.menu.main]]
-        identifier = "writeups"
-        name = "CTF राइटअप"
-        url = "/writeups/"
-        weight = 45
-      [[languages.hi.menu.main]]
         identifier = "projects"
         name = "परियोजनाएं"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.ar]
     languageName = "العربية"
@@ -398,9 +289,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ar.menu.main]]
-        identifier = "guides"
-        name = "أدلة"
-        url = "/guides/"
+        identifier = "learn"
+        name = "تعلم"
+        url = "/learn/"
         weight = 20
       [[languages.ar.menu.main]]
         identifier = "tools"
@@ -408,35 +299,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ar.menu.main]]
-        identifier = "cheatsheets"
-        name = "ملخصات"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.ar.menu.main]]
-        identifier = "interviews"
-        name = "مسيرة مهنية"
-        url = "/interviews/"
-        weight = 38
-      [[languages.ar.menu.main]]
-        identifier = "roadmaps"
-        name = "خرائط الطريق"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.ar.menu.main]]
-        identifier = "games"
-        name = "الألعاب"
-        url = "/games/"
-        weight = 40
-      [[languages.ar.menu.main]]
-        identifier = "writeups"
-        name = "CTF حلول"
-        url = "/writeups/"
-        weight = 45
-      [[languages.ar.menu.main]]
         identifier = "projects"
         name = "المشاريع"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.pt]
     languageName = "Português"
@@ -456,9 +322,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.pt.menu.main]]
-        identifier = "guides"
-        name = "Guias"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Aprender"
+        url = "/learn/"
         weight = 20
       [[languages.pt.menu.main]]
         identifier = "tools"
@@ -466,35 +332,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.pt.menu.main]]
-        identifier = "cheatsheets"
-        name = "Cheatsheets"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.pt.menu.main]]
-        identifier = "interviews"
-        name = "Carreira"
-        url = "/interviews/"
-        weight = 38
-      [[languages.pt.menu.main]]
-        identifier = "roadmaps"
-        name = "Roteiros"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.pt.menu.main]]
-        identifier = "games"
-        name = "Jogos"
-        url = "/games/"
-        weight = 40
-      [[languages.pt.menu.main]]
-        identifier = "writeups"
-        name = "CTF Writeups"
-        url = "/writeups/"
-        weight = 45
-      [[languages.pt.menu.main]]
         identifier = "projects"
         name = "Projetos"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.fr]
     languageName = "Français"
@@ -514,9 +355,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.fr.menu.main]]
-        identifier = "guides"
-        name = "Guides"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Apprendre"
+        url = "/learn/"
         weight = 20
       [[languages.fr.menu.main]]
         identifier = "tools"
@@ -524,35 +365,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.fr.menu.main]]
-        identifier = "cheatsheets"
-        name = "Aide-mémoire"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.fr.menu.main]]
-        identifier = "interviews"
-        name = "Carrière"
-        url = "/interviews/"
-        weight = 38
-      [[languages.fr.menu.main]]
-        identifier = "roadmaps"
-        name = "Parcours"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.fr.menu.main]]
-        identifier = "games"
-        name = "Jeux"
-        url = "/games/"
-        weight = 40
-      [[languages.fr.menu.main]]
-        identifier = "writeups"
-        name = "CTF Writeups"
-        url = "/writeups/"
-        weight = 45
-      [[languages.fr.menu.main]]
         identifier = "projects"
         name = "Projets"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.de]
     languageName = "Deutsch"
@@ -572,9 +388,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.de.menu.main]]
-        identifier = "guides"
-        name = "Anleitungen"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Lernen"
+        url = "/learn/"
         weight = 20
       [[languages.de.menu.main]]
         identifier = "tools"
@@ -582,35 +398,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.de.menu.main]]
-        identifier = "cheatsheets"
-        name = "Spickzettel"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.de.menu.main]]
-        identifier = "interviews"
-        name = "Karriere"
-        url = "/interviews/"
-        weight = 38
-      [[languages.de.menu.main]]
-        identifier = "roadmaps"
-        name = "Roadmaps"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.de.menu.main]]
-        identifier = "games"
-        name = "Spiele"
-        url = "/games/"
-        weight = 40
-      [[languages.de.menu.main]]
-        identifier = "writeups"
-        name = "CTF Writeups"
-        url = "/writeups/"
-        weight = 45
-      [[languages.de.menu.main]]
         identifier = "projects"
         name = "Projekte"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.ja]
     languageName = "日本語"
@@ -630,9 +421,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ja.menu.main]]
-        identifier = "guides"
-        name = "ガイド"
-        url = "/guides/"
+        identifier = "learn"
+        name = "学ぶ"
+        url = "/learn/"
         weight = 20
       [[languages.ja.menu.main]]
         identifier = "tools"
@@ -640,35 +431,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ja.menu.main]]
-        identifier = "cheatsheets"
-        name = "チートシート"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.ja.menu.main]]
-        identifier = "interviews"
-        name = "キャリア"
-        url = "/interviews/"
-        weight = 38
-      [[languages.ja.menu.main]]
-        identifier = "roadmaps"
-        name = "ロードマップ"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.ja.menu.main]]
-        identifier = "games"
-        name = "ゲーム"
-        url = "/games/"
-        weight = 40
-      [[languages.ja.menu.main]]
-        identifier = "writeups"
-        name = "CTF解説"
-        url = "/writeups/"
-        weight = 45
-      [[languages.ja.menu.main]]
         identifier = "projects"
         name = "プロジェクト"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.ru]
     languageName = "Русский"
@@ -688,9 +454,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ru.menu.main]]
-        identifier = "guides"
-        name = "Руководства"
-        url = "/guides/"
+        identifier = "learn"
+        name = "Учиться"
+        url = "/learn/"
         weight = 20
       [[languages.ru.menu.main]]
         identifier = "tools"
@@ -698,35 +464,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ru.menu.main]]
-        identifier = "cheatsheets"
-        name = "Шпаргалки"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.ru.menu.main]]
-        identifier = "interviews"
-        name = "Карьера"
-        url = "/interviews/"
-        weight = 38
-      [[languages.ru.menu.main]]
-        identifier = "roadmaps"
-        name = "Дорожные Карты"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.ru.menu.main]]
-        identifier = "games"
-        name = "Игры"
-        url = "/games/"
-        weight = 40
-      [[languages.ru.menu.main]]
-        identifier = "writeups"
-        name = "CTF Решения"
-        url = "/writeups/"
-        weight = 45
-      [[languages.ru.menu.main]]
         identifier = "projects"
         name = "Проекты"
         url = "/projects/"
-        weight = 50
+        weight = 30
 
   [languages.ko]
     languageName = "한국어"
@@ -746,9 +487,9 @@ defaultContentLanguageInSubdir = true
         url = "/news/"
         weight = 15
       [[languages.ko.menu.main]]
-        identifier = "guides"
-        name = "가이드"
-        url = "/guides/"
+        identifier = "learn"
+        name = "배우기"
+        url = "/learn/"
         weight = 20
       [[languages.ko.menu.main]]
         identifier = "tools"
@@ -756,35 +497,10 @@ defaultContentLanguageInSubdir = true
         url = "/tools/"
         weight = 25
       [[languages.ko.menu.main]]
-        identifier = "cheatsheets"
-        name = "치트시트"
-        url = "/cheatsheets/"
-        weight = 35
-      [[languages.ko.menu.main]]
-        identifier = "interviews"
-        name = "커리어"
-        url = "/interviews/"
-        weight = 38
-      [[languages.ko.menu.main]]
-        identifier = "roadmaps"
-        name = "로드맵"
-        url = "/roadmaps/"
-        weight = 39
-      [[languages.ko.menu.main]]
-        identifier = "games"
-        name = "게임"
-        url = "/games/"
-        weight = 40
-      [[languages.ko.menu.main]]
-        identifier = "writeups"
-        name = "CTF 풀이"
-        url = "/writeups/"
-        weight = 45
-      [[languages.ko.menu.main]]
         identifier = "projects"
         name = "프로젝트"
         url = "/projects/"
-        weight = 50
+        weight = 30
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
