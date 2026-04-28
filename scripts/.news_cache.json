@@ -3098,7 +3098,12 @@
     "https://www.bleepingcomputer.com/news/security/robinhood-account-creation-flaw-abused-to-send-phishing-emails/",
     "https://www.bleepingcomputer.com/news/security/glassworm-malware-attacks-return-via-73-openvsx-sleeper-extensions/",
     "https://www.bleepingcomputer.com/news/security/canada-arrests-three-for-operating-sms-blaster-device-in-toronto/",
-    "https://www.bleepingcomputer.com/news/security/alleged-silk-typhoon-hacker-extradited-to-us-for-cyberespionage/"
+    "https://www.bleepingcomputer.com/news/security/alleged-silk-typhoon-hacker-extradited-to-us-for-cyberespionage/",
+    "https://www.cisa.gov/news-events/analysis-reports/ar26-113a",
+    "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-05",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-06",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-111-09"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6199,6 +6204,17 @@
     "99c373689577b9a763f65dc7823f5ced",
     "5e9b2f9381068af8927bc04eb28a6279",
     "ad1116e7e79a8ad9fe3a917c288b7196",
-    "467d0e0dda5e76f7dac62aa2c8592f97"
-  ]
+    "467d0e0dda5e76f7dac62aa2c8592f97",
+    "072c61626627005ed9cd3c9397a09d2a",
+    "1c710fe4f8ad68c76f3ba5216a551e55",
+    "51c1ff27b3ce01d7aa1995b3dcca8aa7",
+    "b4ef49f99a9382699097632ba450e52f",
+    "b44f651ba87724bee5452fddff00fd90"
+  ],
+  "daily_llm_calls": {
+    "2026-04-28": 60
+  },
+  "daily_published": {
+    "2026-04-28": 5
+  }
 }
