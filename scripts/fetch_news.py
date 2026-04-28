@@ -66,6 +66,9 @@ FEEDS = [
     "https://www.redhotcyber.com/feed/",
     "https://cert-agid.gov.it/feed/",
     "https://www.cybersecurity360.it/feed/",
+    "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+    "https://krebsonsecurity.com/feed/",
+    "https://www.darkreading.com/rss.xml",
 ]
 
 # Cybersecurity360 must pass strict keyword check; others are trusted.
@@ -171,11 +174,14 @@ def article_id(url: str, title: str) -> str:
 def source_name_from_url(url: str) -> str:
     u = url.lower()
     if "thehackersnews" in u or "feedburner" in u: return "The Hacker News"
-    if "bleepingcomputer" in u: return "BleepingComputer"
-    if "wired" in u:            return "Wired Security"
-    if "redhotcyber" in u:      return "Red Hot Cyber"
-    if "cert-agid" in u:        return "CERT-AgID"
-    if "cybersecurity360" in u: return "Cybersecurity360"
+    if "bleepingcomputer" in u:   return "BleepingComputer"
+    if "wired" in u:              return "Wired Security"
+    if "redhotcyber" in u:        return "Red Hot Cyber"
+    if "cert-agid" in u:          return "CERT-AgID"
+    if "cybersecurity360" in u:   return "Cybersecurity360"
+    if "cisa.gov" in u:           return "CISA"
+    if "krebsonsecurity" in u:    return "Krebs on Security"
+    if "darkreading" in u:        return "Dark Reading"
     domain = urlparse(url).netloc.replace("www.", "")
     return domain.split(".")[0].title()
 
