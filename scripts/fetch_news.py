@@ -43,9 +43,9 @@ DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 DEEPSEEK_MODEL = "deepseek-chat"
 DRY_RUN = os.environ.get("DRY_RUN") == "1"
 
-# (code, English name, suffix). English's suffix is None — canonical file is slug.md.
+# (code, English name, suffix). All 12 languages use slug.{suffix}.md, including English.
 LANGUAGES = [
-    ("en",    "English",            None),
+    ("en",    "English",            "en"),
     ("it",    "Italian",            "it"),
     ("es",    "Spanish",            "es"),
     ("zh-cn", "Simplified Chinese", "zh-cn"),
@@ -362,7 +362,8 @@ def yaml_value(v) -> str:
 
 
 def render_markdown(payload: dict, *, lang: str, source_name: str,
-                    original_url: str, date_obj: datetime, slug: str) -> str:
+                    original_url: str, now_utc: datetime, feed_date: datetime,
+                    slug: str) -> str:
     cr = payload.get("cyber_report") or {}
     severity = cr.get("severity") or "Info"
     target   = cr.get("target")
@@ -371,8 +372,12 @@ def render_markdown(payload: dict, *, lang: str, source_name: str,
     kev      = cr.get("kev")
 
     fm = {
+        # `date` is the publication time on THIS site (current UTC at run time),
+        # so Hugo never hides posts as future-dated and never buries them by an
+        # older feed timestamp. The original feed date is preserved separately.
         "title": payload.get("headline") or "Untitled",
-        "date": date_obj.strftime("%Y-%m-%dT%H:%M:%S"),
+        "date": now_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "original_date": feed_date.strftime("%Y-%m-%dT%H:%M:%S"),
         "lang": lang,
         "translationKey": slug,
         "author": "NewsBot (Validated by Federico Sella)",
@@ -523,18 +528,22 @@ def publish_article(client: OpenAI | None, candidate: dict, cache: dict,
         log("  [SKIP] Empty slug after slugify.")
         return False
 
-    date_obj = candidate["published_at"]
-    out_dir = CONTENT_DIR / date_obj.strftime("%Y") / date_obj.strftime("%m")
+    # `date` (frontmatter) and the on-disk YYYY/MM directory both follow NOW —
+    # the feed's date may be in the past or future and either case breaks Hugo.
+    now_utc   = datetime.now(timezone.utc)
+    feed_date = candidate["published_at"]
+    out_dir = CONTENT_DIR / now_utc.strftime("%Y") / now_utc.strftime("%m")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    en_path = out_dir / f"{slug}.md"
+    en_path = out_dir / f"{slug}.en.md"
     if en_path.exists():
         log(f"  [SKIP] EN file already exists: {en_path.name}")
         return False
 
     en_path.write_text(
         render_markdown(enriched, lang="en", source_name=candidate["source_name"],
-                        original_url=candidate["url"], date_obj=date_obj, slug=slug),
+                        original_url=candidate["url"],
+                        now_utc=now_utc, feed_date=feed_date, slug=slug),
         encoding="utf-8",
     )
     log(f"  [OK] en  -> {en_path.relative_to(BASE_DIR)}")
@@ -554,7 +563,7 @@ def publish_article(client: OpenAI | None, candidate: dict, cache: dict,
                 render_markdown(translated, lang=code,
                                 source_name=candidate["source_name"],
                                 original_url=candidate["url"],
-                                date_obj=date_obj, slug=slug),
+                                now_utc=now_utc, feed_date=feed_date, slug=slug),
                 encoding="utf-8",
             )
             log(f"  [OK] {code:5} -> {out_path.relative_to(BASE_DIR)}")
