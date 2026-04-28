@@ -6,4 +6,6 @@ requests==2.31.0
 python-slugify==8.0.4
 beautifulsoup4==4.12.3
 # DeepSeek is OpenAI-compatible; we use the openai SDK with a custom base_url.
-openai==1.52.2
+# >=1.55.0 required: earlier versions pass `proxies` to httpx, which is removed
+# in httpx 0.28+ and breaks Client.__init__ with TypeError.
+openai>=1.55.0
