@@ -1,0 +1,126 @@
+{{- $severity := .Get "severity" | default "Info" -}}
+{{- $target   := .Get "target" -}}
+{{- $source   := .Get "source" -}}
+{{- $cve      := .Get "cve" -}}
+{{- $cvss     := .Get "cvss" -}}
+{{- $kev      := .Get "kev" -}}
+{{- $sev      := lower $severity -}}
+<div class="cyber-report cyber-report--{{ $sev }}" role="region" aria-label="Cyber Report">
+  <div class="cyber-report__header">
+    <span class="cyber-report__bracket">[</span>
+    <span class="cyber-report__title">CYBER-REPORT</span>
+    <span class="cyber-report__bracket">]</span>
+    <span class="cyber-report__severity">SEVERITY: {{ $severity }}</span>
+  </div>
+  <table class="cyber-report__table">
+    <tbody>
+      {{- if $source }}
+      <tr><th>Source</th><td>{{ $source }}</td></tr>
+      {{- end }}
+      {{- if $target }}
+      <tr><th>Target</th><td>{{ $target }}</td></tr>
+      {{- end }}
+      <tr><th>Severity</th><td><span class="cyber-report__pill">{{ $severity }}</span></td></tr>
+      {{- if $cve }}
+      <tr><th>CVE</th><td><code>{{ $cve }}</code></td></tr>
+      {{- end }}
+      {{- if $cvss }}
+      <tr><th>CVSS</th><td><code>{{ $cvss }}</code> <span class="cyber-report__muted">/ 10.0</span></td></tr>
+      {{- end }}
+      {{- if $kev }}
+      <tr><th>CISA KEV</th><td>
+        {{- if eq $kev "true" -}}
+          <span class="cyber-report__kev">⚠ LISTED — actively exploited</span>
+        {{- else -}}
+          <span class="cyber-report__muted">Not listed</span>
+        {{- end -}}
+      </td></tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>
+
+<style>
+.cyber-report{
+  --neon: #00fff0;
+  --bg: rgba(8, 0, 28, 0.88);
+  --border: rgba(0, 255, 240, 0.55);
+  --text: #e8f7ff;
+  --muted: #8aa6b8;
+  margin: 1.75rem 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--neon);
+  font-family: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+  color: var(--text);
+  box-shadow: 0 0 18px rgba(0,255,240,0.10), inset 0 0 22px rgba(0,255,240,0.04);
+  overflow: hidden;
+  border-radius: 2px;
+}
+.cyber-report--critical{ --neon:#ff007a; --border:rgba(255,0,122,0.55); }
+.cyber-report--high    { --neon:#ff5500; --border:rgba(255,85,0,0.55); }
+.cyber-report--medium  { --neon:#ffd700; --border:rgba(255,215,0,0.55); }
+.cyber-report--low     { --neon:#00fff0; --border:rgba(0,255,240,0.55); }
+.cyber-report--info    { --neon:#00ff88; --border:rgba(0,255,136,0.55); }
+
+.cyber-report__header{
+  display:flex; align-items:center; gap:.6rem;
+  padding:.65rem 1rem;
+  background: linear-gradient(90deg, rgba(0,0,0,0.35), transparent);
+  border-bottom: 1px dashed var(--border);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-size: .82rem;
+}
+.cyber-report__bracket{ color: var(--neon); }
+.cyber-report__title{
+  color: var(--neon); font-weight: 700;
+  text-shadow: 0 0 6px var(--neon);
+}
+.cyber-report__severity{ margin-left:auto; color: var(--neon); font-weight: 700; }
+
+.cyber-report__table{ width:100%; border-collapse: collapse; margin:0; background: transparent; }
+.cyber-report__table th,
+.cyber-report__table td{
+  padding:.55rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  text-align: left;
+  vertical-align: middle;
+}
+.cyber-report__table tr:last-child th,
+.cyber-report__table tr:last-child td{ border-bottom: none; }
+.cyber-report__table th{
+  width: 30%;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .72rem;
+}
+.cyber-report__table td{ color: var(--text); }
+.cyber-report__table code{
+  background: rgba(0,255,240,0.08);
+  border: 1px solid rgba(0,255,240,0.25);
+  padding: .1rem .4rem;
+  border-radius: 2px;
+  color: var(--neon);
+  font-family: inherit;
+}
+.cyber-report__pill{
+  display:inline-block; padding:.15rem .55rem;
+  background: var(--neon); color:#000; font-weight:700;
+  border-radius: 2px; letter-spacing:.1em; font-size:.72rem;
+}
+.cyber-report__kev{ color:#ff007a; font-weight:700; letter-spacing:.08em; }
+.cyber-report__muted{ color: var(--muted); }
+
+@media (prefers-color-scheme: light){
+  .cyber-report{
+    --bg: rgba(248, 250, 255, 0.96);
+    --text: #0a0a0a;
+    --muted: #555;
+    box-shadow: 0 0 12px rgba(0,0,0,0.08);
+  }
+  .cyber-report__table code{ background: rgba(0,0,0,0.04); }
+}
+</style>

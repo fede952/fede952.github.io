@@ -5,4 +5,5 @@ feedparser==6.0.11
 requests==2.31.0
 python-slugify==8.0.4
 beautifulsoup4==4.12.3
-# lxml removed - using html.parser instead (built-in)
+# DeepSeek is OpenAI-compatible; we use the openai SDK with a custom base_url.
+openai==1.52.2

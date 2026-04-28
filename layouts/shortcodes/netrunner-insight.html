@@ -1,0 +1,77 @@
+{{- $inner := .Inner | markdownify -}}
+<aside class="netrunner-insight" role="note" aria-label="Netrunner Insight">
+  <header class="netrunner-insight__header">
+    <span class="netrunner-insight__prompt">root@netrunner:~$</span>
+    <span class="netrunner-insight__title">NETRUNNER INSIGHT</span>
+    <span class="netrunner-insight__cursor" aria-hidden="true">█</span>
+  </header>
+  <div class="netrunner-insight__body">
+    {{ $inner }}
+  </div>
+</aside>
+
+<style>
+.netrunner-insight{
+  --neon-a: #ff00d4;
+  --neon-b: #00fff0;
+  --bg: rgba(12, 0, 24, 0.92);
+  --text: #e8f7ff;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 0, 212, 0.45);
+  border-left: 3px solid var(--neon-a);
+  background:
+    linear-gradient(135deg, rgba(255,0,212,0.04), rgba(0,255,240,0.04)),
+    var(--bg);
+  font-family: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+  color: var(--text);
+  box-shadow: 0 0 22px rgba(255,0,212,0.12), inset 0 0 30px rgba(0,255,240,0.04);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.netrunner-insight::before{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--neon-a), var(--neon-b), var(--neon-a));
+  opacity:.7;
+}
+.netrunner-insight__header{
+  display:flex; align-items:center; gap:.6rem;
+  padding:.7rem 1rem;
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: .8rem;
+}
+.netrunner-insight__prompt{ color: var(--neon-b); opacity:.85; }
+.netrunner-insight__title{
+  color: var(--neon-a); font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,0,212,0.55);
+}
+.netrunner-insight__cursor{
+  color: var(--neon-b);
+  animation: nr-blink 1.05s steps(2) infinite;
+  margin-left: auto;
+}
+@keyframes nr-blink{ 50%{ opacity: 0; } }
+
+.netrunner-insight__body{ padding: 1rem 1.1rem 1.1rem; line-height: 1.62; }
+.netrunner-insight__body p{ margin: 0 0 .65rem; }
+.netrunner-insight__body p:last-child{ margin-bottom: 0; }
+.netrunner-insight__body code{
+  background: rgba(0,255,240,0.08);
+  border: 1px solid rgba(0,255,240,0.25);
+  padding: .1rem .35rem;
+  border-radius: 2px;
+  color: var(--neon-b);
+  font-family: inherit;
+}
+
+@media (prefers-color-scheme: light){
+  .netrunner-insight{
+    --bg: #fafbff;
+    --text: #1a1a1a;
+    box-shadow: 0 0 12px rgba(0,0,0,0.06);
+  }
+}
+</style>
