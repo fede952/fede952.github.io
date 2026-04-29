@@ -3103,7 +3103,12 @@
     "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-05",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-06",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-111-09"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-111-09",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-118-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-111-11",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-111-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-04"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6209,12 +6214,19 @@
     "1c710fe4f8ad68c76f3ba5216a551e55",
     "51c1ff27b3ce01d7aa1995b3dcca8aa7",
     "b4ef49f99a9382699097632ba450e52f",
-    "b44f651ba87724bee5452fddff00fd90"
+    "b44f651ba87724bee5452fddff00fd90",
+    "2cec1e05c3d83c01dc6173ecde39c3e7",
+    "fd1281b76213b5532d2720cf1ac94be5",
+    "db1b0175f7a5dabf48cc5c07142f01fb",
+    "c265e2139fc6558c95d3b521dffa0a40",
+    "b87688f92489fc060f9aeef38719a211"
   ],
   "daily_llm_calls": {
-    "2026-04-28": 60
+    "2026-04-28": 60,
+    "2026-04-29": 60
   },
   "daily_published": {
-    "2026-04-28": 5
+    "2026-04-28": 5,
+    "2026-04-29": 5
   }
 }
