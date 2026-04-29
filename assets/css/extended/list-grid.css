@@ -74,3 +74,22 @@
     height: 100%;
     z-index: 1; /* Sits below the buttons but above background */
 }
+
+/* === HUB GROUP "VIEW ALL" OVERFLOW LINK === */
+.hub-view-all {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 8px 18px;
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.hub-view-all:hover {
+  background: var(--primary);
+  color: var(--theme);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}

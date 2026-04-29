@@ -61,6 +61,16 @@
     }
     .hub-group-heading a { color: inherit; text-decoration: none; }
     .hub-group-desc { opacity: 0.75; margin: 0 0 1rem; }
+    .hub-view-all {
+      display: inline-block; margin-top: 1.25rem;
+      padding: 8px 16px; border: 1px solid #00e5ff; border-radius: 6px;
+      color: #00e5ff; text-decoration: none; font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .hub-view-all:hover {
+      background: #00e5ff; color: #000;
+      box-shadow: 0 0 15px rgba(0,229,255,0.4);
+    }
     @media (max-width: 600px) {
       .cyber-grid { grid-template-columns: 1fr; }
     }
@@ -92,18 +102,26 @@
       </div>
     {{ end }}
 
+    {{/* Each sub-section group shows up to 5 most-recent posts; an overflow
+         link points to the sub-section's own paginated list page. */}}
+    {{ $hubLimit := 5 }}
     {{ range .Sections.ByTitle }}
       {{ $children := .RegularPagesRecursive.ByDate.Reverse }}
       {{ if $children }}
+        {{ $shown := first $hubLimit $children }}
+        {{ $overflow := gt (len $children) $hubLimit }}
         <h2 class="hub-group-heading">
           <a href="{{ .Permalink }}">{{ .Title }}</a>
         </h2>
         {{ with .Description }}<p class="hub-group-desc">{{ . }}</p>{{ end }}
         <div class="cyber-grid">
-          {{ range $children }}
+          {{ range $shown }}
             {{ partial "cyber-card.html" . }}
           {{ end }}
         </div>
+        {{ if $overflow }}
+          <a class="hub-view-all" href="{{ .Permalink }}">View All {{ .Title }} &rarr;</a>
+        {{ end }}
       {{ end }}
     {{ end }}
   {{ else }}
