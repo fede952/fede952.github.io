@@ -120,7 +120,7 @@
           {{ end }}
         </div>
         {{ if $overflow }}
-          <a class="hub-view-all" href="{{ .Permalink }}">View All {{ .Title }} &rarr;</a>
+          <a class="hub-view-all" href="{{ .Permalink }}">{{ i18n "view_all" .Title }}</a>
         {{ end }}
       {{ end }}
     {{ end }}
