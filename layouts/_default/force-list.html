@@ -55,51 +55,83 @@
     }
     .btn-cyber:hover { background: #00e5ff; color: #000; box-shadow: 0 0 15px rgba(0,229,255,0.4); }
     .date-meta { font-size: 0.8rem; color: #666; }
+    .hub-group-heading {
+      margin-top: 3rem; margin-bottom: 0.25rem; color: #fff;
+      border-bottom: 1px solid #2a2a35; padding-bottom: 0.5rem;
+    }
+    .hub-group-heading a { color: inherit; text-decoration: none; }
+    .hub-group-desc { opacity: 0.75; margin: 0 0 1rem; }
     @media (max-width: 600px) {
       .cyber-grid { grid-template-columns: 1fr; }
     }
   </style>
 
-  <div class="cyber-grid">
-    {{ $currentSection := .Section }}
-    {{ $currentLang := .Lang }}
-    {{ $items := slice }}
+  {{ $currentSection := .Section }}
+  {{ $currentLang := .Lang }}
+  {{ $isHub := and (eq .Kind "section") (in (slice "learn" "tools") $currentSection) (eq .Parent.Kind "home") }}
 
-    {{/* SMART NEWS LOGIC: Local Language + English Fallback ONLY */}}
-    {{ if eq $currentSection "news" }}
-       {{ $allNews := where site.AllPages "Section" "news" }}
-       {{ $localNews := where $allNews "Lang" $currentLang }}
-       {{ $englishNews := where $allNews "Lang" "en" }}
-       {{/* Union merges unique items */}}
-       {{ $items = $localNews | union $englishNews }}
-       {{/* Sort by Date Descending */}}
-       {{ $items = $items.ByDate.Reverse }}
-    {{ else }}
-       {{/* Standard Logic for Games/Tools */}}
-       {{ $items = where site.RegularPages "Section" $currentSection }}
+  {{ if $isHub }}
+    {{/* Hub mode: group by sub-section. Direct child pages first, then a
+         labeled grid per sub-section. */}}
+    {{ $hubURL := .RelPermalink }}
+    {{ $direct := slice }}
+    {{ range .RegularPages }}
+      {{ if and .Parent (eq .Parent.RelPermalink $hubURL) }}
+        {{ $direct = $direct | append . }}
+      {{ end }}
+    {{ end }}
+    {{ if $direct }}
+      {{ $featured := where $direct "Params.featured" true }}
+      {{ $regular := where $direct "Params.featured" "!=" true }}
+      {{ $regular = $regular.ByDate.Reverse }}
+      {{ $direct = $featured | append $regular }}
+      <div class="cyber-grid">
+        {{ range $direct }}
+          {{ partial "cyber-card.html" . }}
+        {{ end }}
+      </div>
     {{ end }}
 
-    {{/* Filter only regular pages */}}
-    {{ $items = where $items "Kind" "page" }}
-
-    {{ range $items }}
-      <article class="cyber-card">
-        <span class="card-tag">{{ .Section }}</span>
-        <div class="card-content">
-          <header>
-            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-          </header>
-          {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+    {{ range .Sections.ByTitle }}
+      {{ $children := .RegularPagesRecursive.ByDate.Reverse }}
+      {{ if $children }}
+        <h2 class="hub-group-heading">
+          <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </h2>
+        {{ with .Description }}<p class="hub-group-desc">{{ . }}</p>{{ end }}
+        <div class="cyber-grid">
+          {{ range $children }}
+            {{ partial "cyber-card.html" . }}
+          {{ end }}
         </div>
-        <div class="card-footer">
-          <span class="date-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
-          <a class="btn-cyber" href="{{ .Permalink }}">
-            {{ if eq .Section "games" }}Play Now{{ else if eq .Section "tools" }}Use Tool{{ else }}read more &rarr;{{ end }}
-          </a>
-        </div>
-        <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
-      </article>
+      {{ end }}
     {{ end }}
-  </div>
+  {{ else }}
+    <div class="cyber-grid">
+      {{ $items := slice }}
+
+      {{/* SMART NEWS LOGIC: Local Language + English Fallback ONLY */}}
+      {{ if eq $currentSection "news" }}
+         {{ $allNews := where site.AllPages "Section" "news" }}
+         {{ $localNews := where $allNews "Lang" $currentLang }}
+         {{ $englishNews := where $allNews "Lang" "en" }}
+         {{ $items = $localNews | union $englishNews }}
+         {{ $items = $items.ByDate.Reverse }}
+      {{ else }}
+         {{/* Standard Logic for sub-section pages: pull only this section's
+             pages so e.g. /tools/games/ doesn't list non-game tools. */}}
+         {{ $items = .RegularPagesRecursive }}
+         {{ if not $items }}
+           {{ $items = where site.RegularPages "Section" $currentSection }}
+         {{ end }}
+      {{ end }}
+
+      {{ $items = where $items "Kind" "page" }}
+
+      {{ range $items }}
+        {{ partial "cyber-card.html" . }}
+      {{ end }}
+    </div>
+  {{ end }}
 </main>
 {{ end }}

@@ -1,0 +1,24 @@
+{{- /* Render a single cyber-card for the force-list layout. Receives a Page. */ -}}
+{{- with . -}}
+<article class="cyber-card">
+  <span class="card-tag">{{ .Section }}</span>
+  <div class="card-content">
+    <header>
+      <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    </header>
+    {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+  </div>
+  <div class="card-footer">
+    <span class="date-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+    <a class="btn-cyber" href="{{ .Permalink }}">
+      {{- $segs := split (strings.TrimPrefix "/" .RelPermalink) "/" -}}
+      {{- $sub := "" -}}
+      {{- if ge (len $segs) 3 }}{{ $sub = index $segs 2 }}{{ end -}}
+      {{ if or (eq .Section "games") (eq $sub "games") }}Play Now
+      {{ else if eq .Section "tools" }}Use Tool
+      {{ else }}read more &rarr;{{ end }}
+    </a>
+  </div>
+  <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end -}}

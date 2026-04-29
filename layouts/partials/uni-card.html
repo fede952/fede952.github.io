@@ -1,0 +1,39 @@
+{{- /* Render a single card for the universal grid.
+     Args: dict "page" Page "isGaming" bool */ -}}
+{{- $isGaming := .isGaming -}}
+{{- with .page -}}
+  {{- if $isGaming -}}
+    {{- $segs := split (strings.TrimPrefix "/" .RelPermalink) "/" -}}
+    {{- $sub := "" -}}
+    {{- if ge (len $segs) 3 }}{{ $sub = index $segs 2 }}{{ end -}}
+    <article class="card-base card-cyber">
+      <h2><a href="{{ .Permalink }}" style="color:inherit; text-decoration:none;">{{ .Title }}</a></h2>
+      {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+      <a class="btn-action" href="{{ .Permalink }}">
+         {{ if or (eq .Section "games") (eq $sub "games") }}🎮 Play Now
+         {{ else if or (eq .Section "cheatsheets") (eq $sub "cheatsheets") }}📖 Read Cheatsheet
+         {{ else if or (eq .Section "debug-sys") (eq $sub "debug-sys") }}🐛 Read Fix
+         {{ else if or (eq .Section "interviews") (eq $sub "interviews") }}🎯 Start Prep
+         {{ else if or (eq .Section "guides") (eq $sub "guides") }}📚 Read Guide
+         {{ else if eq .Section "projects" }}🚀 View Project
+         {{ else if or (eq .Section "writeups") (eq $sub "writeups") }}🔍 Read Writeup
+         {{ else if or (eq .Section "roadmaps") (eq $sub "roadmaps") }}🗺️ Start Path
+         {{ else if eq .Section "learn" }}📚 Read More
+         {{ else }}🛠️ Launch Tool{{ end }}
+      </a>
+      <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
+    </article>
+  {{- else -}}
+    <article class="card-base card-pro">
+      <header>
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+      </header>
+      {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+      <div class="meta">
+        <span>📅 {{ .Date.Format "Jan 2, 2006" }}</span>
+        <span class="read-link">Read Article &rarr;</span>
+      </div>
+      <a class="entry-link" aria-label="Read {{ .Title }}" href="{{ .Permalink }}"></a>
+    </article>
+  {{- end -}}
+{{- end -}}
