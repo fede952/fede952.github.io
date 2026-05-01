@@ -3113,7 +3113,12 @@
     "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-windows-flaw-exploited-in-zero-day-attacks/",
     "https://thehackernews.com/2026/04/cisa-adds-actively-exploited.html",
     "https://thehackernews.com/2026/04/critical-cve-2026-25874-leaves-hugging.html",
-    "https://www.cisa.gov/resources-tools/resources/adapting-zero-trust-principles-operational-technology"
+    "https://www.cisa.gov/resources-tools/resources/adapting-zero-trust-principles-operational-technology",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-05",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-02",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-01"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6229,16 +6234,23 @@
     "54210c9d7b8b66c9aa508d3ce5d96f26",
     "09e53addac8bfed9437f7f14cc5bbddd",
     "3bc674ca319be035eb246de70026e244",
-    "7bae7ebe7f05e37d7572f3ebe67c0d42"
+    "7bae7ebe7f05e37d7572f3ebe67c0d42",
+    "57c373320ba1528ab7504217f68767f6",
+    "e6bc38eff966c9892fd169dc95f7bad6",
+    "4b42e85a4bce1f82b8cccbb59dcc9677",
+    "fb5ada1e4e5cf1d8db2fcdd4f32e3d44",
+    "9bb4cd49c0c4483edba7c2714985a11d"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
     "2026-04-29": 60,
-    "2026-04-30": 60
+    "2026-04-30": 60,
+    "2026-05-01": 60
   },
   "daily_published": {
     "2026-04-28": 5,
     "2026-04-29": 5,
-    "2026-04-30": 5
+    "2026-04-30": 5,
+    "2026-05-01": 5
   }
 }
