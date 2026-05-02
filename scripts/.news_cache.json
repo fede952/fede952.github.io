@@ -3118,7 +3118,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-04",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-02",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-03",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-01"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-01",
+    "https://www.cisa.gov/news-events/alerts/2026/05/01/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-06",
+    "https://www.cisa.gov/news-events/alerts/2026/04/30/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://www.cisa.gov/news-events/alerts/2026/04/28/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+    "https://www.cisa.gov/news-events/alerts/2026/04/24/cisa-adds-four-known-exploited-vulnerabilities-catalog"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6239,18 +6244,25 @@
     "e6bc38eff966c9892fd169dc95f7bad6",
     "4b42e85a4bce1f82b8cccbb59dcc9677",
     "fb5ada1e4e5cf1d8db2fcdd4f32e3d44",
-    "9bb4cd49c0c4483edba7c2714985a11d"
+    "9bb4cd49c0c4483edba7c2714985a11d",
+    "c6214ee98d10c52c8beea63b95b99dc2",
+    "fc73bb6c95d7902ec69e2374a0a342ab",
+    "e4d03b3078a5730f4aafbdf76bca8d45",
+    "e5f2d5a848fd9d8e2a7399525add989b",
+    "1ece25434b9ccfbbb6b62141454e6bd1"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
     "2026-04-29": 60,
     "2026-04-30": 60,
-    "2026-05-01": 60
+    "2026-05-01": 60,
+    "2026-05-02": 60
   },
   "daily_published": {
     "2026-04-28": 5,
     "2026-04-29": 5,
     "2026-04-30": 5,
-    "2026-05-01": 5
+    "2026-05-01": 5,
+    "2026-05-02": 5
   }
 }
