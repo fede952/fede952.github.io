@@ -3123,7 +3123,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-120-06",
     "https://www.cisa.gov/news-events/alerts/2026/04/30/cisa-adds-one-known-exploited-vulnerability-catalog",
     "https://www.cisa.gov/news-events/alerts/2026/04/28/cisa-adds-two-known-exploited-vulnerabilities-catalog",
-    "https://www.cisa.gov/news-events/alerts/2026/04/24/cisa-adds-four-known-exploited-vulnerabilities-catalog"
+    "https://www.cisa.gov/news-events/alerts/2026/04/24/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+    "https://thehackernews.com/2026/05/cisa-adds-actively-exploited-linux-root.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-02",
+    "https://www.bleepingcomputer.com/news/security/critrical-cpanel-flaw-mass-exploited-in-sorry-ransomware-attacks/",
+    "https://www.cisa.gov/resources-tools/resources/careful-adoption-agentic-ai-services",
+    "https://thehackernews.com/2026/04/sap-npm-packages-compromised-by-mini.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6249,20 +6254,27 @@
     "fc73bb6c95d7902ec69e2374a0a342ab",
     "e4d03b3078a5730f4aafbdf76bca8d45",
     "e5f2d5a848fd9d8e2a7399525add989b",
-    "1ece25434b9ccfbbb6b62141454e6bd1"
+    "1ece25434b9ccfbbb6b62141454e6bd1",
+    "8f8e57f7c92ce27791380ba7dad4ca9d",
+    "3d38a88c3b29b2419c1496c39fe1c561",
+    "573d6285ece5646fb2e15ff1bd0b898c",
+    "09b0ffcd80218f191cf7fc8a3e8a4118",
+    "98d3626b932d1493402073ff9cac82f2"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
     "2026-04-29": 60,
     "2026-04-30": 60,
     "2026-05-01": 60,
-    "2026-05-02": 60
+    "2026-05-02": 60,
+    "2026-05-03": 60
   },
   "daily_published": {
     "2026-04-28": 5,
     "2026-04-29": 5,
     "2026-04-30": 5,
     "2026-05-01": 5,
-    "2026-05-02": 5
+    "2026-05-02": 5,
+    "2026-05-03": 5
   }
 }
