@@ -3128,7 +3128,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-113-02",
     "https://www.bleepingcomputer.com/news/security/critrical-cpanel-flaw-mass-exploited-in-sorry-ransomware-attacks/",
     "https://www.cisa.gov/resources-tools/resources/careful-adoption-agentic-ai-services",
-    "https://thehackernews.com/2026/04/sap-npm-packages-compromised-by-mini.html"
+    "https://thehackernews.com/2026/04/sap-npm-packages-compromised-by-mini.html",
+    "https://thehackernews.com/2026/05/trellix-confirms-source-code-breach.html",
+    "https://www.wired.com/story/dangerous-new-linux-exploit-gives-attackers-root-access-to-countless-computers/",
+    "https://thehackernews.com/2026/05/two-cybersecurity-professionals-get-4.html",
+    "https://thehackernews.com/2026/05/poisoned-ruby-gems-and-go-modules.html",
+    "https://www.bleepingcomputer.com/news/security/us-ransomware-negotiators-get-4-years-in-prison-over-blackcat-attacks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6259,7 +6264,12 @@
     "3d38a88c3b29b2419c1496c39fe1c561",
     "573d6285ece5646fb2e15ff1bd0b898c",
     "09b0ffcd80218f191cf7fc8a3e8a4118",
-    "98d3626b932d1493402073ff9cac82f2"
+    "98d3626b932d1493402073ff9cac82f2",
+    "994bb895d5904ea3a39836fc6161a12f",
+    "cca211961f5eb1b130d83280aa8f4daf",
+    "2a271fb5d0e998959a6bbac35c3c9977",
+    "e914d2b4234aca9d6a8fa600052b61a8",
+    "df076eb229e5150116cf505dd0efd83c"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6267,7 +6277,8 @@
     "2026-04-30": 60,
     "2026-05-01": 60,
     "2026-05-02": 60,
-    "2026-05-03": 60
+    "2026-05-03": 60,
+    "2026-05-04": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6275,6 +6286,7 @@
     "2026-04-30": 5,
     "2026-05-01": 5,
     "2026-05-02": 5,
-    "2026-05-03": 5
+    "2026-05-03": 5,
+    "2026-05-04": 5
   }
 }
