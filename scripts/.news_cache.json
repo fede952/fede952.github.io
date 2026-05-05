@@ -3133,7 +3133,12 @@
     "https://www.wired.com/story/dangerous-new-linux-exploit-gives-attackers-root-access-to-countless-computers/",
     "https://thehackernews.com/2026/05/two-cybersecurity-professionals-get-4.html",
     "https://thehackernews.com/2026/05/poisoned-ruby-gems-and-go-modules.html",
-    "https://www.bleepingcomputer.com/news/security/us-ransomware-negotiators-get-4-years-in-prison-over-blackcat-attacks/"
+    "https://www.bleepingcomputer.com/news/security/us-ransomware-negotiators-get-4-years-in-prison-over-blackcat-attacks/",
+    "https://thehackernews.com/2026/05/weekly-recap-ai-powered-phishing.html",
+    "https://www.bleepingcomputer.com/news/security/scarcruft-hackers-push-birdcall-android-malware-via-game-platform/",
+    "https://thehackernews.com/2026/05/weaver-e-cology-rce-flaw-cve-2026-22679.html",
+    "https://www.darkreading.com/endpoint-security/silver-fox-tax-themed-attacks-india-russia",
+    "https://www.bleepingcomputer.com/news/security/cisa-says-copy-fail-flaw-now-exploited-to-root-linux-systems/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6269,7 +6274,12 @@
     "cca211961f5eb1b130d83280aa8f4daf",
     "2a271fb5d0e998959a6bbac35c3c9977",
     "e914d2b4234aca9d6a8fa600052b61a8",
-    "df076eb229e5150116cf505dd0efd83c"
+    "df076eb229e5150116cf505dd0efd83c",
+    "6236970fd9e667d36a832f181a22cd89",
+    "bbe4f89bc3b33c321f445118fd08e137",
+    "53afb1ff113364f81f5c79bcb769856d",
+    "b651e1207ad171c3a70bfc0219ad57b7",
+    "76706ead733e8507b128d29e18e22770"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6278,7 +6288,8 @@
     "2026-05-01": 60,
     "2026-05-02": 60,
     "2026-05-03": 60,
-    "2026-05-04": 60
+    "2026-05-04": 60,
+    "2026-05-05": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6287,6 +6298,7 @@
     "2026-05-01": 5,
     "2026-05-02": 5,
     "2026-05-03": 5,
-    "2026-05-04": 5
+    "2026-05-04": 5,
+    "2026-05-05": 5
   }
 }
