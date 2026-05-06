@@ -3138,7 +3138,12 @@
     "https://www.bleepingcomputer.com/news/security/scarcruft-hackers-push-birdcall-android-malware-via-game-platform/",
     "https://thehackernews.com/2026/05/weaver-e-cology-rce-flaw-cve-2026-22679.html",
     "https://www.darkreading.com/endpoint-security/silver-fox-tax-themed-attacks-india-russia",
-    "https://www.bleepingcomputer.com/news/security/cisa-says-copy-fail-flaw-now-exploited-to-root-linux-systems/"
+    "https://www.bleepingcomputer.com/news/security/cisa-says-copy-fail-flaw-now-exploited-to-root-linux-systems/",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-125-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-125-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-125-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-125-05",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-125-02"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6279,7 +6284,12 @@
     "bbe4f89bc3b33c321f445118fd08e137",
     "53afb1ff113364f81f5c79bcb769856d",
     "b651e1207ad171c3a70bfc0219ad57b7",
-    "76706ead733e8507b128d29e18e22770"
+    "76706ead733e8507b128d29e18e22770",
+    "755205ebbb8e52e95349b8f3f8fa3621",
+    "de1cbed1bcf5e736879034e10046d962",
+    "89e6c130a09aa6dbb15a87b77dc66570",
+    "e1000aeb901b86efdf104471c63e62a4",
+    "4dc50035e9219fa977567151defbdaf7"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6289,7 +6299,8 @@
     "2026-05-02": 60,
     "2026-05-03": 60,
     "2026-05-04": 60,
-    "2026-05-05": 60
+    "2026-05-05": 60,
+    "2026-05-06": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6299,6 +6310,7 @@
     "2026-05-02": 5,
     "2026-05-03": 5,
     "2026-05-04": 5,
-    "2026-05-05": 5
+    "2026-05-05": 5,
+    "2026-05-06": 5
   }
 }
