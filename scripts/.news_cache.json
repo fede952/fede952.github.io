@@ -3148,7 +3148,12 @@
     "https://www.cisa.gov/news-events/alerts/2026/05/06/cisa-adds-one-known-exploited-vulnerability-catalog",
     "https://www.bleepingcomputer.com/news/security/palo-alto-networks-warns-of-actively-exploited-firewall-zero-day/",
     "https://thehackernews.com/2026/05/metinfo-cms-cve-2026-29014-exploited.html",
-    "https://www.bleepingcomputer.com/news/security/daemon-tools-devs-confirm-breach-release-malware-free-version/"
+    "https://www.bleepingcomputer.com/news/security/daemon-tools-devs-confirm-breach-release-malware-free-version/",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-127-01",
+    "https://thehackernews.com/2026/05/pan-os-rce-exploit-under-active-use.html",
+    "https://www.cisa.gov/news-events/alerts/2026/05/07/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/05/linux-kernel-dirty-frag-lpe-exploit.html",
+    "https://thehackernews.com/2026/05/ivanti-epmm-cve-2026-6973-rce-under.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6299,7 +6304,12 @@
     "a887cd6f36ed142af9926d6260315af1",
     "e4bda6747a00d50ac30c948d7edf2545",
     "7671a0c7837e1662d0fcf16c9e33fabd",
-    "05dac50f20fea8ccc59a30d861d06719"
+    "05dac50f20fea8ccc59a30d861d06719",
+    "faa8f9f69a11a2db8738c0d68c246db0",
+    "93c6e0af437f283f86b919c79276cd6d",
+    "89ceb27877155ecca72471e8d890f7b1",
+    "df840ce6bb2d974c3ce06dfba6726729",
+    "f21f9a460a46089491b007a27b18657b"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6311,7 +6321,8 @@
     "2026-05-04": 60,
     "2026-05-05": 60,
     "2026-05-06": 60,
-    "2026-05-07": 60
+    "2026-05-07": 60,
+    "2026-05-08": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6323,6 +6334,7 @@
     "2026-05-04": 5,
     "2026-05-05": 5,
     "2026-05-06": 5,
-    "2026-05-07": 5
+    "2026-05-07": 5,
+    "2026-05-08": 5
   }
 }
