@@ -3153,7 +3153,12 @@
     "https://thehackernews.com/2026/05/pan-os-rce-exploit-under-active-use.html",
     "https://www.cisa.gov/news-events/alerts/2026/05/07/cisa-adds-one-known-exploited-vulnerability-catalog",
     "https://thehackernews.com/2026/05/linux-kernel-dirty-frag-lpe-exploit.html",
-    "https://thehackernews.com/2026/05/ivanti-epmm-cve-2026-6973-rce-under.html"
+    "https://thehackernews.com/2026/05/ivanti-epmm-cve-2026-6973-rce-under.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-gives-feds-four-days-to-patch-ivanti-flaw-exploited-as-zero-day/",
+    "https://www.cisa.gov/news-events/alerts/2026/05/08/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/05/new-linux-pamdoora-backdoor-uses-pam.html",
+    "https://www.bleepingcomputer.com/news/security/ivanti-warns-of-new-epmm-flaw-exploited-in-zero-day-attacks/",
+    "https://thehackernews.com/2026/05/cpanel-whm-patch-3-new-vulnerabilities.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6309,7 +6314,12 @@
     "93c6e0af437f283f86b919c79276cd6d",
     "89ceb27877155ecca72471e8d890f7b1",
     "df840ce6bb2d974c3ce06dfba6726729",
-    "f21f9a460a46089491b007a27b18657b"
+    "f21f9a460a46089491b007a27b18657b",
+    "82b7fb1c8f257ca51f4003e9c312ffbb",
+    "4d087f61bb0ce94f5ed34c91cae1717f",
+    "ae3098b8ccaac57590744dcdf40d47d6",
+    "15b85af0b54881ba3574fbde5f8e3bc0",
+    "6f22d5e8cf3108d06861f69e0bb2ca0f"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6322,7 +6332,8 @@
     "2026-05-05": 60,
     "2026-05-06": 60,
     "2026-05-07": 60,
-    "2026-05-08": 60
+    "2026-05-08": 60,
+    "2026-05-09": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6335,6 +6346,7 @@
     "2026-05-05": 5,
     "2026-05-06": 5,
     "2026-05-07": 5,
-    "2026-05-08": 5
+    "2026-05-08": 5,
+    "2026-05-09": 5
   }
 }
