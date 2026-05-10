@@ -3158,7 +3158,12 @@
     "https://www.cisa.gov/news-events/alerts/2026/05/08/cisa-adds-one-known-exploited-vulnerability-catalog",
     "https://thehackernews.com/2026/05/new-linux-pamdoora-backdoor-uses-pam.html",
     "https://www.bleepingcomputer.com/news/security/ivanti-warns-of-new-epmm-flaw-exploited-in-zero-day-attacks/",
-    "https://thehackernews.com/2026/05/cpanel-whm-patch-3-new-vulnerabilities.html"
+    "https://thehackernews.com/2026/05/cpanel-whm-patch-3-new-vulnerabilities.html",
+    "https://thehackernews.com/2026/05/one-click-total-shutdown-patient-zero.html",
+    "https://www.bleepingcomputer.com/news/security/trellix-source-code-breach-claimed-by-ransomhouse-hackers/",
+    "https://www.bleepingcomputer.com/news/security/canvas-login-portals-hacked-in-mass-shinyhunters-extortion-campaign/",
+    "https://www.bleepingcomputer.com/news/security/australia-warns-of-clickfix-attacks-pushing-vidar-stealer-malware/",
+    "https://thehackernews.com/2026/05/pcpjack-credential-stealer-exploits-5.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6319,7 +6324,12 @@
     "4d087f61bb0ce94f5ed34c91cae1717f",
     "ae3098b8ccaac57590744dcdf40d47d6",
     "15b85af0b54881ba3574fbde5f8e3bc0",
-    "6f22d5e8cf3108d06861f69e0bb2ca0f"
+    "6f22d5e8cf3108d06861f69e0bb2ca0f",
+    "1f9c4098cdf27b9073d54e4d13d1352c",
+    "ce12a8cdd48c0b9654a7725705712ade",
+    "9dd43c309d7aa1b337da4538efd41e8f",
+    "13f81f4cfa30638e4e2f4546f1cb8807",
+    "67a211df9fe98aa2992359b88e191258"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6333,7 +6343,8 @@
     "2026-05-06": 60,
     "2026-05-07": 60,
     "2026-05-08": 60,
-    "2026-05-09": 60
+    "2026-05-09": 60,
+    "2026-05-10": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6347,6 +6358,7 @@
     "2026-05-06": 5,
     "2026-05-07": 5,
     "2026-05-08": 5,
-    "2026-05-09": 5
+    "2026-05-09": 5,
+    "2026-05-10": 5
   }
 }
