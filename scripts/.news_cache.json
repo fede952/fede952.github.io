@@ -3163,7 +3163,12 @@
     "https://www.bleepingcomputer.com/news/security/trellix-source-code-breach-claimed-by-ransomhouse-hackers/",
     "https://www.bleepingcomputer.com/news/security/canvas-login-portals-hacked-in-mass-shinyhunters-extortion-campaign/",
     "https://www.bleepingcomputer.com/news/security/australia-warns-of-clickfix-attacks-pushing-vidar-stealer-malware/",
-    "https://thehackernews.com/2026/05/pcpjack-credential-stealer-exploits-5.html"
+    "https://thehackernews.com/2026/05/pcpjack-credential-stealer-exploits-5.html",
+    "https://thehackernews.com/2026/05/ollama-out-of-bounds-read-vulnerability.html",
+    "https://www.darkreading.com/cyberattacks-data-breaches/trellix-source-code-breach-supply-chain-threats",
+    "https://krebsonsecurity.com/2026/04/anti-ddos-firm-heaped-attacks-on-brazilian-isps/",
+    "https://cert-agid.gov.it/news/github-e-github-enterprise-server-vulnerabilita-rce-cve-2026-3854/",
+    "https://krebsonsecurity.com/2026/04/patch-tuesday-april-2026-edition/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6329,7 +6334,12 @@
     "ce12a8cdd48c0b9654a7725705712ade",
     "9dd43c309d7aa1b337da4538efd41e8f",
     "13f81f4cfa30638e4e2f4546f1cb8807",
-    "67a211df9fe98aa2992359b88e191258"
+    "67a211df9fe98aa2992359b88e191258",
+    "ded714d68369aba65e3991a902868113",
+    "994975b5a2b32e1ac1491a96c35de021",
+    "33e08a278023c43740d84abbda25d1c8",
+    "1aee86e854e20b0d83ae4a89f1e6b92e",
+    "756408c4e965d0894ee4bef132b9d3a2"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6344,7 +6354,8 @@
     "2026-05-07": 60,
     "2026-05-08": 60,
     "2026-05-09": 60,
-    "2026-05-10": 60
+    "2026-05-10": 60,
+    "2026-05-11": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6359,6 +6370,7 @@
     "2026-05-07": 5,
     "2026-05-08": 5,
     "2026-05-09": 5,
-    "2026-05-10": 5
+    "2026-05-10": 5,
+    "2026-05-11": 5
   }
 }
