@@ -3168,7 +3168,12 @@
     "https://www.darkreading.com/cyberattacks-data-breaches/trellix-source-code-breach-supply-chain-threats",
     "https://krebsonsecurity.com/2026/04/anti-ddos-firm-heaped-attacks-on-brazilian-isps/",
     "https://cert-agid.gov.it/news/github-e-github-enterprise-server-vulnerabilita-rce-cve-2026-3854/",
-    "https://krebsonsecurity.com/2026/04/patch-tuesday-april-2026-edition/"
+    "https://krebsonsecurity.com/2026/04/patch-tuesday-april-2026-edition/",
+    "https://thehackernews.com/2026/05/cpanel-cve-2026-41940-under-active.html",
+    "https://thehackernews.com/2026/05/your-purple-team-isnt-purple-its-just.html",
+    "https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html",
+    "https://www.bleepingcomputer.com/news/security/instructure-reaches-agreement-with-shinyhunters-to-stop-data-leak/",
+    "https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6339,7 +6344,12 @@
     "994975b5a2b32e1ac1491a96c35de021",
     "33e08a278023c43740d84abbda25d1c8",
     "1aee86e854e20b0d83ae4a89f1e6b92e",
-    "756408c4e965d0894ee4bef132b9d3a2"
+    "756408c4e965d0894ee4bef132b9d3a2",
+    "1049fa955b3cfb6e4e5104f3802bdf82",
+    "0e15bd579e2b3499444b1fd5afe9d783",
+    "3e0a3ba07381c3a81f09fa9138a11d04",
+    "f2f26e8a1fcd9d495127e0a6decd5802",
+    "a09e590c6e0e9ede309bc78a75b26994"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6355,7 +6365,8 @@
     "2026-05-08": 60,
     "2026-05-09": 60,
     "2026-05-10": 60,
-    "2026-05-11": 60
+    "2026-05-11": 60,
+    "2026-05-12": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6371,6 +6382,7 @@
     "2026-05-08": 5,
     "2026-05-09": 5,
     "2026-05-10": 5,
-    "2026-05-11": 5
+    "2026-05-11": 5,
+    "2026-05-12": 5
   }
 }
