@@ -3173,7 +3173,12 @@
     "https://thehackernews.com/2026/05/your-purple-team-isnt-purple-its-just.html",
     "https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html",
     "https://www.bleepingcomputer.com/news/security/instructure-reaches-agreement-with-shinyhunters-to-stop-data-leak/",
-    "https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html"
+    "https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-02",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-06",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-01",
+    "https://www.cybersecurity360.it/news/aggiornamenti-microsoft-maggio-2026-nessuna-zero-day-ma-non-significa-assenza-di-rischio/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6349,7 +6354,12 @@
     "0e15bd579e2b3499444b1fd5afe9d783",
     "3e0a3ba07381c3a81f09fa9138a11d04",
     "f2f26e8a1fcd9d495127e0a6decd5802",
-    "a09e590c6e0e9ede309bc78a75b26994"
+    "a09e590c6e0e9ede309bc78a75b26994",
+    "32f818d9bde5945e95789307901f735d",
+    "957025816754a0aed5a43f0022d725c6",
+    "5b1f056152bc759f41eadb3f9549c896",
+    "6440881d91a3aa0b0f52f97650c62026",
+    "56d2b1f9f650d4cb3d85db74291137fc"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6366,7 +6376,8 @@
     "2026-05-09": 60,
     "2026-05-10": 60,
     "2026-05-11": 60,
-    "2026-05-12": 60
+    "2026-05-12": 60,
+    "2026-05-13": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6383,6 +6394,7 @@
     "2026-05-09": 5,
     "2026-05-10": 5,
     "2026-05-11": 5,
-    "2026-05-12": 5
+    "2026-05-12": 5,
+    "2026-05-13": 5
   }
 }
