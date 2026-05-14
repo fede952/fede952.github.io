@@ -3178,7 +3178,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-02",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-06",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-01",
-    "https://www.cybersecurity360.it/news/aggiornamenti-microsoft-maggio-2026-nessuna-zero-day-ma-non-significa-assenza-di-rischio/"
+    "https://www.cybersecurity360.it/news/aggiornamenti-microsoft-maggio-2026-nessuna-zero-day-ma-non-significa-assenza-di-rischio/",
+    "https://thehackernews.com/2026/05/18-year-old-nginx-rewrite-module-flaw.html",
+    "https://www.bleepingcomputer.com/news/security/windows-bitlocker-zero-day-gives-access-to-protected-drives-poc-released/",
+    "https://www.bleepingcomputer.com/news/security/new-fragnesia-linux-flaw-lets-attackers-gain-root-privileges/",
+    "https://www.darkreading.com/threat-intelligence/gentlemen-raas-gang-data-leak",
+    "https://www.bleepingcomputer.com/news/security/new-critical-exim-mailer-flaw-allows-remote-code-execution/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6359,7 +6364,12 @@
     "957025816754a0aed5a43f0022d725c6",
     "5b1f056152bc759f41eadb3f9549c896",
     "6440881d91a3aa0b0f52f97650c62026",
-    "56d2b1f9f650d4cb3d85db74291137fc"
+    "56d2b1f9f650d4cb3d85db74291137fc",
+    "6297fa50fafd0899fc40426a293e1211",
+    "eafdb8cacbf88c6163d6f7da2731864b",
+    "6d2ed4f794f0433068bc70e9663195f0",
+    "089a90ffdba1cb49e4d26933b6807130",
+    "3092b395721b1cc9c448cb69f361fc15"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6377,7 +6387,8 @@
     "2026-05-10": 60,
     "2026-05-11": 60,
     "2026-05-12": 60,
-    "2026-05-13": 60
+    "2026-05-13": 60,
+    "2026-05-14": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6395,6 +6406,7 @@
     "2026-05-10": 5,
     "2026-05-11": 5,
     "2026-05-12": 5,
-    "2026-05-13": 5
+    "2026-05-13": 5,
+    "2026-05-14": 5
   }
 }
