@@ -3183,7 +3183,12 @@
     "https://www.bleepingcomputer.com/news/security/windows-bitlocker-zero-day-gives-access-to-protected-drives-poc-released/",
     "https://www.bleepingcomputer.com/news/security/new-fragnesia-linux-flaw-lets-attackers-gain-root-privileges/",
     "https://www.darkreading.com/threat-intelligence/gentlemen-raas-gang-data-leak",
-    "https://www.bleepingcomputer.com/news/security/new-critical-exim-mailer-flaw-allows-remote-code-execution/"
+    "https://www.bleepingcomputer.com/news/security/new-critical-exim-mailer-flaw-allows-remote-code-execution/",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-16",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-15",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-08",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-12"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6369,7 +6374,12 @@
     "eafdb8cacbf88c6163d6f7da2731864b",
     "6d2ed4f794f0433068bc70e9663195f0",
     "089a90ffdba1cb49e4d26933b6807130",
-    "3092b395721b1cc9c448cb69f361fc15"
+    "3092b395721b1cc9c448cb69f361fc15",
+    "6e35a58a1d7b189b14515d188e6c6824",
+    "947388bc59e13f288b7c0df818179876",
+    "5edc571ace0df43d78dfb1f9ac4f4dab",
+    "939f205f6cbc3a523b0d0d152025833f",
+    "28cc4f30d9379a5e72b8b49973708d8d"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6388,7 +6398,8 @@
     "2026-05-11": 60,
     "2026-05-12": 60,
     "2026-05-13": 60,
-    "2026-05-14": 60
+    "2026-05-14": 60,
+    "2026-05-15": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6407,6 +6418,7 @@
     "2026-05-11": 5,
     "2026-05-12": 5,
     "2026-05-13": 5,
-    "2026-05-14": 5
+    "2026-05-14": 5,
+    "2026-05-15": 5
   }
 }
