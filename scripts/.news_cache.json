@@ -3188,7 +3188,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-15",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-08",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-01",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-12"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-12",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-05",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-11",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-14"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6379,7 +6384,12 @@
     "947388bc59e13f288b7c0df818179876",
     "5edc571ace0df43d78dfb1f9ac4f4dab",
     "939f205f6cbc3a523b0d0d152025833f",
-    "28cc4f30d9379a5e72b8b49973708d8d"
+    "28cc4f30d9379a5e72b8b49973708d8d",
+    "9170cf1c7d1c4771ddd6be56c2701854",
+    "3380a137f41e230b971c697c772d369c",
+    "5ec024a7ff27ff23a1c47bdc08503660",
+    "91930f37e9e62e0a26ce6df963f41443",
+    "4619afd2b4831b687cef3e7e830637de"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6399,7 +6409,8 @@
     "2026-05-12": 60,
     "2026-05-13": 60,
     "2026-05-14": 60,
-    "2026-05-15": 60
+    "2026-05-15": 60,
+    "2026-05-16": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6419,6 +6430,7 @@
     "2026-05-12": 5,
     "2026-05-13": 5,
     "2026-05-14": 5,
-    "2026-05-15": 5
+    "2026-05-15": 5,
+    "2026-05-16": 5
   }
 }
