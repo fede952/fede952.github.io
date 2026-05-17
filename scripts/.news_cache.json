@@ -3193,7 +3193,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-11",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-04",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-03",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-14"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-14",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-09",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-02",
+    "https://thehackernews.com/2026/05/cisa-adds-cisco-sd-wan-cve-2026-20182.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-17",
+    "https://www.cisa.gov/news-events/alerts/2026/05/15/cisa-adds-one-known-exploited-vulnerability-catalog"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6389,7 +6394,12 @@
     "3380a137f41e230b971c697c772d369c",
     "5ec024a7ff27ff23a1c47bdc08503660",
     "91930f37e9e62e0a26ce6df963f41443",
-    "4619afd2b4831b687cef3e7e830637de"
+    "4619afd2b4831b687cef3e7e830637de",
+    "58dfc71013a69a1a35878532f754e54a",
+    "54c766adcf5671468272ae739f8dc216",
+    "e0fcf3baac1f74c41c1ba37b51e75360",
+    "e200767cd6921b33214caa48b22e8942",
+    "dccf7ba0ffb1963b54c03e24a12c19c4"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6410,7 +6420,8 @@
     "2026-05-13": 60,
     "2026-05-14": 60,
     "2026-05-15": 60,
-    "2026-05-16": 60
+    "2026-05-16": 60,
+    "2026-05-17": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6431,6 +6442,7 @@
     "2026-05-13": 5,
     "2026-05-14": 5,
     "2026-05-15": 5,
-    "2026-05-16": 5
+    "2026-05-16": 5,
+    "2026-05-17": 5
   }
 }
