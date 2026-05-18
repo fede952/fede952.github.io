@@ -3198,7 +3198,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-02",
     "https://thehackernews.com/2026/05/cisa-adds-cisco-sd-wan-cve-2026-20182.html",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-17",
-    "https://www.cisa.gov/news-events/alerts/2026/05/15/cisa-adds-one-known-exploited-vulnerability-catalog"
+    "https://www.cisa.gov/news-events/alerts/2026/05/15/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/05/miniplasma-windows-0-day-enables-system.html",
+    "https://thehackernews.com/2026/05/four-malicious-npm-packages-deliver.html",
+    "https://www.bleepingcomputer.com/news/microsoft/new-windows-miniplasma-zero-day-exploit-gives-system-access-poc-released/",
+    "https://thehackernews.com/2026/05/nginx-cve-2026-42945-exploited-in-wild.html",
+    "https://thehackernews.com/2026/05/funnel-builder-flaw-under-active.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6399,7 +6404,12 @@
     "54c766adcf5671468272ae739f8dc216",
     "e0fcf3baac1f74c41c1ba37b51e75360",
     "e200767cd6921b33214caa48b22e8942",
-    "dccf7ba0ffb1963b54c03e24a12c19c4"
+    "dccf7ba0ffb1963b54c03e24a12c19c4",
+    "e3b6e7738be497875439273d0423c8bf",
+    "c3396ab6bd3fb546b5233d612353dc0f",
+    "5318057ea24df5f8e3e4a383fd91a305",
+    "03804ff9ffbb8d99cfe9f27fbd991f1b",
+    "240d99813d5ce00f120cf161aa6f0854"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6421,7 +6431,8 @@
     "2026-05-14": 60,
     "2026-05-15": 60,
     "2026-05-16": 60,
-    "2026-05-17": 60
+    "2026-05-17": 60,
+    "2026-05-18": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6443,6 +6454,7 @@
     "2026-05-14": 5,
     "2026-05-15": 5,
     "2026-05-16": 5,
-    "2026-05-17": 5
+    "2026-05-17": 5,
+    "2026-05-18": 5
   }
 }
