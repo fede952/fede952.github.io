@@ -3203,7 +3203,12 @@
     "https://thehackernews.com/2026/05/four-malicious-npm-packages-deliver.html",
     "https://www.bleepingcomputer.com/news/microsoft/new-windows-miniplasma-zero-day-exploit-gives-system-access-poc-released/",
     "https://thehackernews.com/2026/05/nginx-cve-2026-42945-exploited-in-wild.html",
-    "https://thehackernews.com/2026/05/funnel-builder-flaw-under-active.html"
+    "https://thehackernews.com/2026/05/funnel-builder-flaw-under-active.html",
+    "https://www.darkreading.com/vulnerabilities-threats/microsoft-exchange-zero-day-no-patch",
+    "https://krebsonsecurity.com/2026/05/cisa-admin-leaked-aws-govcloud-keys-on-github/",
+    "https://thehackernews.com/2026/05/ivanti-fortinet-sap-vmware-n8n-patch.html",
+    "https://thehackernews.com/2026/05/mini-shai-hulud-pushes-malicious-antv.html",
+    "https://thehackernews.com/2026/05/weekly-recap-exchange-0-day-npm-worm.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6409,7 +6414,12 @@
     "c3396ab6bd3fb546b5233d612353dc0f",
     "5318057ea24df5f8e3e4a383fd91a305",
     "03804ff9ffbb8d99cfe9f27fbd991f1b",
-    "240d99813d5ce00f120cf161aa6f0854"
+    "240d99813d5ce00f120cf161aa6f0854",
+    "2e550d74c1e4ffaa5562a623bf0bac72",
+    "761ae26b544151423daa98b1838ceb6e",
+    "97b05768915c6aa8e1dc856610d7c400",
+    "5d74078df75648a6c57879ed0f605317",
+    "1cc903e6d220c6b0f639f5eef3ce3c95"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6432,7 +6442,8 @@
     "2026-05-15": 60,
     "2026-05-16": 60,
     "2026-05-17": 60,
-    "2026-05-18": 60
+    "2026-05-18": 60,
+    "2026-05-19": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6455,6 +6466,7 @@
     "2026-05-15": 5,
     "2026-05-16": 5,
     "2026-05-17": 5,
-    "2026-05-18": 5
+    "2026-05-18": 5,
+    "2026-05-19": 5
   }
 }
