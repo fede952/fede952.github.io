@@ -3208,7 +3208,12 @@
     "https://krebsonsecurity.com/2026/05/cisa-admin-leaked-aws-govcloud-keys-on-github/",
     "https://thehackernews.com/2026/05/ivanti-fortinet-sap-vmware-n8n-patch.html",
     "https://thehackernews.com/2026/05/mini-shai-hulud-pushes-malicious-antv.html",
-    "https://thehackernews.com/2026/05/weekly-recap-exchange-0-day-npm-worm.html"
+    "https://thehackernews.com/2026/05/weekly-recap-exchange-0-day-npm-worm.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-02",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-05",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-01"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6419,7 +6424,12 @@
     "761ae26b544151423daa98b1838ceb6e",
     "97b05768915c6aa8e1dc856610d7c400",
     "5d74078df75648a6c57879ed0f605317",
-    "1cc903e6d220c6b0f639f5eef3ce3c95"
+    "1cc903e6d220c6b0f639f5eef3ce3c95",
+    "93616ae9688a3d11dc50ba136e2e6441",
+    "d846ec3611c08277ac7a52de4dcff925",
+    "23d1806bfdb09a8710b2a4e857275933",
+    "e1d7e3668d8236690822e9441cce652b",
+    "e184bb78e95e0174c6184d042b0a30e6"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6443,7 +6453,8 @@
     "2026-05-16": 60,
     "2026-05-17": 60,
     "2026-05-18": 60,
-    "2026-05-19": 60
+    "2026-05-19": 60,
+    "2026-05-20": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6467,6 +6478,7 @@
     "2026-05-16": 5,
     "2026-05-17": 5,
     "2026-05-18": 5,
-    "2026-05-19": 5
+    "2026-05-19": 5,
+    "2026-05-20": 5
   }
 }
