@@ -3213,7 +3213,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-05",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-04",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-03",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-01"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-01",
+    "https://www.bleepingcomputer.com/news/security/hackers-bypass-sonicwall-vpn-mfa-due-to-incomplete-patching/",
+    "https://www.cisa.gov/news-events/alerts/2026/05/20/cisa-adds-seven-known-exploited-vulnerabilities-catalog",
+    "https://thehackernews.com/2026/05/highly-critical-drupal-core-flaw.html",
+    "https://thehackernews.com/2026/05/microsoft-releases-mitigation-for.html",
+    "https://www.darkreading.com/threat-intelligence/verizon-dbir-enterprises-vulnerability-glut"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6429,7 +6434,12 @@
     "d846ec3611c08277ac7a52de4dcff925",
     "23d1806bfdb09a8710b2a4e857275933",
     "e1d7e3668d8236690822e9441cce652b",
-    "e184bb78e95e0174c6184d042b0a30e6"
+    "e184bb78e95e0174c6184d042b0a30e6",
+    "6f2bac3c836dc37576ea8abf13995659",
+    "274a6a80c27079fd16c31d56e805c334",
+    "3cbce760f6e832c4af60a68963a60a0e",
+    "13506636f5d45c2cafe4c4a0c0f51e60",
+    "40be4af90ce36a6a209052ab37170b52"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6454,7 +6464,8 @@
     "2026-05-17": 60,
     "2026-05-18": 60,
     "2026-05-19": 60,
-    "2026-05-20": 60
+    "2026-05-20": 60,
+    "2026-05-21": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6479,6 +6490,7 @@
     "2026-05-17": 5,
     "2026-05-18": 5,
     "2026-05-19": 5,
-    "2026-05-20": 5
+    "2026-05-20": 5,
+    "2026-05-21": 5
   }
 }
