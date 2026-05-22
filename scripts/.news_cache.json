@@ -3218,7 +3218,12 @@
     "https://www.cisa.gov/news-events/alerts/2026/05/20/cisa-adds-seven-known-exploited-vulnerabilities-catalog",
     "https://thehackernews.com/2026/05/highly-critical-drupal-core-flaw.html",
     "https://thehackernews.com/2026/05/microsoft-releases-mitigation-for.html",
-    "https://www.darkreading.com/threat-intelligence/verizon-dbir-enterprises-vulnerability-glut"
+    "https://www.darkreading.com/threat-intelligence/verizon-dbir-enterprises-vulnerability-glut",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-02",
+    "https://thehackernews.com/2026/05/cisa-adds-exploited-langflow-and-trend.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-05",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-01"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6439,7 +6444,12 @@
     "274a6a80c27079fd16c31d56e805c334",
     "3cbce760f6e832c4af60a68963a60a0e",
     "13506636f5d45c2cafe4c4a0c0f51e60",
-    "40be4af90ce36a6a209052ab37170b52"
+    "40be4af90ce36a6a209052ab37170b52",
+    "6a67302ca1104e79c6e70b75d1168784",
+    "8490a46659eba5ffe10cdddf42868297",
+    "e9ad49b37703ebd7c5690ab46a99aeaf",
+    "8c41709287e391c16c526234435ae5d2",
+    "3156fe2c92e400178365175d61f51b31"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6465,7 +6475,8 @@
     "2026-05-18": 60,
     "2026-05-19": 60,
     "2026-05-20": 60,
-    "2026-05-21": 60
+    "2026-05-21": 60,
+    "2026-05-22": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6491,6 +6502,7 @@
     "2026-05-18": 5,
     "2026-05-19": 5,
     "2026-05-20": 5,
-    "2026-05-21": 5
+    "2026-05-21": 5,
+    "2026-05-22": 5
   }
 }
