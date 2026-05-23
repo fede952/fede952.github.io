@@ -3223,7 +3223,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-02",
     "https://thehackernews.com/2026/05/cisa-adds-exploited-langflow-and-trend.html",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-05",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-01"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-01",
+    "https://thehackernews.com/2026/05/drupal-core-sql-injection-bug-actively.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-03",
+    "https://krebsonsecurity.com/2026/05/lawmakers-demand-answers-as-cisa-tries-to-contain-data-leak/",
+    "https://www.cisa.gov/news-events/alerts/2026/05/22/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/05/showboat-linux-malware-hits-middle-east.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6449,7 +6454,12 @@
     "8490a46659eba5ffe10cdddf42868297",
     "e9ad49b37703ebd7c5690ab46a99aeaf",
     "8c41709287e391c16c526234435ae5d2",
-    "3156fe2c92e400178365175d61f51b31"
+    "3156fe2c92e400178365175d61f51b31",
+    "9e724e1b4c1539031ac0171aa9210446",
+    "90a5eb85e85aee047eba16969788d6c4",
+    "838b12e1dadef22a8d9e03d897dce565",
+    "ba9bc51eb32e84e70bbea065edf4bb27",
+    "49b114a620c87c2f1a2c3472ced6c4cc"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6476,7 +6486,8 @@
     "2026-05-19": 60,
     "2026-05-20": 60,
     "2026-05-21": 60,
-    "2026-05-22": 60
+    "2026-05-22": 60,
+    "2026-05-23": 64
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6503,6 +6514,7 @@
     "2026-05-19": 5,
     "2026-05-20": 5,
     "2026-05-21": 5,
-    "2026-05-22": 5
+    "2026-05-22": 5,
+    "2026-05-23": 5
   }
 }
