@@ -3228,7 +3228,11 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-03",
     "https://krebsonsecurity.com/2026/05/lawmakers-demand-answers-as-cisa-tries-to-contain-data-leak/",
     "https://www.cisa.gov/news-events/alerts/2026/05/22/cisa-adds-one-known-exploited-vulnerability-catalog",
-    "https://thehackernews.com/2026/05/showboat-linux-malware-hits-middle-east.html"
+    "https://thehackernews.com/2026/05/showboat-linux-malware-hits-middle-east.html",
+    "https://www.bleepingcomputer.com/news/security/trend-micro-warns-of-apex-one-zero-day-exploited-in-attacks/",
+    "https://thehackernews.com/2026/05/cisco-patches-cvss-100-secure-workload.html",
+    "https://thehackernews.com/2026/05/packagist-supply-chain-attack-infects-8.html",
+    "https://thehackernews.com/2026/05/litespeed-cpanel-plugin-cve-2026-48172.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6459,7 +6463,11 @@
     "90a5eb85e85aee047eba16969788d6c4",
     "838b12e1dadef22a8d9e03d897dce565",
     "ba9bc51eb32e84e70bbea065edf4bb27",
-    "49b114a620c87c2f1a2c3472ced6c4cc"
+    "49b114a620c87c2f1a2c3472ced6c4cc",
+    "3b3f35253a794d304dd67055437db613",
+    "0099470aee898dafa6e8abe966e8b41c",
+    "0dfbe35050c2056c029747b72760647d",
+    "79e9214924037410648b488dd1c61e49"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6487,7 +6495,8 @@
     "2026-05-20": 60,
     "2026-05-21": 60,
     "2026-05-22": 60,
-    "2026-05-23": 64
+    "2026-05-23": 64,
+    "2026-05-24": 49
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6515,6 +6524,7 @@
     "2026-05-20": 5,
     "2026-05-21": 5,
     "2026-05-22": 5,
-    "2026-05-23": 5
+    "2026-05-23": 5,
+    "2026-05-24": 4
   }
 }
