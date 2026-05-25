@@ -3232,7 +3232,11 @@
     "https://www.bleepingcomputer.com/news/security/trend-micro-warns-of-apex-one-zero-day-exploited-in-attacks/",
     "https://thehackernews.com/2026/05/cisco-patches-cvss-100-secure-workload.html",
     "https://thehackernews.com/2026/05/packagist-supply-chain-attack-infects-8.html",
-    "https://thehackernews.com/2026/05/litespeed-cpanel-plugin-cve-2026-48172.html"
+    "https://thehackernews.com/2026/05/litespeed-cpanel-plugin-cve-2026-48172.html",
+    "https://www.cybersecurity360.it/cybersecurity-nazionale/quacivi-a-capo-dellacn-un-cambio-di-stagione-per-la-cyber-italiana/",
+    "https://www.bleepingcomputer.com/news/security/ghost-cms-sql-injection-flaw-exploited-in-large-scale-clickfix-campaign/",
+    "https://thehackernews.com/2026/05/ghostwriter-targets-ukraine-government.html",
+    "https://www.darkreading.com/cyber-risk/verizon-dbir-healthcare-fends-off-increased-social-engineering-attacks"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6467,7 +6471,11 @@
     "3b3f35253a794d304dd67055437db613",
     "0099470aee898dafa6e8abe966e8b41c",
     "0dfbe35050c2056c029747b72760647d",
-    "79e9214924037410648b488dd1c61e49"
+    "79e9214924037410648b488dd1c61e49",
+    "7e70f17ae4525d4ff3db520143e9a9a6",
+    "11f7f2d1d6eac4d0cde01086e4c33adc",
+    "7f649c6cce71d67d70dc95c2c7b8e045",
+    "ec63a31327f149632177fc85808e5ebb"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6496,7 +6504,8 @@
     "2026-05-21": 60,
     "2026-05-22": 60,
     "2026-05-23": 64,
-    "2026-05-24": 49
+    "2026-05-24": 49,
+    "2026-05-25": 49
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6525,6 +6534,7 @@
     "2026-05-21": 5,
     "2026-05-22": 5,
     "2026-05-23": 5,
-    "2026-05-24": 4
+    "2026-05-24": 4,
+    "2026-05-25": 4
   }
 }
