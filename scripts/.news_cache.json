@@ -3236,7 +3236,12 @@
     "https://www.cybersecurity360.it/cybersecurity-nazionale/quacivi-a-capo-dellacn-un-cambio-di-stagione-per-la-cyber-italiana/",
     "https://www.bleepingcomputer.com/news/security/ghost-cms-sql-injection-flaw-exploited-in-large-scale-clickfix-campaign/",
     "https://thehackernews.com/2026/05/ghostwriter-targets-ukraine-government.html",
-    "https://www.darkreading.com/cyber-risk/verizon-dbir-healthcare-fends-off-increased-social-engineering-attacks"
+    "https://www.darkreading.com/cyber-risk/verizon-dbir-healthcare-fends-off-increased-social-engineering-attacks",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-05",
+    "https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-146-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-06",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-02"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6475,7 +6480,12 @@
     "7e70f17ae4525d4ff3db520143e9a9a6",
     "11f7f2d1d6eac4d0cde01086e4c33adc",
     "7f649c6cce71d67d70dc95c2c7b8e045",
-    "ec63a31327f149632177fc85808e5ebb"
+    "ec63a31327f149632177fc85808e5ebb",
+    "fac862efabd141479294ebe2e606c404",
+    "d8a5d55790e076fe4f2759080ad20d0a",
+    "af1f8c3afde2124233daf0bbd25b22f9",
+    "17b5e175492d448e8a00bf64969cbe7c",
+    "53805c883db6b2b8f3932660281477ee"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6505,7 +6515,8 @@
     "2026-05-22": 60,
     "2026-05-23": 64,
     "2026-05-24": 49,
-    "2026-05-25": 49
+    "2026-05-25": 49,
+    "2026-05-27": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6535,6 +6546,7 @@
     "2026-05-22": 5,
     "2026-05-23": 5,
     "2026-05-24": 4,
-    "2026-05-25": 4
+    "2026-05-25": 4,
+    "2026-05-27": 5
   }
 }
