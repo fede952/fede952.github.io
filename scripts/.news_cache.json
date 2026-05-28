@@ -3241,7 +3241,12 @@
     "https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-146-01",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-04",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-06",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-02"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-02",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-03",
+    "https://www.cisa.gov/news-events/alerts/2026/05/27/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+    "https://www.bleepingcomputer.com/news/security/cisa-gives-feds-4-days-to-patch-actively-exploited-cpanel-plugin-flaw/",
+    "https://www.cisa.gov/news-events/alerts/2026/05/26/cisa-adds-one-known-exploited-vulnerability-catalog"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6485,7 +6490,12 @@
     "d8a5d55790e076fe4f2759080ad20d0a",
     "af1f8c3afde2124233daf0bbd25b22f9",
     "17b5e175492d448e8a00bf64969cbe7c",
-    "53805c883db6b2b8f3932660281477ee"
+    "53805c883db6b2b8f3932660281477ee",
+    "6375efe964221dd6b8f700d7137bf40c",
+    "8602241533255fe4db690b264a9f8cc4",
+    "229431ab7756a687826e68bf039aa9b4",
+    "5e82a8dfcb55a20ad6731653f60b4ea5",
+    "442cdbdfd541a8f38392bcd746df0748"
   ],
   "daily_llm_calls": {
     "2026-04-28": 60,
@@ -6516,7 +6526,8 @@
     "2026-05-23": 64,
     "2026-05-24": 49,
     "2026-05-25": 49,
-    "2026-05-27": 60
+    "2026-05-27": 60,
+    "2026-05-28": 60
   },
   "daily_published": {
     "2026-04-28": 5,
@@ -6547,6 +6558,7 @@
     "2026-05-23": 5,
     "2026-05-24": 4,
     "2026-05-25": 4,
-    "2026-05-27": 5
+    "2026-05-27": 5,
+    "2026-05-28": 5
   }
 }
