@@ -3261,7 +3261,12 @@
     "https://thehackernews.com/2026/05/attackers-use-llm-agent-for-post.html",
     "https://www.bleepingcomputer.com/news/security/hackers-exploit-forticlient-ems-flaw-to-push-infostealer-malware/",
     "https://thehackernews.com/2026/05/threat-actors-exploit-critical.html",
-    "https://www.bleepingcomputer.com/news/security/palo-alto-globalprotect-vpn-auth-bypass-flaw-now-exploited-in-attacks/"
+    "https://www.bleepingcomputer.com/news/security/palo-alto-globalprotect-vpn-auth-bypass-flaw-now-exploited-in-attacks/",
+    "https://www.bleepingcomputer.com/news/microsoft/critical-windows-netlogon-remote-code-execution-flaw-now-exploited-in-attacks/",
+    "https://thehackernews.com/2026/05/pan-os-globalprotect-authentication.html",
+    "https://thehackernews.com/2026/05/critical-gogs-rce-vulnerability-lets.html",
+    "https://thehackernews.com/2026/06/the-security-growth-platform-why-msps.html",
+    "https://thehackernews.com/2026/06/openai-codex-authentication-tokens.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6525,10 +6530,14 @@
     "af47363b5bbe91921c1cb40cffc3490a",
     "792db6560cca6dbc47958ee1ba4b6b7f",
     "5ae5375c18073a6d9459ff0ee4c0f1eb",
-    "a07918dc060fb8bff84ebb3d97e31588"
+    "a07918dc060fb8bff84ebb3d97e31588",
+    "f7de6262c6b84910bf022cfde4514879",
+    "4f56a59ab1ccc68cb9bfde0f2c401800",
+    "924ac59e94565d07bf1e4e581f0e8046",
+    "18514010af2c9a25cf7974dda7bf2481",
+    "3cc40eeb582d3f72ce58f60b84c93861"
   ],
   "daily_llm_calls": {
-    "2026-05-01": 60,
     "2026-05-02": 60,
     "2026-05-03": 60,
     "2026-05-04": 60,
@@ -6557,10 +6566,10 @@
     "2026-05-28": 60,
     "2026-05-29": 60,
     "2026-05-30": 61,
-    "2026-05-31": 60
+    "2026-05-31": 60,
+    "2026-06-01": 60
   },
   "daily_published": {
-    "2026-05-01": 5,
     "2026-05-02": 5,
     "2026-05-03": 5,
     "2026-05-04": 5,
@@ -6589,6 +6598,7 @@
     "2026-05-28": 5,
     "2026-05-29": 5,
     "2026-05-30": 5,
-    "2026-05-31": 5
+    "2026-05-31": 5,
+    "2026-06-01": 5
   }
 }
