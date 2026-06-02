@@ -3266,7 +3266,12 @@
     "https://thehackernews.com/2026/05/pan-os-globalprotect-authentication.html",
     "https://thehackernews.com/2026/05/critical-gogs-rce-vulnerability-lets.html",
     "https://thehackernews.com/2026/06/the-security-growth-platform-why-msps.html",
-    "https://thehackernews.com/2026/06/openai-codex-authentication-tokens.html"
+    "https://thehackernews.com/2026/06/openai-codex-authentication-tokens.html",
+    "https://www.cisa.gov/news-events/alerts/2026/06/01/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/06/pakistan-linked-sidecopy-targets.html",
+    "https://www.bleepingcomputer.com/news/security/google-fixes-one-actively-exploited-android-zero-day-124-flaws/",
+    "https://www.darkreading.com/threat-intelligence/patch-palo-alto-auth-bypass-bug-exploit",
+    "https://www.bleepingcomputer.com/news/security/race-against-time-why-faster-vulnerability-alerts-matter/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6535,10 +6540,14 @@
     "4f56a59ab1ccc68cb9bfde0f2c401800",
     "924ac59e94565d07bf1e4e581f0e8046",
     "18514010af2c9a25cf7974dda7bf2481",
-    "3cc40eeb582d3f72ce58f60b84c93861"
+    "3cc40eeb582d3f72ce58f60b84c93861",
+    "7783faddf93746407cf4c23a51630be8",
+    "3e23b8fe86777eaa89d1f243a7d0e0f0",
+    "26c2460fd8d0cefd8ea7e2baeeda4ff5",
+    "872937a98549f0504fd5bb6cf7ae429f",
+    "cbbdb4091ac29ce7c7d86e957d936e22"
   ],
   "daily_llm_calls": {
-    "2026-05-02": 60,
     "2026-05-03": 60,
     "2026-05-04": 60,
     "2026-05-05": 60,
@@ -6567,10 +6576,10 @@
     "2026-05-29": 60,
     "2026-05-30": 61,
     "2026-05-31": 60,
-    "2026-06-01": 60
+    "2026-06-01": 60,
+    "2026-06-02": 60
   },
   "daily_published": {
-    "2026-05-02": 5,
     "2026-05-03": 5,
     "2026-05-04": 5,
     "2026-05-05": 5,
@@ -6599,6 +6608,7 @@
     "2026-05-29": 5,
     "2026-05-30": 5,
     "2026-05-31": 5,
-    "2026-06-01": 5
+    "2026-06-01": 5,
+    "2026-06-02": 5
   }
 }
