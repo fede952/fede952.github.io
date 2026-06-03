@@ -3271,7 +3271,12 @@
     "https://thehackernews.com/2026/06/pakistan-linked-sidecopy-targets.html",
     "https://www.bleepingcomputer.com/news/security/google-fixes-one-actively-exploited-android-zero-day-124-flaws/",
     "https://www.darkreading.com/threat-intelligence/patch-palo-alto-auth-bypass-bug-exploit",
-    "https://www.bleepingcomputer.com/news/security/race-against-time-why-faster-vulnerability-alerts-matter/"
+    "https://www.bleepingcomputer.com/news/security/race-against-time-why-faster-vulnerability-alerts-matter/",
+    "https://www.cisa.gov/resources-tools/resources/cisa-and-partners-urge-hardening-automatic-tank-gauge-systems",
+    "https://thehackernews.com/2026/06/oracle-weblogic-cve-2024-21182-added-to.html",
+    "https://thehackernews.com/2026/06/unpatched-windows-search-uri.html",
+    "https://www.cisa.gov/news-events/alerts/2026/06/02/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+    "https://thehackernews.com/2026/06/gamaredon-exploits-winrar-to-deliver.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6545,10 +6550,14 @@
     "3e23b8fe86777eaa89d1f243a7d0e0f0",
     "26c2460fd8d0cefd8ea7e2baeeda4ff5",
     "872937a98549f0504fd5bb6cf7ae429f",
-    "cbbdb4091ac29ce7c7d86e957d936e22"
+    "cbbdb4091ac29ce7c7d86e957d936e22",
+    "44dc1dc8813acb8c542327c4de102781",
+    "4e6ae0d4a3db41ebbb83943367cc1fb1",
+    "3a48e9818cc43a1c5f8d0ab90c5dd98a",
+    "06a2ebf943e06a545a9e6ff5e111e181",
+    "966e539a03776cd294f40f84cced178c"
   ],
   "daily_llm_calls": {
-    "2026-05-03": 60,
     "2026-05-04": 60,
     "2026-05-05": 60,
     "2026-05-06": 60,
@@ -6577,10 +6586,10 @@
     "2026-05-30": 61,
     "2026-05-31": 60,
     "2026-06-01": 60,
-    "2026-06-02": 60
+    "2026-06-02": 60,
+    "2026-06-03": 60
   },
   "daily_published": {
-    "2026-05-03": 5,
     "2026-05-04": 5,
     "2026-05-05": 5,
     "2026-05-06": 5,
@@ -6609,6 +6618,7 @@
     "2026-05-30": 5,
     "2026-05-31": 5,
     "2026-06-01": 5,
-    "2026-06-02": 5
+    "2026-06-02": 5,
+    "2026-06-03": 5
   }
 }
