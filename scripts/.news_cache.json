@@ -3276,7 +3276,12 @@
     "https://thehackernews.com/2026/06/oracle-weblogic-cve-2024-21182-added-to.html",
     "https://thehackernews.com/2026/06/unpatched-windows-search-uri.html",
     "https://www.cisa.gov/news-events/alerts/2026/06/02/cisa-adds-two-known-exploited-vulnerabilities-catalog",
-    "https://thehackernews.com/2026/06/gamaredon-exploits-winrar-to-deliver.html"
+    "https://thehackernews.com/2026/06/gamaredon-exploits-winrar-to-deliver.html",
+    "https://thehackernews.com/2026/06/cisa-adds-exploited-magento-rce-flaw.html",
+    "https://www.cisa.gov/news-events/alerts/2026/06/03/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/06/beyond-zero-day-see-your-network-like.html",
+    "https://www.cybersecurity360.it/news/aggiornamenti-android-giugno-2026-corretta-una-zero-day-gia-sfruttata-in-attacchi-mirati/",
+    "https://thehackernews.com/2026/06/fake-sites-mimicking-open-source-tools.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6555,10 +6560,14 @@
     "4e6ae0d4a3db41ebbb83943367cc1fb1",
     "3a48e9818cc43a1c5f8d0ab90c5dd98a",
     "06a2ebf943e06a545a9e6ff5e111e181",
-    "966e539a03776cd294f40f84cced178c"
+    "966e539a03776cd294f40f84cced178c",
+    "cee1f5444dfdbb9deab66f21d03d9a08",
+    "089041c798dca792d48441ea33fa987f",
+    "b25a43404431f80e0e26d6cfd5d1dcc1",
+    "1272f161cc0050befadd04233a2bd8e9",
+    "edad2e5969a0cc01609b4210bfb1520e"
   ],
   "daily_llm_calls": {
-    "2026-05-04": 60,
     "2026-05-05": 60,
     "2026-05-06": 60,
     "2026-05-07": 60,
@@ -6587,10 +6596,10 @@
     "2026-05-31": 60,
     "2026-06-01": 60,
     "2026-06-02": 60,
-    "2026-06-03": 60
+    "2026-06-03": 60,
+    "2026-06-04": 60
   },
   "daily_published": {
-    "2026-05-04": 5,
     "2026-05-05": 5,
     "2026-05-06": 5,
     "2026-05-07": 5,
@@ -6619,6 +6628,7 @@
     "2026-05-31": 5,
     "2026-06-01": 5,
     "2026-06-02": 5,
-    "2026-06-03": 5
+    "2026-06-03": 5,
+    "2026-06-04": 5
   }
 }
