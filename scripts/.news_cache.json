@@ -3291,7 +3291,12 @@
     "https://www.cisa.gov/news-events/alerts/2026/06/05/cisa-adds-one-known-exploited-vulnerability-catalog",
     "https://thehackernews.com/2026/06/cisco-catalyst-sd-wan-manager-cve-2026.html",
     "https://thehackernews.com/2026/06/hackers-exploit-critical-everest-forms.html",
-    "https://www.bleepingcomputer.com/news/security/new-cisco-sd-wan-flaw-exploited-in-zero-day-attacks-to-gain-root/"
+    "https://www.bleepingcomputer.com/news/security/new-cisco-sd-wan-flaw-exploited-in-zero-day-attacks-to-gain-root/",
+    "https://www.bleepingcomputer.com/news/security/critical-everest-forms-pro-flaw-exploited-to-take-over-wordpress-sites/",
+    "https://thehackernews.com/2026/06/miasma-worm-hits-73-microsoft-github.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-hackers-now-exploit-solarwinds-serv-u-flaw-to-crash-servers/",
+    "https://www.bleepingcomputer.com/news/security/chinese-apt-deploys-new-malware-to-keep-access-to-hacked-networks/",
+    "https://thehackernews.com/2026/06/android-spyware-asin-targets-arabic.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6585,10 +6590,14 @@
     "9fe38c41b0b6377ad1bea59dcb262724",
     "c9a7a55829be6205e3e15ec67000c6d7",
     "812d7b0c2cd30368fa21ff7c56b4801a",
-    "5f6f9b0b2d1d3d9fdefa3358e159b226"
+    "5f6f9b0b2d1d3d9fdefa3358e159b226",
+    "9894e62279e5e218bc4bbe91b209f866",
+    "48a0596f5a43bc68a383dfb57dcd0e92",
+    "1925238a5ba83a60b93b2354a919c975",
+    "abd7244e16159e2f1edfe819c44c25b8",
+    "8ddd0e976c8d6cb74128bd220b241a4c"
   ],
   "daily_llm_calls": {
-    "2026-05-07": 60,
     "2026-05-08": 60,
     "2026-05-09": 60,
     "2026-05-10": 60,
@@ -6617,10 +6626,10 @@
     "2026-06-03": 60,
     "2026-06-04": 60,
     "2026-06-05": 60,
-    "2026-06-06": 60
+    "2026-06-06": 60,
+    "2026-06-07": 60
   },
   "daily_published": {
-    "2026-05-07": 5,
     "2026-05-08": 5,
     "2026-05-09": 5,
     "2026-05-10": 5,
@@ -6649,6 +6658,7 @@
     "2026-06-03": 5,
     "2026-06-04": 5,
     "2026-06-05": 5,
-    "2026-06-06": 5
+    "2026-06-06": 5,
+    "2026-06-07": 5
   }
 }
