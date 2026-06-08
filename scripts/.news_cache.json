@@ -3296,7 +3296,12 @@
     "https://thehackernews.com/2026/06/miasma-worm-hits-73-microsoft-github.html",
     "https://www.bleepingcomputer.com/news/security/cisa-hackers-now-exploit-solarwinds-serv-u-flaw-to-crash-servers/",
     "https://www.bleepingcomputer.com/news/security/chinese-apt-deploys-new-malware-to-keep-access-to-hacked-networks/",
-    "https://thehackernews.com/2026/06/android-spyware-asin-targets-arabic.html"
+    "https://thehackernews.com/2026/06/android-spyware-asin-targets-arabic.html",
+    "https://www.cybersecurity360.it/nuove-minacce/truffe-whatsapp-ecco-gli-schemi-piu-diffusi-e-le-tecniche-usate/",
+    "https://thehackernews.com/2026/06/verdantbamboo-deploys-bsd-variant-of.html",
+    "https://thehackernews.com/2026/06/unc3753-used-vishing-and-physical.html",
+    "https://www.bleepingcomputer.com/news/security/c0xmo-botnet-spreads-via-dd-wrt-router-flaw-kills-rival-malware/",
+    "https://www.bleepingcomputer.com/news/security/silent-ransom-group-targets-law-firms-with-fake-it-support-calls/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6595,10 +6600,14 @@
     "48a0596f5a43bc68a383dfb57dcd0e92",
     "1925238a5ba83a60b93b2354a919c975",
     "abd7244e16159e2f1edfe819c44c25b8",
-    "8ddd0e976c8d6cb74128bd220b241a4c"
+    "8ddd0e976c8d6cb74128bd220b241a4c",
+    "8e557725012437b2c55bcf670344b34b",
+    "af5f73ba79550fafced26ac3faa869d5",
+    "f3842428d1100c86cf7d050cf2521221",
+    "9e3e8f73ca3ffd09704da6ad753fd623",
+    "be0ddd76914440d561e95f0cd6ebef82"
   ],
   "daily_llm_calls": {
-    "2026-05-08": 60,
     "2026-05-09": 60,
     "2026-05-10": 60,
     "2026-05-11": 60,
@@ -6627,10 +6636,10 @@
     "2026-06-04": 60,
     "2026-06-05": 60,
     "2026-06-06": 60,
-    "2026-06-07": 60
+    "2026-06-07": 60,
+    "2026-06-08": 60
   },
   "daily_published": {
-    "2026-05-08": 5,
     "2026-05-09": 5,
     "2026-05-10": 5,
     "2026-05-11": 5,
@@ -6659,6 +6668,7 @@
     "2026-06-04": 5,
     "2026-06-05": 5,
     "2026-06-06": 5,
-    "2026-06-07": 5
+    "2026-06-07": 5,
+    "2026-06-08": 5
   }
 }
