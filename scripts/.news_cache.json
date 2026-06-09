@@ -3301,7 +3301,12 @@
     "https://thehackernews.com/2026/06/verdantbamboo-deploys-bsd-variant-of.html",
     "https://thehackernews.com/2026/06/unc3753-used-vishing-and-physical.html",
     "https://www.bleepingcomputer.com/news/security/c0xmo-botnet-spreads-via-dd-wrt-router-flaw-kills-rival-malware/",
-    "https://www.bleepingcomputer.com/news/security/silent-ransom-group-targets-law-firms-with-fake-it-support-calls/"
+    "https://www.bleepingcomputer.com/news/security/silent-ransom-group-targets-law-firms-with-fake-it-support-calls/",
+    "https://thehackernews.com/2026/06/litellm-flaw-cve-2026-42271-exploited.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-check-point-flaw-exploited-by-ransomware-gangs/",
+    "https://www.bleepingcomputer.com/news/security/check-point-links-vpn-zero-day-attacks-to-qilin-ransomware-gang/",
+    "https://www.cisa.gov/news-events/alerts/2026/06/08/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+    "https://www.bleepingcomputer.com/news/security/google-patches-fifth-chrome-zero-day-bug-exploited-in-attacks-this-year/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6605,10 +6610,14 @@
     "af5f73ba79550fafced26ac3faa869d5",
     "f3842428d1100c86cf7d050cf2521221",
     "9e3e8f73ca3ffd09704da6ad753fd623",
-    "be0ddd76914440d561e95f0cd6ebef82"
+    "be0ddd76914440d561e95f0cd6ebef82",
+    "702319f8263e14b60c621632bdb4efb6",
+    "e295206cd05efab52654d9b77bb154cc",
+    "7e4e378e0c3bf9931028097039d71ab9",
+    "33d58753bb01921af3306a0aeab3cbdd",
+    "542b5dad52ad8d5c200eef1896d53a01"
   ],
   "daily_llm_calls": {
-    "2026-05-09": 60,
     "2026-05-10": 60,
     "2026-05-11": 60,
     "2026-05-12": 60,
@@ -6637,10 +6646,10 @@
     "2026-06-05": 60,
     "2026-06-06": 60,
     "2026-06-07": 60,
-    "2026-06-08": 60
+    "2026-06-08": 60,
+    "2026-06-09": 60
   },
   "daily_published": {
-    "2026-05-09": 5,
     "2026-05-10": 5,
     "2026-05-11": 5,
     "2026-05-12": 5,
@@ -6669,6 +6678,7 @@
     "2026-06-05": 5,
     "2026-06-06": 5,
     "2026-06-07": 5,
-    "2026-06-08": 5
+    "2026-06-08": 5,
+    "2026-06-09": 5
   }
 }
