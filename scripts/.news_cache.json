@@ -3306,7 +3306,12 @@
     "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-check-point-flaw-exploited-by-ransomware-gangs/",
     "https://www.bleepingcomputer.com/news/security/check-point-links-vpn-zero-day-attacks-to-qilin-ransomware-gang/",
     "https://www.cisa.gov/news-events/alerts/2026/06/08/cisa-adds-two-known-exploited-vulnerabilities-catalog",
-    "https://www.bleepingcomputer.com/news/security/google-patches-fifth-chrome-zero-day-bug-exploited-in-attacks-this-year/"
+    "https://www.bleepingcomputer.com/news/security/google-patches-fifth-chrome-zero-day-bug-exploited-in-attacks-this-year/",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-02",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-03",
+    "https://thehackernews.com/2026/06/veeam-backup-replication-rce-flaw-lets.html",
+    "https://www.cisa.gov/news-events/alerts/2026/06/09/cisa-adds-three-known-exploited-vulnerabilities-catalog"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6615,10 +6620,14 @@
     "e295206cd05efab52654d9b77bb154cc",
     "7e4e378e0c3bf9931028097039d71ab9",
     "33d58753bb01921af3306a0aeab3cbdd",
-    "542b5dad52ad8d5c200eef1896d53a01"
+    "542b5dad52ad8d5c200eef1896d53a01",
+    "a42f94fde854b1dcea9d21cb13d7ccda",
+    "3350e5517666bf0b5198022e72d11bb1",
+    "833b305da0c703a80ba78cbbe8aaab1b",
+    "ca309effba24075e2d1a5c1b3cce8be1",
+    "9b502edbc5c4b2e068af0fd7134c00d7"
   ],
   "daily_llm_calls": {
-    "2026-05-10": 60,
     "2026-05-11": 60,
     "2026-05-12": 60,
     "2026-05-13": 60,
@@ -6647,10 +6656,10 @@
     "2026-06-06": 60,
     "2026-06-07": 60,
     "2026-06-08": 60,
-    "2026-06-09": 60
+    "2026-06-09": 60,
+    "2026-06-10": 60
   },
   "daily_published": {
-    "2026-05-10": 5,
     "2026-05-11": 5,
     "2026-05-12": 5,
     "2026-05-13": 5,
@@ -6679,6 +6688,7 @@
     "2026-06-06": 5,
     "2026-06-07": 5,
     "2026-06-08": 5,
-    "2026-06-09": 5
+    "2026-06-09": 5,
+    "2026-06-10": 5
   }
 }
