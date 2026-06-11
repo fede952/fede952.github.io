@@ -3311,7 +3311,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-01",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-03",
     "https://thehackernews.com/2026/06/veeam-backup-replication-rce-flaw-lets.html",
-    "https://www.cisa.gov/news-events/alerts/2026/06/09/cisa-adds-three-known-exploited-vulnerabilities-catalog"
+    "https://www.cisa.gov/news-events/alerts/2026/06/09/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+    "https://thehackernews.com/2026/06/cisa-adds-cisco-chrome-and-arista-flaws.html",
+    "https://thehackernews.com/2026/06/unpatched-langflow-flaw-cve-2026-5027.html",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-patches-exchange-server-zero-day-exploited-in-attacks/",
+    "https://thehackernews.com/2026/06/china-linked-jdy-botnet-expands-to-1500.html",
+    "https://www.bleepingcomputer.com/news/security/china-linked-jdy-botnet-expands-targeting-of-us-military-networks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6625,10 +6630,14 @@
     "3350e5517666bf0b5198022e72d11bb1",
     "833b305da0c703a80ba78cbbe8aaab1b",
     "ca309effba24075e2d1a5c1b3cce8be1",
-    "9b502edbc5c4b2e068af0fd7134c00d7"
+    "9b502edbc5c4b2e068af0fd7134c00d7",
+    "6f2507126ecd99a10e9a8fe66b84ac2e",
+    "eef1078ae6815ffcb1b121930c2e6349",
+    "f5b9bc62ad4fa77f6742f915bfa7f8e2",
+    "a6d14a0a32f7900a52d84d0a21e68137",
+    "fc973665721cd28da8c1ec6e56667320"
   ],
   "daily_llm_calls": {
-    "2026-05-11": 60,
     "2026-05-12": 60,
     "2026-05-13": 60,
     "2026-05-14": 60,
@@ -6657,10 +6666,10 @@
     "2026-06-07": 60,
     "2026-06-08": 60,
     "2026-06-09": 60,
-    "2026-06-10": 60
+    "2026-06-10": 60,
+    "2026-06-11": 60
   },
   "daily_published": {
-    "2026-05-11": 5,
     "2026-05-12": 5,
     "2026-05-13": 5,
     "2026-05-14": 5,
@@ -6689,6 +6698,7 @@
     "2026-06-07": 5,
     "2026-06-08": 5,
     "2026-06-09": 5,
-    "2026-06-10": 5
+    "2026-06-10": 5,
+    "2026-06-11": 5
   }
 }
