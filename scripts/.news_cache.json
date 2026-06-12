@@ -3316,7 +3316,12 @@
     "https://thehackernews.com/2026/06/unpatched-langflow-flaw-cve-2026-5027.html",
     "https://www.bleepingcomputer.com/news/microsoft/microsoft-patches-exchange-server-zero-day-exploited-in-attacks/",
     "https://thehackernews.com/2026/06/china-linked-jdy-botnet-expands-to-1500.html",
-    "https://www.bleepingcomputer.com/news/security/china-linked-jdy-botnet-expands-targeting-of-us-military-networks/"
+    "https://www.bleepingcomputer.com/news/security/china-linked-jdy-botnet-expands-targeting-of-us-military-networks/",
+    "https://www.cisa.gov/news-events/alerts/2026/06/11/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-01",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-02",
+    "https://thehackernews.com/2026/06/shinyhunters-exploits-oracle-peoplesoft.html",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-03"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6635,10 +6640,14 @@
     "eef1078ae6815ffcb1b121930c2e6349",
     "f5b9bc62ad4fa77f6742f915bfa7f8e2",
     "a6d14a0a32f7900a52d84d0a21e68137",
-    "fc973665721cd28da8c1ec6e56667320"
+    "fc973665721cd28da8c1ec6e56667320",
+    "b3a5fa146d59bc5975bb5a1cba326b44",
+    "59c221f82c6094d7ab58c12d08a60131",
+    "93f6e7c335bd0668b141e92c9f356c9b",
+    "f292ad1fef7e0c448c51c186a036de91",
+    "e0db3050e803fc81d0d94c3f8d2177da"
   ],
   "daily_llm_calls": {
-    "2026-05-12": 60,
     "2026-05-13": 60,
     "2026-05-14": 60,
     "2026-05-15": 60,
@@ -6667,10 +6676,10 @@
     "2026-06-08": 60,
     "2026-06-09": 60,
     "2026-06-10": 60,
-    "2026-06-11": 60
+    "2026-06-11": 60,
+    "2026-06-12": 60
   },
   "daily_published": {
-    "2026-05-12": 5,
     "2026-05-13": 5,
     "2026-05-14": 5,
     "2026-05-15": 5,
@@ -6699,6 +6708,7 @@
     "2026-06-08": 5,
     "2026-06-09": 5,
     "2026-06-10": 5,
-    "2026-06-11": 5
+    "2026-06-11": 5,
+    "2026-06-12": 5
   }
 }
