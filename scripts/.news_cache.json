@@ -3321,7 +3321,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-01",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-02",
     "https://thehackernews.com/2026/06/shinyhunters-exploits-oracle-peoplesoft.html",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-03"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-162-03",
+    "https://www.cisa.gov/news-events/alerts/2026/06/12/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://thehackernews.com/2026/06/langgraph-flaw-chain-exposes-self.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-gives-feds-3-days-to-patch-ivanti-flaw-exploited-in-attacks/",
+    "https://www.bleepingcomputer.com/news/security/oracle-mitigates-peoplesoft-zero-day-exploited-in-data-theft-attacks/",
+    "https://thehackernews.com/2026/06/threatsday-bulletin-worm-code-leaked-ai.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6645,10 +6650,14 @@
     "59c221f82c6094d7ab58c12d08a60131",
     "93f6e7c335bd0668b141e92c9f356c9b",
     "f292ad1fef7e0c448c51c186a036de91",
-    "e0db3050e803fc81d0d94c3f8d2177da"
+    "e0db3050e803fc81d0d94c3f8d2177da",
+    "6f14b82feafb44a542709d57262b6aad",
+    "f3c31977452ab50ae7d0c7925ee3cd8e",
+    "1905234ae0c179aa1e789d6cf8377e09",
+    "7a772e9ee7b6b4cd9b81c39bd213732e",
+    "d4b58501f902d97a80c93726f92aa63b"
   ],
   "daily_llm_calls": {
-    "2026-05-13": 60,
     "2026-05-14": 60,
     "2026-05-15": 60,
     "2026-05-16": 60,
@@ -6677,10 +6686,10 @@
     "2026-06-09": 60,
     "2026-06-10": 60,
     "2026-06-11": 60,
-    "2026-06-12": 60
+    "2026-06-12": 60,
+    "2026-06-13": 60
   },
   "daily_published": {
-    "2026-05-13": 5,
     "2026-05-14": 5,
     "2026-05-15": 5,
     "2026-05-16": 5,
@@ -6709,6 +6718,7 @@
     "2026-06-09": 5,
     "2026-06-10": 5,
     "2026-06-11": 5,
-    "2026-06-12": 5
+    "2026-06-12": 5,
+    "2026-06-13": 5
   }
 }
