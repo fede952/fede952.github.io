@@ -3331,7 +3331,12 @@
     "https://thehackernews.com/2026/06/critical-splunk-enterprise-flaw-lets.html",
     "https://www.cybersecurity360.it/legal/debito-organizzativo-il-costo-nascosto-del-poi-vediamo/",
     "https://www.wired.com/story/cisa-ai-vulnerability-directive/",
-    "https://www.darkreading.com/vulnerabilities-threats/blame-ai-patch-tuesday-record-206-cves"
+    "https://www.darkreading.com/vulnerabilities-threats/blame-ai-patch-tuesday-record-206-cves",
+    "https://thehackernews.com/2026/06/palo-alto-warns-of-active-exploitation.html",
+    "https://cert-agid.gov.it/news/uso-di-llm-e-automazione-nelle-operazioni-ransomware-del-gruppo-the-gentlemen/",
+    "https://cert-agid.gov.it/news/phishing-e-spam-via-pec-oltre-650-gli-eventi-gestiti-nel-2026/",
+    "https://www.bleepingcomputer.com/news/security/infinite-campus-data-breach-affects-137-000-school-staff-accounts/",
+    "https://thehackernews.com/2026/06/china-linked-hackers-backdoored-linux.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6665,10 +6670,14 @@
     "cbfe649b19fda22bb86da63a7f7bee97",
     "9bdd3a306e172db2ebac129443acbfaf",
     "b16b320c7c551ebea3dc89fc2035f3c3",
-    "408322b6ced315068a4aa726ec6d62ff"
+    "408322b6ced315068a4aa726ec6d62ff",
+    "21baf1d6a807ebda86e1ba2e5770a236",
+    "a2699539d3fc3601717fc23a5dc170a8",
+    "07eb2503faaceaad2ad2a49ebd81fe1a",
+    "0ba1b68639231317a9abd79f7e6abc27",
+    "37adbc76e9fda1724c18a1235d899aea"
   ],
   "daily_llm_calls": {
-    "2026-05-15": 60,
     "2026-05-16": 60,
     "2026-05-17": 60,
     "2026-05-18": 60,
@@ -6697,10 +6706,10 @@
     "2026-06-11": 60,
     "2026-06-12": 60,
     "2026-06-13": 60,
-    "2026-06-14": 60
+    "2026-06-14": 60,
+    "2026-06-15": 60
   },
   "daily_published": {
-    "2026-05-15": 5,
     "2026-05-16": 5,
     "2026-05-17": 5,
     "2026-05-18": 5,
@@ -6729,6 +6738,7 @@
     "2026-06-11": 5,
     "2026-06-12": 5,
     "2026-06-13": 5,
-    "2026-06-14": 5
+    "2026-06-14": 5,
+    "2026-06-15": 5
   }
 }
