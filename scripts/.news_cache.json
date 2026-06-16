@@ -3336,7 +3336,11 @@
     "https://cert-agid.gov.it/news/uso-di-llm-e-automazione-nelle-operazioni-ransomware-del-gruppo-the-gentlemen/",
     "https://cert-agid.gov.it/news/phishing-e-spam-via-pec-oltre-650-gli-eventi-gestiti-nel-2026/",
     "https://www.bleepingcomputer.com/news/security/infinite-campus-data-breach-affects-137-000-school-staff-accounts/",
-    "https://thehackernews.com/2026/06/china-linked-hackers-backdoored-linux.html"
+    "https://thehackernews.com/2026/06/china-linked-hackers-backdoored-linux.html",
+    "https://thehackernews.com/2026/06/cisa-flags-litespeed-cpanel-plugin-flaw.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-another-actively-exploited-cpanel-plugin-flaw/",
+    "https://thehackernews.com/2026/06/attackers-exploit-three-fortinet.html",
+    "https://www.bleepingcomputer.com/news/security/ransomware-gang-abuses-microsoft-teams-relays-to-hide-malicious-traffic/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6675,10 +6679,13 @@
     "a2699539d3fc3601717fc23a5dc170a8",
     "07eb2503faaceaad2ad2a49ebd81fe1a",
     "0ba1b68639231317a9abd79f7e6abc27",
-    "37adbc76e9fda1724c18a1235d899aea"
+    "37adbc76e9fda1724c18a1235d899aea",
+    "77963883c407348c0feb94c3aef565e6",
+    "476dbdf7946694a6d2712de1d804f480",
+    "8e2c8da084a0401fb6fa5c64a24507ba",
+    "529b35cb18fefa5aa2cc1cec3d77234b"
   ],
   "daily_llm_calls": {
-    "2026-05-16": 60,
     "2026-05-17": 60,
     "2026-05-18": 60,
     "2026-05-19": 60,
@@ -6707,10 +6714,10 @@
     "2026-06-12": 60,
     "2026-06-13": 60,
     "2026-06-14": 60,
-    "2026-06-15": 60
+    "2026-06-15": 60,
+    "2026-06-16": 49
   },
   "daily_published": {
-    "2026-05-16": 5,
     "2026-05-17": 5,
     "2026-05-18": 5,
     "2026-05-19": 5,
@@ -6739,6 +6746,7 @@
     "2026-06-12": 5,
     "2026-06-13": 5,
     "2026-06-14": 5,
-    "2026-06-15": 5
+    "2026-06-15": 5,
+    "2026-06-16": 4
   }
 }
