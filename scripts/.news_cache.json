@@ -3340,7 +3340,12 @@
     "https://thehackernews.com/2026/06/cisa-flags-litespeed-cpanel-plugin-flaw.html",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-of-another-actively-exploited-cpanel-plugin-flaw/",
     "https://thehackernews.com/2026/06/attackers-exploit-three-fortinet.html",
-    "https://www.bleepingcomputer.com/news/security/ransomware-gang-abuses-microsoft-teams-relays-to-hide-malicious-traffic/"
+    "https://www.bleepingcomputer.com/news/security/ransomware-gang-abuses-microsoft-teams-relays-to-hide-malicious-traffic/",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-03",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-02",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-05",
+    "https://www.cisa.gov/news-events/alerts/2026/06/16/cisa-adds-one-known-exploited-vulnerability-catalog",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-04"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6683,10 +6688,14 @@
     "77963883c407348c0feb94c3aef565e6",
     "476dbdf7946694a6d2712de1d804f480",
     "8e2c8da084a0401fb6fa5c64a24507ba",
-    "529b35cb18fefa5aa2cc1cec3d77234b"
+    "529b35cb18fefa5aa2cc1cec3d77234b",
+    "2d02b6562d0832224283b66c15b15374",
+    "d5f7263a21e34cfbbecc151c5061e852",
+    "59c62c2adb0fd684c2b410182f2d0618",
+    "087c17bde9b01671a9220ba439def3c3",
+    "9c1d1f4781ebdc2599faa782564b1355"
   ],
   "daily_llm_calls": {
-    "2026-05-17": 60,
     "2026-05-18": 60,
     "2026-05-19": 60,
     "2026-05-20": 60,
@@ -6715,10 +6724,10 @@
     "2026-06-13": 60,
     "2026-06-14": 60,
     "2026-06-15": 60,
-    "2026-06-16": 49
+    "2026-06-16": 49,
+    "2026-06-17": 60
   },
   "daily_published": {
-    "2026-05-17": 5,
     "2026-05-18": 5,
     "2026-05-19": 5,
     "2026-05-20": 5,
@@ -6747,6 +6756,7 @@
     "2026-06-13": 5,
     "2026-06-14": 5,
     "2026-06-15": 5,
-    "2026-06-16": 4
+    "2026-06-16": 4,
+    "2026-06-17": 5
   }
 }
