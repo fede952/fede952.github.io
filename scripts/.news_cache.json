@@ -3345,7 +3345,11 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-02",
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-05",
     "https://www.cisa.gov/news-events/alerts/2026/06/16/cisa-adds-one-known-exploited-vulnerability-catalog",
-    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-04"
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-04",
+    "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-01",
+    "https://thehackernews.com/2026/06/cisa-warns-of-actively-exploited-joomla.html",
+    "https://thehackernews.com/2026/06/microsoft-confirms-rogueplanet-defender_02022423645.html",
+    "https://thehackernews.com/2026/06/the-top-10-attack-surface-exposures-in.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6693,10 +6697,13 @@
     "d5f7263a21e34cfbbecc151c5061e852",
     "59c62c2adb0fd684c2b410182f2d0618",
     "087c17bde9b01671a9220ba439def3c3",
-    "9c1d1f4781ebdc2599faa782564b1355"
+    "9c1d1f4781ebdc2599faa782564b1355",
+    "262396fb9f0289ba670abd32dd70b693",
+    "da7c3cc34505d3d786505a1a2c7134ae",
+    "8372fbb001a0f2b366372b538cf63314",
+    "fc3ad549747f230e39305748e2673539"
   ],
   "daily_llm_calls": {
-    "2026-05-18": 60,
     "2026-05-19": 60,
     "2026-05-20": 60,
     "2026-05-21": 60,
@@ -6725,10 +6732,10 @@
     "2026-06-14": 60,
     "2026-06-15": 60,
     "2026-06-16": 49,
-    "2026-06-17": 60
+    "2026-06-17": 60,
+    "2026-06-18": 49
   },
   "daily_published": {
-    "2026-05-18": 5,
     "2026-05-19": 5,
     "2026-05-20": 5,
     "2026-05-21": 5,
@@ -6757,6 +6764,7 @@
     "2026-06-14": 5,
     "2026-06-15": 5,
     "2026-06-16": 4,
-    "2026-06-17": 5
+    "2026-06-17": 5,
+    "2026-06-18": 4
   }
 }
