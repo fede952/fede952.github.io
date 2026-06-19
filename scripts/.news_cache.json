@@ -3349,7 +3349,12 @@
     "https://www.cisa.gov/news-events/ics-advisories/icsa-26-167-01",
     "https://thehackernews.com/2026/06/cisa-warns-of-actively-exploited-joomla.html",
     "https://thehackernews.com/2026/06/microsoft-confirms-rogueplanet-defender_02022423645.html",
-    "https://thehackernews.com/2026/06/the-top-10-attack-surface-exposures-in.html"
+    "https://thehackernews.com/2026/06/the-top-10-attack-surface-exposures-in.html",
+    "https://thehackernews.com/2026/06/dragonforce-hackers-abuse-microsoft.html",
+    "https://thehackernews.com/2026/06/f5-patches-two-critical-nginx-open.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-splunk-enterprise-flaw-actively-exploited-patch-by-sunday/",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-fortinet-users-to-secure-devices-after-fortibleed-leak/",
+    "https://thehackernews.com/2026/06/apple-patches-beats-studio-buds-flaw.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6701,10 +6706,14 @@
     "262396fb9f0289ba670abd32dd70b693",
     "da7c3cc34505d3d786505a1a2c7134ae",
     "8372fbb001a0f2b366372b538cf63314",
-    "fc3ad549747f230e39305748e2673539"
+    "fc3ad549747f230e39305748e2673539",
+    "e13cca5823a2ab9eae78a27694a6f846",
+    "c28bcd94af3623a8e25abd6f0a011e46",
+    "9b11aaeac988d10275ef1564efc4f673",
+    "13942e87fe72c266b759bd23a4bfabbb",
+    "902b41c66901be8f9e0d083db21b4ff7"
   ],
   "daily_llm_calls": {
-    "2026-05-19": 60,
     "2026-05-20": 60,
     "2026-05-21": 60,
     "2026-05-22": 60,
@@ -6733,10 +6742,10 @@
     "2026-06-15": 60,
     "2026-06-16": 49,
     "2026-06-17": 60,
-    "2026-06-18": 49
+    "2026-06-18": 49,
+    "2026-06-19": 60
   },
   "daily_published": {
-    "2026-05-19": 5,
     "2026-05-20": 5,
     "2026-05-21": 5,
     "2026-05-22": 5,
@@ -6765,6 +6774,7 @@
     "2026-06-15": 5,
     "2026-06-16": 4,
     "2026-06-17": 5,
-    "2026-06-18": 4
+    "2026-06-18": 4,
+    "2026-06-19": 5
   }
 }
