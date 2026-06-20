@@ -3354,7 +3354,12 @@
     "https://thehackernews.com/2026/06/f5-patches-two-critical-nginx-open.html",
     "https://www.bleepingcomputer.com/news/security/cisa-splunk-enterprise-flaw-actively-exploited-patch-by-sunday/",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-fortinet-users-to-secure-devices-after-fortibleed-leak/",
-    "https://thehackernews.com/2026/06/apple-patches-beats-studio-buds-flaw.html"
+    "https://thehackernews.com/2026/06/apple-patches-beats-studio-buds-flaw.html",
+    "https://www.bleepingcomputer.com/news/security/law-enforcement-nukes-socgholish-malware-from-nearly-15-000-sites/",
+    "https://www.bleepingcomputer.com/news/security/klue-oauth-breach-victim-list-grows-as-icarus-hackers-claim-attack/",
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-info-disclosure-bug-in-gravity-smtp-wordpress-plugin/",
+    "https://thehackernews.com/2026/06/cisa-warns-fortinet-customers-as.html",
+    "https://www.bleepingcomputer.com/news/security/klue-oauth-breach-linked-to-icarus-salesforce-data-theft-attacks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6711,10 +6716,14 @@
     "c28bcd94af3623a8e25abd6f0a011e46",
     "9b11aaeac988d10275ef1564efc4f673",
     "13942e87fe72c266b759bd23a4bfabbb",
-    "902b41c66901be8f9e0d083db21b4ff7"
+    "902b41c66901be8f9e0d083db21b4ff7",
+    "5e439dd4f8234ab66a413d148a930f73",
+    "c24f196b9c62c727f5661a43211e837d",
+    "ab0df4f5a1d61bcbbf5a26f2fb5625eb",
+    "559b375adaa4e91b2d7a495d2838e807",
+    "d4e22c9fe9a7fdcea82df1b8b6059f69"
   ],
   "daily_llm_calls": {
-    "2026-05-20": 60,
     "2026-05-21": 60,
     "2026-05-22": 60,
     "2026-05-23": 64,
@@ -6743,10 +6752,10 @@
     "2026-06-16": 49,
     "2026-06-17": 60,
     "2026-06-18": 49,
-    "2026-06-19": 60
+    "2026-06-19": 60,
+    "2026-06-20": 60
   },
   "daily_published": {
-    "2026-05-20": 5,
     "2026-05-21": 5,
     "2026-05-22": 5,
     "2026-05-23": 5,
@@ -6775,6 +6784,7 @@
     "2026-06-16": 4,
     "2026-06-17": 5,
     "2026-06-18": 4,
-    "2026-06-19": 5
+    "2026-06-19": 5,
+    "2026-06-20": 5
   }
 }
