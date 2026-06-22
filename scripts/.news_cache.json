@@ -3364,7 +3364,12 @@
     "https://www.darkreading.com/cyberattacks-data-breaches/lorem-ipsum-malware-clickfix-delivery",
     "https://thehackernews.com/2026/06/unpatchable-usbliter8-exploit-breaks.html",
     "https://thehackernews.com/2026/06/the-gentlemen-raas-uses-gentlekiller.html",
-    "https://thehackernews.com/2026/06/operation-endgame-disrupts-socgholish.html"
+    "https://thehackernews.com/2026/06/operation-endgame-disrupts-socgholish.html",
+    "https://thehackernews.com/2026/06/weekly-recap-browser-bugs-edr-killers.html",
+    "https://www.cybersecurity360.it/news/rokarolla-il-banking-trojan-android-che-punta-al-controllo-totale-dello-smartphone/",
+    "https://thehackernews.com/2026/06/arystinger-malware-infects-4300-legacy.html",
+    "https://thehackernews.com/2026/06/interpol-warns-phishing-ransomware-and.html",
+    "https://www.bleepingcomputer.com/news/security/arystinger-botnet-infected-thousands-of-d-link-routers-worldwide/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6731,10 +6736,14 @@
     "51b4769a8739df1ff16b65d4b40057ef",
     "03808a2a6e77a6c01182411398bd7be8",
     "dcfa87156225ab4da6c6a7528c83df0d",
-    "c717ac426351e1dd6944486093f6a133"
+    "c717ac426351e1dd6944486093f6a133",
+    "d9c8a4022355fc8ce695952646dfecc3",
+    "8fad2c5237251c36008d7452c2e97db1",
+    "3b32e550a442c3ff30911e16bd7107f7",
+    "21e3753482ba3bda9abd04ce60b2952e",
+    "5f22d621f63a252725ac8cd5574c5a02"
   ],
   "daily_llm_calls": {
-    "2026-05-22": 60,
     "2026-05-23": 64,
     "2026-05-24": 49,
     "2026-05-25": 49,
@@ -6763,10 +6772,10 @@
     "2026-06-18": 49,
     "2026-06-19": 60,
     "2026-06-20": 60,
-    "2026-06-21": 60
+    "2026-06-21": 60,
+    "2026-06-22": 60
   },
   "daily_published": {
-    "2026-05-22": 5,
     "2026-05-23": 5,
     "2026-05-24": 4,
     "2026-05-25": 4,
@@ -6795,6 +6804,7 @@
     "2026-06-18": 4,
     "2026-06-19": 5,
     "2026-06-20": 5,
-    "2026-06-21": 5
+    "2026-06-21": 5,
+    "2026-06-22": 5
   }
 }
