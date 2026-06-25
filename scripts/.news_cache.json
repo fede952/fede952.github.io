@@ -3379,7 +3379,12 @@
     "https://www.cybersecurity360.it/outlook/quellignoranza-inconsapevole-delle-intelligenze-artificiali/",
     "https://www.bleepingcomputer.com/news/security/cisco-unified-cm-sme-flaw-cve-2026-20230-now-exploited-in-attacks/",
     "https://www.darkreading.com/cyberattacks-data-breaches/scope-salesforce-attacks-expands-icarus-leaks-data",
-    "https://www.bleepingcomputer.com/news/security/lastpass-confirms-data-breach-in-klue-supply-chain-attack/"
+    "https://www.bleepingcomputer.com/news/security/lastpass-confirms-data-breach-in-klue-supply-chain-attack/",
+    "https://thehackernews.com/2026/06/cisco-catalyst-sd-wan-zero-day-cve-2026.html",
+    "https://thehackernews.com/2026/06/cisa-warns-critical-lantronix-eds5000.html",
+    "https://thehackernews.com/2026/06/cordyceps-cicd-flaws-expose-300-github.html",
+    "https://www.bleepingcomputer.com/news/security/mandiant-reveals-how-cisco-sd-wan-zero-day-attacks-gained-root-access/",
+    "https://www.bleepingcomputer.com/news/security/malicious-edge-extension-abuses-native-messaging-as-bridge-to-malware/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6761,10 +6766,14 @@
     "31f7ce9a4caa1f79aa9f3b9b1edd3576",
     "e39b97905e642410380890a1a432f2c2",
     "b03f35b839d2584351ddace567b3920a",
-    "507c4b0345c473f46710c97d38ebdf11"
+    "507c4b0345c473f46710c97d38ebdf11",
+    "6165f8b961ee5444e6d87e09a7c996f0",
+    "ae4188671260e626aeeaeb3bbcbe343e",
+    "921e65a5bd9ff105acf58c4c5e5a0e75",
+    "1e2d3a526def8fe2222afbaf38633036",
+    "4c888085bacd8de5b9ad731b909732ea"
   ],
   "daily_llm_calls": {
-    "2026-05-25": 49,
     "2026-05-27": 60,
     "2026-05-28": 60,
     "2026-05-29": 60,
@@ -6793,10 +6802,10 @@
     "2026-06-21": 60,
     "2026-06-22": 60,
     "2026-06-23": 60,
-    "2026-06-24": 60
+    "2026-06-24": 60,
+    "2026-06-25": 60
   },
   "daily_published": {
-    "2026-05-25": 4,
     "2026-05-27": 5,
     "2026-05-28": 5,
     "2026-05-29": 5,
@@ -6825,6 +6834,7 @@
     "2026-06-21": 5,
     "2026-06-22": 5,
     "2026-06-23": 5,
-    "2026-06-24": 5
+    "2026-06-24": 5,
+    "2026-06-25": 5
   }
 }
