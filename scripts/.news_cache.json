@@ -3384,7 +3384,12 @@
     "https://thehackernews.com/2026/06/cisa-warns-critical-lantronix-eds5000.html",
     "https://thehackernews.com/2026/06/cordyceps-cicd-flaws-expose-300-github.html",
     "https://www.bleepingcomputer.com/news/security/mandiant-reveals-how-cisco-sd-wan-zero-day-attacks-gained-root-access/",
-    "https://www.bleepingcomputer.com/news/security/malicious-edge-extension-abuses-native-messaging-as-bridge-to-malware/"
+    "https://www.bleepingcomputer.com/news/security/malicious-edge-extension-abuses-native-messaging-as-bridge-to-malware/",
+    "https://www.cybersecurity360.it/nuove-minacce/ransomware/attacco-ransomware-a-tata-electronics-630-gb-di-dati-riservati-di-apple-e-tesla-finiscono-online/",
+    "https://thehackernews.com/2026/06/amadey-and-stealc-malware-network.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-max-severity-ubiquiti-flaws-exploited-in-attacks/",
+    "https://thehackernews.com/2026/06/dawn-of-apex-agentic-adversary.html",
+    "https://thehackernews.com/2026/06/microsoft-warns-of-photo-zip-phishing.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6771,10 +6776,14 @@
     "ae4188671260e626aeeaeb3bbcbe343e",
     "921e65a5bd9ff105acf58c4c5e5a0e75",
     "1e2d3a526def8fe2222afbaf38633036",
-    "4c888085bacd8de5b9ad731b909732ea"
+    "4c888085bacd8de5b9ad731b909732ea",
+    "e5e9011774a13edc6a2f045e71798d07",
+    "20a8b87f16481f72f09f0fb7b4d17fb4",
+    "48dcdb482fe725f8f64ed4a9f5bd4eeb",
+    "88de7970838bbc2400f0000a78773dd2",
+    "6ce3de491ef1f63fe6965fc67e68f310"
   ],
   "daily_llm_calls": {
-    "2026-05-27": 60,
     "2026-05-28": 60,
     "2026-05-29": 60,
     "2026-05-30": 61,
@@ -6803,10 +6812,10 @@
     "2026-06-22": 60,
     "2026-06-23": 60,
     "2026-06-24": 60,
-    "2026-06-25": 60
+    "2026-06-25": 60,
+    "2026-06-26": 60
   },
   "daily_published": {
-    "2026-05-27": 5,
     "2026-05-28": 5,
     "2026-05-29": 5,
     "2026-05-30": 5,
@@ -6835,6 +6844,7 @@
     "2026-06-22": 5,
     "2026-06-23": 5,
     "2026-06-24": 5,
-    "2026-06-25": 5
+    "2026-06-25": 5,
+    "2026-06-26": 5
   }
 }
