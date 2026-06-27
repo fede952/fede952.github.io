@@ -3389,7 +3389,12 @@
     "https://thehackernews.com/2026/06/amadey-and-stealc-malware-network.html",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-of-max-severity-ubiquiti-flaws-exploited-in-attacks/",
     "https://thehackernews.com/2026/06/dawn-of-apex-agentic-adversary.html",
-    "https://thehackernews.com/2026/06/microsoft-warns-of-photo-zip-phishing.html"
+    "https://thehackernews.com/2026/06/microsoft-warns-of-photo-zip-phishing.html",
+    "https://thehackernews.com/2026/06/cisa-adds-exploited-ptc-windchill-rce.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-sets-urgent-deadline-to-fix-cisco-flaw-exploited-in-attacks/",
+    "https://thehackernews.com/2026/06/chinese-speaking-apt-deploys-new.html",
+    "https://www.cybersecurity360.it/soluzioni-aziendali/sicurezza-della-catena-di-fornitura-come-valutare-e-monitorare-il-rischio-cyber-delle-terze-parti/",
+    "https://thehackernews.com/2026/06/new-dirtyclone-linux-kernel-flaw-lets.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6781,10 +6786,14 @@
     "20a8b87f16481f72f09f0fb7b4d17fb4",
     "48dcdb482fe725f8f64ed4a9f5bd4eeb",
     "88de7970838bbc2400f0000a78773dd2",
-    "6ce3de491ef1f63fe6965fc67e68f310"
+    "6ce3de491ef1f63fe6965fc67e68f310",
+    "f8b698b2a5ec8572e2a1815f7fe0783b",
+    "c150f235448db2b59249497949d2fdfd",
+    "d8046cb1506dc46e626dde1a75cdc413",
+    "a56984205f77078da434b7511d7bd414",
+    "eed3ef70da6cc95ab461882fbab4e778"
   ],
   "daily_llm_calls": {
-    "2026-05-28": 60,
     "2026-05-29": 60,
     "2026-05-30": 61,
     "2026-05-31": 60,
@@ -6813,10 +6822,10 @@
     "2026-06-23": 60,
     "2026-06-24": 60,
     "2026-06-25": 60,
-    "2026-06-26": 60
+    "2026-06-26": 60,
+    "2026-06-27": 60
   },
   "daily_published": {
-    "2026-05-28": 5,
     "2026-05-29": 5,
     "2026-05-30": 5,
     "2026-05-31": 5,
@@ -6845,6 +6854,7 @@
     "2026-06-23": 5,
     "2026-06-24": 5,
     "2026-06-25": 5,
-    "2026-06-26": 5
+    "2026-06-26": 5,
+    "2026-06-27": 5
   }
 }
