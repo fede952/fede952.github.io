@@ -3394,7 +3394,12 @@
     "https://www.bleepingcomputer.com/news/security/cisa-sets-urgent-deadline-to-fix-cisco-flaw-exploited-in-attacks/",
     "https://thehackernews.com/2026/06/chinese-speaking-apt-deploys-new.html",
     "https://www.cybersecurity360.it/soluzioni-aziendali/sicurezza-della-catena-di-fornitura-come-valutare-e-monitorare-il-rischio-cyber-delle-terze-parti/",
-    "https://thehackernews.com/2026/06/new-dirtyclone-linux-kernel-flaw-lets.html"
+    "https://thehackernews.com/2026/06/new-dirtyclone-linux-kernel-flaw-lets.html",
+    "https://thehackernews.com/2026/06/miasma-malware-targets-npm-packages-and.html",
+    "https://www.darkreading.com/cyber-risk/third-party-breaches-teaches-education-lesson-vendor-risk",
+    "https://www.bleepingcomputer.com/news/security/fbi-russian-hackers-now-target-signal-backup-recovery-keys/",
+    "https://thehackernews.com/2026/06/fbi-warns-russian-intelligence-hackers.html",
+    "https://www.bleepingcomputer.com/news/security/polymarket-customers-lose-3-million-in-supply-chain-attack/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6791,10 +6796,14 @@
     "c150f235448db2b59249497949d2fdfd",
     "d8046cb1506dc46e626dde1a75cdc413",
     "a56984205f77078da434b7511d7bd414",
-    "eed3ef70da6cc95ab461882fbab4e778"
+    "eed3ef70da6cc95ab461882fbab4e778",
+    "eb6d837eecb65c04f186a10cbd8d43e7",
+    "78637a80fe463922acd1c98205fa549b",
+    "03e2462f2ee357c4e19eb8b1b61b39b3",
+    "4958578b39b80fd15f88e0fc56e24d88",
+    "740679c7bdf42bfc6f565f7ac12d35da"
   ],
   "daily_llm_calls": {
-    "2026-05-29": 60,
     "2026-05-30": 61,
     "2026-05-31": 60,
     "2026-06-01": 60,
@@ -6823,10 +6832,10 @@
     "2026-06-24": 60,
     "2026-06-25": 60,
     "2026-06-26": 60,
-    "2026-06-27": 60
+    "2026-06-27": 60,
+    "2026-06-28": 60
   },
   "daily_published": {
-    "2026-05-29": 5,
     "2026-05-30": 5,
     "2026-05-31": 5,
     "2026-06-01": 5,
@@ -6855,6 +6864,7 @@
     "2026-06-24": 5,
     "2026-06-25": 5,
     "2026-06-26": 5,
-    "2026-06-27": 5
+    "2026-06-27": 5,
+    "2026-06-28": 5
   }
 }
