@@ -3399,7 +3399,12 @@
     "https://www.darkreading.com/cyber-risk/third-party-breaches-teaches-education-lesson-vendor-risk",
     "https://www.bleepingcomputer.com/news/security/fbi-russian-hackers-now-target-signal-backup-recovery-keys/",
     "https://thehackernews.com/2026/06/fbi-warns-russian-intelligence-hackers.html",
-    "https://www.bleepingcomputer.com/news/security/polymarket-customers-lose-3-million-in-supply-chain-attack/"
+    "https://www.bleepingcomputer.com/news/security/polymarket-customers-lose-3-million-in-supply-chain-attack/",
+    "https://thehackernews.com/2026/06/gamaredon-expands-ukraine-attacks-with.html",
+    "https://thehackernews.com/2026/06/microsoft-removes-119-edge-extensions.html",
+    "https://www.bleepingcomputer.com/news/security/data-breach-exposes-up-to-142-million-email-logins-at-six-isps/",
+    "https://www.cybersecurity360.it/cybersecurity-nazionale/anche-la-cina-sviluppa-lai-per-la-cyber-ecco-tulongfeng-quali-impatti/",
+    "https://www.bleepingcomputer.com/news/security/cybersecurity-firms-targeted-by-fraudulent-openai-organization-invites/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6801,10 +6806,14 @@
     "78637a80fe463922acd1c98205fa549b",
     "03e2462f2ee357c4e19eb8b1b61b39b3",
     "4958578b39b80fd15f88e0fc56e24d88",
-    "740679c7bdf42bfc6f565f7ac12d35da"
+    "740679c7bdf42bfc6f565f7ac12d35da",
+    "bd64630a9f67633e43092e4454b98879",
+    "9824bf46a54af2efb1b370ecee69247f",
+    "82f8f29e9c288a4567e30c7f6eb2d13d",
+    "c7b859d7bacbd33de7eb2a050e55b2ae",
+    "c4f9bf2651da9513aec0214759cce19d"
   ],
   "daily_llm_calls": {
-    "2026-05-30": 61,
     "2026-05-31": 60,
     "2026-06-01": 60,
     "2026-06-02": 60,
@@ -6833,10 +6842,10 @@
     "2026-06-25": 60,
     "2026-06-26": 60,
     "2026-06-27": 60,
-    "2026-06-28": 60
+    "2026-06-28": 60,
+    "2026-06-29": 60
   },
   "daily_published": {
-    "2026-05-30": 5,
     "2026-05-31": 5,
     "2026-06-01": 5,
     "2026-06-02": 5,
@@ -6865,6 +6874,7 @@
     "2026-06-25": 5,
     "2026-06-26": 5,
     "2026-06-27": 5,
-    "2026-06-28": 5
+    "2026-06-28": 5,
+    "2026-06-29": 5
   }
 }
