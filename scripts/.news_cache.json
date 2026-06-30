@@ -3404,7 +3404,12 @@
     "https://thehackernews.com/2026/06/microsoft-removes-119-edge-extensions.html",
     "https://www.bleepingcomputer.com/news/security/data-breach-exposes-up-to-142-million-email-logins-at-six-isps/",
     "https://www.cybersecurity360.it/cybersecurity-nazionale/anche-la-cina-sviluppa-lai-per-la-cyber-ecco-tulongfeng-quali-impatti/",
-    "https://www.bleepingcomputer.com/news/security/cybersecurity-firms-targeted-by-fraudulent-openai-organization-invites/"
+    "https://www.bleepingcomputer.com/news/security/cybersecurity-firms-targeted-by-fraudulent-openai-organization-invites/",
+    "https://www.bleepingcomputer.com/news/security/cisa-windows-bluehammer-flaw-now-exploited-by-ransomware-gangs/",
+    "https://www.bleepingcomputer.com/news/security/nissan-discloses-employee-data-breach-linked-to-oracle-zero-day-attacks/",
+    "https://www.bleepingcomputer.com/news/security/naic-says-public-data-stolen-in-shinyhunters-peoplesoft-breach/",
+    "https://thehackernews.com/2026/06/progress-kemp-loadmaster-flaw-could-let.html",
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-simplehelp-flaw-deploy-new-djinn-infostealer-taskweaver-malware/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6811,10 +6816,14 @@
     "9824bf46a54af2efb1b370ecee69247f",
     "82f8f29e9c288a4567e30c7f6eb2d13d",
     "c7b859d7bacbd33de7eb2a050e55b2ae",
-    "c4f9bf2651da9513aec0214759cce19d"
+    "c4f9bf2651da9513aec0214759cce19d",
+    "e6bdce00fda4ecacce857f05db0c0bc6",
+    "9f03421efd20062c9e0547f4af94680a",
+    "1b6b3e69b252f1035f2bc6bea2f4aa49",
+    "b65c150e3a6bbe88f8bead83fddb9b23",
+    "b2010db8d63f10c8e5d431d721de29f2"
   ],
   "daily_llm_calls": {
-    "2026-05-31": 60,
     "2026-06-01": 60,
     "2026-06-02": 60,
     "2026-06-03": 60,
@@ -6843,10 +6852,10 @@
     "2026-06-26": 60,
     "2026-06-27": 60,
     "2026-06-28": 60,
-    "2026-06-29": 60
+    "2026-06-29": 60,
+    "2026-06-30": 60
   },
   "daily_published": {
-    "2026-05-31": 5,
     "2026-06-01": 5,
     "2026-06-02": 5,
     "2026-06-03": 5,
@@ -6875,6 +6884,7 @@
     "2026-06-26": 5,
     "2026-06-27": 5,
     "2026-06-28": 5,
-    "2026-06-29": 5
+    "2026-06-29": 5,
+    "2026-06-30": 5
   }
 }
