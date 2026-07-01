@@ -3409,7 +3409,12 @@
     "https://www.bleepingcomputer.com/news/security/nissan-discloses-employee-data-breach-linked-to-oracle-zero-day-attacks/",
     "https://www.bleepingcomputer.com/news/security/naic-says-public-data-stolen-in-shinyhunters-peoplesoft-breach/",
     "https://thehackernews.com/2026/06/progress-kemp-loadmaster-flaw-could-let.html",
-    "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-simplehelp-flaw-deploy-new-djinn-infostealer-taskweaver-malware/"
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-simplehelp-flaw-deploy-new-djinn-infostealer-taskweaver-malware/",
+    "https://thehackernews.com/2026/06/langflow-rce-exploited-to-deploy-monero.html",
+    "https://thehackernews.com/2026/06/attackers-exploit-simplehelp-cve-2026.html",
+    "https://thehackernews.com/2026/07/citrix-patches-six-netscaler-flaws.html",
+    "https://thehackernews.com/2026/06/rustduck-botnet-rebuilds-in-rust-to.html",
+    "https://www.cybersecurity360.it/news/patch-apple-anticipate-perche-lai-cambia-la-finestra-di-rischio/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6821,10 +6826,14 @@
     "9f03421efd20062c9e0547f4af94680a",
     "1b6b3e69b252f1035f2bc6bea2f4aa49",
     "b65c150e3a6bbe88f8bead83fddb9b23",
-    "b2010db8d63f10c8e5d431d721de29f2"
+    "b2010db8d63f10c8e5d431d721de29f2",
+    "7099ad94a5e397530eb9666fa78ebba0",
+    "da077deac40bcd793413d6a7fd11ecce",
+    "13b6877bb994070165cee80645b30c31",
+    "ad251cfada3fd4157191bd109d0c30c5",
+    "430595e6eb3ec4e25e1f03721cd3c13e"
   ],
   "daily_llm_calls": {
-    "2026-06-01": 60,
     "2026-06-02": 60,
     "2026-06-03": 60,
     "2026-06-04": 60,
@@ -6853,10 +6862,10 @@
     "2026-06-27": 60,
     "2026-06-28": 60,
     "2026-06-29": 60,
-    "2026-06-30": 60
+    "2026-06-30": 60,
+    "2026-07-01": 60
   },
   "daily_published": {
-    "2026-06-01": 5,
     "2026-06-02": 5,
     "2026-06-03": 5,
     "2026-06-04": 5,
@@ -6885,6 +6894,7 @@
     "2026-06-27": 5,
     "2026-06-28": 5,
     "2026-06-29": 5,
-    "2026-06-30": 5
+    "2026-06-30": 5,
+    "2026-07-01": 5
   }
 }
