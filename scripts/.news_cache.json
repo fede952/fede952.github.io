@@ -3414,7 +3414,12 @@
     "https://thehackernews.com/2026/06/attackers-exploit-simplehelp-cve-2026.html",
     "https://thehackernews.com/2026/07/citrix-patches-six-netscaler-flaws.html",
     "https://thehackernews.com/2026/06/rustduck-botnet-rebuilds-in-rust-to.html",
-    "https://www.cybersecurity360.it/news/patch-apple-anticipate-perche-lai-cambia-la-finestra-di-rischio/"
+    "https://www.cybersecurity360.it/news/patch-apple-anticipate-perche-lai-cambia-la-finestra-di-rischio/",
+    "https://thehackernews.com/2026/07/sharepoint-rce-cve-2026-45659-added-to.html",
+    "https://www.cybersecurity360.it/soluzioni-aziendali/intelligenza-artificiale-e-vulnerabilita-il-ruolo-dei-modelli-llm-nel-codice-applicativo/",
+    "https://thehackernews.com/2026/07/new-chocopoc-rat-targets-vulnerability.html",
+    "https://thehackernews.com/2026/07/latest-progress-kemp-loadmaster-pre.html",
+    "https://www.bleepingcomputer.com/news/security/new-chocopoc-malware-targets-researchers-via-trojanized-poc-exploits/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6831,10 +6836,14 @@
     "da077deac40bcd793413d6a7fd11ecce",
     "13b6877bb994070165cee80645b30c31",
     "ad251cfada3fd4157191bd109d0c30c5",
-    "430595e6eb3ec4e25e1f03721cd3c13e"
+    "430595e6eb3ec4e25e1f03721cd3c13e",
+    "0b90f243cbb8b85ffc674aa580364d79",
+    "b895a398a60c7a99c9ff7efb928d70e7",
+    "87bb6d0e5d758f5d59c20e19c3115bc7",
+    "0efe0541628efd4a4007d88ce7bc5185",
+    "19d63e13d73ae8006a227ad16c1ed635"
   ],
   "daily_llm_calls": {
-    "2026-06-02": 60,
     "2026-06-03": 60,
     "2026-06-04": 60,
     "2026-06-05": 60,
@@ -6863,10 +6872,10 @@
     "2026-06-28": 60,
     "2026-06-29": 60,
     "2026-06-30": 60,
-    "2026-07-01": 60
+    "2026-07-01": 60,
+    "2026-07-02": 60
   },
   "daily_published": {
-    "2026-06-02": 5,
     "2026-06-03": 5,
     "2026-06-04": 5,
     "2026-06-05": 5,
@@ -6895,6 +6904,7 @@
     "2026-06-28": 5,
     "2026-06-29": 5,
     "2026-06-30": 5,
-    "2026-07-01": 5
+    "2026-07-01": 5,
+    "2026-07-02": 5
   }
 }
