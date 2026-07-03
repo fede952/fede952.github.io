@@ -3419,7 +3419,12 @@
     "https://www.cybersecurity360.it/soluzioni-aziendali/intelligenza-artificiale-e-vulnerabilita-il-ruolo-dei-modelli-llm-nel-codice-applicativo/",
     "https://thehackernews.com/2026/07/new-chocopoc-rat-targets-vulnerability.html",
     "https://thehackernews.com/2026/07/latest-progress-kemp-loadmaster-pre.html",
-    "https://www.bleepingcomputer.com/news/security/new-chocopoc-malware-targets-researchers-via-trojanized-poc-exploits/"
+    "https://www.bleepingcomputer.com/news/security/new-chocopoc-malware-targets-researchers-via-trojanized-poc-exploits/",
+    "https://thehackernews.com/2026/07/ransomware-groups-turn-to-citrix-bleed.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-microsoft-sharepoint-rce-flaw-now-actively-exploited/",
+    "https://thehackernews.com/2026/07/veildrop-malware-chain-uses-blogger.html",
+    "https://www.bleepingcomputer.com/news/security/cisco-finally-confirms-attackers-exploiting-unified-cm-flaw/",
+    "https://thehackernews.com/2026/07/ai-agent-exploits-langflow-rce-to.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6841,10 +6846,14 @@
     "b895a398a60c7a99c9ff7efb928d70e7",
     "87bb6d0e5d758f5d59c20e19c3115bc7",
     "0efe0541628efd4a4007d88ce7bc5185",
-    "19d63e13d73ae8006a227ad16c1ed635"
+    "19d63e13d73ae8006a227ad16c1ed635",
+    "b67285be1676b56c4b863e27797c9d97",
+    "ed053acceb29c45104daaf79a6c85161",
+    "6e823f75de82286ff2969db5fbab3c84",
+    "cf68c91dc7475befc2a556e6d79f09a8",
+    "a971f8bec82333fc655fcf542d3fb808"
   ],
   "daily_llm_calls": {
-    "2026-06-03": 60,
     "2026-06-04": 60,
     "2026-06-05": 60,
     "2026-06-06": 60,
@@ -6873,10 +6882,10 @@
     "2026-06-29": 60,
     "2026-06-30": 60,
     "2026-07-01": 60,
-    "2026-07-02": 60
+    "2026-07-02": 60,
+    "2026-07-03": 60
   },
   "daily_published": {
-    "2026-06-03": 5,
     "2026-06-04": 5,
     "2026-06-05": 5,
     "2026-06-06": 5,
@@ -6905,6 +6914,7 @@
     "2026-06-29": 5,
     "2026-06-30": 5,
     "2026-07-01": 5,
-    "2026-07-02": 5
+    "2026-07-02": 5,
+    "2026-07-03": 5
   }
 }
