@@ -3424,7 +3424,12 @@
     "https://www.bleepingcomputer.com/news/security/cisa-microsoft-sharepoint-rce-flaw-now-actively-exploited/",
     "https://thehackernews.com/2026/07/veildrop-malware-chain-uses-blogger.html",
     "https://www.bleepingcomputer.com/news/security/cisco-finally-confirms-attackers-exploiting-unified-cm-flaw/",
-    "https://thehackernews.com/2026/07/ai-agent-exploits-langflow-rce-to.html"
+    "https://thehackernews.com/2026/07/ai-agent-exploits-langflow-rce-to.html",
+    "https://thehackernews.com/2026/07/new-avalon-malware-framework-packs.html",
+    "https://www.cybersecurity360.it/news/finti-messaggi-dellinterpol-usati-per-distribuire-ransomware-come-starne-alla-larga/",
+    "https://thehackernews.com/2026/07/pamstealer-uses-fake-maccy-sites-and.html",
+    "https://www.darkreading.com/cybersecurity-operations/apple-patch-policy-ai",
+    "https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6851,10 +6856,14 @@
     "ed053acceb29c45104daaf79a6c85161",
     "6e823f75de82286ff2969db5fbab3c84",
     "cf68c91dc7475befc2a556e6d79f09a8",
-    "a971f8bec82333fc655fcf542d3fb808"
+    "a971f8bec82333fc655fcf542d3fb808",
+    "7051e5edf95f683ca03ad16db1934761",
+    "fcd4835b87d212a7f9412543ff7299b5",
+    "7a37722989e5fd31cd30b09d6232deeb",
+    "12b5adc524d633d378623d1dc4a15a45",
+    "041cb19cc1b6257e84b163a274761bd0"
   ],
   "daily_llm_calls": {
-    "2026-06-04": 60,
     "2026-06-05": 60,
     "2026-06-06": 60,
     "2026-06-07": 60,
@@ -6883,10 +6892,10 @@
     "2026-06-30": 60,
     "2026-07-01": 60,
     "2026-07-02": 60,
-    "2026-07-03": 60
+    "2026-07-03": 60,
+    "2026-07-04": 60
   },
   "daily_published": {
-    "2026-06-04": 5,
     "2026-06-05": 5,
     "2026-06-06": 5,
     "2026-06-07": 5,
@@ -6915,6 +6924,7 @@
     "2026-06-30": 5,
     "2026-07-01": 5,
     "2026-07-02": 5,
-    "2026-07-03": 5
+    "2026-07-03": 5,
+    "2026-07-04": 5
   }
 }
