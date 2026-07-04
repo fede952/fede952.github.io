@@ -102,9 +102,9 @@ Cela empêche l'écriture des données GPS dans les futures photos. Cela ne supp
 
 ### Étape 2 : Supprimez EXIF avant de partager
 
-Avant de partager une image, supprimez complètement les métadonnées EXIF. Vous pouvez le faire directement dans votre navigateur avec notre **[EXIF Cleaner](/tools/exif-cleaner/)** — pas de téléchargement, pas de traitement serveur, 100% côté client.
+Avant de partager une image, supprimez complètement les métadonnées EXIF. Vous pouvez le faire directement dans votre navigateur avec notre **[EXIF Cleaner](/fr/tools/exif-cleaner/)** — pas de téléchargement, pas de traitement serveur, 100% côté client.
 
-1. Ouvrez l'[EXIF Cleaner](/tools/exif-cleaner/)
+1. Ouvrez l'[EXIF Cleaner](/fr/tools/exif-cleaner/)
 2. Déposez votre image dans l'outil
 3. Examinez les métadonnées extraites (voyez exactement ce que la photo divulguait)
 4. Cliquez sur "Clean" pour supprimer toutes les données EXIF
@@ -141,4 +141,4 @@ Oui. Les données EXIF peuvent être modifiées ou fabriquées à l'aide d'outil
 
 **Y a-t-il des données EXIF dans les fichiers PNG ?**
 
-Les fichiers PNG utilisent un format de métadonnées différent (blocs tEXt/iTXt) plutôt qu'EXIF. La plupart des appareils photo de téléphone enregistrent les photos au format JPEG (qui inclut EXIF complet avec GPS), pas PNG. Les captures d'écran sont souvent enregistrées au format PNG et ne contiennent généralement pas de données GPS. Cependant, certaines applications peuvent intégrer des métadonnées de type EXIF dans les fichiers PNG, il vaut donc la peine de vérifier. Notre [EXIF Cleaner](/tools/exif-cleaner/) gère à la fois les fichiers JPEG et PNG.
+Les fichiers PNG utilisent un format de métadonnées différent (blocs tEXt/iTXt) plutôt qu'EXIF. La plupart des appareils photo de téléphone enregistrent les photos au format JPEG (qui inclut EXIF complet avec GPS), pas PNG. Les captures d'écran sont souvent enregistrées au format PNG et ne contiennent généralement pas de données GPS. Cependant, certaines applications peuvent intégrer des métadonnées de type EXIF dans les fichiers PNG, il vaut donc la peine de vérifier. Notre [EXIF Cleaner](/fr/tools/exif-cleaner/) gère à la fois les fichiers JPEG et PNG.

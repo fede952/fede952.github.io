@@ -102,9 +102,9 @@ Dies verhindert, dass GPS-Daten in zukünftige Fotos geschrieben werden. Es entf
 
 ### Schritt 2: Entfernen Sie EXIF vor dem Teilen
 
-Bevor Sie ein Bild teilen, entfernen Sie die EXIF-Metadaten vollständig. Sie können dies direkt in Ihrem Browser mit unserem **[EXIF Cleaner](/tools/exif-cleaner/)** tun — keine Uploads, keine Serververarbeitung, 100% clientseitig.
+Bevor Sie ein Bild teilen, entfernen Sie die EXIF-Metadaten vollständig. Sie können dies direkt in Ihrem Browser mit unserem **[EXIF Cleaner](/de/tools/exif-cleaner/)** tun — keine Uploads, keine Serververarbeitung, 100% clientseitig.
 
-1. Öffnen Sie den [EXIF Cleaner](/tools/exif-cleaner/)
+1. Öffnen Sie den [EXIF Cleaner](/de/tools/exif-cleaner/)
 2. Ziehen Sie Ihr Bild in das Tool
 3. Überprüfen Sie die extrahierten Metadaten (sehen Sie genau, was das Foto preisgab)
 4. Klicken Sie auf "Clean", um alle EXIF-Daten zu entfernen
@@ -141,4 +141,4 @@ Ja. EXIF-Daten können mit leicht verfügbaren Tools modifiziert oder fabriziert
 
 **Gibt es EXIF-Daten in PNG-Dateien?**
 
-PNG-Dateien verwenden ein anderes Metadatenformat (tEXt/iTXt-Chunks) anstelle von EXIF. Die meisten Telefonkameras speichern Fotos als JPEG (das vollständiges EXIF mit GPS enthält), nicht PNG. Screenshots werden oft als PNG gespeichert und enthalten typischerweise keine GPS-Daten. Einige Anwendungen können jedoch EXIF-ähnliche Metadaten in PNG-Dateien einbetten, daher lohnt es sich dennoch zu überprüfen. Unser [EXIF Cleaner](/tools/exif-cleaner/) verarbeitet sowohl JPEG- als auch PNG-Dateien.
+PNG-Dateien verwenden ein anderes Metadatenformat (tEXt/iTXt-Chunks) anstelle von EXIF. Die meisten Telefonkameras speichern Fotos als JPEG (das vollständiges EXIF mit GPS enthält), nicht PNG. Screenshots werden oft als PNG gespeichert und enthalten typischerweise keine GPS-Daten. Einige Anwendungen können jedoch EXIF-ähnliche Metadaten in PNG-Dateien einbetten, daher lohnt es sich dennoch zu überprüfen. Unser [EXIF Cleaner](/de/tools/exif-cleaner/) verarbeitet sowohl JPEG- als auch PNG-Dateien.

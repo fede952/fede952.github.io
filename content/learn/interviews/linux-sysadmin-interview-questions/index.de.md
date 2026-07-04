@@ -21,7 +21,7 @@ aliases: ["/de/interviews/linux-sysadmin-interview-questions/"]
 
 Linux-Systemadministration ist das Fundament moderner Infrastruktur. Ob Sie sich für eine SysAdmin-, DevOps-, SRE- oder Cloud-Engineer-Rolle bewerben — Sie werden auf Ihre Fähigkeit geprüft, Benutzer zu verwalten, Prozesse zu debuggen, Netzwerke zu konfigurieren und Server abzusichern — alles von der Kommandozeile aus. Dieser Leitfaden behandelt 20 Fragen, die Senior-Kandidaten von Junior-Kandidaten unterscheiden, mit Antworten, die echte operative Erfahrung demonstrieren.
 
-**Brauchen Sie eine schnelle Befehlsreferenz?** Halten Sie unser [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) während Ihrer Vorbereitung geöffnet.
+**Brauchen Sie eine schnelle Befehlsreferenz?** Halten Sie unser [Linux SysAdmin Cheatsheet](/de/learn/cheatsheets/linux-sysadmin-permissions/) während Ihrer Vorbereitung geöffnet.
 
 ---
 

@@ -128,4 +128,4 @@ $env:REQUESTS_CA_BUNDLE = "C:\path\to\corporate-ca-bundle.crt"
 
 ## موارد ذات صلة
 
-قم بتأمين سكربتات Python الخاصة بك وأتمت مهام الأمان بشكل صحيح. اطلع على [ورقة مرجعية لسكربتات أمان Python](/cheatsheets/python-security-scripts/) — تغطي برمجة المقابس (sockets) وScapy وطلبات HTTP باستخدام مكتبة `requests`.
+قم بتأمين سكربتات Python الخاصة بك وأتمت مهام الأمان بشكل صحيح. اطلع على [ورقة مرجعية لسكربتات أمان Python](/ar/learn/cheatsheets/python-security-scripts/) — تغطي برمجة المقابس (sockets) وScapy وطلبات HTTP باستخدام مكتبة `requests`.

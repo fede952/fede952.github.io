@@ -21,7 +21,7 @@ aliases: ["/it/interviews/linux-sysadmin-interview-questions/"]
 
 L'amministrazione di sistemi Linux è la base dell'infrastruttura moderna. Che tu stia sostenendo un colloquio per un ruolo da SysAdmin, DevOps, SRE o Cloud Engineer, verrai testato sulla tua capacità di gestire utenti, risolvere problemi dei processi, configurare il networking e mettere in sicurezza i server — tutto dalla riga di comando. Questa guida copre 20 domande che separano i candidati senior da quelli junior, con risposte che dimostrano una reale esperienza operativa.
 
-**Hai bisogno di un riferimento rapido ai comandi?** Tieni aperto il nostro [Cheatsheet Linux SysAdmin](/cheatsheets/linux-sysadmin-permissions/) durante la preparazione.
+**Hai bisogno di un riferimento rapido ai comandi?** Tieni aperto il nostro [Cheatsheet Linux SysAdmin](/it/learn/cheatsheets/linux-sysadmin-permissions/) durante la preparazione.
 
 ---
 

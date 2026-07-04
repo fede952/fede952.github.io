@@ -21,7 +21,7 @@ aliases: ["/ko/interviews/docker-interview-questions/"]
 
 Docker는 모든 DevOps, SRE 또는 백엔드 엔지니어링 역할에서 필수적인 기술이 되었습니다. 시니어 레벨 면접관은 `docker run`을 넘어서는 역량을 기대합니다 — 이미지 레이어링, 네트워킹 내부 구조, 보안 강화, 프로덕션 수준의 오케스트레이션 패턴을 이해하고 있는지 보고 싶어합니다. 이 가이드에는 시니어 및 리드 레벨 면접에서 가장 자주 묻는 20개의 질문과 깊이를 보여주는 상세한 답변이 포함되어 있습니다.
 
-**면접 전에 명령어를 빠르게 복습해야 하나요?** [Docker Captain's Log 치트시트](/cheatsheets/docker-container-commands/)를 북마크하세요.
+**면접 전에 명령어를 빠르게 복습해야 하나요?** [Docker Captain's Log 치트시트](/ko/learn/cheatsheets/docker-container-commands/)를 북마크하세요.
 
 ---
 

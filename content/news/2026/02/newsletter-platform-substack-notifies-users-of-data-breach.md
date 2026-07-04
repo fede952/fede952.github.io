@@ -22,4 +22,4 @@ Newsletter platform Substack is notifying users of a data breach after attackers
 **[Read full article on BleepingComputer ›](https://www.bleepingcomputer.com/news/security/newsletter-platform-substack-notifies-users-of-data-breach/)**
 
 ---
-**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/cheatsheets/sql-injection-payloads-database/).
+**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/en/learn/cheatsheets/sql-injection-payloads-database/).

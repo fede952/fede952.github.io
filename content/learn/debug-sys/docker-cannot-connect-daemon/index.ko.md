@@ -109,6 +109,6 @@ groups $USER
 
 ## 관련 리소스
 
-이 오류가 다시 발생하지 않도록 하세요. 완전한 [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/)를 북마크하세요 — 사용자 권한, 서비스 관리 및 프로덕션에서 필요한 모든 `docker` 명령어를 다루고 있습니다.
+이 오류가 다시 발생하지 않도록 하세요. 완전한 [Docker Captain's Log Cheatsheet](/ko/learn/cheatsheets/docker-container-commands/)를 북마크하세요 — 사용자 권한, 서비스 관리 및 프로덕션에서 필요한 모든 `docker` 명령어를 다루고 있습니다.
 
-Linux 서비스와 사용자를 관리해야 하나요? [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/)를 참고하세요.
+Linux 서비스와 사용자를 관리해야 하나요? [Linux SysAdmin: Permissions & Process Management Cheatsheet](/ko/learn/cheatsheets/linux-sysadmin-permissions/)를 참고하세요.

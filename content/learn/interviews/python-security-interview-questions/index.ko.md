@@ -21,7 +21,7 @@ aliases: ["/ko/interviews/python-security-interview-questions/"]
 
 Python은 공격적 및 방어적 보안에서 지배적인 언어입니다. 침투 테스트, 레드 팀, SOC 분석가, 보안 엔지니어링 역할 모두 자동화, 도구 개발, 빠른 프로토타이핑을 위한 Python 숙련도를 요구합니다. 면접관은 현장에서 코드를 작성할 것을 기대합니다 — TCP 소켓 클라이언트부터 패킷 크래프터, 웹 익스플로잇 스크립트까지. 이 가이드는 Python 프로그래밍과 보안 지식의 교차점을 테스트하는 20가지 질문을 다룹니다.
 
-**코드 스니펫이 필요하신가요?** 준비하는 동안 [Python 보안 스크립팅 치트시트](/cheatsheets/python-security-scripts/)를 열어두세요.
+**코드 스니펫이 필요하신가요?** 준비하는 동안 [Python 보안 스크립팅 치트시트](/ko/learn/cheatsheets/python-security-scripts/)를 열어두세요.
 
 ---
 

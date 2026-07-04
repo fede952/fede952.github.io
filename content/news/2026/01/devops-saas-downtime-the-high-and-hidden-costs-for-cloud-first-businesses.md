@@ -24,4 +24,4 @@ In recent years, many of us have learned (often the hard way) that public cloud 
 **[Read full article on Feeds ›](https://thehackernews.com/2026/01/high-costs-of-devops-saas-downtime.html)**
 
 ---
-**💡 Learn to secure your containers:** Check out our [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/).
+**💡 Learn to secure your containers:** Check out our [Docker Captain's Log Cheatsheet](/en/learn/cheatsheets/docker-container-commands/).

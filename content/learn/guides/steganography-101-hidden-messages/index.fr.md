@@ -121,11 +121,11 @@ Redimensionner, recadrer, faire pivoter ou appliquer des filtres (luminosité, c
 
 ## $ Try_It_Yourself
 
-La théorie n'est rien sans pratique. Utilisez notre **[Laboratoire de Stéganographie](/tools/steganography/)** gratuit côté client pour encoder vos propres messages cachés dans des images — directement dans votre navigateur.
+La théorie n'est rien sans pratique. Utilisez notre **[Laboratoire de Stéganographie](/fr/tools/steganography/)** gratuit côté client pour encoder vos propres messages cachés dans des images — directement dans votre navigateur.
 
 Pas de téléchargement, pas de traitement serveur. Vos données restent sur votre machine.
 
-1. Ouvrez le [Laboratoire de Stéganographie](/tools/steganography/)
+1. Ouvrez le [Laboratoire de Stéganographie](/fr/tools/steganography/)
 2. Téléchargez une image porteuse (PNG recommandé)
 3. Tapez votre message secret
 4. Cliquez sur Encoder — l'outil intègre le message en utilisant l'insertion LSB

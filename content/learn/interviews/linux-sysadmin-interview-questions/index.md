@@ -21,7 +21,7 @@ aliases: ["/en/interviews/linux-sysadmin-interview-questions/", "/interviews/lin
 
 Linux system administration is the bedrock of modern infrastructure. Whether you are interviewing for a SysAdmin, DevOps, SRE, or Cloud Engineer role, you will be tested on your ability to manage users, troubleshoot processes, configure networking, and secure servers — all from the command line. This guide covers 20 questions that separate senior candidates from junior ones, with answers that demonstrate real operational experience.
 
-**Need a quick command reference?** Keep our [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) open during your prep.
+**Need a quick command reference?** Keep our [Linux SysAdmin Cheatsheet](/en/learn/cheatsheets/linux-sysadmin-permissions/) open during your prep.
 
 ---
 

@@ -104,4 +104,4 @@ El flag fue añadido en **Git 2.9** (junio de 2016). Antes de esa versión, Git 
 
 ## Recursos Relacionados
 
-Domina merges avanzados, rebases y resolución de conflictos con nuestro [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — cada comando Git que un desarrollador necesita, organizado por flujo de trabajo.
+Domina merges avanzados, rebases y resolución de conflictos con nuestro [Git Protocol Cheatsheet](/es/learn/cheatsheets/git-commands-for-hackers/) — cada comando Git que un desarrollador necesita, organizado por flujo de trabajo.

@@ -21,7 +21,7 @@ aliases: ["/ja/interviews/docker-interview-questions/"]
 
 Dockerは、DevOps、SRE、バックエンドエンジニアリングのいずれの職種でも必須のスキルとなっています。シニアレベルの面接官は`docker run`を超えた知識を期待しています — イメージのレイヤリング、ネットワーキングの内部構造、セキュリティの強化、本番環境向けのオーケストレーションパターンを理解していることを見たいのです。このガイドには、シニアおよびリードレベルの面接で最も頻繁に聞かれる20の質問と、深い知識を示す詳細な回答が含まれています。
 
-**面接前にコマンドを素早く復習したいですか？** [Docker Captain's Logチートシート](/cheatsheets/docker-container-commands/)をブックマークしてください。
+**面接前にコマンドを素早く復習したいですか？** [Docker Captain's Logチートシート](/ja/learn/cheatsheets/docker-container-commands/)をブックマークしてください。
 
 ---
 

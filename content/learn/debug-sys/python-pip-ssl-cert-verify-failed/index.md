@@ -128,4 +128,4 @@ Using `--trusted-host` tells pip to skip certificate verification for that speci
 
 ## Related Resources
 
-Secure your Python scripts and automate security tasks properly. Check the [Python Security Scripting Cheatsheet](/cheatsheets/python-security-scripts/) — covering socket programming, Scapy, and HTTP requests with the `requests` library.
+Secure your Python scripts and automate security tasks properly. Check the [Python Security Scripting Cheatsheet](/en/learn/cheatsheets/python-security-scripts/) — covering socket programming, Scapy, and HTTP requests with the `requests` library.

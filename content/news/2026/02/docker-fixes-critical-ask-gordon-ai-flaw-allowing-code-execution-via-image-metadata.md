@@ -24,4 +24,4 @@ It was addressed by
 **[Read full article on Feeds ›](https://thehackernews.com/2026/02/docker-fixes-critical-ask-gordon-ai.html)**
 
 ---
-**💡 Learn to secure your containers:** Check out our [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/).
+**💡 Learn to secure your containers:** Check out our [Docker Captain's Log Cheatsheet](/en/learn/cheatsheets/docker-container-commands/).

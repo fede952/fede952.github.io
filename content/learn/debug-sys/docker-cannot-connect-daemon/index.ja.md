@@ -109,6 +109,6 @@ groups $USER
 
 ## 関連リソース
 
-このエラーの再発を防ぎましょう。当サイトの完全な [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) をブックマークしてください — ユーザー権限、サービス管理、本番環境で必要なすべての `docker` コマンドを網羅しています。
+このエラーの再発を防ぎましょう。当サイトの完全な [Docker Captain's Log Cheatsheet](/ja/learn/cheatsheets/docker-container-commands/) をブックマークしてください — ユーザー権限、サービス管理、本番環境で必要なすべての `docker` コマンドを網羅しています。
 
-Linuxのサービスとユーザーを管理する必要がありますか？ [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) をご覧ください。
+Linuxのサービスとユーザーを管理する必要がありますか？ [Linux SysAdmin: Permissions & Process Management Cheatsheet](/ja/learn/cheatsheets/linux-sysadmin-permissions/) をご覧ください。

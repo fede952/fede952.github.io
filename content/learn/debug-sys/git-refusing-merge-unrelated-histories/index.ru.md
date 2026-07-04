@@ -104,4 +104,4 @@ git pull origin main   # ERROR: unrelated histories
 
 ## Связанные Ресурсы
 
-Освойте продвинутые слияния, rebase и разрешение конфликтов с нашей [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — каждая команда Git, которая нужна разработчику, организованная по рабочим процессам.
+Освойте продвинутые слияния, rebase и разрешение конфликтов с нашей [Git Protocol Cheatsheet](/ru/learn/cheatsheets/git-commands-for-hackers/) — каждая команда Git, которая нужна разработчику, организованная по рабочим процессам.

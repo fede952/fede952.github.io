@@ -15,4 +15,4 @@ Nous configurons la section française. En attendant, consultez notre contenu en
 
 ---
 
-[🔗 View English Content](/news/)
+[🔗 View English Content](/fr/news/)

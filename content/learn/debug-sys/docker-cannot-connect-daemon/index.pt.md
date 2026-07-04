@@ -109,6 +109,6 @@ Se o serviço está `active` mas você recebe permission denied → é um **prob
 
 ## Recursos Relacionados
 
-Evite que este erro aconteça novamente. Salve nos favoritos nosso [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) completo — ele cobre permissões de usuário, gerenciamento de serviços e todos os comandos `docker` que você precisa em produção.
+Evite que este erro aconteça novamente. Salve nos favoritos nosso [Docker Captain's Log Cheatsheet](/pt/learn/cheatsheets/docker-container-commands/) completo — ele cobre permissões de usuário, gerenciamento de serviços e todos os comandos `docker` que você precisa em produção.
 
-Precisa gerenciar serviços e usuários Linux? Veja o [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+Precisa gerenciar serviços e usuários Linux? Veja o [Linux SysAdmin: Permissions & Process Management Cheatsheet](/pt/learn/cheatsheets/linux-sysadmin-permissions/).

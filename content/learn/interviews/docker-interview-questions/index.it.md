@@ -21,7 +21,7 @@ aliases: ["/it/interviews/docker-interview-questions/"]
 
 Docker è diventato una competenza imprescindibile per qualsiasi ruolo DevOps, SRE o di ingegneria backend. I selezionatori a livello senior si aspettano che tu vada oltre `docker run` — vogliono vedere che comprendi la stratificazione delle immagini, gli aspetti interni del networking, il rafforzamento della sicurezza e i pattern di orchestrazione per la produzione. Questa guida contiene le 20 domande più frequenti nei colloqui di livello Senior e Lead, con risposte dettagliate che dimostrano profondità.
 
-**Hai bisogno di un rapido ripasso dei comandi prima del colloquio?** Salva nei preferiti il nostro [Cheatsheet Docker Captain's Log](/cheatsheets/docker-container-commands/).
+**Hai bisogno di un rapido ripasso dei comandi prima del colloquio?** Salva nei preferiti il nostro [Cheatsheet Docker Captain's Log](/it/learn/cheatsheets/docker-container-commands/).
 
 ---
 

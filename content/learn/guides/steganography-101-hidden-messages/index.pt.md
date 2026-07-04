@@ -121,11 +121,11 @@ Redimensionar, recortar, girar ou aplicar filtros (brilho, contraste, etc.) modi
 
 ## $ Try_It_Yourself
 
-A teoria não é nada sem prática. Use nosso **[Laboratório de Esteganografia](/tools/steganography/)** gratuito do lado do cliente para codificar suas próprias mensagens ocultas em imagens — diretamente no seu navegador.
+A teoria não é nada sem prática. Use nosso **[Laboratório de Esteganografia](/pt/tools/steganography/)** gratuito do lado do cliente para codificar suas próprias mensagens ocultas em imagens — diretamente no seu navegador.
 
 Sem uploads, sem processamento no servidor. Seus dados permanecem na sua máquina.
 
-1. Abra o [Laboratório de Esteganografia](/tools/steganography/)
+1. Abra o [Laboratório de Esteganografia](/pt/tools/steganography/)
 2. Carregue uma imagem portadora (PNG recomendado)
 3. Digite sua mensagem secreta
 4. Clique em Codificar — a ferramenta incorpora a mensagem usando inserção LSB

@@ -109,6 +109,6 @@ groups $USER
 
 ## संबंधित संसाधन
 
-इस त्रुटि को दोबारा होने से रोकें। हमारी पूरी [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) को बुकमार्क करें — यह उपयोगकर्ता अनुमतियाँ, सर्विस प्रबंधन और प्रोडक्शन में आवश्यक हर `docker` कमांड को कवर करती है।
+इस त्रुटि को दोबारा होने से रोकें। हमारी पूरी [Docker Captain's Log Cheatsheet](/hi/learn/cheatsheets/docker-container-commands/) को बुकमार्क करें — यह उपयोगकर्ता अनुमतियाँ, सर्विस प्रबंधन और प्रोडक्शन में आवश्यक हर `docker` कमांड को कवर करती है।
 
-Linux सर्विसेज़ और उपयोगकर्ताओं को प्रबंधित करने की आवश्यकता है? [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) देखें।
+Linux सर्विसेज़ और उपयोगकर्ताओं को प्रबंधित करने की आवश्यकता है? [Linux SysAdmin: Permissions & Process Management Cheatsheet](/hi/learn/cheatsheets/linux-sysadmin-permissions/) देखें।

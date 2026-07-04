@@ -21,7 +21,7 @@ aliases: ["/ja/interviews/kubernetes-interview-questions/"]
 
 Kubernetesはクラウドのオペレーティングシステムであり、DevOps、SRE、Platform Engineeringの役割で最も需要の高いスキルです。シニアレベルの面接は深い内容に踏み込みます：コントロールプレーンの内部構造、ネットワーキングモデル、RBAC、リソース管理、プレッシャー下での本番インシデントのデバッグ方法について質問されます。このガイドには、トップテック企業の面接で繰り返し出題される20の質問が含まれており、Staff/Seniorレベルで期待される深さを示す回答が付いています。
 
-**コマンドの簡単な復習が必要ですか？** 準備中は[Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/)を開いておきましょう。
+**コマンドの簡単な復習が必要ですか？** 準備中は[Kubernetes Kubectl Cheat Sheet](/ja/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/)を開いておきましょう。
 
 ---
 

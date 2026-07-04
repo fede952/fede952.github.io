@@ -15,4 +15,4 @@ Wir richten den deutschen Bereich ein. In der Zwischenzeit können Sie unsere en
 
 ---
 
-[🔗 View English Content](/news/)
+[🔗 View English Content](/de/news/)

@@ -123,11 +123,11 @@ Resizing, cropping, rotating, or applying filters (brightness, contrast, etc.) a
 
 ## Try It Yourself
 
-Theory is nothing without practice. Use our free, client-side **[Steganography Lab](/tools/steganography/)** to encode your own hidden messages into images — directly in your browser.
+Theory is nothing without practice. Use our free, client-side **[Steganography Lab](/en/tools/steganography/)** to encode your own hidden messages into images — directly in your browser.
 
 No uploads, no server processing. Your data stays on your machine.
 
-1. Open the [Steganography Lab](/tools/steganography/)
+1. Open the [Steganography Lab](/en/tools/steganography/)
 2. Upload a carrier image (PNG recommended)
 3. Type your secret message
 4. Click Encode — the tool embeds the message using LSB insertion

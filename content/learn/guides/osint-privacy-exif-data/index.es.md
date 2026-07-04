@@ -102,9 +102,9 @@ Esto evita que los datos GPS se escriban en futuras fotos. No elimina metadatos 
 
 ### Paso 2: Elimina EXIF antes de compartir
 
-Antes de compartir cualquier imagen, elimina completamente los metadatos EXIF. Puedes hacer esto directamente en tu navegador con nuestro **[EXIF Cleaner](/tools/exif-cleaner/)** — sin cargas, sin procesamiento en servidor, 100% del lado del cliente.
+Antes de compartir cualquier imagen, elimina completamente los metadatos EXIF. Puedes hacer esto directamente en tu navegador con nuestro **[EXIF Cleaner](/es/tools/exif-cleaner/)** — sin cargas, sin procesamiento en servidor, 100% del lado del cliente.
 
-1. Abre el [EXIF Cleaner](/tools/exif-cleaner/)
+1. Abre el [EXIF Cleaner](/es/tools/exif-cleaner/)
 2. Arrastra tu imagen a la herramienta
 3. Revisa los metadatos extraídos (ve exactamente qué estaba filtrando la foto)
 4. Haz clic en "Clean" para eliminar todos los datos EXIF
@@ -141,4 +141,4 @@ Sí. Los datos EXIF pueden ser modificados o fabricados usando herramientas fác
 
 **¿Hay datos EXIF en archivos PNG?**
 
-Los archivos PNG usan un formato de metadatos diferente (fragmentos tEXt/iTXt) en lugar de EXIF. La mayoría de las cámaras de teléfonos guardan fotos como JPEG (que incluye EXIF completo con GPS), no PNG. Las capturas de pantalla a menudo se guardan como PNG y típicamente no contienen datos GPS. Sin embargo, algunas aplicaciones pueden incrustar metadatos similares a EXIF en archivos PNG, por lo que aún vale la pena verificar. Nuestro [EXIF Cleaner](/tools/exif-cleaner/) maneja tanto archivos JPEG como PNG.
+Los archivos PNG usan un formato de metadatos diferente (fragmentos tEXt/iTXt) en lugar de EXIF. La mayoría de las cámaras de teléfonos guardan fotos como JPEG (que incluye EXIF completo con GPS), no PNG. Las capturas de pantalla a menudo se guardan como PNG y típicamente no contienen datos GPS. Sin embargo, algunas aplicaciones pueden incrustar metadatos similares a EXIF en archivos PNG, por lo que aún vale la pena verificar. Nuestro [EXIF Cleaner](/es/tools/exif-cleaner/) maneja tanto archivos JPEG como PNG.

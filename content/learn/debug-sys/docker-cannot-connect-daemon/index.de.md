@@ -109,6 +109,6 @@ Wenn der Dienst `active` ist, Sie aber permission denied erhalten → es ist ein
 
 ## Verwandte Ressourcen
 
-Verhindern Sie, dass dieser Fehler erneut auftritt. Setzen Sie ein Lesezeichen für unser vollständiges [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) — es behandelt Benutzerberechtigungen, Dienstverwaltung und jeden `docker`-Befehl, den Sie in der Produktion benötigen.
+Verhindern Sie, dass dieser Fehler erneut auftritt. Setzen Sie ein Lesezeichen für unser vollständiges [Docker Captain's Log Cheatsheet](/de/learn/cheatsheets/docker-container-commands/) — es behandelt Benutzerberechtigungen, Dienstverwaltung und jeden `docker`-Befehl, den Sie in der Produktion benötigen.
 
-Müssen Sie Linux-Dienste und Benutzer verwalten? Siehe das [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+Müssen Sie Linux-Dienste und Benutzer verwalten? Siehe das [Linux SysAdmin: Permissions & Process Management Cheatsheet](/de/learn/cheatsheets/linux-sysadmin-permissions/).

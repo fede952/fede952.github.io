@@ -24,4 +24,4 @@ The incident took place on January 29, 2026, when a mail server that was not upd
 **[Read full article on Feeds ›](https://thehackernews.com/2026/02/warlock-ransomware-breaches.html)**
 
 ---
-**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) bookmarked.
+**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/en/learn/cheatsheets/linux-sysadmin-permissions/) bookmarked.

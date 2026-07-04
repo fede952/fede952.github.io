@@ -18,7 +18,11 @@
 
   <div class="share-icons">
     <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlize }}"
+    {{- /* Bare {{ .Permalink }} / {{ .Title }} in query position: Go's
+         contextual autoescaping percent-encodes them correctly (%3a%2f...).
+         The old `| urlize` slugified instead — it stripped the ':' from
+         https:// and turned titles into dashed slugs, breaking every link. */}}
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}"
        target="_blank"
        rel="noopener noreferrer"
        class="share-icon linkedin"
@@ -32,7 +36,7 @@
     </a>
 
     <!-- X/Twitter -->
-    <a href="https://twitter.com/intent/tweet?url={{ .Permalink | urlize }}&text={{ .Title | urlize }}"
+    <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}"
        target="_blank"
        rel="noopener noreferrer"
        class="share-icon twitter"
@@ -45,7 +49,7 @@
     </a>
 
     <!-- WhatsApp -->
-    <a href="https://wa.me/?text={{ .Title | urlize }}%20{{ .Permalink | urlize }}"
+    <a href="https://wa.me/?text={{ .Title }}%20{{ .Permalink }}"
        target="_blank"
        rel="noopener noreferrer"
        class="share-icon whatsapp"
@@ -58,7 +62,7 @@
     </a>
 
     <!-- Telegram -->
-    <a href="https://t.me/share/url?url={{ .Permalink | urlize }}&text={{ .Title | urlize }}"
+    <a href="https://t.me/share/url?url={{ .Permalink }}&text={{ .Title }}"
        target="_blank"
        rel="noopener noreferrer"
        class="share-icon telegram"
@@ -70,7 +74,7 @@
     </a>
 
     <!-- Email -->
-    <a href="mailto:?subject={{ .Title | urlize }}&body={{ if eq .Page.Language.Lang "it" }}Guarda questo articolo:%20{{ .Permalink | urlize }}{{ else }}Check out this article:%20{{ .Permalink | urlize }}{{ end }}"
+    <a href="mailto:?subject={{ .Title }}&body={{ if eq .Page.Language.Lang "it" }}Guarda%20questo%20articolo:%20{{ .Permalink }}{{ else }}Check%20out%20this%20article:%20{{ .Permalink }}{{ end }}"
        class="share-icon email"
        title="Share via Email"
        aria-label="Share via Email">

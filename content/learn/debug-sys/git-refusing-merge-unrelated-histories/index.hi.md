@@ -104,4 +104,4 @@ git pull origin main   # ERROR: unrelated histories
 
 ## संबंधित संसाधन
 
-हमारी [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) के साथ उन्नत मर्ज, रीबेस और विवाद समाधान में महारत हासिल करें — हर Git कमांड जो एक डेवलपर को चाहिए, वर्कफ़्लो के अनुसार व्यवस्थित।
+हमारी [Git Protocol Cheatsheet](/hi/learn/cheatsheets/git-commands-for-hackers/) के साथ उन्नत मर्ज, रीबेस और विवाद समाधान में महारत हासिल करें — हर Git कमांड जो एक डेवलपर को चाहिए, वर्कफ़्लो के अनुसार व्यवस्थित।

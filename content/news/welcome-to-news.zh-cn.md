@@ -15,4 +15,4 @@ description: "Multilingual placeholder content for news section"
 
 ---
 
-[🔗 View English Content](/news/)
+[🔗 View English Content](/zh-cn/news/)

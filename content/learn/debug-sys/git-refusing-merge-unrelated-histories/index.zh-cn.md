@@ -104,4 +104,4 @@ git pull origin main   # ERROR: unrelated histories
 
 ## 相关资源
 
-通过我们的 [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) 掌握高级合并、变基和冲突解决 — 开发者需要的每个 Git 命令，按工作流程组织。
+通过我们的 [Git Protocol Cheatsheet](/zh-cn/learn/cheatsheets/git-commands-for-hackers/) 掌握高级合并、变基和冲突解决 — 开发者需要的每个 Git 命令，按工作流程组织。

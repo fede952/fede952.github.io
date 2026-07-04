@@ -21,7 +21,7 @@ aliases: ["/zh-cn/interviews/docker-interview-questions/"]
 
 Docker 已成为所有 DevOps、SRE 或后端工程岗位的必备技能。高级面试官期望你不仅仅停留在 `docker run` — 他们希望看到你理解镜像分层、网络内部机制、安全加固和生产级编排模式。本指南包含高级和主管级面试中最常被问到的 20 个问题，以及展示深度的详细答案。
 
-**面试前需要快速回顾命令？** 收藏我们的 [Docker Captain's Log 速查表](/cheatsheets/docker-container-commands/)。
+**面试前需要快速回顾命令？** 收藏我们的 [Docker Captain's Log 速查表](/zh-cn/learn/cheatsheets/docker-container-commands/)。
 
 ---
 

@@ -21,7 +21,7 @@ aliases: ["/ko/interviews/linux-sysadmin-interview-questions/"]
 
 Linux 시스템 관리는 현대 인프라의 기반입니다. SysAdmin, DevOps, SRE 또는 클라우드 엔지니어 역할의 면접이든, 사용자 관리, 프로세스 문제 해결, 네트워크 구성, 서버 보안 등을 모두 명령줄에서 수행하는 능력을 테스트받게 됩니다. 이 가이드는 시니어 후보자를 주니어와 구분하는 20가지 질문을 실제 운영 경험을 보여주는 답변과 함께 다룹니다.
 
-**빠른 명령어 참조가 필요하세요?** 준비하는 동안 [Linux SysAdmin 치트시트](/cheatsheets/linux-sysadmin-permissions/)를 열어두세요.
+**빠른 명령어 참조가 필요하세요?** 준비하는 동안 [Linux SysAdmin 치트시트](/ko/learn/cheatsheets/linux-sysadmin-permissions/)를 열어두세요.
 
 ---
 

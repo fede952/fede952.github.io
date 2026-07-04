@@ -104,4 +104,4 @@ git pull origin main   # ERROR: unrelated histories
 
 ## 関連リソース
 
-高度なマージ、リベース、競合解決を[Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/)でマスターしましょう — 開発者が必要とするすべてのGitコマンドをワークフロー別に整理しています。
+高度なマージ、リベース、競合解決を[Git Protocol Cheatsheet](/ja/learn/cheatsheets/git-commands-for-hackers/)でマスターしましょう — 開発者が必要とするすべてのGitコマンドをワークフロー別に整理しています。

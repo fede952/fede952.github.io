@@ -21,7 +21,7 @@ aliases: ["/ar/interviews/docker-interview-questions/"]
 
 أصبح Docker مهارة لا غنى عنها لأي دور في DevOps أو SRE أو هندسة الخلفية. يتوقع المحاورون على المستوى الأول أن تتجاوز `docker run` — يريدون رؤية أنك تفهم طبقات الصور وآليات الشبكات الداخلية وتعزيز الأمان وأنماط التنسيق للإنتاج. يحتوي هذا الدليل على الأسئلة العشرين الأكثر شيوعاً في مقابلات مستوى Senior وLead، مع إجابات مفصلة تُظهر العمق.
 
-**هل تحتاج لمراجعة سريعة للأوامر قبل المقابلة؟** احفظ في المفضلة [ورقة غش Docker Captain's Log](/cheatsheets/docker-container-commands/).
+**هل تحتاج لمراجعة سريعة للأوامر قبل المقابلة؟** احفظ في المفضلة [ورقة غش Docker Captain's Log](/ar/learn/cheatsheets/docker-container-commands/).
 
 ---
 

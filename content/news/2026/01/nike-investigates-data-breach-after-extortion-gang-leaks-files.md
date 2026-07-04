@@ -22,4 +22,4 @@ Nike is investigating what it described as a "potential cyber security incident"
 **[Read full article on BleepingComputer ›](https://www.bleepingcomputer.com/news/security/nike-investigates-data-breach-after-extortion-gang-leaks-files/)**
 
 ---
-**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/cheatsheets/sql-injection-payloads-database/).
+**💡 Understand the attack vector:** See our [SQL Injection Pentester's Reference](/en/learn/cheatsheets/sql-injection-payloads-database/).

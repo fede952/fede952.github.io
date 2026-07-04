@@ -109,6 +109,6 @@ groups $USER
 
 ## موارد ذات صلة
 
-امنع حدوث هذا الخطأ مرة أخرى. احفظ في المفضلة [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) الكامل الخاص بنا — يغطي أذونات المستخدم وإدارة الخدمات وكل أمر `docker` تحتاجه في بيئة الإنتاج.
+امنع حدوث هذا الخطأ مرة أخرى. احفظ في المفضلة [Docker Captain's Log Cheatsheet](/ar/learn/cheatsheets/docker-container-commands/) الكامل الخاص بنا — يغطي أذونات المستخدم وإدارة الخدمات وكل أمر `docker` تحتاجه في بيئة الإنتاج.
 
-هل تحتاج إلى إدارة خدمات ومستخدمي Linux؟ راجع [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+هل تحتاج إلى إدارة خدمات ومستخدمي Linux؟ راجع [Linux SysAdmin: Permissions & Process Management Cheatsheet](/ar/learn/cheatsheets/linux-sysadmin-permissions/).

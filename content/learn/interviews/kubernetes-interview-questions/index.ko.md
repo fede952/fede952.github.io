@@ -21,7 +21,7 @@ aliases: ["/ko/interviews/kubernetes-interview-questions/"]
 
 Kubernetes는 클라우드의 운영 체제이며, DevOps, SRE, Platform Engineering 역할에서 가장 수요가 높은 기술입니다. 시니어 레벨 면접은 깊이 있게 진행됩니다: 컨트롤 플레인 내부 구조, 네트워킹 모델, RBAC, 리소스 관리, 그리고 압박 속에서 프로덕션 인시던트를 디버깅하는 방법에 대해 질문받게 됩니다. 이 가이드에는 주요 기술 회사 면접에서 반복적으로 등장하는 20가지 질문이 포함되어 있으며, Staff/Senior 레벨에서 기대되는 깊이를 보여주는 답변이 함께 제공됩니다.
 
-**빠른 명령어 복습이 필요하신가요?** 준비하는 동안 [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/)를 열어두세요.
+**빠른 명령어 복습이 필요하신가요?** 준비하는 동안 [Kubernetes Kubectl Cheat Sheet](/ko/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/)를 열어두세요.
 
 ---
 

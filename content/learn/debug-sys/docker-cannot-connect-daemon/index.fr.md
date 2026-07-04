@@ -109,6 +109,6 @@ Si le service est `active` mais que vous obtenez permission denied → c'est un 
 
 ## Ressources Associées
 
-Empêchez cette erreur de se reproduire. Ajoutez à vos favoris notre [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) complet — il couvre les permissions utilisateur, la gestion des services et toutes les commandes `docker` dont vous avez besoin en production.
+Empêchez cette erreur de se reproduire. Ajoutez à vos favoris notre [Docker Captain's Log Cheatsheet](/fr/learn/cheatsheets/docker-container-commands/) complet — il couvre les permissions utilisateur, la gestion des services et toutes les commandes `docker` dont vous avez besoin en production.
 
-Besoin de gérer les services et les utilisateurs Linux ? Consultez le [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+Besoin de gérer les services et les utilisateurs Linux ? Consultez le [Linux SysAdmin: Permissions & Process Management Cheatsheet](/fr/learn/cheatsheets/linux-sysadmin-permissions/).

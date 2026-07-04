@@ -109,6 +109,6 @@ groups $USER
 
 ## Связанные Ресурсы
 
-Предотвратите повторение этой ошибки. Сохраните в закладки наш полный [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) — он охватывает права пользователей, управление службами и все команды `docker`, необходимые в продакшене.
+Предотвратите повторение этой ошибки. Сохраните в закладки наш полный [Docker Captain's Log Cheatsheet](/ru/learn/cheatsheets/docker-container-commands/) — он охватывает права пользователей, управление службами и все команды `docker`, необходимые в продакшене.
 
-Нужно управлять службами и пользователями Linux? Смотрите [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+Нужно управлять службами и пользователями Linux? Смотрите [Linux SysAdmin: Permissions & Process Management Cheatsheet](/ru/learn/cheatsheets/linux-sysadmin-permissions/).

@@ -102,9 +102,9 @@ This prevents GPS data from being written into future photos. It does not remove
 
 ### Step 2: Strip EXIF before sharing
 
-Before sharing any image, remove the EXIF metadata entirely. You can do this directly in your browser with our **[EXIF Cleaner](/tools/exif-cleaner/)** — no uploads, no server processing, 100% client-side.
+Before sharing any image, remove the EXIF metadata entirely. You can do this directly in your browser with our **[EXIF Cleaner](/en/tools/exif-cleaner/)** — no uploads, no server processing, 100% client-side.
 
-1. Open the [EXIF Cleaner](/tools/exif-cleaner/)
+1. Open the [EXIF Cleaner](/en/tools/exif-cleaner/)
 2. Drop your image into the tool
 3. Review the extracted metadata (see exactly what the photo was leaking)
 4. Click "Clean" to strip all EXIF data
@@ -141,4 +141,4 @@ Yes. EXIF data can be modified or fabricated using readily available tools. This
 
 **Is there EXIF data in PNG files?**
 
-PNG files use a different metadata format (tEXt/iTXt chunks) rather than EXIF. Most phone cameras save photos as JPEG (which includes full EXIF with GPS), not PNG. Screenshots are often saved as PNG and typically do not contain GPS data. However, some applications can embed EXIF-like metadata in PNG files, so it is still worth checking. Our [EXIF Cleaner](/tools/exif-cleaner/) handles both JPEG and PNG files.
+PNG files use a different metadata format (tEXt/iTXt chunks) rather than EXIF. Most phone cameras save photos as JPEG (which includes full EXIF with GPS), not PNG. Screenshots are often saved as PNG and typically do not contain GPS data. However, some applications can embed EXIF-like metadata in PNG files, so it is still worth checking. Our [EXIF Cleaner](/en/tools/exif-cleaner/) handles both JPEG and PNG files.

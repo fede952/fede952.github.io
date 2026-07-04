@@ -109,6 +109,6 @@ If the service is `active` but you get permission denied → it is a **permissio
 
 ## Related Resources
 
-Prevent this error from happening again. Bookmark our complete [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) — it covers user permissions, service management, and every `docker` command you need in production.
+Prevent this error from happening again. Bookmark our complete [Docker Captain's Log Cheatsheet](/en/learn/cheatsheets/docker-container-commands/) — it covers user permissions, service management, and every `docker` command you need in production.
 
-Need to manage Linux services and users? See the [Linux SysAdmin: Permissions & Process Management Cheatsheet](/cheatsheets/linux-sysadmin-permissions/).
+Need to manage Linux services and users? See the [Linux SysAdmin: Permissions & Process Management Cheatsheet](/en/learn/cheatsheets/linux-sysadmin-permissions/).

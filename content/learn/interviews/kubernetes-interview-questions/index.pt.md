@@ -21,7 +21,7 @@ aliases: ["/pt/interviews/kubernetes-interview-questions/"]
 
 Kubernetes é o sistema operacional da nuvem — e a habilidade mais demandada para funções de DevOps, SRE e Engenharia de Plataforma. Entrevistas de nível sênior são profundas: você será questionado sobre os internos do control plane, modelos de rede, RBAC, gerenciamento de recursos e como depurar incidentes em produção sob pressão. Este guia contém 20 perguntas que aparecem repetidamente em entrevistas nas principais empresas de tecnologia, com respostas que demonstram a profundidade esperada no nível Staff/Sênior.
 
-**Precisa de uma revisão rápida de comandos?** Mantenha nosso [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/) aberto durante sua preparação.
+**Precisa de uma revisão rápida de comandos?** Mantenha nosso [Kubernetes Kubectl Cheat Sheet](/pt/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/) aberto durante sua preparação.
 
 ---
 

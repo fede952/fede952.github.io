@@ -21,7 +21,7 @@ aliases: ["/pt/interviews/sql-database-interview-questions/"]
 
 SQL é a linguagem dos dados, e bancos de dados são a espinha dorsal de toda aplicação. Entrevistas de nível sênior testam sua capacidade de escrever consultas eficientes, projetar esquemas normalizados, entender isolamento de transações, otimizar performance com índices e prevenir SQL injection. Seja o cargo de Engenheiro Backend, DBA, Engenheiro de Dados ou Analista de Segurança, estas 20 perguntas cobrem os conceitos que entrevistadores perguntam consistentemente — com respostas que demonstram experiência em produção.
 
-**Precisa de uma referência rápida de SQL?** Mantenha nosso [Cheatsheet de SQL Injection e Consultas de Banco de Dados](/cheatsheets/sql-injection-payloads-database/) aberto durante sua preparação.
+**Precisa de uma referência rápida de SQL?** Mantenha nosso [Cheatsheet de SQL Injection e Consultas de Banco de Dados](/pt/learn/cheatsheets/sql-injection-payloads-database/) aberto durante sua preparação.
 
 ---
 

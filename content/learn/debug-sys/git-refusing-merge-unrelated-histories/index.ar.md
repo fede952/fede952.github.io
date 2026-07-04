@@ -104,4 +104,4 @@ git pull origin main   # ERROR: unrelated histories
 
 ## موارد ذات صلة
 
-أتقن عمليات الدمج المتقدمة وإعادة الترتيب وحل التعارضات مع [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — كل أمر Git يحتاجه المطور، منظم حسب سير العمل.
+أتقن عمليات الدمج المتقدمة وإعادة الترتيب وحل التعارضات مع [Git Protocol Cheatsheet](/ar/learn/cheatsheets/git-commands-for-hackers/) — كل أمر Git يحتاجه المطور، منظم حسب سير العمل.

@@ -21,7 +21,7 @@ aliases: ["/zh-cn/interviews/python-security-interview-questions/"]
 
 Python是攻击性和防御性安全领域的主导语言。渗透测试、红队、SOC分析师和安全工程角色都需要精通Python，用于自动化、工具开发和快速原型设计。面试官期望你能当场编写代码——从TCP套接字客户端到数据包构造器再到Web漏洞利用脚本。本指南涵盖了20道测试Python编程与安全知识交叉点的面试题。
 
-**需要现成的代码片段？** 在准备过程中保持打开我们的[Python安全脚本速查表](/cheatsheets/python-security-scripts/)。
+**需要现成的代码片段？** 在准备过程中保持打开我们的[Python安全脚本速查表](/zh-cn/learn/cheatsheets/python-security-scripts/)。
 
 ---
 

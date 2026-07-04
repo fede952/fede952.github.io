@@ -21,7 +21,7 @@ aliases: ["/es/interviews/python-security-interview-questions/"]
 
 Python es el lenguaje dominante en la seguridad ofensiva y defensiva. Los roles de pruebas de penetración, red team, analista SOC e ingeniería de seguridad requieren fluidez en Python para automatización, desarrollo de herramientas y prototipado rápido. Los entrevistadores esperan que escribas código en el momento — desde clientes de sockets TCP hasta creadores de paquetes y scripts de exploits web. Esta guía cubre 20 preguntas que evalúan la intersección entre la programación en Python y el conocimiento de seguridad.
 
-**¿Necesitas snippets de código listos?** Mantén abierto nuestro [Cheatsheet de Scripting Python para Seguridad](/cheatsheets/python-security-scripts/) durante tu preparación.
+**¿Necesitas snippets de código listos?** Mantén abierto nuestro [Cheatsheet de Scripting Python para Seguridad](/es/learn/cheatsheets/python-security-scripts/) durante tu preparación.
 
 ---
 

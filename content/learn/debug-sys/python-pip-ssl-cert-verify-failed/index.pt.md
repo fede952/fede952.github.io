@@ -128,4 +128,4 @@ Usar `--trusted-host` diz ao pip para pular a verificação de certificado para 
 
 ## Recursos Relacionados
 
-Proteja seus scripts Python e automatize tarefas de segurança corretamente. Confira o [Cheatsheet de Scripting de Segurança Python](/cheatsheets/python-security-scripts/) — cobrindo programação com sockets, Scapy e requisições HTTP com a biblioteca `requests`.
+Proteja seus scripts Python e automatize tarefas de segurança corretamente. Confira o [Cheatsheet de Scripting de Segurança Python](/pt/learn/cheatsheets/python-security-scripts/) — cobrindo programação com sockets, Scapy e requisições HTTP com a biblioteca `requests`.

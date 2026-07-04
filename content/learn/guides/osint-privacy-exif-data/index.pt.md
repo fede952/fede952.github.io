@@ -102,9 +102,9 @@ Isso impede que dados GPS sejam escritos em fotos futuras. Não remove metadados
 
 ### Passo 2: Remova EXIF antes de compartilhar
 
-Antes de compartilhar qualquer imagem, remova completamente os metadados EXIF. Você pode fazer isso diretamente no seu navegador com nosso **[EXIF Cleaner](/tools/exif-cleaner/)** — sem uploads, sem processamento no servidor, 100% do lado do cliente.
+Antes de compartilhar qualquer imagem, remova completamente os metadados EXIF. Você pode fazer isso diretamente no seu navegador com nosso **[EXIF Cleaner](/pt/tools/exif-cleaner/)** — sem uploads, sem processamento no servidor, 100% do lado do cliente.
 
-1. Abra o [EXIF Cleaner](/tools/exif-cleaner/)
+1. Abra o [EXIF Cleaner](/pt/tools/exif-cleaner/)
 2. Arraste sua imagem para a ferramenta
 3. Revise os metadados extraídos (veja exatamente o que a foto estava vazando)
 4. Clique em "Clean" para remover todos os dados EXIF
@@ -141,4 +141,4 @@ Sim. Os dados EXIF podem ser modificados ou fabricados usando ferramentas facilm
 
 **Existem dados EXIF em arquivos PNG?**
 
-Arquivos PNG usam um formato de metadados diferente (blocos tEXt/iTXt) em vez de EXIF. A maioria das câmeras de telefone salva fotos como JPEG (que inclui EXIF completo com GPS), não PNG. Capturas de tela são frequentemente salvas como PNG e tipicamente não contêm dados GPS. No entanto, alguns aplicativos podem incorporar metadados semelhantes a EXIF em arquivos PNG, então ainda vale a pena verificar. Nosso [EXIF Cleaner](/tools/exif-cleaner/) lida com arquivos JPEG e PNG.
+Arquivos PNG usam um formato de metadados diferente (blocos tEXt/iTXt) em vez de EXIF. A maioria das câmeras de telefone salva fotos como JPEG (que inclui EXIF completo com GPS), não PNG. Capturas de tela são frequentemente salvas como PNG e tipicamente não contêm dados GPS. No entanto, alguns aplicativos podem incorporar metadados semelhantes a EXIF em arquivos PNG, então ainda vale a pena verificar. Nosso [EXIF Cleaner](/pt/tools/exif-cleaner/) lida com arquivos JPEG e PNG.

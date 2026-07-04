@@ -121,11 +121,11 @@ Größenänderung, Zuschneiden, Drehen oder Anwenden von Filtern (Helligkeit, Ko
 
 ## $ Try_It_Yourself
 
-Theorie ist nichts ohne Praxis. Verwenden Sie unser kostenloses, clientseitiges **[Steganografie-Labor](/tools/steganography/)**, um Ihre eigenen versteckten Nachrichten in Bilder zu kodieren — direkt in Ihrem Browser.
+Theorie ist nichts ohne Praxis. Verwenden Sie unser kostenloses, clientseitiges **[Steganografie-Labor](/de/tools/steganography/)**, um Ihre eigenen versteckten Nachrichten in Bilder zu kodieren — direkt in Ihrem Browser.
 
 Keine Uploads, keine Serververarbeitung. Ihre Daten bleiben auf Ihrer Maschine.
 
-1. Öffnen Sie das [Steganografie-Labor](/tools/steganography/)
+1. Öffnen Sie das [Steganografie-Labor](/de/tools/steganography/)
 2. Laden Sie ein Trägerbild hoch (PNG empfohlen)
 3. Geben Sie Ihre geheime Nachricht ein
 4. Klicken Sie auf Kodieren — das Tool bettet die Nachricht mittels LSB-Insertion ein

@@ -104,4 +104,4 @@ Il flag è stato aggiunto in **Git 2.9** (giugno 2016). Prima di quella versione
 
 ## Risorse Correlate
 
-Padroneggia merge avanzati, rebase e risoluzione dei conflitti con il nostro [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — ogni comando Git di cui uno sviluppatore ha bisogno, organizzato per workflow.
+Padroneggia merge avanzati, rebase e risoluzione dei conflitti con il nostro [Git Protocol Cheatsheet](/it/learn/cheatsheets/git-commands-for-hackers/) — ogni comando Git di cui uno sviluppatore ha bisogno, organizzato per workflow.

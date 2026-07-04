@@ -102,9 +102,9 @@ Questo impedisce che i dati GPS vengano scritti nelle foto future. Non rimuove i
 
 ### Passo 2: Rimuovi EXIF prima di condividere
 
-Prima di condividere qualsiasi immagine, rimuovi completamente i metadati EXIF. Puoi farlo direttamente nel tuo browser con il nostro **[EXIF Cleaner](/tools/exif-cleaner/)** — nessun caricamento, nessuna elaborazione sul server, 100% lato client.
+Prima di condividere qualsiasi immagine, rimuovi completamente i metadati EXIF. Puoi farlo direttamente nel tuo browser con il nostro **[EXIF Cleaner](/it/tools/exif-cleaner/)** — nessun caricamento, nessuna elaborazione sul server, 100% lato client.
 
-1. Apri l'[EXIF Cleaner](/tools/exif-cleaner/)
+1. Apri l'[EXIF Cleaner](/it/tools/exif-cleaner/)
 2. Trascina la tua immagine nello strumento
 3. Rivedi i metadati estratti (vedi esattamente cosa stava rivelando la foto)
 4. Clicca "Clean" per rimuovere tutti i dati EXIF
@@ -141,4 +141,4 @@ Sì. I dati EXIF possono essere modificati o fabbricati utilizzando strumenti fa
 
 **Ci sono dati EXIF nei file PNG?**
 
-I file PNG utilizzano un formato di metadati diverso (chunk tEXt/iTXt) piuttosto che EXIF. La maggior parte delle fotocamere dei telefoni salva le foto come JPEG (che include EXIF completo con GPS), non PNG. Gli screenshot sono spesso salvati come PNG e tipicamente non contengono dati GPS. Tuttavia, alcune applicazioni possono incorporare metadati simili a EXIF nei file PNG, quindi vale comunque la pena controllare. Il nostro [EXIF Cleaner](/tools/exif-cleaner/) gestisce sia file JPEG che PNG.
+I file PNG utilizzano un formato di metadati diverso (chunk tEXt/iTXt) piuttosto che EXIF. La maggior parte delle fotocamere dei telefoni salva le foto come JPEG (che include EXIF completo con GPS), non PNG. Gli screenshot sono spesso salvati come PNG e tipicamente non contengono dati GPS. Tuttavia, alcune applicazioni possono incorporare metadati simili a EXIF nei file PNG, quindi vale comunque la pena controllare. Il nostro [EXIF Cleaner](/it/tools/exif-cleaner/) gestisce sia file JPEG che PNG.

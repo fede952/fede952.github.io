@@ -21,7 +21,7 @@ aliases: ["/ru/interviews/kubernetes-interview-questions/"]
 
 Kubernetes — это операционная система облака и самый востребованный навык для ролей DevOps, SRE и Platform Engineering. Собеседования уровня Senior идут в глубину: вас будут спрашивать о внутреннем устройстве control plane, сетевых моделях, RBAC, управлении ресурсами и о том, как отлаживать инциденты в продакшене под давлением. Это руководство содержит 20 вопросов, которые регулярно встречаются на собеседованиях в ведущих технологических компаниях, с ответами, демонстрирующими глубину, ожидаемую на уровне Staff/Senior.
 
-**Нужно быстро освежить команды?** Держите наш [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/) открытым во время подготовки.
+**Нужно быстро освежить команды?** Держите наш [Kubernetes Kubectl Cheat Sheet](/ru/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/) открытым во время подготовки.
 
 ---
 

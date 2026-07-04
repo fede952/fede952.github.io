@@ -178,4 +178,4 @@ ollama list
 
 Give it a try. Once you experience the speed and privacy of a local LLM, you might find yourself reaching for the cloud less and less.
 
-> Need to stay focused while coding alongside your local AI? Try our [ZenFocus ambient mixer and Pomodoro timer](/tools/zen-focus/) — another tool that runs entirely in your browser with zero tracking.
+> Need to stay focused while coding alongside your local AI? Try our [ZenFocus ambient mixer and Pomodoro timer](/en/tools/zen-focus/) — another tool that runs entirely in your browser with zero tracking.

@@ -128,4 +128,4 @@ $env:REQUESTS_CA_BUNDLE = "C:\path\to\corporate-ca-bundle.crt"
 
 ## संबंधित संसाधन
 
-अपनी Python स्क्रिप्ट्स को सुरक्षित करें और सुरक्षा कार्यों को सही ढंग से स्वचालित करें। [Python सुरक्षा स्क्रिप्टिंग चीटशीट](/cheatsheets/python-security-scripts/) देखें — जिसमें सॉकेट प्रोग्रामिंग, Scapy, और `requests` लाइब्रेरी के साथ HTTP रिक्वेस्ट शामिल हैं।
+अपनी Python स्क्रिप्ट्स को सुरक्षित करें और सुरक्षा कार्यों को सही ढंग से स्वचालित करें। [Python सुरक्षा स्क्रिप्टिंग चीटशीट](/hi/learn/cheatsheets/python-security-scripts/) देखें — जिसमें सॉकेट प्रोग्रामिंग, Scapy, और `requests` लाइब्रेरी के साथ HTTP रिक्वेस्ट शामिल हैं।

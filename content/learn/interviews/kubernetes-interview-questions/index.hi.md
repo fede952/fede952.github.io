@@ -21,7 +21,7 @@ aliases: ["/hi/interviews/kubernetes-interview-questions/"]
 
 Kubernetes क्लाउड का ऑपरेटिंग सिस्टम है — और DevOps, SRE, और Platform Engineering भूमिकाओं के लिए सबसे अधिक मांग वाला कौशल। सीनियर-लेवल इंटरव्यू गहराई में जाते हैं: आपसे कंट्रोल प्लेन के आंतरिक भागों, नेटवर्किंग मॉडल, RBAC, संसाधन प्रबंधन और दबाव में प्रोडक्शन इंसिडेंट को डीबग करने के बारे में पूछा जाएगा। इस गाइड में 20 प्रश्न हैं जो शीर्ष टेक कंपनियों में इंटरव्यू में बार-बार आते हैं, Staff/Senior स्तर पर अपेक्षित गहराई प्रदर्शित करने वाले उत्तरों के साथ।
 
-**कमांड की त्वरित समीक्षा चाहिए?** अपनी तैयारी के दौरान हमारा [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/) खुला रखें।
+**कमांड की त्वरित समीक्षा चाहिए?** अपनी तैयारी के दौरान हमारा [Kubernetes Kubectl Cheat Sheet](/hi/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/) खुला रखें।
 
 ---
 

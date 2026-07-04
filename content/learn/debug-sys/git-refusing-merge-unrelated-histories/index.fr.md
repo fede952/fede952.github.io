@@ -104,4 +104,4 @@ Le flag a été ajouté dans **Git 2.9** (juin 2016). Avant cette version, Git a
 
 ## Ressources Associées
 
-Maîtrisez les merges avancés, les rebases et la résolution de conflits avec notre [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — chaque commande Git dont un développeur a besoin, organisée par workflow.
+Maîtrisez les merges avancés, les rebases et la résolution de conflits avec notre [Git Protocol Cheatsheet](/fr/learn/cheatsheets/git-commands-for-hackers/) — chaque commande Git dont un développeur a besoin, organisée par workflow.

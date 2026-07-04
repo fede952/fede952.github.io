@@ -128,4 +128,4 @@ Die Verwendung von `--trusted-host` weist pip an, die Zertifikatsverifizierung f
 
 ## Verwandte Ressourcen
 
-Sichern Sie Ihre Python-Skripte ab und automatisieren Sie Sicherheitsaufgaben richtig. Schauen Sie sich das [Python Security Scripting Cheatsheet](/cheatsheets/python-security-scripts/) an — es behandelt Socket-Programmierung, Scapy und HTTP-Anfragen mit der `requests`-Bibliothek.
+Sichern Sie Ihre Python-Skripte ab und automatisieren Sie Sicherheitsaufgaben richtig. Schauen Sie sich das [Python Security Scripting Cheatsheet](/de/learn/cheatsheets/python-security-scripts/) an — es behandelt Socket-Programmierung, Scapy und HTTP-Anfragen mit der `requests`-Bibliothek.

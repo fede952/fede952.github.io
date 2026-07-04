@@ -128,4 +128,4 @@ $env:REQUESTS_CA_BUNDLE = "C:\path\to\corporate-ca-bundle.crt"
 
 ## 相关资源
 
-保护你的Python脚本并正确自动化安全任务。查看[Python安全脚本速查表](/cheatsheets/python-security-scripts/)——涵盖socket编程、Scapy以及使用 `requests` 库进行HTTP请求。
+保护你的Python脚本并正确自动化安全任务。查看[Python安全脚本速查表](/zh-cn/learn/cheatsheets/python-security-scripts/)——涵盖socket编程、Scapy以及使用 `requests` 库进行HTTP请求。

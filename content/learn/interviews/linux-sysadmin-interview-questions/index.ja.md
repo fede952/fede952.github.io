@@ -21,7 +21,7 @@ aliases: ["/ja/interviews/linux-sysadmin-interview-questions/"]
 
 Linuxシステム管理は、現代のインフラストラクチャの基盤です。SysAdmin、DevOps、SRE、クラウドエンジニアのいずれのロールに面接する場合でも、ユーザー管理、プロセスのトラブルシューティング、ネットワーク設定、サーバーのセキュリティ確保など、すべてコマンドラインから行う能力が試されます。このガイドでは、シニア候補者をジュニアから区別する20の質問を、実際の運用経験を示す回答とともに取り上げます。
 
-**コマンドのクイックリファレンスが必要ですか？** 準備中は[Linux SysAdminチートシート](/cheatsheets/linux-sysadmin-permissions/)を開いておきましょう。
+**コマンドのクイックリファレンスが必要ですか？** 準備中は[Linux SysAdminチートシート](/ja/learn/cheatsheets/linux-sysadmin-permissions/)を開いておきましょう。
 
 ---
 

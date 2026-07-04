@@ -21,7 +21,7 @@ aliases: ["/ko/interviews/sql-database-interview-questions/"]
 
 SQL은 데이터의 언어이며, 데이터베이스는 모든 애플리케이션의 근간입니다. 시니어 레벨 면접은 효율적인 쿼리 작성, 정규화된 스키마 설계, 트랜잭션 격리 이해, 인덱스를 통한 성능 최적화, SQL 인젝션 방지 능력을 테스트합니다. 백엔드 엔지니어, DBA, 데이터 엔지니어, 보안 분석가 등 어떤 역할이든, 이 20가지 질문은 면접관들이 일관되게 묻는 개념을 다루고 있습니다 — 프로덕션 경험을 보여주는 답변과 함께.
 
-**빠른 SQL 참조가 필요하신가요?** 준비하는 동안 [SQL 인젝션 & 데이터베이스 쿼리 치트시트](/cheatsheets/sql-injection-payloads-database/)를 열어두세요.
+**빠른 SQL 참조가 필요하신가요?** 준비하는 동안 [SQL 인젝션 & 데이터베이스 쿼리 치트시트](/ko/learn/cheatsheets/sql-injection-payloads-database/)를 열어두세요.
 
 ---
 

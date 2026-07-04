@@ -22,4 +22,4 @@ Internet security watchdog Shadowserver tracks nearly 800,000 IP addresses with 
 **[Read full article on BleepingComputer ›](https://www.bleepingcomputer.com/news/security/nearly-800-000-telnet-servers-exposed-to-remote-attacks/)**
 
 ---
-**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/cheatsheets/linux-sysadmin-permissions/) bookmarked.
+**💡 Essential System Commands:** Keep our [Linux SysAdmin Cheatsheet](/en/learn/cheatsheets/linux-sysadmin-permissions/) bookmarked.

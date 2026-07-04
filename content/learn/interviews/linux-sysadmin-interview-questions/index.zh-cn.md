@@ -21,7 +21,7 @@ aliases: ["/zh-cn/interviews/linux-sysadmin-interview-questions/"]
 
 Linux系统管理是现代基础设施的基石。无论你是面试SysAdmin、DevOps、SRE还是云工程师职位，都会被测试管理用户、排查进程问题、配置网络和保护服务器的能力——全部通过命令行完成。本指南涵盖20道将高级候选人与初级候选人区分开来的题目，附带展示真实运维经验的答案。
 
-**需要快速命令参考？** 准备期间请打开我们的[Linux SysAdmin速查表](/cheatsheets/linux-sysadmin-permissions/)。
+**需要快速命令参考？** 准备期间请打开我们的[Linux SysAdmin速查表](/zh-cn/learn/cheatsheets/linux-sysadmin-permissions/)。
 
 ---
 

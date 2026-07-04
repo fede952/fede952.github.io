@@ -104,4 +104,4 @@ The flag was added in **Git 2.9** (June 2016). Before that version, Git allowed 
 
 ## Related Resources
 
-Master advanced merges, rebases, and conflict resolution with our [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — every Git command a developer needs, organized by workflow.
+Master advanced merges, rebases, and conflict resolution with our [Git Protocol Cheatsheet](/en/learn/cheatsheets/git-commands-for-hackers/) — every Git command a developer needs, organized by workflow.

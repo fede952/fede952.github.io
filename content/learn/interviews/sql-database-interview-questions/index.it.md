@@ -21,7 +21,7 @@ aliases: ["/it/interviews/sql-database-interview-questions/"]
 
 SQL è il linguaggio dei dati e i database sono la spina dorsale di ogni applicazione. I colloqui di livello senior testano la tua capacità di scrivere query efficienti, progettare schemi normalizzati, comprendere l'isolamento delle transazioni, ottimizzare le prestazioni con gli indici e prevenire le SQL injection. Che il ruolo sia Backend Engineer, DBA, Data Engineer o Security Analyst, queste 20 domande coprono i concetti che gli intervistatori chiedono costantemente — con risposte che dimostrano esperienza in produzione.
 
-**Hai bisogno di un riferimento rapido su SQL?** Tieni aperto il nostro [Cheatsheet SQL Injection e Query Database](/cheatsheets/sql-injection-payloads-database/) durante la preparazione.
+**Hai bisogno di un riferimento rapido su SQL?** Tieni aperto il nostro [Cheatsheet SQL Injection e Query Database](/it/learn/cheatsheets/sql-injection-payloads-database/) durante la preparazione.
 
 ---
 

@@ -121,11 +121,11 @@ Ridimensionare, ritagliare, ruotare o applicare filtri (luminosità, contrasto, 
 
 ## $ Try_It_Yourself
 
-La teoria non è nulla senza la pratica. Usa il nostro **[Laboratorio di Steganografia](/tools/steganography/)** gratuito lato client per codificare i tuoi messaggi nascosti nelle immagini — direttamente nel tuo browser.
+La teoria non è nulla senza la pratica. Usa il nostro **[Laboratorio di Steganografia](/it/tools/steganography/)** gratuito lato client per codificare i tuoi messaggi nascosti nelle immagini — direttamente nel tuo browser.
 
 Nessun upload, nessuna elaborazione server. I tuoi dati rimangono sulla tua macchina.
 
-1. Apri il [Laboratorio di Steganografia](/tools/steganography/)
+1. Apri il [Laboratorio di Steganografia](/it/tools/steganography/)
 2. Carica un'immagine portante (PNG raccomandato)
 3. Digita il tuo messaggio segreto
 4. Clicca Codifica — lo strumento incorpora il messaggio usando l'inserimento LSB

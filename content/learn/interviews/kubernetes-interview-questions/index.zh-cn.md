@@ -21,7 +21,7 @@ aliases: ["/zh-cn/interviews/kubernetes-interview-questions/"]
 
 Kubernetes是云的操作系统——也是DevOps、SRE和平台工程角色中最受欢迎的技能。高级面试会深入探讨：你将被问到控制平面内部原理、网络模型、RBAC、资源管理以及如何在压力下调试生产事故。本指南包含20道在顶级科技公司面试中反复出现的问题，附带展示Staff/Senior级别深度的答案。
 
-**需要快速复习命令？** 在准备过程中打开我们的[Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/)。
+**需要快速复习命令？** 在准备过程中打开我们的[Kubernetes Kubectl Cheat Sheet](/zh-cn/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/)。
 
 ---
 

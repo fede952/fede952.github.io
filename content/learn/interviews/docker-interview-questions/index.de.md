@@ -21,7 +21,7 @@ aliases: ["/de/interviews/docker-interview-questions/"]
 
 Docker ist zu einer unverzichtbaren Fähigkeit für jede DevOps-, SRE- oder Backend-Engineering-Rolle geworden. Interviewer auf Senior-Level erwarten, dass du über `docker run` hinausgehst — sie wollen sehen, dass du Image-Layering, Netzwerk-Interna, Sicherheitshärtung und produktionsreife Orchestrierungsmuster verstehst. Dieser Leitfaden enthält die 20 am häufigsten gestellten Fragen in Senior- und Lead-Level-Interviews mit detaillierten Antworten, die Tiefe demonstrieren.
 
-**Brauchst du eine schnelle Befehlsauffrischung vor deinem Interview?** Speichere unser [Docker Captain's Log Cheatsheet](/cheatsheets/docker-container-commands/) als Lesezeichen.
+**Brauchst du eine schnelle Befehlsauffrischung vor deinem Interview?** Speichere unser [Docker Captain's Log Cheatsheet](/de/learn/cheatsheets/docker-container-commands/) als Lesezeichen.
 
 ---
 

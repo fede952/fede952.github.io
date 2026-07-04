@@ -128,4 +128,4 @@ pipが `https://pypi.org` に接続する際、TLSハンドシェイクを実行
 
 ## 関連リソース
 
-Pythonスクリプトを保護し、セキュリティタスクを適切に自動化しましょう。[Pythonセキュリティスクリプティング チートシート](/cheatsheets/python-security-scripts/)をご覧ください — ソケットプログラミング、Scapy、`requests`ライブラリを使用したHTTPリクエストを解説しています。
+Pythonスクリプトを保護し、セキュリティタスクを適切に自動化しましょう。[Pythonセキュリティスクリプティング チートシート](/ja/learn/cheatsheets/python-security-scripts/)をご覧ください — ソケットプログラミング、Scapy、`requests`ライブラリを使用したHTTPリクエストを解説しています。

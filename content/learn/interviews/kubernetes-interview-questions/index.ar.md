@@ -21,7 +21,7 @@ aliases: ["/ar/interviews/kubernetes-interview-questions/"]
 
 Kubernetes هو نظام التشغيل للسحابة — والمهارة الأكثر طلباً لأدوار DevOps و SRE وهندسة المنصات. مقابلات المستوى المتقدم تتعمق: ستُسأل عن المكونات الداخلية لمستوى التحكم، نماذج الشبكات، RBAC، إدارة الموارد، وكيفية تصحيح أخطاء حوادث الإنتاج تحت الضغط. يحتوي هذا الدليل على 20 سؤالاً تظهر بشكل متكرر في مقابلات أفضل شركات التقنية، مع إجابات تُظهر العمق المتوقع على مستوى Staff/Senior.
 
-**هل تحتاج إلى مراجعة سريعة للأوامر؟** احتفظ بـ [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/) مفتوحاً أثناء تحضيرك.
+**هل تحتاج إلى مراجعة سريعة للأوامر؟** احتفظ بـ [Kubernetes Kubectl Cheat Sheet](/ar/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/) مفتوحاً أثناء تحضيرك.
 
 ---
 

@@ -21,7 +21,7 @@ aliases: ["/de/interviews/kubernetes-interview-questions/"]
 
 Kubernetes ist das Betriebssystem der Cloud — und die gefragteste Fähigkeit für DevOps-, SRE- und Platform-Engineering-Rollen. Interviews auf Senior-Level gehen in die Tiefe: Sie werden nach den Interna der Control Plane, Netzwerkmodellen, RBAC, Ressourcenverwaltung und dem Debugging von Produktionsvorfällen unter Druck gefragt. Dieser Leitfaden enthält 20 Fragen, die wiederholt in Interviews bei Top-Technologieunternehmen auftauchen, mit Antworten, die die auf Staff/Senior-Level erwartete Tiefe demonstrieren.
 
-**Brauchen Sie eine schnelle Befehlsauffrischung?** Halten Sie unser [Kubernetes Kubectl Cheat Sheet](/cheatsheets/kubernetes-kubectl-cheat-sheet/) während Ihrer Vorbereitung offen.
+**Brauchen Sie eine schnelle Befehlsauffrischung?** Halten Sie unser [Kubernetes Kubectl Cheat Sheet](/de/learn/cheatsheets/kubernetes-kubectl-cheat-sheet/) während Ihrer Vorbereitung offen.
 
 ---
 

@@ -21,7 +21,7 @@ aliases: ["/zh-cn/interviews/sql-database-interview-questions/"]
 
 SQL是数据的语言，数据库是每个应用程序的基础。高级面试测试你编写高效查询、设计规范化模式、理解事务隔离、使用索引优化性能以及防止SQL注入的能力。无论岗位是后端工程师、DBA、数据工程师还是安全分析师，这20道题涵盖了面试官一致会问到的概念——附有展示生产经验的答案。
 
-**需要快速的SQL参考？** 在准备过程中保持[SQL注入和数据库查询速查表](/cheatsheets/sql-injection-payloads-database/)处于打开状态。
+**需要快速的SQL参考？** 在准备过程中保持[SQL注入和数据库查询速查表](/zh-cn/learn/cheatsheets/sql-injection-payloads-database/)处于打开状态。
 
 ---
 

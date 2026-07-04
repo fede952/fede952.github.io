@@ -21,7 +21,7 @@ aliases: ["/de/interviews/sql-database-interview-questions/"]
 
 SQL ist die Sprache der Daten, und Datenbanken sind das Rückgrat jeder Anwendung. Senior-Level-Interviews testen Ihre Fähigkeit, effiziente Abfragen zu schreiben, normalisierte Schemata zu entwerfen, Transaktionsisolation zu verstehen, Leistung mit Indizes zu optimieren und SQL-Injection zu verhindern. Ob die Rolle Backend Engineer, DBA, Data Engineer oder Security Analyst ist, diese 20 Fragen decken die Konzepte ab, die Interviewer durchgehend fragen — mit Antworten, die Produktionserfahrung demonstrieren.
 
-**Brauchen Sie eine schnelle SQL-Referenz?** Halten Sie unser [SQL Injection & Datenbankabfragen-Cheatsheet](/cheatsheets/sql-injection-payloads-database/) während Ihrer Vorbereitung offen.
+**Brauchen Sie eine schnelle SQL-Referenz?** Halten Sie unser [SQL Injection & Datenbankabfragen-Cheatsheet](/de/learn/cheatsheets/sql-injection-payloads-database/) während Ihrer Vorbereitung offen.
 
 ---
 

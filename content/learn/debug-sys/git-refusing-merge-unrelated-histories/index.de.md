@@ -104,4 +104,4 @@ Das Flag wurde in **Git 2.9** (Juni 2016) hinzugefügt. Vor dieser Version erlau
 
 ## Verwandte Ressourcen
 
-Meistern Sie fortgeschrittene Merges, Rebases und Konfliktlösung mit unserem [Git Protocol Cheatsheet](/cheatsheets/git-commands-for-hackers/) — jeder Git-Befehl, den ein Entwickler braucht, nach Workflow organisiert.
+Meistern Sie fortgeschrittene Merges, Rebases und Konfliktlösung mit unserem [Git Protocol Cheatsheet](/de/learn/cheatsheets/git-commands-for-hackers/) — jeder Git-Befehl, den ein Entwickler braucht, nach Workflow organisiert.
