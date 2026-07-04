@@ -9,7 +9,12 @@ defaultContentLanguageInSubdir = true
 # Fondamentale per evitare conflitti URL
 [permalinks]
   posts = "/:year/:month/:title/"
-  news = "/news/:year/:month/:slug/"
+  # :slugorcontentbasename — slug front matter if set, else the ASCII English
+  # content filename (shared by all 12 translations). The previous :slug token
+  # fell back to the LOCALIZED TITLE, so Devanagari/Arabic/CJK titles (3 bytes
+  # per char in UTF-8) produced output directories over ext4's 255-byte
+  # filename limit and crashed the Ubuntu CI build ("file name too long").
+  news = "/news/:year/:month/:slugorcontentbasename/"
 
 # Taxonomies per categorizzazione contenuti
 [taxonomies]

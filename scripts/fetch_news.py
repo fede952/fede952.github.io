@@ -380,6 +380,12 @@ def render_markdown(payload: dict, *, lang: str, source_name: str,
         "original_date": feed_date.strftime("%Y-%m-%dT%H:%M:%S"),
         "lang": lang,
         "translationKey": slug,
+        # Explicit URL slug: keep the ASCII English basename in EVERY language.
+        # Hugo's :slug permalink token otherwise falls back to the localized
+        # title, and 3-byte scripts (hi/ar/zh-cn) blow past ext4's 255-byte
+        # directory-name limit on the CI runner ("file name too long").
+        # Belt-and-braces with :slugorcontentbasename in hugo.toml.
+        "slug": slug,
         "author": "NewsBot (Validated by Federico Sella)",
         "description": payload.get("deck") or "",
         "original_url": original_url,
