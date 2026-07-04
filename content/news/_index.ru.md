@@ -1,6 +1,9 @@
 ---
 title: "Новости"
 layout: "force-list"
+robotsNoIndex: false
+cascade:
+  robotsNoIndex: true
 description: "Последние новости о кибербезопасности, разработке и технологиях"
 draft: false
 ---

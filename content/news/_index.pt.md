@@ -1,6 +1,9 @@
 ---
 title: "Notícias Tecnológicas"
 layout: "force-list"
+robotsNoIndex: false
+cascade:
+  robotsNoIndex: true
 description: "Últimas notícias sobre cibersegurança, desenvolvimento e tecnologia"
 draft: false
 ---

@@ -1,6 +1,9 @@
 ---
 title: "Tech News"
 layout: "force-list"
+robotsNoIndex: false
+cascade:
+  robotsNoIndex: true
 description: "Latest news and insights from the cybersecurity and technology world"
 hidemeta: true
 ---

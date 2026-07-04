@@ -1,6 +1,9 @@
 ---
 title: "أخبار التقنية"
 layout: "force-list"
+robotsNoIndex: false
+cascade:
+  robotsNoIndex: true
 description: "آخر الأخبار حول الأمن السيبراني والتطوير والتكنولوجيا"
 draft: false
 ---

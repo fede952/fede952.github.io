@@ -1,6 +1,9 @@
 ---
 title: "Actualités Tech"
 layout: "force-list"
+robotsNoIndex: false
+cascade:
+  robotsNoIndex: true
 description: "Dernières nouvelles sur la cybersécurité, le développement et la technologie"
 draft: false
 ---

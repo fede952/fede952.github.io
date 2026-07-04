@@ -1,6 +1,9 @@
 ---
 title: "टेक न्यूज़"
 layout: "force-list"
+robotsNoIndex: false
+cascade:
+  robotsNoIndex: true
 description: "साइबर सुरक्षा, विकास और प्रौद्योगिकी पर नवीनतम समाचार"
 draft: false
 ---
