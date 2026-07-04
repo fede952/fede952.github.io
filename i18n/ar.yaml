@@ -1,2 +1,11 @@
 view_all:
   other: "عرض كل {{ . }} ←"
+
+footer_legal:
+  other: "معلومات قانونية"
+footer_connect:
+  other: "تواصل"
+cookie_settings:
+  other: "إعدادات ملفات تعريف الارتباط"
+footer_tagline:
+  other: "تعمل جميع الأدوات محليًا بنسبة 100٪ في متصفحك — بياناتك لا تغادر جهازك أبدًا."

@@ -1,2 +1,11 @@
 view_all:
   other: "查看所有{{ . }} →"
+
+footer_legal:
+  other: "法律信息"
+footer_connect:
+  other: "关注我"
+cookie_settings:
+  other: "Cookie 设置"
+footer_tagline:
+  other: "所有工具都在您的浏览器中100%本地运行 — 您的数据永远不会离开您的设备。"

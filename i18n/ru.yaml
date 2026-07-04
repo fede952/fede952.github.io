@@ -1,2 +1,11 @@
 view_all:
   other: "Смотреть все {{ . }} →"
+
+footer_legal:
+  other: "Правовая информация"
+footer_connect:
+  other: "Соцсети"
+cookie_settings:
+  other: "Настройки файлов cookie"
+footer_tagline:
+  other: "Все инструменты работают на 100% локально в вашем браузере — ваши данные никогда не покидают ваше устройство."

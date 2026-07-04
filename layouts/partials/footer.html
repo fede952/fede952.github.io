@@ -1,0 +1,197 @@
+{{- /* Site override of PaperMod's footer.html.
+     The visual footer is replaced by a 4-column layout (Tools / Learn /
+     Legal / Connect); everything below the footer element — top-link,
+     extend_footer, menu/anchor/theme-toggle/code-copy scripts — is kept
+     verbatim from the theme, because PaperMod ships its core JS here.
+     NOTE: this partial is partialCached in baseof.html with a key of
+     .Layout .Kind .Section hideFooter ShowCodeCopyButtons (plus Hugo's
+     implicit per-language cache), so everything used below must only
+     depend on those inputs + the language. */}}
+{{- if not (.Param "hideFooter") }}
+<footer class="site-footer">
+  <div class="site-footer-grid">
+
+    <div class="site-footer-col">
+      <h3>{{ with site.GetPage "/tools" }}{{ .Title }}{{ else }}Tools{{ end }}</h3>
+      <ul>
+        <li><a href="{{ "tools/pass-fort/" | relLangURL }}">PassFort</a></li>
+        <li><a href="{{ "tools/netguard/" | relLangURL }}">NetGuard</a></li>
+        <li><a href="{{ "tools/pixel-shrink/" | relLangURL }}">PixelShrink</a></li>
+        <li><a href="{{ "tools/freelance-calculator/" | relLangURL }}">RateMate</a></li>
+        {{ with site.GetPage "/tools" }}<li><a class="site-footer-more" href="{{ .RelPermalink }}">{{ .Title }} &rarr;</a></li>{{ end }}
+      </ul>
+    </div>
+
+    <div class="site-footer-col">
+      <h3>{{ with site.GetPage "/learn" }}{{ .Title }}{{ else }}Learn{{ end }}</h3>
+      <ul>
+        {{ with site.GetPage "/learn/guides" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ with site.GetPage "/learn/cheatsheets" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ with site.GetPage "/learn/interviews" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ with site.GetPage "/news" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+      </ul>
+    </div>
+
+    <div class="site-footer-col">
+      <h3>{{ i18n "footer_legal" | default "Legal" }}</h3>
+      <ul>
+        {{ with site.GetPage "/privacy" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ with site.GetPage "/cookies" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ with site.GetPage "/contact" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{- /* Reopens Google's "Privacy & messaging" consent banner (TCF
+             revocation). Guarded so it is a silent no-op until the CMP is
+             activated in the AdSense dashboard. */}}
+        <li><a href="#" class="site-footer-cookie-settings" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);}return false;">{{ i18n "cookie_settings" | default "Cookie Settings" }}</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer-col">
+      <h3>{{ i18n "footer_connect" | default "Connect" }}</h3>
+      <ul>
+        <li><a href="https://github.com/fede952" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/federicosella" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li>
+          <a href="https://github.com/sponsors/fede952" target="_blank" rel="noopener noreferrer" class="github-sponsor-btn footer-sponsor-btn">
+            <svg height="16" viewBox="0 0 16 16" width="16" aria-hidden="true" fill="currentColor"><path fill-rule="evenodd" d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5z"></path></svg>
+            Sponsor
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="site-footer-bottom">
+    <p class="site-footer-tagline">&#128274; {{ i18n "footer_tagline" | default "All tools run 100% locally in your browser — your data never leaves your device." }}</p>
+    <p class="site-footer-copy">&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a> · Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a></p>
+  </div>
+</footer>
+{{- end }}
+
+{{- if (not site.Params.disableScrollToTop) }}
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+{{- end }}
+
+{{- partial "extend_footer.html" . }}
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        // Set the scroll position
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!id) return;
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+
+{{- if (not site.Params.disableScrollToTop) }}
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+{{- end }}
+
+{{- if (not site.Params.disableThemeToggle) }}
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+{{- end }}
+
+{{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+
+        function copyingDone() {
+            copybutton.innerHTML = '{{- i18n "code_copied" | default "copied!" }}';
+            setTimeout(() => {
+                copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            // td containing LineNos
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            // table containing LineNos and code
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            // code blocks not having highlight as parent class
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+{{- end }}

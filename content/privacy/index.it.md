@@ -1,153 +1,81 @@
 ---
-title: "Privacy Policy"
-date: 2026-02-05
-draft: false
+title: "Informativa sulla Privacy"
+description: "Come federicosella.com tratta i tuoi dati: strumenti che elaborano tutto in locale senza alcun upload, analytics senza cookie e pubblicità basata sul consenso."
+date: 2026-07-04
 hidemeta: true
 showToc: true
-TocOpen: true
-description: "Informativa sulla Privacy per Pasta Stack e altre applicazioni sviluppate da Federico Sella"
 ---
 
-**Ultimo Aggiornamento:** 5 Febbraio 2026
+**Ultimo aggiornamento: 4 luglio 2026**
 
-Questa Informativa sulla Privacy descrive come Federico Sella ("Sviluppatore", "noi", "ci" o "nostro") raccoglie, utilizza e condivide le informazioni quando utilizzi la nostra applicazione mobile **Pasta Stack** (l'"App").
+## 1. Titolare del Trattamento
 
-Scaricando o utilizzando l'App, accetti la raccolta e l'utilizzo delle informazioni in conformita con questa informativa.
+**Federico Sella** — Suisio (Bergamo), Italia
+Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
----
+## 2. In Breve
 
-## 1. Informazioni che Raccogliamo
+- **Tutti gli strumenti web di questo sito elaborano i tuoi dati al 100% in locale, nel tuo browser.** File, password, immagini e testi che usi negli strumenti **non vengono mai caricati** su alcun server — né nostro né di terzi.
+- Non richiediamo account e non vendiamo mai dati personali.
+- Il sito si finanzia con la pubblicità (Google AdSense) e usa analytics per migliorare i contenuti. I cookie per queste finalità vengono impostati **solo dopo il tuo consenso** tramite il banner.
+- Puoi modificare o revocare il consenso in qualsiasi momento tramite **"Impostazioni Cookie"** nel footer.
 
-### 1.1 Informazioni Raccolte Automaticamente
+## 3. Gli Strumenti Web: Elaborazione 100% Locale
 
-Quando utilizzi l'App, alcune informazioni possono essere raccolte automaticamente dai nostri partner pubblicitari di terze parti, tra cui:
+Ogni strumento interattivo di questo sito (generatore e auditor di password, EXIF cleaner, compressore di immagini, generatore di QR code, convertitori e tutti gli altri) funziona interamente nel tuo browser tramite JavaScript e API web standard (come la Web Crypto API). I dati che inserisci o i file che apri con questi strumenti:
 
-- **Identificatori del Dispositivo:** ID Pubblicita (Google Advertising ID su Android)
-- **Informazioni sul Dispositivo:** Tipo di dispositivo, versione del sistema operativo, modello del dispositivo
-- **Dati di Utilizzo:** Interazioni con l'app, durata delle sessioni, log degli errori
-- **Indirizzo IP:** Utilizzato per determinare la posizione geografica approssimativa (a livello di paese/regione)
+- vengono elaborati **solo sul tuo dispositivo**;
+- **non vengono mai trasmessi** ai nostri server o a terzi;
+- vengono eliminati alla chiusura o al ricaricamento della pagina, salvo tu non salvi esplicitamente il risultato.
 
-### 1.2 Informazioni che NON Raccogliamo
+Puoi verificarlo in qualsiasi momento con gli strumenti per sviluppatori del browser (scheda Rete): gli strumenti non effettuano richieste di rete con i tuoi dati.
 
-**Non** raccogliamo:
-- Informazioni personali come nome, indirizzo email o numero di telefono
-- Dati di posizione precisa (GPS)
-- Contatti, foto o altri file personali
-- Informazioni di pagamento o finanziarie
+## 4. Analytics
 
----
+### 4.1 Google Analytics 4 (basato sul consenso)
 
-## 2. Come Utilizziamo le Informazioni
+Utilizziamo Google Analytics 4 (Google Ireland Ltd. / Google LLC) per capire l'utilizzo aggregato del sito. GA4 imposta cookie e tratta identificatori **solo dopo che hai prestato il consenso** nel banner. Abbiamo implementato **Google Consent Mode v2** con tutti gli archivi **negati per impostazione predefinita** — prima del consenso non viene impostato alcun cookie di analytics. Maggiori informazioni: [Informativa Privacy di Google](https://policies.google.com/privacy).
 
-Le informazioni raccolte vengono utilizzate per i seguenti scopi:
+### 4.2 Umami (senza cookie)
 
-- **Pubblicita:** Per mostrare annunci personalizzati o contestuali all'interno dell'App
-- **Analytics:** Per comprendere come gli utenti interagiscono con l'App e migliorare l'esperienza utente
-- **Segnalazione Errori:** Per identificare e correggere problemi tecnici
+Utilizziamo anche [Umami](https://umami.is/), un servizio di analytics rispettoso della privacy che **non usa cookie** né **identificatori persistenti**. Raccoglie solo statistiche anonime e aggregate (pagine viste, referrer, tipo di browser) che non possono essere ricondotte a te. Poiché non vengono conservati dati personali, opera sulla base del nostro legittimo interesse a comprendere l'utilizzo del sito.
 
----
+## 5. Pubblicità (Google AdSense)
 
-## 3. Servizi di Terze Parti
+La pubblicità mantiene gratuiti tutti gli strumenti di questo sito. Utilizziamo **Google AdSense**. Per i visitatori di SEE, Regno Unito e Svizzera viene mostrato un **banner di consenso certificato da Google** (IAB Transparency & Consent Framework) prima dell'uso di qualsiasi cookie pubblicitario:
 
-L'App utilizza i seguenti servizi di terze parti che possono raccogliere informazioni:
+- Con il consenso, Google può mostrare **annunci personalizzati** e usare cookie pubblicitari.
+- Senza consenso, può essere mostrata solo pubblicità limitata e **non personalizzata**.
 
-### 3.1 Google AdMob
-Google AdMob viene utilizzato per visualizzare annunci pubblicitari nell'App.
-- **Informativa sulla Privacy:** [https://policies.google.com/privacy](https://policies.google.com/privacy)
-- **Come Google utilizza i dati:** [https://policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites)
+Come Google utilizza i dati: [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites). Gestisci le tue preferenze pubblicitarie: [adssettings.google.com](https://adssettings.google.com).
 
-### 3.2 Unity Ads
-Unity Ads viene utilizzato per visualizzare annunci video nell'App.
-- **Informativa sulla Privacy:** [https://unity.com/legal/privacy-policy](https://unity.com/legal/privacy-policy)
+## 6. Basi Giuridiche (GDPR)
 
-Questi servizi di terze parti possono utilizzare cookie, identificatori del dispositivo e tecnologie simili per raccogliere informazioni a scopi pubblicitari. Ti invitiamo a consultare le rispettive informative sulla privacy.
+- **Consenso** (art. 6(1)(a)) — cookie pubblicitari e di analytics.
+- **Legittimo interesse** (art. 6(1)(f)) — funzionamento del sito, sicurezza, statistiche aggregate senza cookie.
 
----
+## 7. I Tuoi Diritti
 
-## 4. Pubblicita e le Tue Scelte
+Ai sensi del GDPR hai diritto di accesso, rettifica, cancellazione, limitazione, opposizione, portabilità dei dati e revoca del consenso in qualsiasi momento (tramite **Impostazioni Cookie** nel footer). Per esercitare qualsiasi diritto scrivi a [privacy@federicosella.com](mailto:privacy@federicosella.com). Puoi inoltre presentare reclamo al [Garante per la Protezione dei Dati Personali](https://www.garanteprivacy.it/).
 
-### 4.1 Pubblicita Personalizzata
-Per impostazione predefinita, i nostri partner pubblicitari possono utilizzare i tuoi dati per mostrarti annunci personalizzati in base ai tuoi interessi.
+## 8. Trasferimenti Internazionali
 
-### 4.2 Disattivazione degli Annunci Personalizzati
-Puoi disattivare la pubblicita personalizzata in qualsiasi momento:
+Google può trattare dati negli Stati Uniti. Tali trasferimenti si basano sull'**EU–U.S. Data Privacy Framework** e/o sulle **Clausole Contrattuali Standard**.
 
-**Su Android:**
-1. Apri **Impostazioni** sul tuo dispositivo
-2. Vai su **Privacy** > **Annunci**
-3. Attiva **"Disattiva personalizzazione annunci"** o **"Elimina ID pubblicita"**
+## 9. Conservazione dei Dati
 
-Da questo menu puoi anche reimpostare il tuo ID Pubblicita.
+Questo sito **non conserva dati personali sui propri server** (è un sito statico). I dati di Google Analytics sono conservati per un massimo di 14 mesi. I partner pubblicitari conservano i dati secondo le proprie politiche.
 
-### 4.3 Gestione del Consenso
-Al primo avvio dell'App, ti verra presentata una finestra di consenso (dove richiesto dalla legge) che ti permette di:
-- Accettare la pubblicita personalizzata
-- Scegliere solo pubblicita non personalizzata
-- Revocare il consenso in qualsiasi momento tramite le impostazioni dell'App o del dispositivo
+## 10. Minori
 
----
+Questo sito non è rivolto a minori di 16 anni e non raccogliamo consapevolmente i loro dati.
 
-## 5. Conservazione dei Dati
+## 11. Modifiche
 
-Non memorizziamo alcun dato personale sui nostri server. I dati raccolti dai partner pubblicitari di terze parti sono soggetti alle rispettive politiche di conservazione dei dati.
+Gli aggiornamenti saranno pubblicati su questa pagina con una nuova data di "Ultimo aggiornamento".
 
----
+## 12. Documenti Correlati
 
-## 6. Privacy dei Minori
-
-L'App non e destinata a minori di 13 anni (o l'eta del consenso applicabile nella tua giurisdizione). Non raccogliamo consapevolmente informazioni personali da minori.
-
-Se sei un genitore o tutore e ritieni che tuo figlio abbia fornito informazioni personali tramite l'App, contattaci affinche possiamo prendere le misure appropriate.
-
----
-
-## 7. I Tuoi Diritti (GDPR/CCPA)
-
-A seconda della tua posizione, potresti avere determinati diritti riguardo ai tuoi dati:
-
-### 7.1 Unione Europea (GDPR)
-Se ti trovi nell'UE/SEE, hai il diritto di:
-- Accedere ai dati personali detenuti su di te
-- Richiedere la correzione o la cancellazione dei tuoi dati
-- Opporti o limitare il trattamento
-- Portabilita dei dati
-- Revocare il consenso in qualsiasi momento
-
-### 7.2 California (CCPA)
-Se sei residente in California, hai il diritto di:
-- Sapere quali informazioni personali vengono raccolte
-- Richiedere la cancellazione delle tue informazioni personali
-- Rinunciare alla vendita di informazioni personali (non vendiamo informazioni personali)
-- Non discriminazione per l'esercizio dei tuoi diritti
-
-Per esercitare uno qualsiasi di questi diritti, contattaci utilizzando le informazioni riportate di seguito.
-
----
-
-## 8. Sicurezza dei Dati
-
-Adottiamo misure ragionevoli per proteggere le informazioni raccolte tramite l'App. Tuttavia, nessun metodo di trasmissione su Internet o di archiviazione elettronica e sicuro al 100%.
-
----
-
-## 9. Modifiche a Questa Informativa sulla Privacy
-
-Potremmo aggiornare questa Informativa sulla Privacy di tanto in tanto. Le modifiche saranno pubblicate su questa pagina con una data di "Ultimo Aggiornamento" aggiornata.
-
-Ti invitiamo a consultare periodicamente questa Informativa sulla Privacy per eventuali modifiche.
-
----
-
-## 10. Contattaci
-
-Se hai domande, dubbi o richieste riguardo a questa Informativa sulla Privacy o ai tuoi dati, contattaci a:
-
-**Federico Sella**
-Email: [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
-Sito Web: [https://federicosella.com](https://federicosella.com)
-
----
-
-## 11. Legge Applicabile
-
-Questa Informativa sulla Privacy e regolata dalle leggi italiane e dell'Unione Europea. Eventuali controversie derivanti da questa informativa saranno soggette alla giurisdizione esclusiva dei tribunali italiani.
+- [Cookie Policy](/it/cookies/)
+- [Contatti](/it/contact/)
+- Cerchi l'informativa privacy dell'app mobile **Pasta Stack**? Vedi [Pasta Stack — Informativa Privacy dell'App](/it/apps/pasta-stack/privacy/).

@@ -1,2 +1,11 @@
 view_all:
   other: "모든 {{ . }} 보기 →"
+
+footer_legal:
+  other: "법적 고지"
+footer_connect:
+  other: "소셜"
+cookie_settings:
+  other: "쿠키 설정"
+footer_tagline:
+  other: "모든 도구는 브라우저에서 100% 로컬로 실행됩니다 — 데이터가 기기를 벗어나지 않습니다."

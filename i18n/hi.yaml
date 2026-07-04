@@ -1,2 +1,11 @@
 view_all:
   other: "सभी {{ . }} देखें →"
+
+footer_legal:
+  other: "कानूनी जानकारी"
+footer_connect:
+  other: "जुड़ें"
+cookie_settings:
+  other: "कुकी सेटिंग्स"
+footer_tagline:
+  other: "सभी टूल आपके ब्राउज़र में 100% लोकल रूप से चलते हैं — आपका डेटा कभी आपके डिवाइस से बाहर नहीं जाता।"

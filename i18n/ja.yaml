@@ -1,2 +1,11 @@
 view_all:
   other: "すべての{{ . }}を見る →"
+
+footer_legal:
+  other: "法的情報"
+footer_connect:
+  other: "つながる"
+cookie_settings:
+  other: "Cookie設定"
+footer_tagline:
+  other: "すべてのツールはブラウザ内で100%ローカルに動作します — データが端末の外に出ることはありません。"

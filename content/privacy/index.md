@@ -1,153 +1,81 @@
 ---
 title: "Privacy Policy"
-date: 2026-02-05
-draft: false
+description: "How federicosella.com handles your data: browser tools that process everything locally with zero uploads, cookieless analytics, and consent-based advertising."
+date: 2026-07-04
 hidemeta: true
 showToc: true
-TocOpen: true
-description: "Privacy Policy for Pasta Stack and other applications developed by Federico Sella"
 ---
 
-**Last Updated:** February 5, 2026
+**Last updated: July 4, 2026**
 
-This Privacy Policy describes how Federico Sella ("Developer", "we", "us", or "our") collects, uses, and shares information when you use our mobile application **Pasta Stack** (the "App").
+## 1. Data Controller
 
-By downloading or using the App, you agree to the collection and use of information in accordance with this policy.
+**Federico Sella** — Suisio (Bergamo), Italy
+Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
----
+## 2. The Short Version
 
-## 1. Information We Collect
+- **All web tools on this site process your data 100% locally in your browser.** Files, passwords, images, and text you use in the tools are **never uploaded** to any server — ours or anyone else's.
+- We don't require accounts and we never sell personal data.
+- The site is funded by advertising (Google AdSense) and uses analytics to improve content. Cookies for these purposes are set **only after your consent** via the cookie banner.
+- You can change or withdraw your consent at any time via **"Cookie Settings"** in the footer.
 
-### 1.1 Information Collected Automatically
+## 3. The Web Tools: 100% Local Processing
 
-When you use the App, certain information may be collected automatically by our third-party advertising partners, including:
+Every interactive tool on this site (password generator and auditor, EXIF cleaner, image compressor, QR generator, converters, and all others) runs entirely in your browser using JavaScript and standard Web APIs (such as the Web Crypto API). The data you enter or the files you open with these tools:
 
-- **Device Identifiers:** Advertising ID (Google Advertising ID on Android)
-- **Device Information:** Device type, operating system version, device model
-- **Usage Data:** App interactions, session duration, crash logs
-- **IP Address:** Used to determine approximate geographic location (country/region level)
+- are processed **on your device only**;
+- are **never transmitted** to our servers or third parties;
+- are discarded when you close or reload the page, unless you explicitly save the result yourself.
 
-### 1.2 Information We Do NOT Collect
+You can verify this at any time with your browser's developer tools (Network tab): the tools make no network requests with your data.
 
-We do **not** collect:
-- Personal information such as your name, email address, or phone number
-- Precise location data (GPS)
-- Contacts, photos, or other personal files
-- Payment or financial information
+## 4. Analytics
 
----
+### 4.1 Google Analytics 4 (consent-based)
 
-## 2. How We Use Information
+We use Google Analytics 4 (Google Ireland Ltd. / Google LLC) to understand aggregate site usage. GA4 sets cookies and processes identifiers **only after you grant consent** in the cookie banner. We have implemented **Google Consent Mode v2** with all storage **denied by default** — before consent, no analytics cookies are set. More: [Google Privacy Policy](https://policies.google.com/privacy).
 
-The information collected is used for the following purposes:
+### 4.2 Umami (cookieless)
 
-- **Advertising:** To display personalized or contextual advertisements within the App
-- **Analytics:** To understand how users interact with the App and improve user experience
-- **Crash Reporting:** To identify and fix technical issues
+We also use [Umami](https://umami.is/), a privacy-friendly analytics service that uses **no cookies** and **no persistent identifiers**. It collects only anonymous, aggregated statistics (page views, referrers, browser type) that cannot be tied to you. Because no personal data is stored and no tracking technologies are used, it runs on the basis of our legitimate interest in understanding site usage.
 
----
+## 5. Advertising (Google AdSense)
 
-## 3. Third-Party Services
+Advertising keeps every tool on this site free. We use **Google AdSense**. For visitors in the EEA, the UK, and Switzerland, a **Google-certified consent banner** (IAB Transparency & Consent Framework) is shown before any advertising cookies are used:
 
-The App uses the following third-party services that may collect information:
+- With consent, Google may show **personalized ads** and use advertising cookies.
+- Without consent, only limited, **non-personalized** advertising may be shown.
 
-### 3.1 Google AdMob
-Google AdMob is used to display advertisements in the App.
-- **Privacy Policy:** [https://policies.google.com/privacy](https://policies.google.com/privacy)
-- **How Google uses data:** [https://policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites)
+How Google uses data: [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites). Manage your ad preferences: [adssettings.google.com](https://adssettings.google.com).
 
-### 3.2 Unity Ads
-Unity Ads is used to display video advertisements in the App.
-- **Privacy Policy:** [https://unity.com/legal/privacy-policy](https://unity.com/legal/privacy-policy)
+## 6. Legal Bases (GDPR)
 
-These third-party services may use cookies, device identifiers, and similar technologies to collect information for advertising purposes. We encourage you to review their respective privacy policies.
+- **Consent** (Art. 6(1)(a)) — advertising and analytics cookies.
+- **Legitimate interest** (Art. 6(1)(f)) — site operation, security, cookieless aggregate statistics.
 
----
+## 7. Your Rights
 
-## 4. Advertising and Your Choices
+Under the GDPR you have the right to access, rectify, erase, restrict, object to processing, data portability, and to withdraw consent at any time (via **Cookie Settings** in the footer). To exercise any right, email [privacy@federicosella.com](mailto:privacy@federicosella.com). You may also lodge a complaint with the Italian supervisory authority ([Garante per la Protezione dei Dati Personali](https://www.garanteprivacy.it/)) or your local authority.
 
-### 4.1 Personalized Advertising
-By default, our advertising partners may use your data to show you personalized ads based on your interests.
+## 8. International Transfers
 
-### 4.2 Opting Out of Personalized Ads
-You can opt out of personalized advertising at any time:
+Google may process data in the United States. Such transfers rely on the **EU–U.S. Data Privacy Framework** and/or **Standard Contractual Clauses**.
 
-**On Android:**
-1. Open **Settings** on your device
-2. Go to **Privacy** > **Ads**
-3. Enable **"Opt out of Ads Personalization"** or **"Delete advertising ID"**
+## 9. Data Retention
 
-You may also reset your Advertising ID from this menu.
+This website stores **no personal data on its own servers** (it is a static site). Google Analytics data is retained for up to 14 months. Advertising partners retain data according to their own policies.
 
-### 4.3 Consent Management
-When you first launch the App, you will be presented with a consent dialog (where required by law) allowing you to:
-- Accept personalized advertising
-- Choose non-personalized advertising only
-- Revoke consent at any time through the App settings or device settings
+## 10. Children
 
----
+This site is not directed at children under 16, and we do not knowingly collect their data.
 
-## 5. Data Retention
+## 11. Changes
 
-We do not store any personal data on our servers. Data collected by third-party advertising partners is subject to their respective data retention policies.
+Updates will be posted on this page with a new "Last updated" date.
 
----
+## 12. Related Documents
 
-## 6. Children's Privacy
-
-The App is not directed at children under the age of 13 (or the applicable age of consent in your jurisdiction). We do not knowingly collect personal information from children.
-
-If you are a parent or guardian and believe your child has provided personal information through the App, please contact us so we can take appropriate action.
-
----
-
-## 7. Your Rights (GDPR/CCPA)
-
-Depending on your location, you may have certain rights regarding your data:
-
-### 7.1 European Union (GDPR)
-If you are located in the EU/EEA, you have the right to:
-- Access the personal data held about you
-- Request correction or deletion of your data
-- Object to or restrict processing
-- Data portability
-- Withdraw consent at any time
-
-### 7.2 California (CCPA)
-If you are a California resident, you have the right to:
-- Know what personal information is collected
-- Request deletion of your personal information
-- Opt-out of the sale of personal information (we do not sell personal information)
-- Non-discrimination for exercising your rights
-
-To exercise any of these rights, please contact us using the information below.
-
----
-
-## 8. Data Security
-
-We take reasonable measures to protect the information collected through the App. However, no method of transmission over the Internet or electronic storage is 100% secure.
-
----
-
-## 9. Changes to This Privacy Policy
-
-We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last Updated" date.
-
-We encourage you to review this Privacy Policy periodically for any changes.
-
----
-
-## 10. Contact Us
-
-If you have any questions, concerns, or requests regarding this Privacy Policy or your data, please contact us at:
-
-**Federico Sella**
-Email: [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
-Website: [https://federicosella.com](https://federicosella.com)
-
----
-
-## 11. Applicable Law
-
-This Privacy Policy is governed by the laws of Italy and the European Union. Any disputes arising from this policy shall be subject to the exclusive jurisdiction of the courts of Italy.
+- [Cookie Policy](/en/cookies/)
+- [Contact](/en/contact/)
+- Looking for the **Pasta Stack** mobile app privacy policy? See [Pasta Stack — App Privacy Policy](/en/apps/pasta-stack/privacy/).

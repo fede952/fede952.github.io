@@ -1,10 +1,23 @@
 {{- $id := site.Config.Services.GoogleAnalytics.ID -}}
 {{- if $id -}}
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ $id }}"></script>
+{{- /* Consent Mode v2: the default-deny call MUST be queued before gtag.js
+     executes. The inline script below runs synchronously; gtag.js is async
+     and processes the queued consent state first. Consent is later updated
+     by Google's certified CMP (AdSense "Privacy & messaging"), which
+     integrates with Consent Mode automatically. Until consent is granted,
+     GA4 sets no cookies and sends only cookieless pings. */}}
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
   gtag('js', new Date());
   gtag('config', '{{ $id }}');
 </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ $id }}"></script>
 {{- end -}}

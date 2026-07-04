@@ -1,2 +1,11 @@
 view_all:
   other: "Vedi Tutti {{ . }} →"
+
+footer_legal:
+  other: "Note Legali"
+footer_connect:
+  other: "Social"
+cookie_settings:
+  other: "Impostazioni Cookie"
+footer_tagline:
+  other: "Tutti gli strumenti funzionano al 100% in locale nel tuo browser — i tuoi dati non lasciano mai il tuo dispositivo."

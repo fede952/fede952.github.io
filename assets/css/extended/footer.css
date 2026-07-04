@@ -1,0 +1,121 @@
+/* ============================================
+   SITE FOOTER — 4-column premium footer
+   Theme-aware via PaperMod CSS variables
+   ============================================ */
+
+.site-footer {
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+    background: var(--theme);
+    font-size: 0.9rem;
+}
+
+.site-footer-grid {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 2.75rem 24px 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.site-footer-col h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--secondary);
+    margin: 0 0 1rem;
+}
+
+/* Neutralize the global "$ " heading prefix inside the footer */
+.site-footer h3::before,
+.site-footer h2::before {
+    content: "";
+}
+
+.site-footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-footer-col li {
+    margin: 0 0 0.6rem;
+    padding: 0;
+}
+
+.site-footer-col a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.site-footer-col a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.site-footer-more {
+    font-weight: 600;
+}
+
+/* Compact variant of the existing GitHub sponsor button */
+.footer-sponsor-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    margin-top: 0.35rem;
+    border-radius: 6px;
+}
+
+.site-footer-col a.footer-sponsor-btn {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Bottom bar */
+.site-footer-bottom {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 1.25rem 24px calc(1.25rem + env(safe-area-inset-bottom));
+    color: var(--secondary);
+}
+
+.site-footer-tagline {
+    margin: 0 0 0.45rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--primary);
+}
+
+.site-footer-copy {
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+.site-footer-copy a {
+    color: inherit;
+}
+
+.site-footer-copy a:hover {
+    color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .site-footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 520px) {
+    .site-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+        padding: 2rem 20px 1.25rem;
+    }
+}
