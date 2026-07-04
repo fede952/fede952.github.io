@@ -62,36 +62,62 @@
       {{ end }}
     {{ end }}
   {{ else }}
-    <div class="uni-grid">
-      {{ $items := slice }}
+    {{ $items := slice }}
 
-      {{/* NEWS LOGIC (Keep as is) */}}
-      {{ if eq $currentSection "news" }}
-         {{ $allNews := where site.AllPages "Section" "news" }}
-         {{ $localNews := where $allNews "Lang" $currentLang }}
-         {{ $englishNews := where $allNews "Lang" "en" }}
-         {{ $items = $localNews | union $englishNews }}
-         {{ $items = $items.ByDate.Reverse }}
-      {{ else }}
-         {{/* GAMES/TOOLS/LEARN LOGIC: use current page's descendants so nested
-             sections (e.g. /learn/cheatsheets/) list only their own pages. */}}
-         {{ $rawItems := .RegularPagesRecursive }}
-         {{ if not $rawItems }}
-           {{ $rawItems = where site.RegularPages "Section" $currentSection }}
+    {{/* NEWS: local-language pages plus, per story, the English page ONLY
+         when no local translation exists. lang.Merge fills untranslated
+         stories from the EN collection via translation-key matching — the
+         old local∪English union listed every translated story twice on
+         non-English lists. */}}
+    {{ if eq $currentSection "news" }}
+       {{ $items = .RegularPagesRecursive }}
+       {{ if ne $currentLang "en" }}
+         {{ range .AllTranslations }}
+           {{ if eq .Lang "en" }}
+             {{ $items = $items | lang.Merge .RegularPagesRecursive }}
+           {{ end }}
          {{ end }}
+       {{ end }}
+       {{ $items = $items.ByDate.Reverse }}
+    {{ else }}
+       {{/* GAMES/TOOLS/LEARN LOGIC: use current page's descendants so nested
+           sections (e.g. /learn/cheatsheets/) list only their own pages. */}}
+       {{ $rawItems := .RegularPagesRecursive }}
+       {{ if not $rawItems }}
+         {{ $rawItems = where site.RegularPages "Section" $currentSection }}
+       {{ end }}
 
-         {{ $featured := where $rawItems "Params.featured" true }}
-         {{ $regular := where $rawItems "Params.featured" "!=" true }}
-         {{ $regular = $regular.ByDate.Reverse }}
-         {{ $items = $featured | append $regular }}
-      {{ end }}
+       {{ $featured := where $rawItems "Params.featured" true }}
+       {{ $regular := where $rawItems "Params.featured" "!=" true }}
+       {{ $regular = $regular.ByDate.Reverse }}
+       {{ $items = $featured | append $regular }}
+    {{ end }}
 
-      {{ $items = where $items "Kind" "page" }}
+    {{ $items = where $items "Kind" "page" }}
 
-      {{ range $items }}
+    {{/* 24/page. Also caps taxonomy/term archives (e.g. /tags/news/ was a
+         1.2 MB single page); lists with ≤24 items render exactly as before,
+         since the pager footer only appears past one page. */}}
+    {{ $paginator := .Paginate $items 24 }}
+
+    <div class="uni-grid">
+      {{ range $paginator.Pages }}
         {{ partial "uni-card.html" (dict "page" . "isGaming" $isGaming) }}
       {{ end }}
     </div>
+
+    {{ if gt $paginator.TotalPages 1 }}
+    <footer class="page-footer">
+      <nav class="pagination">
+        {{- if $paginator.HasPrev }}
+        <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">«&nbsp;{{ i18n "prev_page" }}&nbsp;{{ sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}</a>
+        {{- end }}
+        {{- if $paginator.HasNext }}
+        <a class="next" href="{{ $paginator.Next.URL | absURL }}">{{ i18n "next_page" }}&nbsp;{{ add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}&nbsp;»</a>
+        {{- end }}
+      </nav>
+    </footer>
+    {{ end }}
   {{ end }}
 </main>
 {{ end }}

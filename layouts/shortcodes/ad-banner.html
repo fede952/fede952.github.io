@@ -1,5 +1,5 @@
-<div class="ad-container">
-  <div class="ad-placeholder">
-    📢 SPACE RESERVED FOR ADVERTISEMENT
-  </div>
-</div>
+{{- /* P0.2 (2026-07): intentionally renders NOTHING.
+     ~3,400 news articles call this shortcode (scripts/fetch_news.py inserts
+     it after the first paragraph), so the file must exist or the build
+     fails — but no placeholder may ship to production.
+     Phase P3 turns this into a real AdSense in-article unit. */ -}}
