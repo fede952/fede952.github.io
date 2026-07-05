@@ -9,7 +9,7 @@
     <div class="game-ui hidden-ui" id="tetris-game-over">
         <h2 style="color:#ff0055;text-shadow:0 0 15px #ff0055;font-family:monospace;margin:0 0 5px;">GAME OVER</h2>
         <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="tetris-final-score">SCORE: 0</p>
-        <p style="color:#00ff41;font-family:monospace;margin:0 0 15px;" id="tetris-high-score">HIGH SCORE: 0</p>
+        <p style="color:#00e5ff;font-family:monospace;margin:0 0 15px;" id="tetris-high-score">HIGH SCORE: 0</p>
         <button class="neon-btn" id="tetris-restart-btn">RETRY</button>
         <button class="neon-btn" id="tetris-share-btn" style="border-color:#00e5ff;color:#00e5ff;">SHARE SCORE</button>
     </div>
@@ -40,7 +40,7 @@
     const canvas = document.getElementById('tetris-canvas');
     const ctx = canvas.getContext('2d');
     const COLS = 10, ROWS = 20, BLOCK = 30;
-    const COLORS = ['#00e5ff','#ff00ff','#00ff41','#ffff00','#ff6600','#ff0055','#7b68ee'];
+    const COLORS = ['#00e5ff','#ff00ff','#00e5ff','#ffff00','#ff6600','#ff0055','#7b68ee'];
     const SHAPES = [
         [[1,1,1,1]],
         [[1,1],[1,1]],

@@ -9,12 +9,12 @@
     <div class="overlay-screen hidden" id="ark-over">
         <h2 style="color:#ff0055;text-shadow:0 0 15px #ff0055;font-family:monospace;margin:0 0 5px;">FIREWALL HOLDS</h2>
         <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="ark-final">SCORE: 0</p>
-        <p style="color:#00ff41;font-family:monospace;margin:0 0 15px;" id="ark-high">HIGH SCORE: 0</p>
+        <p style="color:#00e5ff;font-family:monospace;margin:0 0 15px;" id="ark-high">HIGH SCORE: 0</p>
         <button class="neon-btn" id="ark-retry">RETRY</button>
         <button class="neon-btn" id="ark-share" style="border-color:#00e5ff;color:#00e5ff;">SHARE SCORE</button>
     </div>
     <div class="overlay-screen hidden" id="ark-win">
-        <h2 style="color:#00ff41;text-shadow:0 0 15px #00ff41;font-family:monospace;margin:0 0 5px;">FIREWALL BREACHED</h2>
+        <h2 style="color:#00e5ff;text-shadow:0 0 15px #00e5ff;font-family:monospace;margin:0 0 5px;">FIREWALL BREACHED</h2>
         <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="ark-win-score">SCORE: 0</p>
         <button class="neon-btn" id="ark-next">NEXT LEVEL</button>
     </div>
@@ -46,7 +46,7 @@
     let highScore = parseInt(localStorage.getItem('fwBreakerHigh') || '0');
     const BRICK_ROWS = 6, BRICK_COLS = 10;
     const BW = W/BRICK_COLS, BH = 20;
-    const COLORS = ['#00ff41','#00e5ff','#ff00ff','#ffff00','#ff6600','#ff0055'];
+    const COLORS = ['#00e5ff','#00e5ff','#ff00ff','#ffff00','#ff6600','#ff0055'];
     const PW_TYPES = ['wide','multi','laser'];
 
     /* ── Overlay refs ── */
@@ -245,7 +245,7 @@
         });
         ctx.globalAlpha = 1;
 
-        ctx.fillStyle = '#00ff41'; ctx.font = '12px monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#00e5ff'; ctx.font = '12px monospace'; ctx.textAlign = 'left';
         ctx.fillText('LVL ' + level, 10, 20);
     }
 

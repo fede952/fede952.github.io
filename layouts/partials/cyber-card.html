@@ -1,4 +1,6 @@
-{{- /* Render a single cyber-card for the force-list layout. Receives a Page. */ -}}
+{{- /* Render a single cyber-card for the force-list layout and the
+     homepage sections. Receives a Page. CTA labels are i18n'd and the
+     date uses CLDR month names so all 12 locales render natively. */ -}}
 {{- with . -}}
 <article class="cyber-card">
   <span class="card-tag">{{ .Section }}</span>
@@ -9,14 +11,14 @@
     {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
   </div>
   <div class="card-footer">
-    <span class="date-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+    <span class="date-meta">{{ .Date | time.Format ":date_medium" }}</span>
     <a class="btn-cyber" href="{{ .Permalink }}">
       {{- $segs := split (strings.TrimPrefix "/" .RelPermalink) "/" -}}
       {{- $sub := "" -}}
       {{- if ge (len $segs) 3 }}{{ $sub = index $segs 2 }}{{ end -}}
-      {{ if or (eq .Section "games") (eq $sub "games") }}Play Now
-      {{ else if eq .Section "tools" }}Use Tool
-      {{ else }}read more &rarr;{{ end }}
+      {{ if or (eq .Section "games") (eq $sub "games") }}{{ i18n "card_play_now" | default "Play Now" }}
+      {{ else if eq .Section "tools" }}{{ i18n "card_use_tool" | default "Use Tool" }}
+      {{ else }}{{ i18n "card_read_more" | default "Read More" }}{{ end }}
     </a>
   </div>
   <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>

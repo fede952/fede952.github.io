@@ -9,12 +9,12 @@
     <div class="overlay-screen hidden" id="inv-over">
         <h2 style="color:#ff0055;text-shadow:0 0 15px #ff0055;font-family:monospace;margin:0 0 5px;">SYSTEM CORRUPTED</h2>
         <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="inv-final">SCORE: 0</p>
-        <p style="color:#00ff41;font-family:monospace;margin:0 0 15px;" id="inv-high">HIGH SCORE: 0</p>
+        <p style="color:#00e5ff;font-family:monospace;margin:0 0 15px;" id="inv-high">HIGH SCORE: 0</p>
         <button class="neon-btn" id="inv-retry">RETRY</button>
         <button class="neon-btn" id="inv-share" style="border-color:#00e5ff;color:#00e5ff;">SHARE SCORE</button>
     </div>
     <div class="overlay-screen hidden" id="inv-win">
-        <h2 style="color:#00ff41;text-shadow:0 0 15px #00ff41;font-family:monospace;margin:0 0 5px;">KERNEL SECURED</h2>
+        <h2 style="color:#00e5ff;text-shadow:0 0 15px #00e5ff;font-family:monospace;margin:0 0 5px;">KERNEL SECURED</h2>
         <p style="color:#fff;font-family:monospace;margin:0 0 5px;" id="inv-win-score">SCORE: 0</p>
         <button class="neon-btn" id="inv-next">NEXT WAVE</button>
     </div>
@@ -49,7 +49,7 @@
 
     const ENEMY_ROWS = 5, ENEMY_COLS = 8;
     const EW = 32, EH = 24, EGAP = 8;
-    const ENEMY_COLORS = ['#ff0055','#ff6600','#ffff00','#00e5ff','#00ff41'];
+    const ENEMY_COLORS = ['#ff0055','#ff6600','#ffff00','#00e5ff','#00e5ff'];
     const BUG_GLYPHS = ['☣','✖','◆','▲','●'];
 
     /* ── Overlay refs ── */
@@ -258,7 +258,7 @@
         ctx.lineTo(player.x+player.w, player.y+player.h);
         ctx.closePath(); ctx.fill(); ctx.shadowBlur = 0;
 
-        ctx.fillStyle = '#00ff41'; ctx.shadowColor = '#00ff41'; ctx.shadowBlur = 8;
+        ctx.fillStyle = '#00e5ff'; ctx.shadowColor = '#00e5ff'; ctx.shadowBlur = 8;
         bullets.forEach(function(b){ ctx.fillRect(b.x-1, b.y, 3, 10); }); ctx.shadowBlur = 0;
 
         ctx.fillStyle = '#ff0055'; ctx.shadowColor = '#ff0055'; ctx.shadowBlur = 6;
@@ -270,7 +270,7 @@
         });
         ctx.globalAlpha = 1;
 
-        ctx.fillStyle = '#00ff41'; ctx.font = '12px monospace';
+        ctx.fillStyle = '#00e5ff'; ctx.font = '12px monospace';
         ctx.textAlign = 'left'; ctx.textBaseline = 'top';
         ctx.fillText('WAVE ' + wave, 10, 10);
     }

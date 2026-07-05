@@ -1,0 +1,147 @@
+/* ============================================
+   CYBER CARDS — shared card grid used by the
+   force-list hub pages AND the homepage (P4).
+   Extracted from the inline <style> that lived
+   in layouts/_default/force-list.html.
+   ============================================ */
+
+.cyber-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.cyber-card {
+  background: linear-gradient(145deg, #1a1a24, #101018);
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.cyber-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.2);
+  border-color: var(--accent);
+}
+
+.card-content {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-tag {
+  position: absolute;
+  top: 15px;
+  inset-inline-end: 15px;
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  text-transform: uppercase;
+}
+
+.cyber-card h2 {
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  color: #fff;
+}
+
+.cyber-card h2 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cyber-card p {
+  color: #aaa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.card-footer {
+  padding: 20px 25px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid #2a2a35;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-cyber {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  position: relative;
+  z-index: 2; /* sits above the full-card .entry-link */
+}
+
+.btn-cyber:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4);
+}
+
+.date-meta {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.hub-group-heading {
+  margin-top: 3rem;
+  margin-bottom: 0.25rem;
+  color: #fff;
+  border-bottom: 1px solid #2a2a35;
+  padding-bottom: 0.5rem;
+}
+
+.hub-group-heading a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hub-group-desc {
+  opacity: 0.75;
+  margin: 0 0 1rem;
+}
+
+.hub-view-all {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.hub-view-all:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4);
+}
+
+@media (max-width: 600px) {
+  .cyber-grid {
+    grid-template-columns: 1fr;
+  }
+}

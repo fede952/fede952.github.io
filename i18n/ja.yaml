@@ -16,3 +16,22 @@ adblock_message:
   other: "広告ブロッカーをご利用のようです。広告のおかげでこれらのツールを無料で提供できています。本サイトをホワイトリストに追加していただけると幸いです。"
 adblock_dismiss:
   other: "閉じる"
+
+hero_title:
+  other: "無料・プライバシー第一のウェブツール"
+hero_subtitle:
+  other: "サーバーなし。トラッキングなし。無駄なし。すべてブラウザ内で完結します。"
+hero_search_label:
+  other: "ツール・ガイド・チートシートを検索…"
+home_featured_tools:
+  other: "注目のツール"
+home_latest_guides:
+  other: "最新ガイド"
+home_recent_news:
+  other: "最新ニュース"
+card_use_tool:
+  other: "ツールを使う"
+card_play_now:
+  other: "今すぐプレイ"
+card_read_more:
+  other: "続きを読む"

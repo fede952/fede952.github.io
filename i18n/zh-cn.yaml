@@ -16,3 +16,22 @@ adblock_message:
   other: "您似乎正在使用广告拦截器。广告让这些工具得以免费提供——请考虑将本站加入白名单。谢谢！"
 adblock_dismiss:
   other: "关闭"
+
+hero_title:
+  other: "免费、隐私优先的网页工具"
+hero_subtitle:
+  other: "无服务器。无跟踪。无冗余。一切都 100% 在浏览器中运行。"
+hero_search_label:
+  other: "搜索工具、指南、速查表…"
+home_featured_tools:
+  other: "精选工具"
+home_latest_guides:
+  other: "最新指南"
+home_recent_news:
+  other: "最新资讯"
+card_use_tool:
+  other: "使用工具"
+card_play_now:
+  other: "立即游玩"
+card_read_more:
+  other: "阅读更多"

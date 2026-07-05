@@ -16,3 +16,22 @@ adblock_message:
   other: "يبدو أنك تستخدم أداة لحظر الإعلانات. الإعلانات تُبقي هذه الأدوات مجانية — يُرجى التفكير في إضافة هذا الموقع إلى القائمة البيضاء. شكرًا لك!"
 adblock_dismiss:
   other: "إغلاق"
+
+hero_title:
+  other: "أدوات ويب مجانية تحترم خصوصيتك"
+hero_subtitle:
+  other: "بلا خوادم. بلا تتبع. بلا حشو. كل شيء يعمل بالكامل في متصفحك."
+hero_search_label:
+  other: "ابحث عن الأدوات والأدلة والأوراق المرجعية…"
+home_featured_tools:
+  other: "أدوات مميزة"
+home_latest_guides:
+  other: "أحدث الأدلة"
+home_recent_news:
+  other: "آخر الأخبار"
+card_use_tool:
+  other: "استخدم الأداة"
+card_play_now:
+  other: "العب الآن"
+card_read_more:
+  other: "اقرأ المزيد"

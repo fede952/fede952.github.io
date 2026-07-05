@@ -61,7 +61,7 @@
 }
 
 .hazmat-header h2 {
-  color: #00ff41;
+  color: #00e5ff;
   border-bottom: 2px solid #333;
   padding-bottom: 10px;
   margin: 0 0 20px;
@@ -94,12 +94,12 @@
 }
 
 #hazmat-url-input:focus {
-  border-color: #00ff41;
+  border-color: #00e5ff;
 }
 
 #hazmat-scan-btn {
   padding: 15px 25px;
-  background: #00ff41;
+  background: #00e5ff;
   color: #000;
   border: none;
   border-radius: 4px;
@@ -113,7 +113,7 @@
 }
 
 #hazmat-scan-btn:hover {
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
   transform: translateY(-1px);
 }
 
@@ -141,7 +141,7 @@
 }
 
 .hazmat-badge.hazmat-safe {
-  background: #00ff41;
+  background: #00e5ff;
   color: #000;
 }
 
@@ -222,8 +222,8 @@
 
 .hazmat-ext-btn {
   padding: 10px 20px;
-  border: 1px solid #00ff41;
-  color: #00ff41;
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
   text-decoration: none;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -233,9 +233,9 @@
 }
 
 .hazmat-ext-btn:hover {
-  background: #00ff41;
+  background: #00e5ff;
   color: #000;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
 }
 
 /* Affiliate Alert */
@@ -394,7 +394,7 @@
     // Update UI - Protocol
     var protoEl = document.getElementById('hazmat-res-proto');
     protoEl.innerText = protocol.toUpperCase().replace(':', '');
-    protoEl.style.color = (protocol === 'https:') ? '#00ff41' : '#ff003c';
+    protoEl.style.color = (protocol === 'https:') ? '#00e5ff' : '#ff003c';
 
     // Update UI - Domain
     document.getElementById('hazmat-res-domain').innerText = domain;
@@ -409,7 +409,7 @@
       tricksEl.style.color = '#ff003c';
     } else {
       tricksEl.innerText = 'None Detected';
-      tricksEl.style.color = '#00ff41';
+      tricksEl.style.color = '#00e5ff';
     }
 
     // Update UI - Badge
@@ -432,7 +432,7 @@
 
     // Update border colors on f-cards based on risk
     var cards = document.querySelectorAll('.hazmat-f-card');
-    var borderColor = riskScore === 0 ? '#00ff41' : riskScore <= 2 ? '#ff9900' : '#ff003c';
+    var borderColor = riskScore === 0 ? '#00e5ff' : riskScore <= 2 ? '#ff9900' : '#ff003c';
     for (var j = 0; j < cards.length; j++) {
       cards[j].style.borderLeftColor = borderColor;
     }

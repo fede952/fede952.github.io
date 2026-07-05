@@ -147,6 +147,12 @@
     // Event: Trigger button
     trigger.addEventListener('click', openModal);
 
+    // Any element marked data-search-trigger (e.g. the homepage hero
+    // search bar) opens the same command palette.
+    document.querySelectorAll('[data-search-trigger]').forEach(function (el) {
+        el.addEventListener('click', openModal);
+    });
+
     // Event: Backdrop click
     backdrop.addEventListener('click', closeModal);
 

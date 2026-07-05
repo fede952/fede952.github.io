@@ -16,3 +16,22 @@ adblock_message:
   other: "Sembra che tu stia usando un ad blocker. La pubblicità mantiene gratuiti questi strumenti — considera di aggiungere questo sito alla whitelist. Grazie!"
 adblock_dismiss:
   other: "Chiudi"
+
+hero_title:
+  other: "Utility Web Gratuite e Privacy-First"
+hero_subtitle:
+  other: "Niente server. Niente tracciamento. Niente sprechi. Tutto gira al 100% nel tuo browser."
+hero_search_label:
+  other: "Cerca strumenti, guide, cheatsheet…"
+home_featured_tools:
+  other: "Strumenti in Evidenza"
+home_latest_guides:
+  other: "Ultime Guide"
+home_recent_news:
+  other: "Notizie Recenti"
+card_use_tool:
+  other: "Usa Strumento"
+card_play_now:
+  other: "Gioca Ora"
+card_read_more:
+  other: "Leggi di Più"

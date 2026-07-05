@@ -16,3 +16,22 @@ adblock_message:
   other: "광고 차단기를 사용 중이신 것 같습니다. 광고 덕분에 이 도구들을 무료로 제공할 수 있습니다. 이 사이트를 허용 목록에 추가해 주시면 감사하겠습니다."
 adblock_dismiss:
   other: "닫기"
+
+hero_title:
+  other: "무료 프라이버시 우선 웹 도구"
+hero_subtitle:
+  other: "서버 없음. 추적 없음. 군더더기 없음. 모든 것이 100% 브라우저에서 실행됩니다."
+hero_search_label:
+  other: "도구, 가이드, 치트시트 검색…"
+home_featured_tools:
+  other: "주요 도구"
+home_latest_guides:
+  other: "최신 가이드"
+home_recent_news:
+  other: "최근 뉴스"
+card_use_tool:
+  other: "도구 사용"
+card_play_now:
+  other: "지금 플레이"
+card_read_more:
+  other: "더 읽기"

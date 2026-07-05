@@ -16,3 +16,22 @@ adblock_message:
   other: "It looks like you're using an ad blocker. Ads keep these free tools running — please consider whitelisting this site. Thank you!"
 adblock_dismiss:
   other: "Dismiss"
+
+hero_title:
+  other: "Free, Privacy-First Web Utilities"
+hero_subtitle:
+  other: "No servers. No tracking. No bloat. Everything runs 100% in your browser."
+hero_search_label:
+  other: "Search tools, guides, cheatsheets…"
+home_featured_tools:
+  other: "Featured Tools"
+home_latest_guides:
+  other: "Latest Guides"
+home_recent_news:
+  other: "Recent News"
+card_use_tool:
+  other: "Use Tool"
+card_play_now:
+  other: "Play Now"
+card_read_more:
+  other: "Read More"

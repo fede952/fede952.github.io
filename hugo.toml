@@ -52,13 +52,30 @@ defaultContentLanguageInSubdir = true
 [params]
   mainSections = ["news", "tools", "learn"]
   defaultTheme = "dark"
+  # Dark-only platform (P4.2): every custom component (cards, accordions,
+  # games, search palette) is designed on dark surfaces; light mode was
+  # half-broken so the toggle is disabled rather than maintained.
+  disableThemeToggle = true
   env = "production"
   title = "Federico Sella"
-  description = "Portfolio of Federico Sella - Security Developer, SOC Analyst & Red Team Enthusiast. Expert in Industrial Automation (CNC) bridging OT and IT Security."
-  keywords = ["Federico Sella", "Cybersecurity Portfolio", "Red Team", "SOC Analyst", "Industrial Cybersecurity", "CNC Programmer", "Python Developer", "Bergamo"]
+  description = "Free, privacy-first web utilities that run 100% in your browser — password security, image compression, QR codes and developer tools, plus practical guides and cheatsheets."
+  keywords = ["free online tools", "web utilities", "privacy-first tools", "password generator", "image compressor", "qr code generator", "developer tools", "browser tools", "Federico Sella"]
   author = "Federico Sella"
   images = ["images/social-banner.png"]
   ShowShareButtons = true
+
+  # Homepage "Featured Tools" (P4.1): resolved per-language via site.GetPage,
+  # so cards pick up localized titles/descriptions automatically.
+  # NOTE: must stay ABOVE the [params.*] sub-tables — TOML assigns any
+  # key/value after a table header to that table.
+  featured_tool_pages = [
+    "/tools/pass-fort",
+    "/tools/pixel-shrink",
+    "/tools/qr-generator",
+    "/tools/freelance-calculator",
+    "/tools/exif-cleaner",
+    "/tools/netguard",
+  ]
 
   [params.assets]
     favicon = "/favicon.png"
@@ -67,7 +84,7 @@ defaultContentLanguageInSubdir = true
     apple_touch_icon = "/favicon.png"
 
   [params.profileMode]
-    enabled = true
+    enabled = false # P4.1: the homepage is a SaaS-style landing; the bio lives on /about/
     title = "Federico Sella"
     subtitle = "Software Developer (.NET / C#) | AI Integration Specialist | Cybersecurity Enthusiast (eJPT) | Full Stack Experimenter"
     imageUrl = "images/logo.webp"
@@ -89,24 +106,6 @@ defaultContentLanguageInSubdir = true
     icon = "images/logo.webp" # Questo mette il logo piccolo in alto a sinistra vicino al nome
     iconHeight = 35
 
-  [[params.featured_tools]]
-    name = "RateMate 💰"
-    description = "Freelance Income & Tax Calculator"
-    url = "tools/freelance-calculator/"
-    color = "linear-gradient(135deg, #10b981 0%, #059669 100%)"
-
-  [[params.featured_tools]]
-    name = "ReflexGrid 🎯"
-    description = "Pro Aim Trainer & Reaction Test"
-    url = "tools/reflex-grid/"
-    color = "linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)"
-
-  [[params.featured_tools]]
-    name = "PassFort 🛡️"
-    description = "Password Security Auditor"
-    url = "tools/pass-fort/"
-    color = "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)"
-
 # --- Configurazione Lingue (Fix Menu) ---
 
 [languages]
@@ -115,7 +114,7 @@ defaultContentLanguageInSubdir = true
     weight = 1
     contentDir = "content"
     [languages.en.params]
-      description = "Portfolio of Federico Sella - Software Developer (.NET/C#), AI Integration Specialist & Cybersecurity Enthusiast. Expert in Industrial Automation (CNC) bridging OT and IT Security."
+      description = "Free, privacy-first web utilities that run 100% in your browser — password security, image compression, QR codes and developer tools, plus practical guides and cheatsheets."
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "about"
@@ -148,7 +147,7 @@ defaultContentLanguageInSubdir = true
     weight = 2
     contentDir = "content"
     [languages.it.params]
-      description = "Portfolio di Federico Sella - Sviluppatore Software (.NET/C#), Specialista Integrazione AI e Appassionato di Cybersecurity. Esperto in Automazione Industriale (CNC) tra sicurezza OT e IT."
+      description = "Utility web gratuite e privacy-first che funzionano al 100% nel tuo browser — sicurezza password, compressione immagini, codici QR e strumenti per sviluppatori, con guide pratiche e cheatsheet."
     [languages.it.menu]
       [[languages.it.menu.main]]
         identifier = "about"
@@ -181,7 +180,7 @@ defaultContentLanguageInSubdir = true
     weight = 3
     contentDir = "content"
     [languages.es.params]
-      description = "Portfolio de Federico Sella - Desarrollador de Software (.NET/C#), Especialista en Integración de IA y Entusiasta de la Ciberseguridad. Experto en Automatización Industrial (CNC) entre seguridad OT e IT."
+      description = "Utilidades web gratuitas y centradas en la privacidad que funcionan 100% en tu navegador — seguridad de contraseñas, compresión de imágenes, códigos QR y herramientas para desarrolladores, además de guías prácticas."
     [languages.es.menu]
       [[languages.es.menu.main]]
         identifier = "about"
@@ -214,7 +213,7 @@ defaultContentLanguageInSubdir = true
     weight = 4
     contentDir = "content"
     [languages.zh-cn.params]
-      description = "Federico Sella 的作品集 - 软件开发者（.NET/C#）、AI集成专家和网络安全爱好者。工业自动化（CNC）专家，连接OT与IT安全。"
+      description = "免费、注重隐私的网页工具，100% 在浏览器中运行——密码安全、图片压缩、二维码和开发者工具，还有实用指南和速查表。"
     [languages.zh-cn.menu]
       [[languages.zh-cn.menu.main]]
         identifier = "about"
@@ -247,7 +246,7 @@ defaultContentLanguageInSubdir = true
     weight = 5
     contentDir = "content"
     [languages.hi.params]
-      description = "Federico Sella का पोर्टफोलियो - सॉफ्टवेयर डेवलपर (.NET/C#), AI इंटीग्रेशन विशेषज्ञ और साइबर सुरक्षा उत्साही। औद्योगिक स्वचालन (CNC) विशेषज्ञ, OT और IT सुरक्षा को जोड़ते हुए।"
+      description = "मुफ़्त, गोपनीयता-प्रथम वेब टूल जो 100% आपके ब्राउज़र में चलते हैं — पासवर्ड सुरक्षा, इमेज संपीड़न, QR कोड और डेवलपर टूल, साथ ही व्यावहारिक गाइड और चीटशीट।"
     [languages.hi.menu]
       [[languages.hi.menu.main]]
         identifier = "about"
@@ -281,7 +280,7 @@ defaultContentLanguageInSubdir = true
     languagedirection = "rtl"
     contentDir = "content"
     [languages.ar.params]
-      description = "محفظة Federico Sella - مطور برمجيات (.NET/C#)، متخصص في تكامل الذكاء الاصطناعي ومتحمس للأمن السيبراني. خبير في الأتمتة الصناعية (CNC) يربط بين أمن OT وIT."
+      description = "أدوات ويب مجانية تُعطي الأولوية للخصوصية وتعمل بالكامل في متصفحك — أمان كلمات المرور، ضغط الصور، رموز QR وأدوات المطورين، بالإضافة إلى أدلة عملية وأوراق مرجعية."
     [languages.ar.menu]
       [[languages.ar.menu.main]]
         identifier = "about"
@@ -314,7 +313,7 @@ defaultContentLanguageInSubdir = true
     weight = 7
     contentDir = "content"
     [languages.pt.params]
-      description = "Portfólio de Federico Sella - Desenvolvedor de Software (.NET/C#), Especialista em Integração de IA e Entusiasta de Cibersegurança. Especialista em Automação Industrial (CNC) entre segurança OT e IT."
+      description = "Utilitários web gratuitos e focados em privacidade que funcionam 100% no seu navegador — segurança de senhas, compressão de imagens, códigos QR e ferramentas para desenvolvedores, além de guias práticos."
     [languages.pt.menu]
       [[languages.pt.menu.main]]
         identifier = "about"
@@ -347,7 +346,7 @@ defaultContentLanguageInSubdir = true
     weight = 8
     contentDir = "content"
     [languages.fr.params]
-      description = "Portfolio de Federico Sella - Développeur Logiciel (.NET/C#), Spécialiste en Intégration IA et Passionné de Cybersécurité. Expert en Automatisation Industrielle (CNC) entre sécurité OT et IT."
+      description = "Des utilitaires web gratuits et respectueux de la vie privée, fonctionnant à 100 % dans votre navigateur — sécurité des mots de passe, compression d'images, codes QR et outils développeurs, avec guides pratiques."
     [languages.fr.menu]
       [[languages.fr.menu.main]]
         identifier = "about"
@@ -380,7 +379,7 @@ defaultContentLanguageInSubdir = true
     weight = 9
     contentDir = "content"
     [languages.de.params]
-      description = "Portfolio von Federico Sella - Softwareentwickler (.NET/C#), KI-Integrationsspezialist und Cybersecurity-Enthusiast. Experte für industrielle Automatisierung (CNC) zwischen OT- und IT-Sicherheit."
+      description = "Kostenlose, datenschutzfreundliche Web-Tools, die zu 100 % im Browser laufen — Passwortsicherheit, Bildkomprimierung, QR-Codes und Entwickler-Tools, dazu praktische Guides und Cheatsheets."
     [languages.de.menu]
       [[languages.de.menu.main]]
         identifier = "about"
@@ -413,7 +412,7 @@ defaultContentLanguageInSubdir = true
     weight = 10
     contentDir = "content"
     [languages.ja.params]
-      description = "Federico Sellaのポートフォリオ - ソフトウェア開発者（.NET/C#）、AI統合スペシャリスト、サイバーセキュリティ愛好者。産業オートメーション（CNC）の専門家���OTとITセキュリティの架け橋。"
+      description = "無料でプライバシー第一のウェブユーティリティ。100%ブラウザ内で動作 — パスワードセキュリティ、画像圧縮、QRコード、開発者ツール、さらに実践的なガイドとチートシート。"
     [languages.ja.menu]
       [[languages.ja.menu.main]]
         identifier = "about"
@@ -446,7 +445,7 @@ defaultContentLanguageInSubdir = true
     weight = 11
     contentDir = "content"
     [languages.ru.params]
-      description = "Портфолио Federico Sella - Разработчик ПО (.NET/C#), специалист по интеграции ИИ и энтузиаст кибербезопасности. Эксперт в промышленной автоматизации (ЧПУ), связывающий безопасность OT и IT."
+      description = "Бесплатные веб-инструменты с приоритетом приватности, работающие на 100% в вашем браузере — безопасность паролей, сжатие изображений, QR-коды и инструменты разработчика, а также практические руководства."
     [languages.ru.menu]
       [[languages.ru.menu.main]]
         identifier = "about"
@@ -479,7 +478,7 @@ defaultContentLanguageInSubdir = true
     weight = 12
     contentDir = "content"
     [languages.ko.params]
-      description = "Federico Sella 포트폴리오 - 소프트웨어 개발자(.NET/C#), AI 통합 전문가 및 사이버보안 열정가. 산업 자동화(CNC) 전문가, OT와 IT 보안을 연결합니다."
+      description = "무료, 프라이버시 우선 웹 유틸리티 — 100% 브라우저에서 실행됩니다. 비밀번호 보안, 이미지 압축, QR 코드, 개발자 도구, 그리고 실용적인 가이드와 치트시트."
     [languages.ko.menu]
       [[languages.ko.menu.main]]
         identifier = "about"

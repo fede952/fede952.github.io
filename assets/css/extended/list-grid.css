@@ -34,7 +34,7 @@
   border-color: #00e5ff;
   z-index: 10; /* Bring hovered card to front */
 }
-.card-cyber h2 { font-family: 'Courier New', monospace; color: #fff; margin: 20px 20px 10px; }
+.card-cyber h2 { color: #fff; margin: 20px 20px 10px; }
 .card-cyber p { color: #aaa; padding: 0 20px; font-size: 0.9rem; flex-grow: 1; }
 
 /* Button with z-index 2 to sit ABOVE the full-card link */
@@ -75,21 +75,5 @@
     z-index: 1; /* Sits below the buttons but above background */
 }
 
-/* === HUB GROUP "VIEW ALL" OVERFLOW LINK === */
-.hub-view-all {
-  display: inline-block;
-  margin-top: 1.25rem;
-  padding: 8px 18px;
-  border: 1px solid var(--primary);
-  border-radius: 6px;
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-}
-.hub-view-all:hover {
-  background: var(--primary);
-  color: var(--theme);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+/* .hub-view-all moved to cyber-cards.css (accent-colored, shared with the
+   hub pages and homepage) — was defined twice with conflicting colors. */

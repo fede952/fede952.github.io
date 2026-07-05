@@ -16,3 +16,22 @@ adblock_message:
   other: "Parece que você está usando um bloqueador de anúncios. Os anúncios mantêm estas ferramentas gratuitas — considere adicionar este site à sua lista de permissões. Obrigado!"
 adblock_dismiss:
   other: "Fechar"
+
+hero_title:
+  other: "Utilitários Web Gratuitos e Focados em Privacidade"
+hero_subtitle:
+  other: "Sem servidores. Sem rastreamento. Sem excessos. Tudo roda 100% no seu navegador."
+hero_search_label:
+  other: "Buscar ferramentas, guias, cheatsheets…"
+home_featured_tools:
+  other: "Ferramentas em Destaque"
+home_latest_guides:
+  other: "Guias Recentes"
+home_recent_news:
+  other: "Notícias Recentes"
+card_use_tool:
+  other: "Usar Ferramenta"
+card_play_now:
+  other: "Jogar Agora"
+card_read_more:
+  other: "Ler Mais"

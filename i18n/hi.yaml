@@ -16,3 +16,22 @@ adblock_message:
   other: "लगता है आप एड ब्लॉकर का उपयोग कर रहे हैं। विज्ञापनों की बदौलत ये टूल मुफ़्त हैं — कृपया इस साइट को व्हाइटलिस्ट करने पर विचार करें। धन्यवाद!"
 adblock_dismiss:
   other: "बंद करें"
+
+hero_title:
+  other: "मुफ़्त, गोपनीयता-प्रथम वेब टूल"
+hero_subtitle:
+  other: "न सर्वर। न ट्रैकिंग। न फालतू चीज़ें। सब कुछ 100% आपके ब्राउज़र में चलता है।"
+hero_search_label:
+  other: "टूल, गाइड, चीटशीट खोजें…"
+home_featured_tools:
+  other: "चुनिंदा टूल"
+home_latest_guides:
+  other: "नवीनतम गाइड"
+home_recent_news:
+  other: "ताज़ा खबरें"
+card_use_tool:
+  other: "टूल इस्तेमाल करें"
+card_play_now:
+  other: "अभी खेलें"
+card_read_more:
+  other: "और पढ़ें"

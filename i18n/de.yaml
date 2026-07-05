@@ -16,3 +16,22 @@ adblock_message:
   other: "Anscheinend verwendest du einen Adblocker. Werbung hält diese Tools kostenlos — bitte erwäge, diese Seite auf deine Whitelist zu setzen. Danke!"
 adblock_dismiss:
   other: "Schließen"
+
+hero_title:
+  other: "Kostenlose, datenschutzfreundliche Web-Tools"
+hero_subtitle:
+  other: "Keine Server. Kein Tracking. Kein Ballast. Alles läuft zu 100 % in deinem Browser."
+hero_search_label:
+  other: "Tools, Guides, Cheatsheets durchsuchen…"
+home_featured_tools:
+  other: "Empfohlene Tools"
+home_latest_guides:
+  other: "Neueste Guides"
+home_recent_news:
+  other: "Aktuelle News"
+card_use_tool:
+  other: "Tool Öffnen"
+card_play_now:
+  other: "Jetzt Spielen"
+card_read_more:
+  other: "Weiterlesen"

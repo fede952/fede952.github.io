@@ -1,16 +1,16 @@
 <div id="game-container" style="border: 1px solid #333; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 8px; text-align: center; margin: 20px 0;">
-    <h2 style="color: #00ff41; text-shadow: 0 0 5px #00ff41;">SYSTEM LOCKED</h2>
+    <h2 style="color: #00e5ff; text-shadow: 0 0 5px #00e5ff;">SYSTEM LOCKED</h2>
     <p style="color: #ccc;">Type the code below to bypass the firewall.</p>
 
-    <div id="timer" style="font-size: 2rem; color: #00ff41; margin: 10px 0;">30</div>
+    <div id="timer" style="font-size: 2rem; color: #00e5ff; margin: 10px 0;">30</div>
 
     <div id="code-display" style="background: #111; padding: 15px; border: 1px solid #444; color: #ccc; font-family: 'Courier New', monospace; text-align: left; margin-bottom: 15px; user-select: none; min-height: 20px;">
         Press Start to initialize...
     </div>
 
-    <textarea id="code-input" placeholder="Type here..." disabled style="width: 100%; height: 100px; background: #0d0d0d; color: #00ff41; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; resize: vertical;"></textarea>
+    <textarea id="code-input" placeholder="Type here..." disabled style="width: 100%; height: 100px; background: #0d0d0d; color: #00e5ff; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; resize: vertical;"></textarea>
 
-    <button id="start-btn" style="margin-top: 15px; padding: 10px 30px; background: #00ff41; color: #000; border: none; font-weight: bold; cursor: pointer; transition: all 0.2s;">INITIALIZE HACK</button>
+    <button id="start-btn" style="margin-top: 15px; padding: 10px 30px; background: #00e5ff; color: #000; border: none; font-weight: bold; cursor: pointer; transition: all 0.2s;">INITIALIZE HACK</button>
     <div id="result" style="margin-top: 10px; font-weight: bold; min-height: 20px;"></div>
     <div id="share-modal" class="share-overlay">
         <div class="share-box">
@@ -85,7 +85,7 @@
             startBtn.textContent = "RETRY HACK";
 
             if (win) {
-                resultEl.innerHTML = "<span style='color:#00ff41'>ACCESS GRANTED. SYSTEM BREACHED.</span> <button onclick=\"openShare('" + (30 - timeLeft) + "s', 'Code Breaker')\" style='margin-left:10px;background:transparent;border:1px solid #00e5ff;color:#00e5ff;padding:4px 12px;cursor:pointer;font-family:monospace;font-size:0.85rem;border-radius:3px;'>SHARE</button>";
+                resultEl.innerHTML = "<span style='color:#00e5ff'>ACCESS GRANTED. SYSTEM BREACHED.</span> <button onclick=\"openShare('" + (30 - timeLeft) + "s', 'Code Breaker')\" style='margin-left:10px;background:transparent;border:1px solid #00e5ff;color:#00e5ff;padding:4px 12px;cursor:pointer;font-family:monospace;font-size:0.85rem;border-radius:3px;'>SHARE</button>";
             } else {
                 resultEl.innerHTML = "<span style='color:red'>ACCESS DENIED. CONNECTION TERMINATED.</span>";
             }
