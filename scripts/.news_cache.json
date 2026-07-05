@@ -3429,7 +3429,12 @@
     "https://www.cybersecurity360.it/news/finti-messaggi-dellinterpol-usati-per-distribuire-ransomware-come-starne-alla-larga/",
     "https://thehackernews.com/2026/07/pamstealer-uses-fake-maccy-sites-and.html",
     "https://www.darkreading.com/cybersecurity-operations/apple-patch-policy-ai",
-    "https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/"
+    "https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/",
+    "https://thehackernews.com/2026/07/us-government-entity-paid-kairos-group.html",
+    "https://www.darkreading.com/threat-intelligence/fortibleed-actors-inc-lynx-ransomware-gangs",
+    "https://www.darkreading.com/cyberattacks-data-breaches/attackers-use-interpol-lure-target-small-businesses",
+    "https://thehackernews.com/2026/07/toddycat-linked-umbrij-malware-abuses.html",
+    "https://www.darkreading.com/vulnerabilities-threats/anthropic-s-ai-finds-bugs-ibm-bets-5b-it-can-fix-them-"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6861,10 +6866,14 @@
     "fcd4835b87d212a7f9412543ff7299b5",
     "7a37722989e5fd31cd30b09d6232deeb",
     "12b5adc524d633d378623d1dc4a15a45",
-    "041cb19cc1b6257e84b163a274761bd0"
+    "041cb19cc1b6257e84b163a274761bd0",
+    "45a0ead3dcca7abfe1905c4f2fef7036",
+    "bf02e97665319b53a08845f5f2ddceff",
+    "19a4f08e2128e67c76072283c1cb58b0",
+    "527f36e0f8dbd772b5791592b967796c",
+    "1294e96ada04755343abbc6b52fa6884"
   ],
   "daily_llm_calls": {
-    "2026-06-05": 60,
     "2026-06-06": 60,
     "2026-06-07": 60,
     "2026-06-08": 60,
@@ -6893,10 +6902,10 @@
     "2026-07-01": 60,
     "2026-07-02": 60,
     "2026-07-03": 60,
-    "2026-07-04": 60
+    "2026-07-04": 60,
+    "2026-07-05": 60
   },
   "daily_published": {
-    "2026-06-05": 5,
     "2026-06-06": 5,
     "2026-06-07": 5,
     "2026-06-08": 5,
@@ -6925,6 +6934,7 @@
     "2026-07-01": 5,
     "2026-07-02": 5,
     "2026-07-03": 5,
-    "2026-07-04": 5
+    "2026-07-04": 5,
+    "2026-07-05": 5
   }
 }
