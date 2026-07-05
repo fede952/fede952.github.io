@@ -12,4 +12,6 @@ La sintassi cron di Unix — cinque campi separati da spazi che controllano **mi
 
 EasyCron elimina le incertezze. Il **builder visuale** permette di selezionare i valori esatti tramite checkbox e scorciatoie rapide anziché scrivere espressioni grezze. Una **barra dei risultati fissa** mostra la stringa cron generata in tempo reale insieme alle prossime cinque date di esecuzione, così da verificare istantaneamente la programmazione. Devi decodificare il crontab di qualcun altro? Il **traduttore inverso** accetta qualsiasi espressione standard a cinque campi e la spiega in inglese semplice. L'intero strumento funziona lato client — nessun dato viene inviato ad alcun server.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/easy-cron/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

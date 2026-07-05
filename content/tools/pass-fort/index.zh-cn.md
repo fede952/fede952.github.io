@@ -12,4 +12,6 @@ draft: false
 
 PassFort在一个工具中解决了这两个问题。**生成器**标签页使用Web Crypto API创建加密随机密码——这与密码管理器和银行软件使用的熵源相同。选择字符类别，将长度调整至最多128个字符，或切换到**助记词模式**生成XKCD风格的易记单词组合。**审计器**标签页允许您粘贴任何现有密码，即时查看其熵值评分、估算的暴力破解时间（按每秒100亿次猜测计算）以及详细的强度标准清单。一切都在您的浏览器中本地运行——密码永远不会接触网络。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pass-fort/index.html" width="100%" height="850px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

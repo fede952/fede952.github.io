@@ -12,4 +12,6 @@ draft: false
 
 ReflexGrid는 프로 수준의 에임 훈련을 브라우저로 가져옵니다. **Start Training**을 클릭하면 HUD 그리드의 무작위 위치에 타겟이 나타나는 60초 세션이 시작됩니다. 적중할 때마다 **밀리초 단위의 반응 시간**이 기록되고, 빗맞으면 정확도 퍼센트가 감소합니다 — 실제 경기와 동일합니다. 라운드가 끝나면 적중한 타겟 수, 정확도, 평균 반응 시간, 그리고 *Potato*에서 *Pro*까지의 **스킬 랭크**를 포함한 완전한 퍼포먼스 분석을 받습니다. 전체 세션은 Web Audio API 사운드 이펙트가 포함된 HTML5 Canvas에서 실행되며, 데스크톱과 모바일 모두 지원하고 설치가 필요 없습니다.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

@@ -13,4 +13,6 @@ draft: false
 
 **PixelShrink**は、[browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression)ライブラリを使用して、PNG、JPG、WebP画像をブラウザ内で完全に圧縮します。ファイルがデバイスから外に出ることはありません。画像をドラッグ＆ドロップし、**品質スライダー**（0〜100）を調整し、出力フォーマット（WebPまたはJPEG）を選択して、**圧縮**をクリックしてください。元のサイズと圧縮後のサイズ、節約率がすぐに表示されます。ワンクリックでダウンロード完了です。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pixel-shrink/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

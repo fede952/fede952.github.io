@@ -12,4 +12,6 @@ Setting the right hourly rate is the single most important financial decision a 
 
 RateMate does that calculation instantly. Enter your target annual take-home pay, adjust the tax slider for your bracket, input your monthly overhead (software, coworking, insurance), and set your realistic billable days and hours. The tool computes your **required hourly rate**, daily rate, and monthly gross income in real time. A live doughnut chart shows exactly where every dollar goes — net income, taxes, and expenses — so you can see the true cost of underpricing. Works with USD, EUR, and GBP. No signup, no data stored.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

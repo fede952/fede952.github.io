@@ -35,3 +35,6 @@ card_play_now:
   other: "Gioca Ora"
 card_read_more:
   other: "Leggi di Più"
+
+ad_label:
+  other: "Pubblicità"

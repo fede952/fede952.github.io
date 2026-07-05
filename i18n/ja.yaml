@@ -35,3 +35,6 @@ card_play_now:
   other: "今すぐプレイ"
 card_read_more:
   other: "続きを読む"
+
+ad_label:
+  other: "広告"

@@ -12,4 +12,6 @@ A habilidade de mira é o maior diferencial em jogos FPS competitivos, mas a mai
 
 ReflexGrid traz treino de mira de nível profissional para o navegador. Clique em **Start Training** para iniciar uma sessão de 60 segundos onde alvos surgem em posições aleatórias numa grelha HUD. Cada acerto regista o seu **tempo de reação em milissegundos**, enquanto os erros reduzem a percentagem de precisão — tal como numa partida real. No final da ronda obtém uma análise completa do desempenho: alvos atingidos, taxa de precisão, tempo médio de reação e um **rank de habilidade** de *Potato* a *Pro*. Toda a sessão corre em Canvas HTML5 com efeitos sonoros Web Audio API, funciona em desktop e mobile e não requer instalação.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

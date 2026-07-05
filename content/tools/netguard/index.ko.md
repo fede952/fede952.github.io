@@ -13,4 +13,6 @@ featured: true
 
 NetGuard는 보이지 않는 것을 보이게 합니다. **Run Privacy Scan**을 클릭하면 브라우저가 현재 공개하고 있는 모든 정보에 대한 포괄적인 감사가 시작됩니다. 이 도구는 공인 IP와 지리적 위치를 가져오고, 하드웨어 지문(OS, 브라우저, WebGL 통한 GPU 렌더러)을 감지하며, **배터리 상태**와 연결 속도를 확인하고, **WebRTC 유출 테스트**를 실행하여 개인 IP 주소가 노출되어 있는지 확인합니다. 각 데이터 포인트는 해커 스타일 대시보드에 표시되며 최종적으로 0에서 100까지의 **프라이버시 점수**가 제공됩니다. 모든 것이 브라우저에서 실행되며 데이터가 서버에 저장되거나 전송되지 않습니다.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/netguard/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

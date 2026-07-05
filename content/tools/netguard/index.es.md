@@ -13,4 +13,6 @@ Cada vez que visitas un sitio web, tu navegador transmite una cantidad sorprende
 
 NetGuard hace visible lo invisible. Haz clic en **Run Privacy Scan** para lanzar una auditoría completa de todo lo que tu navegador está revelando ahora mismo. La herramienta obtiene tu IP pública y geolocalización, detecta tu huella de hardware (SO, navegador, renderer GPU vía WebGL), comprueba el **estado de la batería** y la velocidad de conexión, y ejecuta un **test de fuga WebRTC** para ver si tus direcciones IP privadas están expuestas. Cada dato se muestra en un panel estilo hacker con una **Puntuación de Privacidad** final de 0 a 100. Todo se ejecuta en tu navegador — ningún dato se almacena ni se envía a nuestros servidores.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/netguard/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

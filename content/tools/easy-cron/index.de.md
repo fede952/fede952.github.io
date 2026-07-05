@@ -12,4 +12,6 @@ Die Unix-Cron-Syntax — fünf durch Leerzeichen getrennte Felder, die **Minute,
 
 EasyCron beseitigt das Rätselraten. Der **visuelle Builder** ermöglicht die Auswahl exakter Werte über Kontrollkästchen und Schnellauswahl-Helfer, anstatt rohe Ausdrücke zu schreiben. Eine **fixierte Ergebnisleiste** zeigt den generierten Cron-String in Echtzeit zusammen mit den nächsten fünf geplanten Ausführungsterminen, sodass Sie den Zeitplan sofort überprüfen können. Müssen Sie den Crontab einer anderen Person entschlüsseln? Der **Rückwärts-Übersetzer** akzeptiert jeden Standard-Fünf-Felder-Ausdruck und erklärt ihn in einfachem Englisch. Das gesamte Tool läuft clientseitig — es werden keine Daten an einen Server gesendet.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/easy-cron/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

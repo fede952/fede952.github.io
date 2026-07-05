@@ -12,4 +12,6 @@ Schwache Passwörter bleiben der Angriffsvektor Nummer eins in der Cybersicherhe
 
 PassFort löst beide Probleme in einem einzigen Tool. Der **Generator**-Tab erstellt kryptografisch zufällige Passwörter mit der Web Crypto API — derselben Entropiequelle, die von Passwort-Managern und Banking-Software verwendet wird. Wählen Sie Zeichenklassen, passen Sie die Länge bis zu 128 Zeichen an, oder wechseln Sie in den **Passphrasen-Modus** für einprägsame XKCD-Wortkombinationen. Der **Auditor**-Tab ermöglicht es Ihnen, jedes vorhandene Passwort einzufügen, um sofort den Entropie-Wert, die geschätzte Brute-Force-Knackzeit (bei 10 Milliarden Versuchen pro Sekunde) und eine detaillierte Checkliste der Stärkekriterien zu sehen. Alles läuft lokal in Ihrem Browser — das Passwort berührt niemals das Netzwerk.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pass-fort/index.html" width="100%" height="850px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

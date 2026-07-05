@@ -35,3 +35,6 @@ card_play_now:
   other: "Jouer"
 card_read_more:
   other: "Lire la Suite"
+
+ad_label:
+  other: "Publicité"

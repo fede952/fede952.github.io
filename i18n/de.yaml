@@ -35,3 +35,6 @@ card_play_now:
   other: "Jetzt Spielen"
 card_read_more:
   other: "Weiterlesen"
+
+ad_label:
+  other: "Anzeige"

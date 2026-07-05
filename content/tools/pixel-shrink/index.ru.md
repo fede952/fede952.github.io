@@ -13,4 +13,6 @@ draft: false
 
 **PixelShrink** сжимает изображения PNG, JPG и WebP целиком внутри вашего браузера с помощью библиотеки [browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression). Ни один файл не покидает ваше устройство. Перетащите изображение, настройте **ползунок качества** (0–100), выберите формат вывода (WebP или JPEG) и нажмите **Сжать**. Вы сразу увидите исходный размер в сравнении со сжатым и процент экономии. Один клик для скачивания результата — готово.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pixel-shrink/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

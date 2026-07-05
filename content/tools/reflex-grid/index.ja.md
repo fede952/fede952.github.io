@@ -12,4 +12,6 @@ draft: false
 
 ReflexGridはプロレベルのエイムトレーニングをブラウザに提供します。**Start Training**をクリックすると60秒間のセッションが始まり、HUDグリッド上のランダムな位置にターゲットが出現します。ヒットするたびに**ミリ秒単位の反応時間**が記録され、ミスは精度パーセントを下げます——実戦さながらです。ラウンド終了後、ヒット数、精度率、平均反応時間、そして*Potato*から*Pro*までの**スキルランク**を含む完全なパフォーマンス分析を確認できます。セッション全体がHTML5 CanvasとWeb Audio API音響効果で動作し、デスクトップとモバイルの両方に対応、インストール不要です。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

@@ -12,4 +12,6 @@ draft: false
 
 RateMate即时完成这个计算。输入你期望的年净收入，调整税率滑块到你的税档，输入月度开支（软件、联合办公、保险），设定你实际的可计费天数和小时数。工具实时计算你的**所需时薪**、日薪和月度总收入。实时环形图精确显示每一分钱的去向——净收入、税款和支出——让你看到低价竞争的真实代价。支持美元、欧元和英镑。无需注册，不存储数据。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

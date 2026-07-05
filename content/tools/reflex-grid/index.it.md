@@ -12,4 +12,6 @@ La precisione nella mira è il principale fattore distintivo nei giochi FPS comp
 
 ReflexGrid porta l'allenamento della mira a livello professionale direttamente nel browser. Clicca **Start Training** per iniziare una sessione di 60 secondi in cui i bersagli appaiono in posizioni casuali su una griglia HUD. Ogni colpo registra il tuo **tempo di reazione in millisecondi**, mentre i colpi mancati riducono la percentuale di precisione — proprio come in una partita reale. Al termine del round ricevi un'analisi completa delle prestazioni: bersagli colpiti, percentuale di precisione, tempo medio di reazione e un **grado di abilità** da *Potato* a *Pro*. L'intera sessione gira su Canvas HTML5 con effetti sonori Web Audio API, funziona su desktop e mobile e non richiede alcuna installazione.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

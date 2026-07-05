@@ -12,4 +12,6 @@ Establecer la tarifa por hora correcta es la decisión financiera más important
 
 RateMate hace ese cálculo instantáneamente. Introduce tu salario neto anual deseado, ajusta el control de impuestos para tu tramo, introduce tus gastos mensuales (software, coworking, seguros) y establece tus días y horas facturables realistas. La herramienta calcula tu **tarifa por hora necesaria**, tarifa diaria e ingreso bruto mensual en tiempo real. Un gráfico de donut muestra exactamente a dónde va cada dólar — ingreso neto, impuestos y gastos — para que veas el verdadero costo de infravalorarte. Funciona con USD, EUR y GBP. Sin registro, sin datos almacenados.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

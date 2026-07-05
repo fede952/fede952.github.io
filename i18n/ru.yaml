@@ -35,3 +35,6 @@ card_play_now:
   other: "Играть"
 card_read_more:
   other: "Читать далее"
+
+ad_label:
+  other: "Реклама"

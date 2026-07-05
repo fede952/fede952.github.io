@@ -12,4 +12,6 @@ Fixer le bon taux horaire est la décision financière la plus importante pour u
 
 RateMate fait ce calcul instantanément. Entrez votre salaire net annuel cible, ajustez le curseur d'imposition pour votre tranche, saisissez vos charges mensuelles (logiciels, coworking, assurance) et définissez vos jours et heures facturables réalistes. L'outil calcule votre **taux horaire nécessaire**, taux journalier et revenu brut mensuel en temps réel. Un graphique en anneau montre exactement où va chaque euro — revenu net, impôts et charges — pour que vous puissiez voir le vrai coût de la sous-facturation. Compatible USD, EUR et GBP. Aucune inscription, aucune donnée stockée.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

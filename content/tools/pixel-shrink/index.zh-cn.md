@@ -13,4 +13,6 @@ draft: false
 
 **PixelShrink** 使用 [browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression) 库，完全在您的浏览器内压缩 PNG、JPG 和 WebP 图片。没有任何文件会离开您的设备。拖放图片，调整**质量滑块**（0–100），选择输出格式（WebP 或 JPEG），然后点击**压缩**。您将立即看到原始大小与压缩后大小的对比以及节省的百分比。一键下载结果——完成。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pixel-shrink/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

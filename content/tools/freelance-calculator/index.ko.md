@@ -12,4 +12,6 @@ draft: false
 
 RateMate는 이 계산을 즉시 수행합니다. 원하는 연간 순수입을 입력하고, 세율 슬라이더를 조정하고, 월 비용(소프트웨어, 코워킹, 보험)을 입력하고, 현실적인 청구 가능 일수와 시간을 설정하세요. 도구는 **필요 시급**, 일급, 월 총수입을 실시간으로 계산합니다. 실시간 도넛 차트가 돈의 행방을 정확히 보여줍니다 — 순수입, 세금, 비용 — 저가 책정의 진짜 비용을 한눈에 파악할 수 있습니다. USD, EUR, GBP 지원. 가입 불필요, 데이터 저장 없음.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

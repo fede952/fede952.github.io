@@ -12,4 +12,6 @@ Aiming skill is the single biggest differentiator in competitive FPS games, yet 
 
 ReflexGrid brings pro-level aim training to the browser. Click **Start Training** to begin a 60-second session where targets spawn at random positions across a heads-up-display grid. Each hit records your **reaction time in milliseconds**, while misses reduce your accuracy percentage — just like a real match. When the round ends you get a full performance breakdown: total targets hit, accuracy rate, average reaction time, and a **skill rank** from *Potato* to *Pro*. The entire session runs on HTML5 Canvas with Web Audio API sound effects, works on desktop and mobile, and requires zero installation.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

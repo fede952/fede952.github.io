@@ -14,4 +14,6 @@ PassFort solves both problems in a single tool. The **Generator** tab creates cr
 
 **Related Resource:** Managing users and passwords on Linux servers? See our [Linux SysAdmin: Permissions & User Management Cheatsheet](/en/learn/cheatsheets/linux-sysadmin-permissions/).
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pass-fort/index.html" width="100%" height="850px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

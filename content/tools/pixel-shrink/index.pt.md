@@ -13,4 +13,6 @@ Imagens pesadas deixam sites lentos, consomem armazenamento e desperdiçam largu
 
 **PixelShrink** comprime imagens PNG, JPG e WebP inteiramente dentro do seu navegador usando a biblioteca [browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression). Nenhum arquivo sai do seu dispositivo. Arraste uma imagem, ajuste o **controle de qualidade** (0–100), escolha um formato de saída opcional (WebP ou JPEG) e clique em **Comprimir**. Você verá instantaneamente o tamanho original versus o comprimido e a porcentagem economizada. Um clique para baixar o resultado — pronto.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pixel-shrink/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

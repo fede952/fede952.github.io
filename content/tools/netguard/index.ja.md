@@ -13,4 +13,6 @@ featured: true
 
 NetGuardは見えないものを可視化します。**Run Privacy Scan**をクリックすると、ブラウザが現在公開しているすべての情報の包括的な監査が開始されます。ツールはパブリックIPとジオロケーションを取得し、ハードウェアフィンガープリント（OS、ブラウザ、WebGL経由のGPUレンダラー）を検出し、**バッテリー状態**と接続速度を確認し、**WebRTC漏洩テスト**を実行してプライベートIPアドレスが露出していないか確認します。各データポイントはハッカースタイルのダッシュボードに表示され、最終的に0から100の**プライバシースコア**が提示されます。すべてブラウザ内で実行され、データがサーバーに保存・送信されることはありません。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/netguard/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

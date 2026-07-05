@@ -35,3 +35,6 @@ card_play_now:
   other: "立即游玩"
 card_read_more:
   other: "阅读更多"
+
+ad_label:
+  other: "广告"

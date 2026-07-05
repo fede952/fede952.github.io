@@ -12,4 +12,6 @@ draft: false
 
 RateMateはこの計算を瞬時に行います。希望する年間手取り額を入力し、税率スライダーを調整し、月々の経費（ソフトウェア、コワーキング、保険）を入力し、現実的な稼働日数と時間を設定します。ツールは**必要な時給**、日給、月間総収入をリアルタイムで計算します。ライブのドーナツチャートがお金の行き先を正確に表示——手取り、税金、経費——安売りの本当のコストが一目瞭然です。USD、EUR、GBPに対応。登録不要、データ保存なし。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

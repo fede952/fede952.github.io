@@ -12,4 +12,6 @@ Den richtigen Stundensatz festzulegen ist die wichtigste finanzielle Entscheidun
 
 RateMate macht diese Berechnung sofort. Geben Sie Ihr gewünschtes jährliches Nettogehalt ein, stellen Sie den Steuerschieber für Ihre Steuerklasse ein, geben Sie Ihre monatlichen Ausgaben ein (Software, Coworking, Versicherung) und legen Sie Ihre realistischen abrechenbaren Tage und Stunden fest. Das Tool berechnet Ihren **erforderlichen Stundensatz**, Tagessatz und monatliches Bruttoeinkommen in Echtzeit. Ein Live-Donut-Diagramm zeigt genau, wohin jeder Euro fließt — Nettoeinkommen, Steuern und Ausgaben — damit Sie die wahren Kosten der Unterbepreisung sehen. Funktioniert mit USD, EUR und GBP. Keine Registrierung, keine Daten gespeichert.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

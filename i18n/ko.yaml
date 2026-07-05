@@ -35,3 +35,6 @@ card_play_now:
   other: "지금 플레이"
 card_read_more:
   other: "더 읽기"
+
+ad_label:
+  other: "광고"

@@ -13,4 +13,6 @@ featured: true
 
 NetGuard让不可见的变为可见。点击**Run Privacy Scan**启动全面审计，查看您的浏览器当前正在泄露的所有信息。该工具获取您的公共IP和地理位置，检测您的硬件指纹（操作系统、浏览器、通过WebGL获取的GPU渲染器），检查**电池状态**和连接速度，并运行**WebRTC泄漏测试**以查看您的私有IP地址是否暴露。每个数据点都显示在黑客风格的仪表板上，最终给出0到100的**隐私评分**。一切都在您的浏览器中运行——没有数据被存储或发送到我们的服务器。
 
+{{< ad-banner >}}
+
 <iframe src="/tools/netguard/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

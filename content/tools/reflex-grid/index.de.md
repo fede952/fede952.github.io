@@ -12,4 +12,6 @@ Zielgenauigkeit ist der größte Unterscheidungsfaktor in kompetitiven FPS-Spiel
 
 ReflexGrid bringt professionelles Aim-Training in den Browser. Klicke auf **Start Training**, um eine 60-Sekunden-Session zu starten, in der Ziele an zufälligen Positionen auf einem HUD-Raster erscheinen. Jeder Treffer zeichnet deine **Reaktionszeit in Millisekunden** auf, während Fehlschüsse deinen Genauigkeitsprozentsatz verringern — genau wie in einem echten Match. Am Ende der Runde erhältst du eine vollständige Leistungsanalyse: getroffene Ziele, Genauigkeitsrate, durchschnittliche Reaktionszeit und einen **Skill-Rang** von *Potato* bis *Pro*. Die gesamte Session läuft auf HTML5 Canvas mit Web Audio API Soundeffekten, funktioniert auf Desktop und Mobilgeräten und erfordert keine Installation.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

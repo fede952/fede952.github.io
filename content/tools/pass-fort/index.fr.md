@@ -12,4 +12,6 @@ Les mots de passe faibles restent le vecteur d'attaque numéro un en cybersécur
 
 PassFort résout les deux problèmes en un seul outil. L'onglet **Générateur** crée des mots de passe cryptographiquement aléatoires en utilisant la Web Crypto API — la même source d'entropie utilisée par les gestionnaires de mots de passe et les logiciels bancaires. Choisissez les classes de caractères, ajustez la longueur jusqu'à 128 caractères, ou passez en **Mode Passphrase** pour des combinaisons de mots mémorables style XKCD. L'onglet **Auditeur** vous permet de coller n'importe quel mot de passe existant pour voir instantanément son score d'entropie, le temps estimé de cracking par force brute (à 10 milliards de tentatives par seconde) et une liste détaillée des critères de robustesse. Tout fonctionne localement dans votre navigateur — le mot de passe ne touche jamais le réseau.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/pass-fort/index.html" width="100%" height="850px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

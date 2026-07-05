@@ -12,4 +12,6 @@ Unix의 cron 구문 — **분, 시, 일, 월, 요일**을 제어하는 공백으
 
 EasyCron은 추측을 제거합니다. **비주얼 빌더**는 원시 표현식을 작성하는 대신 체크박스와 빠른 선택 도우미를 통해 정확한 값을 선택할 수 있게 합니다. **고정 결과 바**는 생성된 cron 문자열을 다음 5회 예정 실행 날짜와 함께 실시간으로 표시하여 즉시 스케줄을 확인할 수 있습니다. 다른 사람의 crontab을 해독해야 하나요? **역번역기**는 표준 5필드 표현식을 받아 쉬운 영어로 설명합니다. 전체 도구는 클라이언트 측에서 실행됩니다 — 어떤 데이터도 서버로 전송되지 않습니다.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/easy-cron/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

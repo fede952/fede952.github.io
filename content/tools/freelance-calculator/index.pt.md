@@ -12,4 +12,6 @@ Definir a taxa horária certa é a decisão financeira mais importante para um f
 
 RateMate faz esse cálculo instantaneamente. Introduza o seu salário líquido anual desejado, ajuste o cursor de impostos para o seu escalão, introduza as despesas mensais (software, coworking, seguros) e defina os seus dias e horas faturáveis realistas. A ferramenta calcula a sua **taxa horária necessária**, taxa diária e rendimento bruto mensal em tempo real. Um gráfico donut mostra exatamente para onde vai cada euro — rendimento líquido, impostos e despesas — para que veja o verdadeiro custo de se subvalorizar. Funciona com USD, EUR e GBP. Sem registo, sem dados armazenados.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

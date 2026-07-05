@@ -12,4 +12,6 @@ Stabilire la giusta tariffa oraria è la decisione finanziaria più importante p
 
 RateMate fa questo calcolo istantaneamente. Inserisci il tuo stipendio netto annuale desiderato, regola il cursore delle tasse per la tua aliquota, inserisci le spese mensili (software, coworking, assicurazione) e imposta i tuoi giorni e ore fatturabili realistici. Lo strumento calcola la tua **tariffa oraria necessaria**, tariffa giornaliera e reddito lordo mensile in tempo reale. Un grafico a ciambella mostra esattamente dove va ogni euro — reddito netto, tasse e spese — così puoi vedere il vero costo di sottovalutarti. Funziona con USD, EUR e GBP. Nessuna registrazione, nessun dato memorizzato.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/freelance-calculator/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

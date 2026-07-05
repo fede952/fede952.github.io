@@ -12,4 +12,6 @@ La syntaxe cron d'Unix — cinq champs séparés par des espaces contrôlant **m
 
 EasyCron élimine les approximations. Le **constructeur visuel** vous permet de sélectionner des valeurs exactes via des cases à cocher et des raccourcis rapides au lieu d'écrire des expressions brutes. Une **barre de résultats fixe** affiche la chaîne cron générée en temps réel avec les cinq prochaines dates d'exécution pour vérifier instantanément la planification. Besoin de décoder le crontab de quelqu'un d'autre ? Le **traducteur inverse** accepte toute expression standard à cinq champs et l'explique en anglais simple. L'outil fonctionne entièrement côté client — rien n'est envoyé à aucun serveur.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/easy-cron/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

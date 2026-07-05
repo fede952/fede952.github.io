@@ -12,4 +12,6 @@ La habilidad de puntería es el mayor diferenciador en los juegos FPS competitiv
 
 ReflexGrid lleva el entrenamiento de puntería de nivel profesional al navegador. Haz clic en **Start Training** para iniciar una sesión de 60 segundos en la que los objetivos aparecen en posiciones aleatorias sobre una cuadrícula HUD. Cada impacto registra tu **tiempo de reacción en milisegundos**, mientras que los fallos reducen tu porcentaje de precisión — igual que en una partida real. Al finalizar la ronda obtienes un desglose completo del rendimiento: objetivos alcanzados, porcentaje de precisión, tiempo medio de reacción y un **rango de habilidad** desde *Potato* hasta *Pro*. Toda la sesión funciona sobre Canvas HTML5 con efectos de sonido Web Audio API, es compatible con escritorio y móvil y no requiere instalación.
 
+{{< ad-banner >}}
+
 <iframe src="/tools/reflex-grid/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

@@ -15,4 +15,6 @@ NetGuard makes the invisible visible. Click **Run Privacy Scan** to launch a com
 
 **Related Resource:** Want to go deeper? Learn manual network scanning with our [Nmap Network Scanning Field Manual](/en/learn/cheatsheets/nmap-network-scanning/).
 
+{{< ad-banner >}}
+
 <iframe src="/tools/netguard/index.html" width="100%" height="1000px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>
