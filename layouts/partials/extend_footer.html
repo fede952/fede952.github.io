@@ -214,12 +214,12 @@
 </script>
 
 {{/* Mirror of the page-class flags from extend_head.html.
-     Skip the adblock detector wherever AdSense itself is disabled
-     (404, About, standalone tool/game singles) — running it there
-     would generate false signals and waste a network request. */}}
+     Skip the adblock notice wherever AdSense itself is disabled
+     (404, About) — running it there would generate false signals
+     and waste a network request. Tool/game singles now load AdSense
+     (P2.4), so the notice runs there too. */}}
 {{- $is404 := eq .Kind "404" -}}
 {{- $isAbout := or (eq .Layout "about") (eq .Section "about") -}}
-{{- $isStandaloneApp := and (eq .Kind "page") (in (slice "tools" "games") .Section) -}}
-{{ if not (or $is404 $isAbout $isStandaloneApp) }}
+{{ if not (or $is404 $isAbout) }}
 {{ partial "adblock-detector.html" . }}
 {{ end }}

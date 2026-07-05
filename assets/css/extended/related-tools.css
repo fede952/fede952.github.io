@@ -1,0 +1,63 @@
+/* ============================================
+   RELATED TOOLS — internal-linking grid shown
+   on tool/game single pages (P2.2)
+   ============================================ */
+
+.related-tools {
+  margin: 3rem 0 1rem;
+}
+
+.related-tools-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.related-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.related-tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.related-tool-card:hover {
+  border-color: #00e5ff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 229, 255, 0.12);
+}
+
+.related-tool-name {
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.related-tool-card:hover .related-tool-name {
+  color: #00e5ff;
+}
+
+.related-tool-desc {
+  font-size: 0.83rem;
+  color: var(--secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

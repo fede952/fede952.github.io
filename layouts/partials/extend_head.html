@@ -17,16 +17,15 @@
 ">
 
 {{/* Page-class flags used to gate third-party scripts.
-     - $is404:           the 404 error page (Hugo .Kind "404")
-     - $isAbout:         personal portfolio About page (any language)
-     - $isStandaloneApp: interactive tool/game/tool-split single pages
-                         (section list pages stay AdSense-on) */}}
+     - $is404:   the 404 error page (Hugo .Kind "404")
+     - $isAbout: personal portfolio About page (any language)
+     Tool/game singles intentionally load AdSense (P2.4): they are the
+     highest-traffic pages and carry manual ad units. */}}
 {{- $is404 := eq .Kind "404" -}}
 {{/* About is a leaf bundle at content/about/index.<lang>.md, so .Section is empty.
      Detect it via the layout frontmatter the bundle sets. */}}
 {{- $isAbout := or (eq .Layout "about") (eq .Section "about") -}}
-{{- $isStandaloneApp := and (eq .Kind "page") (in (slice "tools" "games") .Section) -}}
-{{- $skipAds := or $is404 $isAbout $isStandaloneApp -}}
+{{- $skipAds := or $is404 $isAbout -}}
 
 <!-- Google AdSense -->
 {{- if not $skipAds }}
@@ -48,9 +47,13 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <!-- Custom Schema.org JSON-LD from frontmatter -->
+{{/* safeJS, not safeHTML: inside a <script> element Go's contextual
+     escaper is in JS context, and safeHTML still lets it JSON-string-
+     encode the whole block — crawlers then see a string literal instead
+     of structured data. Frontmatter is trusted site content. */}}
 {{- if .Params.schema_json }}
 <script type="application/ld+json">
-{{ .Params.schema_json | safeHTML }}
+{{ .Params.schema_json | safeJS }}
 </script>
 {{- end }}
 

@@ -9,3 +9,10 @@ cookie_settings:
   other: "Cookie設定"
 footer_tagline:
   other: "すべてのツールはブラウザ内で100%ローカルに動作します — データが端末の外に出ることはありません。"
+
+related_tools:
+  other: "その他の無料ツール"
+adblock_message:
+  other: "広告ブロッカーをご利用のようです。広告のおかげでこれらのツールを無料で提供できています。本サイトをホワイトリストに追加していただけると幸いです。"
+adblock_dismiss:
+  other: "閉じる"

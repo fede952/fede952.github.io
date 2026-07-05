@@ -9,3 +9,10 @@ cookie_settings:
   other: "쿠키 설정"
 footer_tagline:
   other: "모든 도구는 브라우저에서 100% 로컬로 실행됩니다 — 데이터가 기기를 벗어나지 않습니다."
+
+related_tools:
+  other: "다른 무료 도구"
+adblock_message:
+  other: "광고 차단기를 사용 중이신 것 같습니다. 광고 덕분에 이 도구들을 무료로 제공할 수 있습니다. 이 사이트를 허용 목록에 추가해 주시면 감사하겠습니다."
+adblock_dismiss:
+  other: "닫기"

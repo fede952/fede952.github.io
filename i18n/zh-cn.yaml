@@ -9,3 +9,10 @@ cookie_settings:
   other: "Cookie 设置"
 footer_tagline:
   other: "所有工具都在您的浏览器中100%本地运行 — 您的数据永远不会离开您的设备。"
+
+related_tools:
+  other: "更多免费工具"
+adblock_message:
+  other: "您似乎正在使用广告拦截器。广告让这些工具得以免费提供——请考虑将本站加入白名单。谢谢！"
+adblock_dismiss:
+  other: "关闭"

@@ -1,0 +1,29 @@
+{{- /* Internal-linking module (P2.2): grid of up to 4 other tools in the
+     current language. Ranked by Hugo's related-content engine (tags index
+     from hugo.toml), topped up with the newest tools when fewer than 4
+     relations clear the threshold. Rendered by the four tool-page
+     templates (tools/single, _default/tool, _default/tool-split,
+     _default/game) just before the site footer. */ -}}
+{{- $pool := where (where site.RegularPages "Section" "tools") "Permalink" "ne" .Permalink -}}
+{{- $cards := slice -}}
+{{- with $pool.Related . -}}
+  {{- range first 4 . }}{{ $cards = $cards | append . }}{{ end -}}
+{{- end -}}
+{{- range $pool -}}
+  {{- if and (lt (len $cards) 4) (not (in $cards .)) }}{{ $cards = $cards | append . }}{{ end -}}
+{{- end -}}
+{{- if gt (len $cards) 0 }}
+<section class="related-tools" aria-labelledby="related-tools-heading">
+  <h2 id="related-tools-heading" class="related-tools-title">{{ i18n "related_tools" | default "More Free Tools" }}</h2>
+  <div class="related-tools-grid">
+    {{- range $cards }}
+    <a class="related-tool-card" href="{{ .RelPermalink }}">
+      <span class="related-tool-name">{{ .Title }}</span>
+      {{- with .Description }}
+      <span class="related-tool-desc">{{ . | plainify | truncate 100 }}</span>
+      {{- end }}
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end }}

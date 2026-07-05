@@ -9,3 +9,10 @@ cookie_settings:
   other: "Configuración de Cookies"
 footer_tagline:
   other: "Todas las herramientas funcionan 100% localmente en tu navegador — tus datos nunca salen de tu dispositivo."
+
+related_tools:
+  other: "Más herramientas gratuitas"
+adblock_message:
+  other: "Parece que estás usando un bloqueador de anuncios. Los anuncios mantienen gratuitas estas herramientas — considera añadir este sitio a tu lista blanca. ¡Gracias!"
+adblock_dismiss:
+  other: "Cerrar"

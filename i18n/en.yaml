@@ -9,3 +9,10 @@ cookie_settings:
   other: "Cookie Settings"
 footer_tagline:
   other: "All tools run 100% locally in your browser — your data never leaves your device."
+
+related_tools:
+  other: "More Free Tools"
+adblock_message:
+  other: "It looks like you're using an ad blocker. Ads keep these free tools running — please consider whitelisting this site. Thank you!"
+adblock_dismiss:
+  other: "Dismiss"

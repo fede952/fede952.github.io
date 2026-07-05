@@ -25,9 +25,9 @@
     <main class="main">
         {{- block "main" . }}{{ end }}
     </main>
-    {{/* Cache key extended with .Section so the conditional adblock-detector
-         in extend_footer.html can distinguish standalone tool/game singles
-         from regular posts (which share .Layout="" / .Kind="page"). */}}
+    {{/* Cache key extended with .Section so section-gated logic inside
+         extend_footer.html (e.g. the About-page adblock skip) caches
+         correctly across page classes sharing .Layout="" / .Kind="page". */}}
     {{ partialCached "footer.html" . .Layout .Kind .Section (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
 </body>
 

@@ -1,10 +1,6 @@
 {{- define "main" }}
-
-{{- if .Params.schema_json }}
-<script type="application/ld+json">
-{{ .Params.schema_json | safeJS }}
-</script>
-{{- end }}
+{{- /* .Params.schema_json is emitted by extend_head.html for every page —
+     emitting it here as well produced a duplicate JSON-LD block. */}}
 
 <article class="post-single tool-page">
   <header class="post-header">
@@ -49,5 +45,7 @@
     {{- end }}
   </footer>
 </article>
+
+{{ partial "related-tools.html" . }}
 
 {{- end }}{{/* end main */}}
