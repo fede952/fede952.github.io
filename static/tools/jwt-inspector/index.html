@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TokenLens — JWT Decoder, Debugger & Signature Verifier</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--bg4:#222;
+  --cyan:#00e5ff;--cyan-dim:#00b8cc;--cyan-glow:rgba(0,229,255,.15);
+  --red:#ff3b5c;--red-glow:rgba(255,59,92,.12);
+  --green:#22e39a;--orange:#ff9f43;--purple:#b388ff;
+  --text:#d6d6d6;--text2:#8a8a8a;--text3:#5a5a5a;
+  --border:#262626;--border2:#333;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'JetBrains Mono','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+html,body{background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased;line-height:1.5}
+.app{max-width:820px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+
+.header{text-align:center;padding:10px 0 14px;border-bottom:2px solid var(--cyan)}
+.header h1{font-size:clamp(19px,4.2vw,26px);color:var(--cyan);text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 18px var(--cyan-glow)}
+.header .sub{font-size:12px;color:var(--text2);margin-top:5px;letter-spacing:.5px}
+
+.privacy-badge{background:var(--bg2);border:1px solid var(--cyan);border-radius:8px;padding:9px 14px;text-align:center;font-size:12px;color:var(--cyan);letter-spacing:.3px}
+.privacy-badge strong{font-size:13px}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);font-weight:600}
+.card-body{padding:14px}
+
+textarea{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:13px;padding:12px;resize:vertical;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-glow)}
+#jwt-input{min-height:120px;word-break:break-all}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:9px 15px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s}
+.btn:hover{color:var(--text);border-color:var(--text3)}
+.btn-primary{background:var(--cyan);color:#04141a;border-color:var(--cyan)}
+.btn-primary:hover{background:#5eeaff;color:#04141a;box-shadow:0 0 16px var(--cyan-glow)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* Segmented token preview (colored parts) */
+.jwt-parts{font-size:13px;word-break:break-all;line-height:1.7}
+.jwt-parts .p-h{color:var(--red)}
+.jwt-parts .p-p{color:var(--purple)}
+.jwt-parts .p-s{color:var(--cyan)}
+.jwt-parts .dot{color:var(--text3)}
+
+/* Status strip */
+.status-strip{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:6px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2)}
+.chip b{color:var(--text);font-weight:700}
+.chip.ok{border-color:var(--green);color:var(--green)}
+.chip.bad{border-color:var(--red);color:var(--red)}
+.chip.warn{border-color:var(--orange);color:var(--orange)}
+.chip.info{border-color:var(--cyan);color:var(--cyan)}
+
+pre.json{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:13px;overflow-x:auto;font-size:13px;line-height:1.6;white-space:pre;min-height:44px}
+pre.json .key{color:var(--cyan)}
+pre.json .str{color:var(--green)}
+pre.json .num{color:var(--orange)}
+pre.json .bool{color:var(--purple)}
+pre.json .null{color:var(--text3)}
+
+/* Claims table */
+table.claims{width:100%;border-collapse:collapse;font-size:12.5px}
+table.claims th,table.claims td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+table.claims th{color:var(--text3);text-transform:uppercase;font-size:10.5px;letter-spacing:1px;font-weight:600}
+table.claims td.k{color:var(--cyan);white-space:nowrap;font-weight:600}
+table.claims td.name{color:var(--text2)}
+table.claims td.v{color:var(--text);word-break:break-word}
+table.claims td.v small{display:block;color:var(--text3);font-size:11px;margin-top:2px}
+
+/* Verify area */
+.verify-hint{font-size:12px;color:var(--text2);margin-bottom:10px}
+.verify-hint code{color:var(--cyan);background:var(--bg);padding:1px 5px;border-radius:3px}
+input[type=text]{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:13px;padding:11px}
+input[type=text]:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-glow)}
+#key-input{min-height:104px}
+.checkbox-row{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:12px;color:var(--text2)}
+.checkbox-row input{accent-color:var(--cyan);width:15px;height:15px}
+
+.verify-result{margin-top:12px;padding:12px 14px;border-radius:6px;font-size:13px;display:none;line-height:1.55}
+.verify-result.show{display:block}
+.verify-result.ok{background:rgba(34,227,154,.08);border:1px solid var(--green);color:var(--green)}
+.verify-result.bad{background:var(--red-glow);border:1px solid var(--red);color:var(--red)}
+.verify-result.err{background:rgba(255,159,67,.08);border:1px solid var(--orange);color:var(--orange)}
+.verify-result b{display:block;font-size:14px;margin-bottom:3px;text-transform:uppercase;letter-spacing:1px}
+
+.error-box{background:var(--red-glow);border:1px solid var(--red);color:var(--red);border-radius:6px;padding:11px 14px;font-size:13px;display:none}
+.error-box.show{display:block}
+
+.footer-note{text-align:center;font-size:11px;color:var(--text3);padding:6px 0 2px;line-height:1.6}
+.footer-note a{color:var(--cyan-dim);text-decoration:none}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1>TokenLens</h1>
+    <div class="sub">JWT Decoder · Claims Debugger · Signature Verifier</div>
+  </header>
+
+  <div class="privacy-badge">
+    &#128274; <strong>100% client-side.</strong> Your token, secret and keys are decoded and verified in your browser with the Web Crypto API — nothing is ever uploaded.
+  </div>
+
+  <!-- INPUT -->
+  <section class="card">
+    <div class="card-head">
+      <span>Encoded Token</span>
+      <span id="alg-tag" class="chip info hidden"></span>
+    </div>
+    <div class="card-body">
+      <textarea id="jwt-input" spellcheck="false" autocomplete="off" placeholder="Paste a JSON Web Token here — eyJhbGciOi..."></textarea>
+      <div class="jwt-parts" id="jwt-parts" style="margin-top:10px"></div>
+      <div class="toolbar">
+        <button class="btn btn-primary" id="btn-sample">Load sample</button>
+        <button class="btn" id="btn-paste">Paste</button>
+        <button class="btn" id="btn-clear">Clear</button>
+      </div>
+      <div class="error-box" id="error-box" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <!-- DECODED -->
+  <section class="card" id="decoded-card" style="display:none">
+    <div class="card-head"><span>Decoded</span></div>
+    <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+      <div class="status-strip" id="status-strip"></div>
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);margin-bottom:6px;font-weight:600">Header</div>
+        <pre class="json" id="header-json"></pre>
+      </div>
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:6px;font-weight:600">Payload</div>
+        <pre class="json" id="payload-json"></pre>
+      </div>
+      <div id="claims-wrap" style="display:none">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:6px;font-weight:600">Registered claims</div>
+        <table class="claims">
+          <thead><tr><th>Claim</th><th>Meaning</th><th>Value</th></tr></thead>
+          <tbody id="claims-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFY -->
+  <section class="card" id="verify-card" style="display:none">
+    <div class="card-head">
+      <span>Signature Verification</span>
+      <span id="verify-alg" class="chip"></span>
+    </div>
+    <div class="card-body">
+      <div class="verify-hint" id="verify-hint"></div>
+
+      <div id="hs-fields">
+        <input type="text" id="secret-input" spellcheck="false" autocomplete="off" placeholder="HMAC shared secret">
+        <label class="checkbox-row"><input type="checkbox" id="secret-b64"> Secret is Base64URL-encoded</label>
+      </div>
+
+      <div id="asym-fields" class="hidden">
+        <textarea id="key-input" spellcheck="false" autocomplete="off" placeholder="-----BEGIN PUBLIC KEY-----&#10;...&#10;-----END PUBLIC KEY-----&#10;&#10;— or a JWK: {&quot;kty&quot;:&quot;RSA&quot;,...}"></textarea>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn btn-primary" id="btn-verify">Verify signature</button>
+      </div>
+
+      <div class="verify-result" id="verify-result"></div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    No token leaves this page. Reload to wipe everything from memory.<br>
+    Supports HS256/384/512 · RS256/384/512 · ES256/384/512 · PS256/384/512.
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var enc = new TextEncoder();
+
+  // ---- base64url helpers ----
+  function b64urlToBytes(s){
+    s = String(s).replace(/-/g,'+').replace(/_/g,'/');
+    while(s.length % 4) s += '=';
+    var bin = atob(s);
+    var out = new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function b64urlToString(s){ return new TextDecoder('utf-8',{fatal:false}).decode(b64urlToBytes(s)); }
+
+  // ---- WebCrypto algorithm map ----
+  var ALG = {
+    HS256:{hmac:'SHA-256'}, HS384:{hmac:'SHA-384'}, HS512:{hmac:'SHA-512'},
+    RS256:{imp:{name:'RSASSA-PKCS1-v1_5',hash:'SHA-256'},ver:{name:'RSASSA-PKCS1-v1_5'}},
+    RS384:{imp:{name:'RSASSA-PKCS1-v1_5',hash:'SHA-384'},ver:{name:'RSASSA-PKCS1-v1_5'}},
+    RS512:{imp:{name:'RSASSA-PKCS1-v1_5',hash:'SHA-512'},ver:{name:'RSASSA-PKCS1-v1_5'}},
+    PS256:{imp:{name:'RSA-PSS',hash:'SHA-256'},ver:{name:'RSA-PSS',saltLength:32}},
+    PS384:{imp:{name:'RSA-PSS',hash:'SHA-384'},ver:{name:'RSA-PSS',saltLength:48}},
+    PS512:{imp:{name:'RSA-PSS',hash:'SHA-512'},ver:{name:'RSA-PSS',saltLength:64}},
+    ES256:{imp:{name:'ECDSA',namedCurve:'P-256'},ver:{name:'ECDSA',hash:'SHA-256'}},
+    ES384:{imp:{name:'ECDSA',namedCurve:'P-384'},ver:{name:'ECDSA',hash:'SHA-384'}},
+    ES512:{imp:{name:'ECDSA',namedCurve:'P-521'},ver:{name:'ECDSA',hash:'SHA-512'}}
+  };
+
+  // ---- JSON syntax highlight ----
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function highlight(obj){
+    var json = JSON.stringify(obj, null, 2);
+    json = esc(json);
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false)\b|\bnull\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(m){
+      var cls = 'num';
+      if(/^"/.test(m)) cls = /:$/.test(m) ? 'key' : 'str';
+      else if(/true|false/.test(m)) cls = 'bool';
+      else if(/null/.test(m)) cls = 'null';
+      return '<span class="'+cls+'">'+m+'</span>';
+    });
+  }
+
+  // ---- claim explanations ----
+  var CLAIM_NAMES = {
+    iss:'Issuer', sub:'Subject', aud:'Audience', exp:'Expiration Time',
+    nbf:'Not Before', iat:'Issued At', jti:'JWT ID', azp:'Authorized Party',
+    scope:'Scope', typ:'Type', name:'Name', email:'Email'
+  };
+  var TIME_CLAIMS = { exp:1, nbf:1, iat:1 };
+
+  function fmtTime(sec){
+    if(typeof sec !== 'number') return null;
+    var d = new Date(sec*1000);
+    if(isNaN(d.getTime())) return null;
+    return d;
+  }
+  function relative(d){
+    var diff = d.getTime() - Date.now();
+    var past = diff < 0; diff = Math.abs(diff);
+    var m = Math.round(diff/60000), h = Math.round(diff/3600000), day = Math.round(diff/86400000);
+    var s;
+    if(diff < 60000) s = 'just now';
+    else if(m < 60) s = m+' min';
+    else if(h < 48) s = h+' h';
+    else s = day+' days';
+    if(diff < 60000) return s;
+    return past ? (s+' ago') : ('in '+s);
+  }
+
+  var state = { header:null, payload:null, headerB64:'', payloadB64:'', sigB64:'', alg:'' };
+
+  function showError(msg){
+    var e = $('error-box');
+    if(!msg){ e.classList.remove('show'); e.textContent=''; return; }
+    e.textContent = msg; e.classList.add('show');
+    $('decoded-card').style.display='none';
+    $('verify-card').style.display='none';
+    $('alg-tag').classList.add('hidden');
+    $('jwt-parts').innerHTML='';
+  }
+
+  function decode(){
+    var raw = $('jwt-input').value.trim();
+    $('verify-result').classList.remove('show');
+    if(!raw){ showError(''); $('decoded-card').style.display='none'; $('verify-card').style.display='none'; $('alg-tag').classList.add('hidden'); $('jwt-parts').innerHTML=''; return; }
+
+    var parts = raw.split('.');
+    if(parts.length !== 3 || !parts[0] || !parts[1]){
+      showError('Not a valid JWT — expected three dot-separated segments (header.payload.signature).');
+      return;
+    }
+    var header, payload;
+    try { header = JSON.parse(b64urlToString(parts[0])); }
+    catch(e){ showError('Could not decode the header segment as Base64URL JSON.'); return; }
+    try { payload = JSON.parse(b64urlToString(parts[1])); }
+    catch(e){ showError('Could not decode the payload segment as Base64URL JSON.'); return; }
+
+    showError('');
+    state.header = header; state.payload = payload;
+    state.headerB64 = parts[0]; state.payloadB64 = parts[1]; state.sigB64 = parts[2];
+    state.alg = (header && header.alg) ? String(header.alg) : '';
+
+    // colored parts preview
+    $('jwt-parts').innerHTML =
+      '<span class="p-h">'+esc(parts[0])+'</span><span class="dot">.</span>'+
+      '<span class="p-p">'+esc(parts[1])+'</span><span class="dot">.</span>'+
+      '<span class="p-s">'+esc(parts[2])+'</span>';
+
+    var algTag = $('alg-tag');
+    algTag.textContent = 'alg: '+(state.alg||'none');
+    algTag.classList.remove('hidden');
+
+    $('header-json').innerHTML = highlight(header);
+    $('payload-json').innerHTML = highlight(payload);
+    $('decoded-card').style.display='';
+
+    renderStatus();
+    renderClaims();
+    setupVerify();
+  }
+
+  function renderStatus(){
+    var strip = $('status-strip'); strip.innerHTML='';
+    var chips = [];
+    chips.push('<span class="chip">alg <b>'+esc(state.alg||'none')+'</b></span>');
+    if(state.header.typ) chips.push('<span class="chip">typ <b>'+esc(String(state.header.typ))+'</b></span>');
+    if(state.header.kid) chips.push('<span class="chip">kid <b>'+esc(String(state.header.kid))+'</b></span>');
+
+    var p = state.payload, now = Date.now();
+    var exp = fmtTime(p.exp), nbf = fmtTime(p.nbf);
+    if(exp){
+      if(now > exp.getTime()) chips.push('<span class="chip bad">&#9888; Expired '+relative(exp)+'</span>');
+      else chips.push('<span class="chip ok">&#10003; Not expired</span>');
+    } else {
+      chips.push('<span class="chip warn">No expiry (exp)</span>');
+    }
+    if(nbf && now < nbf.getTime()) chips.push('<span class="chip warn">&#9888; Not yet valid ('+relative(nbf)+')</span>');
+    strip.innerHTML = chips.join('');
+  }
+
+  function renderClaims(){
+    var body = $('claims-body'); body.innerHTML='';
+    var p = state.payload, order = ['iss','sub','aud','exp','nbf','iat','jti'];
+    var keys = order.filter(function(k){ return p[k] !== undefined; });
+    if(!keys.length){ $('claims-wrap').style.display='none'; return; }
+    keys.forEach(function(k){
+      var v = p[k], vhtml;
+      if(TIME_CLAIMS[k]){
+        var d = fmtTime(v);
+        vhtml = d ? (esc(d.toLocaleString())+'<small>'+esc(String(v))+' · '+relative(d)+'</small>') : esc(String(v));
+      } else {
+        vhtml = esc(typeof v === 'object' ? JSON.stringify(v) : String(v));
+      }
+      body.innerHTML += '<tr><td class="k">'+k+'</td><td class="name">'+(CLAIM_NAMES[k]||'—')+'</td><td class="v">'+vhtml+'</td></tr>';
+    });
+    $('claims-wrap').style.display='';
+  }
+
+  function setupVerify(){
+    var alg = state.alg, def = ALG[alg];
+    $('verify-card').style.display='';
+    var vAlg = $('verify-alg'); vAlg.textContent = alg||'none'; vAlg.className='chip info';
+    $('verify-result').classList.remove('show');
+
+    if(!def){
+      $('verify-hint').innerHTML = alg
+        ? 'Algorithm <code>'+esc(alg)+'</code> is not supported for in-browser verification.'
+        : 'This token has no <code>alg</code> — nothing to verify.';
+      $('hs-fields').classList.add('hidden');
+      $('asym-fields').classList.add('hidden');
+      $('btn-verify').disabled = true;
+      return;
+    }
+    $('btn-verify').disabled = false;
+    if(def.hmac){
+      $('verify-hint').innerHTML = 'HMAC (<code>'+esc(alg)+'</code>) uses a shared secret. Paste the secret used to sign the token.';
+      $('hs-fields').classList.remove('hidden');
+      $('asym-fields').classList.add('hidden');
+    } else {
+      var kind = def.imp.name === 'ECDSA' ? 'EC' : 'RSA';
+      $('verify-hint').innerHTML = '<code>'+esc(alg)+'</code> is asymmetric — paste the signer&rsquo;s '+kind+' <b>public key</b> (PEM <code>SPKI</code>) or a <code>JWK</code>. The private key is never needed.';
+      $('hs-fields').classList.add('hidden');
+      $('asym-fields').classList.remove('hidden');
+    }
+  }
+
+  function pemToDer(pem){
+    var b64 = pem.replace(/-----BEGIN [^-]+-----/,'').replace(/-----END [^-]+-----/,'').replace(/\s+/g,'');
+    var bin = atob(b64), out = new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++) out[i]=bin.charCodeAt(i);
+    return out;
+  }
+
+  function result(kind, title, msg){
+    var r = $('verify-result');
+    r.className = 'verify-result show '+kind;
+    r.innerHTML = '<b>'+title+'</b>'+esc(msg);
+  }
+
+  async function verify(){
+    var alg = state.alg, def = ALG[alg];
+    if(!def) return;
+    var data = enc.encode(state.headerB64 + '.' + state.payloadB64);
+    var sig;
+    try { sig = b64urlToBytes(state.sigB64); }
+    catch(e){ result('err','Error','The signature segment is not valid Base64URL.'); return; }
+
+    try {
+      var key;
+      if(def.hmac){
+        var secret = $('secret-input').value;
+        if(!secret){ result('err','Missing secret','Enter the HMAC secret to verify this token.'); return; }
+        var secretBytes = $('secret-b64').checked ? b64urlToBytes(secret) : enc.encode(secret);
+        key = await crypto.subtle.importKey('raw', secretBytes, {name:'HMAC',hash:def.hmac}, false, ['verify']);
+        var ok = await crypto.subtle.verify('HMAC', key, sig, data);
+        return ok
+          ? result('ok','Signature verified','The HMAC signature matches this secret. The token is authentic and unmodified.')
+          : result('bad','Signature invalid','The signature does not match this secret — wrong secret, or the token was altered.');
+      }
+
+      var keyText = $('key-input').value.trim();
+      if(!keyText){ result('err','Missing key','Paste the public key (PEM) or a JWK to verify.'); return; }
+
+      if(keyText.charAt(0) === '{'){
+        var jwk = JSON.parse(keyText);
+        key = await crypto.subtle.importKey('jwk', jwk, def.imp, false, ['verify']);
+      } else {
+        key = await crypto.subtle.importKey('spki', pemToDer(keyText), def.imp, false, ['verify']);
+      }
+      var ok2 = await crypto.subtle.verify(def.ver, key, sig, data);
+      return ok2
+        ? result('ok','Signature verified','The signature is valid for this public key. The token was signed by the matching private key and is unmodified.')
+        : result('bad','Signature invalid','The signature does not match this public key — wrong key, or the token was altered.');
+
+    } catch(e){
+      result('err','Could not verify', (e && e.message ? e.message : String(e)) + ' — check the key format matches the '+alg+' algorithm.');
+    }
+  }
+
+  var SAMPLE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+
+  $('jwt-input').addEventListener('input', decode);
+  $('btn-sample').addEventListener('click', function(){
+    $('jwt-input').value = SAMPLE; decode();
+    $('secret-input').value = 'your-256-bit-secret';
+  });
+  $('btn-clear').addEventListener('click', function(){
+    $('jwt-input').value=''; $('secret-input').value=''; $('key-input').value='';
+    decode(); $('jwt-input').focus();
+  });
+  $('btn-paste').addEventListener('click', async function(){
+    try { $('jwt-input').value = (await navigator.clipboard.readText()).trim(); decode(); }
+    catch(e){ $('jwt-input').focus(); }
+  });
+  $('btn-verify').addEventListener('click', verify);
+
+  if(!(window.crypto && crypto.subtle)){
+    $('btn-verify') && ($('btn-verify').disabled = true);
+  }
+})();
+</script>
+</body>
+</html>
