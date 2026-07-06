@@ -1,0 +1,101 @@
+/* ============================================
+   PARTNER CARD — reusable affiliate/partner
+   block for tool pages (P5). Uses the P4.2
+   design tokens; deliberately quieter than the
+   content around it.
+   ============================================ */
+
+.partner-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 1.75rem 0;
+}
+
+.partner-card-label {
+  position: absolute;
+  top: 7px;
+  inset-inline-end: 12px;
+  font-size: 0.6rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--secondary);
+  opacity: 0.65;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.partner-card-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 10px;
+}
+
+.partner-card-icon img {
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 4px;
+}
+
+.partner-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.partner-card-title {
+  margin: 0 0 3px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--primary);
+  line-height: 1.35;
+}
+
+.partner-card-sub {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--secondary);
+  line-height: 1.5;
+}
+
+.partner-card-cta {
+  flex-shrink: 0;
+  padding: 9px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.partner-card-cta:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
+}
+
+@media (max-width: 560px) {
+  .partner-card {
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+
+  .partner-card-cta {
+    width: 100%;
+    text-align: center;
+  }
+}

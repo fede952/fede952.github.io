@@ -1,0 +1,41 @@
+{{- /* Partner Card (P5): reusable high-ticket affiliate/partner block.
+     Renders an unobtrusive card matching the cyan SaaS design tokens.
+     No real partner links exist yet — pass url when they do.
+
+     Usage (in any content .md file):
+       {{< partner-card
+            icon="🔐"
+            title="Managing auth in production?"
+            subtitle="Clerk gives you drop-in authentication with SOC 2 compliance."
+            cta="Try Clerk free"
+            url="https://partner-link.example/..."
+       >}}
+
+     Params:
+       icon     emoji shown in the badge square (default 🤝); OR
+       img      path to a logo image (overrides icon)
+       title    required — the hook line
+       subtitle one-sentence value proposition
+       cta      button label (default "Learn more")
+       url      partner link (default "#"); rendered with rel="sponsored
+                nofollow noopener" so paid links stay Google-compliant. */ -}}
+{{- $url := .Get "url" | default "#" -}}
+<aside class="partner-card">
+  <span class="partner-card-label">{{ i18n "partner_label" | default "Partner" }}</span>
+  <div class="partner-card-icon" aria-hidden="true">
+    {{- with .Get "img" -}}
+    <img src="{{ . }}" alt="" loading="lazy">
+    {{- else -}}
+    {{ .Get "icon" | default "🤝" }}
+    {{- end -}}
+  </div>
+  <div class="partner-card-body">
+    <p class="partner-card-title">{{ .Get "title" }}</p>
+    {{- with .Get "subtitle" }}
+    <p class="partner-card-sub">{{ . }}</p>
+    {{- end }}
+  </div>
+  <a class="partner-card-cta" href="{{ $url }}" target="_blank" rel="sponsored nofollow noopener">
+    {{- .Get "cta" | default "Learn more" -}}
+  </a>
+</aside>

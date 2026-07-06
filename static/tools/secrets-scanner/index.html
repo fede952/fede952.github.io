@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeEnv — Secrets & API Key Scanner for .env Files</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--bg4:#222;
+  --cyan:#00e5ff;--cyan-dim:#00b8cc;--cyan-glow:rgba(0,229,255,.15);
+  --red:#ff3b5c;--red-glow:rgba(255,59,92,.12);
+  --green:#22e39a;--orange:#ff9f43;--yellow:#ffd166;--purple:#b388ff;
+  --text:#d6d6d6;--text2:#8a8a8a;--text3:#5a5a5a;
+  --border:#262626;--border2:#333;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'JetBrains Mono','Courier New',monospace;
+}
+html,body{background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased;line-height:1.5}
+.app{max-width:860px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+
+.header{text-align:center;padding:10px 0 14px;border-bottom:2px solid var(--cyan)}
+.header h1{font-size:clamp(19px,4.2vw,26px);color:var(--cyan);text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 18px var(--cyan-glow)}
+.header .sub{font-size:12px;color:var(--text2);margin-top:5px;letter-spacing:.5px}
+
+.privacy-badge{background:var(--bg2);border:1px solid var(--cyan);border-radius:8px;padding:9px 14px;text-align:center;font-size:12px;color:var(--cyan)}
+.privacy-badge strong{font-size:13px}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);font-weight:600}
+.card-body{padding:14px}
+
+textarea{width:100%;min-height:220px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:13px;padding:12px;resize:vertical;line-height:1.6;white-space:pre;overflow-x:auto}
+textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-glow)}
+textarea.dragover{border-color:var(--cyan);background:var(--cyan-glow)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:9px 15px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s}
+.btn:hover{color:var(--text);border-color:var(--text3)}
+.btn-primary{background:var(--cyan);color:#04141a;border-color:var(--cyan)}
+.btn-primary:hover{background:#5eeaff;box-shadow:0 0 16px var(--cyan-glow)}
+
+.summary{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2)}
+.chip.crit{border-color:var(--red);color:var(--red)}
+.chip.high{border-color:var(--orange);color:var(--orange)}
+.chip.med{border-color:var(--yellow);color:var(--yellow)}
+.chip.low{border-color:var(--purple);color:var(--purple)}
+.chip.info{border-color:var(--text3);color:var(--text2)}
+.chip.clean{border-color:var(--green);color:var(--green)}
+
+.finding{border:1px solid var(--border);border-radius:8px;background:var(--bg);margin-bottom:10px;overflow:hidden}
+.finding-head{display:flex;align-items:center;gap:10px;padding:10px 13px;flex-wrap:wrap}
+.sev{font-size:10px;font-weight:800;letter-spacing:1px;padding:3px 9px;border-radius:4px;text-transform:uppercase;flex-shrink:0}
+.sev.crit{background:var(--red);color:#1a0208}
+.sev.high{background:var(--orange);color:#1f1200}
+.sev.med{background:var(--yellow);color:#201700}
+.sev.low{background:var(--purple);color:#140b26}
+.sev.info{background:var(--bg4);color:var(--text2)}
+.finding-name{font-weight:700;font-size:13px;color:var(--text)}
+.finding-line{margin-left:auto;font-size:11px;color:var(--text3);white-space:nowrap}
+.finding-body{padding:0 13px 11px;font-size:12px;color:var(--text2);line-height:1.6}
+.finding-match{display:inline-block;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:2px 8px;color:var(--cyan);margin:2px 0 6px;font-size:12px;word-break:break-all}
+.finding-fix{color:var(--text2)}
+.finding-fix b{color:var(--text)}
+
+.empty-state{text-align:center;padding:26px 10px;color:var(--green);font-size:14px;display:none}
+.empty-state .big{font-size:2rem;display:block;margin-bottom:8px}
+.footer-note{text-align:center;font-size:11px;color:var(--text3);padding:6px 0 2px;line-height:1.7}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1>SafeEnv</h1>
+    <div class="sub">Secrets &amp; API Key Scanner — audit your .env before you commit</div>
+  </header>
+
+  <div class="privacy-badge">
+    &#128274; <strong>100% client-side.</strong> Your configuration is scanned in this page's memory only — no upload, no logging, no network request. Reload to wipe it.
+  </div>
+
+  <section class="card">
+    <div class="card-head">
+      <span>Configuration to scan</span>
+      <span id="line-count" class="chip info hidden"></span>
+    </div>
+    <div class="card-body">
+      <textarea id="input" spellcheck="false" autocomplete="off"
+        placeholder="Paste your .env, docker-compose.yml, config or source snippet here — or drop a file onto this box.&#10;&#10;DATABASE_URL=postgres://user:password@host:5432/db&#10;AWS_ACCESS_KEY_ID=AKIA..."></textarea>
+      <div class="toolbar">
+        <button class="btn btn-primary" id="btn-scan">Scan for secrets</button>
+        <button class="btn" id="btn-sample">Load sample</button>
+        <button class="btn" id="btn-file">Scan a file&hellip;</button>
+        <input type="file" id="file-input" class="hidden">
+        <button class="btn" id="btn-copy" disabled>Copy report</button>
+        <button class="btn" id="btn-clear">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="results-card" style="display:none">
+    <div class="card-head"><span>Findings</span><span id="scan-meta" style="text-transform:none;letter-spacing:0"></span></div>
+    <div class="card-body">
+      <div class="summary" id="summary"></div>
+      <div style="height:12px"></div>
+      <div id="findings"></div>
+      <div class="empty-state" id="empty-state">
+        <span class="big">&#10003;</span>
+        No secrets detected. Still rotate anything you have ever committed by accident — git history remembers.
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    Detection uses publicly documented token formats (AWS, GitHub, GitLab, Stripe, Google, Slack, OpenAI, npm&hellip;),<br>
+    credential-in-URL patterns, PEM private-key blocks and Shannon-entropy analysis. Matches are shown masked.
+  </div>
+
+</div>
+
+<script>
+var SafeEnv = (function(){
+  "use strict";
+
+  var FIX_ROTATE = "Rotate this credential now, remove it from the file, purge it from git history (git filter-repo / BFG), and load it from an environment variable or secret manager instead.";
+  var FIX_URI = "Move the password out of the URL. Use a secret manager or env-injected credentials; rotate the exposed password.";
+  var FIX_KEYBLOCK = "Never commit private keys. Revoke/reissue the key pair and store the private key outside the repository (secret manager, encrypted vault).";
+  var FIX_GENERIC = "If this is a real credential, rotate it and inject it at runtime instead of hardcoding it.";
+  var FIX_PLACEHOLDER = "Looks like a placeholder/template value — no action needed if intentional.";
+  var FIX_JWT = "Tokens in config files outlive their intended session and leak scopes/claims. Issue short-lived tokens at runtime instead.";
+
+  // Specific, publicly documented token formats. `g` flag required (exec loop).
+  var RULES = [
+    {id:"private-key",  name:"Private key block",              sev:"crit", fix:FIX_KEYBLOCK,
+      re:/-----BEGIN (?:RSA |EC |DSA |OPENSSH |PGP |ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/g},
+    {id:"aws-access-key", name:"AWS Access Key ID",            sev:"crit", fix:FIX_ROTATE,
+      re:/\b(?:AKIA|ASIA|ABIA|ACCA)[0-9A-Z]{16}\b/g},
+    {id:"aws-secret-key", name:"AWS Secret Access Key",        sev:"crit", fix:FIX_ROTATE, group:1,
+      re:/aws[_\-. ]?secret[_\-. ]?(?:access[_\-. ]?)?key['"]?\s*[:=]\s*['"]?([A-Za-z0-9\/+=]{40})(?![A-Za-z0-9\/+=])/gi},
+    {id:"github-token", name:"GitHub token",                   sev:"crit", fix:FIX_ROTATE,
+      re:/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36,}\b|\bgithub_pat_[A-Za-z0-9_]{22,}\b/g},
+    {id:"gitlab-token", name:"GitLab personal access token",   sev:"crit", fix:FIX_ROTATE,
+      re:/\bglpat-[A-Za-z0-9\-_]{20,}\b/g},
+    {id:"stripe-live",  name:"Stripe live secret key",         sev:"crit", fix:FIX_ROTATE,
+      re:/\b(?:sk|rk)_live_[A-Za-z0-9]{10,}\b/g},
+    {id:"stripe-test",  name:"Stripe test/publishable key",    sev:"low",  fix:"Test and publishable keys are lower risk, but avoid committing them out of habit.",
+      re:/\b(?:sk|rk)_test_[A-Za-z0-9]{10,}\b|\bpk_(?:live|test)_[A-Za-z0-9]{10,}\b/g},
+    {id:"google-api",   name:"Google API key",                 sev:"high", fix:FIX_ROTATE,
+      re:/\bAIza[0-9A-Za-z\-_]{35}\b/g},
+    {id:"openai-key",   name:"OpenAI API key",                 sev:"crit", fix:FIX_ROTATE,
+      re:/\bsk-(?:proj|svcacct|admin)-[A-Za-z0-9_\-]{20,}\b|\bsk-[A-Za-z0-9]{20}T3BlbkFJ[A-Za-z0-9]{20,}\b/g},
+    {id:"anthropic-key", name:"Anthropic API key",             sev:"crit", fix:FIX_ROTATE,
+      re:/\bsk-ant-[A-Za-z0-9_\-]{20,}\b/g},
+    {id:"slack-token",  name:"Slack token",                    sev:"high", fix:FIX_ROTATE,
+      re:/\bxox[baprs]-[A-Za-z0-9\-]{10,}\b/g},
+    {id:"slack-webhook", name:"Slack incoming webhook",        sev:"high", fix:"Anyone with this URL can post to your workspace. Regenerate the webhook.",
+      re:/https:\/\/hooks\.slack\.com\/services\/T[A-Za-z0-9]+\/B[A-Za-z0-9]+\/[A-Za-z0-9]+/g},
+    {id:"sendgrid",     name:"SendGrid API key",               sev:"high", fix:FIX_ROTATE,
+      re:/\bSG\.[A-Za-z0-9_\-]{22}\.[A-Za-z0-9_\-]{43}\b/g},
+    {id:"npm-token",    name:"npm access token",               sev:"high", fix:FIX_ROTATE,
+      re:/\bnpm_[A-Za-z0-9]{36}\b/g},
+    {id:"pypi-token",   name:"PyPI upload token",              sev:"high", fix:FIX_ROTATE,
+      re:/\bpypi-AgEIcHlwaS5vcmc[A-Za-z0-9_\-]{40,}\b/g},
+    {id:"telegram-bot", name:"Telegram bot token",             sev:"high", fix:FIX_ROTATE,
+      re:/\b\d{8,10}:AA[A-Za-z0-9_\-]{33}\b/g},
+    {id:"twilio-key",   name:"Twilio API key SID",             sev:"med",  fix:FIX_ROTATE,
+      re:/\bSK[a-f0-9]{32}\b/g},
+    {id:"jwt",          name:"JSON Web Token",                 sev:"med",  fix:FIX_JWT,
+      re:/\beyJ[A-Za-z0-9_\-]{10,}\.eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\b/g},
+    {id:"db-uri",       name:"Credentials in connection URI",  sev:"high", fix:FIX_URI, group:0,
+      re:/\b(?:postgres(?:ql)?|mysql|mariadb|mongodb(?:\+srv)?|redis|rediss|amqp|ftp):\/\/[^:\/\s'"]+:[^@\/\s'"]+@[^\/\s'"]+/g},
+    {id:"url-basic-auth", name:"Basic-auth credentials in URL", sev:"high", fix:FIX_URI,
+      re:/\bhttps?:\/\/[^:\/\s'"]+:[^@\/\s'"]{3,}@[^\/\s'"]+/g}
+  ];
+
+  var KEYWORD_RE = /^(?:export\s+)?["']?([A-Za-z_][A-Za-z0-9_.\-]*)["']?\s*[:=]\s*["']?([^"'\r\n]+?)["']?\s*(?:#.*)?$/;
+  var SECRETISH  = /(secret|token|passw|pwd|api[_\-]?key|private|credential|auth)/i;
+  var PLACEHOLDER = /^(?:your[\-_ ]|my[\-_ ]|xxx+$|x{4,}|change[\-_ ]?me|changeit|example|sample|placeholder|dummy|test123|<[^>]*>$|\$\{[^}]*\}$|\$[A-Z_]+$|(?:true|false|null|none|localhost)$)/i
+  var PLACEHOLDER_ANY = /(your[\-_]|-here\b|<[^>]+>|\$\{[^}]*\})/i;
+
+  function entropy(s){
+    var freq = {}, i, c, h = 0, n = s.length;
+    for(i=0;i<n;i++){ c = s.charAt(i); freq[c] = (freq[c]||0)+1; }
+    for(c in freq){ var p = freq[c]/n; h -= p * Math.log(p)/Math.LN2; }
+    return h;
+  }
+
+  function mask(v){
+    v = String(v);
+    if(v.length <= 8) return "********";
+    return v.slice(0,4) + "…" + "*".repeat(Math.min(12, Math.max(4, v.length-8))) + "…" + v.slice(-4);
+  }
+
+  function lineOf(text, index){
+    var n = 1;
+    for(var i=0;i<index;i++) if(text.charCodeAt(i) === 10) n++;
+    return n;
+  }
+
+  function scan(text){
+    var findings = [], seen = {}, matchedLines = {};
+    if(!text) return findings;
+
+    // Pass 1 — specific token formats
+    RULES.forEach(function(rule){
+      rule.re.lastIndex = 0;
+      var m, guard = 0;
+      while((m = rule.re.exec(text)) !== null && guard++ < 5000){
+        var raw = (rule.group ? m[rule.group] : m[0]) || m[0];
+        var line = lineOf(text, m.index);
+        var key = rule.id + ":" + line + ":" + raw;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        matchedLines[line] = 1;
+        findings.push({rule:rule.id, name:rule.name, sev:rule.sev, line:line, masked:mask(raw), fix:rule.fix});
+        if(m.index === rule.re.lastIndex) rule.re.lastIndex++;
+      }
+    });
+
+    // Pass 2 — generic KEY=VALUE analysis (skip lines a specific rule already hit)
+    var lines = text.split("\n");
+    for(var i=0;i<lines.length;i++){
+      var lineNo = i+1;
+      if(matchedLines[lineNo]) continue;
+      var line = lines[i];
+      if(!line || line.charAt(0) === "#" || line.indexOf("=") === -1 && line.indexOf(":") === -1) continue;
+      var m2 = KEYWORD_RE.exec(line.trim());
+      if(!m2) continue;
+      var k = m2[1], v = (m2[2]||"").trim();
+      if(!v || v.length < 6) continue;
+      var secretish = SECRETISH.test(k);
+      var placeholder = PLACEHOLDER.test(v) || PLACEHOLDER_ANY.test(v);
+      if(placeholder){
+        if(secretish) findings.push({rule:"placeholder", name:"Placeholder value", sev:"info", line:lineNo, masked:v.length>40?v.slice(0,40)+"…":v, fix:FIX_PLACEHOLDER});
+        continue;
+      }
+      if(v.indexOf("://") !== -1 || v.indexOf(" ") !== -1) continue;
+      var H = entropy(v);
+      if(v.length >= 20 && H >= 4.3){
+        findings.push({rule:"high-entropy", name:"High-entropy value" + (secretish ? " (secret-like key)" : ""), sev: secretish ? "high" : "med", line:lineNo, masked:mask(v), fix:FIX_GENERIC});
+      } else if(secretish && /passw|pwd/i.test(k) && v.length >= 6){
+        findings.push({rule:"hardcoded-password", name:"Hardcoded password", sev:"med", line:lineNo, masked:mask(v), fix:FIX_GENERIC});
+      }
+    }
+
+    var ORDER = {crit:0, high:1, med:2, low:3, info:4};
+    findings.sort(function(a,b){ return (ORDER[a.sev]-ORDER[b.sev]) || (a.line-b.line); });
+    return findings;
+  }
+
+  return { RULES:RULES, scan:scan, mask:mask, entropy:entropy };
+})();
+
+/* ---- DOM wiring (browser only) ---- */
+if (typeof document !== "undefined" && document.getElementById) (function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var SEV_LABEL = {crit:"Critical", high:"High", med:"Medium", low:"Low", info:"Info"};
+  var lastFindings = [];
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function run(){
+    var text = $('input').value;
+    var t0 = performance.now();
+    var findings = SafeEnv.scan(text);
+    lastFindings = findings;
+    var ms = Math.max(1, Math.round(performance.now()-t0));
+    var lines = text ? text.split("\n").length : 0;
+
+    $('results-card').style.display = '';
+    $('scan-meta').textContent = lines + " lines scanned in " + ms + " ms";
+    var lc = $('line-count');
+    lc.textContent = lines + " lines"; lc.classList.toggle('hidden', !lines);
+
+    var counts = {crit:0,high:0,med:0,low:0,info:0};
+    findings.forEach(function(f){ counts[f.sev]++; });
+    var chips = [];
+    if(!findings.length) chips.push('<span class="chip clean">&#10003; Clean</span>');
+    if(counts.crit) chips.push('<span class="chip crit">'+counts.crit+' critical</span>');
+    if(counts.high) chips.push('<span class="chip high">'+counts.high+' high</span>');
+    if(counts.med)  chips.push('<span class="chip med">'+counts.med+' medium</span>');
+    if(counts.low)  chips.push('<span class="chip low">'+counts.low+' low</span>');
+    if(counts.info) chips.push('<span class="chip info">'+counts.info+' info</span>');
+    $('summary').innerHTML = chips.join('');
+
+    var box = $('findings'); box.innerHTML = '';
+    $('empty-state').style.display = findings.length ? 'none' : 'block';
+    findings.forEach(function(f){
+      box.innerHTML +=
+        '<div class="finding">'+
+          '<div class="finding-head">'+
+            '<span class="sev '+f.sev+'">'+SEV_LABEL[f.sev]+'</span>'+
+            '<span class="finding-name">'+esc(f.name)+'</span>'+
+            '<span class="finding-line">line '+f.line+'</span>'+
+          '</div>'+
+          '<div class="finding-body">'+
+            '<span class="finding-match">'+esc(f.masked)+'</span><br>'+
+            '<span class="finding-fix">'+esc(f.fix)+'</span>'+
+          '</div>'+
+        '</div>';
+    });
+    $('btn-copy').disabled = false;
+  }
+
+  var SAMPLE = [
+    '# --- sample .env (all values are fake) ---',
+    'DATABASE_URL=postgres://admin:SuperSecret99@db.internal:5432/prod',
+    'AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE',
+    'AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    'GITHUB_TOKEN=ghp_EXAMPLEonlyFAKEtokenNOTREAL000000000',
+    'STRIPE_SECRET_KEY=sk_live_FAKEkeyNOTREAL00',
+    'GOOGLE_API_KEY=AIzaSyDdemo_key_1234567890abcdefghijklm',
+    'SESSION_JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U',
+    'APP_SIGNING_SECRET=q7Zp3xN9vB2mK5tR8wY4uE6hA1sD0fGj',
+    'SMTP_PASSWORD=hunter2hunter2',
+    'API_KEY=your-api-key-here'
+  ].join('\n');
+
+  $('btn-scan').addEventListener('click', run);
+  $('btn-sample').addEventListener('click', function(){ $('input').value = SAMPLE; run(); });
+  $('btn-clear').addEventListener('click', function(){
+    $('input').value=''; lastFindings=[];
+    $('results-card').style.display='none'; $('line-count').classList.add('hidden');
+    $('btn-copy').disabled = true; $('input').focus();
+  });
+  $('btn-copy').addEventListener('click', function(){
+    var lines = ['# SafeEnv scan report', ''];
+    if(!lastFindings.length) lines.push('No secrets detected.');
+    lastFindings.forEach(function(f){
+      lines.push('- [' + SEV_LABEL[f.sev].toUpperCase() + '] ' + f.name + ' (line ' + f.line + '): `' + f.masked + '`');
+    });
+    var txt = lines.join('\n');
+    if(navigator.clipboard) navigator.clipboard.writeText(txt);
+    var b = $('btn-copy'); b.textContent = 'Copied!';
+    setTimeout(function(){ b.textContent = 'Copy report'; }, 1500);
+  });
+
+  $('btn-file').addEventListener('click', function(){ $('file-input').click(); });
+  $('file-input').addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){ $('input').value = String(r.result||''); run(); };
+    r.readAsText(f);
+    this.value = '';
+  });
+
+  var ta = $('input');
+  ['dragover','dragenter'].forEach(function(ev){ ta.addEventListener(ev, function(e){ e.preventDefault(); ta.classList.add('dragover'); }); });
+  ['dragleave','drop'].forEach(function(ev){ ta.addEventListener(ev, function(e){ if(ev==='drop') e.preventDefault(); ta.classList.remove('dragover'); }); });
+  ta.addEventListener('drop', function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){ ta.value = String(r.result||''); run(); };
+    r.readAsText(f);
+  });
+})();
+</script>
+</body>
+</html>
