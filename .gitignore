@@ -1,1 +1,37 @@
-public/
+# ---- Hugo build output & cache ----
+/public/
+/resources/_gen/
+.hugo_build.lock
+hugo_stats.json
+
+# ---- Node / npm (asset pipeline, if used) ----
+node_modules/
+package-lock.json
+
+# ---- Python (scripts/) ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- OS files ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ---- Editor / IDE ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---- Claude Code (machine-specific local overrides only) ----
+# settings.json (shared) stays tracked; settings.local.json is per-machine.
+.claude/settings.local.json
