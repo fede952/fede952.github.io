@@ -3434,7 +3434,12 @@
     "https://www.darkreading.com/threat-intelligence/fortibleed-actors-inc-lynx-ransomware-gangs",
     "https://www.darkreading.com/cyberattacks-data-breaches/attackers-use-interpol-lure-target-small-businesses",
     "https://thehackernews.com/2026/07/toddycat-linked-umbrij-malware-abuses.html",
-    "https://www.darkreading.com/vulnerabilities-threats/anthropic-s-ai-finds-bugs-ibm-bets-5b-it-can-fix-them-"
+    "https://www.darkreading.com/vulnerabilities-threats/anthropic-s-ai-finds-bugs-ibm-bets-5b-it-can-fix-them-",
+    "https://thehackernews.com/2026/07/new-java-based-quimarat-maas-built-to.html",
+    "https://thehackernews.com/2026/07/new-trojpix-attack-leaks-data-from-air.html",
+    "https://www.darkreading.com/application-security/phishing-campaigns-auto-adapt-victims-device-os",
+    "https://www.darkreading.com/vulnerabilities-threats/winner-dominant-malware-delivery-clickfix",
+    "https://cert-agid.gov.it/news/campagne-di-phishing-a-tema-criptovalute-abusano-del-nome-dellagenzia-delle-entrate/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6871,10 +6876,14 @@
     "bf02e97665319b53a08845f5f2ddceff",
     "19a4f08e2128e67c76072283c1cb58b0",
     "527f36e0f8dbd772b5791592b967796c",
-    "1294e96ada04755343abbc6b52fa6884"
+    "1294e96ada04755343abbc6b52fa6884",
+    "dfbdf1960bb0fc521c9712fdfe895224",
+    "ed6ff2ae8d66bc3f8aa355550933d639",
+    "e3349bc9c8a5334cc31805a57add57ad",
+    "8fe21f2430ae2a03a95f86264db7b871",
+    "19fe62a1ed51628962d092b6a201f68c"
   ],
   "daily_llm_calls": {
-    "2026-06-06": 60,
     "2026-06-07": 60,
     "2026-06-08": 60,
     "2026-06-09": 60,
@@ -6903,10 +6912,10 @@
     "2026-07-02": 60,
     "2026-07-03": 60,
     "2026-07-04": 60,
-    "2026-07-05": 60
+    "2026-07-05": 60,
+    "2026-07-06": 60
   },
   "daily_published": {
-    "2026-06-06": 5,
     "2026-06-07": 5,
     "2026-06-08": 5,
     "2026-06-09": 5,
@@ -6935,6 +6944,7 @@
     "2026-07-02": 5,
     "2026-07-03": 5,
     "2026-07-04": 5,
-    "2026-07-05": 5
+    "2026-07-05": 5,
+    "2026-07-06": 5
   }
 }
