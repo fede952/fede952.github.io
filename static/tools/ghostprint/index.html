@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GhostPrint — Browser Fingerprint Test</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--bg4:#23233340;
+  --cyan:#00e5ff;--cyan-dim:#00b8cc;--cyan-glow:rgba(0,229,255,.15);
+  --red:#ff2d55;--red-glow:rgba(255,45,85,.18);
+  --orange:#ff9f43;--yellow:#ffd166;--green:#22e39a;--purple:#b388ff;
+  --text:#d8d8e0;--text2:#8a8a99;--text3:#55555f;
+  --border:#24242f;--border2:#33333f;
+  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'JetBrains Mono','Courier New',monospace;
+}
+html,body{background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+.app{max-width:880px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+
+.header{text-align:center;padding:12px 0 6px;position:relative}
+.header h1{font-size:clamp(26px,6vw,42px);letter-spacing:6px;color:var(--cyan);text-transform:uppercase;text-shadow:0 0 24px var(--cyan-glow);font-weight:700}
+.header h1 .ghost{filter:drop-shadow(0 0 10px var(--cyan-glow))}
+.header .sub{font-size:12px;color:var(--text2);margin-top:8px;letter-spacing:1px;max-width:620px;margin-inline:auto;line-height:1.6}
+
+.meta-badge{background:linear-gradient(180deg,var(--bg2),var(--bg));border:1px solid var(--border2);border-left:3px solid var(--cyan);border-radius:10px;padding:12px 16px;font-size:12.5px;color:var(--text2);line-height:1.65}
+.meta-badge b{color:var(--cyan)}
+
+/* ---- scan stage ---- */
+.scan{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:22px 18px;min-height:120px}
+.scan-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.blip{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:blip 1s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}
+.scan-lines{display:flex;flex-direction:column;gap:7px}
+.scan-line{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text3);opacity:0;transform:translateX(-6px);transition:all .25s ease}
+.scan-line.show{opacity:1;transform:none}
+.scan-line .tick{color:var(--green);width:14px;text-align:center}
+.scan-line .lbl{color:var(--text2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scan-line .val{color:var(--cyan);font-size:11.5px;max-width:44%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+
+/* ---- result ---- */
+.result{display:none;flex-direction:column;gap:16px}
+.result.show{display:flex;animation:rise .5s ease}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.scorecard{position:relative;overflow:hidden;border-radius:16px;padding:28px 22px;text-align:center;border:1px solid var(--border2);background:radial-gradient(120% 120% at 50% 0%,var(--bg3),var(--bg) 70%)}
+.scorecard::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,transparent 0 22px,rgba(255,255,255,.012) 22px 23px),
+  repeating-linear-gradient(90deg,transparent 0 22px,rgba(255,255,255,.012) 22px 23px);pointer-events:none}
+.scorecard .verdict{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+.scorecard .big{font-size:clamp(40px,11vw,76px);font-weight:800;line-height:1;letter-spacing:1px;margin-bottom:4px}
+@keyframes pop{0%{opacity:0;transform:scale(.62)}60%{transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+.scorecard .big.pop{animation:pop .7s cubic-bezier(.2,.9,.2,1)}
+.scorecard .onein{font-size:13px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.scorecard .bar{height:10px;border-radius:6px;background:var(--bg4);overflow:hidden;margin:0 auto 8px;max-width:440px;border:1px solid var(--border)}
+.scorecard .bar > i{display:block;height:100%;width:0;border-radius:6px;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.scorecard .bar-cap{font-size:10.5px;color:var(--text3);letter-spacing:1px}
+.scorecard .fpid{margin-top:18px;font-size:12px;color:var(--text2)}
+.scorecard .fpid code{display:inline-block;margin-top:6px;background:#00000055;border:1px solid var(--border2);border-radius:6px;padding:6px 12px;color:var(--cyan);letter-spacing:2px;font-size:14px;word-break:break-all}
+
+.t-crit{color:var(--red)!important;text-shadow:0 0 22px var(--red-glow)}
+.t-high{color:var(--orange)!important}
+.t-med{color:var(--yellow)!important}
+.t-low{color:var(--green)!important;text-shadow:0 0 22px rgba(34,227,154,.2)}
+.fill-crit{background:linear-gradient(90deg,#ff6b6b,var(--red))}
+.fill-high{background:linear-gradient(90deg,#ffd166,var(--orange))}
+.fill-med{background:linear-gradient(90deg,#ffe38a,var(--yellow))}
+.fill-low{background:linear-gradient(90deg,#6cf5c0,var(--green))}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.btn{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.5px;padding:11px 18px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--text3);color:#fff}
+.btn-primary{background:var(--cyan);color:#04141a;border-color:var(--cyan)}
+.btn-primary:hover{background:#5eeaff;box-shadow:0 0 18px var(--cyan-glow);color:#04141a}
+
+/* ---- breakdown ---- */
+.section-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin:6px 2px 0}
+.signals{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:620px){.signals{grid-template-columns:1fr}}
+.sig{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 13px}
+.sig-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:5px}
+.sig-name{font-size:12.5px;color:var(--text);font-weight:600}
+.sig-bits{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.bits-hi{background:var(--red-glow);color:#ff7a93;border:1px solid #ff2d5540}
+.bits-md{background:rgba(255,209,102,.1);color:var(--yellow);border:1px solid #ffd16640}
+.bits-lo{background:rgba(34,227,154,.1);color:var(--green);border:1px solid #22e39a40}
+.sig-val{font-size:11.5px;color:var(--cyan);word-break:break-word;line-height:1.5;margin-bottom:5px}
+.sig-note{font-size:11px;color:var(--text3);line-height:1.5}
+
+/* ---- explainer / tips ---- */
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px}
+.panel h3{font-size:13px;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.panel p{font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:10px}
+.panel p:last-child{margin-bottom:0}
+.panel b{color:var(--text)}
+.tips{list-style:none;display:flex;flex-direction:column;gap:8px}
+.tips li{font-size:12.5px;color:var(--text2);line-height:1.6;padding-left:22px;position:relative}
+.tips li::before{content:"›";position:absolute;left:6px;color:var(--cyan);font-weight:700}
+.foot{text-align:center;font-size:11px;color:var(--text3);line-height:1.7;padding:6px 0 4px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <h1><span class="ghost">👻</span> GhostPrint</h1>
+    <div class="sub">The invisible fingerprint your browser hands to every website you visit — no cookies, no login, no permission prompt. Here is yours.</div>
+  </header>
+
+  <div class="meta-badge" id="meta-badge">
+    &#128274; <b>The twist:</b> everything below was computed <b>inside your browser</b> and sent <b>nowhere</b> — no upload, no logging, no server. But every site you visit <em>can</em> read these exact signals silently and use them to recognize you across the web. Reload to wipe it; the sites that fingerprint you don't offer that button.
+  </div>
+
+  <section class="scan" id="scan">
+    <div class="scan-title"><span class="blip"></span><span id="scan-status">Reading your browser&hellip;</span></div>
+    <div class="scan-lines" id="scan-lines"></div>
+  </section>
+
+  <section class="result" id="result">
+    <div class="scorecard" id="scorecard">
+      <div class="verdict" id="verdict">&nbsp;</div>
+      <div class="big" id="big-score">&nbsp;</div>
+      <div class="onein" id="one-in">&nbsp;</div>
+      <div class="bar"><i id="bar-fill"></i></div>
+      <div class="bar-cap" id="bar-cap">&nbsp;</div>
+      <div class="fpid">Your master fingerprint ID
+        <code id="fp-id">&mdash;</code>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-card">&#128247; Download shareable card</button>
+      <button class="btn" id="btn-copy">&#128203; Copy summary</button>
+      <button class="btn" id="btn-rescan">&#8635; Re-scan</button>
+    </div>
+
+    <div class="section-title">What your browser revealed (<span id="sig-count">0</span> signals)</div>
+    <div class="signals" id="signals"></div>
+
+    <div class="panel">
+      <h3>Why this is a big deal</h3>
+      <p>Cookies are easy to block and delete. A <b>fingerprint</b> is not: it's built from the way your specific device, GPU, fonts and settings combine, so it stays the same across sites — and <b>survives incognito mode, cleared cookies and most "private" browsing.</b> Ad-tech and anti-fraud networks use exactly this to follow you.</p>
+      <p>The score above is an entropy estimate: how many bits of identifying information your browser leaks, and roughly how many other browsers would share your exact combination. More bits &rarr; rarer &rarr; easier to single you out.</p>
+    </div>
+
+    <div class="panel">
+      <h3>How to fade the ghost</h3>
+      <ul class="tips">
+        <li><b>Tor Browser</b> — the gold standard: every user is deliberately made to look identical.</li>
+        <li><b>Firefox</b> — set <code>privacy.resistFingerprinting</code> to true (about:config), or use the built-in protections.</li>
+        <li><b>Brave</b> — ships randomized canvas/audio fingerprinting by default.</li>
+        <li>Disable WebGL and canvas readout, or use anti-fingerprint extensions (CanvasBlocker, etc.).</li>
+        <li>Prefer stock hardware/fonts and a default window size — rare setups are <em>more</em> identifiable, not less.</li>
+      </ul>
+    </div>
+
+    <div class="foot">
+      GhostPrint reads only what the standard Web APIs already expose to any page — nothing is transmitted.<br>
+      Entropy figures are estimates based on public browser-fingerprinting research (EFF, AmIUnique) and your live signals.
+    </div>
+  </section>
+
+</div>
+
+<script>
+var GhostPrint = (function(){
+  "use strict";
+
+  /* FNV-1a 32-bit — fast, dependency-free hash used to condense each signal
+     (and the whole fingerprint) into a stable hex id for display. */
+  function fnv1a(str){
+    var h = 0x811c9dc5;
+    for(var i=0;i<str.length;i++){
+      h ^= str.charCodeAt(i);
+      h = (h + ((h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24))) >>> 0;
+    }
+    return ("0000000" + h.toString(16)).slice(-8);
+  }
+
+  /* Present a big integer as "4.2 billion" etc. */
+  function formatBig(n){
+    if(n < 0) n = 0;
+    if(n < 1000) return String(Math.round(n));
+    var units = [["trillion",1e12],["billion",1e9],["million",1e6],["thousand",1e3]];
+    for(var i=0;i<units.length;i++){
+      if(n >= units[i][1]){
+        var v = n/units[i][1];
+        return (v>=100 ? Math.round(v) : v.toFixed(1).replace(/\.0$/,"")) + " " + units[i][0];
+      }
+    }
+    return String(Math.round(n));
+  }
+
+  /* Cap uniqueness at a realistic active-browser population so we never claim
+     "1 in a quadrillion". ~5.5 billion internet users worldwide. */
+  var POP = 5.5e9;
+  function oneInFromBits(bits){
+    var raw = Math.pow(2, bits);
+    return Math.min(raw, POP);
+  }
+
+  /* Sum per-signal bits, then apply a correlation discount: fingerprint signals
+     are not statistically independent, so the naive sum overstates surprisal. */
+  function combineBits(bitsArray){
+    var raw = 0;
+    for(var i=0;i<bitsArray.length;i++) raw += bitsArray[i];
+    return Math.round(raw * 0.82 * 10) / 10;
+  }
+
+  function verdictFor(bits){
+    if(bits >= 28) return {tier:"crit", label:"Ghost-level exposure", line:"You are trivially trackable across the entire web."};
+    if(bits >= 18) return {tier:"high", label:"Highly unique",        line:"Your browser stands out — cross-site tracking is easy."};
+    if(bits >= 10) return {tier:"med",  label:"Identifiable",         line:"You leak enough to be singled out in a small crowd."};
+    return               {tier:"low",  label:"Blending in",          line:"Nicely camouflaged — your protections are working."};
+  }
+
+  function bitsClass(b){ return b >= 6 ? "bits-hi" : b >= 3 ? "bits-md" : "bits-lo"; }
+
+  return {
+    fnv1a:fnv1a, formatBig:formatBig, oneInFromBits:oneInFromBits,
+    combineBits:combineBits, verdictFor:verdictFor, bitsClass:bitsClass, POP:POP
+  };
+})();
+
+/* ==================== browser-only collection + UI ==================== */
+if (typeof document !== "undefined" && document.getElementById) (function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+
+  function safe(fn, dflt){ try{ var v = fn(); return (v===undefined||v===null)?dflt:v; }catch(e){ return dflt; } }
+
+  /* ---- individual fingerprint probes ---- */
+  function canvasFp(){
+    try{
+      var c = document.createElement("canvas"); c.width=240; c.height=60;
+      var x = c.getContext("2d"); if(!x) return null;
+      x.textBaseline="top"; x.font="16px 'Arial'";
+      x.fillStyle="#f60"; x.fillRect(2,2,120,24);
+      x.fillStyle="#069"; x.fillText("GhostPrint \u{1F47B} ©éñ",4,20);
+      x.fillStyle="rgba(0,229,255,0.6)"; x.fillText("GhostPrint \u{1F47B} ©éñ",6,22);
+      x.strokeStyle="rgba(255,45,85,0.7)"; x.beginPath(); x.arc(160,30,18,0,Math.PI*2); x.stroke();
+      var data = c.toDataURL();
+      return { hash: GhostPrint.fnv1a(data), blank: data.length < 1200 };
+    }catch(e){ return null; }
+  }
+
+  function webglFp(){
+    try{
+      var c = document.createElement("canvas");
+      var gl = c.getContext("webgl") || c.getContext("experimental-webgl");
+      if(!gl) return null;
+      var out = { vendor:"", renderer:"", hash:"" };
+      var dbg = gl.getExtension("WEBGL_debug_renderer_info");
+      if(dbg){
+        out.vendor   = String(gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL)||"");
+        out.renderer = String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)||"");
+      }
+      var parts = [
+        gl.getParameter(gl.VERSION), gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
+        gl.getParameter(gl.MAX_TEXTURE_SIZE), gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),
+        gl.getParameter(gl.MAX_VERTEX_ATTRIBS), (gl.getSupportedExtensions()||[]).join(",")
+      ];
+      out.hash = GhostPrint.fnv1a(out.vendor+"|"+out.renderer+"|"+parts.join("|"));
+      return out;
+    }catch(e){ return null; }
+  }
+
+  function audioFp(){
+    return new Promise(function(resolve){
+      try{
+        var AC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+        if(!AC){ resolve(null); return; }
+        var ctx = new AC(1, 44100, 44100);
+        var osc = ctx.createOscillator(); osc.type="triangle"; osc.frequency.value=10000;
+        var comp = ctx.createDynamicsCompressor();
+        comp.threshold.value=-50; comp.knee.value=40; comp.ratio.value=12;
+        comp.attack.value=0; comp.release.value=0.25;
+        osc.connect(comp); comp.connect(ctx.destination); osc.start(0);
+        var done=false;
+        var finish=function(buf){ if(done) return; done=true;
+          if(!buf){ resolve(null); return; }
+          var ch = buf.getChannelData(0), acc=0;
+          for(var i=4000;i<5000;i++) acc += Math.abs(ch[i]);
+          resolve({ hash: GhostPrint.fnv1a(acc.toString()) });
+        };
+        ctx.oncomplete = function(e){ finish(e.renderedBuffer); };
+        ctx.startRendering();
+        setTimeout(function(){ finish(null); }, 900); // guard against hangs
+      }catch(e){ resolve(null); }
+    });
+  }
+
+  var FONT_LIST = ["Arial","Arial Black","Verdana","Tahoma","Trebuchet MS","Times New Roman","Georgia","Garamond","Courier New","Consolas","Cambria","Calibri","Segoe UI","Segoe Print","Candara","Constantia","Corbel","Franklin Gothic Medium","Century Gothic","Lucida Console","Lucida Sans Unicode","Comic Sans MS","Impact","Palatino Linotype","Book Antiqua","MS Gothic","MS PGothic","Meiryo","Malgun Gothic","SimSun","PingFang SC","Helvetica","Helvetica Neue","Menlo","Monaco","Optima","Gill Sans","Futura","Baskerville","Didot","American Typewriter","Andale Mono","Geneva","Copperplate","Papyrus","Brush Script MT","Rockwell","Noto Sans","Roboto","Ubuntu","Cantarell","DejaVu Sans","Liberation Sans"];
+  function detectFonts(){
+    try{
+      var base=["monospace","sans-serif","serif"], text="mmMwWLl0Oo1iI©æ—",size="72px";
+      var span=document.createElement("span");
+      span.style.cssText="position:absolute;left:-9999px;top:-9999px;font-size:"+size+";visibility:hidden;line-height:normal";
+      span.textContent=text; document.body.appendChild(span);
+      var baseW={},baseH={};
+      base.forEach(function(b){ span.style.fontFamily=b; baseW[b]=span.offsetWidth; baseH[b]=span.offsetHeight; });
+      var found=[];
+      FONT_LIST.forEach(function(f){
+        for(var i=0;i<base.length;i++){
+          span.style.fontFamily="'"+f+"',"+base[i];
+          if(span.offsetWidth!==baseW[base[i]] || span.offsetHeight!==baseH[base[i]]){ found.push(f); break; }
+        }
+      });
+      document.body.removeChild(span);
+      return found;
+    }catch(e){ return []; }
+  }
+
+  /* ---- assemble every signal with an entropy estimate ---- */
+  function collect(){
+    return audioFp().then(function(audio){
+      var nav=navigator, scr=screen;
+      var cv=canvasFp(), gl=webglFp(), fonts=detectFonts();
+
+      var ua=safe(function(){return nav.userAgent;},"");
+      var langs=safe(function(){return (nav.languages||[nav.language]).join(", ");},"");
+      var tz=safe(function(){return Intl.DateTimeFormat().resolvedOptions().timeZone;},"") + " (UTC" + (-new Date().getTimezoneOffset()/60>=0?"+":"") + (-new Date().getTimezoneOffset()/60) + ")";
+      var res=safe(function(){return scr.width+"×"+scr.height;},"?") + " @" + safe(function(){return window.devicePixelRatio;},1) + "x, " + safe(function(){return scr.colorDepth;},"?") + "-bit";
+      var cores=safe(function(){return nav.hardwareConcurrency;},null);
+      var mem=safe(function(){return nav.deviceMemory;},null);
+      var touch=safe(function(){return nav.maxTouchPoints;},0);
+      var hw=(cores?cores+" cores":"? cores")+(mem?", "+mem+" GB":"")+(touch?", touch×"+touch:", no touch");
+      var plat=safe(function(){return nav.platform;},"");
+      var scheme=safe(function(){return (window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")+(window.matchMedia("(prefers-reduced-motion: reduce)").matches?", reduced-motion":"");},"");
+      var dnt=safe(function(){return (nav.doNotTrack||window.doNotTrack||nav.msDoNotTrack);},null);
+      var gpc=safe(function(){return nav.globalPrivacyControl;},undefined);
+      var priv="cookies "+(safe(function(){return nav.cookieEnabled;},false)?"on":"off")+", DNT "+(dnt==="1"||dnt===1?"on":(dnt==="0"?"off":"unset"))+(gpc!==undefined?", GPC "+(gpc?"on":"off"):"");
+
+      var S = [];
+      function add(key,name,value,bits,note){ S.push({key:key,name:name,value:value,bits:Math.round(bits*10)/10,note:note}); }
+
+      add("ua","User agent", ua, ua.length>180?8:6, "Browser, version, OS and rendering engine, in one string.");
+      if(gl && gl.renderer) add("gpu","GPU model (WebGL)", gl.renderer + (gl.vendor?"  — "+gl.vendor:""), 7, "The exact graphics chip in your machine, exposed to any page.");
+      else add("gpu","GPU model (WebGL)", "blocked / unavailable", 0, "WebGL renderer is hidden — a strong privacy win.");
+      if(cv && !cv.blank) add("canvas","Canvas fingerprint", "#"+cv.hash, 8, "How your device renders hidden text/graphics, pixel for pixel.");
+      else add("canvas","Canvas fingerprint", cv?"uniform / blocked":"unavailable", 0, "Canvas readout is blocked or randomized — good.");
+      add("fonts","Installed fonts", (fonts.length?fonts.length+" detected: "+fonts.slice(0,8).join(", ")+(fonts.length>8?"…":""):"none detected"), Math.min(fonts.length*0.45, 8), "Your font set reflects OS, apps and language packs.");
+      if(audio) add("audio","Audio fingerprint", "#"+audio.hash, 5, "Tiny differences in how your audio stack processes a tone.");
+      else add("audio","Audio fingerprint", "blocked / unavailable", 0, "AudioContext fingerprinting is blocked — good.");
+      add("screen","Screen & pixel ratio", res, 2, "Resolution, DPI scaling and colour depth.");
+      add("tz","Timezone", tz, 2, "Narrows you to a region and offset.");
+      add("langs","Languages", langs||"?", 1.5, "Preferred languages, in order — often locale-revealing.");
+      add("hw","Hardware", hw, 1.5, "CPU cores, RAM and touch capability.");
+      add("plat","Platform", plat||"?", 1, "OS/architecture hint from the platform string.");
+      add("scheme","Display prefs", scheme||"?", 0.5, "Dark/light mode and reduced-motion preference.");
+      add("priv","Privacy flags", priv, 0.5, "Cookie, Do-Not-Track and Global-Privacy-Control state.");
+
+      var fpString = S.map(function(s){return s.key+"="+s.value;}).join("||");
+      var fpId = GhostPrint.fnv1a(ua+plat+res).slice(0,4) + "-" +
+                 GhostPrint.fnv1a((gl?gl.hash:"")+(cv?cv.hash:"")).slice(0,4) + "-" +
+                 GhostPrint.fnv1a(fpString).slice(0,4);
+      var bits = GhostPrint.combineBits(S.map(function(s){return s.bits;}));
+
+      return { signals:S, bits:bits, fpId:fpId };
+    });
+  }
+
+  /* ---- rendering ---- */
+  var SCAN_LABELS = {ua:"User agent",gpu:"GPU / WebGL",canvas:"Canvas render",fonts:"Font stack",audio:"Audio stack",screen:"Screen metrics",tz:"Timezone",langs:"Languages",hw:"Hardware",plat:"Platform",scheme:"Display prefs",priv:"Privacy flags"};
+  var current = null;
+
+  function popIn(el){ el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop"); }
+
+  function render(data){
+    current=data;
+    var v=GhostPrint.verdictFor(data.bits);
+    var oneIn=GhostPrint.oneInFromBits(data.bits);
+    var capped=(Math.pow(2,data.bits) >= GhostPrint.POP);
+
+    $("verdict").textContent=v.label.toUpperCase();
+    $("verdict").className="verdict t-"+v.tier;
+    var bs=$("big-score");
+    bs.className="big t-"+v.tier;
+    bs.textContent=(capped?"~":"")+"1 in "+GhostPrint.formatBig(oneIn); // final value set synchronously → screenshot-safe
+    $("one-in").textContent = capped ? "— essentially unique on Earth" : "browsers share your fingerprint";
+    var pct=Math.max(6, Math.min(100, (data.bits/36)*100));
+    var fill=$("bar-fill"); fill.className="fill-"+v.tier;
+    $("bar-cap").textContent=data.bits+" bits of identifying entropy · "+v.line;
+    $("fp-id").textContent=data.fpId.toUpperCase();
+
+    var box=$("signals"); box.innerHTML=""; $("sig-count").textContent=data.signals.length;
+    data.signals.forEach(function(s){
+      var d=document.createElement("div"); d.className="sig";
+      d.innerHTML='<div class="sig-top"><span class="sig-name">'+esc(s.name)+'</span>'+
+        '<span class="sig-bits '+GhostPrint.bitsClass(s.bits)+'">'+(s.bits>0?"+"+s.bits+" bits":"0 bits")+'</span></div>'+
+        '<div class="sig-val">'+esc(s.value)+'</div><div class="sig-note">'+esc(s.note)+'</div>';
+      box.appendChild(d);
+    });
+
+    $("result").classList.add("show");
+    popIn(bs);
+    requestAnimationFrame(function(){ setTimeout(function(){ fill.style.width=pct+"%"; },60); });
+  }
+
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function shortVal(v){ v=String(v); return v.length>26 ? v.slice(0,26)+"…" : v; }
+  function runScan(){
+    $("result").classList.remove("show");
+    var lines=$("scan-lines"); lines.innerHTML="";
+    $("scan-status").textContent="Reading your browser…";
+    var keys=Object.keys(SCAN_LABELS), i=0, scanData=null;
+    function valFor(key){
+      if(!scanData) return null;
+      for(var j=0;j<scanData.signals.length;j++) if(scanData.signals[j].key===key) return scanData.signals[j].value;
+      return null;
+    }
+    // Fill a line's value whenever data is available — collect() may resolve
+    // before OR after a given line is created, so we fill on both events.
+    function fillLine(key){ var sv=$("sv-"+key), val=valFor(key); if(sv && val!=null) sv.textContent=shortVal(val); }
+
+    var timer=setInterval(function(){
+      if(i>=keys.length){ clearInterval(timer); return; }
+      var key=keys[i];
+      var el=document.createElement("div"); el.className="scan-line";
+      el.innerHTML='<span class="tick">✓</span><span class="lbl">Probing '+SCAN_LABELS[key]+'</span><span class="val" id="sv-'+key+'">reading…</span>';
+      lines.appendChild(el);
+      requestAnimationFrame(function(){ el.classList.add("show"); });
+      fillLine(key); // data already in? show it at creation
+      i++;
+    }, 130);
+
+    collect().then(function(data){
+      scanData=data;
+      keys.forEach(fillLine); // fill every line that already exists
+      var wait=Math.max(600, keys.length*130 + 350); // reveal only after all lines are drawn
+      setTimeout(function(){
+        clearInterval(timer);
+        keys.forEach(fillLine); // final safety pass
+        $("scan-status").textContent="Fingerprint assembled.";
+        render(data);
+        $("result").scrollIntoView({behavior:"smooth",block:"nearest"});
+      }, wait);
+    });
+  }
+
+  /* ---- shareable PNG card (1200x630, OG ratio) ---- */
+  function buildCard(){
+    var data=current; if(!data) return null;
+    var W=1200,H=630, c=document.createElement("canvas"); c.width=W; c.height=H;
+    var x=c.getContext("2d");
+    var v=GhostPrint.verdictFor(data.bits);
+    var accent={crit:"#ff2d55",high:"#ff9f43",med:"#ffd166",low:"#22e39a"}[v.tier];
+    var capped=(Math.pow(2,data.bits)>=GhostPrint.POP);
+    var oneIn=GhostPrint.oneInFromBits(data.bits);
+
+    x.fillStyle="#0a0a0f"; x.fillRect(0,0,W,H);
+    x.strokeStyle="rgba(255,255,255,0.035)"; x.lineWidth=1;
+    for(var gx=0;gx<W;gx+=40){ x.beginPath();x.moveTo(gx,0);x.lineTo(gx,H);x.stroke(); }
+    for(var gy=0;gy<H;gy+=40){ x.beginPath();x.moveTo(0,gy);x.lineTo(W,gy);x.stroke(); }
+    x.strokeStyle=accent; x.lineWidth=6; x.strokeRect(3,3,W-6,H-6);
+
+    x.textAlign="center";
+    x.fillStyle="#00e5ff"; x.font="700 34px 'Segoe UI',Arial,sans-serif";
+    x.fillText("\u{1F47B} GHOSTPRINT", W/2, 92);
+    x.fillStyle="#8a8a99"; x.font="20px 'Segoe UI',Arial,sans-serif";
+    x.fillText("BROWSER FINGERPRINT EXPOSURE TEST", W/2, 126);
+
+    x.fillStyle=accent; x.font="700 26px 'Segoe UI',Arial,sans-serif";
+    x.fillText(v.label.toUpperCase(), W/2, 210);
+
+    x.fillStyle="#ffffff"; x.font="800 120px 'Segoe UI',Arial,sans-serif";
+    x.fillText((capped?"~":"")+"1 in "+GhostPrint.formatBig(oneIn).toUpperCase(), W/2, 330);
+
+    x.fillStyle="#d8d8e0"; x.font="24px 'Segoe UI',Arial,sans-serif";
+    x.fillText(capped ? "Essentially unique on Earth · "+data.bits+" bits of entropy"
+                      : "browsers share this fingerprint · "+data.bits+" bits of entropy", W/2, 388);
+
+    // mini bar
+    var bw=560,bh=16,bx=(W-bw)/2,by=430, pct=Math.max(0.06,Math.min(1,data.bits/36));
+    x.fillStyle="#23233340"; roundRect(x,bx,by,bw,bh,8); x.fill();
+    x.fillStyle=accent; roundRect(x,bx,by,bw*pct,bh,8); x.fill();
+
+    x.fillStyle="#8a8a99"; x.font="22px 'Segoe UI',Arial,sans-serif";
+    x.fillText("Fingerprint ID  "+data.fpId.toUpperCase()+"   ·   survives incognito & cleared cookies", W/2, 512);
+
+    x.fillStyle="#55555f"; x.font="20px 'Segoe UI',Arial,sans-serif";
+    x.fillText("Test your own browser →  federicosella.com/tools/ghostprint", W/2, 578);
+    return c;
+  }
+  function roundRect(x,X,Y,w,h,r){ x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath(); }
+
+  function download(){
+    var c=buildCard(); if(!c) return;
+    try{
+      var url=c.toDataURL("image/png");
+      var a=document.createElement("a"); a.href=url; a.download="ghostprint-result.png";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }catch(e){ alert("Could not generate the image in this browser."); }
+  }
+
+  function copySummary(){
+    var data=current; if(!data) return;
+    var v=GhostPrint.verdictFor(data.bits);
+    var capped=(Math.pow(2,data.bits)>=GhostPrint.POP);
+    var oneIn=GhostPrint.oneInFromBits(data.bits);
+    var txt="\u{1F47B} My browser fingerprint: "+(capped?"essentially unique on Earth":"1 in "+GhostPrint.formatBig(oneIn))+
+      " ("+data.bits+" bits of entropy — "+v.label+").\n"+
+      "Trackable across the web with no cookies, even in incognito. Test yours → federicosella.com/tools/ghostprint";
+    var b=$("btn-copy");
+    var ok=function(){ b.textContent="✓ Copied!"; setTimeout(function(){ b.innerHTML="&#128203; Copy summary"; },1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, function(){ fallbackCopy(txt); ok(); }); }
+    else { fallbackCopy(txt); ok(); }
+  }
+  function fallbackCopy(t){ try{ var ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); }catch(e){} }
+
+  $("btn-card").addEventListener("click", download);
+  $("btn-copy").addEventListener("click", copySummary);
+  $("btn-rescan").addEventListener("click", runScan);
+
+  runScan(); // auto-run on load — the point is that a site can do this without asking
+})();
+</script>
+</body>
+</html>
