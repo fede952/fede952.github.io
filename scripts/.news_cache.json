@@ -3439,7 +3439,12 @@
     "https://thehackernews.com/2026/07/new-trojpix-attack-leaks-data-from-air.html",
     "https://www.darkreading.com/application-security/phishing-campaigns-auto-adapt-victims-device-os",
     "https://www.darkreading.com/vulnerabilities-threats/winner-dominant-malware-delivery-clickfix",
-    "https://cert-agid.gov.it/news/campagne-di-phishing-a-tema-criptovalute-abusano-del-nome-dellagenzia-delle-entrate/"
+    "https://cert-agid.gov.it/news/campagne-di-phishing-a-tema-criptovalute-abusano-del-nome-dellagenzia-delle-entrate/",
+    "https://thehackernews.com/2026/07/threat-actors-probe-gitea-docker-flaw.html",
+    "https://thehackernews.com/2026/07/suspected-china-aligned-hackers-exploit.html",
+    "https://thehackernews.com/2026/07/certcc-warns-of-hidden-admin-backdoor.html",
+    "https://thehackernews.com/2026/07/beyondtrust-patches-critical-auth.html",
+    "https://www.bleepingcomputer.com/news/security/max-severity-adobe-coldfusion-flaw-now-exploited-in-attacks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6881,10 +6886,14 @@
     "ed6ff2ae8d66bc3f8aa355550933d639",
     "e3349bc9c8a5334cc31805a57add57ad",
     "8fe21f2430ae2a03a95f86264db7b871",
-    "19fe62a1ed51628962d092b6a201f68c"
+    "19fe62a1ed51628962d092b6a201f68c",
+    "005d64c3f50cecee3566d791fa166007",
+    "f2a41afc72f62a97575ee822dbe8d373",
+    "dc9df6f7857ea18c164c64ffc8a39581",
+    "dd2318e6a1e2df548a54916fb3215f38",
+    "91d1c2963dac7e467a8e6750c6a4546a"
   ],
   "daily_llm_calls": {
-    "2026-06-07": 60,
     "2026-06-08": 60,
     "2026-06-09": 60,
     "2026-06-10": 60,
@@ -6913,10 +6922,10 @@
     "2026-07-03": 60,
     "2026-07-04": 60,
     "2026-07-05": 60,
-    "2026-07-06": 60
+    "2026-07-06": 60,
+    "2026-07-07": 60
   },
   "daily_published": {
-    "2026-06-07": 5,
     "2026-06-08": 5,
     "2026-06-09": 5,
     "2026-06-10": 5,
@@ -6945,6 +6954,7 @@
     "2026-07-03": 5,
     "2026-07-04": 5,
     "2026-07-05": 5,
-    "2026-07-06": 5
+    "2026-07-06": 5,
+    "2026-07-07": 5
   }
 }
