@@ -3444,7 +3444,12 @@
     "https://thehackernews.com/2026/07/suspected-china-aligned-hackers-exploit.html",
     "https://thehackernews.com/2026/07/certcc-warns-of-hidden-admin-backdoor.html",
     "https://thehackernews.com/2026/07/beyondtrust-patches-critical-auth.html",
-    "https://www.bleepingcomputer.com/news/security/max-severity-adobe-coldfusion-flaw-now-exploited-in-attacks/"
+    "https://www.bleepingcomputer.com/news/security/max-severity-adobe-coldfusion-flaw-now-exploited-in-attacks/",
+    "https://thehackernews.com/2026/07/cisa-adds-4-actively-exploited-adobe.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-max-severity-coldfusion-flaw-by-friday/",
+    "https://thehackernews.com/2026/07/writer-ai-flaw-could-let-agent-previews.html",
+    "https://www.bleepingcomputer.com/news/security/ubiquiti-warns-of-new-max-severity-unifi-os-vulnerability/",
+    "https://www.bleepingcomputer.com/news/security/accenture-confirms-breach-after-hacker-offers-stolen-data-for-sale/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6891,10 +6896,14 @@
     "f2a41afc72f62a97575ee822dbe8d373",
     "dc9df6f7857ea18c164c64ffc8a39581",
     "dd2318e6a1e2df548a54916fb3215f38",
-    "91d1c2963dac7e467a8e6750c6a4546a"
+    "91d1c2963dac7e467a8e6750c6a4546a",
+    "85dcff69d1fd4433e2a87358637d99e9",
+    "4fdcb4a678608745de5ae35e451a6700",
+    "4dfa7eadab57a5939b126b13b180c4fe",
+    "63e2df763224e0639b684bf1ba0e133f",
+    "842f629bd75da14688cfe5a67541f955"
   ],
   "daily_llm_calls": {
-    "2026-06-08": 60,
     "2026-06-09": 60,
     "2026-06-10": 60,
     "2026-06-11": 60,
@@ -6923,10 +6932,10 @@
     "2026-07-04": 60,
     "2026-07-05": 60,
     "2026-07-06": 60,
-    "2026-07-07": 60
+    "2026-07-07": 60,
+    "2026-07-08": 60
   },
   "daily_published": {
-    "2026-06-08": 5,
     "2026-06-09": 5,
     "2026-06-10": 5,
     "2026-06-11": 5,
@@ -6955,6 +6964,7 @@
     "2026-07-04": 5,
     "2026-07-05": 5,
     "2026-07-06": 5,
-    "2026-07-07": 5
+    "2026-07-07": 5,
+    "2026-07-08": 5
   }
 }
