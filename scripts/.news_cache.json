@@ -3449,7 +3449,12 @@
     "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-max-severity-coldfusion-flaw-by-friday/",
     "https://thehackernews.com/2026/07/writer-ai-flaw-could-let-agent-previews.html",
     "https://www.bleepingcomputer.com/news/security/ubiquiti-warns-of-new-max-severity-unifi-os-vulnerability/",
-    "https://www.bleepingcomputer.com/news/security/accenture-confirms-breach-after-hacker-offers-stolen-data-for-sale/"
+    "https://www.bleepingcomputer.com/news/security/accenture-confirms-breach-after-hacker-offers-stolen-data-for-sale/",
+    "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-prioritize-patching-langflow-auth-bypass-flaw/",
+    "https://thehackernews.com/2026/07/microsoft-patches-rogueplanet-defender.html",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-patches-rogueplanet-defender-zero-day-vulnerability/",
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-roundcube-flaw-to-spy-on-academic-researchers/",
+    "https://thehackernews.com/2026/07/ubiquiti-patches-critical-unifi-flaws.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6901,10 +6906,14 @@
     "4fdcb4a678608745de5ae35e451a6700",
     "4dfa7eadab57a5939b126b13b180c4fe",
     "63e2df763224e0639b684bf1ba0e133f",
-    "842f629bd75da14688cfe5a67541f955"
+    "842f629bd75da14688cfe5a67541f955",
+    "6f76c4a907194aed4ddb10aaeda75493",
+    "dc108597ac80f3d15a8d152793cd4b38",
+    "d9984ed07f13ff75ec5aaa784128fa68",
+    "0ea32b7dfb77443f128164b307ec8eb6",
+    "7444a05950d95845dd86f838125f60af"
   ],
   "daily_llm_calls": {
-    "2026-06-09": 60,
     "2026-06-10": 60,
     "2026-06-11": 60,
     "2026-06-12": 60,
@@ -6933,10 +6942,10 @@
     "2026-07-05": 60,
     "2026-07-06": 60,
     "2026-07-07": 60,
-    "2026-07-08": 60
+    "2026-07-08": 60,
+    "2026-07-09": 60
   },
   "daily_published": {
-    "2026-06-09": 5,
     "2026-06-10": 5,
     "2026-06-11": 5,
     "2026-06-12": 5,
@@ -6965,6 +6974,7 @@
     "2026-07-05": 5,
     "2026-07-06": 5,
     "2026-07-07": 5,
-    "2026-07-08": 5
+    "2026-07-08": 5,
+    "2026-07-09": 5
   }
 }
