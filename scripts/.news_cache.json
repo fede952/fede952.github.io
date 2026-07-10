@@ -3454,7 +3454,12 @@
     "https://thehackernews.com/2026/07/microsoft-patches-rogueplanet-defender.html",
     "https://www.bleepingcomputer.com/news/microsoft/microsoft-patches-rogueplanet-defender-zero-day-vulnerability/",
     "https://www.bleepingcomputer.com/news/security/hackers-exploit-roundcube-flaw-to-spy-on-academic-researchers/",
-    "https://thehackernews.com/2026/07/ubiquiti-patches-critical-unifi-flaws.html"
+    "https://thehackernews.com/2026/07/ubiquiti-patches-critical-unifi-flaws.html",
+    "https://www.bleepingcomputer.com/news/security/us-ransomware-negotiator-gets-4-years-in-prison-for-blackcat-attacks/",
+    "https://www.darkreading.com/vulnerabilities-threats/microsoft-rogueplanet-zero-day-threat",
+    "https://thehackernews.com/2026/07/attackers-exploit-ill-bloom.html",
+    "https://thehackernews.com/2026/07/ransomware-negotiator-gets-70-months-in.html",
+    "https://thehackernews.com/2026/07/new-gigawiper-windows-backdoor-bundles.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6911,10 +6916,14 @@
     "dc108597ac80f3d15a8d152793cd4b38",
     "d9984ed07f13ff75ec5aaa784128fa68",
     "0ea32b7dfb77443f128164b307ec8eb6",
-    "7444a05950d95845dd86f838125f60af"
+    "7444a05950d95845dd86f838125f60af",
+    "a3b435cc68906e6a4f374cb2cb23cf7b",
+    "1f0b1349af759a834fda678bf1fa5e3a",
+    "c21fb3ce5d3cda562848bbebb9b0fd3f",
+    "f8ff2d317499f9f47a1dc86f278a2c03",
+    "e51b787ad5695decddfad410a3f4ada3"
   ],
   "daily_llm_calls": {
-    "2026-06-10": 60,
     "2026-06-11": 60,
     "2026-06-12": 60,
     "2026-06-13": 60,
@@ -6943,10 +6952,10 @@
     "2026-07-06": 60,
     "2026-07-07": 60,
     "2026-07-08": 60,
-    "2026-07-09": 60
+    "2026-07-09": 60,
+    "2026-07-10": 60
   },
   "daily_published": {
-    "2026-06-10": 5,
     "2026-06-11": 5,
     "2026-06-12": 5,
     "2026-06-13": 5,
@@ -6975,6 +6984,7 @@
     "2026-07-06": 5,
     "2026-07-07": 5,
     "2026-07-08": 5,
-    "2026-07-09": 5
+    "2026-07-09": 5,
+    "2026-07-10": 5
   }
 }
