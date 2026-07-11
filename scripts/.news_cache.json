@@ -3459,7 +3459,12 @@
     "https://www.darkreading.com/vulnerabilities-threats/microsoft-rogueplanet-zero-day-threat",
     "https://thehackernews.com/2026/07/attackers-exploit-ill-bloom.html",
     "https://thehackernews.com/2026/07/ransomware-negotiator-gets-70-months-in.html",
-    "https://thehackernews.com/2026/07/new-gigawiper-windows-backdoor-bundles.html"
+    "https://thehackernews.com/2026/07/new-gigawiper-windows-backdoor-bundles.html",
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-auth-bypass-in-gitea-docker-image/",
+    "https://thehackernews.com/2026/07/new-modbeacon-rat-uses-grpc-streaming.html",
+    "https://thehackernews.com/2026/07/critical-zimbra-flaw-could-let-crafted_0483473395.html",
+    "https://thehackernews.com/2026/07/researcher-details-whatsapp-to-host.html",
+    "https://www.bleepingcomputer.com/news/security/zimbra-urges-customers-to-patch-critical-web-client-xss-flaw/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6921,10 +6926,14 @@
     "1f0b1349af759a834fda678bf1fa5e3a",
     "c21fb3ce5d3cda562848bbebb9b0fd3f",
     "f8ff2d317499f9f47a1dc86f278a2c03",
-    "e51b787ad5695decddfad410a3f4ada3"
+    "e51b787ad5695decddfad410a3f4ada3",
+    "0411b0b2d0544cfa15aed0507ab98aec",
+    "c943f6c3e21e4e20da9223bb98bb0043",
+    "ddf867a4fbcca9c1ad0cfac5ac4ced08",
+    "1f054ef9a8b0f511d7d26c71e404cb3b",
+    "e50a9bdc8f5bbf7fe3d014eea2fd8c26"
   ],
   "daily_llm_calls": {
-    "2026-06-11": 60,
     "2026-06-12": 60,
     "2026-06-13": 60,
     "2026-06-14": 60,
@@ -6953,10 +6962,10 @@
     "2026-07-07": 60,
     "2026-07-08": 60,
     "2026-07-09": 60,
-    "2026-07-10": 60
+    "2026-07-10": 60,
+    "2026-07-11": 60
   },
   "daily_published": {
-    "2026-06-11": 5,
     "2026-06-12": 5,
     "2026-06-13": 5,
     "2026-06-14": 5,
@@ -6985,6 +6994,7 @@
     "2026-07-07": 5,
     "2026-07-08": 5,
     "2026-07-09": 5,
-    "2026-07-10": 5
+    "2026-07-10": 5,
+    "2026-07-11": 5
   }
 }
