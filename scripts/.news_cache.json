@@ -3464,7 +3464,12 @@
     "https://thehackernews.com/2026/07/new-modbeacon-rat-uses-grpc-streaming.html",
     "https://thehackernews.com/2026/07/critical-zimbra-flaw-could-let-crafted_0483473395.html",
     "https://thehackernews.com/2026/07/researcher-details-whatsapp-to-host.html",
-    "https://www.bleepingcomputer.com/news/security/zimbra-urges-customers-to-patch-critical-web-client-xss-flaw/"
+    "https://www.bleepingcomputer.com/news/security/zimbra-urges-customers-to-patch-critical-web-client-xss-flaw/",
+    "https://thehackernews.com/2026/07/hackers-weaponize-balochistan-police.html",
+    "https://www.bleepingcomputer.com/news/security/australia-warns-of-global-campaign-targeting-vulnerable-cms-platforms/",
+    "https://thehackernews.com/2026/07/hackers-use-fake-microsoft-entra.html",
+    "https://www.bleepingcomputer.com/news/security/new-helix-vishing-group-emerges-in-sharepoint-data-theft-attacks/",
+    "https://www.cybersecurity360.it/nuove-minacce/indirect-prompt-injection-il-phishing-che-non-deve-ingannare-nessuno-tranne-lai/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6931,10 +6936,14 @@
     "c943f6c3e21e4e20da9223bb98bb0043",
     "ddf867a4fbcca9c1ad0cfac5ac4ced08",
     "1f054ef9a8b0f511d7d26c71e404cb3b",
-    "e50a9bdc8f5bbf7fe3d014eea2fd8c26"
+    "e50a9bdc8f5bbf7fe3d014eea2fd8c26",
+    "202fc97a6b44a3f5187dd32e1fe14737",
+    "2254541b9b477349987e79905bb6cbd8",
+    "ab595a8cf0714c7134109d7ae497fe97",
+    "ab6e90dc8f90af572843413e00e5781f",
+    "5c2f7f3c349715874237206626a8186e"
   ],
   "daily_llm_calls": {
-    "2026-06-12": 60,
     "2026-06-13": 60,
     "2026-06-14": 60,
     "2026-06-15": 60,
@@ -6963,10 +6972,10 @@
     "2026-07-08": 60,
     "2026-07-09": 60,
     "2026-07-10": 60,
-    "2026-07-11": 60
+    "2026-07-11": 60,
+    "2026-07-12": 60
   },
   "daily_published": {
-    "2026-06-12": 5,
     "2026-06-13": 5,
     "2026-06-14": 5,
     "2026-06-15": 5,
@@ -6995,6 +7004,7 @@
     "2026-07-08": 5,
     "2026-07-09": 5,
     "2026-07-10": 5,
-    "2026-07-11": 5
+    "2026-07-11": 5,
+    "2026-07-12": 5
   }
 }
