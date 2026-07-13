@@ -3469,7 +3469,12 @@
     "https://www.bleepingcomputer.com/news/security/australia-warns-of-global-campaign-targeting-vulnerable-cms-platforms/",
     "https://thehackernews.com/2026/07/hackers-use-fake-microsoft-entra.html",
     "https://www.bleepingcomputer.com/news/security/new-helix-vishing-group-emerges-in-sharepoint-data-theft-attacks/",
-    "https://www.cybersecurity360.it/nuove-minacce/indirect-prompt-injection-il-phishing-che-non-deve-ingannare-nessuno-tranne-lai/"
+    "https://www.cybersecurity360.it/nuove-minacce/indirect-prompt-injection-il-phishing-che-non-deve-ingannare-nessuno-tranne-lai/",
+    "https://thehackernews.com/2026/07/icagenda-and-balbooa-forms-joomla-flaws.html",
+    "https://krebsonsecurity.com/2026/07/felons-fraudsters-flog-offensive-cybersecurity-startup/",
+    "https://krebsonsecurity.com/2026/06/popa-botnet-linked-to-publicly-traded-israeli-firm/",
+    "https://krebsonsecurity.com/2026/06/who-runs-the-ransomware-group-the-gentlemen/",
+    "https://krebsonsecurity.com/2026/06/a-record-breaking-patch-tuesday-for-june-2026/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6941,10 +6946,14 @@
     "2254541b9b477349987e79905bb6cbd8",
     "ab595a8cf0714c7134109d7ae497fe97",
     "ab6e90dc8f90af572843413e00e5781f",
-    "5c2f7f3c349715874237206626a8186e"
+    "5c2f7f3c349715874237206626a8186e",
+    "b53cbe9d22d9aa562218c156ee7649ba",
+    "6be83214b524fd8adfc70818eb4f0c93",
+    "421e8e6dea32df5d1c98bb2122013604",
+    "0a1eba5152385f4babf5c5570bed4671",
+    "6790fddaf3712fa5f38972d3ad29ad3a"
   ],
   "daily_llm_calls": {
-    "2026-06-13": 60,
     "2026-06-14": 60,
     "2026-06-15": 60,
     "2026-06-16": 49,
@@ -6973,10 +6982,10 @@
     "2026-07-09": 60,
     "2026-07-10": 60,
     "2026-07-11": 60,
-    "2026-07-12": 60
+    "2026-07-12": 60,
+    "2026-07-13": 60
   },
   "daily_published": {
-    "2026-06-13": 5,
     "2026-06-14": 5,
     "2026-06-15": 5,
     "2026-06-16": 4,
@@ -7005,6 +7014,7 @@
     "2026-07-09": 5,
     "2026-07-10": 5,
     "2026-07-11": 5,
-    "2026-07-12": 5
+    "2026-07-12": 5,
+    "2026-07-13": 5
   }
 }
