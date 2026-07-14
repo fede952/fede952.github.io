@@ -3474,7 +3474,12 @@
     "https://krebsonsecurity.com/2026/07/felons-fraudsters-flog-offensive-cybersecurity-startup/",
     "https://krebsonsecurity.com/2026/06/popa-botnet-linked-to-publicly-traded-israeli-firm/",
     "https://krebsonsecurity.com/2026/06/who-runs-the-ransomware-group-the-gentlemen/",
-    "https://krebsonsecurity.com/2026/06/a-record-breaking-patch-tuesday-for-june-2026/"
+    "https://krebsonsecurity.com/2026/06/a-record-breaking-patch-tuesday-for-june-2026/",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-actively-exploited-rce-flaws-in-joomla-extensions/",
+    "https://krebsonsecurity.com/2026/07/lessons-learned-from-cisas-recent-github-leak/",
+    "https://www.bleepingcomputer.com/news/security/hackers-backdoor-jscrambler-npm-package-with-infostealer-malware/",
+    "https://www.darkreading.com/cyberattacks-data-breaches/gigawiper-threat-actors-choose-their-own-destructive-attack",
+    "https://thehackernews.com/2026/07/us-sanctions-first-vpn-service-and.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6951,10 +6956,14 @@
     "6be83214b524fd8adfc70818eb4f0c93",
     "421e8e6dea32df5d1c98bb2122013604",
     "0a1eba5152385f4babf5c5570bed4671",
-    "6790fddaf3712fa5f38972d3ad29ad3a"
+    "6790fddaf3712fa5f38972d3ad29ad3a",
+    "644a01c75997b11a643a693b7d53613b",
+    "ef4841115550c57d835c15368e692b7a",
+    "922c2fca5b77b99c4e39ea0182513054",
+    "6e5d1d615edfbff6578ad96d4b5a587c",
+    "f3de4fffa903c22e7d9c03d50ecb040f"
   ],
   "daily_llm_calls": {
-    "2026-06-14": 60,
     "2026-06-15": 60,
     "2026-06-16": 49,
     "2026-06-17": 60,
@@ -6983,10 +6992,10 @@
     "2026-07-10": 60,
     "2026-07-11": 60,
     "2026-07-12": 60,
-    "2026-07-13": 60
+    "2026-07-13": 60,
+    "2026-07-14": 60
   },
   "daily_published": {
-    "2026-06-14": 5,
     "2026-06-15": 5,
     "2026-06-16": 4,
     "2026-06-17": 5,
@@ -7015,6 +7024,7 @@
     "2026-07-10": 5,
     "2026-07-11": 5,
     "2026-07-12": 5,
-    "2026-07-13": 5
+    "2026-07-13": 5,
+    "2026-07-14": 5
   }
 }
