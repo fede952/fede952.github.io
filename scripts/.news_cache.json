@@ -3479,7 +3479,12 @@
     "https://krebsonsecurity.com/2026/07/lessons-learned-from-cisas-recent-github-leak/",
     "https://www.bleepingcomputer.com/news/security/hackers-backdoor-jscrambler-npm-package-with-infostealer-malware/",
     "https://www.darkreading.com/cyberattacks-data-breaches/gigawiper-threat-actors-choose-their-own-destructive-attack",
-    "https://thehackernews.com/2026/07/us-sanctions-first-vpn-service-and.html"
+    "https://thehackernews.com/2026/07/us-sanctions-first-vpn-service-and.html",
+    "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-sma1000-flaws-exploited-in-zero-day-attacks-patch-now/",
+    "https://thehackernews.com/2026/07/two-sonicwall-sma-1000-zero-days.html",
+    "https://thehackernews.com/2026/07/microsoft-patches-record-622-flaws.html",
+    "https://www.darkreading.com/vulnerabilities-threats/records-broken-patch-tuesday-raises-triage-stakes",
+    "https://thehackernews.com/2026/07/sap-patches-cvss-99-netweaver-abap-flaw.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6961,10 +6966,14 @@
     "ef4841115550c57d835c15368e692b7a",
     "922c2fca5b77b99c4e39ea0182513054",
     "6e5d1d615edfbff6578ad96d4b5a587c",
-    "f3de4fffa903c22e7d9c03d50ecb040f"
+    "f3de4fffa903c22e7d9c03d50ecb040f",
+    "854af83a6a56df667e3f2ff966d325ea",
+    "412fcf44e70d7de571ce101bfc376b6f",
+    "c1dd37dc48ec45467f3ecefb6268da31",
+    "ddff01216bde1606775fdfd5d5a13b57",
+    "57c9ad7eecfcefc452370304bff231df"
   ],
   "daily_llm_calls": {
-    "2026-06-15": 60,
     "2026-06-16": 49,
     "2026-06-17": 60,
     "2026-06-18": 49,
@@ -6993,10 +7002,10 @@
     "2026-07-11": 60,
     "2026-07-12": 60,
     "2026-07-13": 60,
-    "2026-07-14": 60
+    "2026-07-14": 60,
+    "2026-07-15": 60
   },
   "daily_published": {
-    "2026-06-15": 5,
     "2026-06-16": 4,
     "2026-06-17": 5,
     "2026-06-18": 4,
@@ -7025,6 +7034,7 @@
     "2026-07-11": 5,
     "2026-07-12": 5,
     "2026-07-13": 5,
-    "2026-07-14": 5
+    "2026-07-14": 5,
+    "2026-07-15": 5
   }
 }
