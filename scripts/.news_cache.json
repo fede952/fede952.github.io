@@ -3489,7 +3489,12 @@
     "https://thehackernews.com/2026/07/researcher-drops-new-windows-zero-day.html",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-admins-to-patch-actively-exploited-sharepoint-flaws/",
     "https://thehackernews.com/2026/07/zoom-patches-critical-windows-flaw-that.html",
-    "https://www.darkreading.com/identity-access-management-security/identity-attacks-overtake-exploits-top-ransomware-cause"
+    "https://www.darkreading.com/identity-access-management-security/identity-attacks-overtake-exploits-top-ransomware-cause",
+    "https://thehackernews.com/2026/07/cisa-adds-exploited-sharepoint-rce-zero.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-actively-exploited-oracle-flaw-by-saturday/",
+    "https://www.bleepingcomputer.com/news/security/russian-hackers-trojanize-webex-zoom-apps-to-push-starland-malware/",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-feds-to-patch-exploited-fortinet-fortisandbox-flaws-by-sunday/",
+    "https://thehackernews.com/2026/07/daxin-resurfaces-in-taiwan-alongside.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6981,10 +6986,14 @@
     "6b6834120637d771ebdaead46b1bf27e",
     "06e24f54b6920b46fc8e9eb78c0a5661",
     "f9ab4e52aff1555c915adcc49e25aea2",
-    "b95ff585b9152231e42aa66092233770"
+    "b95ff585b9152231e42aa66092233770",
+    "7befcacef7123828474b0240a2d6228a",
+    "12156d6364bea9538ce1b8eb09ff9715",
+    "a34c0ebab260ba1f0bae7a392f753b55",
+    "8a64ca68af98d9f69aeaf06f7d520786",
+    "de9c20426c7b9d4e17012737627fdb15"
   ],
   "daily_llm_calls": {
-    "2026-06-17": 60,
     "2026-06-18": 49,
     "2026-06-19": 60,
     "2026-06-20": 60,
@@ -7013,10 +7022,10 @@
     "2026-07-13": 60,
     "2026-07-14": 60,
     "2026-07-15": 60,
-    "2026-07-16": 60
+    "2026-07-16": 60,
+    "2026-07-17": 60
   },
   "daily_published": {
-    "2026-06-17": 5,
     "2026-06-18": 4,
     "2026-06-19": 5,
     "2026-06-20": 5,
@@ -7045,6 +7054,7 @@
     "2026-07-13": 5,
     "2026-07-14": 5,
     "2026-07-15": 5,
-    "2026-07-16": 5
+    "2026-07-16": 5,
+    "2026-07-17": 5
   }
 }
