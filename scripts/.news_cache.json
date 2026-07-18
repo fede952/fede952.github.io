@@ -3494,7 +3494,12 @@
     "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-actively-exploited-oracle-flaw-by-saturday/",
     "https://www.bleepingcomputer.com/news/security/russian-hackers-trojanize-webex-zoom-apps-to-push-starland-malware/",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-feds-to-patch-exploited-fortinet-fortisandbox-flaws-by-sunday/",
-    "https://thehackernews.com/2026/07/daxin-resurfaces-in-taiwan-alongside.html"
+    "https://thehackernews.com/2026/07/daxin-resurfaces-in-taiwan-alongside.html",
+    "https://thehackernews.com/2026/07/openssl-hollowbyte-flaw-could-freeze.html",
+    "https://www.darkreading.com/vulnerabilities-threats/inc-ransomware-exploits-sonicwall-sma-zero-days",
+    "https://thehackernews.com/2026/07/goldeneyedog-subgroup-linked-to.html",
+    "https://thehackernews.com/2026/07/new-wp2shell-wordpress-core-flaw-lets.html",
+    "https://www.bleepingcomputer.com/news/security/abbott-laboratories-probes-two-cyber-incidents-amid-extortion-claims/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -6991,10 +6996,14 @@
     "12156d6364bea9538ce1b8eb09ff9715",
     "a34c0ebab260ba1f0bae7a392f753b55",
     "8a64ca68af98d9f69aeaf06f7d520786",
-    "de9c20426c7b9d4e17012737627fdb15"
+    "de9c20426c7b9d4e17012737627fdb15",
+    "2a6276f1aae52a299818713f57c4f16e",
+    "026fb2f2ec0d64440a5b4dea3f4c49f7",
+    "9e7739e5582872d0a1e0290ab248e4db",
+    "70d632a69e3c49122165b1454902b22d",
+    "dd531491e54f0869db64db6a779a8df2"
   ],
   "daily_llm_calls": {
-    "2026-06-18": 49,
     "2026-06-19": 60,
     "2026-06-20": 60,
     "2026-06-21": 60,
@@ -7023,10 +7032,10 @@
     "2026-07-14": 60,
     "2026-07-15": 60,
     "2026-07-16": 60,
-    "2026-07-17": 60
+    "2026-07-17": 60,
+    "2026-07-18": 60
   },
   "daily_published": {
-    "2026-06-18": 4,
     "2026-06-19": 5,
     "2026-06-20": 5,
     "2026-06-21": 5,
@@ -7055,6 +7064,7 @@
     "2026-07-14": 5,
     "2026-07-15": 5,
     "2026-07-16": 5,
-    "2026-07-17": 5
+    "2026-07-17": 5,
+    "2026-07-18": 5
   }
 }
