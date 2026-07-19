@@ -3499,7 +3499,12 @@
     "https://www.darkreading.com/vulnerabilities-threats/inc-ransomware-exploits-sonicwall-sma-zero-days",
     "https://thehackernews.com/2026/07/goldeneyedog-subgroup-linked-to.html",
     "https://thehackernews.com/2026/07/new-wp2shell-wordpress-core-flaw-lets.html",
-    "https://www.bleepingcomputer.com/news/security/abbott-laboratories-probes-two-cyber-incidents-amid-extortion-claims/"
+    "https://www.bleepingcomputer.com/news/security/abbott-laboratories-probes-two-cyber-incidents-amid-extortion-claims/",
+    "https://www.bleepingcomputer.com/news/security/update-now-7-zip-fixes-rce-flaw-exploitable-with-malicious-archives/",
+    "https://www.bleepingcomputer.com/news/security/wordpress-core-wp2shell-rce-flaws-get-public-exploits-patch-now/",
+    "https://thehackernews.com/2026/07/seven-malicious-vite-npm-packages-use.html",
+    "https://www.bleepingcomputer.com/news/security/hollowbyte-ddos-flaw-bloats-openssl-server-memory-with-11-byte-payload/",
+    "https://thehackernews.com/2026/07/new-nadmesh-botnet-hunts-exposed-ai.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7001,10 +7006,14 @@
     "026fb2f2ec0d64440a5b4dea3f4c49f7",
     "9e7739e5582872d0a1e0290ab248e4db",
     "70d632a69e3c49122165b1454902b22d",
-    "dd531491e54f0869db64db6a779a8df2"
+    "dd531491e54f0869db64db6a779a8df2",
+    "90538135f07ddeaf21f17a10b18e12ed",
+    "933c2859013216633c69eef02a57691d",
+    "0cd201f1951c59d9568f672c93cbd49f",
+    "dc4c82a9ba302a6bbe22699127bbb608",
+    "72d156e2a61f94fad0c267903a22dcf9"
   ],
   "daily_llm_calls": {
-    "2026-06-19": 60,
     "2026-06-20": 60,
     "2026-06-21": 60,
     "2026-06-22": 60,
@@ -7033,10 +7042,10 @@
     "2026-07-15": 60,
     "2026-07-16": 60,
     "2026-07-17": 60,
-    "2026-07-18": 60
+    "2026-07-18": 60,
+    "2026-07-19": 60
   },
   "daily_published": {
-    "2026-06-19": 5,
     "2026-06-20": 5,
     "2026-06-21": 5,
     "2026-06-22": 5,
@@ -7065,6 +7074,7 @@
     "2026-07-15": 5,
     "2026-07-16": 5,
     "2026-07-17": 5,
-    "2026-07-18": 5
+    "2026-07-18": 5,
+    "2026-07-19": 5
   }
 }
