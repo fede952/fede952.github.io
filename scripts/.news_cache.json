@@ -3514,7 +3514,12 @@
     "https://www.bleepingcomputer.com/news/security/sonicwall-sma1000-flaws-exploited-as-zero-days-to-push-custom-malware/",
     "https://thehackernews.com/2026/07/weekly-recap-wordpress-rce-sonicwall-0.html",
     "https://thehackernews.com/2026/07/wordpress-wp2shell-exploitation-grows.html",
-    "https://www.bleepingcomputer.com/news/security/est-e-lauder-discloses-data-breach-via-oracle-e-business-flaw/"
+    "https://www.bleepingcomputer.com/news/security/est-e-lauder-discloses-data-breach-via-oracle-e-business-flaw/",
+    "https://thehackernews.com/2026/07/qilin-ransomware-attackers-exploit-pan.html",
+    "https://www.bleepingcomputer.com/news/security/critical-sharepoint-rce-flaw-exploited-to-steal-machine-keys/",
+    "https://thehackernews.com/2026/07/critical-sharepoint-rce-cve-2026-50522.html",
+    "https://www.bleepingcomputer.com/news/security/critical-globalprotect-vpn-bug-now-exploited-in-ransomware-attacks/",
+    "https://www.cybersecurity360.it/legal/nis2-larticolo-17-esce-dallombra-cosa-cambia-per-gli-accordi-con-i-fornitori-cyber/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7031,10 +7036,14 @@
     "ef42e1a3f2c94f426213651edfcedcd1",
     "87b40335d613a62c7560f995327d3241",
     "6b9def5c756ec7b7bb40312a2af971e5",
-    "86972d710f974195b4594b1c8a59968a"
+    "86972d710f974195b4594b1c8a59968a",
+    "8278a280fa40462f47e5844a27a5b5b0",
+    "e2324e3695ec3e4ace9dc6fe45d6c0c9",
+    "c36ff38591c5cc9416321e2467b40fb7",
+    "9dc981d8531a06151f43a6525e013760",
+    "8767e181cf2233718bf0f90c32f82601"
   ],
   "daily_llm_calls": {
-    "2026-06-22": 60,
     "2026-06-23": 60,
     "2026-06-24": 60,
     "2026-06-25": 60,
@@ -7063,10 +7072,10 @@
     "2026-07-18": 60,
     "2026-07-19": 60,
     "2026-07-20": 60,
-    "2026-07-21": 60
+    "2026-07-21": 60,
+    "2026-07-22": 60
   },
   "daily_published": {
-    "2026-06-22": 5,
     "2026-06-23": 5,
     "2026-06-24": 5,
     "2026-06-25": 5,
@@ -7095,6 +7104,7 @@
     "2026-07-18": 5,
     "2026-07-19": 5,
     "2026-07-20": 5,
-    "2026-07-21": 5
+    "2026-07-21": 5,
+    "2026-07-22": 5
   }
 }
