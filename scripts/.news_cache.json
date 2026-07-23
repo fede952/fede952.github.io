@@ -3519,7 +3519,12 @@
     "https://www.bleepingcomputer.com/news/security/critical-sharepoint-rce-flaw-exploited-to-steal-machine-keys/",
     "https://thehackernews.com/2026/07/critical-sharepoint-rce-cve-2026-50522.html",
     "https://www.bleepingcomputer.com/news/security/critical-globalprotect-vpn-bug-now-exploited-in-ransomware-attacks/",
-    "https://www.cybersecurity360.it/legal/nis2-larticolo-17-esce-dallombra-cosa-cambia-per-gli-accordi-con-i-fornitori-cyber/"
+    "https://www.cybersecurity360.it/legal/nis2-larticolo-17-esce-dallombra-cosa-cambia-per-gli-accordi-con-i-fornitori-cyber/",
+    "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-actively-exploited-langflow-rce-flaw/",
+    "https://thehackernews.com/2026/07/adobe-acrobat-extension-flaw-let.html",
+    "https://thehackernews.com/2026/07/why-modern-socs-need-multi-layered.html",
+    "https://thehackernews.com/2026/07/hackers-exploit-windmill-flaw-to-read.html",
+    "https://www.bleepingcomputer.com/news/security/check-point-patches-smartconsole-zero-day-exploited-in-attacks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7041,10 +7046,14 @@
     "e2324e3695ec3e4ace9dc6fe45d6c0c9",
     "c36ff38591c5cc9416321e2467b40fb7",
     "9dc981d8531a06151f43a6525e013760",
-    "8767e181cf2233718bf0f90c32f82601"
+    "8767e181cf2233718bf0f90c32f82601",
+    "8b19944928a6e5c68bf52b929bd3c062",
+    "5cc952a4f251b9887a79f92e2f40a4e1",
+    "2526aa1c2d09b81646fea0e2fbc95c25",
+    "e4dacb71f3e8b8e8ea6640025a44aadb",
+    "f0c935e31ff5fc00f876afd532867120"
   ],
   "daily_llm_calls": {
-    "2026-06-23": 60,
     "2026-06-24": 60,
     "2026-06-25": 60,
     "2026-06-26": 60,
@@ -7073,10 +7082,10 @@
     "2026-07-19": 60,
     "2026-07-20": 60,
     "2026-07-21": 60,
-    "2026-07-22": 60
+    "2026-07-22": 60,
+    "2026-07-23": 60
   },
   "daily_published": {
-    "2026-06-23": 5,
     "2026-06-24": 5,
     "2026-06-25": 5,
     "2026-06-26": 5,
@@ -7105,6 +7114,7 @@
     "2026-07-19": 5,
     "2026-07-20": 5,
     "2026-07-21": 5,
-    "2026-07-22": 5
+    "2026-07-22": 5,
+    "2026-07-23": 5
   }
 }
