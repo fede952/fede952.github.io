@@ -3524,7 +3524,12 @@
     "https://thehackernews.com/2026/07/adobe-acrobat-extension-flaw-let.html",
     "https://thehackernews.com/2026/07/why-modern-socs-need-multi-layered.html",
     "https://thehackernews.com/2026/07/hackers-exploit-windmill-flaw-to-read.html",
-    "https://www.bleepingcomputer.com/news/security/check-point-patches-smartconsole-zero-day-exploited-in-attacks/"
+    "https://www.bleepingcomputer.com/news/security/check-point-patches-smartconsole-zero-day-exploited-in-attacks/",
+    "https://www.bleepingcomputer.com/news/security/russian-hackers-exploit-zimbra-zero-click-flaw-for-email-theft/",
+    "https://thehackernews.com/2026/07/nodebb-patches-eight-ai-found-flaws.html",
+    "https://thehackernews.com/2026/07/kimi-k3-agents-found-redis-zero-days.html",
+    "https://www.darkreading.com/cyberattacks-data-breaches/russian-hackers-zimbra-zero-day-us-ukraine-targets",
+    "https://thehackernews.com/2026/07/russian-espionage-group-exploited.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7051,10 +7056,14 @@
     "5cc952a4f251b9887a79f92e2f40a4e1",
     "2526aa1c2d09b81646fea0e2fbc95c25",
     "e4dacb71f3e8b8e8ea6640025a44aadb",
-    "f0c935e31ff5fc00f876afd532867120"
+    "f0c935e31ff5fc00f876afd532867120",
+    "c680815593ab7f4bc0e3b9cd254464e2",
+    "53112d644caa0c12f3c630402c2e6408",
+    "bdc1decc0a900f65f3c5b8b986def83a",
+    "4a7e5147955c5b6d1fbe62e7d4cc7b64",
+    "a6949d0a24ba806d120269d8912dab68"
   ],
   "daily_llm_calls": {
-    "2026-06-24": 60,
     "2026-06-25": 60,
     "2026-06-26": 60,
     "2026-06-27": 60,
@@ -7083,10 +7092,10 @@
     "2026-07-20": 60,
     "2026-07-21": 60,
     "2026-07-22": 60,
-    "2026-07-23": 60
+    "2026-07-23": 60,
+    "2026-07-24": 60
   },
   "daily_published": {
-    "2026-06-24": 5,
     "2026-06-25": 5,
     "2026-06-26": 5,
     "2026-06-27": 5,
@@ -7115,6 +7124,7 @@
     "2026-07-20": 5,
     "2026-07-21": 5,
     "2026-07-22": 5,
-    "2026-07-23": 5
+    "2026-07-23": 5,
+    "2026-07-24": 5
   }
 }
