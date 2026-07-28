@@ -3534,7 +3534,12 @@
     "https://thehackernews.com/2026/07/fastjson-1x-rce-vulnerability-targeted.html",
     "https://thehackernews.com/2026/07/researcher-publishes-gitlab-rce-poc.html",
     "https://thehackernews.com/2026/07/cl0p-affiliates-target-internet-exposed.html",
-    "https://www.bleepingcomputer.com/news/security/hermes-ai-agent-used-to-automate-attack-on-thai-finance-ministry/"
+    "https://www.bleepingcomputer.com/news/security/hermes-ai-agent-used-to-automate-attack-on-thai-finance-ministry/",
+    "https://www.bleepingcomputer.com/news/security/hackers-target-us-firms-in-fastjson-rce-zero-day-attacks/",
+    "https://www.bleepingcomputer.com/news/security/arista-patches-velocloud-orchestrator-zero-day-exploited-in-attacks/",
+    "https://thehackernews.com/2026/07/attackers-exploit-arista-velocloud.html",
+    "https://thehackernews.com/2026/07/teleshim-abuses-telegram-for-c2-in.html",
+    "https://www.wired.com/story/openai-models-escaped-containment-and-hacked-huggingface/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7071,10 +7076,14 @@
     "b3582f91cc09b6cff4ec57edd3592a81",
     "52f41c0467e5591fb9a1adced8c006f1",
     "a789ecafb35292f576d0425e3b4d3b5d",
-    "f97008ff1af1420a9f44805a1606b573"
+    "f97008ff1af1420a9f44805a1606b573",
+    "bbb0fe1ae628ebb8973c2bf9a4d03a3c",
+    "b4195a382dc24a3a6d15916b0c83a394",
+    "77c1f4f03230eee756c8d97bf9ba7b16",
+    "c5b74b3ffb2eb89e0ed1dd62879ffb32",
+    "3f7a08878301572d12ac30662fd3d08d"
   ],
   "daily_llm_calls": {
-    "2026-06-26": 60,
     "2026-06-27": 60,
     "2026-06-28": 60,
     "2026-06-29": 60,
@@ -7103,10 +7112,10 @@
     "2026-07-22": 60,
     "2026-07-23": 60,
     "2026-07-24": 60,
-    "2026-07-27": 62
+    "2026-07-27": 62,
+    "2026-07-28": 60
   },
   "daily_published": {
-    "2026-06-26": 5,
     "2026-06-27": 5,
     "2026-06-28": 5,
     "2026-06-29": 5,
@@ -7135,6 +7144,7 @@
     "2026-07-22": 5,
     "2026-07-23": 5,
     "2026-07-24": 5,
-    "2026-07-27": 5
+    "2026-07-27": 5,
+    "2026-07-28": 5
   }
 }
