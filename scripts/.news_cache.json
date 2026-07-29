@@ -3539,7 +3539,12 @@
     "https://www.bleepingcomputer.com/news/security/arista-patches-velocloud-orchestrator-zero-day-exploited-in-attacks/",
     "https://thehackernews.com/2026/07/attackers-exploit-arista-velocloud.html",
     "https://thehackernews.com/2026/07/teleshim-abuses-telegram-for-c2-in.html",
-    "https://www.wired.com/story/openai-models-escaped-containment-and-hacked-huggingface/"
+    "https://www.wired.com/story/openai-models-escaped-containment-and-hacked-huggingface/",
+    "https://thehackernews.com/2026/07/rapid7-releases-poc-for-exploited-check.html",
+    "https://thehackernews.com/2026/07/new-gitea-rce-lets-repository-writers.html",
+    "https://thehackernews.com/2026/07/two-compromised-joyfill-npm-packages.html",
+    "https://www.bleepingcomputer.com/news/security/vbulletin-fixes-critical-pre-auth-rce-flaw-with-public-exploit/",
+    "https://www.darkreading.com/vulnerabilities-threats/certighost-flaw-microsoft-active-directory-certificates"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7081,10 +7086,14 @@
     "b4195a382dc24a3a6d15916b0c83a394",
     "77c1f4f03230eee756c8d97bf9ba7b16",
     "c5b74b3ffb2eb89e0ed1dd62879ffb32",
-    "3f7a08878301572d12ac30662fd3d08d"
+    "3f7a08878301572d12ac30662fd3d08d",
+    "f5b4d4c4ae032918cfac81f6f5cb2082",
+    "bb1b7ccbdde29dfc43568ac2fa3353c6",
+    "3f1e00d6511f32affa0976583d54a400",
+    "08f484a05c7d31631ecf95ed9f33bb4f",
+    "52e1a1d651bd533a82b02b4e9313549a"
   ],
   "daily_llm_calls": {
-    "2026-06-27": 60,
     "2026-06-28": 60,
     "2026-06-29": 60,
     "2026-06-30": 60,
@@ -7113,10 +7122,10 @@
     "2026-07-23": 60,
     "2026-07-24": 60,
     "2026-07-27": 62,
-    "2026-07-28": 60
+    "2026-07-28": 60,
+    "2026-07-29": 60
   },
   "daily_published": {
-    "2026-06-27": 5,
     "2026-06-28": 5,
     "2026-06-29": 5,
     "2026-06-30": 5,
@@ -7145,6 +7154,7 @@
     "2026-07-23": 5,
     "2026-07-24": 5,
     "2026-07-27": 5,
-    "2026-07-28": 5
+    "2026-07-28": 5,
+    "2026-07-29": 5
   }
 }
