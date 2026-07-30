@@ -3544,7 +3544,12 @@
     "https://thehackernews.com/2026/07/new-gitea-rce-lets-repository-writers.html",
     "https://thehackernews.com/2026/07/two-compromised-joyfill-npm-packages.html",
     "https://www.bleepingcomputer.com/news/security/vbulletin-fixes-critical-pre-auth-rce-flaw-with-public-exploit/",
-    "https://www.darkreading.com/vulnerabilities-threats/certighost-flaw-microsoft-active-directory-certificates"
+    "https://www.darkreading.com/vulnerabilities-threats/certighost-flaw-microsoft-active-directory-certificates",
+    "https://thehackernews.com/2026/07/cisco-fmc-zero-day-actively-exploited.html",
+    "https://thehackernews.com/2026/07/russian-hackers-exploit-microsoft-owa.html",
+    "https://www.bleepingcomputer.com/news/security/russian-hackers-exploit-exchange-owa-zero-day-for-long-term-mailbox-access/",
+    "https://www.bleepingcomputer.com/news/security/cisco-warns-of-fmc-static-credential-flaw-exploited-in-zero-day-attacks/",
+    "https://thehackernews.com/2026/07/ruflo-mcp-flaw-lets-unauthenticated.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7091,10 +7096,14 @@
     "bb1b7ccbdde29dfc43568ac2fa3353c6",
     "3f1e00d6511f32affa0976583d54a400",
     "08f484a05c7d31631ecf95ed9f33bb4f",
-    "52e1a1d651bd533a82b02b4e9313549a"
+    "52e1a1d651bd533a82b02b4e9313549a",
+    "9532f14bb18490ebcfed288553fc9baa",
+    "32d8e626c10c5986214ce619da9e8af3",
+    "458c81e4f78e68ec8062c47c46f9a9ba",
+    "666fc34a039e6bd14b004b88f9356f19",
+    "f17df267cf152200ec644ea16a336daf"
   ],
   "daily_llm_calls": {
-    "2026-06-28": 60,
     "2026-06-29": 60,
     "2026-06-30": 60,
     "2026-07-01": 60,
@@ -7123,10 +7132,10 @@
     "2026-07-24": 60,
     "2026-07-27": 62,
     "2026-07-28": 60,
-    "2026-07-29": 60
+    "2026-07-29": 60,
+    "2026-07-30": 60
   },
   "daily_published": {
-    "2026-06-28": 5,
     "2026-06-29": 5,
     "2026-06-30": 5,
     "2026-07-01": 5,
@@ -7155,6 +7164,7 @@
     "2026-07-24": 5,
     "2026-07-27": 5,
     "2026-07-28": 5,
-    "2026-07-29": 5
+    "2026-07-29": 5,
+    "2026-07-30": 5
   }
 }
