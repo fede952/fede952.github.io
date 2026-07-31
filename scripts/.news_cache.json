@@ -3549,7 +3549,12 @@
     "https://thehackernews.com/2026/07/russian-hackers-exploit-microsoft-owa.html",
     "https://www.bleepingcomputer.com/news/security/russian-hackers-exploit-exchange-owa-zero-day-for-long-term-mailbox-access/",
     "https://www.bleepingcomputer.com/news/security/cisco-warns-of-fmc-static-credential-flaw-exploited-in-zero-day-attacks/",
-    "https://thehackernews.com/2026/07/ruflo-mcp-flaw-lets-unauthenticated.html"
+    "https://thehackernews.com/2026/07/ruflo-mcp-flaw-lets-unauthenticated.html",
+    "https://thehackernews.com/2026/07/azure-cosmos-db-flaw-exposed-platform.html",
+    "https://thehackernews.com/2026/07/the-network-has-become-control-plane.html",
+    "https://www.cybersecurity360.it/nuove-minacce/il-jailbreak-universale-alla-vigilia-dellai-act-ecco-limpatto-nella-sicurezza-aziendale/",
+    "https://www.wired.com/story/anthropic-says-claude-hacked-real-systems-during-cybersecurity-tests/",
+    "https://www.bleepingcomputer.com/news/security/anthropics-claude-breached-3-orgs-uploaded-pypi-malware-during-tests/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7101,10 +7106,14 @@
     "32d8e626c10c5986214ce619da9e8af3",
     "458c81e4f78e68ec8062c47c46f9a9ba",
     "666fc34a039e6bd14b004b88f9356f19",
-    "f17df267cf152200ec644ea16a336daf"
+    "f17df267cf152200ec644ea16a336daf",
+    "df6ffe9d47b8dd940b673a9246b1beec",
+    "b567427e34c87a43838006ff777c37ca",
+    "820f150737e77d90e4dce1e30a1f2daf",
+    "24118cf31d78304253f231efc7b1b806",
+    "847d1f119b5686d97a9e4183623ea2fc"
   ],
   "daily_llm_calls": {
-    "2026-06-29": 60,
     "2026-06-30": 60,
     "2026-07-01": 60,
     "2026-07-02": 60,
@@ -7133,10 +7142,10 @@
     "2026-07-27": 62,
     "2026-07-28": 60,
     "2026-07-29": 60,
-    "2026-07-30": 60
+    "2026-07-30": 60,
+    "2026-07-31": 74
   },
   "daily_published": {
-    "2026-06-29": 5,
     "2026-06-30": 5,
     "2026-07-01": 5,
     "2026-07-02": 5,
@@ -7165,6 +7174,7 @@
     "2026-07-27": 5,
     "2026-07-28": 5,
     "2026-07-29": 5,
-    "2026-07-30": 5
+    "2026-07-30": 5,
+    "2026-07-31": 5
   }
 }
