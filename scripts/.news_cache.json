@@ -3554,7 +3554,12 @@
     "https://thehackernews.com/2026/07/the-network-has-become-control-plane.html",
     "https://www.cybersecurity360.it/nuove-minacce/il-jailbreak-universale-alla-vigilia-dellai-act-ecco-limpatto-nella-sicurezza-aziendale/",
     "https://www.wired.com/story/anthropic-says-claude-hacked-real-systems-during-cybersecurity-tests/",
-    "https://www.bleepingcomputer.com/news/security/anthropics-claude-breached-3-orgs-uploaded-pypi-malware-during-tests/"
+    "https://www.bleepingcomputer.com/news/security/anthropics-claude-breached-3-orgs-uploaded-pypi-malware-during-tests/",
+    "https://thehackernews.com/2026/07/hollowframe-loader-deploys-matryoshka.html",
+    "https://thehackernews.com/2026/08/hijacked-hotel-wi-fi-pushes-fake.html",
+    "https://www.bleepingcomputer.com/news/security/eset-tracks-rise-in-malicious-ai-skills-and-adaptable-malware/",
+    "https://thehackernews.com/2026/07/chinese-hacker-commands-deepseek-via.html",
+    "https://thehackernews.com/2026/08/adobe-campaign-classic-cvss-100-flaw.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7111,10 +7116,14 @@
     "b567427e34c87a43838006ff777c37ca",
     "820f150737e77d90e4dce1e30a1f2daf",
     "24118cf31d78304253f231efc7b1b806",
-    "847d1f119b5686d97a9e4183623ea2fc"
+    "847d1f119b5686d97a9e4183623ea2fc",
+    "8153c7b35c3c010e303b1c6144261b46",
+    "c333134c05ff739cf3449fe8ec9a1c89",
+    "b0a34749cfeae1c3bd2b8688f6a1478e",
+    "e4badbb40f4a93f8d35fb76ae71f92f8",
+    "596f21f493b75266360927c013a70797"
   ],
   "daily_llm_calls": {
-    "2026-06-30": 60,
     "2026-07-01": 60,
     "2026-07-02": 60,
     "2026-07-03": 60,
@@ -7143,10 +7152,10 @@
     "2026-07-28": 60,
     "2026-07-29": 60,
     "2026-07-30": 60,
-    "2026-07-31": 74
+    "2026-07-31": 74,
+    "2026-08-01": 77
   },
   "daily_published": {
-    "2026-06-30": 5,
     "2026-07-01": 5,
     "2026-07-02": 5,
     "2026-07-03": 5,
@@ -7175,6 +7184,7 @@
     "2026-07-28": 5,
     "2026-07-29": 5,
     "2026-07-30": 5,
-    "2026-07-31": 5
+    "2026-07-31": 5,
+    "2026-08-01": 5
   }
 }
