@@ -3564,7 +3564,12 @@
     "https://www.bleepingcomputer.com/news/security/amgen-says-cloud-data-breach-exposed-patient-health-proprietary-info/",
     "https://www.bleepingcomputer.com/news/security/hacker-uses-deepseek-ai-to-autonomously-attack-vulnerable-servers/",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-of-cyberattacks-disrupting-us-water-utilities/",
-    "https://thehackernews.com/2026/07/anthropic-says-claude-mistook-open.html"
+    "https://thehackernews.com/2026/07/anthropic-says-claude-mistook-open.html",
+    "https://www.cybersecurity360.it/legal/gestire-la-nis2-come-sistema-perche-la-documentazione-deve-essere-coerente-e-integrata/",
+    "https://thehackernews.com/2026/08/thermo-fisher-patches-flaw-that-could.html",
+    "https://thehackernews.com/2026/08/n-able-says-attackers-take-over-n.html",
+    "https://www.bleepingcomputer.com/news/security/jetbrains-warns-of-critical-teamcity-remote-code-execution-flaw/",
+    "https://www.wired.com/story/chrome-needs-twice-a-week-patching-thanks-to-ai-bug-hunting-for-now/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7131,10 +7136,14 @@
     "6e1fabf9e7b25d446c96f9645b61b66c",
     "a2bed83e07bcdeabfcc264322fa060e0",
     "33a05b0c7efc70cd6087d1533d87d512",
-    "09d00f2c1ef3aa125c5c79ca1f5336ba"
+    "09d00f2c1ef3aa125c5c79ca1f5336ba",
+    "ba400d9cca4f52c9d01e20e8562a33bb",
+    "05b4953461a3006a1b0aa996670a13e2",
+    "5e6d89012b6f6dd761996fccb2fa42e7",
+    "9db42f108c7ed6a82facf1d10aca0614",
+    "8c7b1598338b3297b87241292f5fc5a4"
   ],
   "daily_llm_calls": {
-    "2026-07-02": 60,
     "2026-07-03": 60,
     "2026-07-04": 60,
     "2026-07-05": 60,
@@ -7163,10 +7172,10 @@
     "2026-07-30": 60,
     "2026-07-31": 74,
     "2026-08-01": 77,
-    "2026-08-02": 66
+    "2026-08-02": 66,
+    "2026-08-03": 69
   },
   "daily_published": {
-    "2026-07-02": 5,
     "2026-07-03": 5,
     "2026-07-04": 5,
     "2026-07-05": 5,
@@ -7195,6 +7204,7 @@
     "2026-07-30": 5,
     "2026-07-31": 5,
     "2026-08-01": 5,
-    "2026-08-02": 5
+    "2026-08-02": 5,
+    "2026-08-03": 5
   }
 }
