@@ -3569,7 +3569,12 @@
     "https://thehackernews.com/2026/08/thermo-fisher-patches-flaw-that-could.html",
     "https://thehackernews.com/2026/08/n-able-says-attackers-take-over-n.html",
     "https://www.bleepingcomputer.com/news/security/jetbrains-warns-of-critical-teamcity-remote-code-execution-flaw/",
-    "https://www.wired.com/story/chrome-needs-twice-a-week-patching-thanks-to-ai-bug-hunting-for-now/"
+    "https://www.wired.com/story/chrome-needs-twice-a-week-patching-thanks-to-ai-bug-hunting-for-now/",
+    "https://thehackernews.com/2026/08/cisa-adds-exploited-n-able-n-central.html",
+    "https://thehackernews.com/2026/08/inc-ransomware-emerges-as-dominant.html",
+    "https://www.bleepingcomputer.com/news/security/hotel-wi-fi-attacks-use-custom-malware-to-breach-microsoft-365-accounts/",
+    "https://www.darkreading.com/vulnerabilities-threats/attackers-exploit-n-able-patch-bypass-flaw",
+    "https://thehackernews.com/2026/08/18-malicious-npm-packages-deliver-cross.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7141,10 +7146,14 @@
     "05b4953461a3006a1b0aa996670a13e2",
     "5e6d89012b6f6dd761996fccb2fa42e7",
     "9db42f108c7ed6a82facf1d10aca0614",
-    "8c7b1598338b3297b87241292f5fc5a4"
+    "8c7b1598338b3297b87241292f5fc5a4",
+    "0df82c1a7fd9ad0df8fba078b99bb5ca",
+    "f260e8831bb401e89074f83802f69f76",
+    "03af9d515daaab4c8bce6af23af35da7",
+    "6c20ff8acf166f9997866c6221d6c9a4",
+    "28b9d24ac559a7675735b3a4ded3b44b"
   ],
   "daily_llm_calls": {
-    "2026-07-03": 60,
     "2026-07-04": 60,
     "2026-07-05": 60,
     "2026-07-06": 60,
@@ -7173,10 +7182,10 @@
     "2026-07-31": 74,
     "2026-08-01": 77,
     "2026-08-02": 66,
-    "2026-08-03": 69
+    "2026-08-03": 69,
+    "2026-08-04": 72
   },
   "daily_published": {
-    "2026-07-03": 5,
     "2026-07-04": 5,
     "2026-07-05": 5,
     "2026-07-06": 5,
@@ -7205,6 +7214,7 @@
     "2026-07-31": 5,
     "2026-08-01": 5,
     "2026-08-02": 5,
-    "2026-08-03": 5
+    "2026-08-03": 5,
+    "2026-08-04": 5
   }
 }
