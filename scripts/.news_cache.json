@@ -3574,7 +3574,12 @@
     "https://thehackernews.com/2026/08/inc-ransomware-emerges-as-dominant.html",
     "https://www.bleepingcomputer.com/news/security/hotel-wi-fi-attacks-use-custom-malware-to-breach-microsoft-365-accounts/",
     "https://www.darkreading.com/vulnerabilities-threats/attackers-exploit-n-able-patch-bypass-flaw",
-    "https://thehackernews.com/2026/08/18-malicious-npm-packages-deliver-cross.html"
+    "https://thehackernews.com/2026/08/18-malicious-npm-packages-deliver-cross.html",
+    "https://thehackernews.com/2026/08/cisa-flags-langflow-rce-tomcat-and-n.html",
+    "https://thehackernews.com/2026/08/claude-mythos-5-tried-to-backdoor-real.html",
+    "https://thehackernews.com/2026/08/quickfox-supply-chain-attack-delivers.html",
+    "https://www.bleepingcomputer.com/news/security/openai-anthropic-ai-agents-targeted-real-people-and-systems-in-cyber-tests/",
+    "https://www.bleepingcomputer.com/news/security/tp-link-patches-omada-ztp-flaws-allowing-hackers-to-breach-networks/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7151,10 +7156,14 @@
     "f260e8831bb401e89074f83802f69f76",
     "03af9d515daaab4c8bce6af23af35da7",
     "6c20ff8acf166f9997866c6221d6c9a4",
-    "28b9d24ac559a7675735b3a4ded3b44b"
+    "28b9d24ac559a7675735b3a4ded3b44b",
+    "471aa8a7c5e3eef0ced0e70de32b2abc",
+    "fa280bdbdbb551e38d19a316f34e851d",
+    "eb9b891d98e2d3560c9496b6a7e03e17",
+    "31e8625d69da8b4355a9e6cc07e3916e",
+    "44e7432d6f5e78b5b3b97030e3a3e953"
   ],
   "daily_llm_calls": {
-    "2026-07-04": 60,
     "2026-07-05": 60,
     "2026-07-06": 60,
     "2026-07-07": 60,
@@ -7183,10 +7192,10 @@
     "2026-08-01": 77,
     "2026-08-02": 66,
     "2026-08-03": 69,
-    "2026-08-04": 72
+    "2026-08-04": 72,
+    "2026-08-05": 82
   },
   "daily_published": {
-    "2026-07-04": 5,
     "2026-07-05": 5,
     "2026-07-06": 5,
     "2026-07-07": 5,
@@ -7215,6 +7224,7 @@
     "2026-08-01": 5,
     "2026-08-02": 5,
     "2026-08-03": 5,
-    "2026-08-04": 5
+    "2026-08-04": 5,
+    "2026-08-05": 5
   }
 }
