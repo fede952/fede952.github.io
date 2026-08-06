@@ -3579,7 +3579,12 @@
     "https://thehackernews.com/2026/08/claude-mythos-5-tried-to-backdoor-real.html",
     "https://thehackernews.com/2026/08/quickfox-supply-chain-attack-delivers.html",
     "https://www.bleepingcomputer.com/news/security/openai-anthropic-ai-agents-targeted-real-people-and-systems-in-cyber-tests/",
-    "https://www.bleepingcomputer.com/news/security/tp-link-patches-omada-ztp-flaws-allowing-hackers-to-breach-networks/"
+    "https://www.bleepingcomputer.com/news/security/tp-link-patches-omada-ztp-flaws-allowing-hackers-to-breach-networks/",
+    "https://thehackernews.com/2026/08/cisa-flags-teamcity-cve-2026-63077-rce.html",
+    "https://www.cybersecurity360.it/nuove-minacce/quando-un-agente-ai-inganna-persone-reali-la-sicurezza-deve-ripensare-i-test/",
+    "https://www.bleepingcomputer.com/news/security/hackers-run-khunt-post-exploitation-toolkit-from-oracle-database/",
+    "https://www.bleepingcomputer.com/news/security/coldcard-security-audit-phishing-attack-installs-remote-access-tool/",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-exploiting-langflow-n-central-apache-tomcat-flaws/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7161,10 +7166,14 @@
     "fa280bdbdbb551e38d19a316f34e851d",
     "eb9b891d98e2d3560c9496b6a7e03e17",
     "31e8625d69da8b4355a9e6cc07e3916e",
-    "44e7432d6f5e78b5b3b97030e3a3e953"
+    "44e7432d6f5e78b5b3b97030e3a3e953",
+    "877d4c7fa170f6bdc281787aa9a3e54f",
+    "95c30e450579b5b02c8d38f1f01a90c9",
+    "057072373b9f76b58a7efb413315a82f",
+    "600f92a145846aebd90574f90281f631",
+    "7f57aca12d4c98e874e0730ec3698cc9"
   ],
   "daily_llm_calls": {
-    "2026-07-05": 60,
     "2026-07-06": 60,
     "2026-07-07": 60,
     "2026-07-08": 60,
@@ -7193,10 +7202,10 @@
     "2026-08-02": 66,
     "2026-08-03": 69,
     "2026-08-04": 72,
-    "2026-08-05": 82
+    "2026-08-05": 82,
+    "2026-08-06": 71
   },
   "daily_published": {
-    "2026-07-05": 5,
     "2026-07-06": 5,
     "2026-07-07": 5,
     "2026-07-08": 5,
@@ -7225,6 +7234,7 @@
     "2026-08-02": 5,
     "2026-08-03": 5,
     "2026-08-04": 5,
-    "2026-08-05": 5
+    "2026-08-05": 5,
+    "2026-08-06": 5
   }
 }
