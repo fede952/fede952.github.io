@@ -3584,7 +3584,12 @@
     "https://www.cybersecurity360.it/nuove-minacce/quando-un-agente-ai-inganna-persone-reali-la-sicurezza-deve-ripensare-i-test/",
     "https://www.bleepingcomputer.com/news/security/hackers-run-khunt-post-exploitation-toolkit-from-oracle-database/",
     "https://www.bleepingcomputer.com/news/security/coldcard-security-audit-phishing-attack-installs-remote-access-tool/",
-    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-exploiting-langflow-n-central-apache-tomcat-flaws/"
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-exploiting-langflow-n-central-apache-tomcat-flaws/",
+    "https://thehackernews.com/2026/08/ai-recommendation-poisoning-how-ask-ai.html",
+    "https://thehackernews.com/2026/08/teampcp-linked-to-redis-attacks-dating.html",
+    "https://www.darkreading.com/cyberattacks-data-breaches/coordination-gap-attackers-outpacing-law-enforcement",
+    "https://www.bleepingcomputer.com/news/security/hedge-fund-cyberattacks-tied-to-blackfile-linked-unc6671-extortion-group/",
+    "https://www.bleepingcomputer.com/news/security/swiss-government-sharepoint-breach-compromised-200-accounts/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7171,10 +7176,14 @@
     "95c30e450579b5b02c8d38f1f01a90c9",
     "057072373b9f76b58a7efb413315a82f",
     "600f92a145846aebd90574f90281f631",
-    "7f57aca12d4c98e874e0730ec3698cc9"
+    "7f57aca12d4c98e874e0730ec3698cc9",
+    "a6060d8cccd9869eb3aad122c32e3d6b",
+    "a9c2cc1412765df29fd54fef36d1abd9",
+    "399818034117cda5b251d2572abc4048",
+    "902fb8a92029d58355bf2eb41a0ababa",
+    "0a9f595de1669d1ac15816fca8e3d19c"
   ],
   "daily_llm_calls": {
-    "2026-07-06": 60,
     "2026-07-07": 60,
     "2026-07-08": 60,
     "2026-07-09": 60,
@@ -7203,10 +7212,10 @@
     "2026-08-03": 69,
     "2026-08-04": 72,
     "2026-08-05": 82,
-    "2026-08-06": 71
+    "2026-08-06": 71,
+    "2026-08-07": 70
   },
   "daily_published": {
-    "2026-07-06": 5,
     "2026-07-07": 5,
     "2026-07-08": 5,
     "2026-07-09": 5,
@@ -7235,6 +7244,7 @@
     "2026-08-03": 5,
     "2026-08-04": 5,
     "2026-08-05": 5,
-    "2026-08-06": 5
+    "2026-08-06": 5,
+    "2026-08-07": 5
   }
 }
