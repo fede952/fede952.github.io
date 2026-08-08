@@ -3589,7 +3589,12 @@
     "https://thehackernews.com/2026/08/teampcp-linked-to-redis-attacks-dating.html",
     "https://www.darkreading.com/cyberattacks-data-breaches/coordination-gap-attackers-outpacing-law-enforcement",
     "https://www.bleepingcomputer.com/news/security/hedge-fund-cyberattacks-tied-to-blackfile-linked-unc6671-extortion-group/",
-    "https://www.bleepingcomputer.com/news/security/swiss-government-sharepoint-breach-compromised-200-accounts/"
+    "https://www.bleepingcomputer.com/news/security/swiss-government-sharepoint-breach-compromised-200-accounts/",
+    "https://www.bleepingcomputer.com/news/security/framework-tally-disclose-metabase-data-theft-attacks/",
+    "https://thehackernews.com/2026/08/nearly-800-malicious-npm-packages.html",
+    "https://thehackernews.com/2026/08/unc6671-vishing-attacks-target-personal.html",
+    "https://thehackernews.com/2026/08/new-wordpress-pre-auth-xss-could-lead.html",
+    "https://thehackernews.com/2026/08/microsoft-365-aitm-phishing-hijacks.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7181,10 +7186,14 @@
     "a9c2cc1412765df29fd54fef36d1abd9",
     "399818034117cda5b251d2572abc4048",
     "902fb8a92029d58355bf2eb41a0ababa",
-    "0a9f595de1669d1ac15816fca8e3d19c"
+    "0a9f595de1669d1ac15816fca8e3d19c",
+    "8fbfda12c069746d1ab9b2d68da5c00c",
+    "7ec9bc42292803b13f822bdc5f727471",
+    "334025f2eb475ea535ce8d3028219d57",
+    "56139dc7f52fcc298a9ccd6e1ed56e21",
+    "60f40d254eeae97dac9a806efd1f21a2"
   ],
   "daily_llm_calls": {
-    "2026-07-07": 60,
     "2026-07-08": 60,
     "2026-07-09": 60,
     "2026-07-10": 60,
@@ -7213,10 +7222,10 @@
     "2026-08-04": 72,
     "2026-08-05": 82,
     "2026-08-06": 71,
-    "2026-08-07": 70
+    "2026-08-07": 70,
+    "2026-08-08": 76
   },
   "daily_published": {
-    "2026-07-07": 5,
     "2026-07-08": 5,
     "2026-07-09": 5,
     "2026-07-10": 5,
@@ -7245,6 +7254,7 @@
     "2026-08-04": 5,
     "2026-08-05": 5,
     "2026-08-06": 5,
-    "2026-08-07": 5
+    "2026-08-07": 5,
+    "2026-08-08": 5
   }
 }
