@@ -3594,7 +3594,12 @@
     "https://thehackernews.com/2026/08/nearly-800-malicious-npm-packages.html",
     "https://thehackernews.com/2026/08/unc6671-vishing-attacks-target-personal.html",
     "https://thehackernews.com/2026/08/new-wordpress-pre-auth-xss-could-lead.html",
-    "https://thehackernews.com/2026/08/microsoft-365-aitm-phishing-hijacks.html"
+    "https://thehackernews.com/2026/08/microsoft-365-aitm-phishing-hijacks.html",
+    "https://thehackernews.com/2026/08/progress-kemp-loadmaster-flaw-hits-cisa.html",
+    "https://www.bleepingcomputer.com/news/security/hackers-breach-trueconf-to-trojanize-client-installers-with-backdoors/",
+    "https://thehackernews.com/2026/08/metabase-zero-day-exploited-in-wild.html",
+    "https://www.wired.com/story/flocks-plans-for-rideshare-dashcams-and-coaching-police-revealed/",
+    "https://thehackernews.com/2026/08/new-css-attacks-can-break-webmail.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7191,10 +7196,14 @@
     "7ec9bc42292803b13f822bdc5f727471",
     "334025f2eb475ea535ce8d3028219d57",
     "56139dc7f52fcc298a9ccd6e1ed56e21",
-    "60f40d254eeae97dac9a806efd1f21a2"
+    "60f40d254eeae97dac9a806efd1f21a2",
+    "b5c947d280aaf553541dd30e248911e9",
+    "28855c292702261e77119fb6c05f3fc2",
+    "71e86503d27dc8a587d9910b3503ad6b",
+    "dbdb183a79f6d3156969f9099f9deeb8",
+    "204070eb343f97c0640a04f68827b0a9"
   ],
   "daily_llm_calls": {
-    "2026-07-08": 60,
     "2026-07-09": 60,
     "2026-07-10": 60,
     "2026-07-11": 60,
@@ -7223,10 +7232,10 @@
     "2026-08-05": 82,
     "2026-08-06": 71,
     "2026-08-07": 70,
-    "2026-08-08": 76
+    "2026-08-08": 76,
+    "2026-08-09": 70
   },
   "daily_published": {
-    "2026-07-08": 5,
     "2026-07-09": 5,
     "2026-07-10": 5,
     "2026-07-11": 5,
@@ -7255,6 +7264,7 @@
     "2026-08-05": 5,
     "2026-08-06": 5,
     "2026-08-07": 5,
-    "2026-08-08": 5
+    "2026-08-08": 5,
+    "2026-08-09": 5
   }
 }
