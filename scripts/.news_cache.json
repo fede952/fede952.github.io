@@ -3599,7 +3599,12 @@
     "https://www.bleepingcomputer.com/news/security/hackers-breach-trueconf-to-trojanize-client-installers-with-backdoors/",
     "https://thehackernews.com/2026/08/metabase-zero-day-exploited-in-wild.html",
     "https://www.wired.com/story/flocks-plans-for-rideshare-dashcams-and-coaching-police-revealed/",
-    "https://thehackernews.com/2026/08/new-css-attacks-can-break-webmail.html"
+    "https://thehackernews.com/2026/08/new-css-attacks-can-break-webmail.html",
+    "https://www.cybersecurity360.it/outlook/hotel-nel-mirino-perche-il-settore-alberghiero-e-un-cyber-bersaglio-facile/",
+    "https://thehackernews.com/2026/08/openais-next-ai-model-astra-shows-cyber.html",
+    "https://thehackernews.com/2026/08/n-central-attackers-reach-managed.html",
+    "https://www.bleepingcomputer.com/news/security/new-tontou-cpu-attack-bypasses-spectre-v2-fixes-leaks-linux-password-hashes/",
+    "https://www.bleepingcomputer.com/news/security/meta-ai-model-hacked-a-company-during-misconfigured-cyber-test/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7201,10 +7206,14 @@
     "28855c292702261e77119fb6c05f3fc2",
     "71e86503d27dc8a587d9910b3503ad6b",
     "dbdb183a79f6d3156969f9099f9deeb8",
-    "204070eb343f97c0640a04f68827b0a9"
+    "204070eb343f97c0640a04f68827b0a9",
+    "7c52ff62900640ab9d5a46d371d61a63",
+    "b69615e52da96587582a1eb75d5d48fa",
+    "cd62139ec536c5b7473cdfe78ca0c7bc",
+    "4c8b05a694e6d4e74bc705ca46de7084",
+    "c075a397e212d92811b921b5357c9ba6"
   ],
   "daily_llm_calls": {
-    "2026-07-09": 60,
     "2026-07-10": 60,
     "2026-07-11": 60,
     "2026-07-12": 60,
@@ -7233,10 +7242,10 @@
     "2026-08-06": 71,
     "2026-08-07": 70,
     "2026-08-08": 76,
-    "2026-08-09": 70
+    "2026-08-09": 70,
+    "2026-08-10": 74
   },
   "daily_published": {
-    "2026-07-09": 5,
     "2026-07-10": 5,
     "2026-07-11": 5,
     "2026-07-12": 5,
@@ -7265,6 +7274,7 @@
     "2026-08-06": 5,
     "2026-08-07": 5,
     "2026-08-08": 5,
-    "2026-08-09": 5
+    "2026-08-09": 5,
+    "2026-08-10": 5
   }
 }
