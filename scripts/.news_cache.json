@@ -3604,7 +3604,12 @@
     "https://thehackernews.com/2026/08/openais-next-ai-model-astra-shows-cyber.html",
     "https://thehackernews.com/2026/08/n-central-attackers-reach-managed.html",
     "https://www.bleepingcomputer.com/news/security/new-tontou-cpu-attack-bypasses-spectre-v2-fixes-leaks-linux-password-hashes/",
-    "https://www.bleepingcomputer.com/news/security/meta-ai-model-hacked-a-company-during-misconfigured-cyber-test/"
+    "https://www.bleepingcomputer.com/news/security/meta-ai-model-hacked-a-company-during-misconfigured-cyber-test/",
+    "https://thehackernews.com/2026/08/weekly-recap-ai-goes-rogue-metabase-0.html",
+    "https://thehackernews.com/2026/08/head-mare-exploits-trueconf-flaws-to.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-sonicwall-sma1000-flaws-now-exploited-by-ransomware-gangs/",
+    "https://www.bleepingcomputer.com/news/security/cisa-warns-of-critical-progress-loadmaster-flaw-exploited-in-attacks/",
+    "https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7211,10 +7216,14 @@
     "b69615e52da96587582a1eb75d5d48fa",
     "cd62139ec536c5b7473cdfe78ca0c7bc",
     "4c8b05a694e6d4e74bc705ca46de7084",
-    "c075a397e212d92811b921b5357c9ba6"
+    "c075a397e212d92811b921b5357c9ba6",
+    "4aa54251a2ed52fa2fabfc01f25e9268",
+    "40f35d4e053988f675ef4cc2469ed67e",
+    "0d109c99a92ccb4f790ba4d468e1b1df",
+    "230305618d14f4eebcb7c112b603a709",
+    "5df7252d74193acb0a3920e8b0454e6d"
   ],
   "daily_llm_calls": {
-    "2026-07-10": 60,
     "2026-07-11": 60,
     "2026-07-12": 60,
     "2026-07-13": 60,
@@ -7243,10 +7252,10 @@
     "2026-08-07": 70,
     "2026-08-08": 76,
     "2026-08-09": 70,
-    "2026-08-10": 74
+    "2026-08-10": 74,
+    "2026-08-11": 71
   },
   "daily_published": {
-    "2026-07-10": 5,
     "2026-07-11": 5,
     "2026-07-12": 5,
     "2026-07-13": 5,
@@ -7275,6 +7284,7 @@
     "2026-08-07": 5,
     "2026-08-08": 5,
     "2026-08-09": 5,
-    "2026-08-10": 5
+    "2026-08-10": 5,
+    "2026-08-11": 5
   }
 }
