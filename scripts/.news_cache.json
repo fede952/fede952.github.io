@@ -3609,7 +3609,12 @@
     "https://thehackernews.com/2026/08/head-mare-exploits-trueconf-flaws-to.html",
     "https://www.bleepingcomputer.com/news/security/cisa-sonicwall-sma1000-flaws-now-exploited-by-ransomware-gangs/",
     "https://www.bleepingcomputer.com/news/security/cisa-warns-of-critical-progress-loadmaster-flaw-exploited-in-attacks/",
-    "https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html"
+    "https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html",
+    "https://thehackernews.com/2026/08/sap-commerce-cloud-flaw-could-let.html",
+    "https://thehackernews.com/2026/08/openai-launches-gpt-56-cyber-with.html",
+    "https://thehackernews.com/2026/08/shieldbreak-zero-day-poc-claims.html",
+    "https://thehackernews.com/2026/08/cisco-asa-and-ftd-flaw-exploited-in.html",
+    "https://www.darkreading.com/cyberattacks-data-breaches/gunra-ransomware-gang-fortinet-flaws-bypasses-mfa"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7221,10 +7226,14 @@
     "40f35d4e053988f675ef4cc2469ed67e",
     "0d109c99a92ccb4f790ba4d468e1b1df",
     "230305618d14f4eebcb7c112b603a709",
-    "5df7252d74193acb0a3920e8b0454e6d"
+    "5df7252d74193acb0a3920e8b0454e6d",
+    "c4eb6aad70fd18ea378e4b7d11c880b8",
+    "cf346e5b97aa162e1752b3b797ce2e96",
+    "237449aad99059bd25822ca2ff6e52cf",
+    "528ec667e75d482b69214eb5c21928d9",
+    "5e553ad268ab498fea8b3e61083d8829"
   ],
   "daily_llm_calls": {
-    "2026-07-11": 60,
     "2026-07-12": 60,
     "2026-07-13": 60,
     "2026-07-14": 60,
@@ -7253,10 +7262,10 @@
     "2026-08-08": 76,
     "2026-08-09": 70,
     "2026-08-10": 74,
-    "2026-08-11": 71
+    "2026-08-11": 71,
+    "2026-08-12": 69
   },
   "daily_published": {
-    "2026-07-11": 5,
     "2026-07-12": 5,
     "2026-07-13": 5,
     "2026-07-14": 5,
@@ -7285,6 +7294,7 @@
     "2026-08-08": 5,
     "2026-08-09": 5,
     "2026-08-10": 5,
-    "2026-08-11": 5
+    "2026-08-11": 5,
+    "2026-08-12": 5
   }
 }
