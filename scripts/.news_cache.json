@@ -3614,7 +3614,12 @@
     "https://thehackernews.com/2026/08/openai-launches-gpt-56-cyber-with.html",
     "https://thehackernews.com/2026/08/shieldbreak-zero-day-poc-claims.html",
     "https://thehackernews.com/2026/08/cisco-asa-and-ftd-flaw-exploited-in.html",
-    "https://www.darkreading.com/cyberattacks-data-breaches/gunra-ransomware-gang-fortinet-flaws-bypasses-mfa"
+    "https://www.darkreading.com/cyberattacks-data-breaches/gunra-ransomware-gang-fortinet-flaws-bypasses-mfa",
+    "https://thehackernews.com/2026/08/attackers-exploit-sharepoint.html",
+    "https://thehackernews.com/2026/08/lazarus-exploits-windows-zero-day-to.html",
+    "https://thehackernews.com/2026/08/adobe-patches-three-cvss-100-coldfusion.html",
+    "https://thehackernews.com/2026/08/attackers-exploit-vmware-vcenter.html",
+    "https://www.cybersecurity360.it/news/patch-tuesday-agosto-2026-un-driver-windows-il-gruppo-lazarus-e-400-vulnerabilita-sullo-sfondo/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7231,10 +7236,14 @@
     "cf346e5b97aa162e1752b3b797ce2e96",
     "237449aad99059bd25822ca2ff6e52cf",
     "528ec667e75d482b69214eb5c21928d9",
-    "5e553ad268ab498fea8b3e61083d8829"
+    "5e553ad268ab498fea8b3e61083d8829",
+    "40e8a0886f5edb92b9f69ffb7c1ae2fc",
+    "1a89b0d93fcc597a6fb07705b987e318",
+    "ae0e33e86258d16eadc3ece6fda58204",
+    "0c250dad62398ffc9ee5aad269024a20",
+    "d0b574180c8e1f25c532159f45d13fe5"
   ],
   "daily_llm_calls": {
-    "2026-07-12": 60,
     "2026-07-13": 60,
     "2026-07-14": 60,
     "2026-07-15": 60,
@@ -7263,10 +7272,10 @@
     "2026-08-09": 70,
     "2026-08-10": 74,
     "2026-08-11": 71,
-    "2026-08-12": 69
+    "2026-08-12": 69,
+    "2026-08-13": 81
   },
   "daily_published": {
-    "2026-07-12": 5,
     "2026-07-13": 5,
     "2026-07-14": 5,
     "2026-07-15": 5,
@@ -7295,6 +7304,7 @@
     "2026-08-09": 5,
     "2026-08-10": 5,
     "2026-08-11": 5,
-    "2026-08-12": 5
+    "2026-08-12": 5,
+    "2026-08-13": 5
   }
 }
