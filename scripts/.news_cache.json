@@ -3619,7 +3619,12 @@
     "https://thehackernews.com/2026/08/lazarus-exploits-windows-zero-day-to.html",
     "https://thehackernews.com/2026/08/adobe-patches-three-cvss-100-coldfusion.html",
     "https://thehackernews.com/2026/08/attackers-exploit-vmware-vcenter.html",
-    "https://www.cybersecurity360.it/news/patch-tuesday-agosto-2026-un-driver-windows-il-gruppo-lazarus-e-400-vulnerabilita-sullo-sfondo/"
+    "https://www.cybersecurity360.it/news/patch-tuesday-agosto-2026-un-driver-windows-il-gruppo-lazarus-e-400-vulnerabilita-sullo-sfondo/",
+    "https://www.bleepingcomputer.com/news/security/critical-vmware-vcenter-rce-flaw-exploited-for-reverse-ssh-access/",
+    "https://www.darkreading.com/vulnerabilities-threats/global-threat-campaign-critical-vmware-vcenter-flaw",
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-adobe-commerce-flaw-to-hijack-customer-accounts/",
+    "https://www.darkreading.com/application-security/microsofts-patch-tuesday-deluge-continues",
+    "https://thehackernews.com/2026/08/microsoft-patches-398-flaws-including.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7241,10 +7246,14 @@
     "1a89b0d93fcc597a6fb07705b987e318",
     "ae0e33e86258d16eadc3ece6fda58204",
     "0c250dad62398ffc9ee5aad269024a20",
-    "d0b574180c8e1f25c532159f45d13fe5"
+    "d0b574180c8e1f25c532159f45d13fe5",
+    "fb9e4fd2b89a2bfc3cbe3668cad65e1f",
+    "b84258c98a9a81e29abcfe7c4f4e38b5",
+    "914652c4f586d527b0624a5739de7b26",
+    "435d5b4520dcd2909545db77a0ee03df",
+    "ff1c9ac4c69384a40289e4c9eded007c"
   ],
   "daily_llm_calls": {
-    "2026-07-13": 60,
     "2026-07-14": 60,
     "2026-07-15": 60,
     "2026-07-16": 60,
@@ -7273,10 +7282,10 @@
     "2026-08-10": 74,
     "2026-08-11": 71,
     "2026-08-12": 69,
-    "2026-08-13": 81
+    "2026-08-13": 81,
+    "2026-08-14": 64
   },
   "daily_published": {
-    "2026-07-13": 5,
     "2026-07-14": 5,
     "2026-07-15": 5,
     "2026-07-16": 5,
@@ -7305,6 +7314,7 @@
     "2026-08-10": 5,
     "2026-08-11": 5,
     "2026-08-12": 5,
-    "2026-08-13": 5
+    "2026-08-13": 5,
+    "2026-08-14": 5
   }
 }
