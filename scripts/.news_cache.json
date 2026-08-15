@@ -3624,7 +3624,12 @@
     "https://www.darkreading.com/vulnerabilities-threats/global-threat-campaign-critical-vmware-vcenter-flaw",
     "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-adobe-commerce-flaw-to-hijack-customer-accounts/",
     "https://www.darkreading.com/application-security/microsofts-patch-tuesday-deluge-continues",
-    "https://thehackernews.com/2026/08/microsoft-patches-398-flaws-including.html"
+    "https://thehackernews.com/2026/08/microsoft-patches-398-flaws-including.html",
+    "https://thehackernews.com/2026/08/sandworm-linked-uac-0145-uses-fake-job.html",
+    "https://www.bleepingcomputer.com/news/security/hackers-exploit-macos-screen-sharing-flaw-to-deploy-monero-miner/",
+    "https://www.bleepingcomputer.com/news/security/max-severity-sap-commerce-cloud-flaw-now-targeted-in-attacks/",
+    "https://www.bleepingcomputer.com/news/microsoft/microsoft-patches-legacyhive-windows-zero-day-vulnerability/",
+    "https://www.cybersecurity360.it/news/gpt-5-6-cyber-trova-zero-day-e-sviluppa-exploit-la-cyber-difesa-cambia-passo/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7251,10 +7256,14 @@
     "b84258c98a9a81e29abcfe7c4f4e38b5",
     "914652c4f586d527b0624a5739de7b26",
     "435d5b4520dcd2909545db77a0ee03df",
-    "ff1c9ac4c69384a40289e4c9eded007c"
+    "ff1c9ac4c69384a40289e4c9eded007c",
+    "9eeac3cd8f7ca8220be4e3165287965f",
+    "e6c96ad90542e5f1d5c4f5e5c4a60191",
+    "c77088bf27d08d6a70cc983eadaf93e1",
+    "514a0cfa93ee94c720c9494c7d5b9a5e",
+    "fc368f5d7f6f445e6a6cb1aa58c66e9a"
   ],
   "daily_llm_calls": {
-    "2026-07-14": 60,
     "2026-07-15": 60,
     "2026-07-16": 60,
     "2026-07-17": 60,
@@ -7283,10 +7292,10 @@
     "2026-08-11": 71,
     "2026-08-12": 69,
     "2026-08-13": 81,
-    "2026-08-14": 64
+    "2026-08-14": 64,
+    "2026-08-15": 69
   },
   "daily_published": {
-    "2026-07-14": 5,
     "2026-07-15": 5,
     "2026-07-16": 5,
     "2026-07-17": 5,
@@ -7315,6 +7324,7 @@
     "2026-08-11": 5,
     "2026-08-12": 5,
     "2026-08-13": 5,
-    "2026-08-14": 5
+    "2026-08-14": 5,
+    "2026-08-15": 5
   }
 }
