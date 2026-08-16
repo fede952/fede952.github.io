@@ -3629,7 +3629,12 @@
     "https://www.bleepingcomputer.com/news/security/hackers-exploit-macos-screen-sharing-flaw-to-deploy-monero-miner/",
     "https://www.bleepingcomputer.com/news/security/max-severity-sap-commerce-cloud-flaw-now-targeted-in-attacks/",
     "https://www.bleepingcomputer.com/news/microsoft/microsoft-patches-legacyhive-windows-zero-day-vulnerability/",
-    "https://www.cybersecurity360.it/news/gpt-5-6-cyber-trova-zero-day-e-sviluppa-exploit-la-cyber-difesa-cambia-passo/"
+    "https://www.cybersecurity360.it/news/gpt-5-6-cyber-trova-zero-day-e-sviluppa-exploit-la-cyber-difesa-cambia-passo/",
+    "https://www.bleepingcomputer.com/news/security/new-evooo1bot-linux-botnet-turns-routers-into-traffic-relay-nodes/",
+    "https://thehackernews.com/2026/08/kimwolf-v7-android-botnet-makes-http2.html",
+    "https://www.bleepingcomputer.com/news/security/hackers-arrested-over-30m-bank-fraud-exploiting-service-provider-flaw/",
+    "https://www.cybersecurity360.it/cultura-cyber/levoluzione-del-soc-agentico/",
+    "https://www.bleepingcomputer.com/news/security/akira-hackers-disable-edr-with-safe-mode-steal-data-but-fail-to-encrypt/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7261,10 +7266,14 @@
     "e6c96ad90542e5f1d5c4f5e5c4a60191",
     "c77088bf27d08d6a70cc983eadaf93e1",
     "514a0cfa93ee94c720c9494c7d5b9a5e",
-    "fc368f5d7f6f445e6a6cb1aa58c66e9a"
+    "fc368f5d7f6f445e6a6cb1aa58c66e9a",
+    "b4860e6e52f0d9a7eba734cad53b82df",
+    "1b31c66ad81ed68133c45c9e9c756810",
+    "8cbecd043a04ab8970ca23ae2dad8bbd",
+    "c7b220c38808187fb739871f5af611af",
+    "e7a236f69c4351a98f3d2a4b346a646a"
   ],
   "daily_llm_calls": {
-    "2026-07-15": 60,
     "2026-07-16": 60,
     "2026-07-17": 60,
     "2026-07-18": 60,
@@ -7293,10 +7302,10 @@
     "2026-08-12": 69,
     "2026-08-13": 81,
     "2026-08-14": 64,
-    "2026-08-15": 69
+    "2026-08-15": 69,
+    "2026-08-16": 100
   },
   "daily_published": {
-    "2026-07-15": 5,
     "2026-07-16": 5,
     "2026-07-17": 5,
     "2026-07-18": 5,
@@ -7325,6 +7334,7 @@
     "2026-08-12": 5,
     "2026-08-13": 5,
     "2026-08-14": 5,
-    "2026-08-15": 5
+    "2026-08-15": 5,
+    "2026-08-16": 5
   }
 }
