@@ -3634,7 +3634,12 @@
     "https://thehackernews.com/2026/08/kimwolf-v7-android-botnet-makes-http2.html",
     "https://www.bleepingcomputer.com/news/security/hackers-arrested-over-30m-bank-fraud-exploiting-service-provider-flaw/",
     "https://www.cybersecurity360.it/cultura-cyber/levoluzione-del-soc-agentico/",
-    "https://www.bleepingcomputer.com/news/security/akira-hackers-disable-edr-with-safe-mode-steal-data-but-fail-to-encrypt/"
+    "https://www.bleepingcomputer.com/news/security/akira-hackers-disable-edr-with-safe-mode-steal-data-but-fail-to-encrypt/",
+    "https://www.bleepingcomputer.com/news/security/safepal-data-breach-impacts-39-798-customers-stolen-info-for-sale/",
+    "https://www.cybersecurity360.it/soluzioni-aziendali/first-e-incident-response-la-resilienza-cyber-si-costruisce-facendo-rete/",
+    "https://thehackernews.com/2026/08/malicious-litellm-releases-tied-to.html",
+    "https://cert-agid.gov.it/news/phishing-ai-danni-di-arera-utilizza-il-tema-bonus-sociale-idrico/",
+    "https://cert-agid.gov.it/news/phishing-a-tema-spid-in-corso/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7271,10 +7276,14 @@
     "1b31c66ad81ed68133c45c9e9c756810",
     "8cbecd043a04ab8970ca23ae2dad8bbd",
     "c7b220c38808187fb739871f5af611af",
-    "e7a236f69c4351a98f3d2a4b346a646a"
+    "e7a236f69c4351a98f3d2a4b346a646a",
+    "8f4be6c21fbe1db95f3d4c36f28a8ac0",
+    "b3aebfe732156d7dcf2aa0887bb5b05f",
+    "fde204c0b520e2e2753a636341f40d7f",
+    "0fb55049e759766e2ec39a71f4cc92ec",
+    "0151d78133370419c49708e7ccdfb570"
   ],
   "daily_llm_calls": {
-    "2026-07-16": 60,
     "2026-07-17": 60,
     "2026-07-18": 60,
     "2026-07-19": 60,
@@ -7303,10 +7312,10 @@
     "2026-08-13": 81,
     "2026-08-14": 64,
     "2026-08-15": 69,
-    "2026-08-16": 100
+    "2026-08-16": 100,
+    "2026-08-17": 81
   },
   "daily_published": {
-    "2026-07-16": 5,
     "2026-07-17": 5,
     "2026-07-18": 5,
     "2026-07-19": 5,
@@ -7335,6 +7344,7 @@
     "2026-08-13": 5,
     "2026-08-14": 5,
     "2026-08-15": 5,
-    "2026-08-16": 5
+    "2026-08-16": 5,
+    "2026-08-17": 5
   }
 }
