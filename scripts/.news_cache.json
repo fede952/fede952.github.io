@@ -3639,7 +3639,12 @@
     "https://www.cybersecurity360.it/soluzioni-aziendali/first-e-incident-response-la-resilienza-cyber-si-costruisce-facendo-rete/",
     "https://thehackernews.com/2026/08/malicious-litellm-releases-tied-to.html",
     "https://cert-agid.gov.it/news/phishing-ai-danni-di-arera-utilizza-il-tema-bonus-sociale-idrico/",
-    "https://cert-agid.gov.it/news/phishing-a-tema-spid-in-corso/"
+    "https://cert-agid.gov.it/news/phishing-a-tema-spid-in-corso/",
+    "https://thehackernews.com/2026/08/evooo1bot-linux-botnet-exploits-known.html",
+    "https://thehackernews.com/2026/08/suspected-china-nexus-actor-exploits.html",
+    "https://thehackernews.com/2026/08/cisa-flags-actively-exploited-ray-flaw.html",
+    "https://thehackernews.com/2026/08/sap-commerce-cloud-cve-2026-58231.html",
+    "https://thehackernews.com/2026/08/apple-macos-screen-sharing-flaw.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7281,10 +7286,14 @@
     "b3aebfe732156d7dcf2aa0887bb5b05f",
     "fde204c0b520e2e2753a636341f40d7f",
     "0fb55049e759766e2ec39a71f4cc92ec",
-    "0151d78133370419c49708e7ccdfb570"
+    "0151d78133370419c49708e7ccdfb570",
+    "bbf9e04cdbf915698577a5cf3fc7a2cb",
+    "9bf61b98b253be714f82eeecb6845cbb",
+    "6b22d79ae2aae39524e2e4430aae81df",
+    "82a92f826943e3ebd81038cc323afd4f",
+    "e1b16b9c51791dcb6ec246a334364134"
   ],
   "daily_llm_calls": {
-    "2026-07-17": 60,
     "2026-07-18": 60,
     "2026-07-19": 60,
     "2026-07-20": 60,
@@ -7313,10 +7322,10 @@
     "2026-08-14": 64,
     "2026-08-15": 69,
     "2026-08-16": 100,
-    "2026-08-17": 81
+    "2026-08-17": 81,
+    "2026-08-18": 72
   },
   "daily_published": {
-    "2026-07-17": 5,
     "2026-07-18": 5,
     "2026-07-19": 5,
     "2026-07-20": 5,
@@ -7345,6 +7354,7 @@
     "2026-08-14": 5,
     "2026-08-15": 5,
     "2026-08-16": 5,
-    "2026-08-17": 5
+    "2026-08-17": 5,
+    "2026-08-18": 5
   }
 }
