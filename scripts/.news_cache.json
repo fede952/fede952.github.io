@@ -3644,7 +3644,12 @@
     "https://thehackernews.com/2026/08/suspected-china-nexus-actor-exploits.html",
     "https://thehackernews.com/2026/08/cisa-flags-actively-exploited-ray-flaw.html",
     "https://thehackernews.com/2026/08/sap-commerce-cloud-cve-2026-58231.html",
-    "https://thehackernews.com/2026/08/apple-macos-screen-sharing-flaw.html"
+    "https://thehackernews.com/2026/08/apple-macos-screen-sharing-flaw.html",
+    "https://www.bleepingcomputer.com/news/security/cisa-windows-task-host-flaw-now-exploited-by-ransomware-gangs/",
+    "https://thehackernews.com/2026/08/forminator-wordpress-flaw-can-enable.html",
+    "https://www.darkreading.com/cyber-risk/linux-botnet-evooo1bot-mirai-capabilities-beyond-ddos",
+    "https://www.bleepingcomputer.com/news/security/microsoft-working-on-defender-patch-for-shieldbreak-zero-day/",
+    "https://thehackernews.com/2026/08/16-typosquatted-rubygems-packages-steal.html"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7291,10 +7296,14 @@
     "9bf61b98b253be714f82eeecb6845cbb",
     "6b22d79ae2aae39524e2e4430aae81df",
     "82a92f826943e3ebd81038cc323afd4f",
-    "e1b16b9c51791dcb6ec246a334364134"
+    "e1b16b9c51791dcb6ec246a334364134",
+    "0a4251ec1d8455faa411d6e5d71f549b",
+    "b986f3e6b9061b4d83b8df12ecc3c841",
+    "d6b34f3f27a46c53a3f69222d3462369",
+    "e5677b71767d22ac5c1aed91ff010811",
+    "6aa99a161b10a3c6648505601afa1f0e"
   ],
   "daily_llm_calls": {
-    "2026-07-18": 60,
     "2026-07-19": 60,
     "2026-07-20": 60,
     "2026-07-21": 60,
@@ -7323,10 +7332,10 @@
     "2026-08-15": 69,
     "2026-08-16": 100,
     "2026-08-17": 81,
-    "2026-08-18": 72
+    "2026-08-18": 72,
+    "2026-08-19": 67
   },
   "daily_published": {
-    "2026-07-18": 5,
     "2026-07-19": 5,
     "2026-07-20": 5,
     "2026-07-21": 5,
@@ -7355,6 +7364,7 @@
     "2026-08-15": 5,
     "2026-08-16": 5,
     "2026-08-17": 5,
-    "2026-08-18": 5
+    "2026-08-18": 5,
+    "2026-08-19": 5
   }
 }
