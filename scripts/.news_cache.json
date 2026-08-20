@@ -3649,7 +3649,12 @@
     "https://thehackernews.com/2026/08/forminator-wordpress-flaw-can-enable.html",
     "https://www.darkreading.com/cyber-risk/linux-botnet-evooo1bot-mirai-capabilities-beyond-ddos",
     "https://www.bleepingcomputer.com/news/security/microsoft-working-on-defender-patch-for-shieldbreak-zero-day/",
-    "https://thehackernews.com/2026/08/16-typosquatted-rubygems-packages-steal.html"
+    "https://thehackernews.com/2026/08/16-typosquatted-rubygems-packages-steal.html",
+    "https://thehackernews.com/2026/08/critical-macos-sharepoint-vcenter-and.html",
+    "https://thehackernews.com/2026/08/elementor-pro-flaw-could-let.html",
+    "https://www.bleepingcomputer.com/news/security/us-warns-of-ai-powered-attacks-on-siemens-plcs-in-critical-infrastructure/",
+    "https://www.bleepingcomputer.com/news/security/cisa-critical-windows-ike-extension-flaw-now-exploited-in-attacks/",
+    "https://www.bleepingcomputer.com/news/security/cisa-medusa-ransomware-hit-over-500-critical-infrastructure-orgs/"
   ],
   "processed_ids": [
     "7f95a93945f0b43714789a62052623c8",
@@ -7301,10 +7306,14 @@
     "b986f3e6b9061b4d83b8df12ecc3c841",
     "d6b34f3f27a46c53a3f69222d3462369",
     "e5677b71767d22ac5c1aed91ff010811",
-    "6aa99a161b10a3c6648505601afa1f0e"
+    "6aa99a161b10a3c6648505601afa1f0e",
+    "725b2ebe04d87f06153c3e041a37dd00",
+    "e3b3a85bca7d7d87bc6ff53a2da4e315",
+    "98e04e7734c5a351a9d860b233ab9cf3",
+    "e37c533c1668ecf9da3ea51d67757468",
+    "e209d7e37fe36febf6ddf131b08abd49"
   ],
   "daily_llm_calls": {
-    "2026-07-19": 60,
     "2026-07-20": 60,
     "2026-07-21": 60,
     "2026-07-22": 60,
@@ -7333,10 +7342,10 @@
     "2026-08-16": 100,
     "2026-08-17": 81,
     "2026-08-18": 72,
-    "2026-08-19": 67
+    "2026-08-19": 67,
+    "2026-08-20": 75
   },
   "daily_published": {
-    "2026-07-19": 5,
     "2026-07-20": 5,
     "2026-07-21": 5,
     "2026-07-22": 5,
@@ -7365,6 +7374,7 @@
     "2026-08-16": 5,
     "2026-08-17": 5,
     "2026-08-18": 5,
-    "2026-08-19": 5
+    "2026-08-19": 5,
+    "2026-08-20": 5
   }
 }
