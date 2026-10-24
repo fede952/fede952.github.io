@@ -5,14 +5,6 @@ date: 2026-02-11
 tags: ["devops", "roadmap", "career"]
 keywords: ["roadmap devops engineer", "ruta profesional devops 2026", "aprender kubernetes", "certificación docker", "preparación entrevista devops"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Ruta Profesional de DevOps Engineer",
-    "description": "Hoja de ruta paso a paso para convertirte en Senior DevOps Engineer.",
-    "inLanguage": "es"
-  }
 aliases: ["/es/roadmaps/devops-engineer/"]
 ---
 

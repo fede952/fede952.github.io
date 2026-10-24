@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["exif", "privacy", "osint", "metadata", "security", "guide"]
 keywords: ["exif metadaten privatsphäre", "foto gps standort", "exif daten entfernen", "osint foto analyse", "bild metadaten risiken", "foto privatsphäre anleitung", "exif gps tracking", "metadaten von fotos entfernen"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Geistermodus: Warum Ihre Fotos Ihren GPS-Standort Verraten",
-    "description": "Wie EXIF-Metadaten in Fotos GPS-Koordinaten, Geräteinformationen und Zeitstempel preisgeben — und wie Sie sich schützen können.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "de"
-  }
+proficiency: "Beginner"
 aliases: ["/de/guides/osint-privacy-exif-data/"]
 ---
 

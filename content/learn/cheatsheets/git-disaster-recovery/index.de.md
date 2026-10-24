@@ -5,15 +5,7 @@ date: 2026-02-13
 tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git undo commit", "git reset hard vs soft", "recover deleted branch", "git rebase tutorial", "fix merge conflict", "git cherry-pick"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Git Disaster Recovery: Fehler Ruckgangig Machen und Historie Reparieren",
-    "description": "Das Notfall-Kit fur Entwickler. Lernen Sie, Commits ruckgangig zu machen, Merge-Konflikte zu losen, geloschte Branches wiederherzustellen und git rebase vs merge zu meistern.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
+proficiency: "Intermediate"
 aliases: ["/de/cheatsheets/git-disaster-recovery/"]
 ---
 

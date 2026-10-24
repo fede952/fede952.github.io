@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["docker", "cheatsheet", "devops", "containers", "docker-compose"]
 keywords: ["cheatsheet comandos docker", "ejemplos docker run", "tutorial docker compose", "redes de contenedores", "sintaxis dockerfile", "herramientas devops", "montaje volúmenes docker", "build imagen docker", "gestión contenedores docker", "docker registry push pull"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Bitácora del Capitán Docker: La Referencia Definitiva de Comandos para Contenedores",
-    "description": "Cheatsheet completo de comandos Docker que cubre el ciclo de vida de contenedores, gestión de imágenes, redes, volúmenes y Docker Compose.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
+proficiency: "Intermediate"
 aliases: ["/es/cheatsheets/docker-container-commands/"]
 ---
 

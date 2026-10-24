@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["sql-injection", "cheatsheet", "penetration-testing", "database", "security"]
 keywords: ["payloads injection sql", "cheatsheet commandes mysql", "cheat sheet postgresql", "piratage base de données", "commandes sqlmap", "union sql injection", "blind sql injection", "test injection sql", "énumération base de données", "prévention injection sql"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "SQL Injection et Requêtes de Base de Données : Référence du Pentester",
-    "description": "Payloads d'injection SQL, attaques UNION, blind SQLi et requêtes pour MySQL et PostgreSQL.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
+proficiency: "Intermediate"
 aliases: ["/fr/cheatsheets/sql-injection-payloads-database/"]
 ---
 

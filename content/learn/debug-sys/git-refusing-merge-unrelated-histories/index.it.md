@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["git", "debug", "devops", "version-control"]
 keywords: ["refusing to merge unrelated histories", "git pull unrelated histories", "git merge unrelated histories", "allow unrelated histories", "fatal refusing to merge", "git pull origin main error", "git merge two repos", "git init push error", "github first commit merge", "git unrelated histories fix"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "SOLUZIONE: fatal: refusing to merge unrelated histories",
-    "description": "Come risolvere l'errore Git refusing to merge unrelated histories quando si combinano repository indipendenti.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "it"
-  }
+proficiency: "Beginner"
 aliases: ["/it/debug-sys/git-refusing-merge-unrelated-histories/"]
 ---
 

@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconnaissance"]
 keywords: ["nmap cheatsheet", "comandos nmap", "guía escaneo de red", "nmap escaneo de puertos", "nmap detección de servicios", "nmap scripts NSE", "nmap escaneo de vulnerabilidades", "comandos penetration testing"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Manual de Campo Nmap: Comandos de Reconocimiento de Redes",
-    "description": "Comandos esenciales de Nmap para escaneo de redes, descubrimiento de hosts, enumeración de puertos y evaluación de vulnerabilidades.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
+proficiency: "Intermediate"
 aliases: ["/es/cheatsheets/nmap-network-scanning/"]
 ---
 

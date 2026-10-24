@@ -145,3 +145,17 @@ chmod_copied:
   other: "Copied!"
 chmod_presets:
   other: "Quick presets:"
+
+# Learn pages: byline + author box (partials/author-box.html)
+byline_by:
+  other: "By {{ .Name }}"
+byline_updated:
+  other: "Updated {{ .Date }}"
+author_box_heading:
+  other: "About the author"
+author_box_bio:
+  other: "I'm a Network Security Analyst working in SOC and L2 network security: SSE/SASE platforms, Zero Trust access, traffic and incident triage. I hold the eJPT (Junior Penetration Tester) certification and write these guides from hands-on work and lab practice."
+author_box_more:
+  other: "More about me"
+related_tools_learn:
+  other: "Free tools for this topic"

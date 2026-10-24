@@ -5,15 +5,7 @@ date: 2026-02-13
 tags: ["networking", "cheatsheet", "devops", "security", "sysadmin"]
 keywords: ["puertos comunes cheat sheet", "codigos de estado http", "tcp vs udp", "modelo osi explicado", "tipos de registros dns", "ssh port forwarding"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "El Mapa de Internet: Puertos de Red, Protocolos y Codigos de Estado",
-    "description": "Guia visual de TCP/IP, Modelo OSI, Puertos Comunes (SSH, HTTP, DNS) y Codigos de Estado HTTP para DevOps y Hackers.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
+proficiency: "Intermediate"
 aliases: ["/es/cheatsheets/networking-ports-protocols/"]
 ---
 

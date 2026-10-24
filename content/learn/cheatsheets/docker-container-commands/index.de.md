@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["docker", "cheatsheet", "devops", "containers", "docker-compose"]
 keywords: ["docker befehle cheatsheet", "docker run beispiele", "docker compose tutorial", "container netzwerk", "dockerfile syntax", "devops werkzeuge", "docker volume mount", "docker image build", "docker container verwaltung", "docker registry push pull"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Docker Kapitäns-Logbuch: Die Ultimative Befehlsreferenz für Container",
-    "description": "Umfassendes Docker-Befehlscheatsheet, das den Container-Lebenszyklus, Image-Verwaltung, Netzwerke, Volumes und Docker Compose abdeckt.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
+proficiency: "Intermediate"
 aliases: ["/de/cheatsheets/docker-container-commands/"]
 ---
 

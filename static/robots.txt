@@ -1,15 +1,12 @@
 # Federico Sella — federicosella.com
-# Allow all search engines to index everything
+# Everything public may be crawled. Thin tag/category listings carry
+# <meta name="robots" content="noindex"> instead of a Disallow, so crawlers
+# can still read that directive and follow their links.
 
 User-agent: *
 Allow: /
-Disallow: /private/
-Disallow: /admin/
 
-# Sitemap declaration (all languages auto-included by Hugo)
-Sitemap: https://federicosella.com/sitemap.xml
-
-# AI Crawlers — allowed for visibility and exposure
+# AI crawlers: allowed for visibility
 User-agent: GPTBot
 Allow: /
 
@@ -19,5 +16,11 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: anthropic-ai
 Allow: /
+
+# Sitemap index (one sitemap per language, indexable pages only)
+Sitemap: https://federicosella.com/sitemap.xml

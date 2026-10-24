@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["steganography", "privacy", "security", "tutorial", "guide"]
 keywords: ["Steganografie Tutorial", "Nachricht in Bild verstecken", "LSB Steganografie erklärt", "digitale Steganografie", "wie Steganografie funktioniert", "versteckte Daten in Bildern", "Bildsteganografie Anleitung", "verdeckte Kommunikation"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Digitale Tote Briefkästen: Wie man Geheimnisse in Bildern versteckt",
-    "description": "Ein umfassendes Tutorial zur LSB-Steganografie: Verstecken geheimer Nachrichten in gewöhnlichen Bildern.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "de"
-  }
+proficiency: "Beginner"
 aliases: ["/de/guides/steganography-101-hidden-messages/"]
 ---
 

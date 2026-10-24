@@ -21,7 +21,6 @@ Cookies sind kleine Textdateien, die besuchte Websites auf Ihrem Gerät speicher
 |---|---|---|
 | `localStorage: menu-scroll-position` | Stellt die horizontale Scrollposition des oberen Menüs wieder her | Bis Sie es löschen |
 | `localStorage`-Schlüssel einzelner Tools und Spiele (z. B. `easycron-theme`, `nb_best`, `st_state`, Highscores) | Merken sich eine Einstellung, Ihren besten Punktestand oder einen Spielstand | Bis Sie sie löschen |
-| Service-Worker-Cache | Beschleunigt wiederholte Besuche | Vom Browser verwaltet |
 
 ### Statistik
 

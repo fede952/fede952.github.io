@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["docker", "interview", "devops", "containers"]
 keywords: ["domande colloquio docker", "colloquio senior devops", "domande containerizzazione", "risposte colloquio docker", "colloquio docker compose", "best practice dockerfile", "colloquio orchestrazione container", "domande networking docker", "colloquio ingegnere devops", "domande docker produzione"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Le 20 Domande più Frequenti sui Colloqui Docker e Risposte (Edizione 2026)",
-    "description": "Domande avanzate per colloqui Docker per ruoli Senior DevOps che coprono container, immagini, networking e best practice per la produzione.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "it"
-  }
+proficiency: "Advanced"
 aliases: ["/it/interviews/docker-interview-questions/"]
 ---
 

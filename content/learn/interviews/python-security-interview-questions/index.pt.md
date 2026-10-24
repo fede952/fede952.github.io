@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["python", "interview", "security", "penetration-testing"]
 keywords: ["python security interview", "infosec python questions", "scripting for hackers", "python pentest interview", "socket programming interview", "scapy interview questions", "python cryptography", "ethical hacking python", "security automation interview", "python exploit development"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Python para Cibersegurança: Perguntas e Respostas para Pentesters",
-    "description": "20 perguntas de entrevista sobre Python e segurança cobrindo programação de sockets, manipulação de pacotes, exploração web e automação.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "pt"
-  }
+proficiency: "Advanced"
 aliases: ["/pt/interviews/python-security-interview-questions/"]
 ---
 

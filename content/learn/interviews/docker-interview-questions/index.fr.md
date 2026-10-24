@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["docker", "interview", "devops", "containers"]
 keywords: ["questions entretien docker", "entretien senior devops", "questions conteneurisation", "réponses entretien docker", "entretien docker compose", "bonnes pratiques dockerfile", "entretien orchestration conteneurs", "questions réseau docker", "entretien ingénieur devops", "questions docker production"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Top 20 des Questions d'Entretien Docker et Réponses (Édition 2026)",
-    "description": "Questions avancées d'entretien Docker pour les rôles Senior DevOps couvrant les conteneurs, images, réseaux et bonnes pratiques de production.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "fr"
-  }
+proficiency: "Advanced"
 aliases: ["/fr/interviews/docker-interview-questions/"]
 ---
 

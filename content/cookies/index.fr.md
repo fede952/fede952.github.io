@@ -21,7 +21,6 @@ Les cookies sont de petits fichiers texte que les sites visités enregistrent su
 |---|---|---|
 | `localStorage: menu-scroll-position` | Restaure le défilement horizontal du menu supérieur | Jusqu'à ce que vous l'effaciez |
 | Clés `localStorage` de chaque outil et jeu (ex. `easycron-theme`, `nb_best`, `st_state`, meilleurs scores) | Mémorisent un réglage, votre meilleur score ou une partie sauvegardée | Jusqu'à ce que vous les effaciez |
-| Cache du Service Worker | Accélère les visites suivantes | Géré par le navigateur |
 
 ### Mesure d'audience
 

@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconnaissance"]
 keywords: ["nmap cheatsheet", "commandes nmap", "guide analyse réseau", "nmap scan de ports", "nmap détection de services", "nmap scripts NSE", "nmap scan de vulnérabilités", "commandes penetration testing"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Manuel de Terrain Nmap : Commandes de Reconnaissance Réseau",
-    "description": "Commandes essentielles Nmap pour l'analyse réseau, la découverte d'hôtes, l'énumération de ports et l'évaluation des vulnérabilités.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
+proficiency: "Intermediate"
 aliases: ["/fr/cheatsheets/nmap-network-scanning/"]
 ---
 

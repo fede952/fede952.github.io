@@ -28,11 +28,17 @@ defaultContentLanguageInSubdir = true
     name = "date"
     weight = 10
 
-# Sitemap configuration for SEO
+# Sitemap: layouts/_default/sitemap.xml lists only indexable pages.
 [sitemap]
-  changefreq = "weekly"
-  priority = 0.5
   filename = "sitemap.xml"
+
+# Tag/category listings are thin pages: keep them for navigation but
+# noindex them (PaperMod reads robotsNoIndex) and keep them out of the sitemap.
+[[cascade]]
+  [cascade.params]
+    robotsNoIndex = true
+  [cascade.target]
+    kind = '{taxonomy,term}'
 
 [params]
   mainSections = ["tools", "learn"]
@@ -61,6 +67,16 @@ defaultContentLanguageInSubdir = true
     "/tools/exif-cleaner",
     "/tools/netguard",
   ]
+
+  # Site owner, emitted as one schema.org Person (templates/schema_json.html)
+  # and referenced as author/publisher of every page; also feeds the author
+  # box on learn pages.
+  [params.person]
+    name = "Federico Sella"
+    jobTitle = "Network Security Analyst"
+    image = "images/profile.webp"
+    sameAs = ["https://linkedin.com/in/federicosella", "https://github.com/fede952"]
+    knowsAbout = ["Network security", "Security Service Edge (SSE)", "SASE", "Zero Trust", "SOC operations", "Penetration testing"]
 
   # AdSense (config-driven units: partials/ads/unit.html). An empty
   # slot_<position> falls back to slot_default. Create one display unit per

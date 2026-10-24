@@ -1,39 +1,37 @@
-{{- /* Site override of PaperMod's templates/schema_json.html.
-     Home is kept verbatim from the theme; BreadcrumbList is built from
-     .Ancestors (matches the visible breadcrumbs). The per-page
-     block is section-aware (P2.1):
-       - pages with .Params.schema_json emit nothing here — extend_head.html
-         already injects the hand-written frontmatter schema, and generating
-         a second competing block would confuse crawlers;
-       - tools singles emit WebApplication (GameApplication category under
-         /tools/games/) and FAQPage when the page has a visible FAQ;
-       - learn singles emit TechArticle (HowTo is deprecated in Google rich
-         results and needs structured step data we don't have);
-       - everything else keeps the theme's BlogPosting. */ -}}
-{{ if .IsHome }}
+{{- /* Site override of PaperMod's templates/schema_json.html. Every block is
+     built as a dict and serialised with jsonify, so no hand-assembled JSON.
+       - One Person (site.Params.person, stable @id) is the author and
+         publisher of everything; it is embedded in full wherever it is
+         referenced, because crawlers don't resolve @id across pages.
+       - Home: WebSite (+ SearchAction → /<lang>/?q=, handled by the search
+         palette in extend_footer.html) and the Person.
+       - About: ProfilePage whose mainEntity is the Person.
+       - Every page/section: BreadcrumbList matching partials/breadcrumbs.html.
+       - Tools: WebApplication + FAQPage from front matter `faq` (the same
+         list layouts/tools/single.html renders).
+       - Learn: TechArticle; other pages: BlogPosting. */ -}}
+{{- $p := site.Params.person -}}
+{{- $person := dict "@type" "Person" "@id" (printf "%s#person" ("/" | absURL)) "name" $p.name "jobTitle" $p.jobTitle "image" ($p.image | absURL) "sameAs" $p.sameAs "knowsAbout" $p.knowsAbout -}}
+{{- with site.GetPage "/about" }}{{ $person = merge $person (dict "url" .Permalink) }}{{ end -}}
+
+{{- if .IsHome }}
+{{- $website := dict
+    "@type" "WebSite"
+    "@id" (printf "%s#website" site.Home.Permalink)
+    "url" site.Home.Permalink
+    "name" site.Title
+    "description" (site.Params.description | plainify)
+    "inLanguage" site.Language.Lang
+    "publisher" (dict "@id" (index $person "@id"))
+    "potentialAction" (dict
+      "@type" "SearchAction"
+      "target" (dict "@type" "EntryPoint" "urlTemplate" (printf "%s?q={search_term_string}" site.Home.Permalink))
+      "query-input" "required name=search_term_string")
+}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",
-  "name": {{ site.Title }},
-  "url": {{ site.Home.Permalink }},
-  "description": {{ site.Params.description | plainify | truncate 180 | safeHTML }},
-  {{- if (eq site.Params.schema.publisherType "Person") }}
-  "image": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }},
-  {{- else }}
-  "logo": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }},
-  {{- end }}
-  "sameAs": [
-    {{- if site.Params.schema.sameAs }}
-      {{ range $i, $e := site.Params.schema.sameAs }}{{ if $i }}, {{ end }}{{ trim $e " " }}{{ end }}
-    {{- else}}
-      {{ range $i, $e := site.Params.SocialIcons }}{{ if $i }}, {{ end }}{{ trim $e.url " " | safeURL }}{{ end }}
-    {{- end}}
-  ]
-}
+{{ dict "@context" "https://schema.org" "@graph" (slice $website $person) | jsonify | safeJS }}
 </script>
 {{- else if (or .IsPage .IsSection) }}
-{{/* BreadcrumbList — same trail as the visible partials/breadcrumbs.html */}}
 {{- $items := slice }}
 {{- range $i, $a := .Ancestors.Reverse }}
   {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" (cond $a.IsHome (i18n "home" | default "Home") $a.LinkTitle) "item" $a.Permalink) }}
@@ -43,17 +41,17 @@
 {{ dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items | jsonify | safeJS }}
 </script>
 {{- if .IsPage }}
-{{- if .Params.schema_json }}
-{{- /* frontmatter schema wins — emitted by extend_head.html */ -}}
-{{- else if eq .Section "tools" }}
-{{- /* Tool pages: WebApplication, plus FAQPage when the page has a visible
-     FAQ (front matter `faq`, rendered by layouts/tools/single.html). */}}
+{{- $desc := .Description | default .Summary | plainify }}
+{{- $dates := dict }}
+{{- if not .PublishDate.IsZero }}{{ $dates = merge $dates (dict "datePublished" (.PublishDate.Format "2006-01-02")) }}{{ end }}
+{{- if not .Lastmod.IsZero }}{{ $dates = merge $dates (dict "dateModified" (.Lastmod.Format "2006-01-02")) }}{{ end }}
+{{- if eq .Section "tools" }}
 {{- $isGame := strings.Contains .RelPermalink "/tools/games/" }}
 {{- $app := dict
     "@context" "https://schema.org"
     "@type" "WebApplication"
     "name" (.Params.app_name | default (.Title | plainify))
-    "description" (.Description | default .Summary | plainify)
+    "description" $desc
     "url" .Permalink
     "applicationCategory" (.Params.app_category | default (cond $isGame "GameApplication" "UtilitiesApplication"))
     "operatingSystem" "Any"
@@ -61,11 +59,11 @@
     "isAccessibleForFree" true
     "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "EUR")
     "inLanguage" .Language.Lang
-    "datePublished" (.PublishDate.Format "2006-01-02")
-    "dateModified" (.Lastmod.Format "2006-01-02")
+    "author" $person
+    "publisher" $person
 }}
 <script type="application/ld+json">
-{{ $app | jsonify | safeJS }}
+{{ merge $app $dates | jsonify | safeJS }}
 </script>
 {{- with .Params.faq }}
 {{- $qs := slice }}
@@ -76,71 +74,29 @@
 {{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $qs | jsonify | safeJS }}
 </script>
 {{- end }}
-{{- else }}
+{{- else if eq .Path "/about" }}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": {{ if eq .Section "learn" }}"TechArticle"{{ else }}"BlogPosting"{{ end }},
-  "headline": {{ .Title | plainify}},
-  "name": "{{ .Title | plainify }}",
-  "description": {{ with .Description | plainify }}{{ . }}{{ else }}{{ .Summary | plainify  }}{{ end -}},
-  "keywords": [
-    {{- if .Params.keywords }}
-    {{ range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}
-    {{- else }}
-    {{ range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}
-    {{- end }}
-  ],
-  "articleBody": {{ .Content | safeJS | htmlUnescape | plainify }},
-  "wordCount" : "{{ .WordCount }}",
-  "inLanguage": {{ .Language.Lang | default "en-us" }},
-  {{ if .Params.cover.image -}}
-  "image":
-    {{- if (ne .Params.cover.relative true) -}}
-    {{ .Params.cover.image | absURL }},
-    {{- else -}}
-    {{ (path.Join .RelPermalink .Params.cover.image ) | absURL }},
-    {{- end}}
-  {{- else }}
-    {{- $images := partial "templates/_funcs/get-page-images" . -}}
-    {{- with index $images 0 -}}
-  "image": {{ .Permalink }},
-    {{- end }}
-  {{- end -}}
-  "datePublished": {{ .PublishDate }},
-  "dateModified": {{ .Lastmod }},
-  {{- with (.Params.author | default site.Params.author) }}
-  "author":
-    {{- if (or (eq (printf "%T" .) "[]string") (eq (printf "%T" .) "[]interface {}")) -}}
-  [{{- range $i, $v := . -}}
-  {{- if $i }}, {{end -}}
-  {
-    "@type": "Person",
-    "name": {{ $v }}
-  }
-  {{- end }}],
-    {{- else -}}
-  {
-    "@type": "Person",
-    "name": {{ . }}
-  },
-    {{- end -}}
-  {{- end }}
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": {{ .Permalink | safeHTML }}
-  },
-  "publisher": {
-    "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",
-    "name": {{ site.Title }},
-    "logo": {
-      "@type": "ImageObject",
-      "url": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }}
-    }
-  }
-}
+{{ merge (dict "@context" "https://schema.org" "@type" "ProfilePage" "url" .Permalink "inLanguage" .Language.Lang "mainEntity" $person) (cond (isset $dates "dateModified") (dict "dateModified" $dates.dateModified) dict) | jsonify | safeJS }}
+</script>
+{{- else }}
+{{- $article := dict
+    "@context" "https://schema.org"
+    "@type" (cond (eq .Section "learn") "TechArticle" "BlogPosting")
+    "headline" (.Title | plainify)
+    "description" $desc
+    "keywords" (.Params.keywords | default .Params.tags | default slice)
+    "wordCount" .WordCount
+    "inLanguage" .Language.Lang
+    "author" $person
+    "publisher" $person
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+}}
+{{- with .Params.proficiency }}{{ $article = merge $article (dict "proficiencyLevel" .) }}{{ end }}
+{{- $images := partial "templates/_funcs/get-page-images" . }}
+{{- with index $images 0 }}{{ $article = merge $article (dict "image" .Permalink) }}{{ end }}
+<script type="application/ld+json">
+{{ merge $article $dates | jsonify | safeJS }}
 </script>
 {{- end }}
-{{- end }}{{/* .IsPage end */}}
-
+{{- end }}{{/* .IsPage */}}
 {{- end -}}

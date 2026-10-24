@@ -145,3 +145,17 @@ chmod_copied:
   other: "Kopiert!"
 chmod_presets:
   other: "Schnellauswahl:"
+
+# Learn pages: byline + author box (partials/author-box.html)
+byline_by:
+  other: "Von {{ .Name }}"
+byline_updated:
+  other: "Aktualisiert am {{ .Date }}"
+author_box_heading:
+  other: "Über mich"
+author_box_bio:
+  other: "Ich arbeite als Network Security Analyst im SOC und in der Netzwerksicherheit auf L2-Ebene: SSE/SASE-Plattformen, Zero-Trust-Zugriff, Traffic-Analyse und Incident-Triage. Ich habe die eJPT-Zertifizierung (Junior Penetration Tester) und schreibe diese Leitfäden aus der praktischen Arbeit und aus Laborübungen heraus."
+author_box_more:
+  other: "Mehr über mich"
+related_tools_learn:
+  other: "Kostenlose Tools zum Thema"

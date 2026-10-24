@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["linux", "interview", "sysadmin", "devops"]
 keywords: ["linux interview questions", "red hat interview", "bash scripting questions", "linux permissions interview", "sysadmin interview questions", "linux process management", "systemd interview", "linux networking questions", "senior linux engineer", "rhcsa exam prep"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Linux SysAdmin Interview: Process, Permissions & Networking",
-    "description": "20 essential Linux system administration interview questions covering permissions, processes, systemd, and networking.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "en"
-  }
+proficiency: "Advanced"
 aliases: ["/en/interviews/linux-sysadmin-interview-questions/", "/interviews/linux-sysadmin-interview-questions/"]
 ---
 

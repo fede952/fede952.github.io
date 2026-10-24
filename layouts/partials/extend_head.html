@@ -27,24 +27,9 @@
 <meta name="theme-color" content="#1d1e20">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js');
-  });
-}
-</script>
-
-<!-- Custom Schema.org JSON-LD from frontmatter -->
-{{/* safeJS, not safeHTML: inside a <script> element Go's contextual
-     escaper is in JS context, and safeHTML still lets it JSON-string-
-     encode the whole block — crawlers then see a string literal instead
-     of structured data. Frontmatter is trusted site content. */}}
-{{- if .Params.schema_json }}
-<script type="application/ld+json">
-{{ .Params.schema_json | safeJS }}
-</script>
-{{- end }}
+{{- /* No service worker any more: the old one served /js and /vendor
+     cache-first from unversioned URLs, so returning visitors kept stale
+     scripts. /sw.js is now a kill switch that unregisters itself. */}}
 
 <!-- Umami Analytics: cookieless (production only, never on 404) -->
 {{ if and hugo.IsProduction (ne .Kind "404") }}

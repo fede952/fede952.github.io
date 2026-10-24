@@ -1,0 +1,81 @@
+/* ============================================
+   LEARN ARTICLES — layouts/_default/single.html
+   byline under the title and author box after the article.
+   (Breadcrumbs share the styles in tool-page.css.)
+   ============================================ */
+
+.article-byline {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+.article-byline a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+}
+
+.author-box {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin: 2.5rem 0 0;
+  padding: 1.25rem;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.author-box-photo {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.author-box-body {
+  min-width: 0;
+}
+
+.author-box-heading {
+  margin: 0 0 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--secondary);
+}
+
+.author-box-name,
+.author-box-bio,
+.author-box-links {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.author-box-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+.author-box-links a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .author-box {
+    flex-direction: column;
+  }
+}

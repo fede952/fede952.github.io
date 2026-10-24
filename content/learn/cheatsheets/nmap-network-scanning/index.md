@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconnaissance"]
 keywords: ["nmap cheatsheet", "nmap commands", "network scanning guide", "nmap port scan", "nmap service detection", "nmap scripts NSE", "nmap vulnerability scan", "penetration testing commands"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Nmap Field Manual: Network Reconnaissance Commands",
-    "description": "Essential Nmap commands for network scanning, host discovery, port enumeration, and vulnerability assessment.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "en"
-  }
+proficiency: "Intermediate"
 aliases: ["/en/cheatsheets/nmap-network-scanning/", "/cheatsheets/nmap-network-scanning/"]
 ---
 

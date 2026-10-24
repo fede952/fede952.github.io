@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["react", "cheatsheet", "frontend", "hooks", "web-dev"]
 keywords: ["react hooks guide", "usestate useeffect", "react hooks tutoriel", "apprendre développement web", "entretien frontend", "custom hooks react", "react performance", "usememo usecallback", "react context tutoriel", "useref react", "react patterns 2026", "react hooks exemples"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Le Guide Ultime des React Hooks (2026)",
-    "description": "Référence complète des React Hooks avec des extraits prêts à copier-coller pour useState, useEffect, useContext, les hooks personnalisés et l'optimisation des performances.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
+proficiency: "Intermediate"
 aliases: ["/fr/cheatsheets/react-hooks-lifecycle/"]
 ---
 

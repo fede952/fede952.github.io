@@ -21,7 +21,6 @@ Cookies are small text files stored on your device by the websites you visit. Th
 |---|---|---|
 | `localStorage: menu-scroll-position` | Restores the horizontal scroll position of the top menu | Until you clear it |
 | `localStorage` keys of individual tools and games (e.g. `easycron-theme`, `nb_best`, `st_state`, high scores) | Remember a tool setting, your best score or a saved game | Until you clear it |
-| Service Worker cache | Speeds up repeat visits | Managed by your browser |
 
 ### Analytics
 

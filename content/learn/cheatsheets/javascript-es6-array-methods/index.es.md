@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["javascript", "cheatsheet", "frontend", "es6", "web-dev"]
 keywords: ["cheatsheet javascript", "cheatsheet es6", "aprender desarrollo web", "sintaxis js", "métodos array javascript", "tutorial async await", "entrevista frontend", "javascript desarrollador react", "map filter reduce", "destructuring javascript", "spread operator", "ejemplos fetch api", "encadenamiento de promesas", "arrow functions", "template literals"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Cheatsheet de JavaScript Moderno: ES6+, Async/Await y Métodos de Array",
-    "description": "Referencia completa de ES6+ que cubre arrow functions, destructuring, promesas, async/await y métodos de array para desarrolladores frontend.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
+proficiency: "Intermediate"
 aliases: ["/es/cheatsheets/javascript-es6-array-methods/"]
 ---
 

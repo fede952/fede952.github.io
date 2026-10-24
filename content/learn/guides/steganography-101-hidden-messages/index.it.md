@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["steganography", "privacy", "security", "tutorial", "guide"]
 keywords: ["tutorial steganografia", "nascondere messaggio in immagine", "steganografia LSB spiegata", "steganografia digitale", "come funziona la steganografia", "dati nascosti nelle immagini", "guida steganografia immagini", "comunicazione segreta"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Dead Drop Digitali: Come Nascondere Segreti nelle Immagini",
-    "description": "Un tutorial completo sulla steganografia LSB: nascondere messaggi segreti all'interno di immagini ordinarie.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "it"
-  }
+proficiency: "Beginner"
 aliases: ["/it/guides/steganography-101-hidden-messages/"]
 ---
 

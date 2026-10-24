@@ -21,7 +21,6 @@ I cookie sono piccoli file di testo che i siti che visiti salvano sul tuo dispos
 |---|---|---|
 | `localStorage: menu-scroll-position` | Ripristina lo scorrimento orizzontale del menu in alto | Finché non lo cancelli |
 | Chiavi `localStorage` dei singoli strumenti e giochi (es. `easycron-theme`, `nb_best`, `st_state`, record) | Ricordano un'impostazione, il tuo miglior punteggio o una partita salvata | Finché non le cancelli |
-| Cache del Service Worker | Velocizza le visite successive | Gestita dal browser |
 
 ### Statistiche
 

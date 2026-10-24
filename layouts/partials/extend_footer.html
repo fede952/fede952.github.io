@@ -25,7 +25,7 @@
 <div id="search-modal" class="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title" aria-hidden="true">
     <div class="search-backdrop"></div>
     <div class="search-dialog">
-        <h2 id="search-modal-title" class="visually-hidden" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Search</h2>
+        <h2 id="search-modal-title" class="visually-hidden">Search</h2>
         <div class="search-input-wrap">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input id="search-input" type="text" placeholder="Search articles, tools, cheatsheets..." aria-label="Search articles, tools, cheatsheets" autocomplete="off" spellcheck="false">
@@ -59,10 +59,13 @@
     let previousFocus = null;
 
     // Lazy-load index on first open
-    async function loadIndex() {
-        if (fuse) return;
+    let indexPromise = null;
+    function loadIndex() {
+        if (!indexPromise) indexPromise = fetchIndex().then(search);
+        return indexPromise;
+    }
+    async function fetchIndex() {
         try {
-            console.log('[Search] Fetching:', searchIndexURL);
             const res = await fetch(searchIndexURL);
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const contentType = res.headers.get('content-type') || '';
@@ -71,7 +74,6 @@
             }
             const data = await res.json();
             if (!Array.isArray(data)) throw new Error('Index is not an array');
-            console.log('[Search] Loaded', data.length, 'entries');
             fuse = new Fuse(data, {
                 keys: [
                     { name: 'title', weight: 0.5 },
@@ -203,9 +205,10 @@
         }
     });
 
-    // Event: Input
-    input.addEventListener('input', function() {
-        const query = this.value.trim();
+    // Run the current query (also re-run once the index arrives, so text
+    // typed while it was loading is not ignored).
+    function search() {
+        const query = input.value.trim();
         if (!fuse || query.length < 2) {
             resultsList.innerHTML = '';
             emptyState.style.display = 'none';
@@ -215,6 +218,16 @@
         }
         const hits = fuse.search(query);
         renderResults(hits);
-    });
+    }
+    input.addEventListener('input', search);
+
+    // Deep link: /<lang>/?q=term opens the palette with the query
+    // (target of the WebSite SearchAction in templates/schema_json.html).
+    const q = new URLSearchParams(window.location.search).get('q');
+    if (q) {
+        openModal();
+        input.value = q;
+        search();
+    }
 })();
 </script>

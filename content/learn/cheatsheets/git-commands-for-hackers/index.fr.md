@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["git", "cheatsheet", "version-control", "developer-tools"]
 keywords: ["commandes git aide-mémoire", "git annuler commit", "git signature gpg", "commandes git branch", "guide git reset", "tutoriel git rebase", "commandes git avancées", "git pour hackers"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Protocole Git : Le Guide de Référence Essentiel des Commandes",
-    "description": "Aide-mémoire complet des commandes Git couvrant les corrections d'urgence, la signature GPG, les opérations de branches et les workflows avancés.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
+proficiency: "Intermediate"
 aliases: ["/fr/cheatsheets/git-commands-for-hackers/"]
 ---
 

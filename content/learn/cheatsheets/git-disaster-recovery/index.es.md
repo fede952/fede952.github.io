@@ -5,15 +5,7 @@ date: 2026-02-13
 tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git deshacer commit", "git reset hard vs soft", "recuperar rama eliminada", "git rebase tutorial", "resolver conflicto merge", "git cherry-pick"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Git Disaster Recovery: Deshacer Errores y Corregir el Historial",
-    "description": "El kit de emergencia para desarrolladores. Aprende a deshacer commits, resolver conflictos de merge, recuperar ramas eliminadas y dominar git rebase vs merge.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
+proficiency: "Intermediate"
 aliases: ["/es/cheatsheets/git-disaster-recovery/"]
 ---
 

@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["docker", "interview", "devops", "containers"]
 keywords: ["preguntas entrevista docker", "entrevista senior devops", "preguntas contenedorización", "respuestas entrevista docker", "entrevista docker compose", "mejores prácticas dockerfile", "entrevista orquestación contenedores", "preguntas redes docker", "entrevista ingeniero devops", "preguntas docker producción"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Las 20 Preguntas Más Frecuentes en Entrevistas sobre Docker y Respuestas (Edición 2026)",
-    "description": "Preguntas avanzadas de entrevistas sobre Docker para roles Senior DevOps que cubren contenedores, imágenes, redes y mejores prácticas de producción.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "es"
-  }
+proficiency: "Advanced"
 aliases: ["/es/interviews/docker-interview-questions/"]
 ---
 

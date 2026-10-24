@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["exif", "privacy", "osint", "metadata", "security", "guide"]
 keywords: ["privacy metadati exif", "posizione gps foto", "rimuovere dati exif", "analisi foto osint", "rischi metadati immagini", "guida privacy foto", "tracciamento gps exif", "rimuovere metadati dalle foto"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Modalità Ghost: Perché le Tue Foto Rivelano la Tua Posizione GPS",
-    "description": "Come i metadati EXIF nelle foto rivelano coordinate GPS, informazioni sul dispositivo e timestamp — e come proteggerti.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "it"
-  }
+proficiency: "Beginner"
 aliases: ["/it/guides/osint-privacy-exif-data/"]
 ---
 

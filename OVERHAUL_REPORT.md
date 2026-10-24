@@ -230,3 +230,74 @@ quoted in English). **Every page is `reviewed: false`** — see TODO.
   fingerprint, NetGuard scan, site search) all OK; steganography round-trip, StringMaster counts, ZenFocus timer
   (pause holds), localized UI via `?lang` — OK.
 - CSP/JS regression check on the Phase 1 page sample (42 pages): 0 violations, 0 errors.
+
+## Phase 6 — E-E-A-T and technical SEO
+
+### Author identity (one Person, everywhere)
+- `[params.person]` in `hugo.toml`: name, jobTitle **Network Security Analyst**, photo, `sameAs` (the LinkedIn and GitHub
+  URLs already in the config), `knowsAbout` (network security, SSE, SASE, Zero Trust, SOC operations, penetration testing).
+- `templates/schema_json.html` rewritten: every block is a `dict | jsonify` (no hand-assembled JSON). The Person has a
+  stable `@id` (`https://federicosella.com/#person`) and is embedded in full as `author` and `publisher` of every
+  TechArticle, BlogPosting and WebApplication (crawlers don't resolve `@id` across pages). Home emits a `@graph` of
+  WebSite + Person; the About page emits `ProfilePage` → Person. Zero dates are no longer emitted (pages without a
+  `date` used to publish `0001-01-01`). The bulky `articleBody` copy of the whole article was dropped.
+- **150 hand-written `schema_json` front-matter blocks removed** (all learn pages, 6 languages). They suppressed the
+  generated schema and had no author, no dates and no headline; the 18 on roadmaps declared `HowTo` without any steps
+  (invalid). The only useful field, `proficiencyLevel`, was migrated to a `proficiency:` param and is emitted on the
+  TechArticle. The `schema_json` code path in `extend_head.html` is gone.
+- Validation: all 2,787 built HTML files' JSON-LD parses (0 errors): 497 BreadcrumbList, 210 WebApplication, 144 FAQPage,
+  168 TechArticle, 44 BlogPosting, 6 ProfilePage, 6 WebSite+Person graphs.
+
+### Learn pages
+- Breadcrumbs (same partial and BreadcrumbList as tools), a byline under the title — *By Federico Sella · Updated
+  &lt;lastmod, localized date&gt;* linking to About with `rel=author` — and an **author box** after the article (photo,
+  role, first-person bio: SOC / L2 network security, SSE/SASE, Zero Trust, eJPT; no employer or client named; links to
+  About, LinkedIn, GitHub with `rel=me`). Strings in 6 languages, phrased gender-neutrally.
+- **Related tools** on every learn article from `data/related.yaml` (`learn:` keys = path under `/learn/`), then tag
+  similarity, then newest — same partial as tool pages.
+
+### Search
+- `WebSite` `SearchAction` → `/<lang>/?q={search_term_string}`. The search palette now honours `?q=` (opens with the
+  query and results), and text typed while the index was still loading is no longer ignored. Note: Google retired the
+  sitelinks search box in Nov 2024, so this markup won't produce a Google feature any more; it is valid schema and the
+  deep link is useful on its own.
+
+### Sitemap, robots, canonical
+- Tag and category listings (139 tag + 15 category pages per language — over 60% of the old sitemap) are now
+  `noindex` via a config `cascade` (`robotsNoIndex`, which PaperMod reads) and are excluded from the sitemap; they stay
+  as navigation. The sitemap template lists only pages without `robotsNoIndex`, adds `x-default`, and drops
+  `changefreq`/`priority` (ignored by Google; the old section-based priorities pointed at sections that no longer exist).
+  Result: **503 URLs** across the 6 language sitemaps, all indexable (baseline: 1,398 in those 6 languages, mostly tags
+  and news).
+- `robots.txt`: removed `Disallow` lines for `/private/` and `/admin/` (paths that don't exist), kept the AI-crawler
+  allowances and added the current `ClaudeBot` token next to the retired `anthropic-ai`; sitemap index URL declared.
+- Canonical host checked: every canonical, hreflang and sitemap URL is `https://federicosella.com/…` (apex, matches
+  `CNAME`); embedded apps' canonicals point to their EN tool page. The root `/` and alias pages are still meta-refresh
+  pages on GitHub Pages → real 301s in Phase 8.
+
+### Service worker: removed (kill switch)
+- The old worker cached `/js`, `/vendor` and CSS **cache-first from unversioned URLs**: after this deploy, returning
+  visitors would have kept the old scripts (e.g. the old iframe resizer) indefinitely. Registration removed; `/sw.js` is
+  now a kill switch that deletes all caches, unregisters itself and reloads open tabs once. Verified in Chromium: a
+  context running the old worker (1 registration, `fedesella-v1` cache) ends with 0 registrations and no caches.
+- The cookie page's "Service Worker cache" row removed in all 6 languages. `manifest.json` and `icon-192/512.png` kept
+  (installability doesn't require a service worker any more).
+
+### Performance and accessibility (Lighthouse 13.5, mobile, local production build)
+| Page | Perf | A11y | Best pr. | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| /en/ | 99 | 91 → **100** | 100 | 92 → **100** | 2.0 s | 0 | 0 ms |
+| /en/tools/pass-fort/ | 97 | 92 | 100 | 100 | 2.3 s | 0.015 | 40 ms |
+| /en/tools/pixel-shrink/ | 95 | 88 → **100** | 100 | 100 | 2.6 s | 0.014 | 50 ms |
+| /en/learn/guides/osint-privacy-exif-data/ | 99 | 88 → **100** | 100 | 100 | 2.0 s | 0 | 0 ms |
+| /it/learn/cheatsheets/nmap-network-scanning/ | 99 | 92 | 100 | 100 | 2.0 s | 0 | 0 ms |
+
+Fixes behind the deltas: card CTAs "Read More" now carry the article title for screen readers (`.visually-hidden`);
+contrast of the ad label, hero shortcut hint, GitHub-Sponsors button (#ea4aaa → #bf3989, 5:1) and tag chips; language
+switcher links meet the 24 px target size; logo `<img>` had both `alt=""` and `aria-label`; links inside running text
+are underlined (not colour-only). Lab numbers are from a local server without real ad fill — field data in Search
+Console will be the real reference once the site is live.
+
+### Verification
+`hugo --gc --minify` 0 errors/warnings · 144/144 tool pages pass the Phase 5 audit · functional tool suite OK · CSP/JS
+check 0/42 · search deep link OK · learn page visually checked at 1280 px and 390 px.

@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["sql", "interview", "database", "backend"]
 keywords: ["preguntas entrevista consultas sql", "normalización de bases de datos", "propiedades acid", "prevención de inyección sql", "entrevista índices de bases de datos", "preguntas join sql", "entrevista postgresql", "preguntas entrevista mysql", "patrones diseño de bases de datos", "optimización rendimiento sql"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Preguntas de Entrevista sobre SQL y Diseño de Bases de Datos (Nivel Senior)",
-    "description": "20 preguntas avanzadas de entrevista sobre SQL y bases de datos que cubren optimización, normalización, indexación, transacciones y seguridad.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "es"
-  }
+proficiency: "Advanced"
 aliases: ["/es/interviews/sql-database-interview-questions/"]
 ---
 

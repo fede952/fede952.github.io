@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["python", "cheatsheet", "penetration-testing", "security", "scripting"]
 keywords: ["programmation socket python", "cheat sheet scapy", "bibliothèque requests python", "scripts hacking python", "scanner de ports python", "sécurité réseau python", "test d'intrusion python", "création de paquets scapy", "reverse shell python", "automatisation sécurité python"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Python Black Hat : Scripting Réseau et Sécurité",
-    "description": "Scripts Python essentiels pour la sécurité réseau, la programmation socket, la manipulation de paquets avec Scapy et les requêtes HTTP.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
+proficiency: "Intermediate"
 aliases: ["/fr/cheatsheets/python-security-scripts/"]
 ---
 

@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconnaissance"]
 keywords: ["nmap cheatsheet", "comandos nmap", "guia varredura de rede", "nmap varredura de portas", "nmap detecção de serviços", "nmap scripts NSE", "nmap varredura de vulnerabilidades", "comandos penetration testing"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Manual de Campo Nmap: Comandos de Reconhecimento de Rede",
-    "description": "Comandos essenciais do Nmap para varredura de rede, descoberta de hosts, enumeração de portas e avaliação de vulnerabilidades.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "pt"
-  }
+proficiency: "Intermediate"
 aliases: ["/pt/cheatsheets/nmap-network-scanning/"]
 ---
 

@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["docker", "interview", "devops", "containers"]
 keywords: ["docker interview questions", "senior devops interview", "containerization questions", "docker interview answers", "docker compose interview", "dockerfile best practices", "container orchestration interview", "docker networking questions", "devops engineer interview", "docker production questions"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Top 20 Docker Interview Questions & Answers (2026 Edition)",
-    "description": "Advanced Docker interview questions for Senior DevOps roles covering containers, images, networking, and production best practices.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "en"
-  }
+proficiency: "Advanced"
 aliases: ["/en/interviews/docker-interview-questions/", "/interviews/docker-interview-questions/"]
 ---
 

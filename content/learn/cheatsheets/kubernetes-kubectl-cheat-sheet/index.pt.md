@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["kubernetes", "cheatsheet", "devops", "kubectl", "cloud-native"]
 keywords: ["kubectl folha de referência", "comandos k8s", "gerenciamento de pods kubernetes", "escalabilidade de deployment k8s", "depuração kubernetes", "kubectl get pods", "expor serviço kubernetes", "configmap secrets k8s", "administração de cluster kubernetes", "kubectl logs solução de problemas"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Kubernetes (K8s) & Kubectl: Comandos para Clusters em Produção",
-    "description": "Comandos essenciais do kubectl para gerenciar clusters Kubernetes: pods, deployments, serviços, ConfigMaps e depuração.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "pt"
-  }
+proficiency: "Intermediate"
 aliases: ["/pt/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 

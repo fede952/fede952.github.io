@@ -21,7 +21,6 @@ Cookies são pequenos arquivos de texto que os sites visitados salvam no seu dis
 |---|---|---|
 | `localStorage: menu-scroll-position` | Restaura a rolagem horizontal do menu superior | Até você apagar |
 | Chaves `localStorage` de cada ferramenta e jogo (ex.: `easycron-theme`, `nb_best`, `st_state`, recordes) | Lembram uma configuração, sua melhor pontuação ou um jogo salvo | Até você apagar |
-| Cache do Service Worker | Acelera as próximas visitas | Gerenciado pelo navegador |
 
 ### Estatísticas
 

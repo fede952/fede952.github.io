@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["linux", "cheatsheet", "sysadmin", "permissions", "devops"]
 keywords: ["chmod Rechner", "chown Beispiele", "Linux Prozess beenden", "Benutzerverwaltung Linux", "systemd Befehle", "Linux Dateiberechtigungen", "Linux Sysadmin Cheatsheet", "chmod 755 erklärt", "Linux Benutzergruppen", "systemctl restart Dienst"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Linux SysAdmin: Dateiberechtigungen, Benutzer und Prozessverwaltung",
-    "description": "Essenzielle Linux-Sysadmin-Befehle zu Dateiberechtigungen, Benutzerverwaltung, systemd-Diensten und Prozesskontrolle.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
+proficiency: "Intermediate"
 aliases: ["/de/cheatsheets/linux-sysadmin-permissions/"]
 ---
 

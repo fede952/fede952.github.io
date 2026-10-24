@@ -1,13 +1,17 @@
-{{- /* Internal-linking module: grid of up to 4 other tools in the current
+{{- /* Internal-linking module: grid of up to 4 tools in the current
      language. Hand-picked tools from data/related.yaml come first
-     (tools.<slug>.tools), then Hugo's related-content engine (tags index
-     from hugo.toml), then the newest tools until there are 4. Rendered by
-     the tool-page templates just before the site footer. */ -}}
+     (tools.<slug>.tools for tool pages, learn.<path under /learn/> for
+     learn articles), then Hugo's related-content engine (tags index from
+     hugo.toml), then the newest tools until there are 4. */ -}}
 {{- $pool := where (where site.RegularPages "Section" "tools") "Permalink" "ne" .Permalink -}}
-{{- $cards := slice -}}
-{{- with index (hugo.Data.related.tools | default dict) .File.ContentBaseName -}}
-  {{- range .tools }}{{ with site.GetPage (printf "/tools/%s" .) }}{{ if lt (len $cards) 4 }}{{ $cards = $cards | append . }}{{ end }}{{ end }}{{ end -}}
+{{- $picks := slice -}}
+{{- if eq .Section "learn" -}}
+  {{- $picks = index (hugo.Data.related.learn | default dict) (strings.TrimPrefix "/learn/" .Path) | default slice -}}
+{{- else -}}
+  {{- with index (hugo.Data.related.tools | default dict) .File.ContentBaseName }}{{ $picks = .tools }}{{ end -}}
 {{- end -}}
+{{- $cards := slice -}}
+{{- range $picks }}{{ with site.GetPage (printf "/tools/%s" .) }}{{ if lt (len $cards) 4 }}{{ $cards = $cards | append . }}{{ end }}{{ end }}{{ end -}}
 {{- with $pool.Related . -}}
   {{- range . }}{{ if and (lt (len $cards) 4) (not (in $cards .)) }}{{ $cards = $cards | append . }}{{ end }}{{ end -}}
 {{- end -}}
@@ -16,7 +20,7 @@
 {{- end -}}
 {{- if gt (len $cards) 0 }}
 <section class="related-tools" aria-labelledby="related-tools-heading">
-  <h2 id="related-tools-heading" class="related-tools-title">{{ i18n "related_tools" | default "More Free Tools" }}</h2>
+  <h2 id="related-tools-heading" class="related-tools-title">{{ cond (eq .Section "learn") (i18n "related_tools_learn") (i18n "related_tools" | default "More Free Tools") }}</h2>
   <div class="related-tools-grid">
     {{- range $cards }}
     <a class="related-tool-card" href="{{ .RelPermalink }}">

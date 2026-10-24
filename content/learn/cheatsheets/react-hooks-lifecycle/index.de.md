@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["react", "cheatsheet", "frontend", "hooks", "web-dev"]
 keywords: ["react hooks cheatsheet", "usestate useeffect", "react hooks tutorial", "webentwicklung lernen", "frontend interview", "custom hooks react", "react performance", "usememo usecallback", "react context tutorial", "useref react", "react muster 2026", "react hooks beispiele"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Das Ultimative React Hooks Cheatsheet (2026)",
-    "description": "Vollständige React Hooks Referenz mit Copy-Paste-Snippets für useState, useEffect, useContext, benutzerdefinierte Hooks und Performance-Optimierung.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
+proficiency: "Intermediate"
 aliases: ["/de/cheatsheets/react-hooks-lifecycle/"]
 ---
 

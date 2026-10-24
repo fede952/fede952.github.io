@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["linux", "cheatsheet", "sysadmin", "permissions", "devops"]
 keywords: ["calculadora chmod", "ejemplos chown", "linux matar proceso", "gestión usuarios linux", "comandos systemd", "permisos archivos linux", "cheatsheet sysadmin linux", "chmod 755 explicado", "grupos usuarios linux", "systemctl restart servicio"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Linux SysAdmin: Permisos de Archivos, Usuarios y Gestión de Procesos",
-    "description": "Comandos esenciales de administración de sistemas Linux que cubren permisos de archivos, gestión de usuarios, servicios systemd y control de procesos.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
+proficiency: "Intermediate"
 aliases: ["/es/cheatsheets/linux-sysadmin-permissions/"]
 ---
 

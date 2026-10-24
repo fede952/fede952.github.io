@@ -5,15 +5,7 @@ date: 2026-02-10
 tags: ["steganography", "privacy", "security", "tutorial", "guide"]
 keywords: ["tutorial esteganografía", "ocultar mensaje en imagen", "esteganografía LSB explicada", "esteganografía digital", "cómo funciona la esteganografía", "datos ocultos en imágenes", "guía esteganografía imágenes", "comunicación encubierta"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Buzones Muertos Digitales: Cómo Ocultar Secretos en Imágenes",
-    "description": "Un tutorial completo sobre esteganografía LSB: ocultar mensajes secretos dentro de imágenes ordinarias.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "es"
-  }
+proficiency: "Beginner"
 aliases: ["/es/guides/steganography-101-hidden-messages/"]
 ---
 

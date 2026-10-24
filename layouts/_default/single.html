@@ -1,10 +1,18 @@
 {{ define "main" }}
 
+  {{- $learn := eq .Section "learn" }}
   <article class="post-single">
 
     <header class="post-header">
+      {{- if $learn }}{{ partial "breadcrumbs.html" . }}{{ end }}
       <h1 class="post-title">{{ .Title }}</h1>
       {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
+      {{- if $learn }}
+      <div class="post-meta article-byline">
+        {{- with site.GetPage "/about" }}<a href="{{ .RelPermalink }}" rel="author">{{ i18n "byline_by" (dict "Name" site.Params.person.name) }}</a>{{ end }}
+        · <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ i18n "byline_updated" (dict "Date" (.Lastmod | time.Format ":date_long")) }}</time>
+      </div>
+      {{- end }}
     </header>
 
     <div class="post-content">
@@ -22,6 +30,11 @@
       </ul>
       {{ end }}
     </footer>
+
+    {{- if $learn }}
+    {{ partial "author-box.html" . }}
+    {{ partial "related-tools.html" . }}
+    {{- end }}
 
   </article>
 
