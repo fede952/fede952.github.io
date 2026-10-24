@@ -88,6 +88,34 @@ defaultContentLanguageInSubdir = true
     slot_tool_after = ""    # TODO
     slot_article_mid = ""   # TODO
 
+  # Affiliate partner blocks on tool pages (partials/affiliate/block.html),
+  # placed after the "How it works" section. One partner per category; a
+  # block renders only when both its name and url are set, so an empty
+  # category shows nothing. Links get rel="sponsored noopener" and a
+  # localized "Affiliate link" disclosure.
+  [params.affiliate]
+    password_manager_name = ""  # TODO Federico: partner name, e.g. the password manager you joined
+    password_manager_url = ""   # TODO Federico: your affiliate URL
+    # Pre-filled with the NordVPN link that was hard-coded in NetGuard and
+    # Link Hazmat before the overhaul (moved here, unchanged).
+    vpn_name = "NordVPN"
+    vpn_url = "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=140342&url_id=858"
+    privacy_name = ""           # TODO Federico
+    privacy_url = ""            # TODO Federico
+    devsec_name = ""            # TODO Federico
+    devsec_url = ""             # TODO Federico
+    # Tool (content directory name) -> category
+    [params.affiliate.tools]
+      pass-fort = "password_manager"
+      password-generator = "password_manager"
+      netguard = "vpn"
+      ghostprint = "vpn"
+      link-hazmat = "vpn"
+      exif-cleaner = "privacy"
+      steganography = "privacy"
+      secrets-scanner = "devsec"
+      jwt-inspector = "devsec"
+
   [params.assets]
     favicon = "/favicon.png"
     favicon16x16 = "/favicon.png"

@@ -136,3 +136,56 @@
     border-radius: 8px;
   }
 }
+
+/* Affiliate partner block (partials/affiliate/block.html), after "How it works" */
+.affiliate-block {
+  margin: 2rem 0;
+  padding: 1.25rem 1.25rem 1rem;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent, #00e5ff);
+  border-radius: 10px;
+}
+
+.affiliate-label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 1px 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.post-content .affiliate-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.post-content .affiliate-text {
+  margin: 0 0 1rem;
+}
+
+.post-content a.affiliate-cta {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  font-weight: 600;
+  color: #0b0c0e;
+  background: var(--accent, #00e5ff);
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.post-content a.affiliate-cta:hover {
+  filter: brightness(1.1);
+}
+
+.post-content .affiliate-disclosure {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--secondary);
+}

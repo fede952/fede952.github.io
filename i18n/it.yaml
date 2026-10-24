@@ -159,3 +159,29 @@ author_box_more:
   other: "Di più su di me"
 related_tools_learn:
   other: "Strumenti gratuiti su questo tema"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Link di affiliazione"
+aff_disclosure:
+  other: "Link di affiliazione — potrei ricevere una commissione, senza alcun costo aggiuntivo per te."
+aff_sharing:
+  other: "Il pulsante apre il sito di {{ .Name }}; nulla di ciò che hai inserito in questo strumento viene condiviso."
+aff_cta:
+  other: "Vai su {{ .Name }}"
+aff_password_manager_title:
+  other: "Password robuste senza doverle ricordare"
+aff_password_manager_text:
+  other: "Una password lunga e casuale è pratica solo se qualcosa la ricorda al posto tuo. Un password manager come {{ .Name }} salva ogni password cifrata, la compila su tutti i tuoi dispositivi e segnala quelle riutilizzate o compromesse."
+aff_vpn_title:
+  other: "Nascondi il tuo indirizzo IP ai siti che visiti"
+aff_vpn_text:
+  other: "{{ .Name }} fa passare il traffico in un tunnel cifrato: i siti vedono l'IP e la posizione del server VPN invece dei tuoi, e il tuo provider non vede quali siti apri. Da sola, una VPN non impedisce il fingerprinting del browser."
+aff_privacy_title:
+  other: "Proteggi anche il resto dei tuoi dati personali"
+aff_privacy_text:
+  other: "Eliminare i dati nascosti dai file è una parte della privacy online. {{ .Name }} ti aiuta con il resto dei tuoi dati personali."
+aff_devsec_title:
+  other: "Intercetta i segreti esposti prima del rilascio"
+aff_devsec_text:
+  other: "Questa pagina controlla un frammento alla volta, nel browser. {{ .Name }} può sorvegliare di continuo repository e pipeline, così una chiave o un token esposto viene segnalato prima di arrivare in produzione."

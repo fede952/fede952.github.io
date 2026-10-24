@@ -159,3 +159,29 @@ author_box_more:
   other: "More about me"
 related_tools_learn:
   other: "Free tools for this topic"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Affiliate link"
+aff_disclosure:
+  other: "Affiliate link — I may earn a commission at no extra cost to you."
+aff_sharing:
+  other: "The button opens {{ .Name }}'s website; nothing you entered in this tool is shared with them."
+aff_cta:
+  other: "Visit {{ .Name }}"
+aff_password_manager_title:
+  other: "Keep strong passwords without memorising them"
+aff_password_manager_text:
+  other: "A long random password is only practical if something remembers it for you. A password manager such as {{ .Name }} stores every password encrypted, fills it in on all your devices and flags reused or breached ones."
+aff_vpn_title:
+  other: "Hide your IP address from the sites you visit"
+aff_vpn_text:
+  other: "{{ .Name }} sends your traffic through an encrypted tunnel, so websites see the VPN server's IP address and location instead of yours, and your network provider can't see which sites you open. A VPN does not stop browser fingerprinting on its own."
+aff_privacy_title:
+  other: "Protect the rest of your personal data"
+aff_privacy_text:
+  other: "Removing hidden data from files is one part of staying private online. {{ .Name }} helps with the rest of your personal data."
+aff_devsec_title:
+  other: "Catch leaked secrets before they ship"
+aff_devsec_text:
+  other: "This page checks one snippet at a time, in your browser. {{ .Name }} can watch your repositories and pipelines continuously, so a leaked key or token is flagged before it reaches production."

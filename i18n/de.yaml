@@ -159,3 +159,29 @@ author_box_more:
   other: "Mehr über mich"
 related_tools_learn:
   other: "Kostenlose Tools zum Thema"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Affiliate-Link"
+aff_disclosure:
+  other: "Affiliate-Link – ich erhalte eventuell eine Provision, für Sie entstehen keine Mehrkosten."
+aff_sharing:
+  other: "Die Schaltfläche öffnet die Website von {{ .Name }}; nichts, was Sie in dieses Tool eingegeben haben, wird weitergegeben."
+aff_cta:
+  other: "Zu {{ .Name }}"
+aff_password_manager_title:
+  other: "Starke Passwörter, ohne sie sich zu merken"
+aff_password_manager_text:
+  other: "Ein langes Zufallspasswort ist nur praktisch, wenn sich etwas anderes daran erinnert. Ein Passwort-Manager wie {{ .Name }} speichert jedes Passwort verschlüsselt, füllt es auf all Ihren Geräten aus und meldet wiederverwendete oder geleakte Passwörter."
+aff_vpn_title:
+  other: "Verbergen Sie Ihre IP-Adresse vor besuchten Websites"
+aff_vpn_text:
+  other: "{{ .Name }} leitet Ihren Verkehr durch einen verschlüsselten Tunnel: Websites sehen die IP-Adresse und den Standort des VPN-Servers statt Ihrer, und Ihr Provider sieht nicht, welche Seiten Sie öffnen. Gegen Browser-Fingerprinting hilft ein VPN allein nicht."
+aff_privacy_title:
+  other: "Schützen Sie auch Ihre übrigen persönlichen Daten"
+aff_privacy_text:
+  other: "Versteckte Daten aus Dateien zu entfernen ist ein Teil der Privatsphäre im Netz. {{ .Name }} hilft beim Rest Ihrer persönlichen Daten."
+aff_devsec_title:
+  other: "Geleakte Secrets finden, bevor sie live gehen"
+aff_devsec_text:
+  other: "Diese Seite prüft jeweils ein Snippet, lokal im Browser. {{ .Name }} kann Ihre Repositories und Pipelines laufend überwachen, sodass ein geleakter Schlüssel oder Token gemeldet wird, bevor er in Produktion landet."

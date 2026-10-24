@@ -159,3 +159,29 @@ author_box_more:
   other: "En savoir plus sur moi"
 related_tools_learn:
   other: "Outils gratuits sur ce sujet"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Lien d'affiliation"
+aff_disclosure:
+  other: "Lien d'affiliation — je peux toucher une commission, sans aucun coût supplémentaire pour vous."
+aff_sharing:
+  other: "Le bouton ouvre le site de {{ .Name }} ; rien de ce que vous avez saisi dans cet outil n'est partagé."
+aff_cta:
+  other: "Aller sur {{ .Name }}"
+aff_password_manager_title:
+  other: "Des mots de passe solides sans les retenir"
+aff_password_manager_text:
+  other: "Un long mot de passe aléatoire n'est pratique que si quelque chose s'en souvient à votre place. Un gestionnaire comme {{ .Name }} stocke chaque mot de passe chiffré, le remplit sur tous vos appareils et signale ceux qui sont réutilisés ou compromis."
+aff_vpn_title:
+  other: "Masquez votre adresse IP aux sites que vous visitez"
+aff_vpn_text:
+  other: "{{ .Name }} fait passer votre trafic dans un tunnel chiffré : les sites voient l'IP et la position du serveur VPN au lieu des vôtres, et votre fournisseur d'accès ne voit pas quels sites vous ouvrez. Un VPN seul n'empêche pas l'empreinte du navigateur."
+aff_privacy_title:
+  other: "Protégez aussi le reste de vos données personnelles"
+aff_privacy_text:
+  other: "Supprimer les données cachées des fichiers n'est qu'une partie de la confidentialité en ligne. {{ .Name }} vous aide pour le reste de vos données personnelles."
+aff_devsec_title:
+  other: "Repérez les secrets exposés avant la mise en production"
+aff_devsec_text:
+  other: "Cette page vérifie un extrait à la fois, dans votre navigateur. {{ .Name }} peut surveiller en continu vos dépôts et pipelines, pour qu'une clé ou un jeton exposé soit signalé avant d'arriver en production."

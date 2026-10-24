@@ -159,3 +159,29 @@ author_box_more:
   other: "Mais sobre mim"
 related_tools_learn:
   other: "Ferramentas gratuitas sobre o tema"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Link de afiliado"
+aff_disclosure:
+  other: "Link de afiliado — posso receber uma comissão, sem nenhum custo extra para você."
+aff_sharing:
+  other: "O botão abre o site de {{ .Name }}; nada do que você digitou nesta ferramenta é compartilhado."
+aff_cta:
+  other: "Ir para {{ .Name }}"
+aff_password_manager_title:
+  other: "Senhas fortes sem precisar decorá-las"
+aff_password_manager_text:
+  other: "Uma senha longa e aleatória só é prática se algo lembrar dela por você. Um gerenciador de senhas como {{ .Name }} guarda cada senha criptografada, preenche em todos os seus aparelhos e avisa sobre senhas reutilizadas ou vazadas."
+aff_vpn_title:
+  other: "Esconda seu endereço IP dos sites que você visita"
+aff_vpn_text:
+  other: "{{ .Name }} manda seu tráfego por um túnel criptografado: os sites veem o IP e a localização do servidor VPN em vez dos seus, e seu provedor não vê quais sites você abre. Sozinha, uma VPN não impede o fingerprinting do navegador."
+aff_privacy_title:
+  other: "Proteja também o resto dos seus dados pessoais"
+aff_privacy_text:
+  other: "Remover dados escondidos de arquivos é uma parte da privacidade online. {{ .Name }} ajuda com o resto dos seus dados pessoais."
+aff_devsec_title:
+  other: "Pegue segredos vazados antes de ir para produção"
+aff_devsec_text:
+  other: "Esta página verifica um trecho por vez, no seu navegador. {{ .Name }} pode monitorar seus repositórios e pipelines continuamente, para que uma chave ou token vazado seja sinalizado antes de chegar à produção."

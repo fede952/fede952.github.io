@@ -301,3 +301,38 @@ Console will be the real reference once the site is live.
 ### Verification
 `hugo --gc --minify` 0 errors/warnings · 144/144 tool pages pass the Phase 5 audit · functional tool suite OK · CSP/JS
 check 0/42 · search deep link OK · learn page visually checked at 1280 px and 390 px.
+
+## Phase 7 — Affiliate partner blocks
+
+- **Config-driven** (`[params.affiliate]` in `hugo.toml`): one partner per category, `<category>_name` +
+  `<category>_url`, and a tool → category map (`[params.affiliate.tools]`, keyed by the tool's content directory).
+  A block renders **only when both name and URL are set**; empty placeholders render nothing (verified: hash-generator
+  and every unset category produce no markup).
+
+  | Category | Tools | Status |
+  |---|---|---|
+  | `password_manager` | pass-fort, password-generator | **placeholder, empty** |
+  | `vpn` | netguard, ghostprint, link-hazmat | pre-filled: NordVPN, your existing link (see below) |
+  | `privacy` | exif-cleaner, steganography | **placeholder, empty** |
+  | `devsec` | secrets-scanner, jwt-inspector | **placeholder, empty** |
+
+- **Placement**: right after "How it works", before "Use cases" (inserted by `layouts/tools/single.html` before the
+  2nd `<h2>`; checked on 4 tools).
+- **Markup** (`partials/affiliate/block.html`): an "Affiliate link" label, a category heading and a short, accurate pitch
+  (e.g. the VPN text says plainly that a VPN does not stop browser fingerprinting), a CTA with
+  `rel="sponsored noopener"` and `target="_blank"`, and a localized disclosure: *"Affiliate link — I may earn a
+  commission at no extra cost to you."* plus a privacy sentence ("the button opens <partner>'s website; nothing you
+  entered in this tool is shared") linking to the privacy policy, whose section 7 (written in Phase 4, 6 languages)
+  already describes affiliate links and referral cookies. All copy in EN/IT/ES/DE/FR/PT, gender-neutral where it
+  refers to the author.
+- **Existing NordVPN placements moved into the system.** Your real affiliate link
+  (`go.nordvpn.net/aff_c?offer_id=15&aff_id=140342&url_id=858`) was hard-coded in three places: two banners in NetGuard
+  (both with `id="vpn-cta"` — duplicate IDs; one sat above the Scan button, one was revealed after the scan) and an
+  alert in Link Hazmat promising to "open safely with NordVPN Threat Protection" (an overclaim). All three removed; the
+  same URL is now `vpn_url`, unchanged. **Small deviation from the plan's tool list:** Link Hazmat is mapped to `vpn`
+  as well, so the placement it already had isn't lost — delete that one line in `[params.affiliate.tools]` if you
+  don't want it. The two banner images (`nordvpn-box.webp`, `nordvpn-wide.png`) were left unreferenced and deleted
+  (they remain in git history if you want image creatives back).
+- Verification: a build with test partners injected via `HUGOxPARAMSxAFFILIATEx…` env vars rendered the right
+  category on all 9 tools and none elsewhere; real build renders only the 3 VPN blocks. Screenshots at 1280 px/390 px.
+  Tool suite (incl. NetGuard scan after the banner JS was removed), 144-page audit and CSP check: all pass.
