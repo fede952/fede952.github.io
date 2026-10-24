@@ -146,59 +146,16 @@ const T = {
     actionsSection:'Ações',uppercase:'Maiúsculas',lowercase:'Minúsculas',removeDuplicates:'Remover Duplicados',
     trimWhitespace:'Recortar Espaços',copyBtn:'Copiar',hackerMode:'Modo Hacker',
     copied:'Texto copiado!',transformed:'Texto transformado!'
-  },
-  ru: {
-    title:'$ StringMaster',subtitle:'Текстовые утилиты',inputSection:'Ввод',inputPlaceholder:'Вставьте текст здесь...',
-    words:'Слова',characters:'Символы',lines:'Строки',readingTime:'Время чтения',
-    actionsSection:'Действия',uppercase:'Верхний регистр',lowercase:'Нижний регистр',removeDuplicates:'Удалить дубли',
-    trimWhitespace:'Убрать пробелы',copyBtn:'Копировать',hackerMode:'Режим хакера',
-    copied:'Текст скопирован!',transformed:'Текст преобразован!'
-  },
-  ja: {
-    title:'$ StringMaster',subtitle:'テキストユーティリティ',inputSection:'入力',inputPlaceholder:'テキストをここに貼り付け...',
-    words:'単語',characters:'文字',lines:'行',readingTime:'読了時間',
-    actionsSection:'アクション',uppercase:'大文字',lowercase:'小文字',removeDuplicates:'重複削除',
-    trimWhitespace:'空白削除',copyBtn:'コピー',hackerMode:'ハッカーモード',
-    copied:'コピーしました！',transformed:'変換完了！'
-  },
-  ko: {
-    title:'$ StringMaster',subtitle:'텍스트 유틸리티',inputSection:'입력',inputPlaceholder:'텍스트를 여기에 붙여넣기...',
-    words:'단어',characters:'문자',lines:'줄',readingTime:'읽기 시간',
-    actionsSection:'작업',uppercase:'대문자',lowercase:'소문자',removeDuplicates:'중복 제거',
-    trimWhitespace:'공백 제거',copyBtn:'복사',hackerMode:'해커 모드',
-    copied:'복사되었습니다!',transformed:'변환 완료!'
-  },
-  'zh-cn': {
-    title:'$ StringMaster',subtitle:'文本工具',inputSection:'输入',inputPlaceholder:'在此粘贴文本...',
-    words:'单词',characters:'字符',lines:'行',readingTime:'阅读时间',
-    actionsSection:'操作',uppercase:'大写',lowercase:'小写',removeDuplicates:'去重',
-    trimWhitespace:'去除空格',copyBtn:'复制',hackerMode:'黑客模式',
-    copied:'已复制！',transformed:'已转换！'
-  },
-  ar: {
-    title:'$ StringMaster',subtitle:'أدوات النص',inputSection:'إدخال',inputPlaceholder:'الصق النص هنا...',
-    words:'كلمات',characters:'أحرف',lines:'سطور',readingTime:'وقت القراءة',
-    actionsSection:'إجراءات',uppercase:'أحرف كبيرة',lowercase:'أحرف صغيرة',removeDuplicates:'إزالة المكرر',
-    trimWhitespace:'إزالة المسافات',copyBtn:'نسخ',hackerMode:'وضع الهاكر',
-    copied:'تم النسخ!',transformed:'تم التحويل!'
-  },
-  hi: {
-    title:'$ StringMaster',subtitle:'टेक्स्ट उपकरण',inputSection:'इनपुट',inputPlaceholder:'अपना टेक्स्ट यहां पेस्ट करें...',
-    words:'शब्द',characters:'अक्षर',lines:'पंक्तियां',readingTime:'पढ़ने का समय',
-    actionsSection:'कार्य',uppercase:'बड़े अक्षर',lowercase:'छोटे अक्षर',removeDuplicates:'डुप्लिकेट हटाएं',
-    trimWhitespace:'रिक्त स्थान हटाएं',copyBtn:'कॉपी',hackerMode:'हैकर मोड',
-    copied:'कॉपी हो गया!',transformed:'रूपांतरित!'
   }
 };
 
-function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
 const LANG=detectLang();
 const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
 
 function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)});
-  if(LANG==='ar')document.body.style.direction='rtl';
 }
 
 const input = document.getElementById('text-input');

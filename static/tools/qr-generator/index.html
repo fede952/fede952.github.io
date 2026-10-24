@@ -175,54 +175,6 @@ const T = {
     errorLevel: 'Correção de Erro', generateBtn: 'Gerar QR', downloadBtn: 'Baixar .PNG',
     resultSection: 'Resultado', errorEmpty: 'Insira uma URL ou texto.',
     success: 'Código QR gerado com sucesso.', errorGenerate: 'Erro ao gerar o código QR.'
-  },
-  ru: {
-    title: '$ QuickLinker', subtitle: 'Генератор QR-кодов',
-    inputSection: 'Ввод', inputLabel: 'URL или Текст', inputPlaceholder: 'https://пример.com',
-    optionsSection: 'Настройки', fgColor: 'Передний план', bgColor: 'Фон',
-    errorLevel: 'Коррекция ошибок', generateBtn: 'Создать QR', downloadBtn: 'Скачать .PNG',
-    resultSection: 'Результат', errorEmpty: 'Введите URL или текст.',
-    success: 'QR-код успешно создан.', errorGenerate: 'Ошибка при создании QR-кода.'
-  },
-  ja: {
-    title: '$ QuickLinker', subtitle: 'QRコードジェネレーター',
-    inputSection: '入力', inputLabel: 'URLまたはテキスト', inputPlaceholder: 'https://example.com',
-    optionsSection: 'オプション', fgColor: '前景色', bgColor: '背景色',
-    errorLevel: 'エラー訂正', generateBtn: 'QR生成', downloadBtn: '.PNGダウンロード',
-    resultSection: '結果', errorEmpty: 'URLまたはテキストを入力してください。',
-    success: 'QRコードが正常に生成されました。', errorGenerate: 'QRコードの生成中にエラーが発生しました。'
-  },
-  ko: {
-    title: '$ QuickLinker', subtitle: 'QR 코드 생성기',
-    inputSection: '입력', inputLabel: 'URL 또는 텍스트', inputPlaceholder: 'https://example.com',
-    optionsSection: '옵션', fgColor: '전경색', bgColor: '배경색',
-    errorLevel: '오류 정정', generateBtn: 'QR 생성', downloadBtn: '.PNG 다운로드',
-    resultSection: '결과', errorEmpty: 'URL 또는 텍스트를 입력하세요.',
-    success: 'QR 코드가 성공적으로 생성되었습니다.', errorGenerate: 'QR 코드 생성 중 오류가 발생했습니다.'
-  },
-  'zh-cn': {
-    title: '$ QuickLinker', subtitle: 'QR码生成器',
-    inputSection: '输入', inputLabel: 'URL或文本', inputPlaceholder: 'https://example.com',
-    optionsSection: '选项', fgColor: '前景色', bgColor: '背景色',
-    errorLevel: '纠错等级', generateBtn: '生成QR码', downloadBtn: '下载.PNG',
-    resultSection: '结果', errorEmpty: '请输入URL或文本。',
-    success: 'QR码生成成功。', errorGenerate: '生成QR码时出错。'
-  },
-  ar: {
-    title: '$ QuickLinker', subtitle: 'مولد رمز QR',
-    inputSection: 'إدخال', inputLabel: 'رابط أو نص', inputPlaceholder: 'https://example.com',
-    optionsSection: 'خيارات', fgColor: 'اللون الأمامي', bgColor: 'لون الخلفية',
-    errorLevel: 'تصحيح الأخطاء', generateBtn: 'إنشاء QR', downloadBtn: 'تحميل .PNG',
-    resultSection: 'النتيجة', errorEmpty: 'يرجى إدخال رابط أو نص.',
-    success: 'تم إنشاء رمز QR بنجاح.', errorGenerate: 'خطأ في إنشاء رمز QR.'
-  },
-  hi: {
-    title: '$ QuickLinker', subtitle: 'QR कोड जनरेटर',
-    inputSection: 'इनपुट', inputLabel: 'URL या टेक्स्ट', inputPlaceholder: 'https://example.com',
-    optionsSection: 'विकल्प', fgColor: 'अग्रभूमि', bgColor: 'पृष्ठभूमि',
-    errorLevel: 'त्रुटि सुधार', generateBtn: 'QR बनाएं', downloadBtn: '.PNG डाउनलोड',
-    resultSection: 'परिणाम', errorEmpty: 'कृपया URL या टेक्स्ट दर्ज करें।',
-    success: 'QR कोड सफलतापूर्वक बनाया गया।', errorGenerate: 'QR कोड बनाने में त्रुटि।'
   }
 };
 
@@ -231,7 +183,7 @@ function detectLang() {
   const p = new URLSearchParams(window.location.search);
   if (p.get('lang')) return p.get('lang').toLowerCase();
   const path = window.location.pathname;
-  const m = path.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);
+  const m = path.match(/^\/(en|it|es|fr|de|pt)\//);
   if (m) return m[1];
   return navigator.language.split('-')[0].toLowerCase();
 }
@@ -242,7 +194,6 @@ const t = (key) => (T[LANG] || T[LANG.split('-')[0]] || T.en)[key] || T.en[key] 
 function applyI18n() {
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-  if (LANG === 'ar') document.body.style.direction = 'rtl';
 }
 
 document.getElementById('fg-color').addEventListener('input', e => {

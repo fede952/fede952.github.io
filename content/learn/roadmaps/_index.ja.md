@@ -1,6 +1,0 @@
----
-title: "開発者キャリアロードマップ 2026"
-description: "DevOps、サイバーセキュリティ、フルスタック開発をマスターするためのステップバイステップガイド。"
-layout: "list"
-aliases: ["/ja/roadmaps/"]
----

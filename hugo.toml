@@ -1,6 +1,6 @@
 baseURL = 'https://federicosella.com/'
 buildFuture = true
-locale = 'en-us'
+locale = 'en-US'
 title = 'Federico Sella'
 theme = 'PaperMod'
 defaultContentLanguage = 'en'
@@ -106,6 +106,7 @@ defaultContentLanguageInSubdir = true
 [languages]
   [languages.en]
     label = "English"
+    locale = "en-US"
     weight = 1
     contentDir = "content"
     [languages.en.params]
@@ -134,6 +135,7 @@ defaultContentLanguageInSubdir = true
 
   [languages.it]
     label = "Italiano"
+    locale = "it-IT"
     weight = 2
     contentDir = "content"
     [languages.it.params]
@@ -162,6 +164,7 @@ defaultContentLanguageInSubdir = true
 
   [languages.es]
     label = "Español"
+    locale = "es-ES"
     weight = 3
     contentDir = "content"
     [languages.es.params]
@@ -188,94 +191,10 @@ defaultContentLanguageInSubdir = true
         url = "/projects/"
         weight = 30
 
-  [languages.zh-cn]
-    label = "简体中文"
-    weight = 4
-    contentDir = "content"
-    [languages.zh-cn.params]
-      description = "免费、注重隐私的网页工具，100% 在浏览器中运行——密码安全、图片压缩、二维码和开发者工具，还有实用指南和速查表。"
-    [languages.zh-cn.menu]
-      [[languages.zh-cn.menu.main]]
-        identifier = "about"
-        name = "关于我"
-        url = "/about/"
-        weight = 10
-      [[languages.zh-cn.menu.main]]
-        identifier = "learn"
-        name = "学习"
-        url = "/learn/"
-        weight = 20
-      [[languages.zh-cn.menu.main]]
-        identifier = "tools"
-        name = "工具"
-        url = "/tools/"
-        weight = 25
-      [[languages.zh-cn.menu.main]]
-        identifier = "projects"
-        name = "项目"
-        url = "/projects/"
-        weight = 30
-
-  [languages.hi]
-    label = "हिन्दी"
-    weight = 5
-    contentDir = "content"
-    [languages.hi.params]
-      description = "मुफ़्त, गोपनीयता-प्रथम वेब टूल जो 100% आपके ब्राउज़र में चलते हैं — पासवर्ड सुरक्षा, इमेज संपीड़न, QR कोड और डेवलपर टूल, साथ ही व्यावहारिक गाइड और चीटशीट।"
-    [languages.hi.menu]
-      [[languages.hi.menu.main]]
-        identifier = "about"
-        name = "मेरे बारे में"
-        url = "/about/"
-        weight = 10
-      [[languages.hi.menu.main]]
-        identifier = "learn"
-        name = "सीखें"
-        url = "/learn/"
-        weight = 20
-      [[languages.hi.menu.main]]
-        identifier = "tools"
-        name = "उपकरण"
-        url = "/tools/"
-        weight = 25
-      [[languages.hi.menu.main]]
-        identifier = "projects"
-        name = "परियोजनाएं"
-        url = "/projects/"
-        weight = 30
-
-  [languages.ar]
-    label = "العربية"
-    weight = 6
-    direction = "rtl"
-    contentDir = "content"
-    [languages.ar.params]
-      description = "أدوات ويب مجانية تُعطي الأولوية للخصوصية وتعمل بالكامل في متصفحك — أمان كلمات المرور، ضغط الصور، رموز QR وأدوات المطورين، بالإضافة إلى أدلة عملية وأوراق مرجعية."
-    [languages.ar.menu]
-      [[languages.ar.menu.main]]
-        identifier = "about"
-        name = "عني"
-        url = "/about/"
-        weight = 10
-      [[languages.ar.menu.main]]
-        identifier = "learn"
-        name = "تعلم"
-        url = "/learn/"
-        weight = 20
-      [[languages.ar.menu.main]]
-        identifier = "tools"
-        name = "الأدوات"
-        url = "/tools/"
-        weight = 25
-      [[languages.ar.menu.main]]
-        identifier = "projects"
-        name = "المشاريع"
-        url = "/projects/"
-        weight = 30
-
   [languages.pt]
     label = "Português"
-    weight = 7
+    locale = "pt-BR"
+    weight = 6
     contentDir = "content"
     [languages.pt.params]
       description = "Utilitários web gratuitos e focados em privacidade que funcionam 100% no seu navegador — segurança de senhas, compressão de imagens, códigos QR e ferramentas para desenvolvedores, além de guias práticos."
@@ -303,7 +222,8 @@ defaultContentLanguageInSubdir = true
 
   [languages.fr]
     label = "Français"
-    weight = 8
+    locale = "fr-FR"
+    weight = 5
     contentDir = "content"
     [languages.fr.params]
       description = "Des utilitaires web gratuits et respectueux de la vie privée, fonctionnant à 100 % dans votre navigateur — sécurité des mots de passe, compression d'images, codes QR et outils développeurs, avec guides pratiques."
@@ -331,7 +251,8 @@ defaultContentLanguageInSubdir = true
 
   [languages.de]
     label = "Deutsch"
-    weight = 9
+    locale = "de-DE"
+    weight = 4
     contentDir = "content"
     [languages.de.params]
       description = "Kostenlose, datenschutzfreundliche Web-Tools, die zu 100 % im Browser laufen — Passwortsicherheit, Bildkomprimierung, QR-Codes und Entwickler-Tools, dazu praktische Guides und Cheatsheets."
@@ -357,89 +278,6 @@ defaultContentLanguageInSubdir = true
         url = "/projects/"
         weight = 30
 
-  [languages.ja]
-    label = "日本語"
-    weight = 10
-    contentDir = "content"
-    [languages.ja.params]
-      description = "無料でプライバシー第一のウェブユーティリティ。100%ブラウザ内で動作 — パスワードセキュリティ、画像圧縮、QRコード、開発者ツール、さらに実践的なガイドとチートシート。"
-    [languages.ja.menu]
-      [[languages.ja.menu.main]]
-        identifier = "about"
-        name = "私について"
-        url = "/about/"
-        weight = 10
-      [[languages.ja.menu.main]]
-        identifier = "learn"
-        name = "学ぶ"
-        url = "/learn/"
-        weight = 20
-      [[languages.ja.menu.main]]
-        identifier = "tools"
-        name = "ツール"
-        url = "/tools/"
-        weight = 25
-      [[languages.ja.menu.main]]
-        identifier = "projects"
-        name = "プロジェクト"
-        url = "/projects/"
-        weight = 30
-
-  [languages.ru]
-    label = "Русский"
-    weight = 11
-    contentDir = "content"
-    [languages.ru.params]
-      description = "Бесплатные веб-инструменты с приоритетом приватности, работающие на 100% в вашем браузере — безопасность паролей, сжатие изображений, QR-коды и инструменты разработчика, а также практические руководства."
-    [languages.ru.menu]
-      [[languages.ru.menu.main]]
-        identifier = "about"
-        name = "Обо Мне"
-        url = "/about/"
-        weight = 10
-      [[languages.ru.menu.main]]
-        identifier = "learn"
-        name = "Учиться"
-        url = "/learn/"
-        weight = 20
-      [[languages.ru.menu.main]]
-        identifier = "tools"
-        name = "Инструменты"
-        url = "/tools/"
-        weight = 25
-      [[languages.ru.menu.main]]
-        identifier = "projects"
-        name = "Проекты"
-        url = "/projects/"
-        weight = 30
-
-  [languages.ko]
-    label = "한국어"
-    weight = 12
-    contentDir = "content"
-    [languages.ko.params]
-      description = "무료, 프라이버시 우선 웹 유틸리티 — 100% 브라우저에서 실행됩니다. 비밀번호 보안, 이미지 압축, QR 코드, 개발자 도구, 그리고 실용적인 가이드와 치트시트."
-    [languages.ko.menu]
-      [[languages.ko.menu.main]]
-        identifier = "about"
-        name = "소개"
-        url = "/about/"
-        weight = 10
-      [[languages.ko.menu.main]]
-        identifier = "learn"
-        name = "배우기"
-        url = "/learn/"
-        weight = 20
-      [[languages.ko.menu.main]]
-        identifier = "tools"
-        name = "도구"
-        url = "/tools/"
-        weight = 25
-      [[languages.ko.menu.main]]
-        identifier = "projects"
-        name = "프로젝트"
-        url = "/projects/"
-        weight = 30
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 

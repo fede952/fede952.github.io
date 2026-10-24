@@ -92,3 +92,28 @@ Changes:
   `/<lang>/learn/`. Deep news URLs (`/<lang>/news/2026/…`, `/news/…`) are caught by a small script in `static/404.html`
   (GitHub Pages has no server redirects); on Cloudflare `_redirects` does it with a real 301 (Phase 8).
 - Build: 14,457 → ~4,600 pages, 162 s → 20 s.
+
+## Phase 3 — Languages reduced to EN, IT, ES, DE, FR, PT
+
+- hugo.toml: removed `zh-cn`, `hi`, `ar` (incl. `direction = "rtl"`), `ja`, `ru`, `ko`. Kept languages re-weighted
+  EN 1 · IT 2 · ES 3 · DE 4 · FR 5 · PT 6 and given a proper `locale` each (`en-US`, `it-IT`, `es-ES`, `de-DE`, `fr-FR`,
+  `pt-BR` — the PT copy uses Brazilian vocabulary, e.g. "senha"), so `og:locale` is now correct per language.
+- **Deleted 489 content files** (`*.hi|ar|ru|ja|ko|zh-cn.md`) and 6 i18n files.
+- Static tools/games: removed the ru/ja/ko/zh/zh-cn/ar/hi dictionaries from 10 embedded apps (chrono-sync, exif-cleaner,
+  json-to-csharp, neon-palette, pixel-shrink, qr-generator, steganography, string-master, neon-blocks, sysadmin-tycoon —
+  ~76 KB of strings), narrowed their `SUPPORTED_LANGS` / `LANGS` arrays and URL-language regexes to the 6 kept languages, and
+  removed the `ar` → RTL branches. Every inline script re-parsed OK afterwards (node `vm.Script` syntax check); none of the
+  apps had a visible language picker (they follow the parent page's `<html lang>`).
+- hreflang audit over all of `public/`: only `en/it/es/de/fr/pt/x-default`, 0 duplicate tags, 0 targets that don't exist,
+  `x-default` always → `/en/…`. PaperMod emits the per-translation tags but no `x-default`, so the custom x-default loop in
+  `extend_head.html` was **kept** (it produces no duplicates).
+- Language switcher (`partials/header.html`): links to the page's real translation, otherwise to the target language's home
+  page, so it can never point at a missing translation.
+- Old-language URLs: `static/404.html` sends `/hi|ar|ru|ja|ko|zh-cn/*` to `/en/*` on GitHub Pages; `_redirects` does a 301 on
+  Cloudflare (Phase 8).
+
+Pages per language after the cut:
+
+| EN | IT | ES | DE | FR | PT |
+|---|---|---|---|---|---|
+| 392 | 391 | 382 | 382 | 382 | 382 |
