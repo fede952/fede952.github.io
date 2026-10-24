@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/zen-focus/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ZenFocus: Ambient Noise Mixer & Pomodoro</title>
@@ -264,6 +265,7 @@
     let timerLeft  = 25 * 60;
     let timerRunning = false;
     let timerIv = null;
+    let timerEnd = 0;
     let audioReady = false;
 
     /* ══ DOM helpers ══ */
@@ -276,7 +278,12 @@
     function makeBuffer(genFn, seconds) {
         const len = ac.sampleRate * seconds;
         const buf = ac.createBuffer(1, len, ac.sampleRate);
-        genFn(buf.getChannelData(0), len, ac.sampleRate);
+        const d = buf.getChannelData(0);
+        genFn(d, len, ac.sampleRate);
+        // Pink/brown noise drift: subtract a linear ramp so the last sample meets
+        // the first one, otherwise every loop boundary is an audible click.
+        const step = d[len - 1] - d[0];
+        for (let i = 0; i < len; i++) d[i] -= step * i / (len - 1);
         return buf;
     }
 
@@ -335,9 +342,9 @@
         masterGain.connect(ac.destination);
 
         const bufs = {};
-        bufs.white = makeBuffer(genWhite, 3);
-        bufs.pink  = makeBuffer(genPink,  3);
-        bufs.brown = makeBuffer(genBrown, 3);
+        bufs.white = makeBuffer(genWhite, 4);
+        bufs.pink  = makeBuffer(genPink,  8);
+        bufs.brown = makeBuffer(genBrown, 8);
         bufs.keys  = makeBuffer(genKeys,  5);
 
         for (const def of CH_DEF) {
@@ -444,9 +451,10 @@
         } else {
             if (timerLeft <= 0) { timerLeft = timerTotal; updTimerUI(); }
             timerRunning = true;
+            timerEnd = Date.now() + timerLeft * 1000;
             $('btnStart').innerHTML = '&#9646;&#9646; Pause';
             timerIv = setInterval(() => {
-                timerLeft--;
+                timerLeft = Math.max(0, Math.ceil((timerEnd - Date.now()) / 1000));
                 if (timerLeft <= 0) {
                     timerLeft = 0;
                     clearInterval(timerIv); timerIv = null;
@@ -455,7 +463,7 @@
                     playChime();
                 }
                 updTimerUI();
-            }, 1000);
+            }, 250);
         }
     }
 
@@ -601,20 +609,6 @@
     init();
 })();
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
-    var h=document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight",height:h},"*");
-  }
-  document.documentElement.style.height="auto";
-  document.body.style.height="auto";
-  document.body.style.minHeight="0";
-  window.addEventListener("load",sendHeight);
-  window.addEventListener("resize",sendHeight);
-  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

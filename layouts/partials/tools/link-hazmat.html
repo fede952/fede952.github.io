@@ -383,8 +383,12 @@
 
     // Brand spoofing keywords in subdomain
     var brandKeywords = ['paypal', 'apple', 'google', 'microsoft', 'amazon', 'netflix', 'bank', 'secure', 'login', 'verify', 'account'];
+    // Only the labels LEFT of the registrable domain count: www.paypal.com is
+    // fine, paypal.com.account-check.xyz is not. (Approximation: the last two
+    // labels are treated as the registrable domain.)
+    var subdomain = parts.slice(0, -2).join('.');
     for (var i = 0; i < brandKeywords.length; i++) {
-      if (domain.indexOf(brandKeywords[i]) !== -1 && parts.length > 2) {
+      if (subdomain.indexOf(brandKeywords[i]) !== -1) {
         riskScore += 2;
         tricks.push('Brand Keyword in Subdomain ("' + brandKeywords[i] + '")');
         break;

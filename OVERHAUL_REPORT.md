@@ -161,3 +161,72 @@ Pages per language after the cut:
 - Verification: Playwright exercised the tools touched here (PixelShrink compress via worker, EXIF purge, QR render,
   RateMate chart, PassFort, JWT decode, secrets scan, GhostPrint, NetGuard scan) and the Fuse.js search palette: all OK,
   0 JS errors, 0 CSP violations.
+
+## Phase 5 — Tool pages: one template, real content, fixed tools
+
+### Template (`layouts/tools/single.html`, one for all 24 tools)
+- Structure: breadcrumbs → H1 → intro → ad `tool_top` → **tool** → ad `tool_after` → How to use (front matter `howto`)
+  → How it works / Use cases (the Markdown body; the affiliate slot sits before its 2nd `<h2>`, Phase 7) → ad
+  `article_mid` → FAQ (front matter `faq`, rendered as h3 + answer) → related guides + related tools (`data/related.yaml`).
+- The tool comes from front matter, never from shortcodes: `tool_file` (self-contained app in `static/tools/<x>/`, embedded
+  as an iframe with per-tool `tool_sandbox`/`tool_allow` — only the tokens each app needs, e.g. `allow-downloads` only for
+  tools that save files, popups only for NetGuard/ZenFocus links), `tool_partial` (inline tool in `partials/tools/`) or
+  `tool_html`+`tool_js`. The three shortcodes that held tools moved to `partials/tools/`; front matter of all 144 pages
+  migrated (`layout:` and hand-written `schema_json` removed).
+- The iframe `src` carries `?lang=<page language>` so localized apps follow the page, not the browser language
+  (EN pages have no path prefix to sniff). `?lang` now takes precedence in StringMaster, ChronoSync, NeonPalette and
+  QR Generator (they used to read their *own* `<html lang>` when opened directly).
+- **Iframe auto-resize** (`/js/embed-resize.js` in every app and game → `/js/iframe-resizer.js` on the page): the child
+  posts its content height to `location.origin` only; the parent accepts only same-origin messages whose `event.source`
+  is one of its own iframes, then sets the height and `scrolling=no` (no scroll-in-scroll on mobile). The child also
+  un-pins `min-height:100vh` wrappers that would otherwise lock the frame to its initial height. A start-up race (an app
+  that finished loading before the parent listener existed and never changed height again — ReflexGrid — kept its
+  scrollbar) is fixed with a `requestHeight` handshake from the parent.
+- **JSON-LD**: `WebApplication` (name, `app_category`, operatingSystem Any, free `Offer`), `BreadcrumbList`, `FAQPage`
+  generated from the same `faq` list the page renders — they cannot drift apart.
+- **Ad slots without CLS**: `adsbygoogle.js` forces `height:auto!important;min-height:0!important` on *every ancestor* of
+  the `<ins>`, so a reserved min-height on a wrapper collapses the moment the script runs. `partials/ads/unit.html` now
+  reserves space with a sibling `.ad-slot-spacer` in the same CSS grid cell (`ad-slot.css`), which AdSense never touches.
+  Measured layout shift of the slots: 0.
+- New: `tool-page.css`, `partials/breadcrumbs.html` (`.Ancestors`, `<ol>`), `partials/related-guides.html`;
+  `related-tools.html` reads `data/related.yaml` instead of picking by tag.
+
+### Copy
+All 24 tools × 6 languages rewritten from the tool's actual code (every number, limit and label checked against the
+source): EN 723–1,188 words, translations ≤1,450; title ≤60 chars including " | Federico Sella", description 140–155
+chars, 5–8 FAQs. UI labels are quoted exactly as the app shows them in that language (apps that are English-only are
+quoted in English). **Every page is `reviewed: false`** — see TODO.
+
+### Bugs found and fixed while documenting the tools
+- PassFort + Password Generator: modulo bias → rejection sampling.
+- PixelShrink: AVIF offered where the browser can't encode it (now feature-checked via `canvas.toBlob`), format choice
+  reset on new file, no warning when the "compressed" file was larger than the original.
+- QR Generator: non-ASCII text encoded wrong (now UTF-8), quiet zone < 4 modules, tiny PNG export (now ~1,200 px; output
+  verified with a decoder).
+- EXIF Cleaner: `DateTimeOriginal` and `LensModel` were not shown/purged (verified with piexif).
+- ChronoSync: 13+ digit timestamps (milliseconds) misread as seconds.
+- JSON→C#: missing `using System;` when `DateTime` properties are generated.
+- Hash / Base64 / Caesar: logic moved to `static/js/tools/*.js`, UI localized; Base64 decode accepts Base64URL and
+  missing padding and reports invalid UTF-8 instead of printing mojibake.
+- chmod calculator: localized, "Others (o)", shell-quoted output. Link Hazmat: brand-impersonation check no longer flags
+  the real domain itself.
+- Steganography: semi-transparent pixels silently corrupted the message (canvas premultiplied alpha) — only opaque
+  pixels carry data now; decoding no longer builds a string as long as the image (early exit on the signature);
+  trailing whitespace of the message is preserved; iframe lacked `allow-downloads`, so **Encode & Download did nothing
+  on the page**; UI strings had lost their accents (fixed in IT/ES/FR/DE/PT). Round-trip verified (UTF-8 + emoji,
+  transparent areas, over-capacity rejection).
+- StringMaster: "Characters" counted UTF-16 units (an emoji = 2) → grapheme count via `Intl.Segmenter`; Copy lacked
+  `clipboard-write`.
+- ZenFocus: the countdown decremented on each `setInterval` tick and drifted — badly in background tabs, where Chrome
+  throttles timers — now computed from a fixed end time; the looped pink/brown noise clicked at every loop boundary
+  (start/end mismatch, now removed); Share needed `web-share`/`clipboard-write`.
+- Removed fake "ad unit" placeholders inside PassFort, NetGuard, RateMate and ReflexGrid.
+
+### Verification
+- `hugo --gc --minify`: 0 errors, 0 warnings.
+- Playwright, all 144 tool pages (24 × 6): H1 present, JSON-LD parses with WebApplication + BreadcrumbList + FAQPage,
+  FAQ count in DOM = in schema, iframe `?lang` matches the page, iframe resized → **144/144 OK**, 0 JS errors.
+- Functional suite (one core action per tool: compress, purge, QR render, chart, password, JWT decode, secrets scan,
+  fingerprint, NetGuard scan, site search) all OK; steganography round-trip, StringMaster counts, ZenFocus timer
+  (pause holds), localized UI via `?lang` — OK.
+- CSP/JS regression check on the Phase 1 page sample (42 pages): 0 violations, 0 errors.

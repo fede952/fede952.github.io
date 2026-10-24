@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/exif-cleaner/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EXIF Cleaner - Privacy-First Metadata Remover</title>
@@ -514,7 +515,7 @@ function displayEXIF(tags) {
   var fields = [
     { key: 'Make', label: T.lblMake },
     { key: 'Model', label: T.lblModel },
-    { key: 'DateTime', label: T.lblDateTime },
+    { key: 'DateTimeOriginal', label: T.lblDateTime, altKey: 'DateTime' },
     { key: 'Software', label: T.lblSoftware },
     { key: 'ExposureTime', label: T.lblExposure, fmt: function (v) { return typeof v === 'number' ? (v < 1 ? '1/' + Math.round(1 / v) : v + '') + ' s' : v } },
     { key: 'FNumber', label: T.lblFNumber, fmt: function (v) { return 'f/' + (typeof v === 'number' ? v.toFixed(1) : v) } },
@@ -528,7 +529,7 @@ function displayEXIF(tags) {
     { key: 'Copyright', label: T.lblCopyright },
     { key: 'Artist', label: T.lblArtist },
     { key: 'ImageDescription', label: T.lblDescription },
-    { key: 'undefined', label: T.lblLens, altKey: 'LensModel' }
+    { key: 'LensModel', label: T.lblLens }
   ];
 
   fields.forEach(function (f) {
@@ -645,20 +646,6 @@ $('purgeBtn').addEventListener('click', function () {
   reader.readAsDataURL(selectedFile);
 });
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function () {
-  function sendHeight() {
-    var h = document.body.scrollHeight;
-    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
-  }
-  document.documentElement.style.height = 'auto';
-  document.body.style.height = 'auto';
-  document.body.style.minHeight = '0';
-  window.addEventListener('load', sendHeight);
-  window.addEventListener('resize', sendHeight);
-  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

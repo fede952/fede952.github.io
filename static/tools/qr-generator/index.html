@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/qr-generator/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QR Code Generator</title>
@@ -179,9 +180,9 @@ const T = {
 };
 
 function detectLang() {
-  try { const l = window.parent.document.documentElement.lang; if (l) return l.toLowerCase(); } catch(e) {}
   const p = new URLSearchParams(window.location.search);
   if (p.get('lang')) return p.get('lang').toLowerCase();
+  try { if (window.parent !== window) { const l = window.parent.document.documentElement.lang; if (l) return l.toLowerCase(); } } catch(e) {}
   const path = window.location.pathname;
   const m = path.match(/^\/(en|it|es|fr|de|pt)\//);
   if (m) return m[1];
@@ -210,6 +211,31 @@ function showStatus(msg, type) {
   setTimeout(() => s.className = 'status', 4000);
 }
 
+/* Byte-mode text must be UTF-8: the library's default keeps only the low
+   byte of each character, which garbles accents and anything non-Latin. */
+qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+
+var QUIET = 4;      /* quiet zone in modules, as required by ISO/IEC 18004 */
+var lastQR = null;  /* { qr, fg, bg } of the code on screen, for the download */
+
+function drawQR(canvas, qr, cellSize, fg, bg) {
+  const n = qr.getModuleCount();
+  const size = (n + 2 * QUIET) * cellSize;
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = fg;
+  for (let row = 0; row < n; row++) {
+    for (let col = 0; col < n; col++) {
+      if (qr.isDark(row, col)) {
+        ctx.fillRect((col + QUIET) * cellSize, (row + QUIET) * cellSize, cellSize, cellSize);
+      }
+    }
+  }
+}
+
 function generateQR() {
   const text = document.getElementById('qr-input').value.trim();
   if (!text) { showStatus(t('errorEmpty'), 'error'); return; }
@@ -218,30 +244,14 @@ function generateQR() {
   const bg = document.getElementById('bg-color').value;
 
   try {
-    const ecMap = { L: 1, M: 0, Q: 3, H: 2 };
-    const qr = qrcode(0, ecMap[ecLevel] !== undefined ? ecLevel : 'M');
+    /* typeNumber 0 = pick the smallest QR version (1-40) that fits */
+    const qr = qrcode(0, ['L', 'M', 'Q', 'H'].indexOf(ecLevel) >= 0 ? ecLevel : 'M');
     qr.addData(text);
     qr.make();
 
-    const moduleCount = qr.getModuleCount();
-    const cellSize = Math.max(4, Math.floor(280 / moduleCount));
-    const size = moduleCount * cellSize;
-    const canvas = document.getElementById('qr-canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, size, size);
-
-    ctx.fillStyle = fg;
-    for (let row = 0; row < moduleCount; row++) {
-      for (let col = 0; col < moduleCount; col++) {
-        if (qr.isDark(row, col)) {
-          ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
-        }
-      }
-    }
+    const n = qr.getModuleCount();
+    drawQR(document.getElementById('qr-canvas'), qr, Math.max(4, Math.floor(300 / (n + 2 * QUIET))), fg, bg);
+    lastQR = { qr: qr, fg: fg, bg: bg };
 
     document.getElementById('qr-output').classList.add('visible');
     document.getElementById('download-btn').style.display = '';
@@ -251,15 +261,21 @@ function generateQR() {
   }
 }
 
+/* The PNG is re-rendered at ~1200 px with whole-pixel modules, sharp
+   enough for print, instead of saving the small on-screen preview. */
 function downloadQR() {
-  const canvas = document.getElementById('qr-canvas');
+  if (!lastQR) return;
+  const n = lastQR.qr.getModuleCount();
+  const big = document.createElement('canvas');
+  drawQR(big, lastQR.qr, Math.max(8, Math.ceil(1200 / (n + 2 * QUIET))), lastQR.fg, lastQR.bg);
   const link = document.createElement('a');
   link.download = 'qrcode.png';
-  link.href = canvas.toDataURL('image/png');
+  link.href = big.toDataURL('image/png');
   link.click();
 }
 
 applyI18n();
 </script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

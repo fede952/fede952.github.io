@@ -1,0 +1,138 @@
+/* ============================================
+   TOOL PAGE — layouts/tools/single.html
+   breadcrumbs, intro, embedded tool, How to use,
+   long-form copy and FAQ.
+   ============================================ */
+
+/* Breadcrumbs (layouts/partials/breadcrumbs.html), also used on learn pages */
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+
+.breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  color: var(--secondary);
+}
+
+.breadcrumbs li + li::before {
+  content: "›";
+  margin: 0 0.4rem;
+  opacity: 0.6;
+}
+
+.breadcrumbs a {
+  font-size: inherit;
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: var(--content);
+  max-width: 60ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tool-intro {
+  margin: 0.75rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--secondary);
+}
+
+.tool-intro p {
+  margin: 0;
+}
+
+/* The embedded tool. Its height is set by /js/iframe-resizer.js from the
+   app's own content height; the attribute height is only the pre-JS fallback. */
+.tool-frame {
+  margin: 1.5rem 0;
+}
+
+.tool-iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: var(--entry);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Breathing room between the tool's own controls and the ad that follows
+   it (AdSense accidental-click policy). */
+.ad-slot--tool-after {
+  margin-top: 3rem;
+}
+
+.tool-section {
+  margin: 2.5rem 0;
+}
+
+.tool-section h2,
+.tool-longform h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.45rem;
+}
+
+.tool-howto ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  line-height: 1.7;
+}
+
+.tool-howto li {
+  margin-bottom: 0.6rem;
+  padding-left: 0.25rem;
+}
+
+.tool-howto li p {
+  margin: 0;
+}
+
+.tool-faq-item {
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.tool-faq-item:last-child {
+  border-bottom: none;
+}
+
+.tool-faq-item h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.tool-faq-answer p {
+  margin: 0 0 0.5rem;
+  line-height: 1.7;
+}
+
+.tool-faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .tool-frame {
+    margin: 1rem -0.25rem;
+  }
+
+  .tool-iframe {
+    border-radius: 8px;
+  }
+}

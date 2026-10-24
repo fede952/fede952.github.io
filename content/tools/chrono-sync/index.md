@@ -1,91 +1,67 @@
 ---
-title: "ChronoSync: Free UNIX Timestamp Converter & Live Clock"
-description: "Convert UNIX timestamps to human-readable dates and vice versa with a live-updating clock. Free, instant, client-side. Essential tool for developers, sysadmins, and data engineers."
-date: 2026-02-10
-tags: ["timestamp", "unix", "epoch", "converter", "developer-tool", "tool"]
-keywords: ["unix timestamp converter", "epoch converter online", "unix time to date", "date to unix timestamp", "current unix timestamp", "epoch time converter", "timestamp to human date", "free timestamp tool"]
-layout: "tool"
-draft: false
+title: "Unix Timestamp Converter (Epoch to Date)"
+description: "Convert Unix timestamps to dates and dates to epoch time, in UTC and local time. Seconds or milliseconds are detected automatically. Live epoch clock."
+intro: "**ChronoSync** converts **Unix epoch timestamps** to readable dates and back. It shows the current timestamp ticking live, accepts seconds or milliseconds, and gives every result in both UTC and your local time zone."
+date: 2026-02-03
+lastmod: 2026-10-24
+reviewed: false
+keywords: ["unix timestamp converter", "epoch converter", "timestamp to date", "date to timestamp", "epoch time now", "unix time", "milliseconds to date", "convert epoch"]
+tags: ["developer-tools", "time", "converter", "tool"]
+app_category: "DeveloperApplication"
 tool_file: "/tools/chrono-sync/"
-tool_height: "700"
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "ChronoSync - UNIX Timestamp Converter",
-    "description": "Bidirectional UNIX timestamp converter with live clock. Convert epoch time to dates and dates to timestamps instantly.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
-    "browserRequirements": "Requires JavaScript",
-    "permissions": "none",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
+tool_title: "ChronoSync Unix timestamp converter"
+tool_height: 700
+tool_sandbox: "allow-scripts allow-same-origin"
+tool_allow: "clipboard-write"
+howto:
+  - "Read the **current Unix timestamp** at the top: it updates every second, with the same instant in UTC below it."
+  - "To turn a timestamp into a date, paste it into **Timestamp → Date** and press **Convert**. 10-digit values are read as seconds, 13-digit values as milliseconds."
+  - "Read the result: first the date in UTC, then the same instant in your browser's local time zone."
+  - "To get a timestamp, pick a date and time in **Date → Timestamp** (local time, to the second) and press **Convert**."
+  - "Use the small copy button next to any result to put it on the clipboard."
+faq:
+  - q: "What is a Unix timestamp?"
+    a: "The number of seconds elapsed since 00:00:00 UTC on 1 January 1970, the \"Unix epoch\", not counting leap seconds. It is the same everywhere on Earth at a given instant, which is why servers, databases and logs use it: 1700000000 is 14 November 2023 at 22:13:20 UTC whatever your time zone."
+  - q: "Seconds or milliseconds?"
+    a: "Unix tools, PHP, Python's `time.time()` (as an integer) and most databases use seconds, currently 10 digits. JavaScript's `Date.now()`, Java's `System.currentTimeMillis()` and many APIs use milliseconds, 13 digits. ChronoSync treats inputs of 13 or more digits as milliseconds and marks the result with (ms)."
+  - q: "Why does my converted date look one or two hours off?"
+    a: "Because a timestamp has no time zone; only its display does. Compare the UTC line, not the local one, with your server or log, which are usually in UTC. Daylight-saving changes explain differences that appear only part of the year."
+  - q: "What is the year 2038 problem?"
+    a: "Systems that store timestamps as signed 32-bit integers overflow at 2147483647, which is 03:14:07 UTC on 19 January 2038. After that the value wraps to a negative number and dates jump back to 1901. Modern systems use 64-bit values, but embedded devices and old file formats are still affected."
+  - q: "Can it handle dates before 1970?"
+    a: "Yes. Negative timestamps count seconds before the epoch: -86400 is 31 December 1969 at 00:00 UTC. Enter the minus sign and convert as usual."
+  - q: "How do I get the current timestamp in code?"
+    a: "Bash: `date +%s`. Python: `int(time.time())`. JavaScript: `Math.floor(Date.now() / 1000)`. PHP: `time()`. SQL (PostgreSQL): `extract(epoch from now())`. PowerShell: `[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()`."
 ---
 
-## $ System_Init
+## How it works
 
-Synchronize with **ChronoSync** — a precision time-conversion terminal for translating between UNIX epoch timestamps and human-readable datetime formats. The live clock at the top ticks every second, displaying the current UNIX timestamp in real-time. Below it, the bidirectional converter handles both directions: paste a timestamp to decode it, or pick a date to encode it.
+Everything is plain JavaScript using the browser's built-in `Date` object, which stores time internally as milliseconds since the epoch.
 
-UNIX timestamps are the backbone of time representation in computing. Every server log, every database record, every API response, and every JWT token stores time as a single integer — the number of seconds elapsed since January 1, 1970 00:00:00 UTC (the "epoch"). ChronoSync bridges the gap between that raw number and the human date you actually need to read.
+**Live clock.** Once a second the page computes `Math.floor(Date.now() / 1000)` and shows it next to `toISOString()` of the same instant, formatted as `YYYY-MM-DD HH:MM:SS UTC`.
 
-## $ Core_Protocols
+**Timestamp → date.** The input must be an integer, optionally negative. If it has 13 digits or more it is taken as milliseconds; otherwise it is multiplied by 1000. The resulting `Date` is printed twice:
 
-* **Live Epoch Clock** — A real-time UNIX timestamp counter that ticks every second, showing both the raw integer and the corresponding UTC datetime. Useful as a quick reference during debugging sessions.
-* **Timestamp to Date** — Paste any UNIX timestamp (seconds since epoch) and instantly see the corresponding date in both UTC (ISO 8601) and your local timezone format.
-* **Date to Timestamp** — Select a date and time using the datetime picker and convert it to a UNIX timestamp. Outputs the exact epoch integer for use in code, APIs, or database queries.
-* **One-Click Copy** — Copy any conversion result to your clipboard instantly.
-* **Zero Server Dependency** — All conversions are computed by your browser's JavaScript `Date` object. No API calls, no server-side processing. Works offline once loaded.
-* **Timezone Aware** — Results show both UTC and your local timezone, so you always know exactly which offset you are working with.
+1. in **UTC**, from `toISOString()`, the unambiguous form to compare with logs and servers;
+2. in **local time**, from `toLocaleString()`, which uses your browser's time zone and date format.
 
-## $ Execution_Log
+**Date → timestamp.** The date picker is an `<input type="datetime-local">`, which has no time zone of its own; the browser interprets it in your local zone. `getTime() / 1000`, rounded down, gives the epoch seconds. The picker is pre-filled with the current local time.
 
-ChronoSync operates in two modes. Choose the one that matches your input:
+| Timestamp | UTC date | Note |
+|---|---|---|
+| `0` | 1970-01-01 00:00:00 | The epoch |
+| `1000000000` | 2001-09-09 01:46:40 | First 10-digit timestamp |
+| `1700000000` | 2023-11-14 22:13:20 | |
+| `2000000000` | 2033-05-18 03:33:20 | |
+| `2147483647` | 2038-01-19 03:14:07 | Largest signed 32-bit value |
+| `-86400` | 1969-12-31 00:00:00 | One day before the epoch |
 
-### Decoding a Timestamp (Timestamp to Date)
+Leap seconds are not part of Unix time, so a timestamp maps to exactly one UTC instant (apart from the rare leap-second itself) and two timestamps differ by exactly their number of seconds.
 
-1. **Paste the timestamp** — Enter the numeric UNIX timestamp into the left input field. Accepts seconds-based epoch integers (e.g., `1700000000`).
-2. **Hit Convert** — The result box immediately displays the corresponding date in UTC format (`YYYY-MM-DD HH:MM:SS UTC`) and your local timezone format.
-3. **Copy** — Click the copy button next to the result to grab the decoded date.
+## Use cases
 
-### Encoding a Date (Date to Timestamp)
-
-1. **Select the datetime** — Use the date-time picker on the right panel to choose your target date and time. It defaults to the current moment.
-2. **Hit Convert** — The result box displays the corresponding UNIX timestamp as an integer.
-3. **Copy** — Click copy to grab the epoch value for use in your code.
-
-### Live Reference
-
-The clock at the top always shows the current UNIX timestamp. It requires no interaction — just glance at it when you need the current epoch value during development or debugging.
-
-## $ Use_Cases
-
-ChronoSync is an essential utility for anyone who works with time-based data:
-
-* **Backend Developers** — Debug API responses containing epoch timestamps. Quickly verify that your server is returning the correct datetime values. Compare timestamps across microservices to trace event sequences.
-* **Database Administrators** — Convert `created_at` and `updated_at` epoch columns to readable dates when inspecting raw database records. Construct timestamp-based WHERE clauses for time-range queries.
-* **DevOps & SRE** — Correlate log entries across different systems. Server logs, container timestamps, and monitoring alerts all use epoch time — decode them instantly to reconstruct incident timelines.
-* **Security Analysts** — Decode timestamps in JWT tokens (`iat`, `exp`, `nbf` claims), SSL certificates, access logs, and forensic artifacts. Time is the most critical dimension in incident response.
-* **Data Engineers** — Convert between epoch and datetime formats when building ETL pipelines. Validate timestamp columns in datasets before loading into data warehouses.
-* **Project Managers** — Convert milestone dates to epoch for Gantt chart APIs or scheduling tools that expect integer timestamps.
-
-## $ FAQ_Database
-
-**What is a UNIX timestamp exactly?**
-
-A UNIX timestamp (also called epoch time or POSIX time) is the number of seconds that have elapsed since January 1, 1970 at 00:00:00 UTC. This moment is called the "UNIX epoch." For example, the timestamp `1700000000` corresponds to November 14, 2023 at 22:13:20 UTC. It is the universal standard for time representation in computing because a single integer is timezone-agnostic, easy to store, and trivial to sort.
-
-**Does this tool handle millisecond timestamps?**
-
-ChronoSync works with second-precision timestamps (10 digits, e.g., `1700000000`). If you have a millisecond timestamp (13 digits, e.g., `1700000000000` — common in JavaScript's `Date.now()`), divide it by 1000 before entering it. A future update may add automatic detection of millisecond inputs.
-
-**What happens after the Year 2038 problem?**
-
-The Year 2038 problem affects systems that store UNIX timestamps as 32-bit signed integers, which max out at `2147483647` (January 19, 2038 at 03:14:07 UTC). ChronoSync runs in your browser using JavaScript's `Date` object, which uses 64-bit floating point internally and is safe well beyond the year 275,760. Your conversions are not affected by the 2038 boundary.
-
-**Is the live clock accurate?**
-
-The live clock uses your browser's `Date.now()` function, which is synchronized with your operating system's clock. If your system clock is accurate (which it typically is via NTP), the displayed timestamp will be accurate to within one second. Note that the display updates every second, so there is a maximum visual lag of 999 milliseconds.
+- **Reading logs and JWTs.** Turn `exp`, `iat` and log fields such as `1729771200` into a date you can reason about.
+- **Debugging time zones.** See at a glance whether a stored value is UTC midnight or local midnight.
+- **Writing queries.** Get the timestamp for "1 March 2026 00:00" to paste into a SQL `WHERE` clause or an API filter.
+- **Converting between languages.** Check whether a value coming from JavaScript (ms) and one from Python (s) describe the same moment.
+- **Cron and scheduling.** Verify when a job scheduled in epoch time will actually run.

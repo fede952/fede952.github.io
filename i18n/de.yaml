@@ -35,3 +35,113 @@ ad_label:
 
 partner_label:
   other: "Partner"
+tool_howto:
+  other: "Anleitung"
+tool_faq:
+  other: "Häufige Fragen"
+related_guides:
+  other: "Passende Anleitungen"
+pg_placeholder:
+  other: "Ihr sicheres Passwort"
+pg_copy:
+  other: "In die Zwischenablage kopieren"
+pg_length:
+  other: "Länge"
+pg_generate:
+  other: "Passwort generieren"
+pg_note:
+  other: "Lokal mit crypto.getRandomValues() erzeugt. Nichts verlässt Ihren Browser."
+pg_weak:
+  other: "Schwach"
+pg_good:
+  other: "Gut"
+pg_strong:
+  other: "Stark"
+pg_bits:
+  other: "Bit Entropie"
+pg_copied:
+  other: "Kopiert!"
+tool_input_text:
+  other: "Eingabetext"
+tool_output:
+  other: "Ergebnis"
+tool_copy:
+  other: "Kopieren"
+tool_copied:
+  other: "Kopiert!"
+tool_clear:
+  other: "Leeren"
+tool_clear_all:
+  other: "Alles leeren"
+tool_result_placeholder:
+  other: "Das Ergebnis erscheint hier…"
+tool_nothing_to_copy:
+  other: "Noch nichts zum Kopieren."
+tool_copy_failed:
+  other: "Kopieren in die Zwischenablage fehlgeschlagen."
+tool_copied_msg:
+  other: "In die Zwischenablage kopiert."
+tool_sample_text:
+  other: "Hallo, Welt!"
+hash_placeholder:
+  other: "Text eingeben oder einfügen…"
+hash_note:
+  other: "Die Hashes aktualisieren sich beim Tippen: SHA-1, SHA-256 und SHA-512 nutzen die Web Crypto API, MD5 eine JavaScript-Implementierung. Nichts wird hochgeladen."
+hash_recommended:
+  other: "Empfohlen"
+hash_insecure:
+  other: "Nicht für Sicherheit"
+hash_error:
+  other: "Hashes konnten nicht berechnet werden:"
+b64_placeholder:
+  other: "Text zum Kodieren oder Base64-String zum Dekodieren…"
+b64_encode:
+  other: "In Base64 kodieren"
+b64_decode:
+  other: "Aus Base64 dekodieren"
+b64_need_text:
+  other: "Geben Sie einen Text zum Kodieren ein."
+b64_encoded:
+  other: "In Base64 kodiert (UTF-8)."
+b64_need_b64:
+  other: "Geben Sie einen Base64-String zum Dekodieren ein."
+b64_decoded:
+  other: "Aus Base64 dekodiert."
+b64_invalid:
+  other: "Kein gültiges Base64 oder Base64URL. Prüfen Sie auf fehlende oder überzählige Zeichen."
+b64_not_text:
+  other: "Dekodiert, aber die Bytes sind kein gültiger UTF-8-Text (vermutlich Binärdaten)."
+caesar_placeholder:
+  other: "Text hier eingeben…"
+caesar_shift:
+  other: "Verschiebung"
+caesar_encrypt:
+  other: "Verschlüsseln"
+caesar_decrypt:
+  other: "Entschlüsseln"
+caesar_need_text:
+  other: "Geben Sie zuerst einen Text ein."
+caesar_encrypted:
+  other: "Text verschlüsselt."
+caesar_decrypted:
+  other: "Text entschlüsselt."
+chmod_read:
+  other: "Lesen"
+chmod_write:
+  other: "Schreiben"
+chmod_execute:
+  other: "Ausführen"
+chmod_owner:
+  other: "Besitzer (u)"
+chmod_group:
+  other: "Gruppe (g)"
+chmod_others:
+  other: "Andere (o)"
+chmod_filename:
+  other: "Dateiname:"
+chmod_copy:
+  other: "Befehl kopieren"
+chmod_copied:
+  other: "Kopiert!"
+chmod_presets:
+  other: "Schnellauswahl:"

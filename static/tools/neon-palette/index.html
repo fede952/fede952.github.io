@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/neon-palette/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Color Matrix</title>
@@ -141,7 +142,7 @@ const T = {
   }
 };
 
-function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+function detectLang(){const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();try{if(window.parent!==window){const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}}catch(e){}const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
 const LANG=detectLang();
 const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
 
@@ -258,5 +259,6 @@ function generatePalette() {
 applyI18n();
 generatePalette();
 </script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

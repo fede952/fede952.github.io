@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/pass-fort/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PassFort - Password Generator & Strength Auditor</title>
@@ -101,7 +102,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 .check-icon{font-size:14px;flex-shrink:0}
 
 /* Ad Placeholder */
-.ad-unit{min-height:100px;background:#111;border:1px dashed var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:2px}
 
 /* Toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:var(--bg);padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;opacity:0;transition:all .3s ease;pointer-events:none;z-index:999}
@@ -187,7 +187,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
     </div>
 
     <button class="gen-btn" id="genBtn">Generate Password</button>
-    <div class="ad-unit">Advertisement</div>
   </div>
 
   <!-- ── AUDITOR TAB ── -->
@@ -221,7 +220,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
       <div class="checks" id="checks"></div>
     </div>
 
-    <div class="ad-unit">Advertisement</div>
   </div>
 
   <div class="footer">PassFort &mdash; 100% client-side. Zero tracking.</div>
@@ -234,9 +232,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 const WORDS=["abandon","abstract","academy","access","account","acid","across","action","active","actor","adapt","adjust","admin","admit","advance","advice","afraid","again","agent","agree","ahead","alarm","album","alert","alien","alpha","alter","always","among","amount","anchor","angel","anger","angle","animal","annual","answer","antique","apart","apple","arena","armor","army","arrow","artist","asset","atlas","atom","audio","author","avocado","aware","balance","bamboo","banana","banner","barrel","basic","basket","battle","beach","beacon","beauty","become","before","begin","behind","believe","below","bench","betray","better","beyond","bicycle","bitter","blade","blanket","blast","blaze","blend","bless","blind","block","blood","blossom","blue","board","boat","bonus","border","bottom","bounce","brain","brand","brave","bread","breeze","brick","bridge","bright","bring","broken","bronze","brush","bubble","budget","build","bullet","bundle","burden","burger","burst","butter","cabin","cable","cactus","cage","camera","camp","canal","candy","canoe","canvas","canyon","captain","carbon","carpet","castle","casual","catalog","catch","cattle","cement","census","cereal","chamber","change","chaos","chapter","charge","chase","cheap","cheese","cherry","chest","chicken","chief","child","choice","chunk","circle","citizen","claim","clap","classic","clean","clever","cliff","climb","clock","close","cloud","clown","cluster","coach","coast","coconut","code","coffee","column","combat","comfort","comic","common","company","concert","conduct","confirm","connect","consider","control","convert","cookie","copper","coral","cotton","couch","country","couple","course","cousin","cover","craft","crane","crash","crater","crazy","cream","credit","crew","cricket","crime","crisp","cross","crouch","crowd","cruise","crystal","cube","culture","custom","cycle","damage","dance","danger","daring","dash","daughter","dawn","debate","decade","december","decide","decline","decorate","defeat","define","degree","delay","deliver","demand","denial","dentist","deny","depart","depend","derive","desert","design","detail","detect","develop","device","devote","diamond","diesel","differ","digital","dinner","direct","discuss","disease","display","distance","divert","doctor","domain","donate","donkey","double","dove","draft","dragon","drama","drastic","dream","dress","drift","drink","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","eagle","early","earth","east","echo","ecology","economy","edge","effort","either","elbow","elder","electric","element","elite","embark","embody","embrace","emerge","emotion","employ","empty","enable","endorse","energy","engine","enjoy","enough","enrich","ensure","enter","entire","entry","episode","equal","equip","erase","erode","erosion","escape","eternal","evoke","exact","example","excess","exchange","excite","exclude","excuse","execute","exile","exist","expand","expect","expire","explain","explore","express","extend","extra","fabric","face","faculty","faint","faith","false","family","famous","fancy","fantasy","fatal","father","fault","favorite","feature","february","federal","fence","festival","fetch","fever","fiction","field","figure","filter","final","finger","fire","fiscal","fitness","flag","flame","flash","flavor","flight","flip","float","flock","floor","flower","fluid","flush","foam","focus","follow","force","forest","forget","formal","fortune","forum","forward","fossil","foster","found","frame","frequent","fresh","friend","fringe","frog","front","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","galaxy","gallery","game","garden","garlic","gasp","gather","gauge","general","genius","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","glad","glance","globe","glory","glove","glow","glue","goal","goddess","gold","gospel","gossip","govern","grace","grain","grant","grape","grass","gravity","great","grid","grief","grit","grocery","group","guard","guess","guide","guilt","guitar","habit","half","hammer","hamster","hand","happy","harbor","harsh","harvest","hawk","hazard","health","heart","heavy","helmet","hen","hero","hidden","holiday","hollow","honey","hood","hope","horror","horse","hospital","hotel","hover","hub","huge","human","humor","hundred","hungry","hurdle","husband","hybrid","ice","icon","idea","identify","idle","ignore","image","immune","impact","impose","improve","impulse","inch","include","income","index","indoor","infant","inflict","inform","initial","inject","inner","insect","inside","install","intact","invite","involve","iron","island","isolate","ivory","jacket","jaguar","jazz","jeans","jewel","joint","joke","journey","jungle","junior","junk","jury","justice","kangaroo","keen","kidney","kind","kingdom","kitchen","kitten","knife","knock","known","label","ladder","lake","lamp","language","laptop","large","later","latin","laugh","laundry","lava","lawn","layer","leader","leaf","learn","leave","lecture","legend","leisure","lemon","length","lens","lesson","letter","level","liberty","library","license","light","limit","link","lion","liquid","little","lizard","loan","local","lock","logic","lonely","loop","lottery","lunar","lunch","luxury","machine","magnet","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","master","match","matrix","matter","meadow","media","melody","member","memory","mention","mercy","mesh","method","middle","million","mimic","minimum","miracle","mirror","misery","model","modify","moment","monitor","monkey","monster","month","moral","morning","mosquito","mother","motion","mountain","mouse","movie","much","multiply","muscle","museum","music","mystery","myth","naive","napkin","narrow","nation","nature","near","neck","negative","neglect","neither","nephew","nerve","network","neutral","noble","noise","nominee","north","notable","nothing","novel","nuclear","number","nurse","object","observe","obtain","obvious","occur","ocean","october","offer","officer","olive","olympic","online","open","opera","opinion","oppose","option","orange","orbit","orchard","organ","orient","orphan","ostrich","outdoor","outer","output","outside","oval","owner","oxygen","oyster","ozone","pact","paddle","palace","panda","panel","paper","parade","parent","park","parrot","party","patch","path","patient","patrol","pattern","pause","peanut","pelican","penalty","pencil","people","pepper","perfect","permit","photo","phrase","piece","pilot","pioneer","pistol","pitch","pizza","planet","plastic","plate","please","pledge","pluck","plug","plunge","pocket","poem","poet","polar","portion","position","possible","potato","pottery","poverty","powder","practice","predict","prepare","present","pretty","pride","primary","print","prison","private","problem","process","produce","profit","program","promote","proof","property","prosper","protect","proud","provide","public","pulse","pumpkin","punch","pupil","puzzle","pyramid","quantum","quarter","question","quick","rabbit","raccoon","radar","radio","rail","ranch","random","range","rapid","rather","raven","razor","reason","rebel","recall","receive","recipe","record","recycle","reform","region","regret","regular","reject","relax","release","relief","remain","remind","remove","render","renew","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","rich","ride","rifle","right","rigid","ring","rival","river","road","robust","rocket","romance","royal","rubber","rude","rural","saddle","sadness","safe","salad","salmon","salon","salt","salute","sample","satisfy","satoshi","sauce","sausage","scale","scatter","scene","scheme","school","science","scissors","scorpion","scout","scrap","screen","script","search","season","second","secret","section","security","select","senior","sense","sentence","series","service","session","settle","setup","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shock","short","shoulder","shove","shrimp","shuffle","siege","sight","silent","silver","similar","simple","sister","situate","skill","skull","slender","slice","slim","slogan","slow","small","smart","smile","smooth","snack","snake","snap","snow","social","soldier","solution","someone","song","south","space","spare","spatial","spawn","special","sphere","spider","spike","spirit","split","sponsor","spoon","sport","spring","squeeze","stable","stadium","staff","stage","stairs","stamp","stand","start","station","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stone","story","strategy","stream","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","success","sudden","suffer","sugar","suggest","summer","sun","supply","supreme","surface","surge","surprise","surround","survey","suspect","sustain","swallow","swamp","sweet","swim","switch","sword","symbol","symptom","system","table","tackle","talent","target","tattoo","taxi","teach","team","tell","tenant","tennis","tent","term","test","thank","theme","theory","there","thought","three","thrive","throw","thunder","ticket","timber","tired","tissue","toast","tobacco","today","toddler","together","toilet","token","tomato","tomorrow","tongue","tonight","topic","torch","tornado","tortoise","total","tourist","toward","tower","town","trade","traffic","train","transfer","trash","travel","treat","trend","trial","tribe","trick","trigger","triple","trophy","trouble","truck","truly","trumpet","trust","truth","tube","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twist","typical","ugly","umbrella","unable","unaware","uncle","under","unfair","unhappy","uniform","unique","unit","universe","unknown","unlock","until","unusual","unveil","update","upgrade","upon","upper","upset","urban","usage","usual","utility","vacant","vacuum","valid","valley","valve","vanish","vapor","various","vault","vehicle","velvet","vendor","venture","venue","verify","version","vessel","veteran","viable","victory","video","view","village","vintage","violin","virtual","virus","visit","visual","vital","vivid","vocal","volcano","volume","voyage","wage","wagon","waist","walnut","warrior","wash","wasp","waste","water","wealth","weapon","weather","web","wedding","weekend","welcome","western","whale","wheat","wheel","whisper","width","wild","window","wine","wing","winner","winter","wisdom","witch","witness","wonder","world","worry","worth","wreck","wrestle","wrist","wrong","yard","young","youth","zebra","zero","zombie","zone"];
 
 /* ── Generator Logic ── */
+/* Uniform integer in [0, max) from the CSPRNG. Rejection sampling: values
+   in the incomplete top "bucket" of the 32-bit range are redrawn, so there
+   is no modulo bias (a plain a[0]%max slightly favours low indexes). */
 function getSecureRandom(max){
   const a=new Uint32Array(1);
-  crypto.getRandomValues(a);
+  const limit=Math.floor(0x100000000/max)*max;
+  do { crypto.getRandomValues(a); } while(a[0]>=limit);
   return a[0]%max;
 }
 
@@ -417,20 +419,6 @@ document.getElementById('clearBtn').addEventListener('click',()=>{
 /* Init */
 doGenerate();
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
-    var h=document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight",height:h},"*");
-  }
-  document.documentElement.style.height="auto";
-  document.body.style.height="auto";
-  document.body.style.minHeight="0";
-  window.addEventListener("load",sendHeight);
-  window.addEventListener("resize",sendHeight);
-  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

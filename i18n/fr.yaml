@@ -35,3 +35,113 @@ ad_label:
 
 partner_label:
   other: "Partenaire"
+tool_howto:
+  other: "Mode d’emploi"
+tool_faq:
+  other: "Questions fréquentes"
+related_guides:
+  other: "Guides associés"
+pg_placeholder:
+  other: "Votre mot de passe sécurisé"
+pg_copy:
+  other: "Copier dans le presse-papiers"
+pg_length:
+  other: "Longueur"
+pg_generate:
+  other: "Générer un mot de passe"
+pg_note:
+  other: "Généré localement avec crypto.getRandomValues(). Rien ne quitte votre navigateur."
+pg_weak:
+  other: "Faible"
+pg_good:
+  other: "Correct"
+pg_strong:
+  other: "Fort"
+pg_bits:
+  other: "bits d'entropie"
+pg_copied:
+  other: "Copié !"
+tool_input_text:
+  other: "Texte d’entrée"
+tool_output:
+  other: "Résultat"
+tool_copy:
+  other: "Copier"
+tool_copied:
+  other: "Copié !"
+tool_clear:
+  other: "Effacer"
+tool_clear_all:
+  other: "Tout effacer"
+tool_result_placeholder:
+  other: "Le résultat s’affichera ici…"
+tool_nothing_to_copy:
+  other: "Rien à copier pour l’instant."
+tool_copy_failed:
+  other: "Impossible de copier dans le presse-papiers."
+tool_copied_msg:
+  other: "Copié dans le presse-papiers."
+tool_sample_text:
+  other: "Bonjour, le monde !"
+hash_placeholder:
+  other: "Saisissez ou collez le texte à hacher…"
+hash_note:
+  other: "Les empreintes se mettent à jour pendant la saisie : SHA-1, SHA-256 et SHA-512 utilisent la Web Crypto API, MD5 une implémentation JavaScript. Rien n’est envoyé."
+hash_recommended:
+  other: "Recommandé"
+hash_insecure:
+  other: "Pas pour la sécurité"
+hash_error:
+  other: "Impossible de calculer les empreintes :"
+b64_placeholder:
+  other: "Texte à encoder ou chaîne Base64 à décoder…"
+b64_encode:
+  other: "Encoder en Base64"
+b64_decode:
+  other: "Décoder le Base64"
+b64_need_text:
+  other: "Saisissez un texte à encoder."
+b64_encoded:
+  other: "Encodé en Base64 (UTF-8)."
+b64_need_b64:
+  other: "Saisissez une chaîne Base64 à décoder."
+b64_decoded:
+  other: "Décodé depuis le Base64."
+b64_invalid:
+  other: "Ce n’est pas du Base64 ni du Base64URL valide. Vérifiez qu’il ne manque aucun caractère."
+b64_not_text:
+  other: "Décodé, mais les octets ne forment pas un texte UTF-8 valide (probablement des données binaires)."
+caesar_placeholder:
+  other: "Saisissez votre texte ici…"
+caesar_shift:
+  other: "Décalage"
+caesar_encrypt:
+  other: "Chiffrer"
+caesar_decrypt:
+  other: "Déchiffrer"
+caesar_need_text:
+  other: "Saisissez d’abord un texte."
+caesar_encrypted:
+  other: "Texte chiffré."
+caesar_decrypted:
+  other: "Texte déchiffré."
+chmod_read:
+  other: "Lecture"
+chmod_write:
+  other: "Écriture"
+chmod_execute:
+  other: "Exécution"
+chmod_owner:
+  other: "Propriétaire (u)"
+chmod_group:
+  other: "Groupe (g)"
+chmod_others:
+  other: "Autres (o)"
+chmod_filename:
+  other: "Nom du fichier :"
+chmod_copy:
+  other: "Copier la commande"
+chmod_copied:
+  other: "Copié !"
+chmod_presets:
+  other: "Préréglages :"

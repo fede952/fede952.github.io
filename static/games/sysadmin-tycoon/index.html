@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/games/sysadmin-tycoon/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>SysAdmin Tycoon</title>
@@ -892,13 +893,6 @@ function boot(){
 }
 boot();
 </script>
-<script>
-(function(){
-  function h(){window.parent.postMessage({type:'setHeight',height:document.body.scrollHeight},'*')}
-  document.documentElement.style.height='auto';document.body.style.height='auto';document.body.style.minHeight='0';
-  window.addEventListener('load',h);window.addEventListener('resize',h);
-  new MutationObserver(h).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

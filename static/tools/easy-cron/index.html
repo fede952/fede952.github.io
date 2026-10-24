@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/easy-cron/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EasyCron - Visual Cron Schedule Generator</title>
@@ -769,20 +770,6 @@ renderTab();
 update();
 initEvents();
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
-    var h=document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight",height:h},"*");
-  }
-  document.documentElement.style.height="auto";
-  document.body.style.height="auto";
-  document.body.style.minHeight="0";
-  window.addEventListener("load",sendHeight);
-  window.addEventListener("resize",sendHeight);
-  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

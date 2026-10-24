@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/chrono-sync/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UNIX Timestamp Converter</title>
@@ -149,7 +150,7 @@ const T = {
   }
 };
 
-function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+function detectLang(){const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();try{if(window.parent!==window){const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}}catch(e){}const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
 const LANG=detectLang();
 const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
 
@@ -171,25 +172,29 @@ function showStatus(msg, type) {
   setTimeout(() => s.className = 'status', 4000);
 }
 
+const COPY_LABEL = ({en:'Copy',it:'Copia',es:'Copiar',fr:'Copier',de:'Kopieren',pt:'Copiar'})[LANG.split('-')[0]] || 'Copy';
 function setResult(containerId, value) {
   const box = document.getElementById(containerId);
-  box.innerHTML = `<span class="result-value">${value}</span><button class="copy-mini" onclick="copyVal(this)">${t('copied').replace('!','').replace('！','')}</button>`;
+  box.innerHTML = `<span class="result-value">${value}</span><button class="copy-mini" onclick="copyVal(this)">${COPY_LABEL}</button>`;
 }
 
 function copyVal(btn) {
   const val = btn.previousElementSibling.textContent;
   navigator.clipboard.writeText(val).then(() => {
     btn.textContent = '✓';
-    setTimeout(() => btn.textContent = t('copied').replace('!','').replace('！',''), 2000);
+    setTimeout(() => btn.textContent = COPY_LABEL, 2000);
   });
 }
 
 function tsToDate() {
   const input = document.getElementById('ts-input').value.trim();
+  if (!/^-?\d+$/.test(input)) { showStatus(t('invalidTs'), 'error'); return; }
   const ts = parseInt(input, 10);
-  if (isNaN(ts)) { showStatus(t('invalidTs'), 'error'); return; }
-  const date = new Date(ts * 1000);
-  const utc = date.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+  // 13+ digits = milliseconds (Date.now(), Java, most JS APIs); fewer = seconds
+  const isMs = input.replace('-', '').length >= 13;
+  const date = new Date(isMs ? ts : ts * 1000);
+  if (isNaN(date.getTime())) { showStatus(t('invalidTs'), 'error'); return; }
+  const utc = date.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, ' UTC') + (isMs ? ' (ms)' : '');
   const local = date.toLocaleString();
   setResult('ts-result', `${utc}\n${local}`);
 }
@@ -210,5 +215,6 @@ setInterval(updateClock, 1000);
 updateClock();
 applyI18n();
 </script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

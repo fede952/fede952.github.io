@@ -1,87 +1,67 @@
 ---
-title: "NeonPalette: Free HEX RGB HSL Color Converter & Cyberpunk Palette Generator"
-description: "Convert colors between HEX, RGB, and HSL formats instantly. Generate random neon cyberpunk palettes for dark-themed UIs. Free, client-side, no sign-up required."
-date: 2026-02-10
-tags: ["color", "converter", "palette", "hex-rgb", "design", "tool"]
-keywords: ["hex to rgb converter", "rgb to hsl converter", "color converter online", "cyberpunk color palette", "neon color generator", "dark theme colors", "hex rgb hsl tool", "free color picker tool"]
-layout: "tool"
-draft: false
+title: "HEX to RGB & HSL Converter + Neon Palettes"
+description: "Convert colours between HEX, RGB and HSL with a picker and one-click copy, and generate random cyberpunk neon palettes for UI, posters and themes. Free."
+intro: "**NeonPalette** converts any colour between **HEX, RGB and HSL** as you pick or type it, and generates random three-colour **neon palettes**: cyan, magenta, electric blue, hot pink and friends, tuned for dark cyberpunk interfaces."
+date: 2026-02-03
+lastmod: 2026-10-24
+reviewed: false
+keywords: ["hex to rgb", "rgb to hsl", "hex to hsl converter", "color converter", "neon color palette", "cyberpunk color palette", "color picker online", "neon colors hex"]
+tags: ["design", "css", "colors", "tool"]
+app_category: "DesignApplication"
 tool_file: "/tools/neon-palette/"
-tool_height: "750"
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "NeonPalette - Color Matrix",
-    "description": "Free HEX, RGB, and HSL color converter with a Cyberpunk neon palette generator for dark-themed interfaces.",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web",
-    "browserRequirements": "Requires JavaScript",
-    "permissions": "none",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
+tool_title: "NeonPalette colour converter and palette generator"
+tool_height: 820
+tool_sandbox: "allow-scripts allow-same-origin"
+tool_allow: "clipboard-write"
+howto:
+  - "Pick a colour with the colour picker, or type a six-digit HEX code such as `#00E5FF` into the HEX field."
+  - "The RGB and HSL fields and the preview bar update immediately."
+  - "Press the copy button next to HEX, RGB or HSL to copy that notation, ready for CSS."
+  - "Press **Generate Neon Palette** for three random neon colours from different hue families."
+  - "Click any palette card to load that colour into the converter, then copy it in the format you need."
+faq:
+  - q: "How do I convert HEX to RGB?"
+    a: "A HEX colour is three bytes written in hexadecimal: `#RRGGBB`. Convert each pair to decimal: `#00E5FF` is red 0x00 = 0, green 0xE5 = 229, blue 0xFF = 255, so `rgb(0, 229, 255)`. Three-digit shorthand like `#0EF` doubles each digit first (`#00EEFF`)."
+  - q: "What is HSL and why use it?"
+    a: "HSL describes a colour as hue (0–360° around the colour wheel), saturation (0–100% grey to vivid) and lightness (0% black to 100% white). It is easier to reason about than RGB: to make a lighter or more muted version of a colour you change one number instead of three."
+  - q: "What makes a colour look neon?"
+    a: "Very high saturation and medium lightness on a dark background. The generator keeps saturation between 85% and 100% and lightness between 45% and 60%, the band where colours look most luminous; lighter colours wash out towards pastel and darker ones lose their glow."
+  - q: "Are neon colours accessible?"
+    a: "On a dark background, cyan, green and yellow neons usually pass WCAG contrast for large text, while saturated blues, violets and magentas often do not. Use neon for accents, borders and headings, keep body text near-white, and check the contrast ratio of every text and background pair."
+  - q: "Can I enter RGB or HSL values?"
+    a: "The converter takes input from the picker and the HEX field; the RGB and HSL fields show the converted result for copying. To start from RGB, convert it to HEX or set it in the colour picker, which accepts RGB values in most browsers."
+  - q: "Is anything stored or sent?"
+    a: "No. All conversions are arithmetic in JavaScript inside this page, and palettes are generated with `Math.random()` locally."
 ---
 
-## $ System_Init
+## How it works
 
-Jack into **NeonPalette** — a precision color conversion terminal and neon palette forge. Input any color in HEX, and the matrix instantly computes its RGB and HSL equivalents. Need inspiration? Hit the Cyberpunk Generator to synthesize a random palette of three neon colors engineered for dark-themed interfaces.
+### Conversions
 
-Color conversion is one of those micro-tasks that developers and designers perform dozens of times a day. You find a hex value in a CSS file, but you need the RGB breakdown for a canvas operation. You see an HSL value in a design spec, but your framework expects hex. NeonPalette eliminates the friction — type or pick, and every format is computed instantly.
+**HEX → RGB.** The six hex digits are parsed as one 24-bit integer, and the three channels are extracted with bit shifts: red = `(n >> 16) & 255`, green = `(n >> 8) & 255`, blue = `n & 255`.
 
-## $ Core_Protocols
+**RGB → HSL.** Each channel is scaled to 0–1. With *max* and *min* the largest and smallest of the three:
 
-* **Tri-Format Conversion** — Real-time conversion between HEX, RGB, and HSL. Change any input and the other two update instantly. No submit button, no page reload.
-* **Visual Color Picker** — Use the native browser color picker to explore colors visually. Every selection immediately reflects across all three format fields and the preview bar.
-* **Live Preview Bar** — A full-width color swatch updates in real-time as you adjust values, giving you an accurate representation at scale.
-* **One-Click Copy** — Copy any format (HEX, RGB, or HSL) to your clipboard with a single click. Paste directly into your CSS, design tool, or terminal.
-* **Cyberpunk Neon Generator** — Generate a random palette of three high-saturation neon colors. Each palette is algorithmically selected from cyberpunk-optimal hue ranges: cyan, magenta, electric blue, neon green, hot pink, violet, neon orange, and neon yellow. Every color is guaranteed to pop against dark backgrounds.
-* **Click-to-Load Palette Colors** — Click any generated palette swatch to load it into the main converter. Instantly get the HEX, RGB, and HSL values for any generated color.
-* **Zero Dependencies** — Pure JavaScript color math. No external APIs, no server calls, no tracking.
+- **Lightness** L = (max + min) / 2.
+- **Saturation** S = 0 for greys; otherwise (max − min) / (max + min) when L ≤ 0.5, or (max − min) / (2 − max − min) when L > 0.5.
+- **Hue** depends on which channel is largest: for red it is (G − B) / (max − min), for green 2 + (B − R) / (max − min), for blue 4 + (R − G) / (max − min), multiplied by 60° and wrapped into 0–360°.
 
-## $ Execution_Log
+Hue is rounded to whole degrees and S and L to whole percents, the precision CSS `hsl()` is normally written with.
 
-### Color Conversion
+| Colour | HEX | RGB | HSL |
+|---|---|---|---|
+| Neon cyan | `#00E5FF` | 0, 229, 255 | 186°, 100%, 50% |
+| Hot magenta | `#FF2DCE` | 255, 45, 206 | 314°, 100%, 59% |
+| Acid green | `#39FF14` | 57, 255, 20 | 111°, 100%, 54% |
 
-1. **Pick or type** — Use the large color picker on the left to visually select a color, or type a HEX value directly into the HEX field (format: `#RRGGBB`).
-2. **Read the output** — The RGB and HSL fields update in real-time. The preview bar below shows the color at full width.
-3. **Copy** — Click the Copy button next to any format field to copy the value to your clipboard.
+### The neon generator
 
-### Cyberpunk Palette Generation
+The generator knows eight hue families: cyan (170–195°), magenta (290–330°), electric blue (210–250°), neon green (100–150°), hot pink (330–355°), violet (260–290°), neon orange (15–40°) and neon yellow (50–70°). Each time you press the button it shuffles them, takes three, and for each picks a random hue inside the family's range, a saturation of 85–100% and a lightness of 45–60%. The HSL values are converted to HEX with the standard piecewise formula, so the three colours are always distinct families yet share the same vivid, glowing character.
 
-1. **Generate** — Click the "Generate Neon Palette" button. Three color cards appear, each with a distinct neon hue.
-2. **Browse** — Each card shows the color swatch plus its HEX, RGB, and HSL values.
-3. **Select** — Click any card to load that color into the main converter for detailed inspection and copying.
-4. **Regenerate** — Click the button again for a fresh palette. The generator randomly selects from eight cyberpunk-optimized hue ranges, so every click produces a unique combination.
+## Use cases
 
-## $ Use_Cases
-
-NeonPalette is built for anyone who works at the intersection of color and code:
-
-* **Frontend Developers** — Convert between color formats while writing CSS, Tailwind configs, or theme files. Copy the exact format your framework expects — no manual calculation needed.
-* **UI/UX Designers** — Quickly verify color values across format specs. Designers often work in HSL (intuitive for adjusting lightness and saturation) while code requires HEX or RGB.
-* **Game Developers** — Generate neon color palettes for cyberpunk, synthwave, or sci-fi themed games. The generator produces high-saturation colors that work on dark backgrounds out of the box.
-* **Brand Designers** — Convert brand colors between formats for different platforms. Print specs may need RGB, web needs HEX, and CSS animations often use HSL for hue rotation effects.
-* **Terminal & Editor Theming** — Building a custom terminal theme or IDE color scheme? Generate a cohesive neon palette and grab the hex values for your config file.
-* **Data Visualization** — Select high-contrast neon colors that remain distinguishable on dark chart backgrounds. The generated palettes are inherently high-saturation and high-contrast.
-
-## $ FAQ_Database
-
-**What is the difference between HEX, RGB, and HSL?**
-
-They are three different ways to represent the same color. **HEX** is a six-character hexadecimal string (e.g., `#00E5FF`) — compact and widely used in CSS and web design. **RGB** specifies the Red, Green, and Blue channel intensities from 0-255 (e.g., `rgb(0, 229, 255)`). **HSL** describes color using Hue (0-360 degrees on the color wheel), Saturation (0-100%), and Lightness (0-100%) — the most intuitive model for human color perception and adjustment. All three represent the exact same color, just in different mathematical models.
-
-**What makes a color "neon" or "cyberpunk"?**
-
-Neon colors are characterized by high saturation (typically 85-100%) and moderate-to-high lightness (45-60%), concentrated in specific hue ranges: cyan (170-195), magenta (290-330), electric blue (210-250), and neon green (100-150). The Cyberpunk Generator uses these exact ranges to produce colors that visually pop against dark backgrounds (`#0a0a0a` to `#1a1a2e`), mimicking the aesthetic of neon signage and cyberpunk media.
-
-**Can I use the generated palettes in my projects?**
-
-Absolutely. All generated colors are random mathematical outputs with no copyright or licensing restrictions. Use them freely in websites, apps, games, presentations, or any creative project. The generator does not store or track which palettes it produces.
-
-**Why does my color look different on screen versus print?**
-
-Screens use additive color mixing (RGB — light-based), while printers use subtractive color mixing (CMYK — ink-based). Neon colors with extreme saturation values often fall outside the CMYK gamut, meaning they cannot be accurately reproduced in print. If you need print-safe colors, keep saturation below 80% and lightness between 30-70%. For screen-only projects (web, apps, games), the full neon range is available.
+- **CSS and design tokens.** Convert a brand HEX into `rgb()` for opacity tricks or `hsl()` for building lighter and darker variants.
+- **Dark-mode and cyberpunk UIs.** Generate accent colours for buttons, borders, glows and charts on dark backgrounds.
+- **Posters, thumbnails and stream overlays** with a synthwave or neon-sign look.
+- **Game and app theming.** Pick three complementary neon accents for a HUD, a level or a terminal theme.
+- **Learning colour models.** Watch how HEX, RGB and HSL describe the same colour, and how changing hue alone moves you around the wheel.

@@ -1,11 +1,12 @@
 {{- /* Site override of PaperMod's templates/schema_json.html.
-     Home + BreadcrumbList are kept verbatim from the theme. The per-page
+     Home is kept verbatim from the theme; BreadcrumbList is built from
+     .Ancestors (matches the visible breadcrumbs). The per-page
      block is section-aware (P2.1):
        - pages with .Params.schema_json emit nothing here — extend_head.html
          already injects the hand-written frontmatter schema, and generating
          a second competing block would confuse crawlers;
-       - tools singles emit SoftwareApplication/WebApplication
-         (GameApplication category for layout "game" pages);
+       - tools singles emit WebApplication (GameApplication category under
+         /tools/games/) and FAQPage when the page has a visible FAQ;
        - learn singles emit TechArticle (HowTo is deprecated in Google rich
          results and needs structured step data we don't have);
        - everything else keeps the theme's BlogPosting. */ -}}
@@ -32,94 +33,49 @@
 }
 </script>
 {{- else if (or .IsPage .IsSection) }}
-{{/* BreadcrumbList */}}
-{{- $url := replace .Parent.Permalink ( printf "%s" site.Home.Permalink) "" }}
-{{- $lang_url := strings.TrimPrefix ( printf "%s/" .Lang) $url }}
-{{- $bc_list := (split $lang_url "/")}}
-
-{{- $scratch := newScratch }}
+{{/* BreadcrumbList — same trail as the visible partials/breadcrumbs.html */}}
+{{- $items := slice }}
+{{- range $i, $a := .Ancestors.Reverse }}
+  {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" (cond $a.IsHome (i18n "home" | default "Home") $a.LinkTitle) "item" $a.Permalink) }}
+{{- end }}
+{{- $items = $items | append (dict "@type" "ListItem" "position" (add (len $items) 1) "name" .LinkTitle "item" .Permalink) }}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-  {{- range $index, $element := $bc_list }}
-
-    {{- $scratch.Add "path" (printf "%s/" $element ) | safeJS }}
-    {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
-
-    {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    {{- if (and $index)}}, {{end }}
-    {
-      "@type": "ListItem",
-      "position": {{ add 1 $index  }},
-      "name": {{ $bc_pg.Name }},
-      "item": {{ $bc_pg.Permalink | safeHTML }}
-    }
-    {{- end }}
-
-  {{- end }}
-  {{- /*  self-page addition  */ -}}
-  {{- if (ge (len $bc_list) 2) }}, {{end }}
-    {
-      "@type": "ListItem",
-      "position": {{len $bc_list}},
-      "name": {{ .Name }},
-      "item": {{ .Permalink | safeHTML }}
-    }
-  ]
-}
+{{ dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items | jsonify | safeJS }}
 </script>
 {{- if .IsPage }}
 {{- if .Params.schema_json }}
 {{- /* frontmatter schema wins — emitted by extend_head.html */ -}}
 {{- else if eq .Section "tools" }}
+{{- /* Tool pages: WebApplication, plus FAQPage when the page has a visible
+     FAQ (front matter `faq`, rendered by layouts/tools/single.html). */}}
+{{- $isGame := strings.Contains .RelPermalink "/tools/games/" }}
+{{- $app := dict
+    "@context" "https://schema.org"
+    "@type" "WebApplication"
+    "name" (.Params.app_name | default (.Title | plainify))
+    "description" (.Description | default .Summary | plainify)
+    "url" .Permalink
+    "applicationCategory" (.Params.app_category | default (cond $isGame "GameApplication" "UtilitiesApplication"))
+    "operatingSystem" "Any"
+    "browserRequirements" "Requires JavaScript and a modern browser"
+    "isAccessibleForFree" true
+    "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "EUR")
+    "inLanguage" .Language.Lang
+    "datePublished" (.PublishDate.Format "2006-01-02")
+    "dateModified" (.Lastmod.Format "2006-01-02")
+}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": ["SoftwareApplication", "WebApplication"],
-  "name": {{ .Title | plainify }},
-  "description": {{ with .Description | plainify }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }},
-  "url": {{ .Permalink | safeHTML }},
-  "applicationCategory": {{ if eq .Layout "game" }}"GameApplication"{{ else }}"UtilitiesApplication"{{ end }},
-  "operatingSystem": "Web",
-  "browserRequirements": "Requires JavaScript",
-  "isAccessibleForFree": true,
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "inLanguage": {{ .Language.Lang | default "en-us" }},
-  {{ if .Params.cover.image -}}
-  "image":
-    {{- if (ne .Params.cover.relative true) -}}
-    {{ .Params.cover.image | absURL }},
-    {{- else -}}
-    {{ (path.Join .RelPermalink .Params.cover.image ) | absURL }},
-    {{- end}}
-  {{- else }}
-    {{- $images := partial "templates/_funcs/get-page-images" . -}}
-    {{- with index $images 0 -}}
-  "image": {{ .Permalink }},
-    {{- end }}
-  {{- end -}}
-  "datePublished": {{ .PublishDate }},
-  "dateModified": {{ .Lastmod }},
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": {{ .Permalink | safeHTML }}
-  },
-  "publisher": {
-    "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",
-    "name": {{ site.Title }},
-    "logo": {
-      "@type": "ImageObject",
-      "url": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }}
-    }
-  }
-}
+{{ $app | jsonify | safeJS }}
 </script>
+{{- with .Params.faq }}
+{{- $qs := slice }}
+{{- range . }}
+  {{- $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" (.a | markdownify | plainify | htmlUnescape))) }}
+{{- end }}
+<script type="application/ld+json">
+{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $qs | jsonify | safeJS }}
+</script>
+{{- end }}
 {{- else }}
 <script type="application/ld+json">
 {

@@ -548,13 +548,20 @@ html, body {
     padding-left: 0;
     border-left: none !important;
     display: flex;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 4px 15px;
     font-size: 14px;
+    line-height: 1.6;
 }
 
 .lang-switch li {
     list-style: none;
     display: inline-block;
+    white-space: nowrap; /* never break a language name mid-word */
+}
+
+.lang-switch li a {
+    font-size: 14px;
 }
 
 .lang-switch a {
@@ -576,7 +583,11 @@ html, body {
         padding: 0 8px;
     }
     .lang-switch {
-        gap: 10px;
+        gap: 2px 12px;
+        padding-left: 12px;
+    }
+    .lang-switch li a {
+        font-size: 13px;
     }
 }
 

@@ -1,133 +1,61 @@
 ---
-title: "Hash Generator"
-description: "Generate cryptographic hashes (MD5, SHA-1, SHA-256, SHA-512) using Web Crypto API"
+title: "Hash-Generator: MD5, SHA-256, SHA-512"
+description: "Erzeugen Sie MD5-, SHA-1-, SHA-256- und SHA-512-Hashes beliebiger Texte beim Tippen, mit UTF-8 und Kopieren per Klick. Berechnet im Browser, ohne Upload."
+intro: "Text eingeben oder einfügen und sofort die **MD5-, SHA-1-, SHA-256- und SHA-512-Hashes** erhalten, aktualisiert bei jedem Tastendruck. Die SHA-Familie berechnet die Web Crypto API Ihres Browsers; nichts von Ihrer Eingabe wird übertragen."
 date: 2026-02-03
-tags: ["cryptography", "hash", "security", "tool"]
-layout: "tool-split"
-draft: false
-
-code_language: "python"
-algorithm_code: |
-  import hashlib
-
-  def generate_hash(text, algorithm='sha256'):
-      """
-      Generate cryptographic hash of text
-      Supports: MD5, SHA-1, SHA-256, SHA-512
-      """
-      # Convert text to bytes
-      text_bytes = text.encode('utf-8')
-
-      # Select hash algorithm
-      if algorithm == 'md5':
-          hash_obj = hashlib.md5()
-      elif algorithm == 'sha1':
-          hash_obj = hashlib.sha1()
-      elif algorithm == 'sha256':
-          hash_obj = hashlib.sha256()
-      elif algorithm == 'sha512':
-          hash_obj = hashlib.sha512()
-      else:
-          raise ValueError("Unsupported algorithm")
-
-      # Update hash with data
-      hash_obj.update(text_bytes)
-
-      # Get hexadecimal representation
-      hash_hex = hash_obj.hexdigest()
-
-      return hash_hex
-
-  # Example Usage
-  text = "Hello, World!"
-
-  md5_hash = generate_hash(text, 'md5')
-  # Output: "65a8e27d8879283831b664bd8b7f0ad4"
-
-  sha256_hash = generate_hash(text, 'sha256')
-  # Output: "dffd6021bb2bd5b0af676290809ec3a5..."
-
-  sha512_hash = generate_hash(text, 'sha512')
-  # Output: "374d794a95cdcfd8b35993185fef9ba3..."
-
-explanation: |
-  A **cryptographic hash function** is a mathematical algorithm that maps data of arbitrary size to a fixed-size value (the hash or digest).
-
-  **Key Properties:**
-  - **Deterministic**: Same input always produces same hash
-  - **One-way**: Cannot reverse hash back to original data
-  - **Collision-resistant**: Different inputs rarely produce same hash
-  - **Avalanche effect**: Small input change = completely different hash
-
-  **Common Hash Functions:**
-
-  - **MD5** (128-bit): Fast but **insecure** - vulnerable to collisions. Only use for non-security purposes (checksums)
-  - **SHA-1** (160-bit): **Deprecated** for security. Collision attacks exist
-  - **SHA-256** (256-bit): **Recommended** - Part of SHA-2 family, widely used in Bitcoin, SSL/TLS
-  - **SHA-512** (512-bit): **Most secure** - Stronger variant of SHA-2, used for high-security applications
-
-  **Common Uses:**
-  - Password hashing (with salt + key stretching)
-  - File integrity verification
-  - Digital signatures
-  - Blockchain mining
-  - Data deduplication
-
-  **Security Note:**
-  Never hash passwords with just MD5 or SHA-256 alone! Use proper password hashing functions like Argon2, bcrypt, or PBKDF2 with salt and high iteration counts.
-
-tool_js: "/js/tools/hash.js"
-tool_html: |
-  <div class="tool-input-group">
-    <label for="hash-input">Input Text</label>
-    <textarea id="hash-input" rows="4" placeholder="Enter text to hash..." oninput="generateAllHashes()">Hello, World!</textarea>
-  </div>
-
-  <div class="tool-message info">
-    All hashes are generated in real-time as you type using Web Crypto API
-  </div>
-
-  <div class="tool-output">
-    <label>MD5 (128-bit)</label>
-    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-      <input type="text" id="hash-md5" readonly style="flex: 1; font-family: monospace; font-size: 0.85rem;">
-      <button class="tool-btn secondary" onclick="copyHash('md5')" style="padding: 0.5rem 1rem;">Copy</button>
-    </div>
-  </div>
-
-  <div class="tool-output">
-    <label>SHA-1 (160-bit)</label>
-    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-      <input type="text" id="hash-sha1" readonly style="flex: 1; font-family: monospace; font-size: 0.85rem;">
-      <button class="tool-btn secondary" onclick="copyHash('sha1')" style="padding: 0.5rem 1rem;">Copy</button>
-    </div>
-  </div>
-
-  <div class="tool-output">
-    <label>SHA-256 (256-bit) <span style="color: #10b981;">Recommended</span></label>
-    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-      <input type="text" id="hash-sha256" readonly style="flex: 1; font-family: monospace; font-size: 0.85rem;">
-      <button class="tool-btn secondary" onclick="copyHash('sha256')" style="padding: 0.5rem 1rem;">Copy</button>
-    </div>
-  </div>
-
-  <div class="tool-output">
-    <label>SHA-512 (512-bit)</label>
-    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-      <input type="text" id="hash-sha512" readonly style="flex: 1; font-family: monospace; font-size: 0.85rem;">
-      <button class="tool-btn secondary" onclick="copyHash('sha512')" style="padding: 0.5rem 1rem;">Copy</button>
-    </div>
-  </div>
-
-  <div class="tool-buttons">
-    <button class="tool-btn secondary" onclick="clearHash()">Clear All</button>
-  </div>
-
-  <div id="hash-message"></div>
+lastmod: 2026-10-24
+reviewed: false
+keywords: ["hash generator", "sha256 generator", "md5 generator", "sha512 hash online", "sha1 hash", "text in sha256", "prüfsumme berechnen", "hash rechner online"]
+tags: ["kryptografie", "hash", "entwickler-tools", "tool"]
+app_category: "DeveloperApplication"
+tool_partial: "hash-generator"
+howto:
+  - "Geben Sie Ihren Text in **Eingabetext** ein oder fügen Sie ihn ein. Alle vier Hashes werden bei jedem Tastendruck neu berechnet."
+  - "Lesen Sie das benötigte Ergebnis ab: **MD5** (32 Hex-Zeichen), **SHA-1** (40), **SHA-256** (64) oder **SHA-512** (128)."
+  - "Mit **Kopieren** neben einem Hash legen Sie ihn in die Zwischenablage."
+  - "Zum Vergleich mit einem vorgegebenen Hash fügen Sie beide in einen Editor ein oder vergleichen Zeichen für Zeichen: Ein einziges abweichendes Zeichen bedeutet eine andere Eingabe."
+  - "Mit **Alles leeren** löschen Sie Eingabe und Ergebnisse."
+faq:
+  - q: "Welchen Hash-Algorithmus sollte ich verwenden?"
+    a: "Für Integritätsprüfungen, Fingerprints und neue Systeme SHA-256 (oder SHA-512). MD5 und SHA-1 sind sicherheitstechnisch gebrochen: Es gibt praktische Kollisionsangriffe, sie dürfen also nicht für Signaturen oder Zertifikate verwendet werden. Für Zwecke ohne Sicherheitsanspruch, etwa Cache-Schlüssel oder den Abgleich alter Prüfsummen, taugen sie weiterhin."
+  - q: "Kann ich mit diesem Tool ein Passwort hashen?"
+    a: "Sie können den SHA-256 jeder Zeichenkette berechnen, aber ein einfacher SHA-Hash ist der falsche Weg, Passwörter zu speichern: Er ist auf Geschwindigkeit ausgelegt, Angreifer können Milliarden Versuche pro Sekunde testen. Echte Systeme verwenden eine langsame, gesalzene Passwort-Hash-Funktion wie Argon2id, bcrypt, scrypt oder PBKDF2."
+  - q: "Warum unterscheidet sich mein Hash von dem eines anderen Tools?"
+    a: "Fast immer ist die Eingabe anders. Achten Sie auf einen abschließenden Zeilenumbruch (`echo` fügt einen an; nutzen Sie `echo -n`), Leerzeichen, Windows-Zeilenenden `\\r\\n` oder eine andere Textkodierung. Dieses Tool hasht exakt die Zeichen im Feld, kodiert als UTF-8."
+  - q: "Kann ich eine Datei hashen?"
+    a: "Nicht mit dieser Seite, sie verarbeitet Text. Für Dateien nutzen Sie die Kommandozeile: `sha256sum datei` unter Linux, `shasum -a 256 datei` unter macOS oder `Get-FileHash datei -Algorithm SHA256` in der Windows PowerShell."
+  - q: "Lässt sich ein Hash umkehren oder entschlüsseln?"
+    a: "Nein. Ein Hash ist eine Einwegfunktion: Es gibt keinen Schlüssel und keinen Weg, aus der Ausgabe die Eingabe zu berechnen. Websites, die „MD5 entschlüsseln“, schlagen nur vorberechnete Hashes gängiger Wörter nach – genau deshalb schützt Hashing kurze oder häufige Eingaben nicht."
+  - q: "Wird meine Eingabe an einen Server geschickt?"
+    a: "Nein. SHA-1, SHA-256 und SHA-512 werden mit `crypto.subtle.digest()` berechnet, MD5 mit einer JavaScript-Implementierung, alles innerhalb dieser Seite. Es gibt keine Netzwerkanfragen mit Ihrer Eingabe."
 ---
 
-_Hinweis: Um die technische Genauigkeit zu wahren, wird dieser Inhalt in seiner Originalsprache (Englisch) angezeigt._
+## So funktioniert es
 
----
+Bei jeder Eingabe liest das Tool das Textfeld, wandelt es mit `TextEncoder` in Bytes um (UTF-8, also wird `ä` zu zwei Bytes und ein Emoji zu vier) und führt mit `Promise.all` vier Hash-Funktionen parallel aus:
 
-Generate cryptographic hashes in real-time using the browser's native Web Crypto API. All computations happen client-side - your data never leaves your device.
+- **SHA-1, SHA-256 und SHA-512** laufen über die native **Web Crypto API** des Browsers: `crypto.subtle.digest('SHA-256', bytes)` liefert einen `ArrayBuffer`, der in kleingeschriebenes Hexadezimal umgewandelt wird.
+- **MD5** gehört nicht zu Web Crypto, weil es als gebrochen gilt; es wird deshalb von einer kompakten JavaScript-Implementierung von RFC 1321 auf denselben UTF-8-Bytes berechnet.
+
+Die Ergebnisse sind Hex-Strings, deren Länge der Algorithmus festlegt, egal wie groß die Eingabe ist:
+
+| Algorithmus | Ausgabegröße | Hex-Zeichen | Status |
+|---|---|---|---|
+| MD5 | 128 Bit | 32 | Gebrochen (Kollisionen seit 2004) |
+| SHA-1 | 160 Bit | 40 | Gebrochen (praktische Kollision, 2017) |
+| SHA-256 | 256 Bit | 64 | Sicher, der übliche Standard |
+| SHA-512 | 512 Bit | 128 | Sicher, schneller auf 64-Bit-CPUs |
+
+Zwei Eigenschaften machen diese Funktionen nützlich. Sie sind **deterministisch**: Dieselbe Eingabe ergibt auf jedem Rechner denselben Hash. Und sie haben einen **Lawineneffekt**: Ändert sich ein Zeichen, kippt etwa die Hälfte der Ausgabebits, sodass `Hallo` und `hallo` völlig unterschiedliche SHA-256-Werte haben. Die Schaltflächen `Kopieren` nutzen die Clipboard API mit einem Fallback für ältere Browser.
+
+### Text, keine Dateien
+
+Die Eingabe ist der Text im Feld; die Hashes stimmen mit Kommandozeilen-Tools also nur überein, wenn die Bytes exakt gleich sind. `printf 'Hallo, Welt!' | sha256sum` und dieses Tool stimmen überein, `echo 'Hallo, Welt!' | sha256sum` nicht, weil `echo` einen Zeilenumbruch anhängt.
+
+## Anwendungsfälle
+
+- **Prüfsummen kontrollieren.** Viele Projekte veröffentlichen den SHA-256 eines Release-Strings oder einer kleinen Konfiguration – Text einfügen und vergleichen.
+- **Signaturen und APIs debuggen.** Prüfen Sie den Hash, den eine API für einen Payload erwartet, oder den SHA-256, der in eine AWS Signature V4 oder eine Webhook-Prüfung eingeht.
+- **Cache-Schlüssel und Deduplizierung.** Leiten Sie aus dem Text einer URL, einer Abfrage oder eines Dokuments eine stabile Kennung ab.
+- **Kryptografie lernen.** Beobachten Sie den Lawineneffekt live, vergleichen Sie Digest-Längen und sehen Sie, warum MD5 und SHA-1 für Sicherheit ausgedient haben.
+- **Altdaten abgleichen.** Erzeugen Sie einen MD5- oder SHA-1-Wert nach, den ein altes System gespeichert hat, um ihn auf etwas Stärkeres zu migrieren.

@@ -1,0 +1,32 @@
+{{- /* Base64 encoder/decoder (inline tool). Labels from i18n; logic in
+     static/js/tools/base64.js, which reads its messages from TOOL_STRINGS. */ -}}
+<div class="tool-app">
+  <div class="tool-input-group">
+    <label for="base64-input">{{ i18n "tool_input_text" }}</label>
+    <textarea id="base64-input" rows="5" placeholder="{{ i18n "b64_placeholder" }}">{{ i18n "tool_sample_text" }}</textarea>
+  </div>
+
+  <div class="tool-buttons">
+    <button type="button" class="tool-btn" onclick="encodeBase64()">{{ i18n "b64_encode" }}</button>
+    <button type="button" class="tool-btn secondary" onclick="decodeBase64()">{{ i18n "b64_decode" }}</button>
+    <button type="button" class="tool-btn secondary" onclick="clearBase64()">{{ i18n "tool_clear" }}</button>
+  </div>
+
+  <div class="tool-output">
+    <label for="base64-output">{{ i18n "tool_output" }}</label>
+    <textarea id="base64-output" rows="5" readonly placeholder="{{ i18n "tool_result_placeholder" }}"></textarea>
+    <button type="button" class="copy-btn" onclick="copyBase64Output(event)">{{ i18n "tool_copy" }}</button>
+  </div>
+
+  <div id="base64-message"></div>
+</div>
+<script>
+window.TOOL_STRINGS = {
+  needText: {{ i18n "b64_need_text" }}, encoded: {{ i18n "b64_encoded" }},
+  needB64: {{ i18n "b64_need_b64" }}, decoded: {{ i18n "b64_decoded" }},
+  invalid: {{ i18n "b64_invalid" }}, notText: {{ i18n "b64_not_text" }},
+  nothing: {{ i18n "tool_nothing_to_copy" }}, copied: {{ i18n "tool_copied_msg" }},
+  copiedShort: {{ i18n "tool_copied" }}, copyFailed: {{ i18n "tool_copy_failed" }}
+};
+</script>
+<script src="{{ "js/tools/base64.js" | relURL }}"></script>

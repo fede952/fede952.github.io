@@ -2,7 +2,13 @@
  * Hash Generator Tool - JavaScript Implementation
  * Federico Sella Tech Portal
  * Uses Web Crypto API for SHA algorithms and pure JS for MD5
+ * UI strings come from window.TOOL_STRINGS (set by the Hugo partial).
  */
+
+function T(key, fallback) {
+    var s = window.TOOL_STRINGS && window.TOOL_STRINGS[key];
+    return s || fallback;
+}
 
 /**
  * Generate all hashes in real-time
@@ -30,7 +36,7 @@ async function generateAllHashes() {
         document.getElementById('hash-sha512').value = sha512;
 
     } catch (error) {
-        showHashMessage('Error generating hashes: ' + error.message, 'error');
+        showHashMessage(T('error', 'Could not compute the hashes:') + ' ' + error.message, 'error');
     }
 }
 
@@ -233,7 +239,7 @@ function copyHash(algorithm) {
     const input = document.getElementById(`hash-${algorithm}`);
 
     if (!input.value) {
-        showHashMessage('No hash to copy!', 'error');
+        showHashMessage(T('nothing', 'Nothing to copy yet.'), 'error');
         return;
     }
 
@@ -242,17 +248,17 @@ function copyHash(algorithm) {
     try {
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(input.value).then(() => {
-                showHashMessage(`${algorithm.toUpperCase()} hash copied to clipboard!`, 'success');
+                showHashMessage(`${algorithm.toUpperCase()}: ${T('copied', 'Copied to the clipboard.')}`, 'success');
             }).catch(() => {
                 document.execCommand('copy');
-                showHashMessage(`${algorithm.toUpperCase()} hash copied to clipboard!`, 'success');
+                showHashMessage(`${algorithm.toUpperCase()}: ${T('copied', 'Copied to the clipboard.')}`, 'success');
             });
         } else {
             document.execCommand('copy');
-            showHashMessage(`${algorithm.toUpperCase()} hash copied to clipboard!`, 'success');
+            showHashMessage(`${algorithm.toUpperCase()}: ${T('copied', 'Copied to the clipboard.')}`, 'success');
         }
     } catch (error) {
-        showHashMessage('Failed to copy to clipboard', 'error');
+        showHashMessage(T('copyFailed', 'Could not copy to the clipboard.'), 'error');
     }
 }
 

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/netguard/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NetGuard - Browser Leak & Fingerprint Detector</title>
@@ -63,7 +64,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .score-label{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:2px}
 
 /* Ad Placeholder */
-.ad-unit{min-height:100px;background:#0d0d0d;border:1px dashed var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:2px}
 
 /* WebRTC table */
 .leak-list{list-style:none;padding:0}
@@ -180,7 +180,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 
   </div>
 
-  <div class="ad-unit">Advertisement</div>
 
 </div>
 
@@ -423,20 +422,6 @@ async function runScan(){
 
 $('scanBtn').addEventListener('click',runScan);
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
-    var h=document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight",height:h},"*");
-  }
-  document.documentElement.style.height="auto";
-  document.body.style.height="auto";
-  document.body.style.minHeight="0";
-  window.addEventListener("load",sendHeight);
-  window.addEventListener("resize",sendHeight);
-  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

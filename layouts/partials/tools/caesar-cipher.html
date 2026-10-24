@@ -1,0 +1,36 @@
+{{- /* Caesar cipher (inline tool). Labels from i18n; logic in
+     static/js/tools/caesar.js, which reads its messages from TOOL_STRINGS. */ -}}
+<div class="tool-app">
+  <div class="tool-input-group">
+    <label for="caesar-input">{{ i18n "tool_input_text" }}</label>
+    <textarea id="caesar-input" rows="4" placeholder="{{ i18n "caesar_placeholder" }}">{{ i18n "tool_sample_text" }}</textarea>
+  </div>
+
+  <div class="tool-input-group">
+    <label for="caesar-shift">{{ i18n "caesar_shift" }} <span class="range-value" id="shift-value">3</span></label>
+    <input type="range" id="caesar-shift" min="1" max="25" value="3">
+  </div>
+
+  <div class="tool-buttons">
+    <button type="button" class="tool-btn" onclick="encryptCaesar()">{{ i18n "caesar_encrypt" }}</button>
+    <button type="button" class="tool-btn secondary" onclick="decryptCaesar()">{{ i18n "caesar_decrypt" }}</button>
+    <button type="button" class="tool-btn secondary" onclick="clearCaesar()">{{ i18n "tool_clear" }}</button>
+  </div>
+
+  <div class="tool-output">
+    <label for="caesar-output">{{ i18n "tool_output" }}</label>
+    <textarea id="caesar-output" rows="4" readonly placeholder="{{ i18n "tool_result_placeholder" }}"></textarea>
+    <button type="button" class="copy-btn" onclick="copyCaesarOutput(event)">{{ i18n "tool_copy" }}</button>
+  </div>
+
+  <div id="caesar-message"></div>
+</div>
+<script>
+window.TOOL_STRINGS = {
+  needText: {{ i18n "caesar_need_text" }}, encrypted: {{ i18n "caesar_encrypted" }},
+  decrypted: {{ i18n "caesar_decrypted" }}, nothing: {{ i18n "tool_nothing_to_copy" }},
+  copied: {{ i18n "tool_copied_msg" }}, copiedShort: {{ i18n "tool_copied" }},
+  copyFailed: {{ i18n "tool_copy_failed" }}
+};
+</script>
+<script src="{{ "js/tools/caesar.js" | relURL }}"></script>

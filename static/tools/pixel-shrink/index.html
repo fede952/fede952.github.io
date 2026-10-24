@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/pixel-shrink/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PixelShrink Pro - Privacy-First Image Compressor</title>
@@ -356,15 +357,23 @@ function formatBytes(b) {
    AVIF SUPPORT CHECK
    ═══════════════════════════════════════════ */
 var avifSupported = false;
+/* AVIF is offered only if this browser can ENCODE it. Output goes through
+   canvas.toBlob(), and browsers that can merely decode AVIF silently fall
+   back to PNG there (the result was a huge PNG named .avif). */
 (function checkAvif() {
-  var img = new Image();
-  img.onload = function () { avifSupported = img.width > 0; buildFormatSelect() };
-  img.onerror = function () { avifSupported = false; buildFormatSelect() };
-  img.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKBDgABokyCRAAAAAP+I9ngw==';
+  try {
+    var c = document.createElement('canvas');
+    c.width = c.height = 2;
+    c.toBlob(function (b) {
+      avifSupported = !!b && b.type === 'image/avif';
+      buildFormatSelect();
+    }, 'image/avif', 0.5);
+  } catch (e) { avifSupported = false; buildFormatSelect(); }
 })();
 
 function buildFormatSelect() {
   var sel = $('formatSelect');
+  var current = sel.value;
   sel.innerHTML = '';
   var formats = [
     { value: 'keep', label: T.optKeep },
@@ -381,6 +390,7 @@ function buildFormatSelect() {
     opt.textContent = f.label;
     sel.appendChild(opt);
   });
+  if (current && sel.querySelector('option[value="' + current + '"]')) sel.value = current;
 }
 
 /* ═══════════════════════════════════════════
@@ -531,7 +541,20 @@ $('compressBtn').addEventListener('click', async function () {
     dlBtn.download = dlName;
     dlBtn.classList.add('visible');
 
-    setStatus(T.done);
+    if (compSize >= origSize) {
+      /* e.g. a photo re-encoded as lossless PNG: say so instead of "0% saved" */
+      var LARGER = {
+        en: 'The result is not smaller than the original. Keep your original file, or try WebP or JPEG.',
+        it: "Il risultato non è più piccolo dell'originale. Tieni il file originale oppure prova WebP o JPEG.",
+        es: 'El resultado no es más pequeño que el original. Conserva tu archivo original o prueba WebP o JPEG.',
+        fr: "Le résultat n'est pas plus léger que l'original. Gardez votre fichier d'origine ou essayez WebP ou JPEG.",
+        de: 'Das Ergebnis ist nicht kleiner als das Original. Behalten Sie die Originaldatei oder versuchen Sie WebP oder JPEG.',
+        pt: 'O resultado não ficou menor que o original. Mantenha o arquivo original ou tente WebP ou JPEG.'
+      };
+      setStatus(LARGER[curLang] || LARGER.en);
+    } else {
+      setStatus(T.done);
+    }
   } catch (e) {
     setStatus('Error: ' + e.message);
   }
@@ -540,20 +563,6 @@ $('compressBtn').addEventListener('click', async function () {
   btn.disabled = false;
 });
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function () {
-  function sendHeight() {
-    var h = document.body.scrollHeight;
-    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
-  }
-  document.documentElement.style.height = 'auto';
-  document.body.style.height = 'auto';
-  document.body.style.minHeight = '0';
-  window.addEventListener('load', sendHeight);
-  window.addEventListener('resize', sendHeight);
-  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

@@ -35,3 +35,113 @@ ad_label:
 
 partner_label:
   other: "Partner"
+tool_howto:
+  other: "Come si usa"
+tool_faq:
+  other: "Domande frequenti"
+related_guides:
+  other: "Guide correlate"
+pg_placeholder:
+  other: "La tua password sicura"
+pg_copy:
+  other: "Copia negli appunti"
+pg_length:
+  other: "Lunghezza"
+pg_generate:
+  other: "Genera password"
+pg_note:
+  other: "Generata in locale con crypto.getRandomValues(). Nulla lascia il tuo browser."
+pg_weak:
+  other: "Debole"
+pg_good:
+  other: "Buona"
+pg_strong:
+  other: "Forte"
+pg_bits:
+  other: "bit di entropia"
+pg_copied:
+  other: "Copiata!"
+tool_input_text:
+  other: "Testo di input"
+tool_output:
+  other: "Risultato"
+tool_copy:
+  other: "Copia"
+tool_copied:
+  other: "Copiato!"
+tool_clear:
+  other: "Cancella"
+tool_clear_all:
+  other: "Cancella tutto"
+tool_result_placeholder:
+  other: "Il risultato apparirà qui…"
+tool_nothing_to_copy:
+  other: "Ancora niente da copiare."
+tool_copy_failed:
+  other: "Impossibile copiare negli appunti."
+tool_copied_msg:
+  other: "Copiato negli appunti."
+tool_sample_text:
+  other: "Ciao, Mondo!"
+hash_placeholder:
+  other: "Scrivi o incolla il testo da trasformare in hash…"
+hash_note:
+  other: "Gli hash si aggiornano mentre scrivi: SHA-1, SHA-256 e SHA-512 usano la Web Crypto API, MD5 un’implementazione JavaScript. Non viene caricato nulla."
+hash_recommended:
+  other: "Consigliato"
+hash_insecure:
+  other: "Non per la sicurezza"
+hash_error:
+  other: "Impossibile calcolare gli hash:"
+b64_placeholder:
+  other: "Testo da codificare o stringa Base64 da decodificare…"
+b64_encode:
+  other: "Codifica in Base64"
+b64_decode:
+  other: "Decodifica da Base64"
+b64_need_text:
+  other: "Inserisci del testo da codificare."
+b64_encoded:
+  other: "Codificato in Base64 (UTF-8)."
+b64_need_b64:
+  other: "Inserisci una stringa Base64 da decodificare."
+b64_decoded:
+  other: "Decodificato da Base64."
+b64_invalid:
+  other: "Non è Base64 né Base64URL valido. Controlla se mancano o avanzano caratteri."
+b64_not_text:
+  other: "Decodificato, ma i byte non sono testo UTF-8 valido (probabilmente dati binari)."
+caesar_placeholder:
+  other: "Scrivi qui il tuo testo…"
+caesar_shift:
+  other: "Chiave di spostamento"
+caesar_encrypt:
+  other: "Cifra"
+caesar_decrypt:
+  other: "Decifra"
+caesar_need_text:
+  other: "Inserisci prima del testo."
+caesar_encrypted:
+  other: "Testo cifrato."
+caesar_decrypted:
+  other: "Testo decifrato."
+chmod_read:
+  other: "Lettura"
+chmod_write:
+  other: "Scrittura"
+chmod_execute:
+  other: "Esecuzione"
+chmod_owner:
+  other: "Proprietario (u)"
+chmod_group:
+  other: "Gruppo (g)"
+chmod_others:
+  other: "Altri (o)"
+chmod_filename:
+  other: "Nome del file:"
+chmod_copy:
+  other: "Copia comando"
+chmod_copied:
+  other: "Copiato!"
+chmod_presets:
+  other: "Preset rapidi:"
