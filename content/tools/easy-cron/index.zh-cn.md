@@ -12,6 +12,5 @@ Unix 的 cron 语法由五个空格分隔的字段组成，分别控制**分钟�
 
 EasyCron 消除了猜测。**可视化构建器**允许你通过复选框和快速选择器来选取精确值，而不必编写原始表达式。**置顶结果栏**实时显示生成的 cron 字符串及接下来五次计划运行日期，让你即时验证调度安排。需要解读别人的 crontab？**反向翻译器**接受任何标准五字段表达式并以通俗英语进行解释。整个工具完全在客户端运行——没有任何数据发送到服务器。
 
-{{< ad-banner >}}
 
 <iframe src="/tools/easy-cron/index.html" width="100%" height="800px" style="border:none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);"></iframe>

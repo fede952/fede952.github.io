@@ -1,4 +1,5 @@
 {{- define "main" }}
+{{- $ads := partial "ads/enabled.html" . }}
 {{- /* .Params.schema_json is emitted by extend_head.html for every page —
      emitting it here as well produced a duplicate JSON-LD block. */}}
 
@@ -14,6 +15,7 @@
     </div>
     {{- end }}
   </header>
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
 
   {{- if .Params.tool_file }}
   <div class="tool-interactive">
@@ -26,12 +28,13 @@
     </iframe>
   </div>
   {{- end }}
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_after") }}{{ end }}
 
   {{- if .Content }}
   <div class="tool-description post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    {{- partial "ads/inject-content.html" (dict "page" . "content" (partial "anchored_headings.html" .Content) "at" (slice 3)) -}}
+    {{- else }}{{ partial "ads/inject-content.html" (dict "page" . "content" .Content "at" (slice 3)) }}{{ end }}
   </div>
   {{- end }}
 

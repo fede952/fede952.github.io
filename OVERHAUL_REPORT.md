@@ -32,3 +32,45 @@ Pages per language:
 | EN | IT | ES | ZH-CN | HI | AR | PT | FR | DE | JA | RU | KO |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 2341 | 2648 | 947 | 956 | 942 | 954 | 948 | 948 | 946 | 955 | 949 | 923 |
+
+## Phase 1 — Ad serving fix
+
+**Root cause confirmed.** Playwright pass over the *baseline* build (old meta CSP), 42 pages
+(home + 3 tools + 3 learn × EN/IT/ES/DE/FR/PT): **684 CSP violations**. Blocked hosts:
+
+| Host | Violations | Effect |
+|---|---|---|
+| `pagead2.googlesyndication.com` (connect/frame) | 180 | AdSense requests/creatives blocked |
+| `ep1.adtrafficquality.google` | 84 | AdSense traffic-quality beacon blocked → unfilled/invalid impressions |
+| `region1.google-analytics.com` | 210 | GA4 hits blocked |
+| `gateway.umami.is` | 126 | **Umami analytics was broken too** (new endpoint not in connect-src) |
+| `federicosella.com` (absolute script URL, a localhost-testing artefact) | 84 | n/a in production |
+
+Same pass on the new build: **0 CSP violations, 0 uncaught JS errors, 0 console errors, 42/42 HTTP 200.**
+
+Changes:
+- Meta CSP is now `upgrade-insecure-requests; object-src 'none'; base-uri 'self'; form-action 'self'` — no host allowlists.
+- **Deleted:** `layouts/partials/adblock-detector.html`, `assets/css/extended/adblock-detector.css`,
+  `static/js/ads.js` (adblock bait file, unreferenced), i18n keys `adblock_message` / `adblock_dismiss` (12 files).
+- **Config-driven ad units** (`[params.ads]` in hugo.toml; empty slot → `slot_default`):
+  - `partials/ads/enabled.html` — allowlist: only single pages in `tools` (incl. games) and `learn`; `noads: true` opts out.
+    Home, section lists, about, contact, privacy, cookies, stack, links, projects and 404 never get units.
+  - `partials/ads/unit.html` — one responsive unit with the CLS-safe reserved-height `.ad-slot` container; takes `position`.
+  - `partials/ads/inject-content.html` — learn pages: `article_mid` auto-injected before the 2nd and 5th `<h2>`
+    (= end of the 1st and 4th sections) when they exist.
+  - `{{< ad-banner position="…" >}}` shortcode now wraps the partial and respects the allowlist.
+  - Tool pages: `tool_top` below H1 + intro, `tool_after` right after the tool, `article_mid` before the 3rd `<h2>` of the
+    long-form text (max 3). Applied to all 4 tool templates (tools/single, tool, tool-split, game).
+  - Removed the manual `{{< ad-banner >}}` calls from easy-cron, freelance-calculator, netguard, pass-fort, pixel-shrink,
+    reflex-grid (66 files) — they duplicated `tool_top`. News articles keep theirs until Phase 2 deletes them (they render
+    nothing now, since news isn't in the allowlist).
+- The AdSense loader now loads on every page except 404, including About (it used to be skipped there). Reason: Google's CMP is
+  injected by adsbygoogle.js, so the footer "Cookie Settings" reopen link only works where the loader is present. If
+  **Auto ads** is on in AdSense, exclude `/*/about/`, `/*/privacy/`, `/*/cookies/`, `/*/contact/` there, or keep Auto ads off.
+- **GA4 removed:** `[services.googleAnalytics]`, `layouts/partials/google_analytics.html` (the gtag + Consent Mode default
+  block existed only for GA4). Umami (cookieless) kept. Footer "Cookie Settings" link no longer depends on gtag: it pre-creates
+  `googlefc.callbackQueue` and queues `showRevocationMessage()`, so it also works when clicked before the CMP has loaded.
+- **Fonts self-hosted:** JetBrains Mono variable woff2 (latin 31 KB + latin-ext 12 KB, weights 400–700 in one file),
+  `font-display: swap`, latin file preloaded, OFL licence included. Google Fonts `<link>` and both preconnects removed.
+- Also fixed: `_default/single.html` rendered a nested `<main>` inside baseof's `<main>`, and had a dead
+  "OPEN FULL SCREEN MODE" block for tools/games (those sections never use that template).

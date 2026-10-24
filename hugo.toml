@@ -44,11 +44,6 @@ defaultContentLanguageInSubdir = true
   priority = 0.5
   filename = "sitemap.xml"
 
-# Google Analytics 4
-[services]
-  [services.googleAnalytics]
-    ID = 'G-MDQF90PHTW'
-
 [params]
   mainSections = ["news", "tools", "learn"]
   defaultTheme = "dark"
@@ -76,6 +71,16 @@ defaultContentLanguageInSubdir = true
     "/tools/exif-cleaner",
     "/tools/netguard",
   ]
+
+  # AdSense (config-driven units: partials/ads/unit.html). An empty
+  # slot_<position> falls back to slot_default. Create one display unit per
+  # position in AdSense → Ads → By ad unit and paste the numeric IDs here.
+  [params.ads]
+    client = "ca-pub-7359888124148067"
+    slot_default = "5511096259"
+    slot_tool_top = ""      # TODO Federico: create unit in AdSense
+    slot_tool_after = ""    # TODO
+    slot_article_mid = ""   # TODO
 
   [params.assets]
     favicon = "/favicon.png"

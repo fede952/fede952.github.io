@@ -1,4 +1,5 @@
 {{- define "main" }}
+{{- $ads := partial "ads/enabled.html" . }}
 
 <article class="post-single game-page">
   <header class="post-header">
@@ -12,6 +13,7 @@
     </div>
     {{- end }}
   </header>
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
 
   <div class="game-description post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
@@ -30,6 +32,7 @@
     </iframe>
   </div>
   {{- end }}
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_after") }}{{ end }}
 
   <footer class="post-footer">
     {{- if .Params.tags }}

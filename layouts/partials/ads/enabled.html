@@ -1,0 +1,7 @@
+{{- /* Returns true when the page may carry manual ad units.
+     Allowlist, not denylist: only single pages in the money sections
+     (tools — including games — and learn). Home, section lists, About,
+     Contact, Privacy, Cookies, Stack, Links, Projects and 404 never match.
+     A page can opt out with `noads: true` in front matter. */ -}}
+{{- $on := and (eq .Kind "page") (in (slice "tools" "learn") .Section) (not .Params.noads) -}}
+{{- return $on -}}

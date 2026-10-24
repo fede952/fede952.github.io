@@ -5,31 +5,20 @@
   {{- end }}
 {{- end }}
 
-<!-- Content Security Policy - allow AdSense, Analytics, Cloudflare, Google Fonts -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://adservice.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://fundingchoicesmessages.google.com https://cloud.umami.is;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: blob: https:;
-  font-src 'self' https://fonts.gstatic.com;
-  connect-src 'self' https://pagead2.googlesyndication.com https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://adservice.google.com https://fundingchoicesmessages.google.com https://ipwho.is https://cloud.umami.is;
-  frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com;
-">
+{{- /* Minimal, non-breaking CSP. Deliberately NO host allowlists: AdSense
+     serves creatives from rotating hosts (*.safeframe.googlesyndication.com,
+     *.adtrafficquality.google, *.doubleclick.net, ...) and the old allowlist
+     was silently blocking them (~12% impressions per pageview). The full
+     security headers live in static/_headers (Cloudflare Pages). */}}
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; object-src 'none'; base-uri 'self'; form-action 'self'">
 
-{{/* Page-class flags used to gate third-party scripts.
-     - $is404:   the 404 error page (Hugo .Kind "404")
-     - $isAbout: personal portfolio About page (any language)
-     Tool/game singles intentionally load AdSense (P2.4): they are the
-     highest-traffic pages and carry manual ad units. */}}
-{{- $is404 := eq .Kind "404" -}}
-{{/* About is a leaf bundle at content/about/index.<lang>.md, so .Section is empty.
-     Detect it via the layout frontmatter the bundle sets. */}}
-{{- $isAbout := or (eq .Layout "about") (eq .Section "about") -}}
-{{- $skipAds := or $is404 $isAbout -}}
-
-<!-- Google AdSense -->
-{{- if not $skipAds }}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7359888124148067"
+{{- /* Google AdSense loader. Loaded on every page except 404 — not only where
+     manual units render — because Google's consent message (CMP, "Privacy &
+     messaging") is injected by adsbygoogle.js and the footer "Cookie
+     Settings" link must be able to reopen it on any page. Where units may
+     appear is decided by partials/ads/enabled.html. */}}
+{{- if ne .Kind "404" }}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.Params.ads.client }}"
      crossorigin="anonymous"></script>
 {{- end }}
 
@@ -57,12 +46,10 @@ if ('serviceWorker' in navigator) {
 </script>
 {{- end }}
 
-<!-- Umami Analytics (production only, never on 404) -->
-{{ if and hugo.IsProduction (not $is404) }}
+<!-- Umami Analytics: cookieless (production only, never on 404) -->
+{{ if and hugo.IsProduction (ne .Kind "404") }}
 <script defer src="https://cloud.umami.is/script.js" data-website-id="6ce4a218-111c-44d9-99f8-1aa67f2ff23d"></script>
 {{ end }}
 
-<!-- Cyber Fonts - JetBrains Mono -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- JetBrains Mono, self-hosted (assets/css/extended/fonts.css) -->
+<link rel="preload" href="/fonts/jetbrains-mono/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>

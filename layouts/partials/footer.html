@@ -39,9 +39,11 @@
         {{ with site.GetPage "/cookies" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ with site.GetPage "/contact" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{- /* Reopens Google's "Privacy & messaging" consent banner (TCF
-             revocation). Guarded so it is a silent no-op until the CMP is
+             revocation). googlefc is created by adsbygoogle.js's CMP (no gtag
+             needed); the queue is pre-created so a click made before the CMP
+             finishes loading is still honoured. Silent no-op until the CMP is
              activated in the AdSense dashboard. */}}
-        <li><a href="#" class="site-footer-cookie-settings" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);}return false;">{{ i18n "cookie_settings" | default "Cookie Settings" }}</a></li>
+        <li><a href="#" class="site-footer-cookie-settings" onclick="window.googlefc=window.googlefc||{};googlefc.callbackQueue=googlefc.callbackQueue||[];googlefc.callbackQueue.push(function(){googlefc.showRevocationMessage();});return false;">{{ i18n "cookie_settings" | default "Cookie Settings" }}</a></li>
       </ul>
     </div>
 

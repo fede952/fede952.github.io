@@ -1,4 +1,5 @@
 {{- define "main" }}
+{{- $ads := partial "ads/enabled.html" . }}
 
 <article class="post-single">
   <header class="post-header">
@@ -28,6 +29,7 @@
     </div>
     {{- end }}
   </header>
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
   {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
   {{- if (.Param "ShowToc") }}
@@ -35,10 +37,22 @@
   {{- end }}
 
   {{- if .Content }}
+  {{- $html := .Content }}
+  {{- if not (.Param "disableAnchoredHeadings") }}{{ $html = partial "anchored_headings.html" .Content }}{{ end }}
+  {{- /* The tool iframe is embedded in the markdown: tool_after goes right
+       after the first </iframe>, or after the content when the tool is a
+       shortcode (password-generator). article_mid before the 3rd <h2>. */}}
+  {{- if $ads }}
+    {{- $afterAd := partial "ads/unit.html" (dict "position" "tool_after") }}
+    {{- if strings.Contains $html "</iframe>" }}
+      {{- $html = replaceRE `</iframe>` (printf "</iframe>%s" $afterAd) $html 1 }}
+      {{- $html = partial "ads/inject-content.html" (dict "page" . "content" $html "at" (slice 3)) }}
+    {{- else }}
+      {{- $html = printf "%s%s" $html $afterAd }}
+    {{- end }}
+  {{- end }}
   <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    {{ $html | safeHTML }}
   </div>
   {{- end }}
 
