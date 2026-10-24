@@ -55,23 +55,4 @@
 </section>
 {{- end }}
 
-{{/* ── RECENT NEWS ── minimal strip; the news firehose stays on /news/. */}}
-{{- $news := first 5 (where site.RegularPages "Section" "news").ByDate.Reverse }}
-{{- if $news }}
-<section class="home-section">
-  <div class="home-section-head">
-    <h2>{{ i18n "home_recent_news" | default "Recent News" }}</h2>
-    {{ with site.GetPage "/news" }}<a class="home-section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>{{ end }}
-  </div>
-  <ul class="home-news-list">
-    {{- range $news }}
-    <li>
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
-    </li>
-    {{- end }}
-  </ul>
-</section>
-{{- end }}
-
 {{- end }}{{- /* end main */ -}}

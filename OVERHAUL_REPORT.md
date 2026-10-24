@@ -74,3 +74,21 @@ Changes:
   `font-display: swap`, latin file preloaded, OFL licence included. Google Fonts `<link>` and both preconnects removed.
 - Also fixed: `_default/single.html` rendered a nested `<main>` inside baseof's `<main>`, and had a dead
   "OPEN FULL SCREEN MODE" block for tools/games (those sections never use that template).
+
+## Phase 2 — Automated news system removed
+
+- **Deleted 9,728 tracked files**: 9,719 under `content/news/` (EN + 11 translations of every story, the section `_index.*`
+  and `welcome-to-news.*`), plus `layouts/news/single.html`, `layouts/_default/news.html`, `layouts/partials/news-card.html`,
+  shortcodes `cyber-report` and `netrunner-insight` (news-only), `scripts/fetch_news.py`, `scripts/.news_cache.json`,
+  `scripts/requirements.txt` (only served fetch_news.py) and `.github/workflows/daily_news.yml`.
+- Kept `layouts/_default/force-list.html`: it is also the layout of `/tools/` and `/tools/games/`; only its news branch was removed
+  (same for `_default/list.html`).
+- hugo.toml: `news` permalink, `news-categories` taxonomy and its `[related]` index removed; `[related]` kept (tags + date) because
+  `partials/related-tools.html` uses `.Related`. `news` dropped from `mainSections` and from all 12 menus.
+- Removed: home-page "Recent News" strip (+ its CSS), footer News link, `.news-card` / `.news-source` CSS,
+  i18n key `home_recent_news` (12 files). Orphan i18n check after the cut: 0 orphaned keys.
+- Search index and sitemap are generated from `site.RegularPages` / `.Data.Pages`, so news simply disappears from both.
+- **Redirects:** `aliases: ["/news/"]` on every `content/learn/_index.*` → `/<lang>/news/` is a canonical meta-refresh to
+  `/<lang>/learn/`. Deep news URLs (`/<lang>/news/2026/…`, `/news/…`) are caught by a small script in `static/404.html`
+  (GitHub Pages has no server redirects); on Cloudflare `_redirects` does it with a real 301 (Phase 8).
+- Build: 14,457 → ~4,600 pages, 162 s → 20 s.

@@ -2,8 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{- range .Data.Pages }}
-  {{- /* Pages noindexed via robotsNoIndex (all news articles, cascaded from
-       content/news/_index.*) must not be advertised to crawlers here. */}}
+  {{- /* Pages noindexed via robotsNoIndex must not be advertised here. */}}
   {{- if not .Params.robotsNoIndex }}
   <url>
     <loc>{{ .Permalink }}</loc>

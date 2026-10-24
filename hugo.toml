@@ -9,21 +9,14 @@ defaultContentLanguageInSubdir = true
 # Fondamentale per evitare conflitti URL
 [permalinks]
   posts = "/:year/:month/:title/"
-  # :slugorcontentbasename — slug front matter if set, else the ASCII English
-  # content filename (shared by all 12 translations). The previous :slug token
-  # fell back to the LOCALIZED TITLE, so Devanagari/Arabic/CJK titles (3 bytes
-  # per char in UTF-8) produced output directories over ext4's 255-byte
-  # filename limit and crashed the Ubuntu CI build ("file name too long").
-  news = "/news/:year/:month/:slugorcontentbasename/"
 
 # Taxonomies per categorizzazione contenuti
 [taxonomies]
   category = "categories"
   tag = "tags"
-  news-category = "news-categories"
 
 # Related-content config: powers Hugo's `.Related` function used by
-# news/single.html's "Related Posts" block.
+# partials/related-tools.html (tool -> tool cards, ranked by shared tags).
 [related]
   threshold = 60
   toLower = true
@@ -31,9 +24,6 @@ defaultContentLanguageInSubdir = true
   [[related.indices]]
     name = "tags"
     weight = 100
-  [[related.indices]]
-    name = "news-categories"
-    weight = 80
   [[related.indices]]
     name = "date"
     weight = 10
@@ -45,7 +35,7 @@ defaultContentLanguageInSubdir = true
   filename = "sitemap.xml"
 
 [params]
-  mainSections = ["news", "tools", "learn"]
+  mainSections = ["tools", "learn"]
   defaultTheme = "dark"
   # Dark-only platform (P4.2): every custom component (cards, accordions,
   # games, search palette) is designed on dark surfaces; light mode was
@@ -127,11 +117,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.en.menu.main]]
-        identifier = "news"
-        name = "Tech News"
-        url = "/news/"
-        weight = 15
-      [[languages.en.menu.main]]
         identifier = "learn"
         name = "Learn"
         url = "/learn/"
@@ -159,11 +144,6 @@ defaultContentLanguageInSubdir = true
         name = "Chi Sono"
         url = "/about/"
         weight = 10
-      [[languages.it.menu.main]]
-        identifier = "news"
-        name = "Tech News"
-        url = "/news/"
-        weight = 15
       [[languages.it.menu.main]]
         identifier = "learn"
         name = "Impara"
@@ -193,11 +173,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.es.menu.main]]
-        identifier = "news"
-        name = "Noticias Tech"
-        url = "/news/"
-        weight = 15
-      [[languages.es.menu.main]]
         identifier = "learn"
         name = "Aprender"
         url = "/learn/"
@@ -226,11 +201,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.zh-cn.menu.main]]
-        identifier = "news"
-        name = "科技新闻"
-        url = "/news/"
-        weight = 15
-      [[languages.zh-cn.menu.main]]
         identifier = "learn"
         name = "学习"
         url = "/learn/"
@@ -258,11 +228,6 @@ defaultContentLanguageInSubdir = true
         name = "मेरे बारे में"
         url = "/about/"
         weight = 10
-      [[languages.hi.menu.main]]
-        identifier = "news"
-        name = "टेक न्यूज़"
-        url = "/news/"
-        weight = 15
       [[languages.hi.menu.main]]
         identifier = "learn"
         name = "सीखें"
@@ -293,11 +258,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.ar.menu.main]]
-        identifier = "news"
-        name = "أخبار التقنية"
-        url = "/news/"
-        weight = 15
-      [[languages.ar.menu.main]]
         identifier = "learn"
         name = "تعلم"
         url = "/learn/"
@@ -325,11 +285,6 @@ defaultContentLanguageInSubdir = true
         name = "Sobre Mim"
         url = "/about/"
         weight = 10
-      [[languages.pt.menu.main]]
-        identifier = "news"
-        name = "Notícias Tech"
-        url = "/news/"
-        weight = 15
       [[languages.pt.menu.main]]
         identifier = "learn"
         name = "Aprender"
@@ -359,11 +314,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.fr.menu.main]]
-        identifier = "news"
-        name = "Actualités Tech"
-        url = "/news/"
-        weight = 15
-      [[languages.fr.menu.main]]
         identifier = "learn"
         name = "Apprendre"
         url = "/learn/"
@@ -391,11 +341,6 @@ defaultContentLanguageInSubdir = true
         name = "Über Mich"
         url = "/about/"
         weight = 10
-      [[languages.de.menu.main]]
-        identifier = "news"
-        name = "Tech News"
-        url = "/news/"
-        weight = 15
       [[languages.de.menu.main]]
         identifier = "learn"
         name = "Lernen"
@@ -425,11 +370,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.ja.menu.main]]
-        identifier = "news"
-        name = "テックニュース"
-        url = "/news/"
-        weight = 15
-      [[languages.ja.menu.main]]
         identifier = "learn"
         name = "学ぶ"
         url = "/learn/"
@@ -458,11 +398,6 @@ defaultContentLanguageInSubdir = true
         url = "/about/"
         weight = 10
       [[languages.ru.menu.main]]
-        identifier = "news"
-        name = "Новости"
-        url = "/news/"
-        weight = 15
-      [[languages.ru.menu.main]]
         identifier = "learn"
         name = "Учиться"
         url = "/learn/"
@@ -490,11 +425,6 @@ defaultContentLanguageInSubdir = true
         name = "소개"
         url = "/about/"
         weight = 10
-      [[languages.ko.menu.main]]
-        identifier = "news"
-        name = "기술 뉴스"
-        url = "/news/"
-        weight = 15
       [[languages.ko.menu.main]]
         identifier = "learn"
         name = "배우기"

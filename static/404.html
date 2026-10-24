@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+    // Legacy-URL recovery for GitHub Pages, which has no server-side
+    // redirects (Cloudflare Pages uses static/_redirects instead): any URL
+    // under the removed news section lands on that language's Learn hub.
+    (function () {
+        var p = location.pathname, m;
+        if ((m = p.match(/^\/(en|it|es|de|fr|pt)\/news(\/|$)/))) { location.replace('/' + m[1] + '/learn/'); return; }
+        if (/^\/news(\/|$)/.test(p)) { location.replace('/en/learn/'); }
+    })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - System Failure</title>
