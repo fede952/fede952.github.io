@@ -8,7 +8,7 @@ footer_connect:
 cookie_settings:
   other: "Cookie-Einstellungen"
 footer_tagline:
-  other: "Alle Tools laufen zu 100 % lokal in Ihrem Browser — Ihre Daten verlassen niemals Ihr Gerät."
+  other: "Alle Tools verarbeiten Ihre Daten lokal im Browser — nichts, was Sie eingeben, wird hochgeladen."
 
 related_tools:
   other: "Weitere kostenlose Tools"
@@ -16,7 +16,7 @@ related_tools:
 hero_title:
   other: "Kostenlose, datenschutzfreundliche Web-Tools"
 hero_subtitle:
-  other: "Keine Server. Kein Tracking. Kein Ballast. Alles läuft zu 100 % in deinem Browser."
+  other: "Keine Anmeldung. Keine Uploads. Kein Ballast. Alles, was Sie eingeben, wird direkt in Ihrem Browser verarbeitet."
 hero_search_label:
   other: "Tools, Guides, Cheatsheets durchsuchen…"
 home_featured_tools:

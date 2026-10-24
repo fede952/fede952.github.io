@@ -3,131 +3,93 @@
 # Federico Sella
 ### Privacy-First Web Utilities
 
-![Hugo](https://img.shields.io/badge/Hugo-Framework-ff4088?style=for-the-badge&logo=hugo&logoColor=white)
+![Hugo](https://img.shields.io/badge/Hugo-0.168-ff4088?style=for-the-badge&logo=hugo&logoColor=white)
 ![Vanilla JS](https://img.shields.io/badge/JS-ES6+-f7df1e?style=for-the-badge&logo=javascript&logoColor=black)
-![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-00c853?style=for-the-badge&logo=shield&logoColor=white)
+![Local processing](https://img.shields.io/badge/Tools-Local%20processing-00c853?style=for-the-badge&logo=shield&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-2196f3?style=for-the-badge)
 
-![Build Status](https://github.com/fede952/fede952.github.io/actions/workflows/hugo.yaml/badge.svg)
+![Build Status](https://github.com/fede952/fede952.github.io/actions/workflows/production.yaml/badge.svg)
 
 ---
 
-**A collection of high-performance, browser-based tools designed for privacy and speed.**
-**No servers. No tracking. No bloat.**
+**Browser-based security and developer tools, plus practical guides and cheatsheets.**
 
-<br>
-
-[**View Live Demo**](https://federicosella.com/)
+[**federicosella.com**](https://federicosella.com/)
 
 </div>
 
 ---
 
-## Key Features
+## Privacy, honestly
 
-- **Global** — Translated into **12 languages**: EN, IT, ES, FR, DE, PT, RU, JA, KO, ZH, AR, HI
-- **Lightweight** — Built with Hugo + Pure JavaScript. No React, no Angular, no framework overhead
-- **Secure** — All processing (image compression, password auditing, fingerprint detection) happens in the browser via Web APIs and JS libraries. Nothing leaves your device
+- **The tools process everything locally in your browser. Nothing you enter is uploaded**: no passwords, files, images,
+  tokens or text ever reach a server. You can check this in your browser's Network tab. The one deliberate exception is
+  NetGuard, which asks `ipwho.is` for your public IP (that is the point of the tool).
+- **The site itself is funded by Google AdSense**, with Google's certified consent management (IAB TCF) for EEA/UK/CH
+  visitors, and it uses **cookieless [Umami](https://umami.is/) analytics**. There is no Google Analytics.
+- Some tool pages carry clearly labelled **affiliate links** (`rel="sponsored"`).
+- Fonts and JS libraries are self-hosted. No Google Fonts, no public CDN.
 
----
+Details: [Privacy Policy](https://federicosella.com/en/privacy/) · [Cookie Policy](https://federicosella.com/en/cookies/)
 
-## The Tools
+## Languages
 
-| Tool | Description | Tech |
-|:-----|:------------|:-----|
-| **NetGuard** | IP leak detector, WebRTC exposure test, GPU fingerprint scanner, Privacy Score (0-100). Includes VPN partner deals. | Fetch API, RTCPeerConnection, WebGL |
-| **PixelShrink Pro** | Client-side image compressor with AVIF/WebP/PNG/JPEG support, quality slider, max file size and resolution controls. 9-language UI. | browser-image-compression.js |
-| **PassFort** | Entropy-based password auditor with brute-force crack time estimator, passphrase generator, and strength scoring. | Web Crypto API |
-| **ReflexGrid** | Cyberpunk aim trainer and reaction time test. 60-second sessions with accuracy and speed tracking. Built for FPS gamers. | Canvas API, requestAnimationFrame |
-| **RateMate** | Freelance hourly rate calculator with tax, expense, and billable hours modeling. | Reactive DOM |
-| **EasyCron** | Visual cron job builder with schedule explainer and next-run calculator. | Custom parser |
-| **GlitchForge** | Glitch art generator with RGB shift, pixel sorting, and scanline effects. | Canvas pixel manipulation |
-| **ZenFocus** | Ambient noise mixer and Pomodoro timer with rain, white noise, and brown noise channels. | Web Audio API |
-| **Hash Generator** | MD5, SHA-1, SHA-256, SHA-512 hash generator. | Web Crypto API |
-| **Base64** | Encode and decode text with full UTF-8 support. | btoa/atob + TextEncoder |
-| **Caesar Cipher** | Classic shift cipher with configurable key. | String manipulation |
+EN · IT · ES · DE · FR · PT
 
----
+## The tools
 
-## Why This Exists
+| Tool | What it does | Under the hood |
+|:-----|:-------------|:---------------|
+| **PassFort** | Password & passphrase generator + strength auditor with crack-time estimate | Web Crypto API (`crypto.getRandomValues`) |
+| **Password Generator** | Quick secure password generator | Web Crypto API |
+| **PixelShrink** | Image compressor (AVIF/WebP/PNG/JPEG), quality / size / resolution controls | browser-image-compression (Web Worker) |
+| **QR Generator** | QR codes from any URL or text, PNG download | qrcode-generator + Canvas |
+| **EXIF Cleaner** | Shows and strips photo metadata (GPS, camera, timestamps) | exif-js + Canvas re-encode |
+| **NetGuard** | Public IP, WebRTC leak and GPU fingerprint check, privacy score | ipwho.is, RTCPeerConnection, WebGL |
+| **GhostPrint** | Browser-fingerprint exposure test with uniqueness score | Canvas, WebGL, AudioContext, font probing |
+| **JWT Inspector** | Decodes JWTs and verifies HS/RS/PS/ES signatures locally | Web Crypto API (`crypto.subtle.verify`) |
+| **Secrets Scanner** | Finds API keys, tokens and private keys in pasted code/config | Regex rules + entropy, all in-page |
+| **RateMate** | Freelance hourly-rate calculator (taxes, expenses, billable hours) | Chart.js |
+| Hash Generator · Base64 · Easy Cron · chmod Calculator · Caesar · Steganography · ChronoSync · String Master · JSON→C# · Neon Palette · GlitchForge · ZenFocus · ReflexGrid · Link Hazmat | Smaller utilities | Vanilla JS / Web APIs |
 
-Most online tools are data traps. Upload an image to "compress" it and a stranger's server now has a copy. Run a "privacy test" and the test itself fingerprints you. Check your password strength and the password gets sent over the wire.
+Plus a handful of browser games under `/tools/games/`.
 
-This suite takes a different approach:
-
-- **Zero uploads.** Files are processed in-browser using modern Web APIs.
-- **Zero tracking.** No analytics cookies, no third-party scripts harvesting behavioral data.
-- **Zero accounts.** No sign-ups, no email collection. Open the tool and use it.
-- **Open source.** Every line of code is inspectable in this repository.
-
----
-
-## Quick Start
+## Quick start
 
 ```bash
-# Clone
 git clone https://github.com/fede952/fede952.github.io.git
 cd fede952.github.io
-
-# Init theme submodule
-git submodule update --init --recursive
-
-# Run dev server
-hugo server -D
+git submodule update --init --recursive   # PaperMod theme
+hugo server                               # http://localhost:1313/
 ```
 
-Open `http://localhost:1313/` in your browser.
+Requires [Hugo Extended](https://gohugo.io/installation/) **0.168.0** (the version pinned in CI) and Git.
+Production build: `hugo --gc --minify` → `public/`.
 
-> Requires [Hugo Extended](https://gohugo.io/installation/) and Git.
-
----
-
-## Project Structure
+## Project structure
 
 ```
 content/
-  about/              Multilingual About page (12 langs)
-  games/              Browser games (Deploy on Friday, Sudo Type)
-  guides/             In-depth tutorials (DeepSeek vs ChatGPT, Local AI Setup)
-  news/               Automated tech news feed (EN + IT)
-  projects/           Portfolio projects
-  tools/              Markdown content for each tool (multilingual)
-  writeups/           CTF walkthroughs
-
+  tools/          Tool pages (front matter + long-form copy, 6 languages); tools/games/ for games
+  learn/          Guides, cheatsheets, interviews, roadmaps, writeups, debug-sys
+  about/ contact/ privacy/ cookies/ stack/ links/ projects/
+  apps/pasta-stack/   Privacy policy of the Pasta Stack mobile app (live, linked from the stores)
 static/
-  tools/              Self-contained HTML/JS/CSS per tool (iframe targets)
-  games/              Game builds
-  js/tools/           Shared JS modules (base64, caesar, hash)
-  images/             Logos, banners, icons
-
-layouts/              Hugo template overrides and shortcodes
-.github/workflows/    CI/CD (Hugo build + deploy, daily news automation)
+  tools/ games/   Self-contained HTML/JS apps embedded by the tool pages (iframe targets, noindex)
+  vendor/         Self-hosted third-party JS libraries (see static/vendor/README.md)
+  fonts/          Self-hosted JetBrains Mono
+layouts/          Hugo overrides, ad + affiliate partials, shortcodes
+data/             related.yaml (tool ↔ guide internal links)
+.github/workflows/production.yaml   Build + deploy to GitHub Pages
 ```
 
----
-
-## Tech Stack
-
-| Layer | Technology |
-|:------|:-----------|
-| Static Site Generator | [Hugo](https://gohugo.io/) Extended |
-| Theme | PaperMod (customized) |
-| Styling | CSS Custom Properties, scoped inline styles |
-| Tools Runtime | Vanilla JavaScript (ES6+), Web APIs |
-| Image Compression | [browser-image-compression](https://github.com/nicolo-ribaudo/browser-image-compression) v2.0.2 |
-| Hosting | GitHub Pages |
-| CI/CD | GitHub Actions |
-| PWA | Service Worker + Web App Manifest |
-| Internationalization | 12 languages with Hugo i18n |
-
----
+See [ARCHITECTURE.md](ARCHITECTURE.md) for how the pieces fit together.
 
 ## Deployment
 
-Fully automated. Every push to `main` triggers a GitHub Actions workflow that builds the site with Hugo and deploys to GitHub Pages.
-
----
+Every push to `main` runs `.github/workflows/production.yaml`: Hugo 0.168.0 Extended builds the site and deploys it to
+GitHub Pages (custom domain `federicosella.com`).
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT, see [LICENSE](LICENSE). Vendored libraries keep their own licences (static/vendor/README.md, static/fonts/).

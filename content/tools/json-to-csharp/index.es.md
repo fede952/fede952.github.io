@@ -1,7 +1,6 @@
 ---
 title: "JSON to C# Convertidor"
 description: "Convierte objetos JSON en clases C# POCO con tipos correctos, nombres PascalCase y atributos JsonPropertyName. En tiempo real, del lado del cliente, sin subidas."
-image: "/images/tools/json-csharp.png"
 date: 2026-02-04
 hidemeta: true
 showToc: false

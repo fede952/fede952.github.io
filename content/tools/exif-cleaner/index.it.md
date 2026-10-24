@@ -1,7 +1,6 @@
 ---
 title: "EXIF Cleaner"
 description: "Visualizza e rimuovi i metadati EXIF dalle foto direttamente nel browser. Rileva coordinate GPS, info fotocamera e altro. Nessun upload, privacy totale."
-image: "/images/exif-tool.png"
 date: 2026-02-04
 hidemeta: true
 showToc: false

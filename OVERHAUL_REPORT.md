@@ -117,3 +117,47 @@ Pages per language after the cut:
 | EN | IT | ES | DE | FR | PT |
 |---|---|---|---|---|---|
 | 392 | 391 | 382 | 382 | 382 | 382 |
+
+## Phase 4 — Repo hygiene and dead code
+
+- **Deleted planning docs (6):** PHASE1/2/3_COMPLETED.md, PROJECT_SUMMARY.md, SITE_CONTENT_AUDIT.md, SEO_CONFIGURATION.md.
+  `ARCHITECTURE.md` rewritten from 26 KB to a ~100-line current description.
+- **Deleted one-shot scripts (6):** create_password_gen_i18n.py, fix_language_links.py, force_hugo_build.py,
+  replicate_content_globally.py, localize_sections.py, generate_i18n_indexes.py (only referenced by the gitignored local
+  `.claude/settings.local.json` permission list), plus untracked `scripts/.claude/`. `scripts/` is gone.
+- `.hugo_build.lock` was not tracked; `.gitignore` already covers `/public/`, `/resources/_gen/` and `.hugo_build.lock`.
+  Local `public/` and `resources/_gen/` deleted.
+- **Unused templates deleted (8)**, each with zero references, and confirmed by diffing the full `public/` build before/after
+  (byte-identical): shortcodes `exercise-java`, `exercise-python`, `game-embed`, `tool-embed`; partial `tool-embed.html`;
+  layouts `games/list.html`, `games/single.html`, `writeups/single.html` (no content uses `type: games|writeups`).
+  Kept on purpose despite zero current uses: `ad-banner` (manual-placement API from Phase 1) and `partner-card` (Phase 7).
+- **Unused CSS removed** from custom.css (~150 lines): the old `.tools-hero` / `.tools-grid` / `.tool-card*` product grid,
+  `.tool-embed-container`, `.game-embed-container`, `.hljs`. Every other class in `assets/css/extended/*.css` is in use.
+- **Images** (`static/images`):
+  - Converted, all referenced from static apps or raw HTML: `pixel-shrink-icon.png` 1,063 KB → `.webp` 14 KB (resized to 2× display),
+    `nordvpn-box.png` 631 KB → `.webp` 49 KB, `profile.jpg` 112 KB → `.webp` 8 KB (About ×6 with width/height; the
+    `links` template now runs it through Hugo's pipeline, `Fill 240x240 webp`).
+  - Deleted as unreferenced: `sysadmin-icon.png` (1.2 MB), `neon-blocks-icon.png`, `stego-tool.png`, `json-csharp.png`, `exif-tool.png`
+    (2.4 MB total). The `image:` front-matter field pointing at them was read by no template (two paths were even wrong);
+    removed from 30 content files, plus 6 `image:` lines pointing at a file that never existed (sysadmin-tycoon).
+  - Markdown images already go through the render hook (`_markup/render-image.html` → WebP + width/height + lazy).
+  - Left as is: `social-banner.png` (375 KB, the default OG image) — it is 784×1168 portrait, a poor OG shape; see TODO.
+    `icon-192/512.png` are handled with the service-worker decision in Phase 6.
+- **Workflow actions:** checkout v4→**v7**, configure-pages v5→**v6**, upload-pages-artifact v3→**v5**, deploy-pages v4→**v5**.
+- **Third-party CDN removed (GDPR, same reasoning as the fonts):** medium-zoom and Fuse.js (loaded on *every* page from
+  jsDelivr), exif-js, chart.js, browser-image-compression and qrcode-generator are now self-hosted in `static/vendor/`
+  (pinned versions, licence table in `static/vendor/README.md`). PixelShrink's Web Worker gets `libURL` so it no longer
+  pulls the library from jsDelivr either.
+- **README honesty fix:** the "No servers. No tracking." claims are gone. It now says what is true: tools process all data
+  locally and nothing you enter is uploaded; the site is funded by AdSense (with Google's consent management) and uses
+  cookieless Umami analytics. The tools table was re-checked against the code (e.g. JWT Inspector verifies HS/RS/PS/ES,
+  QR exports PNG only).
+  The same false claim was in the home hero (`hero_subtitle`) and the footer tagline: both rewritten in 6 languages.
+- **Privacy + Cookie pages rewritten in all 6 languages** to match reality: GA4 removed (and its cookies), Google Fonts/CDN
+  removed (self-hosted), AdSense + Google CMP (TCF, `FCCDCF`/`FCNEC` consent cookies), Umami cookieless, hosting on GitHub
+  Pages, the actual localStorage keys in use (the stale `adblock_acknowledged` row is gone), an affiliate-links section
+  (NordVPN affiliate links already exist on NetGuard/Link Hazmat), and a disclosure that **NetGuard's Scan sends a request
+  to ipwho.is** (inevitably revealing the visitor's IP) — the old text claimed no tool made any network request.
+- Verification: Playwright exercised the tools touched here (PixelShrink compress via worker, EXIF purge, QR render,
+  RateMate chart, PassFort, JWT decode, secrets scan, GhostPrint, NetGuard scan) and the Fuse.js search palette: all OK,
+  0 JS errors, 0 CSP violations.

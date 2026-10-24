@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PixelShrink Pro - Privacy-First Image Compressor</title>
-<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+<script src="/vendor/browser-image-compression@2.0.2/browser-image-compression.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -113,7 +113,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <div class="app">
 
   <header class="header">
-    <img src="/images/pixel-shrink-icon.png" alt="PixelShrink">
+    <img src="/images/pixel-shrink-icon.webp" alt="PixelShrink" width="80" height="119">
     <h1>PixelShrink <span style="font-size:.5em;opacity:.6">PRO</span></h1>
     <div class="sub" id="subtitle"></div>
   </header>
@@ -476,6 +476,8 @@ $('compressBtn').addEventListener('click', async function () {
     maxWidthOrHeight: maxW,
     initialQuality: quality,
     useWebWorker: true,
+    // Self-hosted copy for the worker too (the library defaults to jsDelivr).
+    libURL: location.origin + "/vendor/browser-image-compression@2.0.2/browser-image-compression.js",
     preserveExif: false
   };
 

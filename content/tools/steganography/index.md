@@ -1,7 +1,6 @@
 ---
 title: "Steganography Lab"
 description: "Hide secret text inside images using LSB (Least Significant Bit) encoding. Encode and decode hidden messages, export as PNG. 100% client-side, no uploads."
-image: "/images/tools/stego-tool.png"
 date: 2026-02-05
 hidemeta: true
 showToc: false

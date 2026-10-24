@@ -1,7 +1,6 @@
 ---
 title: "Laboratoire de Steganographie"
 description: "Cachez du texte secret dans les images en utilisant l'encodage LSB (Bit de Poids Faible). Encodez et decodez des messages caches, exportez en PNG. 100% cote client, sans telechargement."
-image: "/images/tools/stego-tool.png"
 date: 2026-02-05
 hidemeta: true
 showToc: false

@@ -7,7 +7,7 @@
     <div class="links-container">
 
         {{/* Profile Picture */}}
-        <img src="/images/profile.jpg" alt="Federico Sella" class="profile-pic" width="120" height="120">
+        {{- with resources.Get "images/profile.webp" }}{{ $p := .Fill "240x240 Center webp q85" }}<img src="{{ $p.RelPermalink }}" alt="Federico Sella" class="profile-pic" width="120" height="120">{{ end }}
 
         {{/* Name & Title */}}
         <h1 class="links-name">Federico Sella</h1>

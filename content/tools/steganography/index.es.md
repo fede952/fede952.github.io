@@ -1,7 +1,6 @@
 ---
 title: "Laboratorio de Esteganografia"
 description: "Oculta texto secreto dentro de imagenes usando codificacion LSB (Bit Menos Significativo). Codifica y decodifica mensajes ocultos, exporta como PNG. 100% lado cliente, sin subidas."
-image: "/images/tools/stego-tool.png"
 date: 2026-02-05
 hidemeta: true
 showToc: false

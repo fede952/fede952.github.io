@@ -1,7 +1,6 @@
 ---
 title: "Steganographie Labor"
 description: "Verstecken Sie geheimen Text in Bildern mit LSB-Kodierung (Least Significant Bit). Kodieren und dekodieren Sie versteckte Nachrichten, exportieren Sie als PNG. 100% clientseitig, kein Upload."
-image: "/images/tools/stego-tool.png"
 date: 2026-02-05
 hidemeta: true
 showToc: false

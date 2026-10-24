@@ -7,7 +7,7 @@ keywords: ["Cibersegurança", "Red Team", "Analista SOC", "Desenvolvedor", "Auto
 summary: "Da mecânica de precisão à guerra digital. Minha jornada da Programação CNC à Cibersegurança."
 ---
 
-<img src="/images/profile.jpg"
+<img src="/images/profile.webp" width="220" height="293" 
      style="float: right; margin-left: 20px; margin-bottom: 10px; border-radius: 15px; width: 220px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
      alt="Federico Sella">
 

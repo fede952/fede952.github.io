@@ -1,7 +1,6 @@
 ---
 title: "Laboratorio Steganografia"
 description: "Nascondi testo segreto nelle immagini usando la codifica LSB (Least Significant Bit). Codifica e decodifica messaggi nascosti, esporta come PNG. 100% lato client, nessun upload."
-image: "/images/tools/stego-tool.png"
 date: 2026-02-05
 hidemeta: true
 showToc: false

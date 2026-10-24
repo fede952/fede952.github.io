@@ -2,49 +2,49 @@
 title: "Política de Cookies"
 description: "Qué cookies y tecnologías similares usa federicosella.com, para qué sirven y cómo gestionar o retirar tu consentimiento."
 date: 2026-07-04
+lastmod: 2026-10-24
 hidemeta: true
 showToc: true
 ---
 
-**Última actualización: 4 de julio de 2026**
+**Última actualización: 24 de octubre de 2026**
 
-## 1. ¿Qué Son las Cookies?
+## 1. ¿Qué son las cookies?
 
-Las cookies son pequeños archivos de texto que los sitios web almacenan en tu dispositivo. También usamos tecnologías similares como `localStorage` (almacenamiento del navegador que nunca sale de tu dispositivo).
+Las cookies son pequeños archivos de texto que los sitios que visitas guardan en tu dispositivo. Este sitio también usa tecnologías similares como `localStorage`, un almacenamiento del navegador que permanece en tu dispositivo y nunca se envía a un servidor.
 
-## 2. Qué Usamos
+## 2. Qué usamos
 
-### Estrictamente Necesarias (sin consentimiento — de primera parte, nunca compartidas)
+### Estrictamente necesarias (sin consentimiento, propias, nunca compartidas)
 
 | Tecnología | Finalidad | Duración |
 |---|---|---|
-| `localStorage: pref-theme` | Recuerda tu elección de tema oscuro/claro | Hasta que la borres |
-| `localStorage: menu-scroll-position` | Restaura la posición del menú | Hasta que la borres |
-| `sessionStorage: adblock_acknowledged` | Recuerda que cerraste el aviso de ad-blocker | Sesión del navegador |
-| Caché del Service Worker | Acelera visitas repetidas (soporte offline) | Gestionada por el navegador |
+| `localStorage: menu-scroll-position` | Restaura el desplazamiento horizontal del menú superior | Hasta que lo borres |
+| Claves `localStorage` de cada herramienta y juego (p. ej. `easycron-theme`, `nb_best`, `st_state`, récords) | Recuerdan un ajuste, tu mejor puntuación o una partida guardada | Hasta que las borres |
+| Caché del Service Worker | Acelera las visitas posteriores | Gestionada por el navegador |
 
-### Analítica (solo con tu consentimiento)
+### Analítica
 
-| Cookie | Proveedor | Finalidad | Duración |
-|---|---|---|---|
-| `_ga`, `_ga_*` | Google Analytics 4 | Estadísticas agregadas de uso | Hasta 14 meses |
-
-Nuestra segunda herramienta de analítica, **Umami, no usa ninguna cookie** — es completamente anónima y sin cookies.
+**Ninguna que use cookies.** Nuestra herramienta de analítica, Umami, funciona sin cookies y de forma anónima. Este sitio no usa Google Analytics.
 
 ### Publicidad (solo con tu consentimiento)
 
-Google AdSense y sus socios certificados pueden instalar cookies (p. ej. de `doubleclick.net`) para mostrar y medir anuncios y — con consentimiento — personalizarlos. Detalles: [Cómo usa Google las cookies](https://policies.google.com/technologies/cookies).
+Google AdSense y sus socios certificados pueden establecer cookies (por ejemplo en `doubleclick.net`) para mostrar y medir anuncios y, con tu consentimiento, personalizarlos. El banner de consentimiento de Google guarda tu elección en sus propias cookies (como `FCCDCF` y `FCNEC`). Detalles: [Cómo utiliza Google las cookies](https://policies.google.com/technologies/cookies).
 
-## 3. Gestionar tu Consentimiento
+### Socios afiliados
 
-- **Configuración de Cookies** — usa el enlace del pie de página para reabrir el banner y cambiar o retirar tus opciones en cualquier momento.
-- **Controles del navegador** — puedes bloquear o eliminar cookies desde los ajustes del navegador.
-- **Controles de Google** — [adssettings.google.com](https://adssettings.google.com) y el [complemento de exclusión de GA](https://tools.google.com/dlpage/gaoptout).
-- **Exclusión sectorial** — [youronlinechoices.eu](https://www.youronlinechoices.eu/).
+Este sitio no establece cookies de afiliado. Si haces clic en un enlace marcado como "Enlace de afiliado", la web del socio puede establecer sus propias cookies en su dominio para atribuir la recomendación (consulta la [Política de Privacidad](/es/privacy/#7-enlaces-de-afiliado)).
 
-## 4. Una Nota Importante
+## 3. Gestionar tu consentimiento
 
-Las herramientas interactivas de este sitio procesan tus datos **100% localmente en tu navegador** — no instalan cookies de seguimiento ni suben nada. Consulta la [Política de Privacidad](/es/privacy/) para más detalles.
+- **Configuración de Cookies**: usa el enlace del pie de cada página para volver a abrir el banner y cambiar o retirar tus elecciones en cualquier momento.
+- **Ajustes del navegador**: puedes bloquear o borrar cookies y datos de sitios desde la configuración del navegador.
+- **Controles de Google**: [adssettings.google.com](https://adssettings.google.com) para la personalización de anuncios.
+- **Exclusión del sector**: [youronlinechoices.eu](https://www.youronlinechoices.eu/).
+
+## 4. Una nota importante
+
+Las herramientas interactivas del sitio procesan tus datos **localmente en el navegador**. No establecen cookies de seguimiento y no suben nada. Más detalles en la [Política de Privacidad](/es/privacy/), incluida la única herramienta (NetGuard) que contacta con un servicio de consulta de IP.
 
 ## 5. Contacto
 

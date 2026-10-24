@@ -1,81 +1,94 @@
 ---
 title: "Politique de Confidentialité"
-description: "Comment federicosella.com traite vos données : des outils qui traitent tout localement sans aucun envoi, une analyse sans cookies et une publicité basée sur le consentement."
+description: "Comment federicosella.com traite vos données : outils 100 % locaux sans envoi, audience sans cookies, publicité avec consentement et liens d'affiliation signalés."
 date: 2026-07-04
+lastmod: 2026-10-24
 hidemeta: true
 showToc: true
 ---
 
-**Dernière mise à jour : 4 juillet 2026**
+**Dernière mise à jour : 24 octobre 2026**
 
-## 1. Responsable du Traitement
+## 1. Responsable du traitement
 
 **Federico Sella** — Suisio (Bergame), Italie
-Email : [privacy@federicosella.com](mailto:privacy@federicosella.com)
+E-mail : [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
-## 2. En Bref
+## 2. En bref
 
-- **Tous les outils web de ce site traitent vos données à 100 % localement, dans votre navigateur.** Les fichiers, mots de passe, images et textes utilisés dans les outils **ne sont jamais envoyés** vers un serveur — ni le nôtre ni celui d'un tiers.
-- Aucun compte n'est requis et nous ne vendons jamais de données personnelles.
-- Le site est financé par la publicité (Google AdSense) et utilise des outils d'analyse pour améliorer le contenu. Les cookies à ces fins ne sont déposés **qu'après votre consentement** via la bannière.
-- Vous pouvez modifier ou retirer votre consentement à tout moment via **« Paramètres des Cookies »** dans le pied de page.
+- **Les outils web de ce site traitent vos données localement, dans votre navigateur.** Les fichiers, mots de passe, images et textes que vous saisissez dans les outils ne sont **jamais envoyés** à un serveur, ni le nôtre ni celui d'un tiers. La seule exception (la recherche d'IP de NetGuard) est décrite à la section 3.
+- Pas de compte, pas de newsletter, et nous ne vendons jamais de données personnelles.
+- Le site est financé par **Google AdSense**. La bannière de consentement de Google vous demande votre accord avant l'utilisation de tout cookie publicitaire.
+- La mesure d'audience est **sans cookies** (Umami). Ce site n'utilise pas Google Analytics.
+- Certaines pages contiennent des **liens d'affiliation** clairement signalés (section 7).
+- Vous pouvez modifier ou retirer votre consentement à tout moment via **« Paramètres des Cookies »** en pied de page.
 
-## 3. Les Outils Web : Traitement 100 % Local
+## 3. Les outils web : traitement local
 
-Chaque outil interactif de ce site (générateur et auditeur de mots de passe, nettoyeur EXIF, compresseur d'images, générateur de QR codes, convertisseurs et tous les autres) fonctionne entièrement dans votre navigateur grâce à JavaScript et aux API web standard (comme la Web Crypto API). Les données saisies ou les fichiers ouverts avec ces outils :
+Chaque outil interactif du site (générateur et vérificateur de mots de passe, nettoyeur EXIF, compresseur d'images, générateur de QR codes, JWT inspector, scanner de secrets, convertisseurs et tous les autres) fonctionne dans votre navigateur grâce à JavaScript et aux API web standard comme Web Crypto API et Canvas API. Les données que vous saisissez ou les fichiers que vous ouvrez avec ces outils :
 
 - sont traités **uniquement sur votre appareil** ;
-- ne sont **jamais transmis** à nos serveurs ou à des tiers ;
-- sont supprimés à la fermeture ou au rechargement de la page, sauf si vous enregistrez vous-même le résultat.
+- ne sont **jamais transmis** à nos serveurs ni à des tiers ;
+- sont supprimés lorsque vous fermez ou rechargez la page, sauf si vous enregistrez vous-même le résultat.
 
-Vous pouvez le vérifier à tout moment avec les outils de développement du navigateur (onglet Réseau) : les outils n'effectuent aucune requête réseau avec vos données.
+**Une exception, voulue :** **NetGuard** vous montre votre adresse IP publique et sa localisation approximative. Pour cela, votre navigateur envoie une requête au service de recherche d'IP [ipwho.is](https://ipwho.is/). Comme toute requête web, elle révèle à ce service votre adresse IP (et le user-agent du navigateur). Rien d'autre n'est envoyé, et la requête n'est envoyée que lorsque vous cliquez sur Scan dans NetGuard.
 
-## 4. Analyse d'Audience
+Certains outils proposent aussi des liens vers des services externes (par exemple « vérifier cette URL sur VirusTotal » dans Link Hazmat, ou les boutons de partage). Ce sont de simples liens : rien n'est envoyé tant que vous ne cliquez pas.
 
-### 4.1 Google Analytics 4 (basé sur le consentement)
+Vous pouvez tout vérifier avec les outils de développement de votre navigateur (onglet Réseau).
 
-Nous utilisons Google Analytics 4 (Google Ireland Ltd. / Google LLC) pour comprendre l'utilisation globale du site. GA4 ne dépose des cookies et ne traite des identifiants **qu'après votre consentement** dans la bannière. Nous avons mis en œuvre **Google Consent Mode v2** avec tous les stockages **refusés par défaut** — avant consentement, aucun cookie d'analyse n'est déposé. En savoir plus : [Politique de confidentialité de Google](https://policies.google.com/privacy).
+## 4. Hébergement et ressources des pages
 
-### 4.2 Umami (sans cookies)
+Ce site statique est hébergé sur **GitHub Pages** (GitHub, Inc.). Comme tout hébergeur, GitHub traite votre adresse IP pour servir les pages et peut conserver des journaux serveur pour des raisons de sécurité. Voir le [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-Nous utilisons aussi [Umami](https://umami.is/), un service d'analyse respectueux de la vie privée qui n'utilise **ni cookies** ni **identifiants persistants**. Il ne collecte que des statistiques anonymes et agrégées (pages vues, référents, type de navigateur) impossibles à relier à vous. Aucune donnée personnelle n'étant conservée, il repose sur notre intérêt légitime à comprendre l'utilisation du site.
+Les polices et les bibliothèques JavaScript sont **hébergées sur ce domaine**. Le site ne charge ni Google Fonts ni aucun CDN public : consulter une page n'envoie donc aucune requête à ces services.
 
-## 5. Publicité (Google AdSense)
+## 5. Mesure d'audience (Umami, sans cookies)
 
-La publicité permet de garder tous les outils gratuits. Nous utilisons **Google AdSense**. Pour les visiteurs de l'EEE, du Royaume-Uni et de la Suisse, une **bannière de consentement certifiée par Google** (IAB Transparency & Consent Framework) est affichée avant tout usage de cookies publicitaires :
+Nous utilisons [Umami](https://umami.is/) pour compter les pages vues. Umami n'utilise **aucun cookie** ni **identifiant persistant**. Il n'enregistre que des statistiques anonymes et agrégées (pages vues, site de provenance, type de navigateur et d'appareil, pays) qui ne peuvent pas vous être rattachées. Comme aucune donnée personnelle n'est conservée et que rien n'est écrit sur votre appareil, cette mesure repose sur notre intérêt légitime à savoir quels contenus sont utiles.
 
-- Avec consentement, Google peut afficher des **publicités personnalisées** et utiliser des cookies publicitaires.
-- Sans consentement, seule une publicité limitée et **non personnalisée** peut être affichée.
+## 6. Publicité (Google AdSense)
 
-Comment Google utilise les données : [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites). Gérez vos préférences : [adssettings.google.com](https://adssettings.google.com).
+La publicité permet de garder tous les outils du site gratuits. Nous utilisons **Google AdSense** (Google Ireland Ltd. / Google LLC). Pour les visiteurs de l'EEE, du Royaume-Uni et de la Suisse, la **plateforme de gestion du consentement certifiée** de Google (IAB Transparency & Consent Framework) recueille votre choix avant l'utilisation de tout cookie publicitaire :
 
-## 6. Bases Juridiques (RGPD)
+- Avec votre consentement, Google et ses partenaires peuvent afficher des **annonces personnalisées** et utiliser des cookies publicitaires.
+- Sans consentement, seules des annonces **non personnalisées** ou limitées peuvent être affichées, sans cookies de personnalisation.
 
-- **Consentement** (art. 6(1)(a)) — cookies publicitaires et d'analyse.
-- **Intérêt légitime** (art. 6(1)(f)) — fonctionnement du site, sécurité, statistiques agrégées sans cookies.
+Les annonces n'apparaissent que sur les pages d'outils et de guides, jamais à l'intérieur des outils. Comment Google utilise les données des sites partenaires : [policies.google.com/technologies/partner-sites](https://policies.google.com/technologies/partner-sites). Gérer vos préférences publicitaires : [adssettings.google.com](https://adssettings.google.com).
 
-## 7. Vos Droits
+## 7. Liens d'affiliation
 
-En vertu du RGPD, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition, de portabilité et de retrait du consentement à tout moment (via **Paramètres des Cookies** dans le pied de page). Pour exercer un droit : [privacy@federicosella.com](mailto:privacy@federicosella.com). Vous pouvez aussi saisir l'autorité italienne ([Garante per la Protezione dei Dati Personali](https://www.garanteprivacy.it/)) ou votre autorité locale (CNIL en France).
+Certaines pages recommandent des produits tiers (par exemple un VPN ou un gestionnaire de mots de passe) via des **liens d'affiliation**, signalés par la mention « Lien d'affiliation » à côté du lien. Si vous cliquez et effectuez un achat, je peux percevoir une commission, **sans aucun coût supplémentaire pour vous**. Les recommandations sont choisies parce qu'elles correspondent à l'outil que vous utilisez, pas pour la commission.
 
-## 8. Transferts Internationaux
+Un clic sur un lien d'affiliation vous mène sur le site du partenaire, qui peut déposer ses propres cookies pour attribuer la recommandation. Cela se passe sur son site, selon sa politique de confidentialité. Ce site ne reçoit des partenaires aucune donnée personnelle vous concernant, seulement des rapports agrégés de commissions.
 
-Google peut traiter des données aux États-Unis. Ces transferts reposent sur le **EU–U.S. Data Privacy Framework** et/ou les **Clauses Contractuelles Types**.
+## 8. Bases légales (RGPD)
 
-## 9. Conservation des Données
+- **Consentement** (art. 6(1)(a)) : cookies publicitaires.
+- **Intérêt légitime** (art. 6(1)(f)) : fonctionnement et sécurité du site, statistiques agrégées sans cookies.
 
-Ce site **ne conserve aucune donnée personnelle sur ses propres serveurs** (site statique). Les données Google Analytics sont conservées jusqu'à 14 mois. Les partenaires publicitaires conservent les données selon leurs propres politiques.
+## 9. Vos droits
 
-## 10. Mineurs
+En vertu du RGPD, vous disposez d'un droit d'accès, de rectification et d'effacement, d'un droit à la limitation et d'opposition au traitement, d'un droit à la portabilité et du droit de retirer votre consentement à tout moment (via **Paramètres des Cookies** en pied de page). Pour exercer vos droits, écrivez à [privacy@federicosella.com](mailto:privacy@federicosella.com). Vous pouvez aussi saisir l'autorité italienne ([Garante per la Protezione dei Dati Personali](https://www.garanteprivacy.it/)) ou votre autorité locale (en France, la [CNIL](https://www.cnil.fr/)).
+
+## 10. Transferts internationaux
+
+Google et GitHub peuvent traiter des données aux États-Unis. Ces transferts reposent sur le **Data Privacy Framework UE–États-Unis** et/ou sur des **clauses contractuelles types**.
+
+## 11. Durée de conservation
+
+Ce site **ne conserve aucune donnée personnelle sur ses propres serveurs** : c'est un site statique sans base de données. Umami ne conserve que des agrégats anonymes. Google et les partenaires d'affiliation conservent les données selon leurs propres politiques.
+
+## 12. Mineurs
 
 Ce site ne s'adresse pas aux enfants de moins de 16 ans et nous ne collectons pas sciemment leurs données.
 
-## 11. Modifications
+## 13. Modifications
 
 Les mises à jour seront publiées sur cette page avec une nouvelle date de « Dernière mise à jour ».
 
-## 12. Documents Liés
+## 14. Documents liés
 
 - [Politique de Cookies](/fr/cookies/)
 - [Contact](/fr/contact/)
-- Vous cherchez la politique de confidentialité de l'application mobile **Pasta Stack** ? Voir [Pasta Stack — App Privacy Policy](/en/apps/pasta-stack/privacy/) (en anglais).
+- Vous cherchez la politique de confidentialité de l'application mobile **Pasta Stack** ? Consultez [Pasta Stack — App Privacy Policy](/en/apps/pasta-stack/privacy/) (en anglais).

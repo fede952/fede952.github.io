@@ -1,7 +1,6 @@
 ---
 title: "PixelShrink"
 description: "Comprime imágenes PNG, JPG y WebP localmente en tu navegador. Sin subidas, 100% privado."
-image: "/images/pixel-shrink-icon.png"
 date: 2026-02-03
 hidemeta: true
 showToc: false

@@ -8,7 +8,7 @@ footer_connect:
 cookie_settings:
   other: "Configuración de Cookies"
 footer_tagline:
-  other: "Todas las herramientas funcionan 100% localmente en tu navegador — tus datos nunca salen de tu dispositivo."
+  other: "Todas las herramientas procesan tus datos localmente en el navegador — nada de lo que introduces se sube."
 
 related_tools:
   other: "Más herramientas gratuitas"
@@ -16,7 +16,7 @@ related_tools:
 hero_title:
   other: "Utilidades Web Gratuitas y Privadas"
 hero_subtitle:
-  other: "Sin servidores. Sin rastreo. Sin lastre. Todo funciona 100% en tu navegador."
+  other: "Sin registros. Sin subidas. Sin relleno. Todo lo que introduces se procesa directamente en tu navegador."
 hero_search_label:
   other: "Buscar herramientas, guías, cheatsheets…"
 home_featured_tools:
