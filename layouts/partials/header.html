@@ -80,8 +80,8 @@
                                     {{- end -}}
                                 {{- end -}}
 
-                                <a href="{{ $targetLink }}" title="{{ .Language.LanguageName | default .Lang }}" aria-label="{{ .Language.LanguageName | default .Lang }}">
-                                    {{ .Language.LanguageName | default .Lang }}
+                                <a href="{{ $targetLink }}" title="{{ .Language.Label | default .Lang }}" aria-label="{{ .Language.Label | default .Lang }}">
+                                    {{ .Language.Label | default .Lang }}
                                 </a>
                             </li>
                         {{- end -}}
