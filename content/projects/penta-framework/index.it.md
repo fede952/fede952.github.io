@@ -7,7 +7,7 @@ summary: "Un framework modulare ed estensibile progettato per automatizzare i wo
 cover:
     image: "/images/projects/penta-framework/cover.png"
     alt: "Console di PentaFramework"
-    relative: true
+    relative: false
 ---
 
 ## 🔗 Repository

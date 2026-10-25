@@ -1,5 +1,6 @@
 {{- /* Copy of themes/PaperMod/layouts/_partials/templates/opengraph.html; the only
-     change is the og:image:width/height/type/alt block for the default card. */ -}}
+     changes are the per-page card (partials/og/card.html) and the
+     og:image:width/height/type/alt block for the default card. */ -}}
 <meta property="og:url" content="{{ .Permalink }}">
 
 {{- with or site.Title site.Params.title | plainify }}
@@ -37,7 +38,15 @@
   <meta property="og:type" content="website">
 {{- end }}
 
-{{- if .Params.cover.image -}}
+{{- /* site change: per-page share card for tool and learn pages (partials/og/card.html) */}}
+{{- $card := partial "og/card.html" . }}
+{{- if $card }}
+  <meta property="og:image" content="{{ $card.url }}">
+  <meta property="og:image:width" content="{{ $card.width }}">
+  <meta property="og:image:height" content="{{ $card.height }}">
+  <meta property="og:image:type" content="{{ $card.type }}">
+  <meta property="og:image:alt" content="{{ $card.alt }}">
+{{- else if .Params.cover.image -}}
   {{- if (ne .Params.cover.relative true) }}
     <meta property="og:image" content="{{ .Params.cover.image | absURL }}">
   {{- else}}

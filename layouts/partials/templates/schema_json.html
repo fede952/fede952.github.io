@@ -62,6 +62,7 @@
     "author" $person
     "publisher" $person
 }}
+{{- with partial "og/card.html" . }}{{ $app = merge $app (dict "image" .url "screenshot" .url) }}{{ end }}
 <script type="application/ld+json">
 {{ merge $app $dates | jsonify | safeJS }}
 </script>
@@ -92,8 +93,11 @@
     "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
 }}
 {{- with .Params.proficiency }}{{ $article = merge $article (dict "proficiencyLevel" .) }}{{ end }}
-{{- $images := partial "templates/_funcs/get-page-images" . }}
-{{- with index $images 0 }}{{ $article = merge $article (dict "image" .Permalink) }}{{ end }}
+{{- with partial "og/card.html" . }}{{ $article = merge $article (dict "image" .url) }}
+{{- else }}
+  {{- $images := partial "templates/_funcs/get-page-images" . }}
+  {{- with index $images 0 }}{{ $article = merge $article (dict "image" .Permalink) }}{{ end }}
+{{- end }}
 <script type="application/ld+json">
 {{ merge $article $dates | jsonify | safeJS }}
 </script>

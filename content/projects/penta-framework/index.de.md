@@ -7,7 +7,7 @@ summary: "A modular and extensible framework designed to automate pentesting wor
 cover:
     image: "/images/projects/penta-framework/cover.png"
     alt: "PentaFramework Console"
-    relative: true
+    relative: false
 ---
 
 _Hinweis: Um die technische Genauigkeit zu wahren, wird dieser Inhalt in seiner Originalsprache (Englisch) angezeigt._
