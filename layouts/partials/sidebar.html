@@ -1,0 +1,50 @@
+{{- /* Sidebar of tool, game and learn pages: related tools (icon + name),
+     related guides (tool pages: data/related.yaml) or more articles of the
+     same kind (learn pages), and the sidebar ad slot. At >= 1100 px it is the
+     right column; below that it follows the article. The ad markup sits in a
+     <template> and is only inserted (and requested) at >= 1100 px by
+     assets/js/site.js, which also keeps it out of the viewport while another
+     ad is visible. */ -}}
+{{- $learn := eq .Section "learn" -}}
+{{- $tools := partial "related-tool-pages.html" . -}}
+{{- $guides := slice -}}
+{{- if $learn -}}
+  {{- with .CurrentSection }}{{ range first 6 .RegularPagesRecursive.ByDate.Reverse }}{{ if and (ne .Permalink $.Permalink) (lt (len $guides) 4) }}{{ $guides = $guides | append . }}{{ end }}{{ end }}{{ end -}}
+{{- else -}}
+  {{- with index (hugo.Data.related.tools | default dict) (path.Base .Path) }}{{ range .guides }}{{ with site.GetPage (printf "/learn/%s" .) }}{{ $guides = $guides | append . }}{{ end }}{{ end }}{{ end -}}
+{{- end -}}
+<aside class="page-sidebar" aria-label="{{ i18n "related_tools" }}">
+  {{- if $tools }}
+  <section class="side-box" aria-labelledby="side-tools">
+    <h2 class="side-box-title" id="side-tools">{{ cond $learn (i18n "related_tools_learn") (i18n "related_tools") }}</h2>
+    <ul class="side-list">
+      {{- range $tools }}
+      {{- $m := partial "page-meta.html" . }}
+      <li><a class="side-link" href="{{ .RelPermalink }}">
+        <span class="side-link-icon">{{ partial "icon.html" (dict "name" ($m.icon | default "bolt") "size" 18) }}</span>
+        <span class="side-link-text">{{ .LinkTitle }}</span>
+      </a></li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+  {{- if $guides }}
+  <section class="side-box" aria-labelledby="side-guides">
+    <h2 class="side-box-title" id="side-guides">{{ cond $learn (i18n "sidebar_more_guides") (i18n "related_guides") }}</h2>
+    <ul class="side-list">
+      {{- range $guides }}
+      {{- $m := partial "page-meta.html" . }}
+      <li><a class="side-link" href="{{ .RelPermalink }}">
+        <span class="side-link-icon side-link-icon--learn">{{ partial "icon.html" (dict "name" ($m.icon | default "book") "size" 18) }}</span>
+        <span class="side-link-text">{{ .LinkTitle }}<span class="side-link-meta">{{ partial "page-type.html" . }} · {{ i18n "read_time" .ReadingTime }}</span></span>
+      </a></li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+  {{- if partial "ads/enabled.html" . }}
+  <div class="sidebar-ad" data-sidebar-ad>
+    <template>{{ partial "ads/unit.html" (dict "position" "sidebar" "deferPush" true) }}</template>
+  </div>
+  {{- end }}
+</aside>

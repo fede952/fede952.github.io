@@ -1,0 +1,24 @@
+{{- /* Compact card for tools, games and learn content.
+     Args: dict "page" Page, "level" heading tag (default "h3"),
+     "showType" bool (type label; always on for learn cards outside their
+     own sub-section listing). The title link stretches over the card. */ -}}
+{{- $p := .page -}}
+{{- $m := partial "page-meta.html" $p -}}
+{{- $learn := eq $p.Section "learn" -}}
+{{- $h := .level | default "h3" -}}
+{{- $type := "" }}{{ if .showType }}{{ $type = partial "page-type.html" $p }}{{ end -}}
+<article class="card card--{{ cond $learn "learn" "tool" }}"{{ with $m.category }} data-category="{{ . }}"{{ end }} data-filter="{{ lower (printf "%s %s %s" $p.Title $p.Description (delimit ($p.Params.keywords | default slice) " ")) }}">
+  {{- with $m.icon }}
+  <span class="card-icon">{{ partial "icon.html" (dict "name" . "size" 22) }}</span>
+  {{- end }}
+  <div class="card-body">
+    {{- with $type }}<span class="card-type">{{ . }}</span>{{ end }}
+    {{ printf "<%s class=\"card-title\">" $h | safeHTML }}<a class="card-link" href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ printf "</%s>" $h | safeHTML }}
+    {{- with $p.Description }}
+    <p class="card-desc">{{ . }}</p>
+    {{- end }}
+    {{- if $learn }}
+    <span class="card-meta">{{ i18n "read_time" $p.ReadingTime }}</span>
+    {{- end }}
+  </div>
+</article>

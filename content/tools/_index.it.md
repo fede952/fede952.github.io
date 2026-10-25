@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "Strumenti"
 layout: "force-list"
 description: "Strumenti interattivi per cybersecurity e sviluppo - tutto client-side, nessun dato inviato a server"
 hidemeta: true

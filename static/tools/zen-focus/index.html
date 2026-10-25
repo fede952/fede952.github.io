@@ -6,14 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ZenFocus: Ambient Noise Mixer & Pomodoro</title>
-    <style>
+    <link rel="stylesheet" href="/css/tool-base.css">
+<style>
+        :root { --tool-accent: var(--warn); }
+
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
             width: 100%; min-height: 100vh;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            color: #e0e0e0;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            background-attachment: fixed;
+            font-family: var(--font-sans);
+            color: var(--text);
+            background: var(--surface);
             -webkit-user-select: none; user-select: none;
         }
         .app {
@@ -24,10 +26,9 @@
 
         /* ── Glass Panel ── */
         .glass {
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.09);
-            border-radius: 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
             padding: 20px;
         }
 
@@ -38,58 +39,58 @@
         }
         .logo { display: flex; align-items: center; gap: 10px; }
         .logo-icon { font-size: 28px; }
-        .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+        .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--tool-accent); }
         .btn-share {
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-            color: #e0e0e0; padding: 8px 16px; border-radius: 10px; cursor: pointer;
+            background: transparent; border: 1px solid var(--border-strong);
+            color: var(--text); padding: 8px 16px; border-radius: var(--r); cursor: pointer;
             font-size: 14px; font-weight: 500; transition: background 0.2s;
         }
-        .btn-share:hover { background: rgba(255,255,255,0.14); }
+        .btn-share:hover { border-color: var(--accent); color: var(--accent); }
 
         /* ── Timer ── */
         .timer { text-align: center; }
         .timer-display {
-            font-size: clamp(48px, 12vw, 76px); font-family: 'Courier New', monospace;
-            font-weight: 700; color: #f59e0b;
-            text-shadow: 0 0 24px rgba(245,158,11,0.35);
+            font-size: clamp(48px, 12vw, 76px); font-family: var(--font-mono);
+            font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums;
+            
             line-height: 1.1; padding: 8px 0;
         }
         .timer-bar-wrap {
             width: 80%; max-width: 300px; height: 4px; margin: 6px auto 14px;
-            background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
+            background: var(--border-strong); border-radius: 2px; overflow: hidden;
         }
         .timer-bar {
-            height: 100%; width: 100%; background: #f59e0b;
+            height: 100%; width: 100%; background: var(--accent);
             border-radius: 2px; transition: width 0.4s linear;
         }
         .timer-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
         .btn-t {
-            background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
-            color: #f59e0b; padding: 9px 22px; border-radius: 10px; cursor: pointer;
+            background: var(--accent); border: 1px solid var(--accent);
+            color: var(--accent-ink); padding: 9px 22px; border-radius: var(--r); cursor: pointer;
             font-size: 14px; font-weight: 600; transition: background 0.2s;
         }
-        .btn-t:hover { background: rgba(245,158,11,0.25); }
-        .btn-t.active { background: rgba(245,158,11,0.35); }
+        .btn-t:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+        .btn-t.active { background: var(--surface-3); border-color: var(--accent); color: var(--accent); }
         .timer-adjust { display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-adj {
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-            color: #aaa; width: 34px; height: 34px; border-radius: 8px; cursor: pointer;
+            background: transparent; border: 1px solid var(--border-strong);
+            color: var(--text-2); width: 34px; height: 34px; border-radius: var(--r-sm); cursor: pointer;
             font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center;
             transition: background 0.2s;
         }
-        .btn-adj:hover { background: rgba(255,255,255,0.12); color: #e0e0e0; }
-        .timer-label { color: #888; font-size: 13px; min-width: 52px; text-align: center; }
+        .btn-adj:hover { border-color: var(--accent); color: var(--text); }
+        .timer-label { color: var(--text-2); font-size: 13px; min-width: 52px; text-align: center; }
 
         /* ── Presets ── */
         .presets { display: flex; gap: 8px; flex-wrap: wrap; }
         .btn-preset {
             flex: 1 1 auto; min-width: 120px;
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-            color: #ccc; padding: 10px 14px; border-radius: 12px; cursor: pointer;
+            background: var(--surface-2); border: 1px solid var(--border);
+            color: var(--text); padding: 10px 14px; border-radius: var(--r); cursor: pointer;
             font-size: 13px; font-weight: 500; transition: all 0.2s; text-align: center;
         }
-        .btn-preset:hover { background: rgba(255,255,255,0.12); color: #fff; }
-        .btn-preset.on { background: rgba(245,158,11,0.18); border-color: rgba(245,158,11,0.35); color: #f59e0b; }
+        .btn-preset:hover { border-color: var(--accent-line); }
+        .btn-preset.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 
         /* ── Master Volume ── */
         .master { display: flex; align-items: center; gap: 14px; padding: 14px 20px; }
@@ -116,36 +117,36 @@
             display: flex; flex-direction: column; gap: 10px; padding: 16px;
             transition: border-color 0.3s;
         }
-        .ch-card.active { border-color: rgba(245,158,11,0.3); }
+        .ch-card.active { border-color: var(--accent-line); }
         .ch-head { display: flex; align-items: center; justify-content: space-between; }
         .ch-name { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
         .ch-icon { font-size: 20px; }
         .btn-mute {
-            background: none; border: 1px solid rgba(255,255,255,0.1);
-            color: #888; width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
+            background: none; border: 1px solid var(--border-strong);
+            color: var(--text-2); width: 32px; height: 32px; border-radius: var(--r-sm); cursor: pointer;
             font-size: 16px; display: flex; align-items: center; justify-content: center;
             transition: all 0.2s;
         }
-        .btn-mute:hover { background: rgba(255,255,255,0.08); }
-        .btn-mute.muted { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+        .btn-mute:hover { background: var(--surface-3); }
+        .btn-mute.muted { color: var(--danger); border-color: var(--danger); }
 
         /* ── Slider ── */
         .slider {
             -webkit-appearance: none; appearance: none;
             width: 100%; height: 6px;
-            background: rgba(255,255,255,0.10); border-radius: 3px; outline: none;
+            background: var(--border-strong); border-radius: 3px; outline: none;
             cursor: pointer;
         }
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none; appearance: none;
             width: 18px; height: 18px; border-radius: 50%;
-            background: #f59e0b; border: none; cursor: pointer;
-            box-shadow: 0 0 8px rgba(245,158,11,0.4);
+            background: var(--accent); border: none; cursor: pointer;
+            
         }
         .slider::-moz-range-thumb {
             width: 18px; height: 18px; border-radius: 50%;
-            background: #f59e0b; border: none; cursor: pointer;
-            box-shadow: 0 0 8px rgba(245,158,11,0.4);
+            background: var(--accent); border: none; cursor: pointer;
+            
         }
 
         /* ── Social Bar ── */
@@ -156,19 +157,17 @@
         .social-btn {
             display: inline-flex; align-items: center; gap: 6px;
             padding: 8px 16px; border-radius: 10px; font-size: 13px;
-            font-weight: 500; text-decoration: none; color: #fff;
-            transition: opacity 0.2s;
+            font-weight: 500; text-decoration: none; color: var(--text);
+            background: var(--surface-2); border: 1px solid var(--border-strong);
+            transition: border-color 0.2s, color 0.2s;
         }
-        .social-btn:hover { opacity: 0.85; }
-        .social-btn.wa  { background: #25d366; }
-        .social-btn.li  { background: #0a66c2; }
-        .social-btn.tw  { background: #1d9bf0; }
+        .social-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         /* ── Toast ── */
         .toast {
             position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
-            background: rgba(34,197,94,0.95); color: #fff; padding: 10px 24px;
-            border-radius: 10px; font-size: 14px; font-weight: 500;
+            background: var(--success); color: var(--bg); padding: 10px 24px;
+            border-radius: var(--r); font-size: 14px; font-weight: 600;
             pointer-events: none; opacity: 0;
             transition: transform 0.35s ease, opacity 0.35s ease;
             z-index: 100;
@@ -540,7 +539,7 @@
     ══════════════════════════════════════════════════ */
     function updateSliderBg(el) {
         const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
-        el.style.background = `linear-gradient(to right, #f59e0b ${pct}%, rgba(255,255,255,0.10) ${pct}%)`;
+        el.style.background = `linear-gradient(to right, var(--accent) ${pct}%, var(--border-strong) ${pct}%)`;
     }
 
     function buildMixer() {

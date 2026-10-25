@@ -6,33 +6,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PassFort - Password Generator & Strength Auditor</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--bg4:#222;
-  --green:#00ff41;--green-dim:#00cc33;--green-glow:rgba(0,255,65,.18);
-  --red:#ff3333;--orange:#ff9900;--yellow:#ccff00;
-  --text:#c0c0c0;--text2:#888;--text3:#555;
-  --border:#2a2a2a;--border2:#333;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--green:var(--accent);--green-dim:var(--accent-hover);--green-glow:var(--accent-soft);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-4);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);--sans:var(--font-sans);--tool-accent:var(--success);
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 
 .app{max-width:680px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px;min-height:100vh}
 
 /* Header */
 .header{text-align:center;padding:14px 0;border-bottom:2px solid var(--green)}
-.header h1{font-size:clamp(20px,4.5vw,28px);color:var(--green);text-transform:uppercase;letter-spacing:4px;text-shadow:0 0 15px var(--green-glow)}
-.header .sub{font-size:12px;color:var(--text2);margin-top:4px;letter-spacing:1px}
+.header h1{font-size:clamp(20px,4.5vw,28px);color:var(--tool-accent);}
+.header .sub{font-size:12px;color:var(--text2);margin-top:4px;}
 
 /* Privacy Badge */
-.privacy-badge{background:var(--bg2);border:1px solid var(--green);border-radius:6px;padding:10px 14px;text-align:center;font-size:12px;color:var(--green);letter-spacing:.5px}
+.privacy-badge{background:var(--bg2);border:1px solid var(--green);border-radius:6px;padding:10px 14px;text-align:center;font-size:12px;color:var(--green);}
 .privacy-badge strong{font-size:14px}
 
 /* Tabs */
 .tabs{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--bg2)}
-.tab-btn{flex:1;padding:12px;font-family:var(--mono);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;background:transparent;border:none;color:var(--text3);cursor:pointer;transition:all .15s;text-align:center}
+.tab-btn{flex:1;padding:12px;font-family:var(--font-sans);font-size:13px;font-weight:600;background:transparent;border:none;color:var(--text3);cursor:pointer;transition:all .15s;text-align:center}
 .tab-btn:first-child{border-right:1px solid var(--border)}
 .tab-btn:hover{color:var(--text2);background:var(--bg3)}
 .tab-btn.active{color:var(--green);background:var(--green-glow);box-shadow:inset 0 -2px 0 var(--green)}
@@ -40,10 +36,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 
 /* Sections */
 .section{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px}
-.section-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-title{font-size:12px;color:var(--green);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 
 /* Password Display */
-.pw-display{background:var(--bg);border:2px solid var(--border);border-radius:6px;padding:14px 50px 14px 14px;font-family:var(--mono);font-size:clamp(16px,3.5vw,22px);color:var(--green);word-break:break-all;line-height:1.4;min-height:56px;position:relative;text-shadow:0 0 8px var(--green-glow);user-select:all}
+.pw-display{background:var(--bg);border:2px solid var(--border);border-radius:6px;padding:14px 50px 14px 14px;font-family:var(--mono);font-size:clamp(16px,3.5vw,22px);color:var(--green);word-break:break-all;line-height:1.4;min-height:56px;position:relative;user-select:all}
 .pw-display.phrase{font-size:clamp(14px,3vw,18px)}
 .copy-btn{position:absolute;top:8px;right:8px;background:transparent;border:1px solid var(--border2);color:var(--text2);width:36px;height:36px;border-radius:4px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .copy-btn:hover{border-color:var(--green);color:var(--green)}
@@ -57,7 +53,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 
 /* Slider */
 .slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;margin:0 12px;background:var(--border2);outline:none;border-radius:2px;cursor:pointer}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;box-shadow:0 0 8px var(--green-glow)}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;}
 .slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;border:none}
 
 /* Toggle Switch */
@@ -66,11 +62,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 .toggle-track{position:absolute;inset:0;background:var(--border2);border-radius:11px;cursor:pointer;transition:background .2s}
 .toggle-track::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:var(--text3);border-radius:50%;transition:transform .2s,background .2s}
 .toggle input:checked+.toggle-track{background:var(--green)}
-.toggle input:checked+.toggle-track::after{transform:translateX(20px);background:#fff}
+.toggle input:checked+.toggle-track::after{transform:translateX(20px);background:var(--text)}
 
 /* Generate Button */
-.gen-btn{display:block;width:100%;padding:14px;font-family:var(--mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:3px;background:transparent;color:var(--green);border:2px solid var(--green);border-radius:6px;cursor:pointer;transition:all .15s;text-align:center}
-.gen-btn:hover{background:var(--green);color:var(--bg);text-shadow:none;box-shadow:0 0 20px var(--green-glow)}
+.gen-btn{display:block;width:100%;padding:14px;font-family:var(--font-sans);font-size:14px;font-weight:700;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:6px;cursor:pointer;transition:all .15s;text-align:center}
+.gen-btn:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--accent-ink);text-shadow:none;}
 
 /* Auditor */
 .audit-input-wrap{position:relative}
@@ -86,25 +82,25 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 .meter-wrap{margin:14px 0}
 .meter-bar{height:6px;background:var(--border2);border-radius:3px;overflow:hidden}
 .meter-fill{height:100%;border-radius:3px;transition:width .4s ease,background .4s ease;width:0}
-.meter-labels{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.meter-labels{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;}
 
 /* Crack Time */
 .crack-time{text-align:center;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:6px;margin:14px 0}
-.crack-time .label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
-.crack-time .value{font-size:clamp(20px,5vw,32px);font-weight:700;color:var(--green);text-shadow:0 0 12px var(--green-glow)}
+.crack-time .label{font-size:11px;color:var(--text3);margin-bottom:6px}
+.crack-time .value{font-size:clamp(20px,5vw,32px);font-weight:700;color:var(--green);}
 .crack-time .detail{font-size:12px;color:var(--text2);margin-top:6px}
 
 /* Checks */
 .checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
 .check-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);padding:6px 8px;background:var(--bg);border-radius:4px;border:1px solid var(--border)}
-.check-item.pass{color:var(--green);border-color:rgba(0,255,65,.2)}
-.check-item.fail{color:var(--red);border-color:rgba(255,51,51,.15)}
+.check-item.pass{color:var(--success);border-color:var(--success-soft)}
+.check-item.fail{color:var(--danger);border-color:var(--danger-soft)}
 .check-icon{font-size:14px;flex-shrink:0}
 
 /* Ad Placeholder */
 
 /* Toast */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:var(--bg);padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;opacity:0;transition:all .3s ease;pointer-events:none;z-index:999}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:var(--bg);padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;opacity:0;transition:all .3s ease;pointer-events:none;z-index:999}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
 /* Footer */
@@ -124,13 +120,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
   .toggle-track::after{width:22px;height:22px}
   .toggle input:checked+.toggle-track::after{transform:translateX(22px)}
 }
+
+.header h1 span{color:var(--text)}
 </style>
 </head>
 <body>
 <div class="app">
 
   <header class="header">
-    <h1>Pass<span style="color:#fff">Fort</span></h1>
+    <h1>Pass<span>Fort</span></h1>
     <div class="sub">Password Generator &amp; Strength Auditor</div>
   </header>
 

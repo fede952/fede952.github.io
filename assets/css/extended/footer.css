@@ -1,121 +1,117 @@
-/* ============================================
-   SITE FOOTER — 4-column premium footer
-   Theme-aware via PaperMod CSS variables
-   ============================================ */
+/* ============================================================
+   SITE FOOTER (partials/footer.html): 4 columns on desktop,
+   2 on tablets and phones, then the tagline and copyright.
+   ============================================================ */
 
 .site-footer {
-    border-top: 1px solid var(--border);
-    margin-top: 4rem;
-    background: var(--theme);
-    font-size: 0.9rem;
+  margin-top: var(--s-10);
+  background: var(--bg-raised);
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-sm);
 }
 
 .site-footer-grid {
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 2.75rem 24px 1.75rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-7);
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--s-9) var(--gutter) var(--s-7);
 }
 
+.site-footer-col h2,
 .site-footer-col h3 {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--secondary);
-    margin: 0 0 1rem;
-}
-
-/* Neutralize the global "$ " heading prefix inside the footer */
-.site-footer h3::before,
-.site-footer h2::before {
-    content: "";
+  margin: 0 0 var(--s-3);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .site-footer-col ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .site-footer-col li {
-    margin: 0 0 0.6rem;
-    padding: 0;
+  margin: 0;
 }
 
 .site-footer-col a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--text);
+  text-decoration: none;
 }
 
 .site-footer-col a:hover {
-    color: var(--secondary);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .site-footer-more {
-    font-weight: 600;
-}
-
-/* Compact variant of the existing GitHub sponsor button */
-.footer-sponsor-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 14px;
-    font-size: 0.82rem;
-    margin-top: 0.35rem;
-    border-radius: 6px;
+  font-weight: var(--fw-semibold);
 }
 
 .site-footer-col a.footer-sponsor-btn {
-    color: #fff;
-    text-decoration: none;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+  padding: 0 var(--s-4);
+  border-radius: var(--r-sm);
+  background: var(--brand-sponsor);
+  color: var(--on-brand);
+  font-weight: var(--fw-semibold);
 }
 
-/* Bottom bar */
+.site-footer-col a.footer-sponsor-btn:hover {
+  background: var(--brand-sponsor-hover);
+  color: var(--on-brand);
+  text-decoration: none;
+}
+
 .site-footer-bottom {
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 1.25rem 24px calc(1.25rem + env(safe-area-inset-bottom));
-    color: var(--secondary);
+  padding: var(--s-5) var(--gutter) calc(var(--s-5) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  color: var(--text-2);
+  text-align: center;
 }
 
 .site-footer-tagline {
-    margin: 0 0 0.45rem;
-    font-weight: 600;
-    font-size: 0.92rem;
-    color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-2);
+  color: var(--text);
+  font-weight: var(--fw-medium);
+}
+
+.site-footer-tagline .icon {
+  flex: none;
+  color: var(--success);
 }
 
 .site-footer-copy {
-    margin: 0;
-    font-size: 0.8rem;
+  margin: 0;
+  font-size: var(--fs-xs);
 }
 
 .site-footer-copy a {
-    color: inherit;
+  color: inherit;
 }
 
 .site-footer-copy a:hover {
-    color: var(--primary);
+  color: var(--text);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .site-footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 520px) {
-    .site-footer-grid {
-        grid-template-columns: 1fr;
-        gap: 1.6rem;
-        padding: 2rem 20px 1.25rem;
-    }
+@media (max-width: 899.98px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6) var(--s-5);
+    padding-top: var(--s-7);
+  }
 }

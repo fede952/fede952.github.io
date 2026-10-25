@@ -108,5 +108,46 @@
     });
   });
 
+  /* ── Listing filter (partials/filter-bar.html): chips + text ── */
+  document.querySelectorAll('[data-filter-bar]').forEach(function (bar) {
+    var chips = bar.querySelectorAll('[data-chip]');
+    var input = bar.querySelector('input[type=search]');
+    var status = bar.querySelector('.filter-status');
+    var empty = document.querySelector('[data-filter-empty]');
+    var groups = document.querySelectorAll('[data-filter-group]');
+    var cat = '';
+    var norm = function (s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
+    function apply() {
+      var words = norm(input.value.trim()).split(/\s+/).filter(Boolean);
+      var shown = 0;
+      groups.forEach(function (g) {
+        var inGroup = 0;
+        g.querySelectorAll('.card-grid > li').forEach(function (li) {
+          var card = li.firstElementChild;
+          var hay = norm(card.getAttribute('data-filter') || '');
+          var ok = (!cat || card.getAttribute('data-category') === cat) && words.every(function (w) { return hay.indexOf(w) >= 0; });
+          li.hidden = !ok;
+          if (ok) inGroup++;
+        });
+        g.hidden = inGroup === 0;
+        shown += inGroup;
+      });
+      if (empty) empty.hidden = shown > 0;
+      status.textContent = status.getAttribute('data-count-template').replace('#', shown);
+    }
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        cat = chip.getAttribute('data-chip');
+        chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+        apply();
+      });
+    });
+    input.addEventListener('input', apply);
+    bar.hidden = false;
+    // /tools/#security deep link selects that chip
+    var pre = location.hash.slice(1);
+    chips.forEach(function (c) { if (pre && c.getAttribute('data-chip') === pre) c.click(); });
+  });
+
   doc.classList.add('js');
 })();

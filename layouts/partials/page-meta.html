@@ -1,0 +1,20 @@
+{{- /* Catalogue data of a page: (dict "icon" "category" "slug").
+     Tools: icon and category from data/tool_icons.yaml (keyed by the
+     content directory); games: the gamepad; learn pages: the icon of their
+     sub-section, whose name is also their category (guides, cheatsheets,
+     …); projects: the code icon. category is "" for everything else. */ -}}
+{{- $d := hugo.Data.tool_icons -}}
+{{- $segs := split (strings.Trim .Path "/") "/" -}}
+{{- $icon := "" -}}{{- $cat := "" -}}{{- $slug := "" -}}
+{{- if and (eq .Section "tools") (in $segs "games") -}}
+  {{- $icon = $d.games -}}
+{{- else if and (eq .Section "tools") (eq (len $segs) 2) -}}
+  {{- $slug = index $segs 1 -}}
+  {{- with index $d.tools $slug }}{{ $icon = .icon }}{{ $cat = .category }}{{ end -}}
+{{- else if and (eq .Section "learn") (ge (len $segs) 2) -}}
+  {{- $cat = index $segs 1 -}}
+  {{- $icon = index $d.learn $cat | default "book" -}}
+{{- else if eq .Section "projects" -}}
+  {{- $icon = "code" -}}
+{{- end -}}
+{{- return (dict "icon" $icon "category" $cat "slug" $slug) -}}

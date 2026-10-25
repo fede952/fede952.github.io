@@ -55,17 +55,18 @@ defaultContentLanguageInSubdir = true
   images = ["images/social-banner.png"]
   ShowShareButtons = true
 
-  # Homepage "Featured Tools" (P4.1): resolved per-language via site.GetPage,
-  # so cards pick up localized titles/descriptions automatically.
+  # Home "Popular guides": hand-picked learn pages (resolved per language
+  # via site.GetPage, so titles are localized). TODO(Federico): align this
+  # list with what Umami shows as your most-read guides.
   # NOTE: must stay ABOVE the [params.*] sub-tables — TOML assigns any
   # key/value after a table header to that table.
-  featured_tool_pages = [
-    "/tools/pass-fort",
-    "/tools/pixel-shrink",
-    "/tools/qr-generator",
-    "/tools/freelance-calculator",
-    "/tools/exif-cleaner",
-    "/tools/netguard",
+  popular_guides = [
+    "/learn/guides/osint-privacy-exif-data",
+    "/learn/cheatsheets/networking-ports-protocols",
+    "/learn/cheatsheets/nmap-network-scanning",
+    "/learn/cheatsheets/git-disaster-recovery",
+    "/learn/guides/steganography-101-hidden-messages",
+    "/learn/cheatsheets/docker-container-commands",
   ]
 
   # Site owner, emitted as one schema.org Person (templates/schema_json.html)
@@ -121,6 +122,9 @@ defaultContentLanguageInSubdir = true
     favicon16x16 = "/favicon.png"
     favicon32x32 = "/favicon.png"
     apple_touch_icon = "/favicon.png"
+    # = --bg in assets/css/extended/tokens.css (browser UI colour, dark-only site)
+    theme_color = "#0b0e12"
+    msapplication_TileColor = "#0b0e12"
 
   [params.profileMode]
     enabled = false # P4.1: the homepage is a SaaS-style landing; the bio lives on /about/

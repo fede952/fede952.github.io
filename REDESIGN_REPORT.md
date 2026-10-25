@@ -82,7 +82,7 @@ blocks. `md-content` is now on every content wrapper (6 templates). The unused `
 7. **Jargon H2s:** 283 headings renamed across 28 learn pages × 6 languages, e.g. "System Init" → "Why one photo can
    reveal where you live" / "What this Nmap cheatsheet covers", "What Is EXIF" → "What EXIF metadata reveals",
    "Protection Protocol" → "How to remove EXIF data before you share a photo", "Mission Templates" → "Ready-to-use
-   Nmap scan recipes", "End of Transmission" → "… cheatsheet: key takeaways". Five pages (nmap, git-for-hackers, EXIF
+   Nmap scan recipes", "End of Transmission" → "… cheatsheet: key takeaways". Four pages (nmap, git-for-hackers, EXIF
    guide, steganography guide) had **English `$ Snake_Case` headings in all five translations** — now written in each
    language. English pages written in Title Case keep Title Case for the new headings. Anchors: no internal link
    points at any learn-page heading (checked content, layouts and data), so no legacy anchors were needed.
@@ -103,3 +103,82 @@ New functional tests: `header-mobile` (≤ 56 px, hamburger open/Escape, languag
 | Visual suite | **88/88 pass** (baseline: 62 failing) |
 | Overflow sweep, 360 px | 1,456 pages, 0 overflow, 0 JS errors |
 | Functional | 17/17 · Tool pages 144/144 · Static: 0 broken links (73,694 refs), 0 JSON-LD errors |
+
+## Phase 2 — Design system and layout
+
+**Tokens** (`assets/css/extended/tokens.css`): background layers (`--bg` → `--bg-raised` → `--surface` → `--surface-2/3`),
+borders (incl. `--border-input`, ≥ 3:1 for form-control boundaries), three text levels, cyan `--accent` + violet
+`--accent-2`, success/warn/danger (+ `-soft` tints), a 5-step `--viz-*` scale for meters, 4 px spacing scale, radii,
+3 shadows, fluid `clamp()` type scale, focus ring, motion and layout widths. PaperMod's own variables are mapped onto
+the tokens, so theme CSS follows. Contrast checked (WCAG AA) and recorded in the file header: body text 16.3:1, secondary
+9.4:1, tertiary 5.7:1 on the page (4.8:1 on inputs; never used on `--surface-3`), accent 10.9:1, accent-ink on accent
+10.5:1. Every custom stylesheet now uses tokens only (no literal colour outside `tokens.css`; brand colours such as the
+GitHub Sponsors pink are tokens too). `prefers-reduced-motion` turns off all animations and transitions site-wide (also
+inside the apps, which load the same tokens).
+
+**CSS reorganised** — `custom.css` (1,500 lines), `cyber-cards.css`, `list-grid.css`, `related-tools.css`,
+`learn-page.css`, `home-saas.css` deleted; replaced by `layout.css`, `cards.css`, `listing.css`, `home.css`,
+`prose.css`, `search.css`, `components.css`, `games.css`, `tool-ui.css` (+ the rewritten `tool-page.css`,
+`footer.css`, `share-buttons.css`, `ad-slot.css`, `site-header.css`, `content-blocks.css`). Dead code removed with it:
+the never-rendered `comments.html` sponsor box ("I'm a Junior Developer raising funds…"), `cyber-card.html`,
+`uni-card.html`, `related-guides.html`, the split-view tool styles, `/tools/games/page/1/` pagination stubs.
+
+**Embedded tools unified** (`/css/tool-base.css`): generated at build time by `partials/tool-base.html` from
+`tokens.css` + `tool-ui.css` + `assets/css/tool-app.css`, so the 18 apps share the site's exact tokens and cannot
+drift (the plan named `static/css/tool-base.css`; generating it is the same URL with a single source of truth). Every
+app links it first; then, per app:
+- its own palette variables were mapped onto tokens (same-name variables like `--text`, `--border`, `--accent` were
+  removed so the shared token wins); 
+- body font sans, mono only for data (passwords, hashes, codes); neon glows, wide uppercase letter-spacing, gradient
+  text and cyan→magenta gradients removed;
+- primary actions are one filled accent button (PassFort "Generate", NetGuard "Run Privacy Scan", PixelShrink
+  "Compress", EXIF "Purge", GlitchForge "Download", ZenFocus Start/Reset, …), secondary actions outline;
+- inputs, selects, toggles, sliders, checkboxes and focus rings come from the base; Chart.js (RateMate) reads its colours
+  from the tokens; drop-zone emoji replaced by the site's stroke icons;
+- personality = `--tool-accent` on the logo mark only (PassFort/NetGuard/GlitchForge/RateMate green, ZenFocus amber,
+  ChronoSync/NeonPalette/PixelShrink/GhostPrint violet, the rest cyan); "$ " title prefixes removed;
+- ZenFocus (purple gradient + glass panels + orange) and RateMate (a light theme) re-skinned fully; EasyCron's own
+  light/dark toggle removed (light-mode remnant; its `easycron-theme` key dropped from the cookie pages, as was
+  `menu-scroll-position`, which nothing sets since Phase 1).
+Inline tools (hash, Base64, Caesar, chmod, password generator, Link Hazmat) use `tool-ui.css` and tokens directly.
+Canvas drawing colours were left alone on purpose: GhostPrint's canvas probe (changing it would change the
+fingerprint it measures), its shareable card image, and ReflexGrid's game graphics.
+**Bug found and fixed:** the new 1 px border on the tool iframe started a resize feedback loop — ReflexGrid (a 100vh
+app) reported 2 px less than its frame on every round and shrank to 150 px. `iframe-resizer.js` now adds the frame's
+border/padding; `tests/tool-pages.mjs` fails if a frame keeps shrinking or never settles (verified to catch the bug).
+
+**Tool / learn / game pages** (`.page-grid`, `partials/sidebar.html`): at ≥ 1100 px a 760 px main column + a 300 px
+sidebar with *Related tools* (icon + name), *Related guides* (tool pages, from `data/related.yaml`) or *More guides*
+(learn pages, same section), and the `sidebar` ad slot; below 1100 px the sidebar content follows the article (two
+columns from 600 px) and the ad slot is not rendered. The old bottom "related" card grids are gone (the sidebar
+replaces them). An eyebrow above the H1 shows the icon and category (tools, linking to `/tools/#<category>`) or the
+type and reading time (learn).
+
+**Icons** (`data/tool_icons.yaml`, `partials/icon.html`, `partials/page-meta.html`): 24 original stroke icons, one per
+tool, plus category, games and learn-type icons, all 24×24 / 1.75 px round strokes; used on cards, in the sidebar, in
+eyebrows, category headings and filter chips. No emoji as UI icons in the site chrome (footer lock emoji, card CTAs
+"📞 READ FIX" etc. are gone).
+
+**Home**: hero (value proposition + search), every tool grouped by category (Security & Privacy · Images & Media ·
+Developer · Productivity) as compact icon cards (≈ 125 px tall on desktop; title-only on phones so 24 tools stay
+scannable), *Popular guides* (`popular_guides` in hugo.toml — hand-picked, see TODO), and a *Who builds this* strip
+(photo, one line, link to About). **/tools/**: the same grouping + filter chips (All / Security / Images / Dev /
+Productivity) + a text filter (accent-insensitive, matches title, description and keywords; `/tools/#security` deep
+links a chip; hidden without JS), then the games. **/learn/**: one mixed list, newest first, with type chips (Guides /
+Cheatsheets / Fixes / Interview prep / Roadmaps / Writeups) and the text filter; every card shows type, title, 2-line
+description and reading time. Sub-sections and tag pages use the same cards (type label only on mixed listings).
+
+**Footer**: 4 columns on desktop, 2 on tablets/phones; headings are now `h2` (they were `h3` with no `h2` above).
+Cookie Settings link unchanged. **Search palette**: fully localized (it was English-only), token styling.
+**Light-mode remnants**: `<html>` is always `data-theme="dark"`; the two conflicting `theme-color` metas (`#2e2e33`
+from PaperMod, `#1d1e20` ours) are one, `#0b0e12` = `--bg`, also in `manifest.json`; EasyCron's toggle removed.
+
+Screens reviewed at 390 / 1440 px: home, /tools/, /learn/, a tool page (EN/IT), a guide, a game, all 18 apps,
+4 inline tools. New functional tests: hash (MD5/SHA-256 test vectors), Base64 (UTF-8, unpadded decode), Caesar.
+
+| Check | Result |
+|---|---|
+| Visual suite | 88/88 pass |
+| Overflow sweep, 360 px | 1,456 pages, 0 overflow, 0 JS errors |
+| Functional | 20/20 · Tool pages 144/144 (incl. the new frame-stability check) |
+| Static | 2,747 HTML files, 0 broken links, 0 JSON-LD errors, 503 sitemap URLs |

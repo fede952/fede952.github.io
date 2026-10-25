@@ -1,0 +1,167 @@
+/* ============================================================
+   TOOL UI — form components of the inline tools
+   (layouts/partials/tools/*.html: hash, base64, caesar, chmod,
+   password generator, link hazmat). Also concatenated into
+   /css/tool-base.css for the embedded apps.
+   ============================================================ */
+
+.tool-input-group {
+  margin-bottom: var(--s-5);
+}
+
+.tool-input-group label,
+.tool-output > label {
+  display: block;
+  margin-bottom: var(--s-2);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.tool-input-group input[type="text"],
+.tool-input-group input[type="number"],
+.tool-input-group textarea,
+.tool-output input,
+.tool-output textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  padding: var(--s-3);
+  border: 1px solid var(--border-input);
+  border-radius: var(--r);
+  background: var(--bg-raised);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  resize: vertical;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.tool-input-group input:focus-visible,
+.tool-input-group textarea:focus-visible,
+.tool-output input:focus-visible,
+.tool-output textarea:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.tool-input-group input[type="range"] {
+  width: 100%;
+  margin: var(--s-2) 0;
+  accent-color: var(--accent);
+}
+
+.tool-input-group .range-value {
+  display: inline-block;
+  margin-left: var(--s-3);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: var(--fw-bold);
+}
+
+.tool-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin: var(--s-4) 0;
+}
+
+.tool-btn,
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-5);
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.tool-btn:hover,
+.copy-btn:hover {
+  background: var(--accent-hover);
+}
+
+.tool-btn.secondary {
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.tool-btn.secondary:hover {
+  border-color: var(--accent);
+  background: var(--surface-3);
+  color: var(--accent);
+}
+
+.tool-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.tool-output {
+  position: relative;
+}
+
+.tool-output textarea {
+  min-height: 150px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+  min-height: 36px;
+  padding: 0 var(--s-3);
+}
+
+.copy-btn.copied {
+  background: var(--success);
+}
+
+.tool-message {
+  margin: var(--s-4) 0;
+  padding: var(--s-3) var(--s-4);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+
+.tool-message.error {
+  border-left-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.tool-message.success {
+  border-left-color: var(--success);
+  background: var(--success-soft);
+}
+
+@media (max-width: 600px) {
+  .tool-buttons {
+    flex-direction: column;
+  }
+
+  .tool-buttons .tool-btn {
+    width: 100%;
+  }
+
+  .copy-btn {
+    position: static;
+    width: 100%;
+    margin-top: var(--s-2);
+  }
+}

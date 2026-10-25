@@ -1,90 +1,47 @@
 {{ define "main" }}
-<main class="main">
-  <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
-  </header>
+{{- /* /tools/ (every tool grouped by category, filter chips + text filter,
+     then the games) and /tools/games/ (a plain grid). */ -}}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
+</header>
 
-  {{/* Card styles live in assets/css/extended/cyber-cards.css (shared with
-       the homepage) — extracted from the inline <style> that was here. */}}
-  {{ $currentSection := .Section }}
-  {{ $isHub := and (eq .Kind "section") (in (slice "learn" "tools") $currentSection) (eq .Parent.Kind "home") }}
+{{- if eq .Path "/tools" }}
+{{- $groups := partial "tools-by-category.html" . }}
+{{- $chips := slice }}
+{{- range $groups }}{{ $chips = $chips | append (dict "id" .id "label" (i18n (printf "chip_%s" .id)) "icon" .icon) }}{{ end }}
+{{ partial "filter-bar.html" (dict "chips" $chips "placeholder" (i18n "filter_placeholder")) }}
 
-  {{ if $isHub }}
-    {{/* Hub mode: group by sub-section. Direct child pages first, then a
-         labeled grid per sub-section. */}}
-    {{ $hubURL := .RelPermalink }}
-    {{ $direct := slice }}
-    {{ range .RegularPages }}
-      {{ if and .Parent (eq .Parent.RelPermalink $hubURL) }}
-        {{ $direct = $direct | append . }}
-      {{ end }}
-    {{ end }}
-    {{ if $direct }}
-      {{ $featured := where $direct "Params.featured" true }}
-      {{ $regular := where $direct "Params.featured" "!=" true }}
-      {{ $regular = $regular.ByDate.Reverse }}
-      {{ $direct = $featured | append $regular }}
-      <div class="cyber-grid">
-        {{ range $direct }}
-          {{ partial "cyber-card.html" (dict "page" .) }}
-        {{ end }}
-      </div>
-    {{ end }}
+{{- range $groups }}
+<section class="list-group" id="{{ .id }}" data-filter-group>
+  <h2 class="list-group-title">{{ partial "icon.html" (dict "name" .icon "size" 20) }}{{ i18n (printf "cat_%s" .id) }}</h2>
+  <ul class="card-grid">
+    {{- range .pages }}
+    <li>{{ partial "card.html" (dict "page" . "level" "h3") }}</li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
 
-    {{/* Each sub-section group shows up to 5 most-recent posts; an overflow
-         link points to the sub-section's own paginated list page. */}}
-    {{ $hubLimit := 5 }}
-    {{ range .Sections.ByTitle }}
-      {{ $children := .RegularPagesRecursive.ByDate.Reverse }}
-      {{ if $children }}
-        {{ $shown := first $hubLimit $children }}
-        {{ $overflow := gt (len $children) $hubLimit }}
-        <h2 class="hub-group-heading">
-          <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </h2>
-        {{ with .Description }}<p class="hub-group-desc">{{ . }}</p>{{ end }}
-        <div class="cyber-grid">
-          {{ range $shown }}
-            {{ partial "cyber-card.html" (dict "page" .) }}
-          {{ end }}
-        </div>
-        {{ if $overflow }}
-          <a class="hub-view-all" href="{{ .Permalink }}">{{ i18n "view_all" .Title }}</a>
-        {{ end }}
-      {{ end }}
-    {{ end }}
-  {{ else }}
-    {{/* Sub-section pages: pull only this section's pages so e.g.
-         /tools/games/ doesn't list non-game tools. */}}
-    {{ $items := .RegularPagesRecursive }}
-    {{ if not $items }}
-      {{ $items = where site.RegularPages "Section" $currentSection }}
-    {{ end }}
+{{- with .GetPage "games" }}
+<section class="list-group" id="games" data-filter-group>
+  <div class="section-head">
+    <h2 class="list-group-title">{{ partial "icon.html" (dict "name" "gamepad" "size" 20) }}{{ i18n "games_title" }}</h2>
+    <a class="section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>
+  </div>
+  <ul class="card-grid">
+    {{- range sort .RegularPages "Title" }}
+    <li>{{ partial "card.html" (dict "page" . "level" "h3") }}</li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
 
-    {{ $items = where $items "Kind" "page" }}
-
-    {{/* 24/page fills the 3-column cyber-grid evenly. */}}
-    {{ $paginator := .Paginate $items 24 }}
-
-    <div class="cyber-grid">
-      {{ range $paginator.Pages }}
-        {{ partial "cyber-card.html" (dict "page" .) }}
-      {{ end }}
-    </div>
-
-    {{ if gt $paginator.TotalPages 1 }}
-    <footer class="page-footer">
-      <nav class="pagination">
-        {{- if $paginator.HasPrev }}
-        <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">«&nbsp;{{ i18n "prev_page" }}&nbsp;{{ sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}</a>
-        {{- end }}
-        {{- if $paginator.HasNext }}
-        <a class="next" href="{{ $paginator.Next.URL | absURL }}">{{ i18n "next_page" }}&nbsp;{{ add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}&nbsp;»</a>
-        {{- end }}
-      </nav>
-    </footer>
-    {{ end }}
-  {{ end }}
-</main>
+{{- else }}
+<ul class="card-grid">
+  {{- range sort .RegularPagesRecursive "Title" }}
+  <li>{{ partial "card.html" (dict "page" . "level" "h2") }}</li>
+  {{- end }}
+</ul>
+{{- end }}
 {{ end }}

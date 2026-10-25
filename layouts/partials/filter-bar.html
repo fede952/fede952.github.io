@@ -1,0 +1,18 @@
+{{- /* Client-side filter for a listing (assets/js/site.js): category chips
+     and a text box. Args: dict "chips" slice of (dict "id" "label" "icon"),
+     "placeholder". Cards carry data-category / data-filter. Hidden until JS
+     shows it, so without JS the full grouped list is all there is. */ -}}
+<div class="filter-bar" data-filter-bar hidden>
+  <div class="chips" role="group" aria-label="{{ i18n "filter_label" }}">
+    <button type="button" class="chip" data-chip="" aria-pressed="true">{{ i18n "chip_all" }}</button>
+    {{- range .chips }}
+    <button type="button" class="chip" data-chip="{{ .id }}" aria-pressed="false">{{ with .icon }}{{ partial "icon.html" (dict "name" . "size" 16) }}{{ end }}{{ .label }}</button>
+    {{- end }}
+  </div>
+  <div class="filter-input">
+    {{ partial "icon.html" (dict "name" "search-star" "size" 18) }}
+    <input type="search" aria-label="{{ i18n "filter_label" }}" placeholder="{{ .placeholder }}" autocomplete="off" spellcheck="false">
+  </div>
+  <p class="filter-status visually-hidden" aria-live="polite" data-count-template="{{ i18n "filter_count" "#" }}"></p>
+</div>
+<p class="filter-empty" data-filter-empty hidden>{{ i18n "filter_empty" }}</p>

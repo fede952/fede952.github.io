@@ -6,27 +6,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Text Utilities</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-3);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 .app{max-width:750px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
 .header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
-.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+.header h1{font-size:clamp(18px,4vw,26px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;}
 
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
-.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title{font-size:10px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
 textarea{width:100%;min-height:200px;padding:14px;font-family:var(--mono);font-size:13px;line-height:1.6;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:8px;resize:vertical;outline:none;transition:border-color .2s}
@@ -37,19 +33,19 @@ textarea::placeholder{color:var(--text3)}
 .stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center;transition:border-color .2s}
 .stat-card:hover{border-color:var(--cyan)}
 .stat-value{font-size:22px;font-weight:700;color:var(--cyan);line-height:1}
-.stat-label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.stat-label{font-size:9px;color:var(--text2);margin-top:6px}
 
-.btn{padding:10px 18px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
-.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn{padding:10px 18px;font-family:var(--font-sans);font-size:10px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn-primary:hover{}
 .btn-secondary{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
 .btn-secondary:hover{background:var(--cyan-glow)}
-.btn-hacker{background:linear-gradient(135deg,var(--green),#00cc66);color:var(--bg);font-weight:700}
-.btn-hacker:hover{box-shadow:0 0 20px rgba(0,255,136,.3)}
+.btn-hacker{background:var(--success);color:var(--bg);font-weight:700}
+.btn-hacker:hover{}
 .btn-group{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
 
-.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
-.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;display:none}
+.status.success{display:block;background:var(--success-soft);border:1px solid var(--green);color:var(--green)}
 
 @media(max-width:600px){
   .stats-grid{grid-template-columns:repeat(2,1fr)}
@@ -61,7 +57,7 @@ textarea::placeholder{color:var(--text3)}
 <body>
 <div class="app">
   <div class="header">
-    <h1 data-i18n="title">$ StringMaster</h1>
+    <h1 data-i18n="title">StringMaster</h1>
     <div class="sub" data-i18n="subtitle">Text Utilities</div>
   </div>
 
@@ -107,42 +103,42 @@ textarea::placeholder{color:var(--text3)}
 <script>
 const T = {
   en: {
-    title:'$ StringMaster',subtitle:'Text Utilities',inputSection:'Input',inputPlaceholder:'Paste your text here...',
+    title:'StringMaster',subtitle:'Text Utilities',inputSection:'Input',inputPlaceholder:'Paste your text here...',
     words:'Words',characters:'Characters',lines:'Lines',readingTime:'Reading Time',
     actionsSection:'Actions',uppercase:'Uppercase',lowercase:'Lowercase',removeDuplicates:'Remove Duplicates',
     trimWhitespace:'Trim Whitespace',copyBtn:'Copy',hackerMode:'Hacker Mode',
     copied:'Text copied!',transformed:'Text transformed!'
   },
   it: {
-    title:'$ StringMaster',subtitle:'Utilità di Testo',inputSection:'Input',inputPlaceholder:'Incolla il tuo testo qui...',
+    title:'StringMaster',subtitle:'Utilità di Testo',inputSection:'Input',inputPlaceholder:'Incolla il tuo testo qui...',
     words:'Parole',characters:'Caratteri',lines:'Righe',readingTime:'Tempo di Lettura',
     actionsSection:'Azioni',uppercase:'Maiuscolo',lowercase:'Minuscolo',removeDuplicates:'Rimuovi Duplicati',
     trimWhitespace:'Taglia Spazi',copyBtn:'Copia',hackerMode:'Modalità Hacker',
     copied:'Testo copiato!',transformed:'Testo trasformato!'
   },
   es: {
-    title:'$ StringMaster',subtitle:'Utilidades de Texto',inputSection:'Entrada',inputPlaceholder:'Pega tu texto aquí...',
+    title:'StringMaster',subtitle:'Utilidades de Texto',inputSection:'Entrada',inputPlaceholder:'Pega tu texto aquí...',
     words:'Palabras',characters:'Caracteres',lines:'Líneas',readingTime:'Tiempo Lectura',
     actionsSection:'Acciones',uppercase:'Mayúsculas',lowercase:'Minúsculas',removeDuplicates:'Quitar Duplicados',
     trimWhitespace:'Recortar Espacios',copyBtn:'Copiar',hackerMode:'Modo Hacker',
     copied:'¡Texto copiado!',transformed:'¡Texto transformado!'
   },
   fr: {
-    title:'$ StringMaster',subtitle:'Utilitaires Texte',inputSection:'Entrée',inputPlaceholder:'Collez votre texte ici...',
+    title:'StringMaster',subtitle:'Utilitaires Texte',inputSection:'Entrée',inputPlaceholder:'Collez votre texte ici...',
     words:'Mots',characters:'Caractères',lines:'Lignes',readingTime:'Temps Lecture',
     actionsSection:'Actions',uppercase:'Majuscules',lowercase:'Minuscules',removeDuplicates:'Suppr. Doublons',
     trimWhitespace:'Suppr. Espaces',copyBtn:'Copier',hackerMode:'Mode Hacker',
     copied:'Texte copié !',transformed:'Texte transformé !'
   },
   de: {
-    title:'$ StringMaster',subtitle:'Text-Werkzeuge',inputSection:'Eingabe',inputPlaceholder:'Text hier einfügen...',
+    title:'StringMaster',subtitle:'Text-Werkzeuge',inputSection:'Eingabe',inputPlaceholder:'Text hier einfügen...',
     words:'Wörter',characters:'Zeichen',lines:'Zeilen',readingTime:'Lesezeit',
     actionsSection:'Aktionen',uppercase:'Großbuchstaben',lowercase:'Kleinbuchstaben',removeDuplicates:'Duplikate entfernen',
     trimWhitespace:'Leerzeichen entf.',copyBtn:'Kopieren',hackerMode:'Hacker-Modus',
     copied:'Text kopiert!',transformed:'Text transformiert!'
   },
   pt: {
-    title:'$ StringMaster',subtitle:'Utilitários de Texto',inputSection:'Entrada',inputPlaceholder:'Cole seu texto aqui...',
+    title:'StringMaster',subtitle:'Utilitários de Texto',inputSection:'Entrada',inputPlaceholder:'Cole seu texto aqui...',
     words:'Palavras',characters:'Caracteres',lines:'Linhas',readingTime:'Tempo Leitura',
     actionsSection:'Ações',uppercase:'Maiúsculas',lowercase:'Minúsculas',removeDuplicates:'Remover Duplicados',
     trimWhitespace:'Recortar Espaços',copyBtn:'Copiar',hackerMode:'Modo Hacker',

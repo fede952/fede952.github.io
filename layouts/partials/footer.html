@@ -12,7 +12,7 @@
   <div class="site-footer-grid">
 
     <div class="site-footer-col">
-      <h3>{{ with site.GetPage "/tools" }}{{ .Title }}{{ else }}Tools{{ end }}</h3>
+      <h2>{{ with site.GetPage "/tools" }}{{ .Title }}{{ else }}Tools{{ end }}</h2>
       <ul>
         <li><a href="{{ "tools/pass-fort/" | relLangURL }}">PassFort</a></li>
         <li><a href="{{ "tools/netguard/" | relLangURL }}">NetGuard</a></li>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="site-footer-col">
-      <h3>{{ with site.GetPage "/learn" }}{{ .Title }}{{ else }}Learn{{ end }}</h3>
+      <h2>{{ with site.GetPage "/learn" }}{{ .Title }}{{ else }}Learn{{ end }}</h2>
       <ul>
         {{ with site.GetPage "/learn/guides" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ with site.GetPage "/learn/cheatsheets" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
@@ -32,7 +32,7 @@
     </div>
 
     <div class="site-footer-col">
-      <h3>{{ i18n "footer_legal" | default "Legal" }}</h3>
+      <h2>{{ i18n "footer_legal" | default "Legal" }}</h2>
       <ul>
         {{ with site.GetPage "/privacy" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ with site.GetPage "/cookies" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
@@ -47,7 +47,7 @@
     </div>
 
     <div class="site-footer-col">
-      <h3>{{ i18n "footer_connect" | default "Connect" }}</h3>
+      <h2>{{ i18n "footer_connect" | default "Connect" }}</h2>
       <ul>
         <li><a href="https://github.com/fede952" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         <li><a href="https://linkedin.com/in/federicosella" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
@@ -63,7 +63,7 @@
   </div>
 
   <div class="site-footer-bottom">
-    <p class="site-footer-tagline">&#128274; {{ i18n "footer_tagline" | default "All tools process your data locally in your browser — nothing you enter is uploaded." }}</p>
+    <p class="site-footer-tagline">{{ partial "icon.html" (dict "name" "shield-check" "size" 16) }}{{ i18n "footer_tagline" }}</p>
     <p class="site-footer-copy">&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a> · Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a></p>
   </div>
 </footer>

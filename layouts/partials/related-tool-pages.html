@@ -1,0 +1,22 @@
+{{- /* Up to 5 tools related to a page, in its language: hand-picked ones
+     from data/related.yaml first (tools.<slug>.tools for tool pages,
+     learn.<path under /learn/> for learn articles), then Hugo's
+     related-content engine (tags index in hugo.toml), then the newest tools.
+     Games are never suggested as tools. Returns a slice of pages. */ -}}
+{{- $max := 5 -}}
+{{- $pool := where (where (where site.RegularPages "Section" "tools") "CurrentSection.Path" "eq" "/tools") "Permalink" "ne" .Permalink -}}
+{{- $picks := slice -}}
+{{- if eq .Section "learn" -}}
+  {{- $picks = index (hugo.Data.related.learn | default dict) (strings.TrimPrefix "/learn/" .Path) | default slice -}}
+{{- else -}}
+  {{- with index (hugo.Data.related.tools | default dict) (path.Base .Path) }}{{ $picks = .tools }}{{ end -}}
+{{- end -}}
+{{- $cards := slice -}}
+{{- range $picks }}{{ with site.GetPage (printf "/tools/%s" .) }}{{ if lt (len $cards) $max }}{{ $cards = $cards | append . }}{{ end }}{{ end }}{{ end -}}
+{{- with $pool.Related . -}}
+  {{- range . }}{{ if and (lt (len $cards) $max) (not (in $cards .)) }}{{ $cards = $cards | append . }}{{ end }}{{ end -}}
+{{- end -}}
+{{- range $pool -}}
+  {{- if and (lt (len $cards) $max) (not (in $cards .)) }}{{ $cards = $cards | append . }}{{ end -}}
+{{- end -}}
+{{- return $cards -}}

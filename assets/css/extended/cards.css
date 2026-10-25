@@ -1,0 +1,139 @@
+/* ============================================================
+   CARDS (partials/card.html) — one compact card for tools,
+   games and learn content. The title link is stretched over
+   the whole card, so the card is a single tab stop.
+   ============================================================ */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  gap: var(--s-3);
+  height: 100%;
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--accent-line);
+  background: var(--surface-hover);
+}
+
+.card:has(.card-link:focus-visible) {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+.card-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.card--learn .card-icon {
+  background: var(--accent-2-soft);
+  color: var(--accent-2);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.card-type {
+  color: var(--accent-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.card-title {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+}
+
+.card-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.card-link:focus-visible {
+  outline: none;
+}
+
+/* the whole card is the link's hit area */
+.card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.card:hover .card-link {
+  color: var(--accent-hover);
+}
+
+.card-desc {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.card-meta {
+  margin-top: auto;
+  padding-top: var(--s-1);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+/* filtered out on /tools/ */
+.card-grid > li[hidden] {
+  display: none;
+}
+
+/* Home tool grid on phones: title only, so 24 tools stay scannable */
+@media (max-width: 599.98px) {
+  .card-grid--compact {
+    gap: var(--s-2);
+  }
+
+  .card-grid--compact .card {
+    align-items: center;
+    padding: var(--s-3);
+  }
+
+  .card-grid--compact .card-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .card-grid--compact .card-desc {
+    display: none;
+  }
+}

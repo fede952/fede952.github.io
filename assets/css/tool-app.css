@@ -1,0 +1,122 @@
+/* ============================================================
+   EMBEDDED TOOL APPS (static/tools/*/index.html)
+   Published, together with tokens.css, as /css/tool-base.css
+   (layouts/partials/tool-base.html). Every app links it first,
+   then maps its own variable names onto the tokens, so the
+   apps share the site's surfaces, inputs, buttons, toggles and
+   focus states. Personality: --tool-accent (logo mark only).
+   ============================================================ */
+
+:root {
+  --tool-accent: var(--accent);
+  font-size: 15px;
+}
+
+html,
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* Native controls: one look everywhere */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="number"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+  background-color: var(--bg-raised);
+  border-color: var(--border-input);
+  color: var(--text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-3);
+  opacity: 1;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible,
+label:focus-within {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress {
+  accent-color: var(--accent);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+* {
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+/* Shared building blocks apps can use directly */
+.tb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-5);
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.tb-btn:hover {
+  background: var(--accent-hover);
+}
+
+.tb-btn--ghost {
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--text);
+}
+
+.tb-btn--ghost:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  color: var(--accent);
+}

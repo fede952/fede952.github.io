@@ -1,0 +1,229 @@
+/* ============================================================
+   DESIGN TOKENS — the single source of colour, space, type,
+   radius, shadow and focus for the site. Every custom
+   stylesheet uses these; the embedded tool apps load the
+   same file through /css/tool-base.css, which the build
+   generates from it (layouts/partials/tool-base.html).
+
+   Dark-only. Contrast (WCAG 2.2), on --bg / --surface /
+   --surface-2: --text 16.3 / 14.9 / 13.8, --text-2 9.4 / 8.6 /
+   8.0, --text-3 5.7 / 5.2 / 4.8 (never on --surface-3: 4.2),
+   --accent 10.9 / 10.0 / 9.3, --accent-2 7.1 / 6.5 / 6.0,
+   --success and --warn ≥ 9.2, --danger 7.0 / 6.4 / 5.9;
+   --accent-ink on --accent 10.5. --border-input is ≥ 3:1 on
+   --surface-2 (WCAG 1.4.11, boundaries of form controls).
+   ============================================================ */
+
+:root,
+:root[data-theme] {
+  color-scheme: dark;
+
+  /* ── Background layers (darkest → lightest) ── */
+  --bg: #0b0e12;            /* page */
+  --bg-raised: #0f1318;     /* header, footer */
+  --surface: #141920;       /* cards, panels, the tool frame */
+  --surface-2: #1a2029;     /* inputs, hover, code */
+  --surface-3: #222a35;     /* pressed, selected */
+  --glass: rgba(15, 19, 24, 0.9);     /* translucent --bg-raised: sticky header */
+  --glass-2: rgba(20, 25, 32, 0.94);  /* translucent --surface: floating buttons */
+  --surface-hover: #161c24;          /* card hover */
+  --scrim: rgba(4, 6, 9, 0.72);       /* behind dialogs */
+  --scrim-strong: rgba(5, 7, 10, 0.9); /* game overlays */
+  --game-bg: #000;                     /* game canvases */
+  --border: #252d39;
+  --border-strong: #354152;
+  --border-input: #66738a;
+
+  /* ── Text ── */
+  --text: #e8ecf1;
+  --text-2: #adb6c2;
+  --text-3: #818c9a;
+
+  /* ── Accents ── */
+  --accent: #2fd5ee;        /* cyan: links, primary actions, focus */
+  --accent-hover: #74e5f6;
+  --accent-ink: #03161b;    /* text on --accent */
+  --accent-soft: rgba(47, 213, 238, 0.12);
+  --accent-line: rgba(47, 213, 238, 0.35);
+  --selection: rgba(47, 213, 238, 0.28);
+  --accent-2: #a78bfa;      /* violet: categories, secondary highlights */
+  --accent-2-soft: rgba(167, 139, 250, 0.14);
+
+  /* ── Status ── */
+  --success: #3ddc97;
+  --success-soft: rgba(61, 220, 151, 0.12);
+  --warn: #f5b84b;
+  --warn-soft: rgba(245, 184, 75, 0.12);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.12);
+  /* GitHub Sponsors pink: a brand colour, dark enough for white text (5:1) */
+  --brand-sponsor: #bf3989;
+  --brand-sponsor-hover: #a32d74;
+  --on-brand: #fff;
+
+  /* 5-step scale for meters and scores (weak → strong) */
+  --viz-1: var(--danger);
+  --viz-2: #fb923c;
+  --viz-3: var(--warn);
+  --viz-4: #a3e05f;
+  --viz-5: var(--success);
+
+  /* ── Type ── */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --fs-xl: clamp(1.1875rem, 1.08rem + 0.5vw, 1.375rem);
+  --fs-2xl: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem);
+  --fs-3xl: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+  --fs-4xl: clamp(2rem, 1.5rem + 2.6vw, 3.125rem);
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh: 1.65;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ── Space (4 px base) ── */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-7: 2rem;
+  --s-8: 2.5rem;
+  --s-9: 3rem;
+  --s-10: 4rem;
+
+  /* ── Radius ── */
+  --r-sm: 6px;
+  --r: 10px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+
+  /* ── Elevation ── */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 8px 24px -10px rgba(0, 0, 0, 0.7);
+  --shadow-3: 0 20px 48px -16px rgba(0, 0, 0, 0.8);
+
+  /* ── Focus ── */
+  --focus-width: 2px;
+  --focus-color: var(--accent);
+  --focus-offset: 2px;
+
+  /* ── Motion ── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 160ms;
+
+  /* ── Layout ── */
+  --page-max: 1160px;
+  --content-max: 760px;
+  --sidebar-w: 300px;
+  --gutter: clamp(16px, 4vw, 24px);
+  --header-h: 56px;
+
+  /* ── PaperMod's variables, mapped onto the tokens so theme CSS follows ── */
+  --theme: var(--bg);
+  --entry: var(--surface);
+  --primary: var(--text);
+  --secondary: var(--text-2);
+  --tertiary: var(--surface-3);
+  --content: var(--text);
+  --code-bg: var(--surface-2);
+  --code-block-bg: #0e1217;
+  --radius: var(--r);
+  --gap: var(--gutter);
+  --main-width: var(--content-max);
+  --nav-width: var(--page-max);
+  --header-height: var(--header-h);
+
+  /* legacy aliases still read by a few components */
+  --accent-rgb: 47, 213, 238;
+}
+
+@media (min-width: 768px) {
+  :root,
+  :root[data-theme] {
+    --header-h: 64px;
+  }
+}
+
+/* ── Base ── */
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  line-height: var(--lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* PaperMod paints list pages with --code-bg; the site uses one ground */
+.list,
+[data-theme="dark"] .list {
+  background: var(--bg);
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 0.85em;
+}
+
+/* Screen-reader-only text */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Decorative motion off for people who ask for it (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

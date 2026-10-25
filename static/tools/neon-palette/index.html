@@ -6,58 +6,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Color Matrix</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-3);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);--tool-accent:var(--accent-2);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 .app{max-width:700px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
 .header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
-.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+.header h1{font-size:clamp(18px,4vw,26px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;}
 
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
-.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title{font-size:10px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
 .color-input-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
 .color-picker-big{width:64px;height:64px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:var(--bg3);padding:2px;flex-shrink:0}
 .color-fields{display:flex;flex-direction:column;gap:8px;flex:1}
 .field-row{display:flex;gap:8px;align-items:center}
-.field-row label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;width:36px;flex-shrink:0}
+.field-row label{font-size:10px;color:var(--text2);width:36px;flex-shrink:0}
 .field-row input{flex:1;padding:8px 10px;font-family:var(--mono);font-size:12px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;transition:border-color .2s}
 .field-row input:focus{border-color:var(--cyan)}
 
 .preview-bar{height:48px;border-radius:8px;border:1px solid var(--border);margin-top:16px;transition:background .2s;position:relative;overflow:hidden}
 .preview-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 50%,rgba(255,255,255,.05));pointer-events:none}
 
-.copy-mini{padding:4px 10px;font-family:var(--mono);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.copy-mini{padding:4px 10px;font-family:var(--mono);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;transition:all .2s;white-space:nowrap}
 .copy-mini:hover{background:var(--cyan-glow)}
 
-.btn{padding:10px 24px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
-.btn-neon{background:linear-gradient(135deg,var(--magenta),#a020f0);color:#fff;font-weight:700}
-.btn-neon:hover{box-shadow:0 0 20px var(--magenta-glow),0 0 40px rgba(160,32,240,.2)}
+.btn{padding:10px 24px;font-family:var(--font-sans);font-size:11px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-neon{background:var(--accent-2);color:var(--bg);font-weight:700}
+.btn-neon:hover{}
 
 .palette-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
 .palette-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s,border-color .2s;cursor:pointer}
 .palette-card:hover{transform:translateY(-3px);border-color:var(--cyan)}
 .palette-swatch{height:80px;position:relative}
 .palette-swatch::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 50%);pointer-events:none}
-.palette-info{padding:10px;background:var(--bg3);font-size:10px;color:var(--text);letter-spacing:1px;display:flex;flex-direction:column;gap:4px}
+.palette-info{padding:10px;background:var(--bg3);font-size:10px;color:var(--text);display:flex;flex-direction:column;gap:4px}
 .palette-hex{font-weight:700;color:var(--cyan);font-size:12px}
 .palette-rgb,.palette-hsl{color:var(--text2);font-size:9px}
 
-.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
-.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;display:none}
+.status.success{display:block;background:var(--success-soft);border:1px solid var(--green);color:var(--green)}
 
 @media(max-width:600px){
   .color-input-row{flex-direction:column;align-items:stretch}
@@ -70,7 +66,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <body>
 <div class="app">
   <div class="header">
-    <h1 data-i18n="title">$ NeonPalette</h1>
+    <h1 data-i18n="title">NeonPalette</h1>
     <div class="sub" data-i18n="subtitle">Color Matrix</div>
   </div>
 
@@ -111,32 +107,32 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <script>
 const T = {
   en: {
-    title:'$ NeonPalette',subtitle:'Color Matrix',converterSection:'Color Converter',
+    title:'NeonPalette',subtitle:'Color Matrix',converterSection:'Color Converter',
     generatorSection:'Cyberpunk Generator',generatePalette:'Generate Neon Palette',
     copied:'Copied!',paletteGenerated:'Neon palette generated!'
   },
   it: {
-    title:'$ NeonPalette',subtitle:'Matrice Colori',converterSection:'Convertitore Colori',
+    title:'NeonPalette',subtitle:'Matrice Colori',converterSection:'Convertitore Colori',
     generatorSection:'Generatore Cyberpunk',generatePalette:'Genera Palette Neon',
     copied:'Copiato!',paletteGenerated:'Palette neon generata!'
   },
   es: {
-    title:'$ NeonPalette',subtitle:'Matriz de Colores',converterSection:'Convertidor de Colores',
+    title:'NeonPalette',subtitle:'Matriz de Colores',converterSection:'Convertidor de Colores',
     generatorSection:'Generador Cyberpunk',generatePalette:'Generar Paleta Neón',
     copied:'¡Copiado!',paletteGenerated:'¡Paleta neón generada!'
   },
   fr: {
-    title:'$ NeonPalette',subtitle:'Matrice de Couleurs',converterSection:'Convertisseur de Couleurs',
+    title:'NeonPalette',subtitle:'Matrice de Couleurs',converterSection:'Convertisseur de Couleurs',
     generatorSection:'Générateur Cyberpunk',generatePalette:'Générer Palette Néon',
     copied:'Copié !',paletteGenerated:'Palette néon générée !'
   },
   de: {
-    title:'$ NeonPalette',subtitle:'Farbmatrix',converterSection:'Farbkonverter',
+    title:'NeonPalette',subtitle:'Farbmatrix',converterSection:'Farbkonverter',
     generatorSection:'Cyberpunk-Generator',generatePalette:'Neon-Palette generieren',
     copied:'Kopiert!',paletteGenerated:'Neon-Palette generiert!'
   },
   pt: {
-    title:'$ NeonPalette',subtitle:'Matriz de Cores',converterSection:'Conversor de Cores',
+    title:'NeonPalette',subtitle:'Matriz de Cores',converterSection:'Conversor de Cores',
     generatorSection:'Gerador Cyberpunk',generatePalette:'Gerar Paleta Neon',
     copied:'Copiado!',paletteGenerated:'Paleta neon gerada!'
   }

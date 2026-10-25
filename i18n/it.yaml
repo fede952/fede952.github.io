@@ -226,3 +226,71 @@ type_project:
   other: "Progetto"
 type_page:
   other: "Pagina"
+
+# Design system: categories, filters, home sections (redesign Phase 2)
+cat_security:
+  other: "Sicurezza e privacy"
+cat_images:
+  other: "Immagini e media"
+cat_dev:
+  other: "Sviluppatori"
+cat_productivity:
+  other: "Produttività"
+chip_all:
+  other: "Tutti"
+chip_security:
+  other: "Sicurezza"
+chip_images:
+  other: "Immagini"
+chip_dev:
+  other: "Dev"
+chip_productivity:
+  other: "Produttività"
+filter_label:
+  other: "Filtra gli strumenti"
+filter_placeholder:
+  other: "Filtra per nome o attività…"
+filter_empty:
+  other: "Nessuno strumento corrisponde al filtro."
+filter_count:
+  other: "{{ . }} strumenti mostrati"
+read_time:
+  other: "{{ . }} min di lettura"
+home_tools:
+  other: "Strumenti gratuiti"
+home_popular_guides:
+  other: "Guide più lette"
+home_builder_title:
+  other: "Chi c'è dietro"
+home_builder_text:
+  other: "Creato da Federico Sella, network security analyst che lavora ogni giorno su piattaforme Zero Trust e secure web gateway."
+home_builder_link:
+  other: "Chi sono"
+sidebar_more_guides:
+  other: "Altre guide"
+games_title:
+  other: "Giochi nel browser"
+
+chip_guides:
+  other: "Guide"
+chip_cheatsheets:
+  other: "Cheatsheet"
+chip_debug-sys:
+  other: "Soluzioni"
+chip_interviews:
+  other: "Colloqui"
+chip_roadmaps:
+  other: "Roadmap"
+chip_writeups:
+  other: "Writeup"
+
+search_results:
+  other: "Risultati della ricerca"
+search_empty:
+  other: "Nessun risultato."
+search_navigate:
+  other: "Naviga"
+search_open:
+  other: "Apri"
+search_close:
+  other: "Chiudi"

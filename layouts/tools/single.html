@@ -4,7 +4,9 @@
        breadcrumbs → H1 → intro → [ad tool_top] → TOOL → [ad tool_after]
        → How to use (front matter `howto`) → long-form markdown body
          (## How it works, [partner block], ## Use cases …)
-       → [ad article_mid] → FAQ (front matter `faq`) → related guides/tools
+       → [ad article_mid] → FAQ (front matter `faq`)
+     and, beside it at >= 1100 px (below it otherwise), partials/sidebar.html:
+     related tools, related guides, sidebar ad.
      The tool itself comes from exactly one of (front matter):
        tool_file     iframe of a self-contained app in static/tools/ (or games/)
                      + tool_height (initial px), tool_sandbox, tool_allow
@@ -15,9 +17,17 @@
 {{- $ads := partial "ads/enabled.html" . }}
 {{- $isTool := or .Params.tool_file .Params.tool_partial .Params.tool_html }}
 
-<article class="post-single tool-page">
+<div class="page-grid">
+<article class="post-single tool-page page-main">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
+    {{- $m := partial "page-meta.html" . }}
+    {{- with $m.icon }}
+    <p class="eyebrow">
+      <span class="eyebrow-icon">{{ partial "icon.html" (dict "name" . "size" 18) }}</span>
+      {{- with $m.category }}<a href="{{ "tools/" | relLangURL }}#{{ . }}">{{ i18n (printf "cat_%s" .) }}</a>{{ else }}{{ partial "page-type.html" $ }}{{ end }}
+    </p>
+    {{- end }}
     <h1 class="post-title">{{ .Title }}</h1>
     {{- with .Params.intro }}
     <p class="tool-intro">{{ . | markdownify }}</p>
@@ -93,8 +103,6 @@
   </section>
   {{- end }}
 
-  {{ partial "related-guides.html" . }}
-
   {{- else }}
   {{- /* Legacy: the iframe/shortcode lives in the markdown body (games). */}}
   {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
@@ -129,7 +137,7 @@
     </ul>
   </footer>
 </article>
-
-{{ partial "related-tools.html" . }}
+{{ partial "sidebar.html" . }}
+</div>
 
 {{- end }}{{/* end main */}}

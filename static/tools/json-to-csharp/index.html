@@ -6,35 +6,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JSON to C# Converter</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 
 .app{max-width:960px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
 /* -- Header -- */
 .header{text-align:center;padding:24px 0;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
-.header h1{font-size:clamp(20px,4.5vw,30px);text-transform:uppercase;letter-spacing:5px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:8px;letter-spacing:2px}
+.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:8px;}
 
 /* -- Editor Grid -- */
 .editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .col{display:flex;flex-direction:column;min-width:0}
 .col-head{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--bg3);border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0}
-.col-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3)}
+.col-label{font-size:10px;color:var(--text3)}
 
 /* -- Error Badge -- */
-.error-badge{display:none;font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(255,51,85,.15);color:var(--red);letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.error-badge{display:none;font-size:9px;padding:2px 8px;border-radius:4px;background:var(--danger-soft);color:var(--red);font-weight:700}
 .error-badge.visible{display:inline-block;animation:pulse-red .8s ease infinite}
 @keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.5}}
 
@@ -48,7 +44,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 #outputPre{flex:1;min-height:420px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:0 0 8px 8px;overflow:auto;margin:0;white-space:pre}
 
 /* -- Copy Button -- */
-.copy-btn{padding:4px 12px;font-family:var(--mono);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s}
+.copy-btn{padding:4px 12px;font-family:var(--font-sans);font-size:9px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);border-radius:4px;cursor:pointer;transition:all .2s}
 .copy-btn:hover{background:var(--cyan);color:var(--bg)}
 .copy-btn.copied{border-color:var(--green);color:var(--green)}
 
@@ -60,7 +56,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .hl-cmt{color:var(--text3);font-style:italic}
 
 /* -- Empty Hint -- */
-.empty-hint{color:var(--text3);font-style:italic;letter-spacing:.5px}
+.empty-hint{color:var(--text3);font-style:italic;}
 
 /* -- Responsive -- */
 @media(max-width:768px){

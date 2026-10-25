@@ -1,7 +1,8 @@
 {{- define "main" }}
 {{- $ads := partial "ads/enabled.html" . }}
 
-<article class="post-single game-page">
+<div class="page-grid">
+<article class="post-single game-page page-main">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
     <h1 class="post-title">
@@ -44,7 +45,7 @@
     {{- end }}
   </footer>
 </article>
-
-{{ partial "related-tools.html" . }}
+{{ partial "sidebar.html" . }}
+</div>
 
 {{- end }}{{/* end main */}}

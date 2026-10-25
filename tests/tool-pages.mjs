@@ -1,6 +1,7 @@
 // Audit of every tool page in every language (local build): H1, JSON-LD
 // (WebApplication + BreadcrumbList + FAQPage, FAQ in DOM = FAQ in schema),
-// iframe ?lang matches the page and the iframe got auto-resized, no JS errors.
+// iframe ?lang matches the page, the iframe got auto-resized and its height
+// settles, no JS errors.
 //
 //   node tests/tool-pages.mjs [tool,tool]
 import { chromium } from 'playwright';
@@ -29,6 +30,19 @@ await Promise.all(Array.from({ length: 4 }, async () => {
     try {
       await page.goto(origin + url, { waitUntil: 'load' });
       await page.waitForTimeout(1500);
+      // The auto-resized frame must settle. Growing while an app fills in
+      // results is fine; shrinking step after step is the resize feedback
+      // loop (frame border not accounted for), and so is never settling.
+      const frameH = () => page.evaluate(() => { const f = document.querySelector('iframe.tool-iframe'); return f ? Math.round(f.getBoundingClientRect().height) : 0; });
+      let prev = await frameH(), settled = false, shrinks = 0;
+      for (let i = 0; i < 10 && !settled; i++) {
+        await page.waitForTimeout(600);
+        const h = await frameH();
+        if (h < prev - 4) shrinks++;
+        settled = Math.abs(h - prev) <= 4;
+        prev = h;
+      }
+      if (shrinks > 1 || !settled) problems.push(`iframe height ${settled ? 'kept shrinking' : 'never settled'} (last ${prev} px)`);
       const info = await page.evaluate(() => {
         const ld = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap((s) => { try { const j = JSON.parse(s.textContent); return Array.isArray(j) ? j : (j['@graph'] || [j]); } catch { return [{ '@type': 'PARSE_ERROR' }]; } });
         const faq = ld.find((x) => x['@type'] === 'FAQPage');

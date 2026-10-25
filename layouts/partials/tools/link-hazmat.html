@@ -47,22 +47,18 @@
 <style>
 .hazmat-container {
   max-width: 800px;
-  margin: 2rem auto;
-  padding: 25px;
-  border: 1px solid #333;
-  background: #0d0d0d;
-  border-radius: 8px;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  margin: 0 auto;
+  padding: 0;
+  font-family: var(--font-sans);
 }
 
 .hazmat-header h2 {
-  color: #00e5ff;
-  border-bottom: 2px solid #333;
+  color: var(--accent);
+  border-bottom: 2px solid var(--border-strong);
   padding-bottom: 10px;
   margin: 0 0 20px;
   text-align: center;
   font-size: 1.3rem;
-  letter-spacing: 2px;
 }
 
 .hazmat-header h2::before {
@@ -78,37 +74,35 @@
 #hazmat-url-input {
   flex: 1;
   padding: 15px;
-  background: #111;
-  border: 1px solid #444;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-input);
   border-radius: 4px;
-  color: #fff;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  color: var(--text);
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
 }
 
 #hazmat-url-input:focus {
-  border-color: #00e5ff;
+  border-color: var(--accent);
 }
 
 #hazmat-scan-btn {
   padding: 15px 25px;
-  background: #00e5ff;
-  color: #000;
+  background: var(--accent);
+  color: var(--accent-ink);
   border: none;
   border-radius: 4px;
   font-weight: 800;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: var(--font-sans);
   font-size: 0.85rem;
   cursor: pointer;
-  letter-spacing: 1px;
   transition: all 0.2s;
   white-space: nowrap;
 }
 
 #hazmat-scan-btn:hover {
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
   transform: translateY(-1px);
 }
 
@@ -121,7 +115,7 @@
   text-align: center;
   margin-bottom: 25px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-2);
   border-radius: 6px;
 }
 
@@ -131,27 +125,26 @@
   font-weight: 800;
   font-size: 1.1rem;
   border-radius: 4px;
-  letter-spacing: 2px;
   margin-bottom: 10px;
 }
 
 .hazmat-badge.hazmat-safe {
-  background: #00e5ff;
-  color: #000;
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .hazmat-badge.hazmat-warning {
-  background: #ff9900;
-  color: #000;
+  background: var(--warn);
+  color: var(--bg);
 }
 
 .hazmat-badge.hazmat-danger {
-  background: #ff003c;
-  color: #fff;
+  background: var(--danger);
+  color: var(--bg);
 }
 
 #hazmat-risk-text {
-  color: #aaa;
+  color: var(--text-2);
   font-size: 0.9rem;
   margin: 0;
 }
@@ -165,9 +158,9 @@
 }
 
 .hazmat-f-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-2);
   padding: 15px;
-  border-left: 3px solid #333;
+  border-left: 3px solid var(--border-strong);
   border-radius: 0 4px 4px 0;
   transition: border-color 0.3s;
 }
@@ -175,15 +168,13 @@
 .hazmat-f-card .hazmat-label {
   display: block;
   font-size: 0.75rem;
-  color: #666;
+  color: var(--text-3);
   margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .hazmat-f-card .hazmat-value {
   display: block;
-  color: #fff;
+  color: var(--text);
   font-size: 1rem;
   word-break: break-all;
   line-height: 1.5;
@@ -191,15 +182,14 @@
 
 /* Deep Scan */
 .hazmat-deep-scan {
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--border-strong);
   padding-top: 25px;
   text-align: center;
 }
 
 .hazmat-deep-scan h3 {
-  color: #888;
+  color: var(--text-2);
   font-size: 0.85rem;
-  letter-spacing: 2px;
   margin: 0 0 15px;
 }
 
@@ -217,20 +207,19 @@
 
 .hazmat-ext-btn {
   padding: 10px 20px;
-  border: 1px solid #00e5ff;
-  color: #00e5ff;
+  border: 1px solid var(--accent);
+  color: var(--accent);
   text-decoration: none;
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: 600;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: var(--font-sans);
   transition: all 0.2s;
 }
 
 .hazmat-ext-btn:hover {
-  background: #00e5ff;
-  color: #000;
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 /* Responsive */
@@ -360,7 +349,7 @@
     // Update UI - Protocol
     var protoEl = document.getElementById('hazmat-res-proto');
     protoEl.innerText = protocol.toUpperCase().replace(':', '');
-    protoEl.style.color = (protocol === 'https:') ? '#00e5ff' : '#ff003c';
+    protoEl.style.color = (protocol === 'https:') ? 'var(--success)' : 'var(--danger)';
 
     // Update UI - Domain
     document.getElementById('hazmat-res-domain').innerText = domain;
@@ -372,10 +361,10 @@
     var tricksEl = document.getElementById('hazmat-res-tricks');
     if (tricks.length > 0) {
       tricksEl.innerHTML = tricks.join('<br>');
-      tricksEl.style.color = '#ff003c';
+      tricksEl.style.color = 'var(--danger)';
     } else {
       tricksEl.innerText = 'None Detected';
-      tricksEl.style.color = '#00e5ff';
+      tricksEl.style.color = 'var(--success)';
     }
 
     // Update UI - Badge
@@ -398,7 +387,7 @@
 
     // Update border colors on f-cards based on risk
     var cards = document.querySelectorAll('.hazmat-f-card');
-    var borderColor = riskScore === 0 ? '#00e5ff' : riskScore <= 2 ? '#ff9900' : '#ff003c';
+    var borderColor = riskScore === 0 ? 'var(--success)' : riskScore <= 2 ? 'var(--warn)' : 'var(--danger)';
     for (var j = 0; j < cards.length; j++) {
       cards[j].style.borderLeftColor = borderColor;
     }

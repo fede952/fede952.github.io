@@ -20,7 +20,14 @@
     var frames = document.querySelectorAll('iframe');
     for (var i = 0; i < frames.length; i++) {
       if (frames[i].contentWindow === event.source) {
-        frames[i].style.height = height + 'px';
+        // The app reports its content height; the frame's own border (and
+        // padding) sit outside it. Without adding them, an app that fills
+        // 100vh would report 2 px less on every round and shrink forever.
+        var cs = getComputedStyle(frames[i]);
+        var chrome = cs.boxSizing === 'border-box'
+          ? parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth) + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
+          : 0;
+        frames[i].style.height = (height + chrome) + 'px';
         frames[i].setAttribute('scrolling', 'no');
         frames[i].style.overflow = 'hidden';
         break;

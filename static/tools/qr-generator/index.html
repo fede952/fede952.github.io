@@ -7,47 +7,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QR Code Generator</title>
 <script src="/vendor/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-3);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 .app{max-width:700px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
 .header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
-.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+.header h1{font-size:clamp(18px,4vw,26px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;}
 
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
-.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title{font-size:10px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
 .input-group{margin-bottom:16px}
-.input-group label{display:block;font-size:11px;color:var(--text2);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}
+.input-group label{display:block;font-size:11px;color:var(--text2);margin-bottom:6px;}
 .input-group textarea,.input-group input[type="text"]{width:100%;padding:12px;font-family:var(--mono);font-size:13px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;resize:vertical;outline:none;transition:border-color .2s}
 .input-group textarea:focus,.input-group input[type="text"]:focus{border-color:var(--cyan)}
 .input-group textarea{min-height:80px}
 
 .options-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
 .option-item{display:flex;flex-direction:column;gap:6px}
-.option-item label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
+.option-item label{font-size:10px;color:var(--text2);}
 .option-item select{padding:8px 10px;font-family:var(--mono);font-size:12px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;cursor:pointer}
 .option-item select:focus{border-color:var(--cyan)}
 .color-picker-wrap{display:flex;align-items:center;gap:8px}
 .color-picker-wrap input[type="color"]{width:36px;height:36px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:var(--bg3);padding:2px}
 .color-picker-wrap .color-hex{font-size:12px;color:var(--text2)}
 
-.btn{padding:10px 24px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
-.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn{padding:10px 24px;font-family:var(--font-sans);font-size:11px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn-primary:hover{}
 .btn-secondary{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
 .btn-secondary:hover{background:var(--cyan-glow)}
 .btn-group{display:flex;gap:10px;flex-wrap:wrap}
@@ -57,9 +53,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .qr-canvas-wrap{display:inline-block;padding:16px;background:#fff;border-radius:8px;border:2px solid var(--border)}
 .qr-canvas-wrap canvas{display:block}
 
-.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
-.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
-.status.error{display:block;background:rgba(255,51,85,.08);border:1px solid var(--red);color:var(--red)}
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;display:none}
+.status.success{display:block;background:var(--success-soft);border:1px solid var(--green);color:var(--green)}
+.status.error{display:block;background:var(--danger-soft);border:1px solid var(--red);color:var(--red)}
 
 @media(max-width:600px){
   .options-row{grid-template-columns:1fr}
@@ -71,7 +67,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <body>
 <div class="app">
   <div class="header">
-    <h1 data-i18n="title">$ QuickLinker</h1>
+    <h1 data-i18n="title">QuickLinker</h1>
     <div class="sub" data-i18n="subtitle">QR Code Generator</div>
   </div>
 
@@ -130,7 +126,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <script>
 const T = {
   en: {
-    title: '$ QuickLinker', subtitle: 'QR Code Generator',
+    title: 'QuickLinker', subtitle: 'QR Code Generator',
     inputSection: 'Input', inputLabel: 'URL or Text', inputPlaceholder: 'https://example.com',
     optionsSection: 'Options', fgColor: 'Foreground', bgColor: 'Background',
     errorLevel: 'Error Correction', generateBtn: 'Generate QR', downloadBtn: 'Download .PNG',
@@ -138,7 +134,7 @@ const T = {
     success: 'QR code generated successfully.', errorGenerate: 'Error generating QR code.'
   },
   it: {
-    title: '$ QuickLinker', subtitle: 'Generatore di Codici QR',
+    title: 'QuickLinker', subtitle: 'Generatore di Codici QR',
     inputSection: 'Input', inputLabel: 'URL o Testo', inputPlaceholder: 'https://esempio.com',
     optionsSection: 'Opzioni', fgColor: 'Primo Piano', bgColor: 'Sfondo',
     errorLevel: 'Correzione Errore', generateBtn: 'Genera QR', downloadBtn: 'Scarica .PNG',
@@ -146,7 +142,7 @@ const T = {
     success: 'Codice QR generato con successo.', errorGenerate: 'Errore nella generazione del codice QR.'
   },
   es: {
-    title: '$ QuickLinker', subtitle: 'Generador de Códigos QR',
+    title: 'QuickLinker', subtitle: 'Generador de Códigos QR',
     inputSection: 'Entrada', inputLabel: 'URL o Texto', inputPlaceholder: 'https://ejemplo.com',
     optionsSection: 'Opciones', fgColor: 'Primer Plano', bgColor: 'Fondo',
     errorLevel: 'Corrección de Error', generateBtn: 'Generar QR', downloadBtn: 'Descargar .PNG',
@@ -154,7 +150,7 @@ const T = {
     success: 'Código QR generado exitosamente.', errorGenerate: 'Error al generar el código QR.'
   },
   fr: {
-    title: '$ QuickLinker', subtitle: 'Générateur de Codes QR',
+    title: 'QuickLinker', subtitle: 'Générateur de Codes QR',
     inputSection: 'Entrée', inputLabel: 'URL ou Texte', inputPlaceholder: 'https://exemple.com',
     optionsSection: 'Options', fgColor: 'Premier Plan', bgColor: 'Arrière-plan',
     errorLevel: "Correction d'Erreur", generateBtn: 'Générer QR', downloadBtn: 'Télécharger .PNG',
@@ -162,7 +158,7 @@ const T = {
     success: 'Code QR généré avec succès.', errorGenerate: 'Erreur lors de la génération du code QR.'
   },
   de: {
-    title: '$ QuickLinker', subtitle: 'QR-Code Generator',
+    title: 'QuickLinker', subtitle: 'QR-Code Generator',
     inputSection: 'Eingabe', inputLabel: 'URL oder Text', inputPlaceholder: 'https://beispiel.de',
     optionsSection: 'Optionen', fgColor: 'Vordergrund', bgColor: 'Hintergrund',
     errorLevel: 'Fehlerkorrektur', generateBtn: 'QR Generieren', downloadBtn: '.PNG Herunterladen',
@@ -170,7 +166,7 @@ const T = {
     success: 'QR-Code erfolgreich generiert.', errorGenerate: 'Fehler beim Generieren des QR-Codes.'
   },
   pt: {
-    title: '$ QuickLinker', subtitle: 'Gerador de Códigos QR',
+    title: 'QuickLinker', subtitle: 'Gerador de Códigos QR',
     inputSection: 'Entrada', inputLabel: 'URL ou Texto', inputPlaceholder: 'https://exemplo.com',
     optionsSection: 'Opções', fgColor: 'Primeiro Plano', bgColor: 'Fundo',
     errorLevel: 'Correção de Erro', generateBtn: 'Gerar QR', downloadBtn: 'Baixar .PNG',

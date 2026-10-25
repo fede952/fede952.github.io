@@ -82,6 +82,19 @@ export const TESTS = {
     await p.fill('#text-input', 'Hello 👋🏽 world\nsecond line'); await p.dispatchEvent('#text-input', 'input');
     await p.waitForFunction(() => document.getElementById('stat-words').textContent === '5');
     const chars = (await p.textContent('#stat-chars')).trim(); assert(chars === '25', 'chars ' + chars); return 'words 5, graphemes 25 (emoji + skin tone = 1)'; } },
+  'hash-generator': { url: '/en/tools/hash-generator/', async run(p) {
+    await p.fill('#hash-input', 'abc'); await p.dispatchEvent('#hash-input', 'input');
+    await p.waitForFunction(() => document.getElementById('hash-sha256').value.startsWith('ba7816bf'));
+    const md5 = await p.inputValue('#hash-md5'); assert(md5 === '900150983cd24fb0d6963f7d28e17f72', 'md5 ' + md5);
+    return 'MD5 + SHA-256 of "abc" match the test vectors'; } },
+  'base64-converter': { url: '/it/tools/base64-converter/', async run(p) {
+    await p.fill('#base64-input', 'Città ✓'); await p.click('button.tool-btn:not(.secondary)');
+    const enc = await p.inputValue('#base64-output'); assert(enc === 'Q2l0dMOgIOKckw==', 'encoded ' + enc);
+    await p.fill('#base64-input', 'Q2l0dMOgIOKckw'); await p.click('button.tool-btn.secondary >> nth=0');
+    assert(await p.inputValue('#base64-output') === 'Città ✓', 'decode without padding'); return 'UTF-8 encode, decode without padding'; } },
+  'caesar-cipher': { url: '/en/tools/caesar-cipher/', async run(p) {
+    await p.fill('#caesar-input', 'Hello, World!'); await p.click('button.tool-btn:not(.secondary)');
+    const out = await p.inputValue('#caesar-output'); assert(out === 'Khoor, Zruog!', 'shift 3 → ' + out); return 'shift 3: Hello, World! → Khoor, Zruog!'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

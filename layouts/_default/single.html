@@ -1,10 +1,14 @@
 {{ define "main" }}
 
   {{- $learn := eq .Section "learn" }}
-  <article class="post-single">
+  {{- if $learn }}<div class="page-grid">{{ end }}
+  <article class="post-single{{ if $learn }} page-main{{ end }}">
 
     <header class="post-header">
-      {{- if $learn }}{{ partial "breadcrumbs.html" . }}{{ end }}
+      {{- if $learn }}{{ partial "breadcrumbs.html" . }}
+      {{- $m := partial "page-meta.html" . }}
+      <p class="eyebrow"><span class="eyebrow-icon eyebrow-icon--learn">{{ partial "icon.html" (dict "name" $m.icon "size" 18) }}</span>{{ partial "page-type.html" . }} · {{ i18n "read_time" .ReadingTime }}</p>
+      {{- end }}
       <h1 class="post-title">{{ .Title }}</h1>
       {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
       {{- if $learn }}
@@ -31,11 +35,12 @@
       {{ end }}
     </footer>
 
-    {{- if $learn }}
-    {{ partial "author-box.html" . }}
-    {{ partial "related-tools.html" . }}
-    {{- end }}
+    {{- if $learn }}{{ partial "author-box.html" . }}{{ end }}
 
   </article>
+  {{- if $learn }}
+  {{ partial "sidebar.html" . }}
+  </div>
+  {{- end }}
 
 {{ end }}
