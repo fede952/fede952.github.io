@@ -115,3 +115,26 @@ Matches are made per OCR line, so values split across words get one box covering
   It runs with every external request blocked, which also proves Tesseract never contacts a CDN.
 
 **Found and fixed.** `setPointerCapture` can throw for a pointer the browser doesn't track, and that aborted the drag. Capture is now optional.
+
+## Phase 4 — Email Header Analyzer (`/tools/email-header-analyzer/`)
+
+**Input.** Paste raw headers or a whole message source. Continuation lines are unfolded and parsing stops at the first empty line, so the body is ignored. Analysis runs 250 ms after typing or on Analyze; two built-in samples (genuine ESP mail, spoofed phishing) are fictional fixtures.
+
+**What it shows** (logic in `js/tools/email-headers.mjs`, DOM-free):
+- **Verdict:** danger / caution / ok, derived from the strongest signals.
+- **Signals**, sorted by severity (high, medium, low, info, good), each with a plain explanation of when it is harmless: display name containing a different address, Reply-To / Return-Path / Message-ID on another organisational domain, SPF/DKIM/DMARC results with **alignment** against the From domain, DMARC policy, ARC chain, mass-mailer X-Mailer, future Date, clock skew, hops slower than an hour, missing Received or Authentication-Results.
+- **Sender identity** table, **Authentication** table (who checked it, result pills, `header.d`, selector, policy) and the **Received timeline**, oldest first, with host, IP, protocol, UTC time and delay per hop.
+
+The tool trusts the receiving provider's `Authentication-Results` and does no DNS or signature verification itself; the page explains why. Organisational domains use a small built-in list of two-level public suffixes (co.uk, com.br…), not the full PSL — good enough for mismatch hints, noted in the code.
+
+**How to get the headers** — Gmail web, Outlook for Windows (classic), new Outlook / Outlook on the web, Apple Mail and Thunderbird, with shortcuts, in all 6 languages, plus "don't forward it to yourself".
+
+**Privacy.** No network requests at all (asserted in the functional test); privacy pages unchanged.
+
+**Integration.** Icon `mail-search` (security category), OG icon tile regenerated, related links Phishing Quiz ↔ Link Hazmat ↔ Email Header Analyzer; the quiz pages' "sender checks" mention is now a link in all 6 languages (the quiz's "sender" topic already pointed here).
+
+**Tests.**
+- **Unit (9):** header unfolding, address/domain parsing, hop order/IPs/delays, Authentication-Results parsing, and four fixtures in `tests/fixtures/email-headers/` (legit ESP, spoofed phish, forwarded list mail with ARC, no-auth with clock skew) — fictional `.example`/`.test` domains and documentation IPs only.
+- **Functional (`email-header-analyzer`):** phishing sample → danger with the spoofing signals and hop delays, no unfilled placeholders; a pasted fixture → ok with 3 hops; Clear; German UI; zero external requests.
+
+**Found and fixed.** On phones the auth table broke "DMARC" mid-word (`overflow-wrap: anywhere`); header cells are now `nowrap`.

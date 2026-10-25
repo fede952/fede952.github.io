@@ -50,7 +50,7 @@ Os cenários cobrem os padrões por trás da maior parte do phishing:
 
 O conjunto também tem mensagens legítimas, porque desconfiar de tudo tem um custo: alertas de segurança reais, recibos e redefinições de senha que você pediu. Depois da resposta, os elementos que decidem o caso são numerados na simulação.
 
-A página do resultado te dá um nível e lista os temas por trás dos seus erros, com links para ferramentas úteis: o [Link Hazmat](../link-hazmat/) para verificar links suspeitos e o analisador de cabeçalhos de e-mail para conferir o remetente.
+A página do resultado te dá um nível e lista os temas por trás dos seus erros, com links para ferramentas úteis: o [Link Hazmat](../link-hazmat/) para verificar links suspeitos e o [analisador de cabeçalhos de e-mail](../email-header-analyzer/) para conferir o remetente.
 
 ## Use para treinar sua equipe
 

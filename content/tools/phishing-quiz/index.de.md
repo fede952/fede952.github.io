@@ -50,7 +50,7 @@ Die Szenarien decken die Muster hinter dem meisten Phishing ab:
 
 Im Pool sind auch echte Nachrichten, denn übertriebenes Misstrauen hat seinen Preis: echte Sicherheitswarnungen, Belege und Passwort-Zurücksetzungen, die Sie selbst angefordert haben. Nach Ihrer Antwort werden die entscheidenden Elemente in der Nachbildung nummeriert.
 
-Die Ergebnisseite ordnet Sie einer Stufe zu und listet die Themen hinter Ihren Fehlern auf, mit Links zu hilfreichen Tools: [Link Hazmat](../link-hazmat/) zum Prüfen verdächtiger Links und die E-Mail-Header-Analyse zum Prüfen des Absenders.
+Die Ergebnisseite ordnet Sie einer Stufe zu und listet die Themen hinter Ihren Fehlern auf, mit Links zu hilfreichen Tools: [Link Hazmat](../link-hazmat/) zum Prüfen verdächtiger Links und die [E-Mail-Header-Analyse](../email-header-analyzer/) zum Prüfen des Absenders.
 
 ## Im Team-Training einsetzen
 

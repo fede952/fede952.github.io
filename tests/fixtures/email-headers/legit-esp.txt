@@ -1,0 +1,23 @@
+Delivered-To: alex@mail.example
+Received: by 2001:db8::5 with SMTP id k20csp1234567lfb;
+        Tue, 21 Oct 2025 09:14:07 -0700 (PDT)
+Received: from mta-17.esp-mail.example (mta-17.esp-mail.example. [198.51.100.17])
+        by mx.mail.example with ESMTPS id x12-20020a0566001b0c00b003b1;
+        Tue, 21 Oct 2025 09:14:06 -0700 (PDT)
+Received: from app-03.internal.streamora.example (app-03.internal.streamora.example [10.20.30.40])
+        by mta-17.esp-mail.example (Postfix) with ESMTP id 4F3A21C0;
+        Tue, 21 Oct 2025 16:14:04 +0000 (UTC)
+Authentication-Results: mx.mail.example;
+       dkim=pass header.i=@streamora.example header.s=s1 header.b=AbCdEf12;
+       spf=pass (mx.mail.example: domain of bounces+812@em.streamora.example designates 198.51.100.17 as permitted sender) smtp.mailfrom=bounces+812@em.streamora.example;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=streamora.example
+Return-Path: <bounces+812@em.streamora.example>
+From: Streamora <billing@streamora.example>
+To: alex@mail.example
+Subject: Your receipt
+Date: Tue, 21 Oct 2025 16:14:03 +0000
+Message-ID: <20251021161403.4F3A21C0@em.streamora.example>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+<html>…</html>

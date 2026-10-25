@@ -50,7 +50,7 @@ Los escenarios cubren los patrones de la mayoría del phishing:
 
 En el conjunto también hay mensajes legítimos, porque desconfiar de todo tiene un coste: avisos de seguridad reales, recibos y restablecimientos de contraseña que pediste tú. Después de responder, los elementos que deciden el caso se numeran sobre la simulación.
 
-La página del resultado te da un nivel y enumera los temas detrás de tus errores, con enlaces a herramientas útiles: [Link Hazmat](../link-hazmat/) para revisar enlaces sospechosos y el analizador de cabeceras de correo para comprobar el remitente.
+La página del resultado te da un nivel y enumera los temas detrás de tus errores, con enlaces a herramientas útiles: [Link Hazmat](../link-hazmat/) para revisar enlaces sospechosos y el [analizador de cabeceras de correo](../email-header-analyzer/) para comprobar el remitente.
 
 ## Úsalo para formar a tu equipo
 

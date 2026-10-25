@@ -13,8 +13,11 @@ tools:
     tools: [exif-cleaner, pixel-shrink, images-to-pdf, steganography]
     guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
   phishing-quiz:
-    tools: [link-hazmat, pass-fort, security-headers, exif-cleaner]
+    tools: [link-hazmat, email-header-analyzer, pass-fort, security-headers]
     guides: [roadmaps/cyber-security-specialist, guides/osint-privacy-exif-data, interviews/python-security-interview-questions]
+  email-header-analyzer:
+    tools: [phishing-quiz, link-hazmat, security-headers, secrets-scanner]
+    guides: [cheatsheets/networking-ports-protocols, roadmaps/cyber-security-specialist]
   security-headers:
     tools: [link-hazmat, jwt-inspector, subnet-calculator, secrets-scanner]
     guides: [cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist, interviews/python-security-interview-questions]
@@ -91,7 +94,7 @@ tools:
     tools: [string-master, base64-converter, jwt-inspector, chrono-sync]
     guides: [cheatsheets/javascript-es6-array-methods, interviews/sql-database-interview-questions]
   link-hazmat:
-    tools: [netguard, qr-generator, ghostprint, secrets-scanner]
+    tools: [phishing-quiz, email-header-analyzer, netguard, qr-generator]
     guides: [cheatsheets/networking-ports-protocols, cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist]
   neon-palette:
     tools: [glitch-forge, pixel-shrink, qr-generator, string-master]

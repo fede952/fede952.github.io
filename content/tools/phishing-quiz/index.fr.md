@@ -50,7 +50,7 @@ Les scénarios couvrent les ressorts de la plupart des hameçonnages :
 
 Le lot contient aussi des messages légitimes, car la méfiance excessive a un coût : vraies alertes de sécurité, reçus, réinitialisations de mot de passe que vous avez demandées. Après votre réponse, les éléments qui tranchent sont numérotés sur la maquette.
 
-La page de résultat vous attribue un niveau et liste les thèmes derrière vos erreurs, avec des liens vers des outils utiles : [Link Hazmat](../link-hazmat/) pour vérifier les liens suspects et l'analyseur d'en-têtes d'e-mail pour contrôler l'expéditeur.
+La page de résultat vous attribue un niveau et liste les thèmes derrière vos erreurs, avec des liens vers des outils utiles : [Link Hazmat](../link-hazmat/) pour vérifier les liens suspects et l'[analyseur d'en-têtes d'e-mail](../email-header-analyzer/) pour contrôler l'expéditeur.
 
 ## L'utiliser pour former votre équipe
 

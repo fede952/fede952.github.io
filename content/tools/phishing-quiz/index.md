@@ -50,7 +50,7 @@ The scenarios cover the patterns behind most phishing:
 
 Legitimate messages are in the pool too, because over-suspicion has a cost: real security alerts, receipts and password resets you asked for. After you answer, the elements that decided the case are numbered on the mockup.
 
-The score page ranks you and lists the topics behind your mistakes, with links to tools that help: the [Link Hazmat](../link-hazmat/) link checker for suspicious links and the Email Header Analyzer for sender checks.
+The score page ranks you and lists the topics behind your mistakes, with links to tools that help: the [Link Hazmat](../link-hazmat/) link checker for suspicious links and the [Email Header Analyzer](../email-header-analyzer/) for sender checks.
 
 ## Use it for team training
 

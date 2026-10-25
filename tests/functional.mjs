@@ -460,6 +460,35 @@ export const TESTS = {
     assert(jpg[0] === 0xff && jpg[1] === 0xd8, 'not a JPEG');
     assert(!jpg.includes(Buffer.from('Exif')) && !jpg.includes(Buffer.from('FixtureCam')), 'JPEG still has EXIF');
     return 'draw + undo/redo, blur/pixelate warning, real OCR suggests email/IBAN/IP, burned-in PNG without metadata, EXIF/GPS dropped from JPEG'; } },
+  'email-header-analyzer': { url: '/tools/email-header-analyzer/?lang=en', async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    await p.waitForFunction(() => window.__emailReady);
+    await p.click('#s-phish');
+    await p.waitForSelector('.verdict-box');
+    assert(await p.locator('.verdict-box.v-danger').count() === 1, 'phishing sample → danger verdict');
+    const sigs = await p.$$eval('.sig', (els) => els.map((e) => e.dataset.id));
+    for (const id of ['display-name-address', 'reply-to-mismatch', 'spf-fail', 'dmarc-fail']) assert(sigs.includes(id), 'signal ' + id + ' in ' + sigs);
+    assert(await p.locator('.sig.s-high').first().isVisible(), 'high-severity signal shown');
+    assert(!/\{\w+\}/.test(await p.textContent('#out')), 'no unfilled placeholders');
+    const hops = await p.locator('.hop').count();
+    assert(hops >= 2, 'hop timeline rendered: ' + hops);
+    assert(/after /.test(await p.locator('.hop').nth(1).textContent()), 'delay shown on the second hop');
+    // paste a fixture by typing into the box: the input handler re-analyses
+    const legit = fs.readFileSync(path.join('tests/fixtures/email-headers/legit-esp.txt'), 'utf8');
+    await p.fill('#in', legit);
+    await p.waitForSelector('.verdict-box.v-ok');
+    assert(await p.locator('.hop').count() === 3, 'three hops for the legit fixture');
+    await p.click('#clear');
+    assert(await p.locator('.verdict-box').count() === 0, 'cleared');
+    await p.goto(origin + '/tools/email-header-analyzer/?lang=de');
+    await p.waitForFunction(() => window.__emailReady);
+    await p.click('#s-phish');
+    await p.waitForSelector('.verdict-box');
+    assert(/Wahrscheinlich gefälscht/.test(await p.textContent('.verdict-box')), 'German verdict');
+    assert(/Weg \(/.test(await p.textContent('#out')), 'German route heading');
+    assert(external.length === 0, 'external requests: ' + external.join(', '));
+    return 'phishing sample → danger with spoofing signals + hop delays, pasted fixture → ok with 3 hops, clear, German UI, no network'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

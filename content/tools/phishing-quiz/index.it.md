@@ -50,7 +50,7 @@ Gli scenari coprono gli schemi dietro la maggior parte del phishing:
 
 Nell'insieme ci sono anche messaggi legittimi, perché essere troppo sospettosi ha un costo: veri avvisi di sicurezza, ricevute e reimpostazioni di password che hai chiesto tu. Dopo la risposta, gli elementi che decidono il caso vengono numerati sulla simulazione.
 
-La pagina del risultato ti assegna un livello ed elenca gli argomenti dietro i tuoi errori, con link a strumenti utili: [Link Hazmat](../link-hazmat/) per controllare i link sospetti e l'analizzatore di header email per verificare il mittente.
+La pagina del risultato ti assegna un livello ed elenca gli argomenti dietro i tuoi errori, con link a strumenti utili: [Link Hazmat](../link-hazmat/) per controllare i link sospetti e l'[analizzatore di header email](../email-header-analyzer/) per verificare il mittente.
 
 ## Usalo per la formazione del team
 
