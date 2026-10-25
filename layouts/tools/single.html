@@ -17,6 +17,8 @@
        tool_html     inline markup from front matter (+ tool_js script)
      Pages with none of those (games that embed their iframe in markdown)
      fall back to rendering .Content as before. */ -}}
+{{- /* quiz tools: one share page + card per possible score (partials/quiz/score-pages.html) */}}
+{{- if .Params.share_scores }}{{ partial "quiz/score-pages.html" . }}{{ end }}
 {{- $ads := partial "ads/enabled.html" . }}
 {{- $isTool := or .Params.tool_file .Params.tool_partial .Params.tool_html }}
 

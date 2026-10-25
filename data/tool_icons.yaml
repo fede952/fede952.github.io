@@ -28,6 +28,7 @@ tools:
   password-generator:   { category: security, icon: key }
   netguard:             { category: security, icon: globe }
   security-headers:     { category: security, icon: shield-lines }
+  phishing-quiz:        { category: security, icon: phish }
   ghostprint:           { category: security, icon: ghost }
   exif-cleaner:         { category: security, icon: image-x }
   link-hazmat:          { category: security, icon: link }
@@ -67,6 +68,7 @@ learn:
   writeups: flag
 
 icons:
+  phish: '<rect x="2.5" y="5" width="13" height="10" rx="1.5"/><path d="M3 6l6 4.5L15 6"/><path d="M19.5 8v7.25a2.75 2.75 0 0 1-5.5 0V14.5"/><path d="M19.5 8l-1.5 1.5"/>'
   shield: '<path d="M12 3l7.5 3v5.5c0 4.6-3.1 8.4-7.5 9.9-4.4-1.5-7.5-5.3-7.5-9.9V6L12 3z"/>'
   shield-check: '<path d="M12 3l7.5 3v5.5c0 4.6-3.1 8.4-7.5 9.9-4.4-1.5-7.5-5.3-7.5-9.9V6L12 3z"/><path d="M8.75 12.25l2.25 2.25 4.25-4.5"/>'
   shield-lines: '<path d="M12 3l7.5 3v5.5c0 4.6-3.1 8.4-7.5 9.9-4.4-1.5-7.5-5.3-7.5-9.9V6L12 3z"/><path d="M8.5 10h7M8.5 13.5h5"/>'

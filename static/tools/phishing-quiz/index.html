@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/phishing-quiz/">
+<title>Phishing Quiz</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<script src="/vendor/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+:root { --tool-accent: var(--warn); }
+.quiz-head { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; justify-content: space-between; }
+.progress { font-size: var(--fs-sm); color: var(--text-2); }
+.bar-track { height: 6px; border-radius: 3px; background: var(--surface-3); overflow: hidden; flex: 1 1 100%; }
+.bar-fill { height: 100%; background: var(--accent); transition: width .25s; }
+.ctx { margin: 0; padding: var(--s-3) var(--s-4); border-left: 3px solid var(--accent); background: var(--bg-raised); border-radius: var(--r-sm); font-size: var(--fs-sm); }
+.answers { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.answers .tb-btn { min-height: 52px; font-size: var(--fs-md); justify-content: center; }
+.btn-phish { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn-legit { background: var(--success); border-color: var(--success); color: #062016; }
+.banner { padding: var(--s-3) var(--s-4); border-radius: var(--r); background: var(--accent-soft); border: 1px solid var(--accent); }
+.disclaimer { font-size: var(--fs-xs); color: var(--text-3); }
+
+/* mockups: plain light "screens" so they read like real apps */
+.mk { position: relative; border: 1px solid var(--border-strong); border-radius: var(--r); background: #ffffff; color: #1c2430; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 15px; line-height: 1.5; overflow: hidden; }
+.mk a { color: #1a56db; }
+.mk-email-h { padding: 12px 16px; background: #f3f5f8; border-bottom: 1px solid #dfe3ea; display: grid; gap: 2px; font-size: 14px; }
+.mk-email-h b { font-weight: 600; }
+.mk-email-h .lbl { color: #5b6573; display: inline-block; min-width: 4.5em; }
+.mk-subject { font-size: 16px; font-weight: 700; margin-top: 4px; }
+.mk-body { padding: 16px; display: grid; gap: 10px; }
+.mk-body p { margin: 0; }
+.mk-cta-wrap { position: relative; display: inline-block; }
+.mk-cta { display: inline-block; padding: 10px 18px; border-radius: 6px; background: #1a56db; color: #fff !important; text-decoration: none; font-weight: 600; }
+.mk-target { position: absolute; left: 0; top: calc(100% + 6px); z-index: 2; padding: 4px 8px; border-radius: 4px; background: #1c2430; color: #fff; font: 12px/1.4 ui-monospace, monospace; white-space: nowrap; display: none; }
+.mk-cta-wrap:hover .mk-target, .mk-cta:focus + .mk-target, .mk.answered .mk-target { display: block; position: static; margin-top: 6px; white-space: normal; overflow-wrap: anywhere; }
+.mk-attach { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid #cfd5de; border-radius: 6px; font-size: 14px; background: #fafbfc; }
+.mk-qr svg, .mk-poster svg { width: 132px; height: 132px; display: block; }
+.mk-sms { padding: 16px; background: #eef1f5; }
+.mk-sms-sender { font-weight: 700; text-align: center; font-size: 14px; color: #3d4654; margin-bottom: 10px; }
+.mk-bubble { max-width: 85%; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #fff; border: 1px solid #dfe3ea; overflow-wrap: anywhere; }
+.mk-sms .mk-link { color: #1a56db; text-decoration: underline; }
+.mk-browser-bar { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #e9edf2; border-bottom: 1px solid #d5dbe3; }
+.mk-url { flex: 1; padding: 6px 10px; border-radius: 999px; background: #fff; font: 13px/1.4 ui-monospace, monospace; overflow-wrap: anywhere; }
+.mk-page { padding: 20px; display: grid; gap: 12px; max-width: 360px; margin: 0 auto; }
+.mk-brand { font-size: 20px; font-weight: 800; letter-spacing: -.01em; }
+.mk-page label { display: grid; gap: 4px; font-size: 13px; color: #3d4654; }
+.mk-page input { padding: 9px 10px; border: 1px solid #cfd5de; border-radius: 6px; font: inherit; background: #fafbfc; }
+.mk-page .mk-submit { padding: 10px; border: 0; border-radius: 6px; background: #1c2430; color: #fff; font-weight: 600; }
+.mk-poster { margin: 16px auto; max-width: 300px; padding: 18px; border: 3px dashed #cfa431; border-radius: 10px; background: #fffbea; display: grid; justify-items: center; gap: 8px; text-align: center; }
+.mk-poster b { font-size: 18px; }
+.mk-decoded { margin: 0 16px 16px; font: 13px/1.4 ui-monospace, monospace; overflow-wrap: anywhere; }
+.mk-urlbig { padding: 22px 16px; font: 16px/1.5 ui-monospace, monospace; overflow-wrap: anywhere; color: #1a56db; }
+
+/* highlights */
+.hl { outline: 3px solid; outline-offset: 2px; border-radius: 4px; position: relative; }
+.hl-bad { outline-color: #d6293e; }
+.hl-good { outline-color: #1e9e62; }
+.hl-bad:not(.mk-cta) { background: rgba(214, 41, 62, .08); }
+.hl-good:not(.mk-cta) { background: rgba(30, 158, 98, .08); }
+.badge { position: absolute; top: -12px; left: -12px; z-index: 3; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font: 700 13px/1 system-ui, sans-serif; }
+.hl-bad > .badge { background: #d6293e; } .hl-good > .badge { background: #1e9e62; }
+.feedback { display: grid; gap: var(--s-3); }
+.verdict { margin: 0; font-size: var(--fs-lg); }
+.verdict.ok { color: var(--success); } .verdict.ko { color: var(--danger); }
+.flags { margin: 0; padding-left: 1.5em; display: grid; gap: var(--s-2); }
+.flags li::marker { font-weight: 700; }
+
+.result { text-align: center; display: grid; gap: var(--s-3); justify-items: center; }
+.score { font-size: 3.2rem; font-weight: 800; line-height: 1; color: var(--accent); }
+.review { text-align: left; width: 100%; display: grid; gap: var(--s-2); }
+.review a { color: var(--accent); }
+.result-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); justify-content: center; }
+@media (max-width: 520px) { .answers { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5l8.5 6 8.5-6"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M15.5 15.5l3 3"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Phishing Quiz</h1>
+      <p class="tb-sub" data-i18n="subtitle">Can you spot the phish? 10 realistic scenarios</p>
+    </div>
+  </header>
+
+  <!-- start -->
+  <section id="s-start" class="tb-stack">
+    <p id="challenge" class="banner" hidden></p>
+    <p data-i18n="intro">For each email, SMS, login page, QR code or link, decide: phishing or legitimate? After every answer the red flags are highlighted on the mockup.</p>
+    <p class="disclaimer" data-i18n="disclaimer">Every brand, person and domain in this quiz is fictional.</p>
+    <div><button type="button" class="tb-btn" id="start" data-i18n="start">Start the quiz</button></div>
+  </section>
+
+  <!-- question -->
+  <section id="s-q" class="tb-stack" hidden aria-labelledby="q-heading">
+    <div class="quiz-head">
+      <h2 id="q-heading" class="progress" tabindex="-1"></h2>
+      <div class="bar-track" aria-hidden="true"><div class="bar-fill" id="bar"></div></div>
+    </div>
+    <p class="ctx" id="ctx"></p>
+    <div id="mockup"></div>
+    <div class="answers" id="answers">
+      <button type="button" class="tb-btn btn-phish" id="a-phish" data-i18n="isPhish">Phishing</button>
+      <button type="button" class="tb-btn btn-legit" id="a-legit" data-i18n="isLegit">Legitimate</button>
+    </div>
+    <div class="feedback" id="feedback" hidden>
+      <h3 class="verdict" id="verdict" tabindex="-1"></h3>
+      <p id="verdict-text"></p>
+      <ol class="flags" id="flags"></ol>
+      <div><button type="button" class="tb-btn" id="next"></button></div>
+    </div>
+  </section>
+
+  <!-- result -->
+  <section id="s-result" class="result" hidden aria-labelledby="r-heading">
+    <h2 id="r-heading" tabindex="-1" data-i18n="resultTitle">Your result</h2>
+    <p class="score" id="score"></p>
+    <p id="rank"></p>
+    <div class="review" id="review"></div>
+    <div class="result-actions">
+      <button type="button" class="tb-btn" id="share" data-i18n="share">Share my score</button>
+      <button type="button" class="tb-btn tb-btn--ghost" id="again" data-i18n="again">Play again</button>
+    </div>
+    <p class="tb-note" id="share-status" role="status" aria-live="polite" hidden></p>
+  </section>
+</main>
+
+<script type="module">
+import { SCENARIOS, BRANDS, TOPICS } from '/js/tools/phish/scenarios.mjs';
+import { pickRound, rankFor, topicsToReview, shareData } from '/js/tools/phish/quiz.mjs';
+
+const UI = {
+  en: { title: 'Phishing Quiz', subtitle: 'Can you spot the phish? 10 realistic scenarios',
+    intro: 'For each email, SMS, login page, QR code or link, decide: phishing or legitimate? After every answer the red flags are highlighted on the mockup.',
+    disclaimer: 'Every brand, person and domain in this quiz is fictional.', start: 'Start the quiz',
+    challenge: 'Someone you know scored {score}/10. Can you beat it?',
+    progress: 'Question {n} of {total}', isPhish: 'Phishing', isLegit: 'Legitimate', right: 'Correct!', wrong: 'Not quite.',
+    next: 'Next question', finish: 'See my result', resultTitle: 'Your result', share: 'Share my score', again: 'Play again',
+    rank1: 'Easy target: phishers would love you. Review the topics below.', rank2: 'Getting there: you spot the obvious ones.',
+    rank3: 'Sharp eye: only the subtle tricks got you.', rank4: 'Phish hunter: hard to fool.',
+    reviewTitle: 'Topics to review', perfect: 'No mistakes: nothing to review.',
+    shareText: 'I scored {score}/{total} on the Phishing Quiz. Can you spot the phish?', copiedShare: 'Link copied to the clipboard.',
+    from: 'From', to: 'To', subject: 'Subject', you: 'you@mail.example', points: 'Link goes to:', attachment: 'Attachment', scan: 'QR code. Scanning it opens a web address.',
+    decoded: 'The QR code opens:', signIn: 'Sign in', cont: 'Continue', email: 'Email address', password: 'Password', phone: 'Mobile phone number', card: 'Card number', pin: 'Card PIN',
+    mkEmail: 'Email', mkSms: 'Text message', mkLogin: 'Web page', mkQr: 'QR code', mkUrl: 'Link', yourAnswer: 'You answered: {answer}.',
+    t_sender: ['Check the sender', 'Email Header Analyzer'], t_links: ['Read links before you click', 'Link Hazmat link checker'],
+    t_urgency: ['Pressure and deadlines', 'Link Hazmat link checker'], t_attachments: ['Dangerous attachments', 'Secrets Scanner'],
+    t_payments: ['Payment and prize scams', 'Link Hazmat link checker'], t_login: ['Fake login pages', 'PassFort password checker'],
+    t_qr: ['QR code phishing', 'QR code generator (see what a QR contains)'] },
+  it: { title: 'Quiz sul phishing', subtitle: 'Riesci a riconoscere il phishing? 10 scenari realistici',
+    intro: 'Per ogni email, SMS, pagina di accesso, codice QR o link, decidi: phishing o legittimo? Dopo ogni risposta i segnali d\'allarme vengono evidenziati sulla simulazione.',
+    disclaimer: 'Tutti i marchi, le persone e i domini di questo quiz sono inventati.', start: 'Inizia il quiz',
+    challenge: 'Una persona che conosci ha fatto {score}/10. Riesci a battere il suo punteggio?',
+    progress: 'Domanda {n} di {total}', isPhish: 'Phishing', isLegit: 'Legittimo', right: 'Giusto!', wrong: 'Non proprio.',
+    next: 'Prossima domanda', finish: 'Vedi il risultato', resultTitle: 'Il tuo risultato', share: 'Condividi il punteggio', again: 'Gioca di nuovo',
+    rank1: 'Bersaglio facile: i truffatori ti adorerebbero. Ripassa gli argomenti qui sotto.', rank2: 'Ci sei quasi: riconosci i casi più evidenti.',
+    rank3: 'Occhio attento: ti hanno ingannato solo i trucchi più sottili.', rank4: 'Cacciatore di phishing: difficile fregarti.',
+    reviewTitle: 'Argomenti da ripassare', perfect: 'Nessun errore: niente da ripassare.',
+    shareText: 'Ho fatto {score}/{total} al quiz sul phishing. Tu riconosci le truffe?', copiedShare: 'Link copiato negli appunti.',
+    from: 'Da', to: 'A', subject: 'Oggetto', you: 'tu@mail.example', points: 'Il link porta a:', attachment: 'Allegato', scan: 'Codice QR. Inquadrandolo si apre un indirizzo web.',
+    decoded: 'Il codice QR apre:', signIn: 'Accedi', cont: 'Continua', email: 'Indirizzo email', password: 'Password', phone: 'Numero di cellulare', card: 'Numero della carta', pin: 'PIN della carta',
+    mkEmail: 'Email', mkSms: 'SMS', mkLogin: 'Pagina web', mkQr: 'Codice QR', mkUrl: 'Link', yourAnswer: 'Hai risposto: {answer}.',
+    t_sender: ['Controlla il mittente', 'Analizzatore di header email'], t_links: ['Leggi i link prima di cliccare', 'Link Hazmat, verifica link'],
+    t_urgency: ['Pressione e scadenze', 'Link Hazmat, verifica link'], t_attachments: ['Allegati pericolosi', 'Secrets Scanner'],
+    t_payments: ['Truffe su pagamenti e premi', 'Link Hazmat, verifica link'], t_login: ['Pagine di accesso false', 'PassFort, verifica password'],
+    t_qr: ['Phishing con codici QR', 'Generatore di QR (guarda cosa contiene un QR)'] },
+  es: { title: 'Test de phishing', subtitle: '¿Sabes detectar el phishing? 10 escenarios realistas',
+    intro: 'En cada correo, SMS, página de acceso, código QR o enlace, decide: ¿phishing o legítimo? Tras cada respuesta, las señales de alarma se resaltan en la simulación.',
+    disclaimer: 'Todas las marcas, personas y dominios de este test son ficticios.', start: 'Empezar el test',
+    challenge: 'Alguien que conoces ha sacado {score}/10. ¿Puedes superarlo?',
+    progress: 'Pregunta {n} de {total}', isPhish: 'Phishing', isLegit: 'Legítimo', right: '¡Correcto!', wrong: 'No exactamente.',
+    next: 'Siguiente pregunta', finish: 'Ver mi resultado', resultTitle: 'Tu resultado', share: 'Compartir mi puntuación', again: 'Jugar otra vez',
+    rank1: 'Presa fácil: los estafadores te adorarían. Repasa los temas de abajo.', rank2: 'Vas bien: detectas los casos evidentes.',
+    rank3: 'Buen ojo: solo te engañaron los trucos más sutiles.', rank4: 'Cazador de phishing: difícil engañarte.',
+    reviewTitle: 'Temas para repasar', perfect: 'Ningún error: nada que repasar.',
+    shareText: 'He sacado {score}/{total} en el test de phishing. ¿Sabes detectar las estafas?', copiedShare: 'Enlace copiado al portapapeles.',
+    from: 'De', to: 'Para', subject: 'Asunto', you: 'tu@mail.example', points: 'El enlace lleva a:', attachment: 'Adjunto', scan: 'Código QR. Al escanearlo se abre una dirección web.',
+    decoded: 'El código QR abre:', signIn: 'Iniciar sesión', cont: 'Continuar', email: 'Correo electrónico', password: 'Contraseña', phone: 'Número de móvil', card: 'Número de tarjeta', pin: 'PIN de la tarjeta',
+    mkEmail: 'Correo', mkSms: 'SMS', mkLogin: 'Página web', mkQr: 'Código QR', mkUrl: 'Enlace', yourAnswer: 'Has respondido: {answer}.',
+    t_sender: ['Comprueba el remitente', 'Analizador de cabeceras de correo'], t_links: ['Lee los enlaces antes de pulsar', 'Link Hazmat, comprobador de enlaces'],
+    t_urgency: ['Presión y plazos', 'Link Hazmat, comprobador de enlaces'], t_attachments: ['Adjuntos peligrosos', 'Secrets Scanner'],
+    t_payments: ['Estafas de pagos y premios', 'Link Hazmat, comprobador de enlaces'], t_login: ['Páginas de acceso falsas', 'PassFort, comprobador de contraseñas'],
+    t_qr: ['Phishing con códigos QR', 'Generador de QR (mira qué contiene un QR)'] },
+  de: { title: 'Phishing-Quiz', subtitle: 'Erkennen Sie Phishing? 10 realistische Szenarien',
+    intro: 'Entscheiden Sie bei jeder E-Mail, SMS, Anmeldeseite, jedem QR-Code und Link: Phishing oder echt? Nach jeder Antwort werden die Warnsignale in der Nachbildung markiert.',
+    disclaimer: 'Alle Marken, Personen und Domains in diesem Quiz sind erfunden.', start: 'Quiz starten',
+    challenge: 'Jemand, den Sie kennen, hat {score}/10 erreicht. Schaffen Sie mehr?',
+    progress: 'Frage {n} von {total}', isPhish: 'Phishing', isLegit: 'Echt', right: 'Richtig!', wrong: 'Nicht ganz.',
+    next: 'Nächste Frage', finish: 'Ergebnis ansehen', resultTitle: 'Ihr Ergebnis', share: 'Ergebnis teilen', again: 'Noch einmal spielen',
+    rank1: 'Leichte Beute: Betrüger würden Sie lieben. Wiederholen Sie die Themen unten.', rank2: 'Auf dem Weg: Die offensichtlichen Fälle erkennen Sie.',
+    rank3: 'Scharfes Auge: Nur die subtilen Tricks haben Sie erwischt.', rank4: 'Phishing-Jäger: schwer zu täuschen.',
+    reviewTitle: 'Themen zum Wiederholen', perfect: 'Keine Fehler: nichts zu wiederholen.',
+    shareText: 'Ich habe {score}/{total} im Phishing-Quiz erreicht. Erkennen Sie Phishing?', copiedShare: 'Link in die Zwischenablage kopiert.',
+    from: 'Von', to: 'An', subject: 'Betreff', you: 'sie@mail.example', points: 'Der Link führt zu:', attachment: 'Anhang', scan: 'QR-Code. Beim Scannen öffnet sich eine Webadresse.',
+    decoded: 'Der QR-Code öffnet:', signIn: 'Anmelden', cont: 'Weiter', email: 'E-Mail-Adresse', password: 'Passwort', phone: 'Handynummer', card: 'Kartennummer', pin: 'Karten-PIN',
+    mkEmail: 'E-Mail', mkSms: 'SMS', mkLogin: 'Webseite', mkQr: 'QR-Code', mkUrl: 'Link', yourAnswer: 'Ihre Antwort: {answer}.',
+    t_sender: ['Den Absender prüfen', 'E-Mail-Header-Analyse'], t_links: ['Links vor dem Klick lesen', 'Link Hazmat Linkprüfung'],
+    t_urgency: ['Druck und Fristen', 'Link Hazmat Linkprüfung'], t_attachments: ['Gefährliche Anhänge', 'Secrets Scanner'],
+    t_payments: ['Zahlungs- und Gewinnspielbetrug', 'Link Hazmat Linkprüfung'], t_login: ['Falsche Anmeldeseiten', 'PassFort Passwort-Check'],
+    t_qr: ['Phishing mit QR-Codes', 'QR-Code-Generator (sehen, was ein QR enthält)'] },
+  fr: { title: 'Quiz hameçonnage', subtitle: 'Saurez-vous repérer l\'hameçonnage ? 10 scénarios réalistes',
+    intro: 'Pour chaque e-mail, SMS, page de connexion, QR code ou lien, décidez : hameçonnage ou légitime ? Après chaque réponse, les signaux d\'alerte sont surlignés sur la maquette.',
+    disclaimer: 'Toutes les marques, personnes et domaines de ce quiz sont fictifs.', start: 'Commencer le quiz',
+    challenge: 'Quelqu\'un que vous connaissez a fait {score}/10. Ferez-vous mieux ?',
+    progress: 'Question {n} sur {total}', isPhish: 'Hameçonnage', isLegit: 'Légitime', right: 'Bonne réponse !', wrong: 'Pas tout à fait.',
+    next: 'Question suivante', finish: 'Voir mon résultat', resultTitle: 'Votre résultat', share: 'Partager mon score', again: 'Rejouer',
+    rank1: 'Cible facile : les escrocs vous adoreraient. Revoyez les thèmes ci-dessous.', rank2: 'En bonne voie : vous repérez les cas évidents.',
+    rank3: 'Œil aiguisé : seules les ruses subtiles vous ont eu.', rank4: 'Chasseur d\'hameçons : difficile à piéger.',
+    reviewTitle: 'Thèmes à revoir', perfect: 'Aucune erreur : rien à revoir.',
+    shareText: 'J\'ai fait {score}/{total} au quiz hameçonnage. Et vous, saurez-vous repérer les arnaques ?', copiedShare: 'Lien copié dans le presse-papiers.',
+    from: 'De', to: 'À', subject: 'Objet', you: 'vous@mail.example', points: 'Le lien mène à :', attachment: 'Pièce jointe', scan: 'QR code. Le scanner ouvre une adresse web.',
+    decoded: 'Le QR code ouvre :', signIn: 'Se connecter', cont: 'Continuer', email: 'Adresse e-mail', password: 'Mot de passe', phone: 'Numéro de portable', card: 'Numéro de carte', pin: 'Code PIN de la carte',
+    mkEmail: 'E-mail', mkSms: 'SMS', mkLogin: 'Page web', mkQr: 'QR code', mkUrl: 'Lien', yourAnswer: 'Votre réponse : {answer}.',
+    t_sender: ['Vérifier l\'expéditeur', 'Analyseur d\'en-têtes d\'e-mail'], t_links: ['Lire les liens avant de cliquer', 'Link Hazmat, vérificateur de liens'],
+    t_urgency: ['Pression et délais', 'Link Hazmat, vérificateur de liens'], t_attachments: ['Pièces jointes dangereuses', 'Secrets Scanner'],
+    t_payments: ['Arnaques au paiement et aux cadeaux', 'Link Hazmat, vérificateur de liens'], t_login: ['Fausses pages de connexion', 'PassFort, test de mot de passe'],
+    t_qr: ['Hameçonnage par QR code', 'Générateur de QR (voir ce que contient un QR)'] },
+  pt: { title: 'Quiz de phishing', subtitle: 'Você sabe reconhecer phishing? 10 cenários realistas',
+    intro: 'Em cada e-mail, SMS, página de login, QR code ou link, decida: phishing ou legítimo? Depois de cada resposta, os sinais de alerta são destacados na simulação.',
+    disclaimer: 'Todas as marcas, pessoas e domínios deste quiz são fictícios.', start: 'Começar o quiz',
+    challenge: 'Alguém que você conhece fez {score}/10. Consegue superar?',
+    progress: 'Pergunta {n} de {total}', isPhish: 'Phishing', isLegit: 'Legítimo', right: 'Acertou!', wrong: 'Não exatamente.',
+    next: 'Próxima pergunta', finish: 'Ver meu resultado', resultTitle: 'Seu resultado', share: 'Compartilhar minha nota', again: 'Jogar de novo',
+    rank1: 'Alvo fácil: golpistas iam adorar você. Revise os temas abaixo.', rank2: 'Quase lá: você reconhece os casos óbvios.',
+    rank3: 'Olho afiado: só os truques sutis te pegaram.', rank4: 'Caçador de phishing: difícil de enganar.',
+    reviewTitle: 'Temas para revisar', perfect: 'Nenhum erro: nada para revisar.',
+    shareText: 'Fiz {score}/{total} no quiz de phishing. Você sabe reconhecer golpes?', copiedShare: 'Link copiado para a área de transferência.',
+    from: 'De', to: 'Para', subject: 'Assunto', you: 'voce@mail.example', points: 'O link leva a:', attachment: 'Anexo', scan: 'QR code. Ao escanear, abre um endereço web.',
+    decoded: 'O QR code abre:', signIn: 'Entrar', cont: 'Continuar', email: 'Endereço de e-mail', password: 'Senha', phone: 'Número de celular', card: 'Número do cartão', pin: 'Senha do cartão',
+    mkEmail: 'E-mail', mkSms: 'SMS', mkLogin: 'Página web', mkQr: 'QR code', mkUrl: 'Link', yourAnswer: 'Você respondeu: {answer}.',
+    t_sender: ['Confira o remetente', 'Analisador de cabeçalhos de e-mail'], t_links: ['Leia os links antes de clicar', 'Link Hazmat, verificador de links'],
+    t_urgency: ['Pressão e prazos', 'Link Hazmat, verificador de links'], t_attachments: ['Anexos perigosos', 'Secrets Scanner'],
+    t_payments: ['Golpes de pagamento e prêmios', 'Link Hazmat, verificador de links'], t_login: ['Páginas de login falsas', 'PassFort, teste de senha'],
+    t_qr: ['Phishing com QR code', 'Gerador de QR (veja o que um QR contém)'] },
+};
+
+TK.init(UI);
+const T = (await import(`/js/tools/phish/${TK.lang}.mjs`)).default;
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+let round = [], answers = [], idx = 0;
+
+/* the parent page's language prefix, for links that leave the iframe */
+const langPath = `/${TK.lang}/`;
+/* a friend's score from the share page (?score=n on the tool page), shown as a challenge */
+try {
+  const s = new URLSearchParams(window.parent.location.search).get('score');
+  if (s !== null && /^(10|[0-9])$/.test(s)) { $('challenge').textContent = t('challenge', { score: s }); $('challenge').hidden = false; }
+} catch (e) { /* not embedded */ }
+
+function qrSvg(text) {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  return q.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+}
+const el = (name, html, tag = 'span', cls = '') => `<${tag} data-el="${name}"${cls ? ` class="${cls}"` : ''}>${html}</${tag}>`;
+
+function mockup(s, tx) {
+  const m = s.m;
+  if (s.type === 'email') {
+    const link = m.href ? `<div class="mk-cta-wrap">${el('link', esc(tx.cta), 'a', 'mk-cta').replace('<a ', `<a href="#" aria-describedby="tgt-${s.id}" `)}<span class="mk-target" id="tgt-${s.id}">${esc(t('points'))} ${esc(m.href)}</span></div>` : '';
+    const attach = m.attach ? `<div>${el('attachment', `📎 ${esc(t('attachment'))}: ${esc(m.attach)}`, 'span', 'mk-attach')}</div>` : '';
+    const qr = m.qr ? el('qr', qrSvg(m.qr), 'div', 'mk-qr').replace('<div ', `<div role="img" aria-label="${esc(t('scan'))}" `) + `<p class="mk-decoded" data-reveal hidden>${esc(t('decoded'))} ${esc(m.qr)}</p>` : '';
+    return `<div class="mk mk-email" role="group" aria-label="${esc(t('mkEmail'))}">
+      <div class="mk-email-h">
+        <div><span class="lbl">${esc(t('from'))}</span> ${el('fromName', `<b>${esc(tx.fromName)}</b>`)} ${el('fromAddr', `&lt;${esc(m.fromAddr)}&gt;`)}</div>
+        <div><span class="lbl">${esc(t('to'))}</span> ${esc(t('you'))}</div>
+        ${el('subject', esc(tx.subject), 'div', 'mk-subject')}
+      </div>
+      <div class="mk-body">${el('greeting', esc(tx.greeting), 'p')}${el('body', tx.body.map((p) => `<p>${esc(p)}</p>`).join(''), 'div')}${qr}${attach}${link}</div></div>`;
+  }
+  if (s.type === 'sms') {
+    const text = esc(tx.body).replace('{link}', m.href ? el('link', esc(m.href), 'span', 'mk-link') : '');
+    return `<div class="mk mk-sms" role="group" aria-label="${esc(t('mkSms'))}">${el('sender', esc(m.sender), 'div', 'mk-sms-sender')}${el('body', text, 'div', 'mk-bubble')}</div>`;
+  }
+  if (s.type === 'login') {
+    const fields = m.fields.map((f) => `<label>${esc(t(f))}<input type="${f === 'password' || f === 'pin' ? 'password' : 'text'}" disabled tabindex="-1"></label>`).join('');
+    return `<div class="mk mk-login" role="group" aria-label="${esc(t('mkLogin'))}">
+      <div class="mk-browser-bar"><span aria-hidden="true">🔒</span>${el('url', esc(m.url), 'div', 'mk-url')}</div>
+      <div class="mk-page"><div class="mk-brand">${esc(BRANDS[m.brand])}</div>${el('title', esc(tx.title), 'div')}
+        ${el('form', `${fields}<button type="button" class="mk-submit" disabled tabindex="-1">${esc(t(m.fields.includes('card') ? 'cont' : 'signIn'))}</button>`, 'div', 'tb-stack')}</div></div>`;
+  }
+  if (s.type === 'qr') {
+    return `<div class="mk mk-qrcard" role="group" aria-label="${esc(t('mkQr'))}">
+      ${el('poster', `<b>${esc(tx.posterTitle)}</b><span>${esc(tx.posterText)}</span><div role="img" aria-label="${esc(t('scan'))}">${qrSvg(m.href)}</div>`, 'div', 'mk-poster')}
+      ${el('decoded', `${esc(t('decoded'))} ${esc(m.href)}`, 'p', 'mk-decoded').replace('<p ', '<p data-reveal hidden ')}</div>`;
+  }
+  return `<div class="mk mk-urlcard" role="group" aria-label="${esc(t('mkUrl'))}">${el('url', esc(m.url), 'div', 'mk-urlbig')}</div>`;
+}
+
+function show(id) { for (const s of ['s-start', 's-q', 's-result']) $(s).hidden = s !== id; }
+
+function renderQuestion() {
+  const s = round[idx], tx = T[s.id];
+  $('q-heading').textContent = t('progress', { n: idx + 1, total: round.length });
+  $('bar').style.width = `${(idx / round.length) * 100}%`;
+  $('ctx').textContent = tx.ctx;
+  $('mockup').innerHTML = mockup(s, tx);
+  $('mockup').querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
+  $('answers').hidden = false; $('feedback').hidden = true;
+  $('a-phish').disabled = $('a-legit').disabled = false;
+  $('q-heading').focus();
+}
+
+function answer(saidPhish) {
+  const s = round[idx], tx = T[s.id];
+  answers[idx] = saidPhish;
+  const ok = saidPhish === s.phish;
+  $('a-phish').disabled = $('a-legit').disabled = true;
+  $('answers').hidden = true;
+  const box = $('mockup');
+  box.querySelector('.mk').classList.add('answered');
+  box.querySelectorAll('[data-reveal]').forEach((n) => { n.hidden = false; });
+  // number the flags in reading order (top to bottom of the mockup)
+  const flags = s.flags.map(([name, kind]) => ({ name, kind, node: box.querySelector(`[data-el="${name}"]`) }))
+    .sort((a, b) => (a.node && b.node ? (a.node.compareDocumentPosition(b.node) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1) : 0));
+  const list = [];
+  flags.forEach(({ name, kind, node }, i) => {
+    if (node) {
+      node.classList.add('hl', `hl-${kind}`);
+      const b = document.createElement('span'); b.className = 'badge'; b.setAttribute('aria-hidden', 'true'); b.textContent = i + 1;
+      node.prepend(b);
+    }
+    list.push(`<li>${esc(tx.f[name])}</li>`);
+  });
+  $('flags').innerHTML = list.join('');
+  $('verdict').textContent = ok ? t('right') : t('wrong');
+  $('verdict').className = 'verdict ' + (ok ? 'ok' : 'ko');
+  $('verdict-text').textContent = ok ? tx.verdict : `${t('yourAnswer', { answer: t(saidPhish ? 'isPhish' : 'isLegit') })} ${tx.verdict}`;
+  $('next').textContent = idx + 1 < round.length ? t('next') : t('finish');
+  $('feedback').hidden = false;
+  $('verdict').focus();
+  window.__quizAnswered = (window.__quizAnswered || 0) + 1;
+}
+
+function result() {
+  const score = round.reduce((n, s, i) => n + (answers[i] === s.phish ? 1 : 0), 0);
+  $('bar').style.width = '100%';
+  $('score').textContent = `${score}/${round.length}`;
+  $('rank').textContent = t(rankFor(score, round.length));
+  const topics = topicsToReview(round, answers);
+  $('review').innerHTML = topics.length
+    ? `<h3>${esc(t('reviewTitle'))}</h3><ul>${topics.map((k) => { const [label, tool] = t('t_' + k); return `<li><b>${esc(label)}</b> — <a href="${langPath}${TOPICS[k].tool}" target="_top">${esc(tool)}</a></li>`; }).join('')}</ul>`
+    : `<p>${esc(t('perfect'))}</p>`;
+  show('s-result');
+  $('r-heading').focus();
+  window.__quizScore = score;
+  $('share').onclick = async () => {
+    const d = shareData(score, round.length, TK.lang, t('shareText'), location.origin.startsWith('http') ? 'https://federicosella.com' : location.origin);
+    try {
+      if (navigator.share) { await navigator.share({ title: t('title'), text: d.text, url: d.url }); return; }
+    } catch (e) { if (e && e.name === 'AbortError') return; }
+    TK.copy(`${d.text} ${d.url}`, $('share'));
+    $('share-status').textContent = t('copiedShare'); $('share-status').hidden = false;
+  };
+}
+
+function start() {
+  round = pickRound(SCENARIOS, 10); answers = []; idx = 0;
+  show('s-q'); renderQuestion();
+}
+$('start').addEventListener('click', start);
+$('again').addEventListener('click', start);
+$('a-phish').addEventListener('click', () => answer(true));
+$('a-legit').addEventListener('click', () => answer(false));
+$('next').addEventListener('click', () => { idx++; if (idx < round.length) renderQuestion(); else result(); });
+window.__quizReady = true;
+window.__quizRound = () => round.map((s) => ({ id: s.id, phish: s.phish }));
+/* test hook: start a round with the given scenario ids (screenshots, debugging) */
+window.__quizStartWith = (ids) => { round = ids.map((id) => SCENARIOS.find((s) => s.id === id)).filter(Boolean); answers = []; idx = 0; show('s-q'); renderQuestion(); };
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

@@ -345,6 +345,64 @@ export const TESTS = {
     assert((await p.textContent('.fd.s-high strong')).includes('in script-src') && (await p.textContent('#out')).includes('Manca Referrer-Policy'), 'Italian findings');
     assert(external.length === 0, 'external requests: ' + external.join(', '));
     return 'weak sample → F with CSP issues, CSP-only paste, strong sample → A+, copy report, Italian, no network'; } },
+  'phishing-quiz': { url: '/tools/phishing-quiz/?lang=en', async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    await p.waitForFunction(() => window.__quizReady);
+    let copied = '';
+    await p.exposeFunction('__captureCopy', (s) => { copied = s; });
+    await p.evaluate(() => { Object.defineProperty(navigator, 'share', { value: undefined }); navigator.clipboard.writeText = (s) => { window.__captureCopy(s); return Promise.resolve(); }; });
+    await p.click('#start');
+    const round = await p.evaluate(() => window.__quizRound());
+    assert(round.length === 10 && new Set(round.map((s) => s.id)).size === 10, 'round of 10 distinct scenarios');
+    // question 1 with the keyboard only: from the focused heading, Tab to the right answer button and press Enter
+    assert(await p.evaluate(() => document.activeElement.id) === 'q-heading', 'focus starts on the question heading');
+    const target = round[0].phish ? 'a-phish' : 'a-legit';
+    for (let i = 0; i < 12 && (await p.evaluate(() => document.activeElement.id)) !== target; i++) await p.keyboard.press('Tab');
+    assert(await p.evaluate(() => document.activeElement.id) === target, 'answer button reachable with Tab');
+    await p.keyboard.press('Enter');
+    assert(await p.evaluate(() => document.activeElement.id) === 'verdict', 'focus moves to the verdict');
+    assert((await p.textContent('#verdict')).trim() === 'Correct!', 'keyboard answer counted');
+    const hl = await p.locator('#mockup .hl').count();
+    assert(hl > 0 && hl === await p.locator('#flags li').count(), `red flags highlighted (${hl}) and explained`);
+    await p.keyboard.press('Tab'); assert(await p.evaluate(() => document.activeElement.id) === 'next', 'Tab reaches Next');
+    await p.keyboard.press('Enter');
+    // the rest with the mouse: all right except question 6
+    for (let i = 1; i < 10; i++) {
+      const right = round[i].phish ? '#a-phish' : '#a-legit', wrong = round[i].phish ? '#a-legit' : '#a-phish';
+      await p.click(i === 5 ? wrong : right);
+      assert(await p.locator('#mockup .hl').count() > 0, `highlights on question ${i + 1}`);
+      await p.click('#next');
+    }
+    assert((await p.textContent('#score')).trim() === '9/10', 'score ' + await p.textContent('#score'));
+    assert(/Phish hunter/.test(await p.textContent('#rank')), 'rank for 9/10');
+    const review = await p.locator('#review li').count();
+    assert(review >= 1, 'topics to review for the missed question');
+    assert(await p.locator('#review a[target=_top]').first().getAttribute('href').then((h) => /^\/en\/tools\/[a-z-]+\/$/.test(h)), 'review links to a tool');
+    await p.click('#share');
+    await p.waitForFunction(() => !document.getElementById('share-status').hidden);
+    assert(copied === 'I scored 9/10 on the Phishing Quiz. Can you spot the phish? https://federicosella.com/en/tools/phishing-quiz/score/9/', 'share text: ' + copied);
+    // the share page: own card, noindex, forwards to the quiz with ?score=
+    const share = await (await fetch(origin + '/en/tools/phishing-quiz/score/9/')).text();
+    const img = share.match(/og:image" content="https:\/\/federicosella\.com([^"]+)"/)[1];
+    assert(img === '/og/en/tools/phishing-quiz-score-9.png' && (await fetch(origin + img)).ok, 'score card ' + img);
+    assert(/noindex/.test(share) && /url=\/en\/tools\/phishing-quiz\/\?score=9/.test(share), 'share page meta');
+    // the quiz app itself makes no request (the host page loaded next has the site's ad and analytics scripts)
+    assert(external.length === 0, 'external requests from the quiz: ' + external.join(', '));
+    await p.goto(origin + '/en/tools/phishing-quiz/?score=9');
+    const f = p.frameLocator('iframe.tool-iframe');
+    await f.locator('#challenge').waitFor({ state: 'visible' });
+    assert(/scored 9\/10/.test(await f.locator('#challenge').textContent()), 'challenge banner');
+    return 'keyboard-only answer, highlights + explanations, 9/10 scoring and rank, topics to review, share text, score page card + challenge banner, no network'; } },
+  'phishing-quiz-it': { url: '/tools/phishing-quiz/?lang=it', async run(p) {
+    await p.waitForFunction(() => window.__quizReady);
+    await p.click('#start');
+    assert(/Domanda 1 di 10/.test(await p.textContent('#q-heading')), 'Italian UI');
+    const id = (await p.evaluate(() => window.__quizRound()))[0].id;
+    const ctx = await p.textContent('#ctx');
+    const it = (await p.evaluate(async (k) => (await import('/js/tools/phish/it.mjs')).default[k].ctx, id));
+    assert(ctx === it, 'scenario text is Italian');
+    return 'scenarios localized (Italian)'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },
