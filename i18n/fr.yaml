@@ -91,6 +91,42 @@ hash_insecure:
   other: "Pas pour la sécurité"
 hash_error:
   other: "Impossible de calculer les empreintes :"
+hash_file_title:
+  other: "Vérifier l'empreinte d'un fichier"
+hash_file_intro:
+  other: "Choisissez ou déposez un fichier pour calculer son empreinte, puis collez l'empreinte publiée sur la page de téléchargement pour les comparer. Le fichier est lu dans votre navigateur et n'est jamais envoyé, quelle que soit sa taille."
+hash_file_choose:
+  other: "Choisir un fichier"
+hash_file_drop:
+  other: "ou déposez-le ici"
+hash_file_expected:
+  other: "Empreinte attendue (facultatif)"
+hash_file_expected_ph:
+  other: "Collez un hash, ou la ligne de SHA256SUMS…"
+hash_file_algo:
+  other: "Algorithme"
+hash_file_auto:
+  other: "Choisi d'après l'empreinte attendue : {algo}"
+hash_file_hashing:
+  other: "Calcul… {done} sur {total}"
+hash_file_cancel:
+  other: "Annuler"
+hash_file_result:
+  other: "Empreinte"
+hash_file_meta:
+  other: "{name} · {size} · {s} s"
+hash_file_match:
+  other: "Identique : ce fichier est exactement celui à partir duquel l'empreinte a été calculée."
+hash_file_mismatch:
+  other: "Différent : ce fichier n'est pas celui à partir duquel l'empreinte a été calculée. Il peut être incomplet, corrompu ou remplacé. Ne l'ouvrez pas ; téléchargez-le à nouveau depuis le site officiel."
+hash_file_bad_expected:
+  other: "Cela ne ressemble pas à une empreinte MD5, SHA-1, SHA-256 ou SHA-512."
+hash_file_ambiguous:
+  other: "La liste collée contient {n} empreintes et aucune n'est pour {name}. Collez seulement la ligne de ce fichier."
+hash_file_weak:
+  other: "On peut fabriquer volontairement des collisions MD5 et SHA-1 : une correspondance n'exclut donc que les dommages accidentels. Préférez SHA-256 quand l'éditeur le publie."
+hash_file_failed:
+  other: "Impossible de lire le fichier : {e}"
 b64_placeholder:
   other: "Texte à encoder ou chaîne Base64 à décoder…"
 b64_encode:
@@ -299,3 +335,37 @@ home_show_all:
   other: "Voir les {{ . }}"
 home_show_fewer:
   other: "Voir moins"
+pg_mode:
+  other: "Type"
+pg_mode_password:
+  other: "Mot de passe"
+pg_mode_passphrase:
+  other: "Phrase de passe"
+pg_generate_phrase:
+  other: "Générer une phrase de passe"
+pg_words:
+  other: "Mots"
+pg_wordlist:
+  other: "Liste de mots"
+pg_separator:
+  other: "Séparateur"
+pg_sep_hyphen:
+  other: "Tiret"
+pg_sep_space:
+  other: "Espace"
+pg_sep_dot:
+  other: "Point"
+pg_sep_none:
+  other: "Aucun"
+pg_capitalize:
+  other: "Majuscule initiale"
+pg_add_digit:
+  other: "Ajouter un chiffre"
+pg_strip_accents:
+  other: "Retirer les accents"
+pg_per_word:
+  other: "{bits} bits par mot · liste de {n} mots ({source})"
+pg_list_loading:
+  other: "Chargement de la liste de mots…"
+pg_list_failed:
+  other: "Impossible de charger la liste de mots. Vérifiez votre connexion et réessayez."

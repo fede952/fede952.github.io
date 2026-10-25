@@ -1,9 +1,9 @@
 ---
-title: "Gerador de Hash: MD5, SHA-256, SHA-512"
-description: "Gere hashes MD5, SHA-1, SHA-256 e SHA-512 de qualquer texto enquanto digita, com suporte a UTF-8 e cópia com um clique. Calculado no seu navegador."
-intro: "Digite ou cole um texto e veja de uma vez os hashes **MD5, SHA-1, SHA-256 e SHA-512**, atualizados enquanto você digita. A família SHA é calculada pela Web Crypto API do seu navegador; nada do que você insere é enviado."
+title: "Gerador de hash e verificador de checksum"
+description: "Gere hashes MD5, SHA-1, SHA-256 e SHA-512 de um texto, ou verifique um arquivo baixado com o checksum publicado. Roda no seu navegador, sem enviar nada."
+intro: "Digite ou cole um texto para ver os hashes **MD5, SHA-1, SHA-256 e SHA-512** enquanto digita, ou **verifique um arquivo**: escolha um download, cole o checksum da página do autor e receba um claro **confere ou não confere**. Arquivos de qualquer tamanho são processados por partes num worker em segundo plano e nunca saem do seu dispositivo."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["gerador de hash", "gerador sha256", "gerador md5", "hash sha512 online", "hash sha1", "texto para sha256", "calcular checksum", "calculadora de hash online"]
 tags: ["criptografia", "hash", "ferramentas-dev", "ferramenta"]
@@ -15,6 +15,7 @@ howto:
   - "Clique em **Copiar** ao lado de um hash para enviá-lo à área de transferência."
   - "Para comparar com um hash que você recebeu, cole os dois em um editor ou compare caractere por caractere: um único caractere diferente significa entrada diferente."
   - "Clique em **Limpar tudo** para esvaziar a entrada e os resultados."
+  - "Para conferir um download, desça até **Verificar o checksum de um arquivo**, escolha o arquivo e cole o checksum fornecido pelo autor (um hash solto ou a linha de um arquivo SHA256SUMS). O algoritmo é definido pelo tamanho."
 faq:
   - q: "Qual algoritmo de hash devo usar?"
     a: "Para verificação de integridade, impressões digitais e projetos novos, use SHA-256 (ou SHA-512). MD5 e SHA-1 estão quebrados para segurança: existem ataques de colisão práticos, então não devem ser usados em assinaturas ou certificados. Ainda servem para usos sem exigência de segurança, como chaves de cache ou para bater um checksum de um sistema antigo."
@@ -23,7 +24,7 @@ faq:
   - q: "Por que meu hash é diferente do de outra ferramenta?"
     a: "Quase sempre a entrada é diferente. Confira se há uma quebra de linha no final (`echo` adiciona uma; use `echo -n`), espaços, finais de linha do Windows `\\r\\n` ou outra codificação de texto. Esta ferramenta calcula o hash exatamente dos caracteres da caixa, codificados em UTF-8."
   - q: "Dá para gerar o hash de um arquivo?"
-    a: "Não com esta página: ela trabalha com texto. Para arquivos, use a linha de comando: `sha256sum arquivo` no Linux, `shasum -a 256 arquivo` no macOS ou `Get-FileHash arquivo -Algorithm SHA256` no PowerShell do Windows."
+    a: "Sim. Use **Verificar o checksum de um arquivo** abaixo dos hashes de texto. O arquivo é lido no navegador em blocos por um worker em segundo plano (com a biblioteca hash-wasm, servida por este site), então até arquivos de vários gigabytes funcionam sem lotar a memória, e nada é enviado. Na linha de comando: `sha256sum arquivo` no Linux, `shasum -a 256 arquivo` no macOS e `Get-FileHash arquivo -Algorithm SHA256` no Windows PowerShell."
   - q: "Um hash pode ser revertido ou descriptografado?"
     a: "Não. Um hash é uma função de mão única: não existe chave nem forma de calcular a entrada a partir da saída. Sites que \"descriptografam MD5\" só consultam tabelas de hashes pré-calculados de palavras comuns, e é exatamente por isso que entradas curtas ou comuns não ficam protegidas pelo hash."
   - q: "O que eu digito é enviado para algum servidor?"
@@ -51,6 +52,18 @@ Duas propriedades tornam essas funções úteis. Elas são **determinísticas**:
 ### Texto, não arquivos
 
 A entrada é o texto da caixa, então os hashes só batem com os de ferramentas de linha de comando quando os bytes são exatamente iguais. `printf 'Olá, Mundo!' | sha256sum` e esta ferramenta concordam; `echo 'Olá, Mundo!' | sha256sum` não, porque o `echo` acrescenta uma quebra de linha.
+
+## Como verificar um download
+
+Um checksum prova que o seu arquivo é, bit a bit, o arquivo do qual o autor calculou o hash. Ele detecta downloads interrompidos ou corrompidos e arquivos adulterados num espelho.
+
+1. **Pegue o checksum na fonte oficial** — a página de download ou as notas de versão do projeto, de preferência em HTTPS. Um checksum hospedado ao lado do arquivo no mesmo espelho prova pouco: quem consegue trocar o arquivo também consegue trocar o checksum.
+2. **Baixe o arquivo**, abra **Verificar o checksum de um arquivo** nesta página e escolha-o.
+3. **Cole o checksum esperado.** Você pode colar a linha inteira de um arquivo `SHA256SUMS`, uma linha `SHA256 (arquivo) = …` ou a saída do PowerShell; a ferramenta encontra o hash e o algoritmo.
+4. **Leia o resultado.** *Confere* significa que o arquivo é idêntico. *Não confere* significa que não é: apague e baixe de novo no site oficial. Um único caractere diferente já basta; não existe "quase igual".
+5. **Prefira SHA-256 ou SHA-512.** MD5 e SHA-1 ainda detectam danos acidentais, mas colisões podem ser criadas de propósito, então não provam que o arquivo não foi trocado.
+
+Para a verificação mais forte, alguns projetos também assinam seus arquivos de checksums com GPG ou Sigstore. Verificar essa assinatura prova quem publicou o checksum; esta ferramenta confere se o seu arquivo bate com ele.
 
 ## Casos de uso
 

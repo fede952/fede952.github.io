@@ -644,6 +644,80 @@ const TESTS = {
     assert(await f.locator('legend', { hasText: 'Vettore di attacco' }).count() === 2 && (await f.locator('#tab-4').textContent()) === 'CVSS 4.0', 'Italian metric names (AV and MAV)');
     assert(external.filter((u) => !/googlesyndication|umami|doubleclick|google/.test(u)).length === 0, 'tool requests: ' + external.join(', '));
     return `deep link → 8.9 CVSS-BTE, all ${ex.v4.length} FIRST v4 examples in the UI, clicks + keyboard update vector/score, invalid message, 3.1 auto-tab with base/temporal/env equal to FIRST's calculator, copy link, Italian`; } },
+  'hash-file': { url: '/en/tools/hash-generator/', async run(p, { origin, tmp }) {
+    const { createHash, randomBytes } = await import('node:crypto');
+    const own = [];
+    p.on('request', (r) => { if (r.url().startsWith(origin) && /\/(js\/tools\/hash|vendor\/hash-wasm)/.test(r.url())) own.push(r.url().slice(origin.length)); });
+    await p.waitForFunction(() => window.__hashFileReady);
+    assert(!own.some((u) => u.includes('hash-wasm')), 'hash-wasm is not loaded before a file is chosen');
+    const buf = randomBytes(24 * 1024 * 1024 + 5); // 24 MB: several chunks, progress events
+    const file = path.join(tmp, 'release-1.0.iso');
+    fs.writeFileSync(file, buf);
+    const sha256 = createHash('sha256').update(buf).digest('hex');
+    await p.setInputFiles('#hash-file-input', file);
+    await p.waitForFunction(() => window.__hashFileResult);
+    assert((await p.inputValue('#hash-file-digest')) === sha256, 'SHA-256 of the file equals node:crypto');
+    assert(await p.isHidden('#hash-file-progress'), 'progress hidden when done');
+    assert(/release-1\.0\.iso · 24 MB/.test(await p.textContent('#hash-file-meta')), 'file name and size: ' + await p.textContent('#hash-file-meta'));
+    // paste the matching line of a SHA256SUMS file
+    await p.fill('#hash-file-expected', `${'0'.repeat(64)}  other.tar.gz\n${sha256.toUpperCase()}  release-1.0.iso\n`);
+    await p.waitForFunction(() => window.__hashFileVerdict === 'match');
+    assert(/^Match/.test(await p.textContent('#hash-file-verdict')), 'match verdict');
+    assert(await p.isDisabled('#hash-file-algo') && /SHA-256/.test(await p.textContent('#hash-file-auto')), 'algorithm set from the expected checksum');
+    // one character off → mismatch
+    await p.fill('#hash-file-expected', sha256.slice(0, -1) + (sha256.endsWith('0') ? '1' : '0'));
+    await p.waitForFunction(() => window.__hashFileVerdict === 'mismatch');
+    assert(/^Mismatch/.test(await p.textContent('#hash-file-verdict')), 'mismatch verdict');
+    // an MD5 checksum re-hashes with MD5 and warns that MD5 only rules out accidents
+    const md5 = createHash('md5').update(buf).digest('hex');
+    await p.evaluate(() => { window.__hashFileResult = null; window.__hashFileVerdict = null; });
+    await p.fill('#hash-file-expected', md5);
+    await p.waitForFunction(() => window.__hashFileVerdict === 'match', null, { timeout: 60000 });
+    assert((await p.inputValue('#hash-file-digest')) === md5 && /accidental damage/.test(await p.textContent('#hash-file-verdict')), 'MD5 auto-detected, weak-hash note');
+    // a listing without this file, and garbage
+    await p.fill('#hash-file-expected', `${'a'.repeat(64)}  x.zip\n${'b'.repeat(64)}  y.zip`);
+    assert(/has 2 checksums and none is for release-1\.0\.iso/.test(await p.textContent('#hash-file-verdict')), 'ambiguous listing message');
+    await p.fill('#hash-file-expected', 'not a hash');
+    assert(/does not look like/.test(await p.textContent('#hash-file-verdict')), 'bad checksum message');
+    // the text hashes still work
+    await p.fill('#hash-input', 'abc'); await p.dispatchEvent('#hash-input', 'input');
+    await p.waitForFunction(() => document.getElementById('hash-sha256').value === 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');
+    assert(own.some((u) => u.includes('/vendor/hash-wasm@4.12.0/sha256.umd.min.js')) && own.some((u) => u.includes('/js/tools/hash-worker.mjs')), 'worker + self-hosted hash-wasm loaded on demand');
+    return '24 MB file streamed in a worker: SHA-256 = node:crypto, SHA256SUMS line → match, 1-char change → mismatch, MD5 auto-detect + weak note, ambiguous/bad input, text hashes intact, hash-wasm self-hosted and lazy'; } },
+  'passphrase': { url: '/it/tools/password-generator/', async run(p, { origin }) {
+    const lists = [];
+    p.on('request', (r) => { if (r.url().includes('/vendor/') && r.url().endsWith('.txt')) lists.push(r.url().slice(origin.length)); });
+    await p.waitForFunction(() => window.__pgPhraseReady);
+    assert(/^.{16}$/.test(await p.inputValue('#pg-password')), 'password mode by default');
+    assert(lists.length === 0, 'no word list loaded in password mode');
+    await p.click('label:has(#pg-mode-phrase)');
+    await p.waitForFunction(() => window.__pgPhrase);
+    let r = await p.evaluate(() => window.__pgPhrase);
+    assert(r.list === 'it' && r.size === 2048, 'default list follows the page language (Italian)');
+    assert(r.text.split('-').length === 6 && r.bits === 66, '6 words, 66 bits: ' + JSON.stringify(r));
+    assert(/66 bit/.test(await p.textContent('#pg-strength-text')) && /11 bit per parola/.test(await p.textContent('#pg-list-info')), 'entropy shown');
+    assert((await p.textContent('#pg-generate-btn')).trim() === 'Genera passphrase', 'button label');
+    assert(await p.isHidden('#pg-strip-wrap'), 'no accent option for a list without accents');
+    // French with accents, then stripped
+    await p.selectOption('#pg-list', 'fr');
+    await p.waitForFunction(() => window.__pgPhrase.list === 'fr');
+    assert(await p.isVisible('#pg-strip-wrap'), 'accent option for French');
+    await p.check('#pg-strip');
+    for (let i = 0; i < 15; i++) { await p.click('#pg-generate-btn'); assert(/^[a-z-]+$/.test(await p.inputValue('#pg-password')), 'accents removed: ' + await p.inputValue('#pg-password')); }
+    // English EFF, 7 words, spaces, capitals and a digit
+    await p.selectOption('#pg-list', 'en'); await p.selectOption('#pg-sep', ' ');
+    await p.check('#pg-cap'); await p.check('#pg-digit');
+    await p.fill('#pg-words', '7'); await p.dispatchEvent('#pg-words', 'input');
+    await p.waitForFunction(() => window.__pgPhrase.list === 'en' && window.__pgPhrase.text.split(' ').length === 7);
+    r = await p.evaluate(() => window.__pgPhrase);
+    const words = r.text.split(' ');
+    assert(words.every((w) => /^[A-Z]/.test(w)) && words.filter((w) => /\d$/.test(w)).length === 1, 'capitals + one digit: ' + r.text);
+    assert(Math.abs(r.bits - (7 * Math.log2(7776) + Math.log2(70))) < 1e-9, 'entropy with digit');
+    assert(lists.length === 3 && lists.every((u) => u.startsWith('/vendor/')), 'lists fetched lazily from this site: ' + lists.join(', '));
+    // back to password mode
+    await p.click('label:has(#pg-mode-pass)');
+    assert(/^.{16}$/.test(await p.inputValue('#pg-password')) && await p.isVisible('#pg-pass-controls'), 'password mode restored');
+    return 'password default, Italian list by page language (66 bits/6 words), French accents stripped, EFF 7 words + caps + digit with exact entropy, lists lazy and self-hosted, mode switch back'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

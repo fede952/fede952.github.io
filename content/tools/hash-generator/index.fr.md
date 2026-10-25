@@ -1,9 +1,9 @@
 ---
-title: "Générateur de Hash : MD5, SHA-256, SHA-512"
-description: "Générez les hashs MD5, SHA-1, SHA-256 et SHA-512 de n'importe quel texte pendant la saisie, avec UTF-8 et copie en un clic. Calculé dans votre navigateur."
-intro: "Saisissez ou collez un texte et obtenez à la fois ses empreintes **MD5, SHA-1, SHA-256 et SHA-512**, mises à jour pendant la frappe. La famille SHA est calculée par la Web Crypto API de votre navigateur ; rien de ce que vous saisissez n'est envoyé."
+title: "Générateur de hash et checksum de fichier"
+description: "Générez les hashs MD5, SHA-1, SHA-256 et SHA-512 d'un texte, ou vérifiez un fichier téléchargé avec son empreinte publiée. Dans votre navigateur, sans envoi."
+intro: "Saisissez ou collez un texte pour obtenir ses empreintes **MD5, SHA-1, SHA-256 et SHA-512** pendant la frappe, ou **vérifiez un fichier** : choisissez un téléchargement, collez l'empreinte de la page de l'éditeur et obtenez un verdict clair, **identique ou différent**. Les fichiers de toute taille sont traités par morceaux dans un worker en arrière-plan et ne quittent jamais votre appareil."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["générateur de hash", "générateur sha256", "générateur md5", "hash sha512 en ligne", "hash sha1", "texte en sha256", "calculer une somme de contrôle", "calculateur de hash en ligne"]
 tags: ["cryptographie", "hash", "outils-développeur", "outil"]
@@ -15,6 +15,7 @@ howto:
   - "Cliquez sur **Copier** à côté d'une empreinte pour la placer dans le presse-papiers."
   - "Pour la comparer à une empreinte fournie, collez les deux dans un éditeur ou comparez-les caractère par caractère : un seul caractère différent signifie une entrée différente."
   - "Cliquez sur **Tout effacer** pour vider l'entrée et les résultats."
+  - "Pour contrôler un téléchargement, descendez jusqu'à **Vérifier l'empreinte d'un fichier**, choisissez le fichier et collez l'empreinte donnée par l'éditeur (un hash seul ou la ligne d'un fichier SHA256SUMS). L'algorithme est déduit de sa longueur."
 faq:
   - q: "Quel algorithme de hachage utiliser ?"
     a: "Pour les contrôles d'intégrité, les empreintes et les nouveaux projets, SHA-256 (ou SHA-512). MD5 et SHA-1 sont cassés du point de vue de la sécurité : des attaques par collision pratiques existent, ils ne doivent donc pas servir pour des signatures ou des certificats. Ils restent utilisables hors sécurité, par exemple comme clés de cache ou pour retrouver une somme de contrôle d'un ancien système."
@@ -23,7 +24,7 @@ faq:
   - q: "Pourquoi mon hash diffère-t-il de celui d'un autre outil ?"
     a: "C'est presque toujours l'entrée qui diffère. Vérifiez un saut de ligne final (`echo` en ajoute un ; utilisez `echo -n`), des espaces, des fins de ligne Windows `\\r\\n` ou un autre encodage. Cet outil hache exactement les caractères du champ, encodés en UTF-8."
   - q: "Puis-je calculer le hash d'un fichier ?"
-    a: "Pas avec cette page : elle traite du texte. Pour les fichiers, utilisez la ligne de commande : `sha256sum fichier` sous Linux, `shasum -a 256 fichier` sous macOS ou `Get-FileHash fichier -Algorithm SHA256` dans PowerShell sous Windows."
+    a: "Oui. Utilisez **Vérifier l'empreinte d'un fichier** sous les hashs de texte. Le fichier est lu dans votre navigateur par blocs dans un worker en arrière-plan (avec la bibliothèque hash-wasm, servie par ce site) : même les fichiers de plusieurs gigaoctets fonctionnent sans saturer la mémoire, et rien n'est envoyé. En ligne de commande : `sha256sum fichier` sous Linux, `shasum -a 256 fichier` sous macOS et `Get-FileHash fichier -Algorithm SHA256` dans Windows PowerShell."
   - q: "Peut-on inverser ou déchiffrer un hash ?"
     a: "Non. Un hash est une fonction à sens unique : il n'y a pas de clé ni de moyen de retrouver l'entrée à partir de la sortie. Les sites qui « déchiffrent le MD5 » consultent simplement des tables d'empreintes précalculées de mots courants, et c'est justement pourquoi le hachage ne protège pas les entrées courtes ou banales."
   - q: "Ce que je tape est-il envoyé à un serveur ?"
@@ -51,6 +52,18 @@ Deux propriétés rendent ces fonctions utiles. Elles sont **déterministes** : 
 ### Du texte, pas des fichiers
 
 L'entrée est le texte du champ : les empreintes ne correspondent à celles des outils en ligne de commande que si les octets sont strictement identiques. `printf 'Bonjour, le monde !' | sha256sum` et cet outil concordent ; `echo 'Bonjour, le monde !' | sha256sum` non, car `echo` ajoute un saut de ligne.
+
+## Comment vérifier un téléchargement
+
+Une empreinte prouve que votre fichier est, bit pour bit, celui que l'éditeur a haché. Elle détecte les téléchargements interrompus ou corrompus et les fichiers modifiés sur un miroir.
+
+1. **Prenez l'empreinte à la source officielle** — la page de téléchargement ou les notes de version du projet, de préférence en HTTPS. Une empreinte hébergée à côté du fichier sur le même miroir prouve peu de chose : qui peut remplacer le fichier peut aussi remplacer l'empreinte.
+2. **Téléchargez le fichier**, ouvrez **Vérifier l'empreinte d'un fichier** sur cette page et choisissez-le.
+3. **Collez l'empreinte attendue.** Vous pouvez coller la ligne entière d'un fichier `SHA256SUMS`, une ligne `SHA256 (fichier) = …` ou une sortie PowerShell ; l'outil trouve le hash et l'algorithme.
+4. **Lisez le verdict.** *Identique* signifie que le fichier est le même. *Différent* signifie qu'il ne l'est pas : supprimez-le et téléchargez-le à nouveau depuis le site officiel. Un seul caractère différent suffit ; « presque pareil » n'existe pas.
+5. **Préférez SHA-256 ou SHA-512.** MD5 et SHA-1 détectent encore les dommages accidentels, mais on peut fabriquer volontairement des collisions : ils ne prouvent donc pas que le fichier n'a pas été remplacé.
+
+Pour le contrôle le plus solide, certains projets signent aussi leurs fichiers d'empreintes avec GPG ou Sigstore. Vérifier cette signature prouve qui a publié l'empreinte ; cet outil vérifie que votre fichier y correspond.
 
 ## Cas d'usage
 

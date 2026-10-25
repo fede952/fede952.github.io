@@ -248,3 +248,107 @@ UI strings live in `js/tools/mail-auth/{en,it,es,de,fr,pt}.mjs` (only EN + the p
   - Italian labels.
 
 **Found and fixed.** A deep-linked vector was scored but the box still showed the default vector. `load()` now writes the box unless the change came from typing in it.
+
+## Phase 8 — Enhancements
+
+### Hash Generator → file checksum verifier
+
+A new **Verify a file checksum** section on `/tools/hash-generator/`, inside the inline partial. The text hashing is unchanged.
+
+**Hashing.**
+- **Streaming in a module Worker** (`js/tools/hash-worker.mjs`): `file.stream()` chunks go through incremental MD5, SHA-1, SHA-256 or SHA-512.
+- The hashers come from **hash-wasm 4.12.0** (MIT), self-hosted in `static/vendor/hash-wasm@4.12.0/` as the four per-algorithm UMD builds with the WebAssembly embedded.
+- They are imported by the Worker only when a file is chosen. Multi-gigabyte files work without being held in memory.
+- There is a progress bar and a Cancel button.
+
+**Expected checksum** (`js/tools/checksum.mjs`, DOM-free).
+- **Accepted formats:**
+  - a bare hash;
+  - GNU `sha256sum` / `md5sum` lines, text or `*binary` mode;
+  - BSD / `shasum --tag` lines (`SHA256 (file) = …`);
+  - PowerShell `Get-FileHash` output, list and table format.
+- **Whole listings:** pasting an entire `SHA256SUMS` file picks the line for the chosen file name (case-insensitive). With no matching line, it says so instead of guessing.
+- **Algorithm:** set from the hash length. A different algorithm triggers a re-hash.
+
+**Verdicts:**
+- **Match** or **Mismatch**, the latter with "don't open it; re-download from the official site";
+- a weak-hash note for MD5 and SHA-1 (a match only rules out accidental damage);
+- messages for bad input and ambiguous listings.
+
+**Content, in 6 languages:**
+- new title and description;
+- a **"How to verify a download"** section:
+  - get the checksum from the official source, not the mirror;
+  - paste formats;
+  - one character is enough for a mismatch;
+  - prefer SHA-256/512;
+  - GPG/Sigstore signatures as the stronger check;
+- an updated "Can I hash a file?" FAQ and a howto step;
+- 18 new i18n keys per language.
+
+**Tests.**
+- **Unit (5):**
+  - streaming digests equal **node:crypto** for all four algorithms at chunk sizes from 1 B to 1 MB on a 3 MB random file, plus the FIPS "abc" and RFC 1321 empty-string vectors;
+  - cancel;
+  - all paste formats;
+  - SHA256SUMS selection;
+  - helpers.
+- **Functional (`hash-file`):**
+  - a 24 MB file gives the same SHA-256 as node:crypto;
+  - the progress bar hides when done;
+  - a SHA256SUMS line matches; a one-character change is a mismatch;
+  - an MD5 checksum is auto-detected, re-hashed, and shows the weak-hash note;
+  - ambiguous and bad input messages;
+  - the text hashes still work;
+  - hash-wasm and the Worker are loaded on demand from this site.
+
+### Password Generator → multilingual diceware passphrases
+
+There's a **Password / Passphrase** mode switch.
+
+**Passphrase options:**
+- 3–12 words (default 6);
+- a word list, defaulting to **the page language**;
+- separator: hyphen, space, dot, underscore or none;
+- capitalise words (adds no entropy, and the copy says so);
+- add a digit (+log₂(10·words) bits);
+- **remove accents**, shown only for lists that have accents.
+
+The strength line shows the exact entropy; the info line shows bits per word, list size and source.
+
+**Word lists.** All are vendored unmodified with their licence files and fetched lazily from this site:
+
+| Language | List | Words | Bits/word | Licence |
+|---|---|---|---|---|
+| EN | EFF Large Wordlist (2016-07-18) | 7,776 | 12.92 | CC BY 4.0 (EFF copyright policy, attribution in `LICENSE`) |
+| DE | dys2p/wordlists-de `de-7776-v1` (commit 6ef31b9) | 7,776 | 12.92 | Unlicense / CC0 / BSD-3 |
+| IT, ES, FR, PT | BIP-39 lists from trezor/python-mnemonic (commit b57a5ad) | 2,048 | 11 | MIT |
+
+**Notes on the lists:**
+- **No invented or self-built lists.**
+- The Spanish and French files are Unicode NFD, so they are normalised to NFC on load.
+- Stripping accents keeps all 2,048 BIP-39 words distinct, which the tests check. If a list ever collapsed, the generator would use the deduplicated size, so the entropy shown stays honest.
+- The EFF list contains four hyphenated words (drop-down, felt-tip, t-shirt, yo-yo). They are kept as published.
+
+**Content, in 6 languages:**
+- title, description and intro;
+- a howto step;
+- updated "remember these passwords?" FAQ, plus a new FAQ naming every list and its licence;
+- a **Passphrases** section with an entropy table (4–8 words, both list sizes, computed values).
+
+**Tests.**
+- **Unit (5):**
+  - list sizes, uniqueness, letters only, a licence file next to each list;
+  - NFC and accent stripping;
+  - entropy;
+  - options;
+  - rejection sampling with a forced top-bucket RNG, and a uniformity check.
+- **Functional (`passphrase`):**
+  - password mode by default, with no list loaded;
+  - on `/it/`, the Italian list is the default (6 words = 66 bits);
+  - French with accents stripped, 15 draws;
+  - EFF, 7 words with capitals and a digit, exact entropy;
+  - lists fetched lazily from `/vendor/`;
+  - switching back to password mode.
+
+**Found and fixed.** In both partials, the site CSS (`display: flex` on `.pg-checkbox` and `.hash-file-progress`) overrode the `hidden` attribute, so a finished progress bar and an irrelevant checkbox stayed visible. Both now have explicit `[hidden]` rules, and the tests assert it.

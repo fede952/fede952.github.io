@@ -1,9 +1,9 @@
 ---
-title: "Générateur de Mot de Passe Sécurisé"
-description: "Générez des mots de passe aléatoires robustes jusqu'à 64 caractères avec le générateur crypto du navigateur. Entropie en direct, copie en un clic."
-intro: "Un **générateur de mot de passe sécurisé** en un clic : choisissez la longueur et les jeux de caractères, et obtenez un mot de passe aléatoire tiré du générateur cryptographique de votre navigateur, avec sa robustesse en bits."
+title: "Générateur de mots et phrases de passe"
+description: "Générez des mots de passe aléatoires robustes jusqu'à 64 caractères, ou des phrases de passe diceware dans 6 langues. Entropie exacte, rien n'est envoyé."
+intro: "Un **générateur de mot de passe sécurisé** en un clic : choisissez la longueur et les jeux de caractères pour un mot de passe aléatoire, ou passez en **Phrase de passe** pour une suite de mots aléatoires (en français, anglais, allemand, italien, espagnol ou portugais). Tout est tiré du générateur cryptographique de votre navigateur, avec la robustesse exacte affichée en bits."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["générateur de mot de passe", "générateur mot de passe sécurisé", "mot de passe aléatoire", "créer un mot de passe fort", "générer mot de passe en ligne", "mot de passe 16 caractères", "générateur de mdp"]
 tags: ["sécurité", "mots de passe", "outil"]
@@ -15,6 +15,7 @@ howto:
   - "Regardez la ligne sous le mot de passe : elle indique l'entropie en bits et un niveau (Faible, Correct, Fort)."
   - "Cliquez sur **Générer un mot de passe** pour en obtenir un autre ; le bouton de copie à côté du champ le place dans le presse-papiers."
   - "Collez-le dans votre gestionnaire de mots de passe *avant* de fermer la page : le générateur ne garde aucun historique."
+  - "Pour un secret à taper ou à retenir, choisissez **Phrase de passe** : réglez le nombre de mots, la liste (elle suit la langue de la page) et le séparateur. Six mots français donnent 66 bits ; sept, 77."
 faq:
   - q: "Ce générateur de mots de passe est-il vraiment aléatoire ?"
     a: "Oui. Chaque caractère est choisi avec `crypto.getRandomValues()`, le générateur de nombres aléatoires cryptographiquement sûr du navigateur, avec un échantillonnage par rejet pour que chaque caractère du jeu ait exactement la même probabilité. Il n'utilise pas `Math.random()`, qui est prévisible et inadapté aux secrets."
@@ -27,7 +28,9 @@ faq:
   - q: "Que signifient Faible, Correct et Fort ?"
     a: "Ce sont des tranches d'entropie : moins de 60 bits, Faible ; de 60 à 90 bits, Correct ; 90 bits et plus, Fort. Comme le mot de passe est tiré au hasard, ce chiffre est exact, contrairement aux jauges qui devinent l'entropie d'un mot de passe que vous avez inventé."
   - q: "Dois-je retenir ces mots de passe ?"
-    a: "Non : enregistrez-les dans un gestionnaire et laissez-le les remplir. Pour le ou les deux mots de passe que vous devez vraiment mémoriser, comme le mot de passe maître, une longue phrase de passe aléatoire est plus pratique ; PassFort, sur ce site, peut en générer une."
+    a: "Non, enregistrez-les dans un gestionnaire de mots de passe et laissez-le les remplir. Pour le ou les deux secrets à mémoriser, comme le mot de passe principal du gestionnaire, utilisez le mode **Phrase de passe** : six ou sept mots aléatoires sont bien plus faciles à taper et à retenir que 16 caractères aléatoires, pour une robustesse comparable."
+  - q: "Quelles listes de mots le mode phrase de passe utilise-t-il ?"
+    a: "L'anglais utilise l'EFF Large Wordlist (7 776 mots, environ 12,9 bits par mot, CC BY 4.0). L'allemand utilise la liste de-7776 de dys2p (7 776 mots, publiée sous CC0 et licences équivalentes au domaine public). L'italien, l'espagnol, le français et le portugais utilisent les listes BIP-39 (2 048 mots, 11 bits par mot) telles que publiées dans la bibliothèque python-mnemonic de Trezor sous licence MIT. Toutes sont servies par ce site ; Retirer les accents ne réduit jamais l'entropie, car les mots BIP-39 restent distincts sans accents."
 ---
 
 ## Comment ça marche
@@ -52,6 +55,20 @@ La copie passe par la Clipboard API asynchrone lorsque la page est servie en HTT
 ### Pourquoi l'entropie est la bonne mesure
 
 Un attaquant qui connaît parfaitement ce générateur, ensemble et longueur compris, doit tout de même essayer en moyenne la moitié des 2^bits combinaisons. À 104 bits, cela fait environ 10³¹ essais : même à 10 milliards par seconde, il lui faudrait bien plus que l'âge de l'univers. Voilà pourquoi un mot de passe issu d'un bon générateur est fort *par construction*, alors qu'un mot de passe inventé n'est fort que si le dictionnaire de l'attaquant est petit.
+
+## Phrases de passe : des mots aléatoires au lieu de caractères aléatoires
+
+Une phrase de passe est faite de quelques mots tirés **au hasard** dans une liste fixe, la méthode dite *diceware*. Sa robustesse ne dépend que de la taille de la liste et du nombre de mots, jamais de l'originalité apparente des mots : chaque mot d'une liste de 7 776 mots apporte log₂(7776) ≈ **12,9 bits**, chaque mot d'une liste de 2 048 mots exactement **11 bits**.
+
+| Mots | Liste EFF / allemande (7 776) | Listes BIP-39 (2 048) |
+|---|---|---|
+| 4 | 51,7 bits | 44 bits |
+| 5 | 64,6 bits | 55 bits |
+| 6 | 77,5 bits | 66 bits |
+| 7 | 90,5 bits | 77 bits |
+| 8 | 103,4 bits | 88 bits |
+
+Les mots sont tirés avec le même échantillonnage sans biais de `crypto.getRandomValues()` que les mots de passe. **Majuscule initiale** est déterministe et n'ajoute aucune entropie ; **Ajouter un chiffre** place un chiffre aléatoire après un mot aléatoire et ajoute log₂(10 × mots) bits. La liste par défaut suit la langue de la page, et chaque liste peut être utilisée sur n'importe quelle page.
 
 ## Cas d'usage
 

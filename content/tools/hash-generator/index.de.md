@@ -1,9 +1,9 @@
 ---
-title: "Hash-Generator: MD5, SHA-256, SHA-512"
-description: "Erzeugen Sie MD5-, SHA-1-, SHA-256- und SHA-512-Hashes beliebiger Texte beim Tippen, mit UTF-8 und Kopieren per Klick. Berechnet im Browser, ohne Upload."
-intro: "Text eingeben oder einfügen und sofort die **MD5-, SHA-1-, SHA-256- und SHA-512-Hashes** erhalten, aktualisiert bei jedem Tastendruck. Die SHA-Familie berechnet die Web Crypto API Ihres Browsers; nichts von Ihrer Eingabe wird übertragen."
+title: "Hash-Generator und Prüfsummen-Check"
+description: "MD5-, SHA-1-, SHA-256- und SHA-512-Hashes von Text erzeugen oder eine heruntergeladene Datei mit ihrer Prüfsumme abgleichen. Läuft im Browser, kein Upload."
+intro: "Text eingeben oder einfügen und beim Tippen die **MD5-, SHA-1-, SHA-256- und SHA-512-Hashes** erhalten, oder **eine Datei prüfen**: Download wählen, die Prüfsumme von der Seite des Anbieters einfügen und ein klares **stimmt überein oder nicht** erhalten. Dateien jeder Größe werden stückweise in einem Hintergrund-Worker verarbeitet und verlassen Ihr Gerät nie."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["hash generator", "sha256 generator", "md5 generator", "sha512 hash online", "sha1 hash", "text in sha256", "prüfsumme berechnen", "hash rechner online"]
 tags: ["kryptografie", "hash", "entwickler-tools", "tool"]
@@ -15,6 +15,7 @@ howto:
   - "Mit **Kopieren** neben einem Hash legen Sie ihn in die Zwischenablage."
   - "Zum Vergleich mit einem vorgegebenen Hash fügen Sie beide in einen Editor ein oder vergleichen Zeichen für Zeichen: Ein einziges abweichendes Zeichen bedeutet eine andere Eingabe."
   - "Mit **Alles leeren** löschen Sie Eingabe und Ergebnisse."
+  - "Um einen Download zu prüfen, scrollen Sie zu **Prüfsumme einer Datei prüfen**, wählen die Datei und fügen die Prüfsumme des Anbieters ein (ein einzelner Hash oder die Zeile aus einer SHA256SUMS-Datei). Der Algorithmus ergibt sich aus der Länge."
 faq:
   - q: "Welchen Hash-Algorithmus sollte ich verwenden?"
     a: "Für Integritätsprüfungen, Fingerprints und neue Systeme SHA-256 (oder SHA-512). MD5 und SHA-1 sind sicherheitstechnisch gebrochen: Es gibt praktische Kollisionsangriffe, sie dürfen also nicht für Signaturen oder Zertifikate verwendet werden. Für Zwecke ohne Sicherheitsanspruch, etwa Cache-Schlüssel oder den Abgleich alter Prüfsummen, taugen sie weiterhin."
@@ -23,7 +24,7 @@ faq:
   - q: "Warum unterscheidet sich mein Hash von dem eines anderen Tools?"
     a: "Fast immer ist die Eingabe anders. Achten Sie auf einen abschließenden Zeilenumbruch (`echo` fügt einen an; nutzen Sie `echo -n`), Leerzeichen, Windows-Zeilenenden `\\r\\n` oder eine andere Textkodierung. Dieses Tool hasht exakt die Zeichen im Feld, kodiert als UTF-8."
   - q: "Kann ich eine Datei hashen?"
-    a: "Nicht mit dieser Seite, sie verarbeitet Text. Für Dateien nutzen Sie die Kommandozeile: `sha256sum datei` unter Linux, `shasum -a 256 datei` unter macOS oder `Get-FileHash datei -Algorithm SHA256` in der Windows PowerShell."
+    a: "Ja. Nutzen Sie **Prüfsumme einer Datei prüfen** unter den Text-Hashes. Die Datei wird im Browser blockweise von einem Hintergrund-Worker gelesen (mit der Bibliothek hash-wasm, ausgeliefert von dieser Website), daher funktionieren auch Dateien mit mehreren Gigabyte, ohne den Speicher zu füllen, und nichts wird hochgeladen. Auf der Kommandozeile: `sha256sum datei` unter Linux, `shasum -a 256 datei` unter macOS und `Get-FileHash datei -Algorithm SHA256` in Windows PowerShell."
   - q: "Lässt sich ein Hash umkehren oder entschlüsseln?"
     a: "Nein. Ein Hash ist eine Einwegfunktion: Es gibt keinen Schlüssel und keinen Weg, aus der Ausgabe die Eingabe zu berechnen. Websites, die „MD5 entschlüsseln“, schlagen nur vorberechnete Hashes gängiger Wörter nach – genau deshalb schützt Hashing kurze oder häufige Eingaben nicht."
   - q: "Wird meine Eingabe an einen Server geschickt?"
@@ -51,6 +52,18 @@ Zwei Eigenschaften machen diese Funktionen nützlich. Sie sind **deterministisch
 ### Text, keine Dateien
 
 Die Eingabe ist der Text im Feld; die Hashes stimmen mit Kommandozeilen-Tools also nur überein, wenn die Bytes exakt gleich sind. `printf 'Hallo, Welt!' | sha256sum` und dieses Tool stimmen überein, `echo 'Hallo, Welt!' | sha256sum` nicht, weil `echo` einen Zeilenumbruch anhängt.
+
+## So prüfen Sie einen Download
+
+Eine Prüfsumme beweist, dass Ihre Datei Bit für Bit die Datei ist, die der Anbieter gehasht hat. Sie erkennt abgebrochene oder beschädigte Downloads und manipulierte Dateien auf einem Mirror.
+
+1. **Holen Sie die Prüfsumme aus der offiziellen Quelle** — der Download-Seite oder den Release Notes des Projekts, am besten über HTTPS. Eine Prüfsumme, die neben der Datei auf demselben Mirror liegt, beweist wenig: Wer die Datei austauschen kann, kann auch die Prüfsumme austauschen.
+2. **Laden Sie die Datei herunter**, öffnen Sie **Prüfsumme einer Datei prüfen** auf dieser Seite und wählen Sie sie aus.
+3. **Fügen Sie die erwartete Prüfsumme ein.** Sie können die ganze Zeile aus einer `SHA256SUMS`-Datei, eine Zeile `SHA256 (datei) = …` oder PowerShell-Ausgabe einfügen; das Tool findet Hash und Algorithmus.
+4. **Lesen Sie das Ergebnis.** *Stimmt überein* heißt, die Datei ist identisch. *Stimmt nicht überein* heißt, sie ist es nicht: Löschen Sie sie und laden Sie sie erneut von der offiziellen Website. Ein einziges abweichendes Zeichen genügt; „fast gleich“ gibt es nicht.
+5. **Bevorzugen Sie SHA-256 oder SHA-512.** MD5 und SHA-1 erkennen weiterhin versehentliche Beschädigungen, aber Kollisionen lassen sich gezielt erzeugen; sie beweisen also nicht, dass die Datei nicht ausgetauscht wurde.
+
+Für die stärkste Prüfung signieren manche Projekte ihre Prüfsummendateien zusätzlich mit GPG oder Sigstore. Die Signatur zu prüfen beweist, wer die Prüfsumme veröffentlicht hat; dieses Tool prüft, ob Ihre Datei dazu passt.
 
 ## Anwendungsfälle
 

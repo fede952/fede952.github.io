@@ -1,9 +1,9 @@
 ---
-title: "Generatore di Password Sicure e Casuali"
-description: "Genera password casuali e robuste fino a 64 caratteri con il generatore crittografico del browser. Entropia in tempo reale e copia con un clic."
-intro: "Un **generatore di password sicure** a un clic: scegli lunghezza e tipi di caratteri e ottieni una password casuale estratta dal generatore crittografico del tuo browser, con la robustezza indicata in bit."
+title: "Generatore di password e passphrase"
+description: "Genera password casuali robuste fino a 64 caratteri, o passphrase diceware da elenchi di parole in 6 lingue. Entropia esatta, non viene inviato nulla."
+intro: "Un **generatore di password sicure** a un clic: scegli lunghezza e tipi di caratteri per una password casuale, oppure passa a **Passphrase** per una sequenza di parole casuali (in italiano, inglese, tedesco, spagnolo, francese o portoghese). Tutto viene estratto dal generatore crittografico del browser, con la robustezza esatta mostrata in bit."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["generatore password sicure", "generatore password casuali", "creare password sicura", "password casuale online", "generatore password forte", "password 16 caratteri", "generare password"]
 tags: ["sicurezza", "password", "strumento"]
@@ -15,6 +15,7 @@ howto:
   - "Guarda la riga sotto la password: indica l'entropia in bit e un giudizio (Debole, Buona, Forte)."
   - "Premi **Genera password** per averne una nuova, poi il pulsante di copia accanto al campo la mette negli appunti."
   - "Incollala nel tuo password manager *prima* di chiudere la pagina: il generatore non conserva alcuna cronologia."
+  - "Per qualcosa da digitare o ricordare, scegli **Passphrase**: imposta il numero di parole, l'elenco (segue la lingua della pagina) e il separatore. Sei parole italiane danno 66 bit; sette, 77."
 faq:
   - q: "Questo generatore di password è davvero casuale?"
     a: "Sì. Ogni carattere viene scelto con `crypto.getRandomValues()`, il generatore di numeri casuali crittograficamente sicuro del browser, con rejection sampling in modo che ogni carattere del set abbia esattamente la stessa probabilità. Non usa `Math.random()`, che è prevedibile e non adatto ai segreti."
@@ -27,7 +28,9 @@ faq:
   - q: "Cosa significano Debole, Buona e Forte?"
     a: "Sono fasce di entropia: sotto i 60 bit è Debole, da 60 a 90 bit Buona, da 90 bit in su Forte. Poiché la password è generata a caso, il numero è esatto, a differenza dei misuratori che cercano di indovinare l'entropia di una password scritta da te."
   - q: "Devo ricordare queste password?"
-    a: "No: salvale in un password manager e lascia che le inserisca lui. Per le una o due password che devi davvero memorizzare, come la master password del manager, è più comoda una passphrase lunga e casuale: puoi generarla con PassFort su questo sito."
+    a: "No, salvale in un gestore di password e lascia che le compili lui. Per uno o due segreti da memorizzare, come la password principale del gestore, usa la modalità **Passphrase**: sei o sette parole casuali sono molto più facili da digitare e ricordare di 16 caratteri casuali, con una robustezza simile."
+  - q: "Quali elenchi di parole usa la modalità passphrase?"
+    a: "L'inglese usa l'EFF Large Wordlist (7.776 parole, circa 12,9 bit per parola, CC BY 4.0). Il tedesco usa l'elenco de-7776 di dys2p (7.776 parole, rilasciato in CC0 e licenze equivalenti al pubblico dominio). Italiano, spagnolo, francese e portoghese usano gli elenchi BIP-39 (2.048 parole, 11 bit per parola) come pubblicati nella libreria python-mnemonic di Trezor con licenza MIT. Sono tutti serviti da questo sito; Togli gli accenti non riduce mai l'entropia perché le parole BIP-39 restano distinte anche senza accenti."
 ---
 
 ## Come funziona
@@ -52,6 +55,20 @@ La copia usa la Clipboard API asincrona quando la pagina è servita in HTTPS, co
 ### Perché l'entropia è la misura giusta
 
 Un attaccante che conosce perfettamente questo generatore, insieme e lunghezza compresi, deve comunque provare in media metà delle 2^bit combinazioni. A 104 bit sono circa 10³¹ tentativi: anche a 10 miliardi al secondo servirebbe molto più dell'età dell'universo. Ecco perché una password generata bene è forte *per costruzione*, mentre una password inventata è forte solo quanto è piccolo il dizionario dell'attaccante.
+
+## Passphrase: parole casuali invece di caratteri casuali
+
+Una passphrase è formata da alcune parole scelte **a caso** da un elenco fisso, il metodo chiamato *diceware*. La robustezza dipende solo dalla dimensione dell'elenco e dal numero di parole, mai da quanto sembrano originali: ogni parola di un elenco di 7.776 aggiunge log₂(7776) ≈ **12,9 bit**, ogni parola di un elenco di 2.048 esattamente **11 bit**.
+
+| Parole | Elenco EFF / tedesco (7.776) | Elenchi BIP-39 (2.048) |
+|---|---|---|
+| 4 | 51,7 bit | 44 bit |
+| 5 | 64,6 bit | 55 bit |
+| 6 | 77,5 bit | 66 bit |
+| 7 | 90,5 bit | 77 bit |
+| 8 | 103,4 bit | 88 bit |
+
+Le parole vengono scelte con lo stesso campionamento imparziale di `crypto.getRandomValues()` usato per le password. **Iniziali maiuscole** è deterministico e non aggiunge entropia; **Aggiungi una cifra** mette una cifra casuale dopo una parola casuale e aggiunge log₂(10 × parole) bit. L'elenco predefinito segue la lingua della pagina, e ogni elenco si può usare su qualsiasi pagina.
 
 ## Casi d'uso
 

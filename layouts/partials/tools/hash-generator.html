@@ -23,6 +23,48 @@
   </div>
 
   <div id="hash-message"></div>
+
+  {{- /* File checksum verifier: streaming hashing in a module worker
+       (js/tools/hash-file.mjs → js/tools/hash-worker.mjs). */}}
+  <section class="hash-file" aria-labelledby="hash-file-title">
+    <h3 id="hash-file-title">{{ i18n "hash_file_title" }}</h3>
+    <p class="hash-file-intro">{{ i18n "hash_file_intro" }}</p>
+    <div class="hash-drop" id="hash-drop">
+      <label class="tool-btn" for="hash-file-input">{{ i18n "hash_file_choose" }}</label>
+      <input type="file" id="hash-file-input" class="hash-file-input">
+      <span>{{ i18n "hash_file_drop" }}</span>
+    </div>
+    <div class="hash-file-grid">
+      <div class="tool-input-group">
+        <label for="hash-file-expected">{{ i18n "hash_file_expected" }}</label>
+        <textarea id="hash-file-expected" rows="2" spellcheck="false" autocomplete="off" placeholder="{{ i18n "hash_file_expected_ph" }}"></textarea>
+      </div>
+      <div class="tool-input-group">
+        <label for="hash-file-algo">{{ i18n "hash_file_algo" }}</label>
+        <select id="hash-file-algo">
+          <option value="sha256" selected>SHA-256</option>
+          <option value="sha512">SHA-512</option>
+          <option value="sha1">SHA-1</option>
+          <option value="md5">MD5</option>
+        </select>
+        <p class="hash-file-hint" id="hash-file-auto" hidden></p>
+      </div>
+    </div>
+    <div id="hash-file-progress" class="hash-file-progress" hidden>
+      <progress id="hash-file-bar" max="1" value="0"></progress>
+      <span id="hash-file-status" aria-live="polite"></span>
+      <button type="button" class="tool-btn secondary" id="hash-file-cancel">{{ i18n "hash_file_cancel" }}</button>
+    </div>
+    <div class="tool-output" id="hash-file-out" hidden>
+      <label for="hash-file-digest" id="hash-file-label">{{ i18n "hash_file_result" }}</label>
+      <div class="hash-row">
+        <input type="text" id="hash-file-digest" readonly>
+        <button type="button" class="tool-btn secondary" id="hash-file-copy">{{ i18n "tool_copy" }}</button>
+      </div>
+      <p class="hash-file-hint" id="hash-file-meta"></p>
+    </div>
+    <div id="hash-file-verdict" class="tool-message" role="status" hidden></div>
+  </section>
 </div>
 <style>
 .hash-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
@@ -31,6 +73,21 @@
 .hash-note { font-size: 0.75rem; font-weight: 600; }
 .hash-note--hash_recommended { color: var(--success); }
 .hash-note--hash_insecure { color: var(--warn); }
+.hash-file [hidden] { display: none !important; }
+.hash-file { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.hash-file h3 { margin: 0 0 .5rem; }
+.hash-file-intro, .hash-file-hint { color: var(--text-2); font-size: .9rem; }
+.hash-drop { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1.25rem; margin: 1rem 0; border: 2px dashed var(--border-input); border-radius: var(--r, 8px); }
+.hash-drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.hash-file-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.hash-file-input:focus-visible + span, .hash-drop label:focus-within { outline: 2px solid var(--accent); }
+.hash-file-grid { display: grid; grid-template-columns: 1fr minmax(10rem, 14rem); gap: 1rem; }
+@media (max-width: 600px) { .hash-file-grid { grid-template-columns: 1fr; } }
+.hash-file-grid textarea { font-family: monospace; font-size: .85rem; }
+.hash-file-progress { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin: .5rem 0 1rem; }
+.hash-file-progress progress { flex: 1 1 12rem; height: .75rem; }
+.hash-file-progress span { font-variant-numeric: tabular-nums; font-size: .9rem; }
+#hash-file-verdict { margin-top: .5rem; }
 </style>
 <script>
 window.TOOL_STRINGS = {
@@ -39,3 +96,12 @@ window.TOOL_STRINGS = {
 };
 </script>
 <script src="{{ "js/tools/hash.js" | relURL }}"></script>
+<script>
+window.HASH_FILE_STRINGS = {
+  auto: {{ i18n "hash_file_auto" }}, hashing: {{ i18n "hash_file_hashing" }}, meta: {{ i18n "hash_file_meta" }},
+  match: {{ i18n "hash_file_match" }}, mismatch: {{ i18n "hash_file_mismatch" }}, badExpected: {{ i18n "hash_file_bad_expected" }},
+  ambiguous: {{ i18n "hash_file_ambiguous" }}, weak: {{ i18n "hash_file_weak" }}, failed: {{ i18n "hash_file_failed" }},
+  copied: {{ i18n "tool_copied_msg" }}, lang: {{ site.Language.Lang }}
+};
+</script>
+<script type="module" src="{{ "js/tools/hash-file.mjs" | relURL }}"></script>
