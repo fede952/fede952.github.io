@@ -160,3 +160,44 @@ UI strings live in `js/tools/mail-auth/{en,it,es,de,fr,pt}.mjs` (only EN + the p
 - **Functional (`spf-dmarc-checker`):** DoH mocked from the same fixtures; asserts zero queries before Check, the dns-json accept header on every query, F on the broken domain (24/10, tree, fixes, copy), A on the good one with guessed selectors, invalid-input message, Italian UI, no other external request.
 
 **Found and fixed.** My first copy handler clashed with tool-kit's delegated `[data-copy="#id"]` handler, which copied an empty string; the page now uses the shared handler.
+
+## Phase 6 — Encrypted Message Link (`/tools/encrypted-message/`)
+
+**Crypto** (`js/tools/secret-link.mjs`, Web Crypto only):
+- **Key derivation:** PBKDF2-HMAC-SHA-256 with **600,000 iterations** and a 16-byte random salt; the passphrase is NFC-normalised.
+- **Encryption:** AES-256-GCM with a 12-byte random IV and a 128-bit tag. The version string `v1` is bound to the ciphertext as additional authenticated data.
+- **Token:** `v1.<base64url(salt | iv | ciphertext+tag)>`.
+- **Errors:** a wrong passphrase and a tampered link both fail with `auth`, because GCM can't tell them apart. The copy says so honestly. A malformed or truncated token fails with `format`.
+
+**Where the ciphertext lives.** Only in the URL `#fragment`. The share link targets the **standalone app page** `/tools/encrypted-message/#v1.…`, not the content page. The content page loads AdSense and Umami; the standalone page loads neither and sets `referrer: no-referrer`. On open, the app keeps the token in memory, strips it from the address bar with `history.replaceState`, and reloads if another link is opened in the same tab (`hashchange`).
+
+**Honest copy, in all 6 languages:**
+- no self-destruct and no expiry: the link works for as long as copies exist, and there is nothing server-side to delete;
+- send the link and the passphrase over different channels;
+- a "what it does not protect against" list: weak passphrases (offline guessing), compromised devices, copies of the link.
+
+**Other behaviour:**
+- a link-length warning above 2,000 characters;
+- a passphrase generator: 5×4 characters from a 56-symbol unambiguous alphabet, rejection-sampled, about 116 bits;
+- a minimum of 8 characters;
+- "Close and forget" clears the message.
+
+**Tests.**
+- **Unit vectors (6):**
+  - round trip at the real 600k iterations, with fresh salt/IV per message;
+  - wrong passphrase, including a case change;
+  - tampering: a flipped ciphertext byte, tag byte or IV byte, or a truncated tag, all fail on the GCM tag; a changed version or bad Base64 fails as format;
+  - Unicode/emoji in both the message and the passphrase, plus NFC equivalence and an empty message;
+  - a **known-answer vector cross-checked against an independent `node:crypto` implementation**, in both directions;
+  - the link format and the generator.
+- **Functional (`encrypted-message`):**
+  - passphrase required;
+  - the generator;
+  - the link targets the standalone page and contains no plaintext;
+  - after opening, the fragment is stripped and **never appears in any request**;
+  - wrong, tampered and truncated links are rejected with the right message;
+  - the Unicode round trip;
+  - the Italian long-link warning;
+  - zero external requests.
+
+**Found and fixed.** Opening a second link in the same tab only changed the hash, so the page stayed on the previous message. It now reloads on `hashchange`.

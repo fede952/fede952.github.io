@@ -540,6 +540,59 @@ export const TESTS = {
     await context.unroute('https://cloudflare-dns.com/dns-query*');
     assert(external.length === 0, 'other external requests: ' + external.join(', '));
     return `no query before Check, ${doh.length} mocked DoH queries with dns-json, broken domain → F (24/10 lookups, tree, fixes, copy), good domain → A with guessed selectors, invalid input, Italian`; } },
+  'encrypted-message': { url: '/tools/encrypted-message/?lang=en', async run(p, { origin }) {
+    const requests = [];
+    p.on('request', (r) => requests.push(r.url()));
+    await p.waitForFunction(() => window.__msgReady);
+    const MSG = 'Door code 4711 🔑 — façade ½';
+    await p.fill('#message', MSG);
+    await p.click('#encrypt');
+    assert(/Enter or generate/.test(await p.textContent('#c-err')), 'passphrase required');
+    await p.click('#gen');
+    const pass = await p.inputValue('#pass');
+    assert(/^([A-Za-z2-9]{4}-){4}[A-Za-z2-9]{4}$/.test(pass), 'generated passphrase ' + pass);
+    await p.click('#encrypt');
+    await p.waitForSelector('#result:not([hidden])');
+    const link = await p.inputValue('#link');
+    assert(link.startsWith(origin + '/tools/encrypted-message/#v1.'), 'link targets the standalone page with a #fragment: ' + link.slice(0, 80));
+    assert(!link.includes('4711') && !link.includes(encodeURIComponent('🔑')), 'plaintext not in the link');
+    assert(await p.isHidden('#long'), 'no length warning for a short message');
+    const token = link.split('#')[1];
+    // open the link: the fragment must never appear in any request URL
+    await p.goto(link);
+    await p.waitForFunction(() => window.__msgReady);
+    assert(await p.isVisible('#open') && await p.isHidden('#compose'), 'open mode');
+    assert(!p.url().includes('#'), 'fragment removed from the address bar: ' + p.url());
+    await p.fill('#opass', pass + 'x');
+    await p.click('#decrypt');
+    await p.waitForSelector('#o-err:not([hidden])');
+    assert(/passphrase is wrong/.test(await p.textContent('#o-err')), 'wrong passphrase message');
+    await p.fill('#opass', pass);
+    await p.click('#decrypt');
+    await p.waitForSelector('#plain:not([hidden])');
+    assert((await p.textContent('#msg')) === MSG, 'decrypted message round-trips Unicode');
+    // a tampered link (one character of the ciphertext changed) fails on the tag
+    const i = token.length - 30;
+    const bad = token.slice(0, i) + (token[i] === 'A' ? 'B' : 'A') + token.slice(i + 1);
+    await p.goto(origin + '/tools/encrypted-message/#' + bad);
+    await p.waitForFunction(() => window.__msgReady);
+    await p.fill('#opass', pass); await p.click('#decrypt');
+    await p.waitForSelector('#o-err:not([hidden])');
+    assert(/changed or cut off/.test(await p.textContent('#o-err')), 'tampered link rejected');
+    await p.goto(origin + '/tools/encrypted-message/#v1.abc');
+    await p.waitForFunction(() => window.__msgReady);
+    await p.fill('#opass', 'whatever'); await p.click('#decrypt');
+    await p.waitForSelector('#o-err:not([hidden])');
+    assert(/incomplete/.test(await p.textContent('#o-err')), 'truncated link message');
+    // a long message warns about link length
+    await p.goto(origin + '/tools/encrypted-message/?lang=it');
+    await p.waitForFunction(() => window.__msgReady);
+    await p.fill('#message', 'x'.repeat(1600)); await p.fill('#pass', 'una passphrase lunga');
+    await p.click('#encrypt');
+    await p.waitForSelector('#result:not([hidden])');
+    assert(await p.isVisible('#long') && /circa 2\.000 caratteri/.test(await p.textContent('#long')), 'Italian long-link warning');
+    assert(requests.every((u) => u.startsWith(origin) && !u.includes('#') && !u.includes(token.slice(3, 40))), 'no external request and no token in any request: ' + requests.filter((u) => !u.startsWith(origin)).join(', '));
+    return 'passphrase required + generator, link to standalone page with #fragment only, fragment stripped and never requested, wrong passphrase / tampered / truncated rejected, Unicode round trip, long-link warning (Italian), no network'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

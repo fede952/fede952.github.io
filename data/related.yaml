@@ -21,6 +21,9 @@ tools:
   spf-dmarc-checker:
     tools: [email-header-analyzer, phishing-quiz, security-headers, link-hazmat]
     guides: [cheatsheets/networking-ports-protocols, roadmaps/cyber-security-specialist, roadmaps/devops-engineer]
+  encrypted-message:
+    tools: [pass-fort, password-generator, hash-generator, steganography]
+    guides: [cheatsheets/python-security-scripts, roadmaps/cyber-security-specialist]
   security-headers:
     tools: [link-hazmat, jwt-inspector, subnet-calculator, secrets-scanner]
     guides: [cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist, interviews/python-security-interview-questions]
@@ -43,7 +46,7 @@ tools:
     tools: [netguard, chmod-calculator, link-hazmat, security-headers]
     guides: [cheatsheets/networking-ports-protocols, cheatsheets/nmap-network-scanning, interviews/linux-sysadmin-interview-questions]
   pass-fort:
-    tools: [password-generator, hash-generator, secrets-scanner, jwt-inspector]
+    tools: [password-generator, encrypted-message, hash-generator, secrets-scanner]
     guides: [cheatsheets/linux-sysadmin-permissions, interviews/python-security-interview-questions, roadmaps/cyber-security-specialist]
   password-generator:
     tools: [pass-fort, hash-generator, secrets-scanner, base64-converter]
