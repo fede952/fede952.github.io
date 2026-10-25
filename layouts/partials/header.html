@@ -33,8 +33,9 @@
       {{- /* Links go to the page's own translation when there is one,
            otherwise to that language's home page (never to a 404). */}}
       <details class="lang-menu">
-        <summary aria-label="{{ i18n "nav_language" | default "Language" }}: {{ site.Language.Label }}">
-          <span class="lang-code">{{ upper site.Language.Lang }}</span>
+        <summary>
+          {{- /* the accessible name starts with the visible code (WCAG 2.5.3 label in name) */}}
+          <span class="lang-code">{{ upper site.Language.Lang }}</span><span class="visually-hidden"> — {{ i18n "nav_language" | default "Language" }}: {{ site.Language.Label }}</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
         <ul class="lang-list">
@@ -54,3 +55,7 @@
     </div>
   </div>
 </header>
+{{- /* Mark the header as JS-enabled before first paint: without .js the mobile
+     header shows its no-JS layout (nav wrapped below), and switching after the
+     deferred site.js runs shifted the whole page (CLS 0.057). */}}
+<script>document.getElementById('site-header').classList.add('js')</script>

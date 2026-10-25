@@ -284,3 +284,54 @@ Checks:
   - tool pages: 186 runs, 0 problems;
   - visual: 88 page/viewport runs, 0 problems;
   - ads: 420 runs, 0 problems, max CLS 0.019.
+
+## Phase 6 — Final verification
+
+**Lighthouse 12.6.1, mobile** (default Moto G Power emulation, simulated slow 4G and 4× CPU), run on the local build only.
+
+| Page | Perf | A11y | BP | SEO | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|
+| Home `/en/` | 96 | 100 | 100 | 100 | 2.55 s | 0 ms | 0.000 |
+| PassFort (existing tool) | 94 | 100 | 100 | 100 | 2.85 s | 44 ms | 0.000 |
+| QR generator (existing tool) | 94 | 100 | 100 | 100 | 2.85 s | 27 ms | 0.000 |
+| Subnet calculator | 94 | 100 | 100 | 100 | 2.85 s | 36 ms | 0.000 |
+| PDF merge & split | 95 | 100 | 100 | 100 | 2.78 s | 0 ms | 0.000 |
+| Guide (`osint-privacy-exif-data`) | 97 | 100 | 100 | 100 | 2.40 s | 0 ms | 0.000 |
+
+- **Which pass this table is:** third-party requests were blocked (AdSense, Umami), so the numbers measure the site itself and are repeatable.
+- **Second pass, with AdSense and Umami allowed:** Perf 94–96, everything else identical, CLS 0.000. Ad slot IDs are still empty, so this pass has no filled ad units. Re-measure once real units serve.
+
+**Two fixes made by this phase:**
+1. **CLS 0.057 on every page (now 0.000).**
+   - Before the deferred `site.js` added `.js` to the header, the mobile header rendered its no-JS layout, with the nav wrapped onto a second row (97 px instead of 56 px).
+   - When the script ran, the header collapsed and `<main>` shifted up 41 px. The Phase 3 CLS checks missed it because they run unthrottled.
+   - Fix: an inline one-liner right after `</header>` adds the class before first paint. The no-JS fallback is unchanged.
+2. **Label-in-name (WCAG 2.5.3).** The language switcher showed "EN" but was named "Language: English". The `aria-label` was replaced by visually hidden text, so the accessible name now starts with the visible code.
+
+**Final suite, after both fixes:**
+- `npm test` passes.
+- Static: 2,876 HTML files, 0 broken internal links; 1,201 JSON-LD blocks, 0 errors.
+- Sitemap: 545 URLs, every new tool present in all 6 languages.
+- Unit 55/55. Functional: all pass, HIBP mocked.
+- Tool pages: 186 runs, 0 problems. Visual: 88 runs, 0 problems. Ads: 420 runs, 0 problems, max CLS 0.019.
+
+**Screenshots:** the after set is in `docs/screenshots/after/` (89 files, matching `docs/screenshots/before/`). The folder is git-ignored.
+
+## Federico TODO
+
+Things only you can decide or provide. Nothing below was guessed.
+
+1. **AdSense slots** (`hugo.toml`): create the units and fill `slot_tool_after`, `slot_article_mid` and `slot_sidebar` (vertical display unit, 300×250–300×600). Until then those placements render nothing.
+2. **About page** (6 languages): confirm or correct the facts parked in the `TODO(Federico)` front-matter comment before they are shown:
+   - Cisco Ethical Hacker, ISC2 CC and Google Cybersecurity certificates;
+   - the years of CNC work.
+3. **`popular_guides`** (`hugo.toml`): hand-picked for now. Replace them with the top guides from Umami.
+4. **Review new and rewritten pages:** 186 pages carry `reviewed: false`, including every new tool page in 6 languages. Read them, especially the non-English ones, and flip the flag.
+5. **Accent-stripped content:**
+   - the bodies of `git-disaster-recovery` and `networking-ports-protocols` in ES/DE/FR/PT (headings already fixed);
+   - SysAdmin Tycoon's in-game UI strings ("Kuhlung", "fur", …).
+6. **HTB Cap writeup:** the body is still English on the ES/DE/FR/PT pages. Translate it or mark those pages English-only.
+7. **Logo:** the raven mark is unreadable at header size (24 px). It needs a simplified small-size variant.
+8. **PassFort breach check in production:** after deploy, press **Check against known breaches** once on the live site and confirm a result appears. The `Add-Padding` header triggers a CORS preflight, and this could not be verified offline. If it fails, users see the "could not be reached" message, nothing worse.
+9. **Translations of PassFort's UI:** the app itself is English-only, as it was before. The new breach-check strings follow that; the pages around it are localised.
+10. **Merge:** branch `redesign` holds one commit per phase and is not pushed.
