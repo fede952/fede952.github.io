@@ -24,8 +24,11 @@ tools:
   encrypted-message:
     tools: [pass-fort, password-generator, hash-generator, steganography]
     guides: [cheatsheets/python-security-scripts, roadmaps/cyber-security-specialist]
+  cvss-calculator:
+    tools: [security-headers, secrets-scanner, jwt-inspector, link-hazmat]
+    guides: [roadmaps/cyber-security-specialist, cheatsheets/nmap-network-scanning, cheatsheets/sql-injection-payloads-database]
   security-headers:
-    tools: [link-hazmat, jwt-inspector, subnet-calculator, secrets-scanner]
+    tools: [link-hazmat, cvss-calculator, jwt-inspector, secrets-scanner]
     guides: [cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist, interviews/python-security-interview-questions]
   text-diff:
     tools: [json-formatter, string-master, secrets-scanner, hash-generator]

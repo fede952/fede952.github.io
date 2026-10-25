@@ -7,6 +7,7 @@
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
@@ -23,7 +24,10 @@ const assert = (cond, msg) => { if (!cond) throw new Error(msg); };
 const innerHeightGuess = () => 844 * 1.5 + 50;
 
 // name -> { url, run(page, ctx) => summary string }. New tools add an entry here.
-export const TESTS = {
+export const CVSS31CTX = vm.createContext({});
+vm.runInContext(fs.readFileSync('tests/reference/first-cvsscalc31.js', 'utf8'), CVSS31CTX);
+
+const TESTS = {
   'pixel-shrink': { url: '/tools/pixel-shrink/', async run(p) {
     await p.setInputFiles('#fileInput', PHOTO); await p.waitForSelector('#compressBtn:not([disabled])'); await p.click('#compressBtn');
     await blobHref(p, '#downloadBtn'); return 'compressed (Web Worker, self-hosted lib)'; } },
@@ -593,6 +597,53 @@ export const TESTS = {
     assert(await p.isVisible('#long') && /circa 2\.000 caratteri/.test(await p.textContent('#long')), 'Italian long-link warning');
     assert(requests.every((u) => u.startsWith(origin) && !u.includes('#') && !u.includes(token.slice(3, 40))), 'no external request and no token in any request: ' + requests.filter((u) => !u.startsWith(origin)).join(', '));
     return 'passphrase required + generator, link to standalone page with #fragment only, fragment stripped and never requested, wrong passphrase / tampered / truncated rejected, Unicode round trip, long-link warning (Italian), no network'; } },
+  'cvss-calculator': { url: '/en/tools/cvss-calculator/?vector=' + encodeURIComponent('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:A/CR:H/IR:H/AR:H/MAV:L/MAT:P'), async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    const ex = JSON.parse(fs.readFileSync('tests/fixtures/cvss-first-examples.json', 'utf8'));
+    const f = p.frameLocator('iframe.tool-iframe');
+    const fr = () => p.frames().find((x) => x.url().includes('/tools/cvss-calculator/?lang='));
+    await p.waitForFunction(() => document.querySelector('iframe.tool-iframe')?.contentWindow?.__cvssReady);
+    // ?vector= deep link on the tool page (FIRST example CVE-2024-23897 BTE = 8.9)
+    assert((await f.locator('#score').textContent()) === '8.9', 'deep-linked vector scores 8.9');
+    assert((await f.locator('#nom').textContent()) === 'CVSS-BTE', 'nomenclature');
+    assert((await f.locator('#vector').inputValue()) === 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:A/CR:H/IR:H/AR:H/MAV:L/MAT:P', 'deep-linked vector shown in the box');
+    assert(await f.locator('details[data-group="envmod"][open]').count() === 1, 'group with set metrics opens');
+    // every FIRST v4.0 example, typed into the vector box
+    for (const [vec, score] of ex.v4) {
+      await f.locator('#vector').fill(vec);
+      assert((await f.locator('#score').textContent()) === score.toFixed(1), `${vec} → ${score}`);
+    }
+    // click metrics: base 9.3 vector, then E:U lowers it
+    await f.locator('#vector').fill('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N');
+    assert((await f.locator('#score').textContent()) === '9.3', 'base 9.3');
+    await f.locator('summary', { hasText: 'Threat Metrics' }).click();
+    await f.locator('label[for="m-4-E-U"]').click();
+    assert(/\/E:U$/.test(await f.locator('#vector').inputValue()), 'click updates the vector');
+    assert((await f.locator('#nom').textContent()) === 'CVSS-BT', 'BT after setting E');
+    assert(parseFloat(await f.locator('#score').textContent()) < 9.3, 'Unreported exploit lowers the score');
+    // keyboard: arrow keys move within a radio group
+    await f.locator('#m-4-AV-N').focus(); await p.keyboard.press('ArrowRight');
+    assert(/AV:A/.test(await f.locator('#vector').inputValue()), 'arrow key selects the next value');
+    // invalid vector message
+    await f.locator('#vector').fill('CVSS:4.0/AV:N/AC:Q');
+    assert(/Not a valid CVSS 4.0 vector/.test(await f.locator('#vec-msg').textContent()), 'invalid vector message');
+    // 3.1 tab and a pasted 3.1 vector switches tabs
+    await f.locator('#vector').fill('CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N');
+    assert((await f.locator('#tab-31').getAttribute('aria-selected')) === 'true', 'pasting a 3.1 vector switches tab');
+    assert((await f.locator('#score').textContent()) === '6.1', '3.1 base 6.1');
+    await f.locator('#vector').fill('CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N/E:P/RL:O/RC:C/CR:H/MAV:A');
+    const ref = vm.runInContext(`CVSS31.calculateCVSSFromVector('CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N/E:P/RL:O/RC:C/CR:H/MAV:A')`, CVSS31CTX);
+    assert((await f.locator('#score-t').textContent()) === ref.temporalMetricScore && (await f.locator('#score-e').textContent()) === ref.environmentalMetricScore, 'temporal/environmental match FIRST cvsscalc31.js');
+    // copy link
+    const link = await fr().evaluate(async () => { let txt = ''; navigator.clipboard.writeText = async (s) => { txt = s; }; document.getElementById('copy-link').click(); await new Promise((r) => setTimeout(r, 50)); return txt; });
+    assert(link.startsWith(origin + '/en/tools/cvss-calculator/?vector=CVSS%3A3.1%2F'), 'copy link: ' + link);
+    // Italian labels
+    await p.goto(origin + '/it/tools/cvss-calculator/');
+    await p.waitForFunction(() => document.querySelector('iframe.tool-iframe')?.contentWindow?.__cvssReady);
+    assert(await f.locator('legend', { hasText: 'Vettore di attacco' }).count() === 2 && (await f.locator('#tab-4').textContent()) === 'CVSS 4.0', 'Italian metric names (AV and MAV)');
+    assert(external.filter((u) => !/googlesyndication|umami|doubleclick|google/.test(u)).length === 0, 'tool requests: ' + external.join(', '));
+    return `deep link → 8.9 CVSS-BTE, all ${ex.v4.length} FIRST v4 examples in the UI, clicks + keyboard update vector/score, invalid message, 3.1 auto-tab with base/temporal/env equal to FIRST's calculator, copy link, Italian`; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

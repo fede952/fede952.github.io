@@ -201,3 +201,50 @@ UI strings live in `js/tools/mail-auth/{en,it,es,de,fr,pt}.mjs` (only EN + the p
   - zero external requests.
 
 **Found and fixed.** Opening a second link in the same tab only changed the hash, so the page stayed on the previous message. It now reloads on `hashchange`.
+
+## Phase 7 — CVSS 4.0 Calculator with a 3.1 tab (`/tools/cvss-calculator/`)
+
+**Sources, obtained and kept offline, nothing guessed.**
+- **FIRST's official v4.0 calculator** (github.com/FIRSTdotorg/cvss-v4-calculator, commit `c5b0d40`, BSD-2-Clause) is vendored unmodified in `static/vendor/cvss-v4-calculator@c5b0d40/`:
+  - `cvss_lookup.js`, the 270-entry MacroVector table;
+  - `max_composed.js`, `max_severity.js` and `metrics.js`;
+  - `cvss_score.js`;
+  - `LICENSE`.
+
+  `scripts/cvss-v4-data.mjs` evaluates the data files in an empty `vm` context and generates `js/tools/cvss/v4-data.mjs`, which credits the source and licence.
+- **FIRST's official v3.1 calculator** (`first.org/cvss/calculator/cvsscalc31.js`, BSD-3) is kept in `tests/reference/` and used only as a test oracle.
+- **FIRST's official examples:** every "score + vector" cell in the tables of first.org/cvss/v4.0/examples, saved to `tests/fixtures/cvss-first-examples.json` (19 v4.0 vectors, 10 v3.1 vectors, fetched 2026-10-25).
+  - Prose-only examples were **not** turned into vectors, because that would mean interpreting them.
+
+**Scoring** (`js/tools/cvss.mjs`).
+- **v4.0** is a line-by-line port of `macroVector()` and `cvss_score()`, including the official calculator's behaviour when no max vector fits.
+- **v3.1** uses the spec equations with the integer-arithmetic Roundup and the 3.1 modified-impact formula.
+- Parsing accepts any metric order, outputs the canonical order, and rejects unknown, duplicate, invalid or missing base metrics.
+- v4.0 shows the nomenclature (CVSS-B/BT/BE/BTE) and the MacroVector; supplemental metrics never change the score.
+
+**UI.**
+- Version tabs; pasting a 3.1 vector switches to the 3.1 tab.
+- An accessible radio group per metric, so arrow keys work.
+- Groups open automatically when a vector sets any of their metrics.
+- Metric names come from FIRST's config, translated in 5 languages through a phrase table (with a coverage test).
+- Copy vector, and **Copy link** to `/<lang>/tools/cvss-calculator/?vector=…`. The embedded app reads `?vector=` from the parent page (same origin) or from its own URL.
+
+**Tests.**
+- **Unit (8):**
+  - the generated data equals the vendored files;
+  - **all 19 FIRST v4.0 examples**;
+  - **identical to the official `cvss_score.js` on 20,000 seeded random vectors**, MacroVector included;
+  - **all 10 FIRST v3.1 examples**;
+  - **identical to FIRST's `cvsscalc31.js` on 20,000 random vectors** (base, temporal and environmental);
+  - Roundup and parsing;
+  - UI definitions vs. allowed values, and translations.
+- **Functional (`cvss-calculator`):**
+  - a `?vector=` deep link on the content page gives 8.9 CVSS-BTE and the vector shown in the box;
+  - all 19 examples typed into the UI;
+  - clicks and arrow keys update the vector and score;
+  - the invalid-vector message;
+  - the 3.1 auto-tab, with temporal and environmental scores equal to FIRST's calculator;
+  - copy link;
+  - Italian labels.
+
+**Found and fixed.** A deep-linked vector was scored but the box still showed the default vector. `load()` now writes the box unless the change came from typing in it.

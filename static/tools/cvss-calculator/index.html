@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/cvss-calculator/">
+<title>CVSS 4.0 Calculator</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.score-card { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; padding: var(--s-4); border: 1px solid var(--border-input); border-radius: var(--r); background: var(--bg-raised); margin: var(--s-3) 0; }
+.big { font-size: 2.75rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.sev { display: inline-block; padding: 2px var(--s-3); border-radius: 999px; font-weight: 700; font-size: var(--fs-sm); }
+.sev-None { border: 1px solid var(--border-input); color: var(--text-2); }
+.sev-Low { background: var(--accent-soft); color: var(--accent); }
+.sev-Medium { background: var(--warn-soft); color: var(--warn); }
+.sev-High { background: var(--danger-soft); color: var(--danger); }
+.sev-Critical { background: var(--danger); color: #fff; }
+.facts { display: grid; gap: 2px; font-size: var(--fs-sm); color: var(--text-2); }
+.facts b { color: var(--text); font-variant-numeric: tabular-nums; }
+.v31-scores { display: flex; gap: var(--s-4); flex-wrap: wrap; }
+.v31-scores div { display: grid; gap: 2px; }
+.v31-scores span { font-size: var(--fs-xs); color: var(--text-2); }
+.v31-scores b { font-size: 1.75rem; font-variant-numeric: tabular-nums; }
+.vec { font-family: var(--font-mono); font-size: var(--fs-xs); }
+.bar { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-2); }
+details.grp { border: 1px solid var(--border); border-radius: var(--r-sm); margin-top: var(--s-3); background: var(--bg-raised); }
+details.grp > summary { cursor: pointer; padding: var(--s-3); font-weight: 700; }
+.grp-body { padding: 0 var(--s-3) var(--s-3); }
+.sub { margin: var(--s-2) 0 var(--s-1); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .04em; color: var(--text-3); }
+fieldset.metric { border: 0; margin: 0 0 var(--s-3); padding: 0; min-width: 0; }
+fieldset.metric legend { font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--s-1); padding: 0; }
+.opts { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.opts input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.opts label { display: inline-block; padding: 6px var(--s-3); border: 1px solid var(--border-input); border-radius: var(--r-sm); cursor: pointer; font-size: var(--fs-sm); background: var(--bg); min-height: 36px; line-height: 22px; }
+.opts input:checked + label { background: var(--accent); border-color: var(--accent); color: var(--on-accent, #fff); font-weight: 600; }
+.opts input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ab { color: var(--text-3); font-weight: 400; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">CVSS 4.0 Calculator</h1>
+      <p class="tb-sub" data-i18n="subtitle">Score a vulnerability with the official FIRST method, plus CVSS 3.1</p>
+    </div>
+  </header>
+
+  <div class="tb-tabs" role="tablist">
+    <button type="button" class="tb-tab" role="tab" id="tab-4" aria-controls="panel" aria-selected="true" data-v="4">CVSS 4.0</button>
+    <button type="button" class="tb-tab" role="tab" id="tab-31" aria-controls="panel" aria-selected="false" data-v="31">CVSS 3.1</button>
+  </div>
+
+  <div id="panel" role="tabpanel" aria-labelledby="tab-4">
+    <div class="score-card" role="status" aria-live="polite" id="card"></div>
+    <div class="tb-field">
+      <label class="tb-label" for="vector" data-i18n="vector">Vector string</label>
+      <input id="vector" class="tb-input vec" type="text" spellcheck="false" autocomplete="off" autocapitalize="characters">
+      <p class="tb-hint" id="vec-msg" data-i18n="vectorHint">Paste a vector to load it, or pick the metrics below.</p>
+    </div>
+    <div class="bar">
+      <button type="button" class="tb-btn" data-copy="#vector" data-i18n="copyVector">Copy vector</button>
+      <button type="button" class="tb-btn tb-btn--ghost" id="copy-link" data-i18n="copyLink">Copy link</button>
+      <button type="button" class="tb-btn tb-btn--ghost" id="reset" data-i18n="reset">Reset</button>
+    </div>
+    <div id="groups"></div>
+  </div>
+</main>
+
+<script type="module">
+import { parseV4, scoreV4, v4Vector, v4Nomenclature, parseV31, scoreV31, v31Vector, severity, V31_ORDER } from '/js/tools/cvss.mjs';
+import { V4_GROUPS, V4_METRICS, V31_GROUPS, V31_METRICS, T } from '/js/tools/cvss/metrics.mjs';
+
+TK.init({
+  en: { title: 'CVSS 4.0 Calculator', subtitle: 'Score a vulnerability with the official FIRST method, plus CVSS 3.1', vector: 'Vector string', vectorHint: 'Paste a vector to load it, or pick the metrics below.',
+    invalid: 'Not a valid {v} vector: {e}', copyVector: 'Copy vector', copyLink: 'Copy link', reset: 'Reset', copied: 'Copied', score: 'Score', severity: 'Severity',
+    nomenclature: 'Nomenclature', macro: 'MacroVector', base: 'Base', temporal: 'Temporal', environmental: 'Environmental', impact: 'Impact', exploitability: 'Exploitability',
+    sNone: 'None', sLow: 'Low', sMedium: 'Medium', sHigh: 'High', sCritical: 'Critical', suppNote: 'Supplemental metrics add context and never change the score.' },
+  it: { title: 'Calcolatore CVSS 4.0', subtitle: 'Valuta una vulnerabilità con il metodo ufficiale FIRST, anche in CVSS 3.1', vector: 'Stringa vettore', vectorHint: 'Incolla un vettore per caricarlo, oppure scegli le metriche qui sotto.',
+    invalid: 'Vettore {v} non valido: {e}', copyVector: 'Copia vettore', copyLink: 'Copia link', reset: 'Azzera', copied: 'Copiato', score: 'Punteggio', severity: 'Gravità',
+    nomenclature: 'Nomenclatura', macro: 'MacroVector', base: 'Base', temporal: 'Temporale', environmental: 'Ambientale', impact: 'Impatto', exploitability: 'Sfruttabilità',
+    sNone: 'Nessuna', sLow: 'Bassa', sMedium: 'Media', sHigh: 'Alta', sCritical: 'Critica', suppNote: 'Le metriche supplementari aggiungono contesto e non cambiano mai il punteggio.' },
+  es: { title: 'Calculadora CVSS 4.0', subtitle: 'Puntúa una vulnerabilidad con el método oficial de FIRST, también en CVSS 3.1', vector: 'Cadena del vector', vectorHint: 'Pega un vector para cargarlo, o elige las métricas de abajo.',
+    invalid: 'Vector {v} no válido: {e}', copyVector: 'Copiar vector', copyLink: 'Copiar enlace', reset: 'Restablecer', copied: 'Copiado', score: 'Puntuación', severity: 'Gravedad',
+    nomenclature: 'Nomenclatura', macro: 'MacroVector', base: 'Base', temporal: 'Temporal', environmental: 'Entorno', impact: 'Impacto', exploitability: 'Explotabilidad',
+    sNone: 'Ninguna', sLow: 'Baja', sMedium: 'Media', sHigh: 'Alta', sCritical: 'Crítica', suppNote: 'Las métricas suplementarias añaden contexto y nunca cambian la puntuación.' },
+  de: { title: 'CVSS-4.0-Rechner', subtitle: 'Schwachstellen nach der offiziellen FIRST-Methode bewerten, auch mit CVSS 3.1', vector: 'Vektor-String', vectorHint: 'Fügen Sie einen Vektor ein, um ihn zu laden, oder wählen Sie die Metriken unten.',
+    invalid: 'Kein gültiger {v}-Vektor: {e}', copyVector: 'Vektor kopieren', copyLink: 'Link kopieren', reset: 'Zurücksetzen', copied: 'Kopiert', score: 'Punktzahl', severity: 'Schweregrad',
+    nomenclature: 'Nomenklatur', macro: 'MacroVector', base: 'Basis', temporal: 'Zeitlich', environmental: 'Umgebung', impact: 'Auswirkung', exploitability: 'Ausnutzbarkeit',
+    sNone: 'Keine', sLow: 'Niedrig', sMedium: 'Mittel', sHigh: 'Hoch', sCritical: 'Kritisch', suppNote: 'Ergänzende Metriken liefern Kontext und ändern die Punktzahl nie.' },
+  fr: { title: 'Calculateur CVSS 4.0', subtitle: 'Notez une vulnérabilité avec la méthode officielle du FIRST, aussi en CVSS 3.1', vector: 'Chaîne de vecteur', vectorHint: 'Collez un vecteur pour le charger, ou choisissez les métriques ci-dessous.',
+    invalid: 'Vecteur {v} invalide : {e}', copyVector: 'Copier le vecteur', copyLink: 'Copier le lien', reset: 'Réinitialiser', copied: 'Copié', score: 'Score', severity: 'Sévérité',
+    nomenclature: 'Nomenclature', macro: 'MacroVector', base: 'Base', temporal: 'Temporel', environmental: 'Environnement', impact: 'Impact', exploitability: 'Exploitabilité',
+    sNone: 'Aucune', sLow: 'Faible', sMedium: 'Moyenne', sHigh: 'Élevée', sCritical: 'Critique', suppNote: 'Les métriques supplémentaires ajoutent du contexte et ne modifient jamais le score.' },
+  pt: { title: 'Calculadora CVSS 4.0', subtitle: 'Pontue uma vulnerabilidade com o método oficial do FIRST, também em CVSS 3.1', vector: 'String do vetor', vectorHint: 'Cole um vetor para carregá-lo, ou escolha as métricas abaixo.',
+    invalid: 'Vetor {v} inválido: {e}', copyVector: 'Copiar vetor', copyLink: 'Copiar link', reset: 'Redefinir', copied: 'Copiado', score: 'Pontuação', severity: 'Gravidade',
+    nomenclature: 'Nomenclatura', macro: 'MacroVector', base: 'Base', temporal: 'Temporal', environmental: 'Ambiente', impact: 'Impacto', exploitability: 'Explorabilidade',
+    sNone: 'Nenhuma', sLow: 'Baixa', sMedium: 'Média', sHigh: 'Alta', sCritical: 'Crítica', suppNote: 'Métricas suplementares acrescentam contexto e nunca mudam a pontuação.' },
+});
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+const tr = (p) => (T[TK.lang] && T[TK.lang][p]) || p;
+
+const DEFAULT4 = 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N'; // FIRST calculator defaults
+const DEFAULT31 = 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N';
+const S = { v: '4', m4: parseV4(DEFAULT4).metrics, m31: parseV31(DEFAULT31).metrics };
+
+function sevBadge(s) { const k = severity(s); return `<span class="sev sev-${k}">${esc(t('s' + k))}</span>`; }
+
+function buildGroups() {
+  const groups = S.v === '4' ? V4_GROUPS : V31_GROUPS, defs = S.v === '4' ? V4_METRICS : V31_METRICS, cur = S.v === '4' ? S.m4 : S.m31;
+  $('groups').innerHTML = groups.map((g) => `<details class="grp" data-group="${g.id}"${g.open || g.sub.some(([, ks]) => ks.some((k) => cur[k] && cur[k] !== 'X' && !(S.v === '4' ? ['AV', 'AC', 'AT', 'PR', 'UI', 'VC', 'VI', 'VA', 'SC', 'SI', 'SA'] : ['AV', 'AC', 'PR', 'UI', 'S', 'C', 'I', 'A']).includes(k))) ? ' open' : ''}>
+    <summary>${esc(tr(g.name))}</summary><div class="grp-body">${g.id === 'supp' ? `<p class="tb-hint">${esc(t('suppNote'))}</p>` : ''}`
+    + g.sub.map(([sub, keys]) => (sub ? `<div class="sub">${esc(tr(sub))}</div>` : '') + keys.map((k) => {
+      const [name, vals] = defs[k];
+      return `<fieldset class="metric"><legend>${esc(tr(name))} <span class="ab">(${k})</span></legend><div class="opts">`
+        + vals.map(([code, label]) => { const id = `m-${S.v}-${k}-${code}`; return `<input type="radio" name="${k}" id="${id}" value="${code}"${cur[k] === code ? ' checked' : ''}><label for="${id}">${esc(tr(label))} <span class="ab">(${esc(code)})</span></label>`; }).join('')
+        + '</div></fieldset>';
+    }).join('')).join('') + '</div></details>').join('');
+}
+
+function render(fromInput) {
+  if (S.v === '4') {
+    const r = scoreV4(S.m4);
+    $('card').innerHTML = `<div class="big" id="score">${r.score.toFixed(1)}</div><div>${sevBadge(r.score)}</div><div class="facts"><span>${esc(t('nomenclature'))}: <b id="nom">${v4Nomenclature(S.m4)}</b></span><span>${esc(t('macro'))}: <b>${r.macroVector}</b></span></div>`;
+    if (!fromInput) $('vector').value = v4Vector(S.m4);
+    window.__cvss = { v: '4', score: r.score, vector: v4Vector(S.m4) };
+  } else {
+    const r = scoreV31(S.m31);
+    const temporalSet = ['E', 'RL', 'RC'].some((k) => S.m31[k] !== 'X');
+    const envSet = Object.keys(V31_ORDER).slice(11).some((k) => S.m31[k] !== 'X');
+    $('card').innerHTML = `<div class="v31-scores"><div><span>${esc(t('base'))}</span><b id="score">${r.base.toFixed(1)}</b>${sevBadge(r.base)}</div>`
+      + (temporalSet ? `<div><span>${esc(t('temporal'))}</span><b id="score-t">${r.temporal.toFixed(1)}</b>${sevBadge(r.temporal)}</div>` : '')
+      + (envSet ? `<div><span>${esc(t('environmental'))}</span><b id="score-e">${r.environmental.toFixed(1)}</b>${sevBadge(r.environmental)}</div>` : '')
+      + `</div><div class="facts"><span>${esc(t('impact'))}: <b>${r.impact.toFixed(1)}</b></span><span>${esc(t('exploitability'))}: <b>${r.exploitability.toFixed(1)}</b></span></div>`;
+    if (!fromInput) $('vector').value = v31Vector(S.m31);
+    window.__cvss = { v: '31', score: r.base, temporal: r.temporal, environmental: r.environmental, vector: v31Vector(S.m31) };
+  }
+  $('vec-msg').textContent = t('vectorHint'); $('vec-msg').classList.remove('tb-note--warn');
+}
+
+function setVersion(v) {
+  S.v = v;
+  for (const b of document.querySelectorAll('[role=tab]')) b.setAttribute('aria-selected', String(b.dataset.v === v));
+  $('panel').setAttribute('aria-labelledby', 'tab-' + v);
+  buildGroups(); render();
+}
+
+/** Load a vector string of either version; returns false when invalid. */
+function load(str, fromInput) {
+  const s = str.trim();
+  const v = s.startsWith('CVSS:3.1/') ? '31' : '4';
+  const p = v === '4' ? parseV4(s) : parseV31(s);
+  if (!p.metrics) return { ok: false, v, errors: p.errors };
+  if (v === '4') S.m4 = p.metrics; else S.m31 = p.metrics;
+  if (S.v !== v) setVersion(v); else { buildGroups(); render(fromInput); }
+  return { ok: true };
+}
+
+$('groups').addEventListener('change', (e) => {
+  if (e.target.type !== 'radio') return;
+  (S.v === '4' ? S.m4 : S.m31)[e.target.name] = e.target.value;
+  render();
+});
+$('vector').addEventListener('input', () => {
+  const r = load($('vector').value, true);
+  if (!r.ok) { $('vec-msg').textContent = t('invalid', { v: r.v === '4' ? 'CVSS 4.0' : 'CVSS 3.1', e: r.errors.join(', ') }); $('vec-msg').classList.add('tb-note--warn'); }
+});
+for (const b of document.querySelectorAll('[role=tab]')) b.addEventListener('click', () => setVersion(b.dataset.v));
+$('reset').addEventListener('click', () => { if (S.v === '4') S.m4 = parseV4(DEFAULT4).metrics; else S.m31 = parseV31(DEFAULT31).metrics; buildGroups(); render(); });
+$('copy-link').addEventListener('click', (e) => {
+  const url = `${location.origin}/${TK.lang}/tools/cvss-calculator/?vector=${encodeURIComponent($('vector').value)}`;
+  TK.copy(url, e.currentTarget);
+});
+
+// ?vector= deep link on the tool page (read from the parent page, same origin) or on this app
+let initial = null;
+try { initial = new URLSearchParams(window.parent.location.search).get('vector'); } catch { /* not same-origin */ }
+initial = initial || new URLSearchParams(location.search).get('vector');
+setVersion('4');
+if (initial && !load(initial).ok) { $('vector').value = initial; $('vector').dispatchEvent(new Event('input')); }
+window.__cvssReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>
