@@ -225,3 +225,62 @@ Screens reviewed at 390 / 1440 px: home, /tools/, /learn/, a tool page (EN/IT), 
    - Found, not fixed: SysAdmin Tycoon's built-in UI strings have lost their accents in ES/DE/FR/PT ("Kuhlung", "Energie", "fur").
 
 Checks: build clean, 0 broken links, visual suite on About and games clean.
+
+## Phase 5 — New tools
+
+Seven new tools, each with a 6-language page (`reviewed: false`: how-to, FAQ, "How it works", use cases), an icon and category in `data/tool_icons.yaml`, related tools and guides in `data/related.yaml`, and new learn-page → tool links. All of them run in the browser; none uploads a file or text.
+
+The new apps share:
+- a small kit, `static/js/tool-kit.js` (UI language, `{placeholder}` strings, copy, download, delegated `[data-copy]`);
+- the `tb-*` app-shell classes in `assets/css/tool-app.css`, built on the design tokens.
+
+Their logic lives in DOM-free ES modules under `static/js/tools/`, unit-tested with `node --test "tests/unit/*.test.mjs"`: 8 files, 55 tests.
+
+| Tool | Slug | What it does | Libraries (self-hosted) |
+|---|---|---|---|
+| Subnet calculator | `subnet-calculator` | IPv4 (incl. /31 per RFC 3021 and /32), IPv6 with RFC 5952 compression and address scopes, VLSM split | — |
+| HEIC converter | `heic-converter` | HEIC/HEIF → JPEG/PNG, batch with ZIP. EXIF is kept or stripped, with orientation reset and a GPS warning | libheif-js 1.23.5 (LGPL-3.0, lazy WASM), JSZip 3.10.2 |
+| PDF merge & split | `pdf-merge-split` | Merge with drag-and-drop thumbnails (also keyboard buttons), rotate and remove pages, split by ranges into a ZIP | pdf-lib 1.17.1, pdfjs-dist 6.4.299 (thumbnails; cMaps, standard fonts and WASM vendored), JSZip |
+| Images to PDF | `images-to-pdf` | JPG/PNG/WebP → one PDF. Page size A4/Letter/fit, margins, EXIF orientation applied | pdf-lib |
+| JSON formatter | `json-formatter` | Format/minify/validate with an exact line:column error and a caret; sort keys; tree view; JSON ⇄ YAML; JSON → CSV (RFC 4180). Above 2 MB the work moves to a Web Worker | js-yaml 4.1.0 (lazy) |
+| Text diff | `text-diff` | Side-by-side and inline views; word or character highlights; ignore whitespace/case; folded context; copy or download a unified diff | jsdiff 9.0.0 (BSD-3) |
+| Security headers & CSP analyzer | `security-headers` | Paste headers, a bare CSP or a CSP `<meta>` tag. Checks HSTS, CSP (directive fallback, unsafe-inline/eval, wildcards, scheme sources, JSONP/AngularJS bypass hosts, nonce length, strict-dynamic, syntax mistakes), XCTO, framing, Referrer-Policy, Permissions-Policy, COOP, CORS, every Set-Cookie, and version disclosure. Grade A+–F, plain-text report. **No network request** (asserted by its test) | — |
+
+**Decision: two PDF pages rather than one.**
+- "merge/split PDF" and "JPG to PDF" are separate search intents with different first actions.
+- Both pages share `js/tools/pdf-kit.mjs` and link to each other.
+
+**Upgrades to existing tools:**
+- **PassFort — opt-in breach check.**
+  - It runs only on a click of **Check against known breaches**, which sits under the auditor.
+  - It uses the Have I Been Pwned range API with k-anonymity. Only the first 5 hex characters of the SHA-1 are sent, with `Add-Padding: true` and `no-referrer`. Padding rows (count 0) are ignored, and the match happens locally.
+  - The result clears when the password changes.
+  - Disclosed in the app's privacy badge and footer, in the PassFort page (intro, how-to, a new FAQ, a "How it works" subsection) and on the privacy page in 6 languages, as a second exception after NetGuard/ipwho.is.
+- **QR generator — Wi-Fi and Contact modes.**
+  - Wi-Fi uses the ZXing `WIFI:` format, with `\ ; , : "` escaped. vCard 3.0 uses RFC 2426 escaping and CRLF line endings.
+  - An "Encoded text" preview shows the exact payload.
+  - Verified by decoding the downloaded PNG with jsQR, including names and passwords full of special characters.
+  - Also fixed: the QR canvas overflowed its panel at 390 px.
+- **`tools/_index` (6 languages):** the description and intro no longer say "no data sent to servers". They now name the two tools that contact a service (NetGuard → ipwho.is, PassFort → Have I Been Pwned, on request).
+
+**Tests added:**
+- Functional:
+  - `subnet-calculator`, `heic-converter`, `pdf-merge-split`, `images-to-pdf`, `json-formatter`, `text-diff`: the `.diff` it produces applies back.
+  - `security-headers`: weak sample → F, strong → A+, CSP-only paste, Italian, no external request.
+  - `pass-fort-hibp`: mocked range API. Checks there is no request before the click, the exact prefix URL and the padding header, then found / not found / offline.
+  - `qr-wifi-vcard`.
+- Unit tests for every module. `diff.test.mjs` also runs a real `git apply` on the generated patch.
+
+**Vendored:** `static/vendor/README.md` now lists libheif-js, JSZip, pdf-lib, pdfjs-dist, js-yaml and jsdiff, with versions, licences and users.
+
+Checks:
+- `hugo --gc --minify`: 0 errors, 0 warnings.
+- Static checks: 2,876 HTML files, 0 broken internal links, 1,201 JSON-LD blocks with 0 errors. The sitemap has 545 URLs, including every new tool in 6 languages.
+- `tool-pages.mjs`: frame-settle check and mobile layout pass on every new page.
+- Full `npm test` passed:
+  - static checks clean;
+  - unit 55/55;
+  - every functional check passed;
+  - tool pages: 186 runs, 0 problems;
+  - visual: 88 page/viewport runs, 0 problems;
+  - ads: 420 runs, 0 problems, max CLS 0.019.

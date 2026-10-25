@@ -122,6 +122,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 }
 
 .header h1 span{color:var(--text)}
+
+/* Breach check */
+.breach-note{font-size:12px;line-height:1.55;color:var(--text2);margin-bottom:12px}
+.breach-note code{font-family:var(--mono);font-size:11px;overflow-wrap:anywhere}
+.breach-btn{min-height:44px;padding:10px 16px;font-family:var(--font-sans);font-size:13px;font-weight:600;background:transparent;color:var(--green);border:1px solid var(--green);border-radius:6px;cursor:pointer}
+.breach-btn:hover{background:var(--green-glow)}
+.breach-btn:disabled{opacity:.6;cursor:progress}
+.breach-result{margin-top:12px;font-size:13px;line-height:1.5}
+.breach-result:empty{display:none}
+.breach-result.bad{color:var(--danger);font-weight:600}
+.breach-result.ok{color:var(--success)}
+.breach-result.err{color:var(--text2)}
 </style>
 </head>
 <body>
@@ -133,8 +145,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
   </header>
 
   <div class="privacy-badge">
-    <strong>&#x26a0;&#xfe0f; 100% Local &amp; Private</strong><br>
-    This runs entirely in your browser. No data is ever sent to any server.
+    <strong>&#x26a0;&#xfe0f; Local &amp; Private</strong><br>
+    Generation and analysis run entirely in your browser. Your password is never sent anywhere; the optional breach check sends only 5 characters of its SHA-1 hash.
   </div>
 
   <div class="tabs">
@@ -218,9 +230,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
       <div class="checks" id="checks"></div>
     </div>
 
+    <div class="section" id="breachBox" style="display:none">
+      <div class="section-title">Known Breaches (optional)</div>
+      <p class="breach-note">Checks whether this exact password appears in the Have I Been Pwned list of passwords from real data breaches. Only the first 5 characters of its SHA-1 hash are sent to <code>api.pwnedpasswords.com</code>; the password itself and the rest of the hash never leave this page, and the match is made here.</p>
+      <button type="button" class="breach-btn" id="breachBtn">Check against known breaches</button>
+      <div class="breach-result" id="breachResult" role="status" aria-live="polite"></div>
+    </div>
+
   </div>
 
-  <div class="footer">PassFort &mdash; 100% client-side. Zero tracking.</div>
+  <div class="footer">PassFort &mdash; client-side. Zero tracking. Breach data: Have I Been Pwned, only on request.</div>
 </div>
 
 <div class="toast" id="toast">Copied to clipboard!</div>
@@ -336,14 +355,42 @@ function formatBig(n){
   return Math.round(n).toString();
 }
 
+/* ── Breach check (opt-in, k-anonymity) ── */
+let breachSeq=0;
+function resetBreach(){
+  breachSeq++; // a reply for a previous value is ignored
+  const r=document.getElementById('breachResult');
+  r.textContent='';r.className='breach-result';
+  document.getElementById('breachBtn').disabled=false;
+}
+async function checkBreach(){
+  const pw=document.getElementById('auditInput').value;
+  if(!pw) return;
+  const seq=++breachSeq, btn=document.getElementById('breachBtn'), r=document.getElementById('breachResult');
+  btn.disabled=true;r.className='breach-result';r.textContent='Checking…';
+  try{
+    const {pwnedCount}=await import('/js/tools/hibp.mjs');
+    const n=await pwnedCount(pw);
+    if(seq!==breachSeq) return;
+    if(n>0){r.className='breach-result bad';r.textContent='Found '+n.toLocaleString('en')+' times in known data breaches. Attackers try these passwords first: do not use it anywhere, and change it wherever you do.';}
+    else{r.className='breach-result ok';r.textContent='Not found in known breaches. That does not make it strong — check the analysis above.';}
+  }catch(e){
+    if(seq!==breachSeq) return;
+    r.className='breach-result err';r.textContent='The breach service could not be reached (offline or blocked). Nothing was revealed; try again later.';
+  }finally{ if(seq===breachSeq) btn.disabled=false; }
+}
+
 function auditPassword(pw){
+  resetBreach();
   if(!pw){
     document.getElementById('crackBox').style.display='none';
     document.getElementById('auditResults').style.display='none';
+    document.getElementById('breachBox').style.display='none';
     return;
   }
   document.getElementById('crackBox').style.display='block';
   document.getElementById('auditResults').style.display='block';
+  document.getElementById('breachBox').style.display='block';
 
   const entropy=calcEntropy(pw);
   const ct=crackTimeStr(entropy);
@@ -402,6 +449,7 @@ document.getElementById('optPhrase').addEventListener('change',e=>{
 });
 
 document.getElementById('genBtn').addEventListener('click',doGenerate);
+document.getElementById('breachBtn').addEventListener('click',checkBreach);
 document.getElementById('copyBtn').addEventListener('click',doCopy);
 
 document.getElementById('auditInput').addEventListener('input',e=>auditPassword(e.target.value));

@@ -4,12 +4,13 @@
   "description": "Test harness for the Hugo site (the site itself needs no npm). Run against a local build in public/, never against production.",
   "type": "module",
   "scripts": {
-    "test": "node tests/static-checks.mjs && node tests/functional.mjs && node tests/tool-pages.mjs && node tests/visual.mjs --no-shots",
+    "test": "node tests/static-checks.mjs && node --test \"tests/unit/*.test.mjs\" && node tests/functional.mjs && node tests/tool-pages.mjs && node tests/visual.mjs --no-shots && node tests/ads.mjs",
     "test:visual": "node tests/visual.mjs",
     "test:functional": "node tests/functional.mjs",
     "test:pages": "node tests/tool-pages.mjs",
     "test:static": "node tests/static-checks.mjs",
-    "test:unit": "node --test tests/unit/"
+    "test:unit": "node --test \"tests/unit/*.test.mjs\"",
+    "test:ads": "node tests/ads.mjs"
   },
   "devDependencies": {
     "jsqr": "1.4.0",

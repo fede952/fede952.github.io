@@ -14,6 +14,7 @@ import { serve, blockExternal, BLOCKED_NOISE } from './lib/server.mjs';
 
 const FIXTURES = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
 const PHOTO = path.join(FIXTURES, 'photo-gps.jpg');
+const HEIC = path.join(FIXTURES, 'photo-gps.heic');
 const only = process.argv[2]?.split(',');
 
 const blobHref = (page, sel) => page.waitForFunction((s) => { const a = document.querySelector(s); return a && /^blob:|^data:/.test(a.href); }, sel, { timeout: 30000 });
@@ -40,6 +41,41 @@ export const TESTS = {
       assert(got === text, `QR decodes to ${JSON.stringify(got)}, expected ${JSON.stringify(text)}`); out.push('ok');
     }
     return `URL + UTF-8 text decode back exactly (${out.length})`; } },
+  'qr-wifi-vcard': { url: '/tools/qr-generator/?lang=en', async run(p) {
+    await p.waitForFunction(() => window.QRP);
+    const grab = async () => { const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#download-btn')]); return { name: dl.suggestedFilename(), text: decodeQR(fs.readFileSync(await dl.path())) }; };
+    // Wi-Fi with every character that needs escaping
+    await p.click('.mode-tab[data-mode=wifi]');
+    await p.click('button.btn-primary');
+    assert((await p.textContent('#status')).includes('network name'), 'empty SSID error');
+    await p.fill('#wf-ssid', 'Café;Net,work:"5G"\\'); await p.fill('#wf-pass', 'p@ss;w,o:r"d\\ end'); await p.check('#wf-hidden');
+    await p.click('button.btn-primary');
+    const wifi = await grab();
+    const expected = 'WIFI:T:WPA;S:Café\\;Net\\,work\\:\\"5G\\"\\\\;P:p@ss\\;w\\,o\\:r\\"d\\\\ end;H:true;;';
+    assert(wifi.text === expected, 'Wi-Fi QR decodes to ' + JSON.stringify(wifi.text));
+    assert(wifi.name === 'wifi-qrcode.png', 'file name ' + wifi.name);
+    const back = await p.evaluate((s) => window.QRP.parseWifi(s), wifi.text);
+    assert(back.S === 'Café;Net,work:"5G"\\' && back.P === 'p@ss;w,o:r"d\\ end' && back.H === 'true', 'Wi-Fi fields ' + JSON.stringify(back));
+    // open network: no P field
+    await p.selectOption('#wf-auth', 'nopass'); await p.click('button.btn-primary');
+    assert((await grab()).text === 'WIFI:T:nopass;S:Café\\;Net\\,work\\:\\"5G\\"\\\\;H:true;;', 'open network payload');
+    // vCard
+    await p.click('.mode-tab[data-mode=vcard]');
+    await p.fill('#vc-first', 'Ada'); await p.fill('#vc-last', 'Lovelace'); await p.fill('#vc-org', 'Engines, Ltd; R&D');
+    await p.fill('#vc-phone', '+44 20 7946 0000'); await p.fill('#vc-email', 'ada@example.com'); await p.fill('#vc-city', 'London');
+    await p.fill('#vc-note', 'Line 1\nLine 2');
+    await p.click('button.btn-primary');
+    const vc = await grab();
+    assert(vc.text === await p.inputValue('#payload').then((s) => s.replace(/\r?\n/g, '\r\n')), 'vCard QR matches the shown payload');
+    const card = vc.text.split('\r\n');
+    for (const line of ['BEGIN:VCARD', 'VERSION:3.0', 'N:Lovelace;Ada;;;', 'FN:Ada Lovelace', 'ORG:Engines\\, Ltd\\; R&D', 'TEL;TYPE=CELL:+44 20 7946 0000',
+      'EMAIL;TYPE=INTERNET:ada@example.com', 'ADR;TYPE=WORK:;;;London;;;', 'NOTE:Line 1\\nLine 2', 'END:VCARD'])
+      assert(card.includes(line), 'vCard misses ' + JSON.stringify(line) + ' in ' + JSON.stringify(vc.text));
+    assert(vc.name === 'contact-qrcode.png', 'file name ' + vc.name);
+    // the text mode still works after switching back
+    await p.click('.mode-tab[data-mode=text]'); await p.fill('#qr-input', 'hello'); await p.click('button.btn-primary');
+    assert((await grab()).text === 'hello', 'text mode');
+    return 'Wi-Fi (escaped ; , : " \\, hidden, open) and vCard 3.0 decode back exactly with jsQR'; } },
   'freelance-calculator': { url: '/tools/freelance-calculator/', async run(p) {
     await p.fill('#salary', '72000'); await p.dispatchEvent('#salary', 'input');
     await p.waitForFunction(() => typeof Chart !== 'undefined' && Object.keys(Chart.instances || {}).length > 0); return 'rate computed, chart drawn'; } },
@@ -47,6 +83,34 @@ export const TESTS = {
     await p.waitForTimeout(500);
     const v = await p.evaluate(() => [...document.querySelectorAll('input,output,code,div')].map((e) => e.value || e.textContent).find((t) => t && /^[\x21-\x7e]{16,}$/.test(t.trim())));
     assert(v, 'no generated password found'); return `password generated (${v.trim().length} chars)`; } },
+  'pass-fort-hibp': { url: '/tools/pass-fort/', async run(p, { context }) {
+    // Mocked Pwned Passwords range API: never the real service. "password" hashes to 5BAA6 + 1E4C9B…
+    const seen = [];
+    await context.route('https://api.pwnedpasswords.com/range/*', (r) => {
+      seen.push({ url: r.request().url(), padding: r.request().headers()['add-padding'] });
+      const body = r.request().url().endsWith('/5BAA6')
+        ? '003D68EB55068C33ACE09247EE4C639306B:3\r\n1E4C9B93F3F0682250B6CF8331B7EE68FD8:9545824\r\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:0'
+        : '0000000000000000000000000000000000A:0';
+      return r.fulfill({ status: 200, contentType: 'text/plain', body, headers: { 'access-control-allow-origin': '*' } });
+    });
+    const requests = [];
+    p.on('request', (r) => { if (r.url().includes('pwnedpasswords')) requests.push(r.url()); });
+    await p.click('.tab-btn[data-tab=auditor]');
+    await p.fill('#auditInput', 'password');
+    await p.waitForTimeout(300);
+    assert(requests.length === 0, 'the breach check must be opt-in: requests before click ' + requests.join(','));
+    await p.click('#breachBtn');
+    await p.waitForSelector('#breachResult.bad');
+    assert(/^Found 9,545,824 times/.test(await p.textContent('#breachResult')), 'result: ' + await p.textContent('#breachResult'));
+    assert(seen.length === 1 && seen[0].url === 'https://api.pwnedpasswords.com/range/5BAA6' && seen[0].padding === 'true', 'request: ' + JSON.stringify(seen));
+    // typing again clears the old result; a strong unknown password is reported as not found
+    await p.fill('#auditInput', 'correct-Horse-battery-staple-91');
+    assert((await p.textContent('#breachResult')) === '', 'stale result kept');
+    await p.click('#breachBtn'); await p.waitForSelector('#breachResult.ok');
+    // service unreachable
+    await context.unroute('https://api.pwnedpasswords.com/range/*');
+    await p.fill('#auditInput', 'another one'); await p.click('#breachBtn'); await p.waitForSelector('#breachResult.err');
+    return 'opt-in only, 5-char prefix + Add-Padding, found / not found / offline (mocked API)'; } },
   'jwt-inspector': { url: '/tools/jwt-inspector/', async run(p) {
     const tok = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
     const ta = await p.$('textarea'); await ta.fill(tok); await ta.dispatchEvent('input');
@@ -95,6 +159,163 @@ export const TESTS = {
   'caesar-cipher': { url: '/en/tools/caesar-cipher/', async run(p) {
     await p.fill('#caesar-input', 'Hello, World!'); await p.click('button.tool-btn:not(.secondary)');
     const out = await p.inputValue('#caesar-output'); assert(out === 'Khoor, Zruog!', 'shift 3 → ' + out); return 'shift 3: Hello, World! → Khoor, Zruog!'; } },
+  'subnet-calculator': { url: '/tools/subnet-calculator/?lang=en', async run(p) {
+    await p.waitForFunction(() => window.__subnetReady);
+    const val = async (label) => p.evaluate((l) => { const dt = [...document.querySelectorAll('#v4out dt, #v6out dt')].find((d) => d.textContent === l); return dt && dt.nextElementSibling.textContent.trim(); }, label);
+    await p.fill('#v4', '10.0.0.1/31'); assert((await val('Usable hosts')).startsWith('2'), '/31 usable'); assert((await val('Broadcast')) === 'none', '/31 broadcast');
+    await p.fill('#v4', '172.16.5.4 0.0.15.255'); assert((await val('Network')) === '172.16.0.0', 'wildcard → /20 network');
+    await p.click('#tab-v6'); await p.fill('#v6', '2001:0db8:0000:0000:0000:ff00:0042:8329/64');
+    assert((await val('Compressed')).startsWith('2001:db8::ff00:42:8329'), 'RFC 5952');
+    await p.click('#tab-split'); await p.check('input[name=smode][value=hosts]'); await p.fill('#sbase', '192.168.10.0/24'); await p.fill('#shosts', '20, 100, 2, 50');
+    const nets = await p.$$eval('#sout tbody tr', (rs) => rs.map((r) => r.children[2].textContent));
+    assert(nets.join(' ') === '192.168.10.192/27 192.168.10.0/25 192.168.10.224/31 192.168.10.128/26', 'VLSM ' + nets.join(' '));
+    return '/31, wildcard input, IPv6 compression, VLSM plan'; } },
+  'heic-converter': { url: '/tools/heic-converter/?lang=en', async run(p) {
+    const grab = async () => { const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#files .file button')]); return fs.readFileSync(await dl.path()); };
+    await p.setInputFiles('#file', HEIC);
+    await p.waitForFunction(() => window.__heicDone >= 1, null, { timeout: 30000 });
+    assert(!(await p.textContent('#files .meta')).match(/fail|Could not/i), 'decode failed: ' + (await p.textContent('#files .meta')));
+    let jpg = await grab();
+    assert(jpg[0] === 0xff && jpg[1] === 0xd8, 'not a JPEG');
+    assert(!jpg.includes(Buffer.from('Exif\0\0')), 'stripped JPEG still has EXIF');
+    await p.uncheck('#strip'); await p.waitForFunction(() => /kept/.test(document.querySelector('#files .meta').textContent));
+    jpg = await grab();
+    assert(jpg.includes(Buffer.from('Exif\0\0')), 'kept JPEG has no EXIF');
+    await p.selectOption('#fmt', 'png'); await p.waitForFunction(() => /\.png$/.test(document.querySelector('#files .name').textContent));
+    const png = await grab(); assert(png.subarray(1, 4).toString() === 'PNG', 'not a PNG');
+    return 'HEIC → JPG without EXIF, with EXIF kept, and → PNG'; } },
+  'pdf-merge-split': { url: '/tools/pdf-merge-split/?lang=en', async run(p) {
+    await p.setInputFiles('#file', [path.join(FIXTURES, 'sample-a.pdf'), path.join(FIXTURES, 'sample-b.pdf')]);
+    await p.waitForFunction(() => window.__pdfLoaded >= 1 && document.querySelectorAll('#tiles .tile').length === 5, null, { timeout: 30000 });
+    await p.click('#tiles .tile:first-child .tile-btn:last-child'); // A1 one step right
+    await p.click('#tiles .tile:nth-child(5) .tile-btn[title="Remove page"]'); // drop B3
+    const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#merge')]);
+    const merged = [...fs.readFileSync(await dl.path())];
+    const texts = await p.evaluate(async (bytes) => {
+      const { openForPreview } = await import('/js/tools/pdf-kit.mjs');
+      const doc = await openForPreview(new Uint8Array(bytes));
+      const out = [];
+      for (let i = 1; i <= doc.numPages; i++) out.push((await (await doc.getPage(i)).getTextContent()).items.map((x) => x.str).join(''));
+      return out;
+    }, merged);
+    assert(texts.join(',') === 'A2,A1,B1,B2', 'merged order ' + texts.join(','));
+    await p.check('input[name=smode][value=ranges]'); await p.fill('#ranges', '1-2, 3-');
+    const [z] = await Promise.all([p.waitForEvent('download'), p.click('#split')]);
+    const parts = await p.evaluate(async (bytes) => {
+      const { jsZip } = await import('/js/tools/pdf-kit.mjs'); const JSZip = await jsZip();
+      const zip = await JSZip.loadAsync(new Uint8Array(bytes));
+      return Object.keys(zip.files).sort();
+    }, [...fs.readFileSync(await z.path())]);
+    assert(parts.join(',') === 'sample-a-part-1.pdf,sample-a-part-2.pdf', 'zip ' + parts.join(','));
+    return 'reorder + remove + merge (A2,A1,B1,B2), split by ranges into a ZIP of 2'; } },
+  'images-to-pdf': { url: '/tools/images-to-pdf/?lang=en', async run(p, { tmp }) {
+    const png = await p.evaluate(() => { const c = document.createElement('canvas'); c.width = 400; c.height = 200; const x = c.getContext('2d'); x.fillStyle = '#c00'; x.fillRect(0, 0, 400, 200); return c.toDataURL('image/png').split(',')[1]; });
+    const pngPath = path.join(tmp, 'wide.png'); fs.writeFileSync(pngPath, Buffer.from(png, 'base64'));
+    await p.setInputFiles('#file', [PHOTO, pngPath]);
+    await p.waitForFunction(() => window.__imgLoaded === 2);
+    await p.click('#tiles .tile:first-child .tile-btn[title="Rotate 90°"]');
+    const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#make')]);
+    const sizes = await p.evaluate(async (bytes) => {
+      const { openForPreview } = await import('/js/tools/pdf-kit.mjs');
+      const doc = await openForPreview(new Uint8Array(bytes)); const out = [];
+      for (let i = 1; i <= doc.numPages; i++) { const v = (await doc.getPage(i)).getViewport({ scale: 1 }); out.push(Math.round(v.width) + 'x' + Math.round(v.height)); }
+      return out;
+    }, [...fs.readFileSync(await dl.path())]);
+    // photo 480x360 rotated → portrait A4; 400x200 PNG → landscape A4
+    assert(sizes.join(',') === '595x842,842x595', 'page sizes ' + sizes.join(','));
+    const pdfBytes = fs.readFileSync(await dl.path());
+    assert(!pdfBytes.includes(Buffer.from('Canon')), 'EXIF camera model leaked into the PDF');
+    return 'JPG + PNG → 2-page A4 PDF, rotation and auto orientation, no EXIF'; } },
+  'json-formatter': { url: '/tools/json-formatter/?lang=en', async run(p) {
+    await p.waitForFunction(() => window.__jsonReady);
+    await p.fill('#in', '{\n  "b": 1,\n  "a": [1, 2,],\n}'); await p.click('#fmt');
+    const err = await p.textContent('#status');
+    assert(/^Line 3, column 14: trailing comma/.test(err), 'error message: ' + err);
+    await p.fill('#in', '{"b":1,"a":{"d":[3,1],"c":"x"}}'); await p.check('#sort'); await p.click('#min');
+    assert(await p.inputValue('#out') === '{"a":{"c":"x","d":[3,1]},"b":1}', 'sorted minify');
+    await p.click('#toyaml'); await p.waitForFunction(() => document.getElementById('out').value.startsWith('a:'));
+    await p.fill('#in', '[{"id":1,"tags":["x"]},{"id":2,"name":"Ada, L."}]'); await p.click('#tocsv');
+    // a textarea reports CRLF as LF; the downloaded file keeps CRLF
+    assert((await p.inputValue('#out')).replace(/\r\n/g, '\n') === 'id,tags,name\n1,"[""x""]",\n2,,"Ada, L."', 'csv ' + JSON.stringify(await p.inputValue('#out')));
+    await p.click('#in-yaml'); await p.fill('#in', 'a: 1\nlist: [x, y]\n'); await p.uncheck('#sort'); await p.click('#fmt');
+    assert(JSON.parse(await p.inputValue('#out')).list[1] === 'y', 'YAML → JSON');
+    await p.click('#in-json');
+    await p.evaluate(() => { document.getElementById('in').value = JSON.stringify(Array.from({ length: 60000 }, (_, i) => ({ id: i, name: 'item ' + i, tags: ['a', 'b'] }))); });
+    await p.click('#fmt');
+    await p.waitForFunction(() => document.getElementById('out').value.length > 2e6, null, { timeout: 30000 });
+    assert(/^Valid JSON .*background worker/.test(await p.textContent('#status')), 'worker status: ' + await p.textContent('#status'));
+    await p.click('#v-tree'); await p.waitForSelector('#tree details');
+    return 'error at line:col, sorted minify, YAML both ways, CSV, 2+ MB via worker, tree view'; } },
+  'text-diff': { url: '/tools/text-diff/?lang=en', viewport: { width: 1200, height: 900 }, async run(p) {
+    await p.waitForFunction(() => window.__diffReady);
+    const done = async (fn) => { const n = await p.evaluate(() => window.__diffDone || 0); await fn(); await p.waitForFunction((k) => (window.__diffDone || 0) > k, n); };
+    await done(() => p.click('#sample'));
+    assert(/^\+4 added · −3 removed · 14 unchanged lines$/.test((await p.textContent('#stats')).trim()), 'stats: ' + await p.textContent('#stats'));
+    // word highlight inside the modified proxy_pass line, both sides
+    const marks = await p.evaluate(() => [...document.querySelectorAll('.dt del, .dt ins')].map((e) => e.tagName + ':' + e.textContent));
+    assert(marks.includes('DEL:3000') && marks.includes('INS:8080'), 'word marks: ' + marks.join(' | '));
+    await p.selectOption('#gran', 'char');
+    const cm = await p.evaluate(() => [...document.querySelectorAll('.dt del')].map((e) => e.textContent));
+    assert(cm.length && !cm.includes('3000') && cm.includes('3'), 'char granularity: ' + cm.join(' | '));
+    await p.click('#v-inline');
+    assert(await p.locator('.dt.inline tr.add').count() === 4 && await p.locator('.dt.inline tr.del').count() === 3, 'inline rows');
+    // ignore case / whitespace
+    await p.fill('#a', 'Hello   World\nsame\n'); await done(() => p.fill('#b', 'hello World\nsame\n'));
+    assert(/1 added · −1 removed/.test(await p.textContent('#stats')), 'before ignore');
+    await p.check('#ws'); await done(() => p.check('#case'));
+    assert((await p.textContent('#out')).includes('No differences with the current options'), 'ignored: ' + await p.textContent('#out'));
+    // folding of long unchanged runs, then expanding
+    await p.uncheck('#ws'); await p.uncheck('#case');
+    const long = Array.from({ length: 60 }, (_, i) => 'row ' + i).join('\n');
+    await p.fill('#a', long); await done(() => p.fill('#b', long.replace('row 30', 'row thirty')));
+    const fold = p.locator('.fold button').first();
+    assert(/^⋯ 27 unchanged lines — show$/.test(await fold.textContent()), 'fold label: ' + await fold.textContent());
+    await fold.click();
+    assert(await p.locator('.fold button').count() === 1, 'one fold left after expanding');
+    // unified diff download applies back to the original
+    const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#save-diff')]);
+    const patch = fs.readFileSync(await dl.path(), 'utf8');
+    assert(/^--- original\.txt\n\+\+\+ changed\.txt\n@@ -28,7 \+28,7 @@\n/.test(patch), 'patch header: ' + patch.slice(0, 80));
+    const applied = await p.evaluate(([a, d]) => window.Diff.applyPatch(a, d), [long, patch]);
+    assert(applied === long.replace('row 30', 'row thirty'), 'patch does not apply back');
+    await p.click('#swap');
+    assert(/^\+1 added · −1 removed/.test(await p.textContent('#stats')), 'swap');
+    return 'sample stats, word/char marks, inline view, ignore ws+case, folding, .diff download applies, swap'; } },
+  'security-headers': { url: '/tools/security-headers/?lang=en', async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    await p.waitForFunction(() => window.__headersReady);
+    const done = async (fn) => { const n = await p.evaluate(() => window.__headersDone || 0); await fn(); await p.waitForFunction((k) => (window.__headersDone || 0) > k, n); };
+    const ids = () => p.evaluate(() => [...document.querySelectorAll('.fd')].map((li) => li.dataset.id));
+    // weak sample: grade F with the classic CSP mistakes, rendered with severities
+    await done(() => p.click('#weak'));
+    assert((await p.textContent('.grade')).trim() === 'F', 'weak grade ' + await p.textContent('.grade'));
+    const weak = await ids();
+    for (const id of ['csp-unsafe-inline', 'csp-scheme-source', 'csp-unsafe-eval', 'csp-bypass-host', 'hsts-short', 'cookie-no-secure', 'disclosure', 'xxss-enabled'])
+      assert(weak.includes(id), 'weak sample misses ' + id + ': ' + weak.join(','));
+    assert(await p.locator('.fd.s-high').first().locator('.pill').textContent() === 'High', 'severity pill');
+    assert(await p.locator('.chip.r-high', { hasText: "'unsafe-inline'" }).count() === 1, 'risky source chip');
+    // a weak CSP pasted on its own (typed, so the debounced input path runs)
+    await p.fill('#in', '');
+    await done(() => p.locator('#in').pressSequentially("script-src 'self' 'unsafe-inline' http://cdn.example.com self; img-src * data:", { delay: 2 }));
+    assert((await p.textContent('#out')).includes('Analysing a Content-Security-Policy on its own'), 'CSP-only mode note');
+    const csp = await ids();
+    for (const id of ['csp-unsafe-inline', 'csp-http-source', 'csp-unquoted-keyword', 'csp-object-src', 'csp-base-uri-missing'])
+      assert(csp.includes(id), 'CSP-only misses ' + id + ': ' + csp.join(','));
+    assert(!csp.includes('hsts-missing'), 'header checks must not run in CSP-only mode');
+    // strong sample: A+
+    await done(() => p.click('#strong'));
+    assert((await p.textContent('.grade')).trim() === 'A+', 'strong grade ' + await p.textContent('.grade'));
+    assert(await p.locator('.fd.s-high, .fd.s-medium, .fd.s-low').count() === 0, 'strong sample has problems');
+    // the report a user can paste into a ticket
+    const report = await p.evaluate(async () => { let txt = ''; navigator.clipboard.writeText = async (s) => { txt = s; }; document.getElementById('copy-report').click(); await new Promise((r) => setTimeout(r, 50)); return txt; });
+    assert(/^Security Headers & CSP Analyzer — Grade A\+ · Score 100\/100\n\n\[PASS\] /.test(report), 'report: ' + report.slice(0, 120));
+    // localized messages
+    await p.goto(origin + '/tools/security-headers/?lang=it'); await p.waitForFunction(() => window.__headersReady);
+    await done(() => p.click('#weak'));
+    assert((await p.textContent('.fd.s-high strong')).includes('in script-src') && (await p.textContent('#out')).includes('Manca Referrer-Policy'), 'Italian findings');
+    assert(external.length === 0, 'external requests: ' + external.join(', '));
+    return 'weak sample → F with CSP issues, CSP-only paste, strong sample → A+, copy report, Italian, no network'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

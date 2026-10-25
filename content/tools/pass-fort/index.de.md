@@ -1,9 +1,9 @@
 ---
 title: "Passwort-Stärke testen & Passwort-Generator"
 description: "Testen Sie, wie sicher ein Passwort ist (Entropie in Bit, Knackzeit per Brute Force), und erzeugen Sie zufällige Passwörter oder Passphrasen im Browser."
-intro: "**PassFort** erzeugt zufällige Passwörter und Passphrasen mit dem kryptografischen Zufallsgenerator Ihres Browsers und prüft Entropie und Brute-Force-Knackzeit beliebiger Passwörter. Nichts, was Sie eingeben, verlässt diese Seite."
+intro: "**PassFort** erzeugt zufällige Passwörter und Passphrasen mit dem kryptografischen Zufallsgenerator Ihres Browsers und prüft Entropie und Brute-Force-Knackzeit beliebiger Passwörter. Nichts, was Sie eingeben, verlässt diese Seite. Die optionale Leak-Prüfung sendet nur 5 Zeichen des Passwort-Hashes, und nur auf Ihren Wunsch."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
 keywords: ["passwort stärke testen", "passwort generator", "sicheres passwort generieren", "passphrase generator", "passwort entropie berechnen", "wie lange dauert es mein passwort zu knacken", "zufälliges passwort", "passwort check"]
 tags: ["sicherheit", "passwörter", "datenschutz", "tool"]
@@ -19,9 +19,12 @@ howto:
   - "Klicken Sie auf **Generate Password**, bis Ihnen das Ergebnis gefällt; die Zwischenablage-Schaltfläche kopiert es. Fügen Sie es direkt in Ihren Passwortmanager ein."
   - "Um ein bereits genutztes Passwort zu prüfen, wechseln Sie zum Reiter **Auditor** und tippen oder fügen es ein. Das Augen-Symbol blendet es ein oder aus."
   - "Lesen Sie Entropie-Anzeige, geschätzte Knackzeit und Checkliste: Alles Rote sollten Sie beheben, bevor Sie dieses Passwort weiterverwenden."
+  - "Optional prüft **Check against known breaches**, ob genau dieses Passwort in einem Datenleck aufgetaucht ist. Bis Sie darauf klicken, wird nichts gesendet."
 faq:
   - q: "Ist es sicher, mein echtes Passwort hier einzugeben?"
-    a: "Ja. Der Auditor ist JavaScript, das innerhalb dieser Seite läuft: Er sendet Ihre Eingabe nie über das Netzwerk, und der Wert ist weg, sobald Sie das Feld leeren oder den Tab schließen. Das können Sie in den Entwicklerwerkzeugen des Browsers (Reiter „Netzwerk“) beim Tippen überprüfen. Wenn Ihnen das lieber ist, testen Sie ein Passwort, das *demselben Muster* folgt wie Ihr echtes."
+    a: "Ja. Der Auditor ist JavaScript, das innerhalb dieser Seite läuft: Er sendet Ihre Eingabe nie über das Netzwerk, und der Wert ist weg, sobald Sie das Feld leeren oder den Tab schließen. Das können Sie in den Entwicklerwerkzeugen des Browsers (Reiter „Netzwerk“) beim Tippen überprüfen. Wenn Ihnen das lieber ist, testen Sie ein Passwort, das *demselben Muster* folgt wie Ihr echtes. Einzige Ausnahme ist die optionale Leak-Prüfung, und nur wenn Sie ihre Schaltfläche anklicken: Sie sendet 5 Zeichen des SHA-1-Hashes, nie das Passwort (siehe nächste Frage)."
+  - q: "Wie funktioniert die Leak-Prüfung, ohne mein Passwort preiszugeben?"
+    a: "Sie nutzt das k-Anonymitätsverfahren des Dienstes Pwned Passwords von Have I Been Pwned. PassFort berechnet im Browser den SHA-1-Hash des Passworts und sendet nur dessen erste 5 Hexadezimalzeichen an `api.pwnedpasswords.com`. Der Dienst antwortet mit den rund 1.000 Hash-Enden, die dieses Präfix teilen, samt Anzahl der Leaks, und PassFort sucht den Treffer lokal. Die Anfrage verlangt außerdem Auffüllung (`Add-Padding: true`), damit jede Antwort unabhängig vom Ergebnis ähnlich groß ist. Der Dienst sieht weder das Passwort noch den vollständigen Hash; er sieht wie bei jeder Webanfrage Ihre IP-Adresse. Die Prüfung läuft nur, wenn Sie die Schaltfläche anklicken."
   - q: "Wie viele Bit Entropie braucht ein sicheres Passwort?"
     a: "Für Konten, die mit einem langsamen, gesalzenen Hash geschützt sind, halten 60–70 Bit *zufälliger* Entropie einem Offline-Brute-Force-Angriff sehr lange stand. Für das Master-Passwort des Passwortmanagers oder die Festplattenverschlüsselung sollten es 80–100 Bit sein. Ein zufälliges 16-Zeichen-Passwort aus allen vier Gruppen bringt etwa 103 Bit, eine PassFort-Passphrase mit 7 Wörtern etwa 72 Bit."
   - q: "Passphrase oder Zufallspasswort – was ist besser?"
@@ -67,6 +70,10 @@ Der Auditor schätzt die Größe des „Alphabets“, aus dem Ihr Passwort stamm
 Die Knackzeit ist die Zeit, um alle 2^Entropie Kombinationen bei **10¹⁰ Versuchen pro Sekunde** durchzuprobieren, angezeigt in verständlichen Einheiten bis „Jahrhunderte“. Die Anzeige ist bei 100 Bit voll und wechselt bei 25, 50 und 75 Bit von Rot zu Orange, Gelb und Grün. Darunter stehen acht Prüfungen: mindestens 8 und 12 Zeichen, jede Zeichenklasse, kein gängiges Anfangsmuster und mindestens 60 Bit.
 
 Das ist das klassische Brute-Force-Modell. Es ist genau für Zufallspasswörter wie die des Generators und **zu optimistisch für Passwörter, die Menschen sich ausdenken**, weil es Wörterbuchwörter, Namen oder Daten nicht erkennt.
+
+### Die optionale Leak-Prüfung
+
+Ein Passwort kann hohe Entropie haben und trotzdem wertlos sein, weil es geleakt wurde: Angreifer probieren geleakte Passwörter zuerst. **Check against known breaches** fragt bei Have I Been Pwned an, ob genau dieses Passwort in dessen Liste von Passwörtern aus echten Datenlecks steht – per k-Anonymität: Nur die ersten 5 der 40 Hexadezimalzeichen des SHA-1-Hashes verlassen die Seite (`5BAA6` für `password`), der Abgleich mit den zurückgegebenen Suffixen geschieht im Browser, und die Antworten sind aufgefüllt, damit ihre Größe nichts verrät. Die Prüfung ist aus, bis Sie die Schaltfläche anklicken, und ein neu eingegebenes Passwort löscht das vorige Ergebnis.
 
 ## Anwendungsfälle
 

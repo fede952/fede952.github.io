@@ -2,7 +2,7 @@
 title: "Política de Privacidade"
 description: "Como o federicosella.com trata seus dados: ferramentas que processam tudo localmente no navegador sem uploads, estatísticas sem cookies, anúncios com consentimento e links de afiliado sinalizados."
 date: 2026-07-04
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 hidemeta: true
 showToc: true
 ---
@@ -32,6 +32,8 @@ Todas as ferramentas interativas do site (gerador e verificador de senhas, limpa
 - são descartados quando você fecha ou recarrega a página, a menos que você mesmo salve o resultado.
 
 **Uma exceção, intencional:** o **NetGuard** mostra seu endereço IP público e sua localização aproximada. Para isso, seu navegador envia uma requisição ao serviço de consulta de IP [ipwho.is](https://ipwho.is/). Como qualquer requisição web, ela revela a esse serviço seu endereço IP (e o user-agent do navegador). Nada mais é enviado, e a requisição só é feita quando você clica em Scan no NetGuard.
+
+**Uma segunda exceção, opcional:** o auditor do **PassFort** pode verificar se uma senha aparece em vazamentos de dados conhecidos. Isso só acontece quando você clica em **Check against known breaches**. O navegador calcula então o hash SHA-1 da senha e envia só os 5 primeiros caracteres ao serviço Pwned Passwords do Have I Been Pwned em [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-anonimato); a senha e o resto do hash nunca são enviados, e a comparação acontece no seu dispositivo. Como qualquer requisição web, ela revela a esse serviço seu endereço IP e o user-agent do navegador.
 
 Algumas ferramentas também oferecem links para serviços externos (por exemplo "verificar esta URL no VirusTotal" no Link Hazmat, ou os botões de compartilhar). São links comuns: nada é enviado até você clicar.
 

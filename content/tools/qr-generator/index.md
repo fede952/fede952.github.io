@@ -1,19 +1,20 @@
 ---
 title: "Free QR Code Generator (No Sign-up, PNG)"
 description: "Create QR codes for links or text, pick colours and error correction, download a print-ready PNG. Static codes that never expire, made in your browser."
-intro: "Type a link or any text and get a **static QR code** you can download as a sharp, print-ready PNG. The code is generated in your browser, contains your data directly and never expires."
+intro: "Type a link or any text and get a **static QR code** you can download as a sharp, print-ready PNG. The code is generated in your browser, contains your data directly and never expires. The **Wi-Fi** and **Contact** modes build codes that join a network or save a contact card in one scan."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
 keywords: ["qr code generator", "free qr code generator", "create qr code", "qr code for link", "qr code png", "qr code generator no sign up", "static qr code", "qr code that never expires"]
 tags: ["qr-code", "utilities", "tool"]
 app_category: "UtilitiesApplication"
 tool_file: "/tools/qr-generator/"
 tool_title: "QuickLinker QR code generator"
-tool_height: 760
+tool_height: 900
 tool_sandbox: "allow-scripts allow-same-origin allow-downloads"
 howto:
   - "Paste a URL (including `https://`) or type any text into the input box. Accented letters, emoji and non-Latin scripts work too."
+  - "For a network, open **Wi-Fi** and enter the network name, password and security; for a business card, open **Contact** and fill in the fields you want. The exact text that will be encoded appears under **Encoded text**."
   - "Optionally pick a **Foreground** and **Background** colour. Keep the foreground clearly darker than the background, or many phone cameras will not read it."
   - "Choose the **Error Correction** level: **M (15%)** is the default; use **Q** or **H** if the code will be printed small, outdoors, or with a logo on top."
   - "Press **Generate QR** and check the preview by pointing your phone's camera at the screen."
@@ -33,6 +34,10 @@ faq:
     a: "Scanners look for dark modules on a light background with enough contrast. Light-on-dark (inverted) colours, low-contrast pairs such as yellow on white, or a background image behind the code are the usual causes. Black or a dark colour on white is the safest choice."
   - q: "Is the data I type sent anywhere?"
     a: "No. The QR code is computed by a JavaScript library running in this page and drawn onto a canvas. Nothing is uploaded, which matters if you are encoding a Wi-Fi password, an internal URL or a private note."
+  - q: "How does a Wi-Fi QR code work?"
+    a: "It contains a short text in the `WIFI:` format that Android and iPhone cameras understand, for example `WIFI:T:WPA;S:Home;P:secret;;`. Scanning it offers to join the network without typing the password. Special characters in the name or password (`\\ ; , : \"`) are escaped with a backslash, as the format requires, so a password such as `p;ss:word` still works. The password is readable by anyone who scans the code, so only print it where guests are welcome."
+  - q: "Which contact format is used, and what can it hold?"
+    a: "A vCard 3.0, the version phone cameras import most reliably: name, organisation, job title, mobile phone, email, website, address and a note. Empty fields are left out to keep the code small. Commas, semicolons and line breaks are escaped as the vCard standard requires. A full card makes a dense code, so leave out what you do not need and keep the error correction at L or M."
 ---
 
 ## How it works
@@ -53,6 +58,10 @@ The tool uses the open-source **qrcode-generator** library by Kazuhiko Arase (v1
 | A paragraph of text | 500 characters | 17 | 85 × 85 |
 
 The fewer modules, the larger each one is when printed and the easier the code is to scan from a distance, which is why removing tracking parameters from a URL often matters more than the error-correction level.
+
+### Wi-Fi and contact codes
+
+In **Wi-Fi** mode the tool writes `WIFI:T:<WPA|WEP|nopass>;S:<network>;P:<password>;H:true;;` (the `H` field only for hidden networks); `WPA` covers WPA, WPA2 and WPA3 Personal, because the phone negotiates the exact version. In **Contact** mode it writes a vCard 3.0 with CRLF line endings. Both payloads are tested by decoding the downloaded PNG and comparing the result character by character, including names and passwords full of `; , : " \`.
 
 ## Use cases
 

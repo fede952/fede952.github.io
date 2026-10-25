@@ -1,19 +1,20 @@
 ---
 title: "Gerador de QR Code Grátis (PNG)"
 description: "Crie QR codes para links ou texto, escolha cores e correção de erros e baixe um PNG pronto para impressão. Códigos estáticos que nunca expiram."
-intro: "Digite um link ou qualquer texto e receba um **QR code estático** para baixar como PNG nítido e pronto para impressão. O código é gerado no seu navegador, contém seus dados diretamente e nunca expira."
+intro: "Digite um link ou qualquer texto e receba um **QR code estático** para baixar como PNG nítido e pronto para impressão. O código é gerado no seu navegador, contém seus dados diretamente e nunca expira. Os modos **Wi-Fi** e **Contato** criam códigos que, com uma só leitura, conectam a uma rede ou salvam um cartão de contato."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
 keywords: ["gerador de qr code", "criar qr code grátis", "qr code grátis", "qr code para link", "qr code png", "qr code sem cadastro", "qr code estático", "qr code que não expira"]
 tags: ["qr-code", "utilitários", "ferramenta"]
 app_category: "UtilitiesApplication"
 tool_file: "/tools/qr-generator/"
 tool_title: "QuickLinker, gerador de QR code"
-tool_height: 760
+tool_height: 900
 tool_sandbox: "allow-scripts allow-same-origin allow-downloads"
 howto:
   - "Cole uma URL (com `https://`) ou digite qualquer texto na caixa. Acentos, emoji e alfabetos não latinos também funcionam."
+  - "Para uma rede, abra **Wi-Fi** e digite o nome, a senha e a segurança; para um cartão de visita, abra **Contato** e preencha os campos que quiser. O texto exato que será codificado aparece em **Texto codificado**."
   - "Se quiser, escolha uma cor de **Primeiro Plano** e de **Fundo**. Mantenha o primeiro plano bem mais escuro que o fundo, senão muitas câmeras de celular não vão ler."
   - "Escolha o nível de **Correção de Erro**: **M (15%)** é o padrão; use **Q** ou **H** se o código for impresso pequeno, ao ar livre ou com um logotipo por cima."
   - "Clique em **Gerar QR** e confira a pré-visualização apontando a câmera do celular para a tela."
@@ -33,6 +34,10 @@ faq:
     a: "Os leitores procuram módulos escuros sobre fundo claro com contraste suficiente. Cores invertidas (claro sobre escuro), combinações com pouco contraste como amarelo sobre branco ou uma imagem atrás do código são as causas mais comuns. Preto ou uma cor escura sobre branco é a escolha mais segura."
   - q: "O que eu digito é enviado para algum lugar?"
     a: "Não. O QR code é calculado por uma biblioteca JavaScript que roda nesta página e desenhado em um canvas. Nada é enviado, o que importa se você estiver codificando uma senha de Wi-Fi, uma URL interna ou uma anotação particular."
+  - q: "Como funciona um QR code de Wi-Fi?"
+    a: "Ele contém um texto curto no formato `WIFI:` que as câmeras do Android e do iPhone entendem, por exemplo `WIFI:T:WPA;S:Casa;P:segredo;;`. Ao escanear, o celular oferece entrar na rede sem digitar a senha. Caracteres especiais no nome ou na senha (`\\ ; , : \"`) recebem uma barra invertida, como o formato exige, então uma senha como `p;ss:word` também funciona. Qualquer pessoa que escanear o código consegue ler a senha: imprima-o só onde os convidados forem bem-vindos."
+  - q: "Que formato é usado para contatos e o que ele pode conter?"
+    a: "Um vCard 3.0, a versão que as câmeras dos celulares importam com mais confiabilidade: nome, organização, cargo, celular, e-mail, site, endereço e uma observação. Campos vazios ficam de fora para manter o código pequeno. Vírgulas, ponto e vírgula e quebras de linha são escapados como o padrão vCard exige. Um cartão completo gera um código denso: deixe de fora o que não precisa e mantenha a correção de erros em L ou M."
 ---
 
 ## Como funciona
@@ -53,6 +58,10 @@ A ferramenta usa a biblioteca de código aberto **qrcode-generator**, de Kazuhik
 | Um parágrafo de texto | 500 caracteres | 17 | 85 × 85 |
 
 Quanto menos módulos, maior fica cada um na impressão e mais fácil é ler o código à distância; por isso tirar os parâmetros de rastreamento de uma URL costuma fazer mais diferença do que o nível de correção.
+
+### Códigos de Wi-Fi e de contato
+
+No modo **Wi-Fi**, a ferramenta escreve `WIFI:T:<WPA|WEP|nopass>;S:<rede>;P:<senha>;H:true;;` (o campo `H` só para redes ocultas); `WPA` cobre WPA, WPA2 e WPA3 Personal, porque o celular negocia a versão exata. No modo **Contato**, escreve um vCard 3.0 com quebras de linha CRLF. Os dois formatos são testados decodificando o PNG baixado e comparando o resultado caractere por caractere, inclusive com nomes e senhas cheios de `; , : " \`.
 
 ## Casos de uso
 

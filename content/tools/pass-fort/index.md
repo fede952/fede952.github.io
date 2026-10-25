@@ -1,9 +1,9 @@
 ---
 title: "Password Strength Checker & Generator"
 description: "Test how strong a password is (entropy in bits, brute-force crack time) and generate random passwords or passphrases. Runs entirely in your browser."
-intro: "**PassFort** generates random passwords and passphrases with your browser's cryptographic random number generator, and audits any password's entropy and brute-force crack time. Nothing you type ever leaves this page."
+intro: "**PassFort** generates random passwords and passphrases with your browser's cryptographic random number generator, and audits any password's entropy and brute-force crack time. Nothing you type ever leaves this page. The optional breach check sends only 5 characters of the password's hash, and only when you ask for it."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
 keywords: ["password strength checker", "password generator", "passphrase generator", "password entropy calculator", "how long to crack my password", "strong password generator", "random password", "password tester"]
 tags: ["security", "passwords", "privacy", "tool"]
@@ -19,9 +19,12 @@ howto:
   - "Press **Generate Password** until you like the result, then the clipboard button copies it. Paste it straight into your password manager."
   - "To check a password you already use, switch to the **Auditor** tab and type or paste it. The eye button toggles visibility."
   - "Read the entropy meter, the estimated crack time and the checklist. Anything red is worth fixing before you reuse that password."
+  - "Optionally, press **Check against known breaches** to see whether that exact password has appeared in a data breach. Nothing is sent until you press it."
 faq:
   - q: "Is it safe to type my real password into this checker?"
-    a: "Yes. The auditor is plain JavaScript running inside this page. It never makes a network request with what you type, and the value is gone as soon as you clear the field or close the tab. You can confirm it in your browser's developer tools (Network tab) while you type. If you prefer, test a password that *follows the same pattern* as your real one."
+    a: "Yes. The auditor is plain JavaScript running inside this page. It never makes a network request with what you type, and the value is gone as soon as you clear the field or close the tab. You can confirm it in your browser's developer tools (Network tab) while you type. If you prefer, test a password that *follows the same pattern* as your real one. The only exception is the optional breach check, and only when you press its button: it sends 5 characters of the password's SHA-1 hash, never the password (see the next question)."
+  - q: "How does the breach check work without revealing my password?"
+    a: "It uses the k-anonymity model of Have I Been Pwned's Pwned Passwords service. PassFort computes the SHA-1 hash of the password in your browser and sends only its first 5 hexadecimal characters to `api.pwnedpasswords.com`. The service replies with the roughly 1,000 hash endings that share that prefix, with their breach counts, and PassFort looks for a match locally. The request also asks for padding (`Add-Padding: true`), so every reply has a similar size whatever the result. The service never sees the password or its full hash; it does see your IP address, as with any web request. The check runs only when you press the button."
   - q: "How many bits of entropy does a strong password need?"
     a: "For accounts protected by a slow, salted hash, 60–70 bits of *random* entropy resists offline brute force for a very long time. For a password manager's master password or disk encryption, aim for 80–100 bits. A 16-character random password from all four character sets gives about 103 bits; a 7-word PassFort passphrase about 72 bits."
   - q: "Passphrase or random password: which is better?"
@@ -67,6 +70,10 @@ The auditor estimates the size of the "alphabet" your password draws from: 26 if
 Crack time is the time needed to try all 2^entropy combinations at **10¹⁰ guesses per second**, shown in human units up to "centuries". The meter fills at 100 bits and turns from red to orange, yellow and green at 25, 50 and 75 bits. Below it, eight checks are listed: at least 8 and 12 characters, each character class, no common starting pattern, and at least 60 bits.
 
 This is the standard "brute-force" model. It is accurate for random passwords like the ones the generator makes, and **optimistic for passwords people invent**, because it cannot see dictionary words, names or dates.
+
+### The optional breach check
+
+A password can have high entropy and still be useless because it was leaked: attackers try breached passwords first. **Check against known breaches** asks Have I Been Pwned whether the exact password is in its list of passwords from real breaches, using k-anonymity: only the first 5 of the 40 hexadecimal characters of its SHA-1 hash leave the page (`5BAA6` for `password`), the comparison with the returned suffixes happens in your browser, and responses are padded so their size gives nothing away. It is off until you press the button, and typing a new password clears the previous result.
 
 ## Use cases
 

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/images-to-pdf/">
+<title>Images to PDF (JPG, PNG, WebP)</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style id="tile-css"></style>
+<style>
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--s-3); }
+.count { color: var(--text-2); font-size: var(--fs-sm); margin: 0; }
+.tile img { transition: transform .15s; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5h7l4 4V17a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 17V5A1.5 1.5 0 0 1 8 3.5z"/><path d="M15 3.5V7.5h4"/><path d="M3.5 7v12A1.5 1.5 0 0 0 5 20.5h9.5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Images to PDF</h1>
+      <p class="tb-sub" data-i18n="subtitle">JPG, PNG, WebP to one PDF — on this device, no upload</p>
+    </div>
+  </header>
+
+  <label class="tb-drop" id="drop" tabindex="0">
+    <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 15.5l-4.5-4.5L6.5 19.5"/></svg>
+    <strong data-i18n="drop">Drop images here, or click to choose</strong>
+    <span class="tb-hint" data-i18n="dropHint">JPG, PNG, WebP or GIF. Each image becomes one page.</span>
+    <input type="file" id="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden>
+  </label>
+
+  <p class="tb-note" id="status" role="status" hidden></p>
+
+  <section class="tb-panel" id="pages-panel" hidden aria-labelledby="pages-title">
+    <div class="tb-row" style="justify-content:space-between">
+      <h2 class="tb-panel-title" id="pages-title" data-i18n="pages">Pages</h2>
+      <p class="count" id="count"></p>
+    </div>
+    <p class="tb-hint" data-i18n="pagesHint">Drag an image to change the order, or use ← and →. ⟳ rotates, ✕ removes it.</p>
+    <ul class="tiles" id="tiles"></ul>
+  </section>
+
+  <section class="tb-panel" id="opts-panel" hidden aria-labelledby="opts-title">
+    <h2 class="tb-panel-title" id="opts-title" data-i18n="options">PDF options</h2>
+    <div class="opts">
+      <label class="tb-field"><span class="tb-label" data-i18n="size">Page size</span>
+        <select id="size" class="tb-select"><option value="a4" data-i18n="sizeA4">A4</option><option value="letter" data-i18n="sizeLetter">US Letter</option><option value="fit" data-i18n="sizeFit">Same as the image</option></select></label>
+      <label class="tb-field"><span class="tb-label" data-i18n="orient">Orientation</span>
+        <select id="orient" class="tb-select"><option value="auto" data-i18n="orAuto">Automatic (per image)</option><option value="portrait" data-i18n="orPortrait">Portrait</option><option value="landscape" data-i18n="orLandscape">Landscape</option></select></label>
+      <label class="tb-field"><span class="tb-label" data-i18n="margin">Margin</span>
+        <select id="margin" class="tb-select"><option value="0" data-i18n="mNone">None</option><option value="28.35" selected data-i18n="mSmall">Small (1 cm)</option><option value="56.7" data-i18n="mLarge">Large (2 cm)</option></select></label>
+      <label class="tb-field"><span class="tb-label" data-i18n="fileName">File name</span><input id="name" class="tb-input" value="images.pdf"></label>
+    </div>
+    <div class="tb-row"><button type="button" class="tb-btn" id="make" data-i18n="make">Create PDF & download</button></div>
+    <p class="tb-hint" data-i18n="metaNote">Images are redrawn before they go into the PDF, so their EXIF data and GPS location are not included.</p>
+  </section>
+</main>
+
+<script type="module">
+import { pdfLib, sortableGrid, TILE_CSS } from '/js/tools/pdf-kit.mjs';
+document.getElementById('tile-css').textContent = TILE_CSS;
+
+TK.init({
+  en: { title: 'Images to PDF', subtitle: 'JPG, PNG, WebP to one PDF — on this device, no upload', drop: 'Drop images here, or click to choose', dropHint: 'JPG, PNG, WebP or GIF. Each image becomes one page.',
+    pages: 'Pages', pagesHint: 'Drag an image to change the order, or use ← and →. ⟳ rotates, ✕ removes it.', count: '{n} images', options: 'PDF options', size: 'Page size', sizeA4: 'A4', sizeLetter: 'US Letter', sizeFit: 'Same as the image',
+    orient: 'Orientation', orAuto: 'Automatic (per image)', orPortrait: 'Portrait', orLandscape: 'Landscape', margin: 'Margin', mNone: 'None', mSmall: 'Small (1 cm)', mLarge: 'Large (2 cm)', fileName: 'File name',
+    make: 'Create PDF & download', metaNote: 'Images are redrawn before they go into the PDF, so their EXIF data and GPS location are not included.',
+    left: 'Move left', right: 'Move right', remove: 'Remove image', rotate: 'Rotate 90°', building: 'Building the PDF ({i} of {n})…', done: 'Done: {name}', notImage: '{name} is not an image this browser can read.', empty: 'Add at least one image.', copied: 'Copied' },
+  it: { title: 'Da immagini a PDF', subtitle: 'JPG, PNG, WebP in un unico PDF — su questo dispositivo, senza upload', drop: 'Trascina qui le immagini o fai clic per sceglierle', dropHint: 'JPG, PNG, WebP o GIF. Ogni immagine diventa una pagina.',
+    pages: 'Pagine', pagesHint: 'Trascina un\'immagine per cambiare l\'ordine, oppure usa ← e →. ⟳ la ruota, ✕ la rimuove.', count: '{n} immagini', options: 'Opzioni PDF', size: 'Formato pagina', sizeA4: 'A4', sizeLetter: 'US Letter', sizeFit: 'Come l\'immagine',
+    orient: 'Orientamento', orAuto: 'Automatico (per immagine)', orPortrait: 'Verticale', orLandscape: 'Orizzontale', margin: 'Margine', mNone: 'Nessuno', mSmall: 'Piccolo (1 cm)', mLarge: 'Grande (2 cm)', fileName: 'Nome del file',
+    make: 'Crea il PDF e scarica', metaNote: 'Le immagini vengono ridisegnate prima di entrare nel PDF, quindi i dati EXIF e la posizione GPS non vengono inclusi.',
+    left: 'Sposta a sinistra', right: 'Sposta a destra', remove: 'Rimuovi immagine', rotate: 'Ruota di 90°', building: 'Creazione del PDF ({i} di {n})…', done: 'Fatto: {name}', notImage: '{name} non è un\'immagine leggibile da questo browser.', empty: 'Aggiungi almeno un\'immagine.', copied: 'Copiato' },
+  es: { title: 'Imágenes a PDF', subtitle: 'JPG, PNG, WebP en un solo PDF — en este dispositivo, sin subidas', drop: 'Suelta aquí las imágenes o haz clic para elegirlas', dropHint: 'JPG, PNG, WebP o GIF. Cada imagen se convierte en una página.',
+    pages: 'Páginas', pagesHint: 'Arrastra una imagen para cambiar el orden o usa ← y →. ⟳ la gira, ✕ la quita.', count: '{n} imágenes', options: 'Opciones del PDF', size: 'Tamaño de página', sizeA4: 'A4', sizeLetter: 'Carta (US Letter)', sizeFit: 'Igual que la imagen',
+    orient: 'Orientación', orAuto: 'Automática (por imagen)', orPortrait: 'Vertical', orLandscape: 'Horizontal', margin: 'Margen', mNone: 'Ninguno', mSmall: 'Pequeño (1 cm)', mLarge: 'Grande (2 cm)', fileName: 'Nombre del archivo',
+    make: 'Crear PDF y descargar', metaNote: 'Las imágenes se redibujan antes de entrar en el PDF, así que sus datos EXIF y su ubicación GPS no se incluyen.',
+    left: 'Mover a la izquierda', right: 'Mover a la derecha', remove: 'Quitar imagen', rotate: 'Girar 90°', building: 'Creando el PDF ({i} de {n})…', done: 'Listo: {name}', notImage: '{name} no es una imagen que este navegador pueda leer.', empty: 'Añade al menos una imagen.', copied: 'Copiado' },
+  de: { title: 'Bilder in PDF', subtitle: 'JPG, PNG, WebP in ein PDF — auf diesem Gerät, ohne Upload', drop: 'Bilder hier ablegen oder zum Auswählen klicken', dropHint: 'JPG, PNG, WebP oder GIF. Jedes Bild wird eine Seite.',
+    pages: 'Seiten', pagesHint: 'Bild ziehen, um die Reihenfolge zu ändern, oder ← und → verwenden. ⟳ dreht, ✕ entfernt es.', count: '{n} Bilder', options: 'PDF-Optionen', size: 'Seitengröße', sizeA4: 'A4', sizeLetter: 'US Letter', sizeFit: 'Wie das Bild',
+    orient: 'Ausrichtung', orAuto: 'Automatisch (je Bild)', orPortrait: 'Hochformat', orLandscape: 'Querformat', margin: 'Rand', mNone: 'Keiner', mSmall: 'Schmal (1 cm)', mLarge: 'Breit (2 cm)', fileName: 'Dateiname',
+    make: 'PDF erstellen und herunterladen', metaNote: 'Die Bilder werden neu gezeichnet, bevor sie ins PDF kommen; EXIF-Daten und GPS-Standort sind daher nicht enthalten.',
+    left: 'Nach links', right: 'Nach rechts', remove: 'Bild entfernen', rotate: 'Um 90° drehen', building: 'PDF wird erstellt ({i} von {n}) …', done: 'Fertig: {name}', notImage: '{name} ist kein Bild, das dieser Browser lesen kann.', empty: 'Fügen Sie mindestens ein Bild hinzu.', copied: 'Kopiert' },
+  fr: { title: 'Images en PDF', subtitle: 'JPG, PNG, WebP en un seul PDF — sur cet appareil, sans envoi', drop: 'Déposez vos images ici ou cliquez pour les choisir', dropHint: 'JPG, PNG, WebP ou GIF. Chaque image devient une page.',
+    pages: 'Pages', pagesHint: 'Faites glisser une image pour changer l\'ordre, ou utilisez ← et →. ⟳ la fait pivoter, ✕ la retire.', count: '{n} images', options: 'Options du PDF', size: 'Format de page', sizeA4: 'A4', sizeLetter: 'Lettre US', sizeFit: 'Comme l\'image',
+    orient: 'Orientation', orAuto: 'Automatique (par image)', orPortrait: 'Portrait', orLandscape: 'Paysage', margin: 'Marge', mNone: 'Aucune', mSmall: 'Petite (1 cm)', mLarge: 'Grande (2 cm)', fileName: 'Nom du fichier',
+    make: 'Créer le PDF et télécharger', metaNote: 'Les images sont redessinées avant d\'entrer dans le PDF : leurs données EXIF et leur position GPS ne sont donc pas incluses.',
+    left: 'Déplacer à gauche', right: 'Déplacer à droite', remove: 'Retirer l\'image', rotate: 'Pivoter de 90°', building: 'Création du PDF ({i} sur {n})…', done: 'Terminé : {name}', notImage: '{name} n\'est pas une image lisible par ce navigateur.', empty: 'Ajoutez au moins une image.', copied: 'Copié' },
+  pt: { title: 'Imagens para PDF', subtitle: 'JPG, PNG, WebP num único PDF — neste dispositivo, sem upload', drop: 'Solte as imagens aqui ou clique para escolher', dropHint: 'JPG, PNG, WebP ou GIF. Cada imagem vira uma página.',
+    pages: 'Páginas', pagesHint: 'Arraste uma imagem para mudar a ordem ou use ← e →. ⟳ gira, ✕ remove.', count: '{n} imagens', options: 'Opções do PDF', size: 'Tamanho da página', sizeA4: 'A4', sizeLetter: 'Carta (US Letter)', sizeFit: 'Igual à imagem',
+    orient: 'Orientação', orAuto: 'Automática (por imagem)', orPortrait: 'Retrato', orLandscape: 'Paisagem', margin: 'Margem', mNone: 'Nenhuma', mSmall: 'Pequena (1 cm)', mLarge: 'Grande (2 cm)', fileName: 'Nome do arquivo',
+    make: 'Criar PDF e baixar', metaNote: 'As imagens são redesenhadas antes de entrar no PDF, então os dados EXIF e a localização GPS não são incluídos.',
+    left: 'Mover para a esquerda', right: 'Mover para a direita', remove: 'Remover imagem', rotate: 'Girar 90°', building: 'Gerando o PDF ({i} de {n})…', done: 'Pronto: {name}', notImage: '{name} não é uma imagem que este navegador consiga ler.', empty: 'Adicione pelo menos uma imagem.', copied: 'Copiado' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t;
+const items = []; // { file, bitmap, rotate, el, alpha }
+const status = (msg, kind) => { $('status').hidden = !msg; $('status').textContent = msg || ''; $('status').className = 'tb-note' + (kind ? ' tb-note--' + kind : ''); };
+const SIZES = { a4: [595.28, 841.89], letter: [612, 792] };
+
+const grid = sortableGrid($('tiles'), items, {
+  labels: { left: t('left'), right: t('right'), remove: t('remove'), rotate: t('rotate') },
+  onRotate: (it) => { it.rotate = (it.rotate + 90) % 360; it.el.querySelector('img').style.transform = `rotate(${it.rotate}deg)`; },
+  onChange: refresh,
+});
+function refresh() { $('pages-panel').hidden = $('opts-panel').hidden = !items.length; $('count').textContent = t('count', { n: items.length }); }
+
+async function addFiles(list) {
+  for (const file of [...list]) {
+    let bitmap;
+    // imageOrientation: 'from-image' applies the EXIF rotation of phone photos
+    try { bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+    catch (e) { status(t('notImage', { name: file.name }), 'bad'); continue; }
+    const el = document.createElement('div');
+    el.style.display = 'grid'; el.style.justifyItems = 'center'; el.style.gap = '4px';
+    const img = document.createElement('img');
+    img.alt = ''; img.src = URL.createObjectURL(file);
+    const cap = document.createElement('span'); cap.className = 'tile-cap'; cap.textContent = file.name;
+    el.append(img, cap);
+    items.push({ file, bitmap, rotate: 0, el, alpha: /png|webp|gif/.test(file.type) });
+  }
+  grid.render(); refresh();
+  window.__imgLoaded = items.length;
+}
+
+/** The image, rotated, as JPEG (photos) or PNG (formats that may have transparency). */
+async function encoded(it) {
+  const swap = it.rotate % 180 !== 0;
+  const w = swap ? it.bitmap.height : it.bitmap.width, h = swap ? it.bitmap.width : it.bitmap.height;
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  ctx.translate(w / 2, h / 2); ctx.rotate((it.rotate * Math.PI) / 180);
+  ctx.drawImage(it.bitmap, -it.bitmap.width / 2, -it.bitmap.height / 2);
+  const type = it.alpha ? 'image/png' : 'image/jpeg';
+  const blob = await new Promise((ok) => c.toBlob(ok, type, 0.92));
+  return { bytes: new Uint8Array(await blob.arrayBuffer()), png: it.alpha, w, h };
+}
+
+$('make').addEventListener('click', async () => {
+  if (!items.length) return status(t('empty'), 'bad');
+  const { PDFDocument } = await pdfLib();
+  const pdf = await PDFDocument.create();
+  const size = $('size').value, orient = $('orient').value, m = Number($('margin').value);
+  for (let i = 0; i < items.length; i++) {
+    status(t('building', { i: i + 1, n: items.length }));
+    const e = await encoded(items[i]);
+    const img = e.png ? await pdf.embedPng(e.bytes) : await pdf.embedJpg(e.bytes);
+    let pw, ph;
+    if (size === 'fit') { pw = Math.min(e.w * 0.75 + 2 * m, 14400); ph = Math.min(e.h * 0.75 + 2 * m, 14400); } // 96 dpi
+    else {
+      [pw, ph] = SIZES[size];
+      const landscape = orient === 'landscape' || (orient === 'auto' && e.w > e.h);
+      if (landscape) [pw, ph] = [ph, pw];
+    }
+    const scale = Math.min((pw - 2 * m) / e.w, (ph - 2 * m) / e.h);
+    const dw = e.w * scale, dh = e.h * scale;
+    pdf.addPage([pw, ph]).drawImage(img, { x: (pw - dw) / 2, y: (ph - dh) / 2, width: dw, height: dh });
+  }
+  let name = $('name').value.trim() || 'images.pdf';
+  if (!/\.pdf$/i.test(name)) name += '.pdf';
+  TK.download(new Blob([await pdf.save()], { type: 'application/pdf' }), name);
+  status(t('done', { name }), 'ok');
+});
+
+$('file').addEventListener('change', (e) => { addFiles(e.target.files); e.target.value = ''; });
+const drop = $('drop');
+drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('file').click(); } });
+['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
+['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
+drop.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

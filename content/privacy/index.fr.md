@@ -2,7 +2,7 @@
 title: "Politique de Confidentialité"
 description: "Comment federicosella.com traite vos données : outils 100 % locaux sans envoi, audience sans cookies, publicité avec consentement et liens d'affiliation signalés."
 date: 2026-07-04
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 hidemeta: true
 showToc: true
 ---
@@ -32,6 +32,8 @@ Chaque outil interactif du site (générateur et vérificateur de mots de passe,
 - sont supprimés lorsque vous fermez ou rechargez la page, sauf si vous enregistrez vous-même le résultat.
 
 **Une exception, voulue :** **NetGuard** vous montre votre adresse IP publique et sa localisation approximative. Pour cela, votre navigateur envoie une requête au service de recherche d'IP [ipwho.is](https://ipwho.is/). Comme toute requête web, elle révèle à ce service votre adresse IP (et le user-agent du navigateur). Rien d'autre n'est envoyé, et la requête n'est envoyée que lorsque vous cliquez sur Scan dans NetGuard.
+
+**Une seconde exception, facultative :** l'auditeur de **PassFort** peut vérifier si un mot de passe figure dans des fuites de données connues. Cela n'a lieu que lorsque vous cliquez sur **Check against known breaches**. Votre navigateur calcule alors le hash SHA-1 du mot de passe et n'envoie que ses 5 premiers caractères au service Pwned Passwords de Have I Been Pwned, à l'adresse [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-anonymat) ; le mot de passe et le reste du hash ne sont jamais envoyés, et la comparaison se fait sur votre appareil. Comme toute requête web, elle révèle à ce service votre adresse IP et le user-agent du navigateur.
 
 Certains outils proposent aussi des liens vers des services externes (par exemple « vérifier cette URL sur VirusTotal » dans Link Hazmat, ou les boutons de partage). Ce sont de simples liens : rien n'est envoyé tant que vous ne cliquez pas.
 

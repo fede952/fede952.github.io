@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/json-formatter/">
+<title>JSON Formatter & Validator</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.bar { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+.bar .tb-select { width: auto; min-width: 7rem; }
+.io { display: grid; gap: var(--s-3); }
+@media (min-width: 900px) { .io { grid-template-columns: 1fr 1fr; } }
+.tb-textarea { min-height: 300px; }
+#out { min-height: 300px; }
+.errline { margin: var(--s-2) 0 0; padding: var(--s-2) var(--s-3); overflow-x: auto; border-radius: var(--r-sm); background: var(--bg-raised); font-family: var(--font-mono); font-size: var(--fs-xs); white-space: pre; }
+.tree { min-height: 300px; max-height: 70vh; overflow: auto; padding: var(--s-3); border: 1px solid var(--border-input); border-radius: var(--r); background: var(--bg-raised); font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; }
+.tree details { padding-left: 1.1em; }
+.tree > details { padding-left: 0; }
+.tree summary { cursor: pointer; list-style: none; }
+.tree summary::-webkit-details-marker { display: none; }
+.tree summary::before { content: '▸'; display: inline-block; width: 1em; color: var(--text-3); }
+.tree details[open] > summary::before { content: '▾'; }
+.tree .leaf { padding-left: 2.1em; }
+.k { color: var(--accent-2); } .s { color: var(--success); } .n { color: var(--accent); } .b { color: var(--warn); } .z { color: var(--text-3); } .m { color: var(--text-3); }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5H7A2 2 0 0 0 5 5.5v4L3 12l2 2.5v4a2 2 0 0 0 2 2h1M16 3.5h1a2 2 0 0 1 2 2v4l2 2.5-2 2.5v4a2 2 0 0 1-2 2h-1"/><path d="M9.25 12.25l2 2 3.5-4"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">JSON Formatter & Validator</h1>
+      <p class="tb-sub" data-i18n="subtitle">Format, validate, sort, convert to YAML or CSV — in your browser</p>
+    </div>
+  </header>
+
+  <div class="tb-tabs" role="tablist" aria-label="Input">
+    <button class="tb-tab" role="tab" id="in-json" aria-selected="true" data-i18n="inJson">JSON input</button>
+    <button class="tb-tab" role="tab" id="in-yaml" aria-selected="false" data-i18n="inYaml">YAML input</button>
+  </div>
+
+  <div class="bar">
+    <button type="button" class="tb-btn tb-btn--sm" id="fmt" data-i18n="format">Format</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="min" data-i18n="minify">Minify</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="toyaml" data-i18n="toYaml">To YAML</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="tocsv" data-i18n="toCsv">To CSV</button>
+    <label class="tb-check"><span data-i18n="indent">Indent</span> <select id="indent" class="tb-select"><option value="2">2</option><option value="4">4</option><option value="tab">Tab</option></select></label>
+    <label class="tb-check"><input type="checkbox" id="sort"> <span data-i18n="sortKeys">Sort keys</span></label>
+    <label class="tb-check" id="delim-wrap"><span data-i18n="delim">CSV separator</span> <select id="delim" class="tb-select"><option value=",">,</option><option value=";">;</option><option value="tab">Tab</option></select></label>
+  </div>
+
+  <p class="tb-note" id="status" role="status" aria-live="polite"></p>
+
+  <div class="io">
+    <div class="tb-field">
+      <div class="tb-row" style="justify-content:space-between">
+        <label class="tb-label" for="in" data-i18n="input">Input</label>
+        <span class="tb-row">
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="sample" data-i18n="sample">Sample</button>
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="openf" data-i18n="open">Open file</button><input type="file" id="file" accept=".json,.yaml,.yml,.txt,application/json" hidden>
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="clear" data-i18n="clear">Clear</button>
+        </span>
+      </div>
+      <textarea id="in" class="tb-textarea" spellcheck="false" autocomplete="off" data-i18n-placeholder="placeholder"></textarea>
+      <div id="errbox" hidden><pre class="errline" id="errline"></pre></div>
+    </div>
+    <div class="tb-field">
+      <div class="tb-row" style="justify-content:space-between">
+        <div class="tb-tabs" role="tablist" aria-label="Output">
+          <button class="tb-tab" role="tab" id="v-text" aria-selected="true" data-i18n="viewText">Text</button>
+          <button class="tb-tab" role="tab" id="v-tree" aria-selected="false" data-i18n="viewTree">Tree</button>
+        </div>
+        <span class="tb-row">
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" data-copy="#out" data-i18n="copy">Copy</button>
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="save" data-i18n="download">Download</button>
+        </span>
+      </div>
+      <textarea id="out" class="tb-textarea" readonly spellcheck="false" aria-label="Output"></textarea>
+      <div id="tree" class="tree" hidden></div>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+import * as J from '/js/tools/json-kit.mjs';
+
+TK.init({
+  en: { title: 'JSON Formatter & Validator', subtitle: 'Format, validate, sort, convert to YAML or CSV — in your browser', inJson: 'JSON input', inYaml: 'YAML input',
+    format: 'Format', minify: 'Minify', toYaml: 'To YAML', toCsv: 'To CSV', indent: 'Indent', sortKeys: 'Sort keys', delim: 'CSV separator', input: 'Input', sample: 'Sample', open: 'Open file', clear: 'Clear',
+    placeholder: 'Paste JSON here…', viewText: 'Text', viewTree: 'Tree', copy: 'Copy', copied: 'Copied', download: 'Download',
+    valid: 'Valid JSON · {size} · {objects} objects, {arrays} arrays, {keys} keys, depth {depth}', validYaml: 'Valid YAML, converted to JSON · {size}', worker: 'Large input: processed in a background worker.',
+    errAt: 'Line {line}, column {column}: {what}', yamlErr: 'YAML error: {msg}', empty: 'Paste or open some JSON first.', more: '… {n} more',
+    'csv-shape': 'CSV needs an array of objects, an array of arrays, or one object.', csvDone: 'CSV: {rows} rows × {columns} columns.',
+    'c-value': 'expected a value (object, array, string, number, true, false or null)', 'c-single-quote': 'strings and keys need double quotes, not single quotes', 'c-key': 'expected a property name in double quotes',
+    'c-trailing-comma': 'trailing comma — remove the last comma', 'c-colon': 'expected ":" after the property name', 'c-comma-or-brace': 'expected "," or "}"', 'c-comma-or-bracket': 'expected "," or "]"',
+    'c-escape': 'invalid escape sequence in a string', 'c-control-char': 'raw control character (e.g. a tab or newline) inside a string — escape it', 'c-unterminated-string': 'the string is never closed', 'c-number': 'invalid number', 'c-end': 'unexpected text after the end of the JSON', 'c-unknown': 'invalid JSON' },
+  it: { title: 'Formattatore e validatore JSON', subtitle: 'Formatta, valida, ordina, converti in YAML o CSV — nel browser', inJson: 'Input JSON', inYaml: 'Input YAML',
+    format: 'Formatta', minify: 'Minimizza', toYaml: 'In YAML', toCsv: 'In CSV', indent: 'Rientro', sortKeys: 'Ordina chiavi', delim: 'Separatore CSV', input: 'Input', sample: 'Esempio', open: 'Apri file', clear: 'Svuota',
+    placeholder: 'Incolla qui il JSON…', viewText: 'Testo', viewTree: 'Albero', copy: 'Copia', copied: 'Copiato', download: 'Scarica',
+    valid: 'JSON valido · {size} · {objects} oggetti, {arrays} array, {keys} chiavi, profondità {depth}', validYaml: 'YAML valido, convertito in JSON · {size}', worker: 'Input grande: elaborato in un worker in background.',
+    errAt: 'Riga {line}, colonna {column}: {what}', yamlErr: 'Errore YAML: {msg}', empty: 'Prima incolla o apri del JSON.', more: '… altri {n}',
+    'csv-shape': 'Per il CSV serve un array di oggetti, un array di array o un singolo oggetto.', csvDone: 'CSV: {rows} righe × {columns} colonne.',
+    'c-value': 'atteso un valore (oggetto, array, stringa, numero, true, false o null)', 'c-single-quote': 'stringhe e chiavi vogliono le virgolette doppie, non gli apici', 'c-key': 'atteso un nome di proprietà tra virgolette doppie',
+    'c-trailing-comma': 'virgola finale — togli l\'ultima virgola', 'c-colon': 'atteso ":" dopo il nome della proprietà', 'c-comma-or-brace': 'atteso "," o "}"', 'c-comma-or-bracket': 'atteso "," o "]"',
+    'c-escape': 'sequenza di escape non valida in una stringa', 'c-control-char': 'carattere di controllo (es. tab o a capo) dentro una stringa — va scritto con escape', 'c-unterminated-string': 'la stringa non viene mai chiusa', 'c-number': 'numero non valido', 'c-end': 'testo inatteso dopo la fine del JSON', 'c-unknown': 'JSON non valido' },
+  es: { title: 'Formateador y validador JSON', subtitle: 'Formatea, valida, ordena, convierte a YAML o CSV — en tu navegador', inJson: 'Entrada JSON', inYaml: 'Entrada YAML',
+    format: 'Formatear', minify: 'Minificar', toYaml: 'A YAML', toCsv: 'A CSV', indent: 'Sangría', sortKeys: 'Ordenar claves', delim: 'Separador CSV', input: 'Entrada', sample: 'Ejemplo', open: 'Abrir archivo', clear: 'Vaciar',
+    placeholder: 'Pega aquí el JSON…', viewText: 'Texto', viewTree: 'Árbol', copy: 'Copiar', copied: 'Copiado', download: 'Descargar',
+    valid: 'JSON válido · {size} · {objects} objetos, {arrays} arrays, {keys} claves, profundidad {depth}', validYaml: 'YAML válido, convertido a JSON · {size}', worker: 'Entrada grande: procesada en un worker en segundo plano.',
+    errAt: 'Línea {line}, columna {column}: {what}', yamlErr: 'Error de YAML: {msg}', empty: 'Primero pega o abre algo de JSON.', more: '… {n} más',
+    'csv-shape': 'El CSV necesita un array de objetos, un array de arrays o un solo objeto.', csvDone: 'CSV: {rows} filas × {columns} columnas.',
+    'c-value': 'se esperaba un valor (objeto, array, cadena, número, true, false o null)', 'c-single-quote': 'las cadenas y las claves llevan comillas dobles, no simples', 'c-key': 'se esperaba un nombre de propiedad entre comillas dobles',
+    'c-trailing-comma': 'coma final — quita la última coma', 'c-colon': 'se esperaba ":" después del nombre de la propiedad', 'c-comma-or-brace': 'se esperaba "," o "}"', 'c-comma-or-bracket': 'se esperaba "," o "]"',
+    'c-escape': 'secuencia de escape no válida en una cadena', 'c-control-char': 'carácter de control (p. ej. tabulador o salto de línea) dentro de una cadena — escápalo', 'c-unterminated-string': 'la cadena nunca se cierra', 'c-number': 'número no válido', 'c-end': 'texto inesperado tras el final del JSON', 'c-unknown': 'JSON no válido' },
+  de: { title: 'JSON-Formatter und -Validator', subtitle: 'Formatieren, prüfen, sortieren, in YAML oder CSV umwandeln — im Browser', inJson: 'JSON-Eingabe', inYaml: 'YAML-Eingabe',
+    format: 'Formatieren', minify: 'Minimieren', toYaml: 'In YAML', toCsv: 'In CSV', indent: 'Einrückung', sortKeys: 'Schlüssel sortieren', delim: 'CSV-Trennzeichen', input: 'Eingabe', sample: 'Beispiel', open: 'Datei öffnen', clear: 'Leeren',
+    placeholder: 'JSON hier einfügen …', viewText: 'Text', viewTree: 'Baum', copy: 'Kopieren', copied: 'Kopiert', download: 'Herunterladen',
+    valid: 'Gültiges JSON · {size} · {objects} Objekte, {arrays} Arrays, {keys} Schlüssel, Tiefe {depth}', validYaml: 'Gültiges YAML, in JSON umgewandelt · {size}', worker: 'Große Eingabe: in einem Hintergrund-Worker verarbeitet.',
+    errAt: 'Zeile {line}, Spalte {column}: {what}', yamlErr: 'YAML-Fehler: {msg}', empty: 'Fügen Sie zuerst JSON ein oder öffnen Sie eine Datei.', more: '… {n} weitere',
+    'csv-shape': 'Für CSV braucht es ein Array aus Objekten, ein Array aus Arrays oder ein einzelnes Objekt.', csvDone: 'CSV: {rows} Zeilen × {columns} Spalten.',
+    'c-value': 'Wert erwartet (Objekt, Array, String, Zahl, true, false oder null)', 'c-single-quote': 'Strings und Schlüssel brauchen doppelte, keine einfachen Anführungszeichen', 'c-key': 'Eigenschaftsname in doppelten Anführungszeichen erwartet',
+    'c-trailing-comma': 'abschließendes Komma — das letzte Komma entfernen', 'c-colon': '":" nach dem Eigenschaftsnamen erwartet', 'c-comma-or-brace': '"," oder "}" erwartet', 'c-comma-or-bracket': '"," oder "]" erwartet',
+    'c-escape': 'ungültige Escape-Sequenz in einem String', 'c-control-char': 'Steuerzeichen (z. B. Tab oder Zeilenumbruch) in einem String — escapen', 'c-unterminated-string': 'der String wird nie geschlossen', 'c-number': 'ungültige Zahl', 'c-end': 'unerwarteter Text nach dem Ende des JSON', 'c-unknown': 'ungültiges JSON' },
+  fr: { title: 'Formateur et validateur JSON', subtitle: 'Formater, valider, trier, convertir en YAML ou CSV — dans votre navigateur', inJson: 'Entrée JSON', inYaml: 'Entrée YAML',
+    format: 'Formater', minify: 'Minifier', toYaml: 'En YAML', toCsv: 'En CSV', indent: 'Indentation', sortKeys: 'Trier les clés', delim: 'Séparateur CSV', input: 'Entrée', sample: 'Exemple', open: 'Ouvrir un fichier', clear: 'Vider',
+    placeholder: 'Collez le JSON ici…', viewText: 'Texte', viewTree: 'Arbre', copy: 'Copier', copied: 'Copié', download: 'Télécharger',
+    valid: 'JSON valide · {size} · {objects} objets, {arrays} tableaux, {keys} clés, profondeur {depth}', validYaml: 'YAML valide, converti en JSON · {size}', worker: 'Entrée volumineuse : traitée dans un worker en arrière-plan.',
+    errAt: 'Ligne {line}, colonne {column} : {what}', yamlErr: 'Erreur YAML : {msg}', empty: 'Collez ou ouvrez d\'abord du JSON.', more: '… {n} de plus',
+    'csv-shape': 'Le CSV demande un tableau d\'objets, un tableau de tableaux ou un seul objet.', csvDone: 'CSV : {rows} lignes × {columns} colonnes.',
+    'c-value': 'valeur attendue (objet, tableau, chaîne, nombre, true, false ou null)', 'c-single-quote': 'chaînes et clés demandent des guillemets doubles, pas des apostrophes', 'c-key': 'nom de propriété entre guillemets doubles attendu',
+    'c-trailing-comma': 'virgule finale — supprimez la dernière virgule', 'c-colon': '« : » attendu après le nom de la propriété', 'c-comma-or-brace': '« , » ou « } » attendu', 'c-comma-or-bracket': '« , » ou « ] » attendu',
+    'c-escape': 'séquence d\'échappement invalide dans une chaîne', 'c-control-char': 'caractère de contrôle (tabulation, retour à la ligne…) dans une chaîne — échappez-le', 'c-unterminated-string': 'la chaîne n\'est jamais fermée', 'c-number': 'nombre invalide', 'c-end': 'texte inattendu après la fin du JSON', 'c-unknown': 'JSON invalide' },
+  pt: { title: 'Formatador e validador de JSON', subtitle: 'Formate, valide, ordene, converta para YAML ou CSV — no navegador', inJson: 'Entrada JSON', inYaml: 'Entrada YAML',
+    format: 'Formatar', minify: 'Minificar', toYaml: 'Para YAML', toCsv: 'Para CSV', indent: 'Recuo', sortKeys: 'Ordenar chaves', delim: 'Separador CSV', input: 'Entrada', sample: 'Exemplo', open: 'Abrir arquivo', clear: 'Limpar',
+    placeholder: 'Cole o JSON aqui…', viewText: 'Texto', viewTree: 'Árvore', copy: 'Copiar', copied: 'Copiado', download: 'Baixar',
+    valid: 'JSON válido · {size} · {objects} objetos, {arrays} arrays, {keys} chaves, profundidade {depth}', validYaml: 'YAML válido, convertido para JSON · {size}', worker: 'Entrada grande: processada num worker em segundo plano.',
+    errAt: 'Linha {line}, coluna {column}: {what}', yamlErr: 'Erro de YAML: {msg}', empty: 'Cole ou abra algum JSON primeiro.', more: '… mais {n}',
+    'csv-shape': 'O CSV precisa de um array de objetos, um array de arrays ou um único objeto.', csvDone: 'CSV: {rows} linhas × {columns} colunas.',
+    'c-value': 'esperado um valor (objeto, array, string, número, true, false ou null)', 'c-single-quote': 'strings e chaves usam aspas duplas, não simples', 'c-key': 'esperado um nome de propriedade entre aspas duplas',
+    'c-trailing-comma': 'vírgula sobrando no final — remova a última vírgula', 'c-colon': 'esperado ":" depois do nome da propriedade', 'c-comma-or-brace': 'esperado "," ou "}"', 'c-comma-or-bracket': 'esperado "," ou "]"',
+    'c-escape': 'sequência de escape inválida numa string', 'c-control-char': 'caractere de controle (ex.: tab ou quebra de linha) dentro de uma string — use escape', 'c-unterminated-string': 'a string nunca é fechada', 'c-number': 'número inválido', 'c-end': 'texto inesperado depois do fim do JSON', 'c-unknown': 'JSON inválido' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+const BIG = 2 * 1024 * 1024; // above this, parse in a Web Worker
+let mode = 'json', lastName = 'formatted.json', lastValue = null, worker = null;
+const sizeStr = (b) => b >= 1048576 ? (b / 1048576).toFixed(2) + ' MB' : b >= 1024 ? (b / 1024).toFixed(1) + ' KB' : b + ' B';
+const indent = () => $('indent').value;
+const delim = () => ($('delim').value === 'tab' ? '\t' : $('delim').value);
+
+function status(msg, kind) { $('status').textContent = msg; $('status').className = 'tb-note' + (kind ? ' tb-note--' + kind : ''); }
+function showError(err) {
+  status(t('errAt', { line: err.line, column: err.column, what: t('c-' + err.code) }), 'bad');
+  const text = $('in').value, lines = text.split('\n'), line = lines[err.line - 1] || '';
+  const from = Math.max(0, err.column - 60);
+  $('errline').textContent = `${String(err.line).padStart(4)} | ${line.slice(from, from + 120)}\n     | ${' '.repeat(err.column - 1 - from)}^`;
+  $('errbox').hidden = false;
+  try { $('in').focus({ preventScroll: true }); $('in').setSelectionRange(err.index, Math.min(err.index + 1, text.length)); } catch (e) { /* */ }
+}
+function setOut(text, name) { $('out').value = text; lastName = name; $('errbox').hidden = true; if (!$('tree').hidden) renderTree(); }
+
+/** Parses the input (YAML when in YAML mode). Returns { value } or null after reporting the error. */
+async function parse() {
+  const text = $('in').value;
+  if (!text.trim()) { status(t('empty'), 'warn'); return null; }
+  if (mode === 'yaml') {
+    await yaml();
+    try { const value = window.jsyaml.load(text); status(t('validYaml', { size: sizeStr(J.utf8Length(text)) }), 'ok'); return { value }; }
+    catch (e) { status(t('yamlErr', { msg: e.message.split('\n')[0] }), 'bad'); return null; }
+  }
+  try {
+    const value = JSON.parse(text);
+    const s = J.stats(value);
+    status(t('valid', { size: sizeStr(J.utf8Length(text)), ...s }), 'ok');
+    return { value };
+  } catch (e) {
+    showError(J.locateError(text) || { code: 'unknown', line: 1, column: 1, index: 0 });
+    return null;
+  }
+}
+
+function viaWorker(op) {
+  worker ||= new Worker('/js/tools/json-worker.mjs', { type: 'module' });
+  return new Promise((ok) => { worker.onmessage = (e) => ok(e.data); worker.postMessage({ op, text: $('in').value, indent: indent(), sorted: $('sort').checked }); });
+}
+
+async function run(op) {
+  $('errbox').hidden = true;
+  if (mode === 'json' && J.utf8Length($('in').value) > BIG && (op === 'format' || op === 'minify')) {
+    status(t('worker'));
+    const r = await viaWorker(op);
+    if (!r.ok) return showError(r.error);
+    lastValue = null;
+    setOut(r.output, op === 'minify' ? 'minified.json' : 'formatted.json');
+    status(t('valid', { size: sizeStr(J.utf8Length($('in').value)), ...r.stats }) + ' · ' + t('worker'), 'ok');
+    return;
+  }
+  const p = await parse();
+  if (!p) return;
+  lastValue = p.value;
+  const sorted = $('sort').checked;
+  if (op === 'format') setOut(J.format(p.value, indent(), sorted), 'formatted.json');
+  else if (op === 'minify') setOut(J.minify(p.value, sorted), 'minified.json');
+  else if (op === 'yaml') { await yaml(); setOut(window.jsyaml.dump(sorted ? J.sortKeys(p.value) : p.value, { indent: indent() === '4' ? 4 : 2, lineWidth: -1, noRefs: true }), 'converted.yaml'); }
+  else if (op === 'csv') {
+    const r = J.toCsv(p.value, delim());
+    if (r.error) return status(t(r.error), 'bad');
+    setOut(r.csv, 'converted.csv');
+    if (r.rows) status(t('csvDone', r), 'ok');
+  }
+}
+
+let yamlP = null;
+function yaml() {
+  return (yamlP ||= new Promise((ok, fail) => { const s = document.createElement('script'); s.src = '/vendor/js-yaml@4.1.0/js-yaml.min.js'; s.onload = ok; s.onerror = fail; document.head.appendChild(s); }));
+}
+
+/* ── Tree view (rendered lazily: children only when a node is opened) ── */
+function leaf(v) {
+  if (v === null) return '<span class="z">null</span>';
+  if (typeof v === 'string') return `<span class="s">"${esc(v)}"</span>`;
+  if (typeof v === 'number') return `<span class="n">${v}</span>`;
+  return `<span class="b">${v}</span>`;
+}
+function node(key, v, open) {
+  const label = key === null ? '' : `<span class="k">${esc(key)}</span>: `;
+  if (v === null || typeof v !== 'object') { const d = document.createElement('div'); d.className = 'leaf'; d.innerHTML = label + leaf(v); return d; }
+  const isArr = Array.isArray(v), keys = isArr ? v.map((_, i) => i) : Object.keys(v);
+  const det = document.createElement('details');
+  det.innerHTML = `<summary>${label}<span class="m">${isArr ? `[ ${keys.length} ]` : `{ ${keys.length} }`}</span></summary>`;
+  let filled = false;
+  const fill = () => {
+    if (filled) return; filled = true;
+    const LIMIT = 500;
+    keys.slice(0, LIMIT).forEach((k) => det.appendChild(node(isArr ? String(k) : k, v[k], false)));
+    if (keys.length > LIMIT) { const m = document.createElement('div'); m.className = 'leaf m'; m.textContent = t('more', { n: keys.length - LIMIT }); det.appendChild(m); }
+  };
+  det.addEventListener('toggle', () => det.open && fill());
+  if (open) { det.open = true; fill(); }
+  return det;
+}
+function renderTree() {
+  const tree = $('tree');
+  tree.replaceChildren();
+  let v = lastValue;
+  if (v === null) { try { v = JSON.parse($('out').value || $('in').value); } catch (e) { v = undefined; } }
+  if (v !== undefined) tree.appendChild(node(null, v, true));
+}
+
+/* ── wiring ── */
+$('fmt').addEventListener('click', () => run('format'));
+$('min').addEventListener('click', () => run('minify'));
+$('toyaml').addEventListener('click', () => run('yaml'));
+$('tocsv').addEventListener('click', () => run('csv'));
+$('sample').addEventListener('click', () => {
+  $('in').value = mode === 'yaml'
+    ? 'service: checkout\nreplicas: 3\nports:\n  - 80\n  - 443\nenv:\n  LOG_LEVEL: info\n  FEATURE_FLAGS: [beta, dark-mode]\n'
+    : '{"users":[{"id":1,"name":"Ada","roles":["admin","dev"],"active":true},{"id":2,"name":"Linus","roles":["dev"],"active":false,"last_login":null}],"generated":"2026-10-25T10:00:00Z"}';
+  run('format');
+});
+$('clear').addEventListener('click', () => { $('in').value = ''; setOut('', 'formatted.json'); status(''); $('errbox').hidden = true; lastValue = null; });
+$('openf').addEventListener('click', () => $('file').click());
+$('file').addEventListener('change', async (e) => { const f = e.target.files[0]; if (!f) return; $('in').value = await f.text(); if (/\.ya?ml$/i.test(f.name)) setMode('yaml'); e.target.value = ''; run('format'); });
+$('save').addEventListener('click', () => { const v = $('out').value; if (v) TK.download(new Blob([v], { type: /\.csv$/.test(lastName) ? 'text/csv' : /\.yaml$/.test(lastName) ? 'application/yaml' : 'application/json' }), lastName); });
+function setMode(m) {
+  mode = m;
+  $('in-json').setAttribute('aria-selected', m === 'json'); $('in-yaml').setAttribute('aria-selected', m === 'yaml');
+  $('in').placeholder = m === 'yaml' ? 'service: api\nreplicas: 2' : t('placeholder');
+  $('toyaml').hidden = m === 'yaml';
+}
+$('in-json').addEventListener('click', () => setMode('json'));
+$('in-yaml').addEventListener('click', () => setMode('yaml'));
+$('v-text').addEventListener('click', () => { $('v-text').setAttribute('aria-selected', true); $('v-tree').setAttribute('aria-selected', false); $('out').hidden = false; $('tree').hidden = true; });
+$('v-tree').addEventListener('click', () => { $('v-tree').setAttribute('aria-selected', true); $('v-text').setAttribute('aria-selected', false); $('out').hidden = true; $('tree').hidden = false; renderTree(); });
+$('in').addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); run('format'); } });
+window.__jsonReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

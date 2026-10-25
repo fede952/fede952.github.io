@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/security-headers/">
+<title>Security Headers & CSP Analyzer</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.bar { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+.tb-textarea { min-height: 200px; }
+.summary { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; padding: var(--s-4); border: 1px solid var(--border-input); border-radius: var(--r); background: var(--bg-raised); }
+.grade { display: grid; place-items: center; flex: none; width: 4.5rem; height: 4.5rem; border-radius: 50%; border: 3px solid currentColor; font-size: 1.75rem; font-weight: 800; line-height: 1; }
+.g-good { color: var(--success); } .g-ok { color: var(--accent); } .g-warn { color: var(--warn); } .g-bad { color: var(--danger); }
+.summary .meta { flex: 1 1 14rem; min-width: 0; }
+.summary .meta strong { display: block; font-size: var(--fs-lg); }
+.summary .meta p { margin: var(--s-1) 0 0; color: var(--text-2); font-size: var(--fs-sm); }
+.findings { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+.fd { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding: var(--s-3); border: 1px solid var(--border); border-left: 4px solid var(--border-input); border-radius: var(--r-sm); background: var(--bg-raised); }
+.fd strong { display: block; overflow-wrap: anywhere; }
+.fd p { margin: var(--s-1) 0 0; color: var(--text-2); font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.fd .hdr { margin-left: var(--s-1); color: var(--text-3); font-size: var(--fs-xs); font-weight: 400; }
+.pill { display: inline-block; min-width: 4.5rem; padding: 2px var(--s-2); border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; text-align: center; white-space: nowrap; }
+.s-high { border-left-color: var(--danger); } .s-high .pill { background: var(--danger-soft); color: var(--danger); }
+.s-medium { border-left-color: var(--warn); } .s-medium .pill { background: var(--warn-soft); color: var(--warn); }
+.s-low { border-left-color: var(--accent); } .s-low .pill { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.s-info .pill { background: var(--bg); color: var(--text-2); border: 1px solid var(--border-input); }
+.s-good { border-left-color: var(--success); } .s-good .pill { background: var(--success-soft); color: var(--success); }
+.fd code, .tb-note code { font-size: 0.92em; overflow-wrap: anywhere; }
+h2.sec { margin: var(--s-4) 0 var(--s-2); font-size: var(--fs-md); }
+.pol { margin-bottom: var(--s-3); overflow-x: auto; border: 1px solid var(--border-input); border-radius: var(--r-sm); }
+.pol table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.pol caption { padding: var(--s-2) var(--s-3); text-align: left; font-weight: 600; background: var(--bg-raised); }
+.pol th, .pol td { padding: var(--s-2) var(--s-3); border-top: 1px solid var(--border); text-align: left; vertical-align: top; }
+.pol th { width: 11rem; font-family: var(--font-mono); font-weight: 600; white-space: nowrap; }
+.chip { display: inline-block; margin: 0 var(--s-1) var(--s-1) 0; padding: 1px var(--s-2); border: 1px solid var(--border-input); border-radius: var(--r-sm); font-family: var(--font-mono); font-size: var(--fs-xs); overflow-wrap: anywhere; }
+.chip.r-high { border-color: var(--danger); background: var(--danger-soft); }
+.chip.r-medium { border-color: var(--warn); background: var(--warn-soft); }
+.chip.r-low { border-color: var(--accent); }
+.chip.r-good { border-color: var(--success); background: var(--success-soft); }
+.dim { color: var(--text-3); }
+@media (max-width: 560px) { .fd { grid-template-columns: 1fr; gap: var(--s-2); } .pill { justify-self: start; } .pol th { width: auto; white-space: normal; } }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.6-3.1 8.4-7.5 9.9-4.4-1.5-7.5-5.3-7.5-9.9V6L12 3z"/><path d="M8.5 10h7M8.5 13.5h5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Security Headers & CSP Analyzer</h1>
+      <p class="tb-sub" data-i18n="subtitle">Paste response headers or a CSP — checked in your browser, nothing is fetched</p>
+    </div>
+  </header>
+
+  <div class="tb-field">
+    <label class="tb-label" for="in" data-i18n="input">Response headers or CSP</label>
+    <textarea id="in" class="tb-textarea" spellcheck="false" autocomplete="off" data-i18n-placeholder="placeholder"></textarea>
+    <p class="tb-note" id="hint"></p>
+  </div>
+
+  <div class="bar">
+    <button type="button" class="tb-btn tb-btn--sm" id="go" data-i18n="analyze">Analyze</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="weak" data-i18n="weak">Weak example</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="strong" data-i18n="strong">Strong example</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="clear" data-i18n="clear">Clear</button>
+  </div>
+
+  <div id="out" aria-live="polite"></div>
+</main>
+
+<script type="module">
+import * as K from '/js/tools/headers-kit.mjs';
+import { STRINGS } from '/js/tools/headers-i18n.mjs';
+
+const ui = {};
+for (const [l, d] of Object.entries(STRINGS)) { ui[l] = d.ui; }
+TK.init(ui);
+const msgs = Object.assign({}, STRINGS.en.f, (STRINGS[TK.lang] || {}).f);
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+/** Escapes text and turns `code` spans into <code>. */
+const md = (s) => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+const fill = (s, p) => s.replace(/\{(\w+)\}/g, (m, k) => (p[k] !== undefined ? p[k] : m));
+const msg = (f) => { const m = msgs[f.id] || [f.id, '']; return [fill(m[0], f.p), fill(m[1], f.p)]; };
+
+const SAMPLE_WEAK = [
+  'HTTP/1.1 200 OK',
+  'Server: Apache/2.4.41 (Ubuntu)',
+  'X-Powered-By: PHP/7.4.3',
+  'Strict-Transport-Security: max-age=86400',
+  "Content-Security-Policy: default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: ajax.googleapis.com",
+  'X-XSS-Protection: 1; mode=block',
+  'Access-Control-Allow-Origin: *',
+  'Set-Cookie: PHPSESSID=8f2a1c; path=/',
+].join('\n');
+const SAMPLE_STRONG = [
+  'HTTP/2 200',
+  'strict-transport-security: max-age=63072000; includeSubDomains; preload',
+  "content-security-policy: script-src 'nonce-4AEemGb0xJptoIGFP3Nd5Q==' 'strict-dynamic'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests",
+  'x-content-type-options: nosniff',
+  'referrer-policy: strict-origin-when-cross-origin',
+  'permissions-policy: camera=(), microphone=(), geolocation=()',
+  'cross-origin-opener-policy: same-origin',
+  'set-cookie: __Host-session=d41d8c; Path=/; Secure; HttpOnly; SameSite=Lax',
+].join('\n');
+
+let last = null;
+const gradeClass = (g) => (g === 'A+' || g === 'A' ? 'g-good' : g === 'B' ? 'g-ok' : g === 'C' ? 'g-warn' : 'g-bad');
+
+function render() {
+  const r = last, out = $('out');
+  if (!r || r.mode === 'empty') {
+    out.innerHTML = $('in').value.trim() ? `<p class="tb-note tb-note--warn">${md(t('nothing'))}</p>` : '';
+    return;
+  }
+  const n = (s) => r.findings.filter((f) => f.sev === s).length;
+  const html = [];
+  html.push(`<div class="summary"><div class="grade ${gradeClass(r.grade)}" role="img" aria-label="${esc(t('grade'))} ${esc(r.grade)}">${esc(r.grade)}</div>
+    <div class="meta"><strong>${esc(t('score', { score: r.score }))}</strong><p>${esc(t('counts', { high: n('high'), medium: n('medium'), low: n('low') }))}</p><p>${esc(t('gradeNote'))}</p></div>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="copy-report">${esc(t('copyReport'))}</button></div>`);
+  if (r.mode === 'csp') html.push(`<p class="tb-note">${md(t('cspMode'))}</p>`);
+  html.push(`<h2 class="sec">${esc(t('findings'))}</h2><ul class="findings">`);
+  for (const f of r.findings) {
+    const [title, detail] = msg(f);
+    const hdr = f.header && r.mode === 'headers' ? `<span class="hdr">${esc(f.header)}</span>` : '';
+    html.push(`<li class="fd s-${f.sev}" data-id="${f.id}"><span class="pill">${esc(t(f.sev))}</span><div><strong>${md(title)}${hdr}</strong>${detail ? `<p>${md(detail)}</p>` : ''}</div></li>`);
+  }
+  html.push('</ul>');
+  if (r.policies.length) {
+    html.push(`<h2 class="sec">${esc(t('policies'))}</h2>`);
+    for (const p of r.policies) {
+      html.push(`<div class="pol"><table><caption>${esc(t(p.kind === 'enforce' ? 'enforce' : 'reportOnly'))}</caption><tbody>`);
+      for (const d of p.directives) {
+        const chips = d.sources.length
+          ? d.sources.map((s) => { const risk = K.sourceRisk(s, d.name); return `<span class="chip${risk ? ' r-' + risk : ''}">${esc(s)}</span>`; }).join('')
+          : `<span class="dim">${esc(t('none'))}</span>`;
+        html.push(`<tr${d.dup ? ' class="dim"' : ''}><th scope="row">${esc(d.name)}</th><td>${chips}</td></tr>`);
+      }
+      html.push('</tbody></table></div>');
+    }
+  }
+  out.innerHTML = html.join('');
+  $('copy-report').addEventListener('click', (e) => TK.copy(report(), e.currentTarget));
+}
+
+function report() {
+  const r = last, plain = (s) => s.replace(/`([^`]+)`/g, '$1');
+  const lines = [`${t('title')} — ${t('grade')} ${r.grade} · ${t('score', { score: r.score })}`, ''];
+  for (const f of r.findings) {
+    const [title, detail] = msg(f);
+    lines.push(`[${t(f.sev).toUpperCase()}] ${plain(title)}${f.header && r.mode === 'headers' ? ` (${f.header})` : ''}`);
+    if (detail) lines.push('    ' + plain(detail));
+  }
+  return lines.join('\n') + '\n';
+}
+
+function run() {
+  last = K.analyze($('in').value);
+  render();
+  window.__headersDone = (window.__headersDone || 0) + 1;
+}
+
+let timer = null;
+$('in').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 300); });
+$('go').addEventListener('click', run);
+$('weak').addEventListener('click', () => { $('in').value = SAMPLE_WEAK; run(); });
+$('strong').addEventListener('click', () => { $('in').value = SAMPLE_STRONG; run(); });
+$('clear').addEventListener('click', () => { $('in').value = ''; run(); $('in').focus(); });
+$('hint').innerHTML = md(t('hint'));
+window.__headersReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

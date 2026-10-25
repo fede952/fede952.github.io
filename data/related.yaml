@@ -6,10 +6,30 @@
 #   learn.<path>              → tools linked from a learn page (paths under /tools/)
 #
 # Rule of thumb: every tool links ≥2 guides, every learn page links ≥2 tools.
-# Used by partials/related-guides.html, partials/related-tools.html and
-# partials/learn-related-tools.html.
+# Used by partials/sidebar.html (via partials/related-tool-pages.html).
 
 tools:
+  security-headers:
+    tools: [link-hazmat, jwt-inspector, subnet-calculator, secrets-scanner]
+    guides: [cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist, interviews/python-security-interview-questions]
+  text-diff:
+    tools: [json-formatter, string-master, secrets-scanner, hash-generator]
+    guides: [cheatsheets/git-disaster-recovery, cheatsheets/git-commands-for-hackers, debug-sys/git-refusing-merge-unrelated-histories]
+  json-formatter:
+    tools: [text-diff, json-to-csharp, jwt-inspector, base64-converter]
+    guides: [cheatsheets/kubernetes-kubectl-cheat-sheet, cheatsheets/javascript-es6-array-methods, cheatsheets/docker-container-commands]
+  pdf-merge-split:
+    tools: [images-to-pdf, heic-converter, exif-cleaner, secrets-scanner]
+    guides: [guides/osint-privacy-exif-data, cheatsheets/linux-sysadmin-permissions]
+  images-to-pdf:
+    tools: [pdf-merge-split, heic-converter, pixel-shrink, exif-cleaner]
+    guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
+  heic-converter:
+    tools: [exif-cleaner, images-to-pdf, pixel-shrink, steganography]
+    guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
+  subnet-calculator:
+    tools: [netguard, chmod-calculator, link-hazmat, security-headers]
+    guides: [cheatsheets/networking-ports-protocols, cheatsheets/nmap-network-scanning, interviews/linux-sysadmin-interview-questions]
   pass-fort:
     tools: [password-generator, hash-generator, secrets-scanner, jwt-inspector]
     guides: [cheatsheets/linux-sysadmin-permissions, interviews/python-security-interview-questions, roadmaps/cyber-security-specialist]
@@ -26,7 +46,7 @@ tools:
     tools: [pixel-shrink, steganography, ghostprint, netguard]
     guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
   netguard:
-    tools: [ghostprint, link-hazmat, exif-cleaner, pass-fort]
+    tools: [ghostprint, link-hazmat, security-headers, pass-fort]
     guides: [cheatsheets/networking-ports-protocols, cheatsheets/nmap-network-scanning, roadmaps/cyber-security-specialist]
   ghostprint:
     tools: [netguard, exif-cleaner, link-hazmat, pass-fort]
@@ -85,30 +105,30 @@ tools:
 
 learn:
   cheatsheets/css-flexbox-grid-visual-guide: [neon-palette, pixel-shrink, glitch-forge]
-  cheatsheets/docker-container-commands: [secrets-scanner, easy-cron, chmod-calculator]
-  cheatsheets/git-commands-for-hackers: [secrets-scanner, hash-generator]
-  cheatsheets/git-disaster-recovery: [secrets-scanner, hash-generator]
-  cheatsheets/javascript-es6-array-methods: [json-to-csharp, string-master, jwt-inspector]
-  cheatsheets/kubernetes-kubectl-cheat-sheet: [base64-converter, secrets-scanner, easy-cron]
+  cheatsheets/docker-container-commands: [secrets-scanner, json-formatter, easy-cron, chmod-calculator]
+  cheatsheets/git-commands-for-hackers: [text-diff, secrets-scanner, hash-generator]
+  cheatsheets/git-disaster-recovery: [text-diff, secrets-scanner, hash-generator]
+  cheatsheets/javascript-es6-array-methods: [json-formatter, json-to-csharp, string-master, jwt-inspector]
+  cheatsheets/kubernetes-kubectl-cheat-sheet: [json-formatter, base64-converter, secrets-scanner, easy-cron]
   cheatsheets/linux-sysadmin-permissions: [chmod-calculator, easy-cron, pass-fort]
-  cheatsheets/networking-ports-protocols: [netguard, link-hazmat, ghostprint]
-  cheatsheets/nmap-network-scanning: [netguard, link-hazmat]
+  cheatsheets/networking-ports-protocols: [subnet-calculator, netguard, link-hazmat, ghostprint]
+  cheatsheets/nmap-network-scanning: [subnet-calculator, netguard, link-hazmat]
   cheatsheets/python-security-scripts: [hash-generator, base64-converter, secrets-scanner]
   cheatsheets/react-hooks-lifecycle: [json-to-csharp, neon-palette, jwt-inspector]
-  cheatsheets/sql-injection-payloads-database: [link-hazmat, string-master, hash-generator]
+  cheatsheets/sql-injection-payloads-database: [security-headers, link-hazmat, string-master, hash-generator]
   debug-sys/docker-cannot-connect-daemon: [chmod-calculator, secrets-scanner]
-  debug-sys/git-refusing-merge-unrelated-histories: [secrets-scanner, hash-generator]
+  debug-sys/git-refusing-merge-unrelated-histories: [text-diff, secrets-scanner, hash-generator]
   debug-sys/python-pip-ssl-cert-verify-failed: [netguard, hash-generator]
   guides/deepseek-vs-chatgpt: [secrets-scanner, jwt-inspector]
   guides/local-ai-setup-ollama: [zen-focus, secrets-scanner]
-  guides/osint-privacy-exif-data: [exif-cleaner, ghostprint, pixel-shrink]
+  guides/osint-privacy-exif-data: [exif-cleaner, heic-converter, ghostprint, pixel-shrink]
   guides/steganography-101-hidden-messages: [steganography, caesar-cipher, exif-cleaner]
   interviews/docker-interview-questions: [secrets-scanner, chmod-calculator, easy-cron]
   interviews/kubernetes-interview-questions: [base64-converter, secrets-scanner, easy-cron]
   interviews/linux-sysadmin-interview-questions: [chmod-calculator, easy-cron, netguard]
   interviews/python-security-interview-questions: [hash-generator, jwt-inspector, pass-fort]
   interviews/sql-database-interview-questions: [json-to-csharp, hash-generator]
-  roadmaps/cyber-security-specialist: [netguard, pass-fort, jwt-inspector, ghostprint]
+  roadmaps/cyber-security-specialist: [security-headers, netguard, pass-fort, jwt-inspector, ghostprint]
   roadmaps/devops-engineer: [easy-cron, chmod-calculator, secrets-scanner]
   roadmaps/python-fullstack: [json-to-csharp, jwt-inspector, base64-converter]
   writeups/htb-cap/htb-cap: [netguard, hash-generator, link-hazmat]
