@@ -403,6 +403,63 @@ export const TESTS = {
     const it = (await p.evaluate(async (k) => (await import('/js/tools/phish/it.mjs')).default[k].ctx, id));
     assert(ctx === it, 'scenario text is Italian');
     return 'scenarios localized (Italian)'; } },
+  'screenshot-redactor': { url: '/tools/screenshot-redactor/?lang=en', async run(p, { tmp }) {
+    await p.waitForFunction(() => window.__redactReady);
+    // a synthetic screenshot with sensitive text (reserved domain, ISO example IBAN, documentation IP)
+    const png = await p.evaluate(() => {
+      const c = Object.assign(document.createElement('canvas'), { width: 900, height: 300 });
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 900, 300); x.fillStyle = '#111'; x.font = '28px Arial, sans-serif';
+      x.fillText('Contact: alex.rivera@example.com', 30, 60);
+      x.fillText('IBAN: GB82 WEST 1234 5698 7654 32', 30, 130);
+      x.fillText('Server IP: 192.0.2.44', 30, 200);
+      x.fillText('Nothing secret on this line', 30, 270);
+      return c.toDataURL('image/png').split(',')[1];
+    });
+    const file = path.join(tmp, 'shot.png'); fs.writeFileSync(file, Buffer.from(png, 'base64'));
+    await p.setInputFiles('#file', file);
+    await p.waitForFunction(() => window.__redactLoaded === 1);
+    // draw one box with the mouse (top-left corner of the image)
+    const box = await p.locator('#canvas').boundingBox();
+    const zoom = await p.evaluate(() => document.getElementById('canvas').width / 900);
+    await p.mouse.move(box.x + 5 * zoom, box.y + 5 * zoom); await p.mouse.down();
+    await p.mouse.move(box.x + 120 * zoom, box.y + 40 * zoom, { steps: 4 }); await p.mouse.up();
+    assert(await p.evaluate(() => window.__redactCount()) === 1, 'box drawn');
+    // a touch drag (pointer events with pointerType touch) draws a second box
+    const pe = (type, x, y) => p.locator('#canvas').dispatchEvent(type, { pointerId: 7, pointerType: 'touch', isPrimary: true, clientX: box.x + x * zoom, clientY: box.y + y * zoom });
+    await pe('pointerdown', 700, 200); await pe('pointermove', 850, 280); await pe('pointerup', 850, 280);
+    assert(await p.evaluate(() => window.__redactCount()) === 2, 'touch drag draws a box');
+    await p.click('#undo'); assert(await p.evaluate(() => window.__redactCount()) === 1, 'undo touch box');
+    await p.click('#undo'); assert(await p.evaluate(() => window.__redactCount()) === 0, 'undo');
+    await p.click('#redo'); assert(await p.evaluate(() => window.__redactCount()) === 1, 'redo');
+    // soft modes show the warning
+    await p.click('[data-mode=pixelate]'); assert(await p.isVisible('#warn'), 'warning for pixelate');
+    await p.click('[data-mode=box]'); assert(!(await p.isVisible('#warn')), 'no warning for solid box');
+    // real OCR (self-hosted Tesseract, opt-in) suggests the email, IBAN and IP
+    await p.click('#ocr');
+    await p.waitForFunction(() => window.__redactSuggestions, null, { timeout: 120000 });
+    const sugg = await p.evaluate(() => window.__redactSuggestions);
+    assert(JSON.stringify(sugg.map((s) => s.type)) === '["email","iban","ip"]', 'OCR suggestions ' + JSON.stringify(sugg));
+    await p.click('#apply-all');
+    assert(await p.evaluate(() => window.__redactCount()) === 4, 'suggestions applied as solid boxes');
+    // PNG export: redactions burned in (black where the email was), no metadata chunks
+    const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#download')]);
+    assert(dl.suggestedFilename() === 'shot-redacted.png', 'file name ' + dl.suggestedFilename());
+    const out = PNG.sync.read(fs.readFileSync(await dl.path()));
+    const at = (x, y) => [...out.data.slice((y * out.width + x) * 4, (y * out.width + x) * 4 + 3)];
+    assert(at(300, 50).join() === '0,0,0' && at(60, 20).join() === '0,0,0', 'redacted pixels are black: ' + at(300, 50));
+    assert(at(600, 280).join() === '255,255,255', 'untouched area unchanged');
+    const raw = fs.readFileSync(await dl.path()).toString('latin1');
+    assert(!/tEXt|iTXt|zTXt|eXIf/.test(raw), 'PNG has metadata chunks');
+    // JPEG export of a photo with EXIF + GPS: the output has no EXIF at all
+    await p.click('#new');
+    await p.setInputFiles('#file', PHOTO);
+    await p.waitForFunction(() => window.__redactLoaded === 2);
+    await p.selectOption('#fmt', 'jpeg');
+    const [dj] = await Promise.all([p.waitForEvent('download'), p.click('#download')]);
+    const jpg = fs.readFileSync(await dj.path());
+    assert(jpg[0] === 0xff && jpg[1] === 0xd8, 'not a JPEG');
+    assert(!jpg.includes(Buffer.from('Exif')) && !jpg.includes(Buffer.from('FixtureCam')), 'JPEG still has EXIF');
+    return 'draw + undo/redo, blur/pixelate warning, real OCR suggests email/IBAN/IP, burned-in PNG without metadata, EXIF/GPS dropped from JPEG'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

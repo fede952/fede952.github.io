@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/screenshot-redactor/">
+<title>Screenshot Redactor</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.drop { display: grid; place-items: center; gap: var(--s-2); min-height: 180px; padding: var(--s-5); border: 2px dashed var(--border-input); border-radius: var(--r); text-align: center; color: var(--text-2); }
+.drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.bar { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+.bar .tb-select { width: auto; }
+.seg { display: inline-flex; border: 1px solid var(--border-input); border-radius: var(--r-sm); overflow: hidden; }
+.seg button { min-height: 40px; padding: 0 var(--s-3); border: 0; background: var(--bg-raised); color: var(--text-2); font: inherit; font-size: var(--fs-sm); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--border-input); }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+input[type=color] { width: 44px; height: 40px; padding: 2px; border: 1px solid var(--border-input); border-radius: var(--r-sm); background: var(--bg-raised); }
+.stage { position: relative; max-height: 70vh; overflow: auto; border: 1px solid var(--border-input); border-radius: var(--r); background: repeating-conic-gradient(var(--surface-2) 0 25%, var(--surface) 0 50%) 0 0 / 20px 20px; }
+.stage canvas { display: block; touch-action: none; cursor: crosshair; }
+.stage.pan canvas { cursor: grab; }
+.warn-box { border-left-color: var(--warn); }
+.sugg { display: grid; gap: var(--s-2); }
+.sugg label { display: flex; gap: var(--s-2); align-items: center; font-size: var(--fs-sm); }
+.sugg code { overflow-wrap: anywhere; }
+.export { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="6" y="9" width="8" height="4" fill="currentColor"/><path d="M6 16h11"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Screenshot Redactor</h1>
+      <p class="tb-sub" data-i18n="subtitle">Black out sensitive parts of an image — in your browser</p>
+    </div>
+  </header>
+
+  <div class="drop" id="drop">
+    <p data-i18n="dropHint">Paste a screenshot (Ctrl+V / ⌘V), drop an image here, or</p>
+    <button type="button" class="tb-btn" id="pick" data-i18n="pick">Choose an image</button>
+    <input type="file" id="file" accept="image/*" hidden>
+  </div>
+
+  <section id="editor" class="tb-stack" hidden>
+    <div class="bar" role="toolbar" data-i18n-aria="toolbar">
+      <div class="seg" role="group" data-i18n-aria="mode">
+        <button type="button" data-mode="box" aria-pressed="true" data-i18n="modeBox">Solid box</button>
+        <button type="button" data-mode="pixelate" aria-pressed="false" data-i18n="modePixel">Pixelate</button>
+        <button type="button" data-mode="blur" aria-pressed="false" data-i18n="modeBlur">Blur</button>
+        <button type="button" data-mode="pan" aria-pressed="false" data-i18n="modePan">Move</button>
+      </div>
+      <label class="tb-check" id="color-wrap"><span data-i18n="color">Colour</span> <input type="color" id="color" value="#000000"></label>
+      <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="undo" data-i18n="undo" disabled>Undo</button>
+      <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="redo" data-i18n="redo" disabled>Redo</button>
+      <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="clear" data-i18n="clearAll">Clear all</button>
+      <span class="seg" role="group" data-i18n-aria="zoom">
+        <button type="button" id="zoom-out" data-i18n-aria="zoomOut">−</button>
+        <button type="button" id="zoom-fit" data-i18n="fit">Fit</button>
+        <button type="button" id="zoom-in" data-i18n-aria="zoomIn">+</button>
+      </span>
+    </div>
+    <p class="tb-note tb-note--warn warn-box" id="warn" hidden data-i18n="warnSoft">Blur and pixelation can sometimes be partly reversed or guessed, especially on short text such as numbers. Use a solid box for anything that must stay secret.</p>
+    <p class="tb-note" data-i18n="drawHint">Drag on the image to cover an area. On a phone, drag with one finger; use Move to scroll.</p>
+
+    <div class="stage" id="stage"><canvas id="canvas" data-i18n-aria="canvasLabel"></canvas></div>
+
+    <div class="tb-stack">
+      <div class="bar">
+        <button type="button" class="tb-btn tb-btn--ghost" id="ocr" data-i18n="ocr">Suggest areas (find emails, IBANs, phones, IPs)</button>
+        <span class="tb-note" id="ocr-status" role="status" aria-live="polite" hidden></span>
+      </div>
+      <p class="tb-hint" data-i18n="ocrNote">Optional. Text recognition runs on your device; the first time it loads about 10 MB of recognition files from this site.</p>
+      <div class="sugg" id="sugg" hidden>
+        <div class="bar"><button type="button" class="tb-btn tb-btn--sm" id="apply-all"></button></div>
+        <div id="sugg-list"></div>
+      </div>
+    </div>
+
+    <div class="export">
+      <label class="tb-check"><span data-i18n="format">Format</span>
+        <select id="fmt" class="tb-select"><option value="png">PNG</option><option value="jpeg">JPEG</option></select></label>
+      <button type="button" class="tb-btn" id="download" data-i18n="download">Download redacted image</button>
+      <button type="button" class="tb-btn tb-btn--ghost" id="copy-img" data-i18n="copyImg">Copy image</button>
+      <button type="button" class="tb-btn tb-btn--ghost" id="new" data-i18n="newImg">Another image</button>
+    </div>
+    <p class="tb-note" data-i18n="exportNote">The exported file is a fresh image: redactions are burned into the pixels and no metadata (EXIF, GPS, camera) is copied.</p>
+    <p class="tb-note" id="status" role="status" aria-live="polite" hidden></p>
+  </section>
+</main>
+
+<script type="module">
+import { findSensitive, rectFrom, pixelBlock, History, outputName } from '/js/tools/redact-kit.mjs';
+
+TK.init({
+  en: { title: 'Screenshot Redactor', subtitle: 'Black out sensitive parts of an image — in your browser',
+    dropHint: 'Paste a screenshot (Ctrl+V / ⌘V), drop an image here, or', pick: 'Choose an image', toolbar: 'Redaction tools', mode: 'Redaction style',
+    modeBox: 'Solid box', modePixel: 'Pixelate', modeBlur: 'Blur', modePan: 'Move', color: 'Colour', undo: 'Undo', redo: 'Redo', clearAll: 'Clear all',
+    zoom: 'Zoom', zoomOut: 'Zoom out', zoomIn: 'Zoom in', fit: 'Fit',
+    warnSoft: 'Blur and pixelation can sometimes be partly reversed or guessed, especially on short text such as numbers. Use a solid box for anything that must stay secret.',
+    drawHint: 'Drag on the image to cover an area. On a phone, drag with one finger; use Move to scroll.', canvasLabel: 'Image to redact',
+    ocr: 'Suggest areas (find emails, IBANs, phones, IPs)', ocrNote: 'Optional. Text recognition runs on your device; the first time it loads about 10 MB of recognition files from this site.',
+    ocrLoading: 'Loading text recognition…', ocrRunning: 'Reading the image… {pct}%', ocrNone: 'No emails, IBANs, card numbers, phone numbers or IP addresses found. Check the image yourself as well.',
+    ocrFound: '{n} suggestion(s). Tick the ones to cover, then apply.', ocrFail: 'Text recognition could not start in this browser.', applyAll: 'Cover {n} selected area(s)',
+    t_email: 'Email', t_iban: 'IBAN', t_card: 'Card number', t_ip: 'IP address', t_phone: 'Phone number',
+    format: 'Format', download: 'Download redacted image', copyImg: 'Copy image', newImg: 'Another image', copied: 'Copied',
+    exportNote: 'The exported file is a fresh image: redactions are burned into the pixels and no metadata (EXIF, GPS, camera) is copied.',
+    saved: 'Saved {name} ({w}×{h}).', notImage: 'That file is not an image this browser can open.', copyFail: 'This browser cannot copy images; use Download instead.', imgCopied: 'Image copied to the clipboard.' },
+  it: { title: 'Oscuratore di screenshot', subtitle: 'Copri le parti sensibili di un\'immagine — nel browser',
+    dropHint: 'Incolla uno screenshot (Ctrl+V / ⌘V), trascina qui un\'immagine oppure', pick: 'Scegli un\'immagine', toolbar: 'Strumenti di oscuramento', mode: 'Stile di oscuramento',
+    modeBox: 'Riquadro pieno', modePixel: 'Pixel', modeBlur: 'Sfocatura', modePan: 'Sposta', color: 'Colore', undo: 'Annulla', redo: 'Ripeti', clearAll: 'Togli tutto',
+    zoom: 'Zoom', zoomOut: 'Riduci', zoomIn: 'Ingrandisci', fit: 'Adatta',
+    warnSoft: 'Sfocatura e pixel a volte si possono invertire in parte o indovinare, soprattutto su testi brevi come i numeri. Per ciò che deve restare segreto usa un riquadro pieno.',
+    drawHint: 'Trascina sull\'immagine per coprire un\'area. Sul telefono trascina con un dito; usa Sposta per scorrere.', canvasLabel: 'Immagine da oscurare',
+    ocr: 'Suggerisci aree (trova email, IBAN, telefoni, IP)', ocrNote: 'Facoltativo. Il riconoscimento del testo avviene sul tuo dispositivo; la prima volta scarica circa 10 MB di file di riconoscimento da questo sito.',
+    ocrLoading: 'Caricamento del riconoscimento testo…', ocrRunning: 'Lettura dell\'immagine… {pct}%', ocrNone: 'Nessuna email, IBAN, carta, numero di telefono o indirizzo IP trovato. Controlla comunque anche tu l\'immagine.',
+    ocrFound: '{n} suggerimenti. Spunta quelli da coprire, poi applica.', ocrFail: 'Il riconoscimento del testo non si avvia in questo browser.', applyAll: 'Copri {n} aree selezionate',
+    t_email: 'Email', t_iban: 'IBAN', t_card: 'Numero di carta', t_ip: 'Indirizzo IP', t_phone: 'Numero di telefono',
+    format: 'Formato', download: 'Scarica l\'immagine oscurata', copyImg: 'Copia immagine', newImg: 'Un\'altra immagine', copied: 'Copiato',
+    exportNote: 'Il file esportato è un\'immagine nuova: le parti coperte sono fuse nei pixel e nessun metadato (EXIF, GPS, fotocamera) viene copiato.',
+    saved: 'Salvato {name} ({w}×{h}).', notImage: 'Questo file non è un\'immagine che il browser riesce ad aprire.', copyFail: 'Questo browser non copia immagini; usa Scarica.', imgCopied: 'Immagine copiata negli appunti.' },
+  es: { title: 'Ocultador de capturas', subtitle: 'Tapa las partes sensibles de una imagen — en tu navegador',
+    dropHint: 'Pega una captura (Ctrl+V / ⌘V), arrastra aquí una imagen o', pick: 'Elegir una imagen', toolbar: 'Herramientas para ocultar', mode: 'Estilo',
+    modeBox: 'Caja sólida', modePixel: 'Pixelar', modeBlur: 'Desenfocar', modePan: 'Mover', color: 'Color', undo: 'Deshacer', redo: 'Rehacer', clearAll: 'Quitar todo',
+    zoom: 'Zoom', zoomOut: 'Alejar', zoomIn: 'Acercar', fit: 'Ajustar',
+    warnSoft: 'El desenfoque y el pixelado a veces se pueden revertir en parte o adivinar, sobre todo en textos cortos como números. Para lo que deba quedar en secreto, usa una caja sólida.',
+    drawHint: 'Arrastra sobre la imagen para tapar una zona. En el móvil, arrastra con un dedo; usa Mover para desplazarte.', canvasLabel: 'Imagen que ocultar',
+    ocr: 'Sugerir zonas (buscar correos, IBAN, teléfonos, IP)', ocrNote: 'Opcional. El reconocimiento de texto se hace en tu dispositivo; la primera vez descarga unos 10 MB de archivos de reconocimiento desde este sitio.',
+    ocrLoading: 'Cargando el reconocimiento de texto…', ocrRunning: 'Leyendo la imagen… {pct} %', ocrNone: 'No se han encontrado correos, IBAN, tarjetas, teléfonos ni direcciones IP. Revisa también tú la imagen.',
+    ocrFound: '{n} sugerencias. Marca las que quieras tapar y aplícalas.', ocrFail: 'El reconocimiento de texto no puede iniciarse en este navegador.', applyAll: 'Tapar {n} zonas seleccionadas',
+    t_email: 'Correo', t_iban: 'IBAN', t_card: 'Número de tarjeta', t_ip: 'Dirección IP', t_phone: 'Teléfono',
+    format: 'Formato', download: 'Descargar la imagen ocultada', copyImg: 'Copiar imagen', newImg: 'Otra imagen', copied: 'Copiado',
+    exportNote: 'El archivo exportado es una imagen nueva: lo tapado queda fundido en los píxeles y no se copia ningún metadato (EXIF, GPS, cámara).',
+    saved: 'Guardado {name} ({w}×{h}).', notImage: 'Ese archivo no es una imagen que este navegador pueda abrir.', copyFail: 'Este navegador no puede copiar imágenes; usa Descargar.', imgCopied: 'Imagen copiada al portapapeles.' },
+  de: { title: 'Screenshot schwärzen', subtitle: 'Sensible Bildbereiche abdecken – im Browser',
+    dropHint: 'Screenshot einfügen (Strg+V / ⌘V), Bild hierher ziehen oder', pick: 'Bild auswählen', toolbar: 'Schwärzungswerkzeuge', mode: 'Art der Abdeckung',
+    modeBox: 'Volle Fläche', modePixel: 'Verpixeln', modeBlur: 'Weichzeichnen', modePan: 'Verschieben', color: 'Farbe', undo: 'Rückgängig', redo: 'Wiederholen', clearAll: 'Alles entfernen',
+    zoom: 'Zoom', zoomOut: 'Verkleinern', zoomIn: 'Vergrößern', fit: 'Einpassen',
+    warnSoft: 'Weichzeichnen und Verpixeln lassen sich teils rückgängig machen oder erraten, vor allem bei kurzen Texten wie Zahlen. Für alles, was geheim bleiben muss, eine volle Fläche verwenden.',
+    drawHint: 'Ziehen Sie über das Bild, um einen Bereich abzudecken. Am Smartphone mit einem Finger ziehen; zum Scrollen „Verschieben“ wählen.', canvasLabel: 'Zu schwärzendes Bild',
+    ocr: 'Bereiche vorschlagen (E-Mails, IBANs, Telefonnummern, IPs finden)', ocrNote: 'Optional. Die Texterkennung läuft auf Ihrem Gerät; beim ersten Mal lädt sie rund 10 MB Erkennungsdateien von dieser Website.',
+    ocrLoading: 'Texterkennung wird geladen …', ocrRunning: 'Bild wird gelesen … {pct} %', ocrNone: 'Keine E-Mails, IBANs, Kartennummern, Telefonnummern oder IP-Adressen gefunden. Prüfen Sie das Bild trotzdem selbst.',
+    ocrFound: '{n} Vorschläge. Haken Sie die abzudeckenden an und übernehmen Sie sie.', ocrFail: 'Die Texterkennung kann in diesem Browser nicht starten.', applyAll: '{n} ausgewählte Bereiche abdecken',
+    t_email: 'E-Mail', t_iban: 'IBAN', t_card: 'Kartennummer', t_ip: 'IP-Adresse', t_phone: 'Telefonnummer',
+    format: 'Format', download: 'Geschwärztes Bild herunterladen', copyImg: 'Bild kopieren', newImg: 'Anderes Bild', copied: 'Kopiert',
+    exportNote: 'Die exportierte Datei ist ein neues Bild: Die Abdeckungen sind fest in die Pixel eingebrannt, und keine Metadaten (EXIF, GPS, Kamera) werden übernommen.',
+    saved: '{name} gespeichert ({w}×{h}).', notImage: 'Diese Datei ist kein Bild, das dieser Browser öffnen kann.', copyFail: 'Dieser Browser kann keine Bilder kopieren; bitte herunterladen.', imgCopied: 'Bild in die Zwischenablage kopiert.' },
+  fr: { title: 'Masqueur de captures d\'écran', subtitle: 'Cachez les zones sensibles d\'une image — dans votre navigateur',
+    dropHint: 'Collez une capture (Ctrl+V / ⌘V), déposez une image ici, ou', pick: 'Choisir une image', toolbar: 'Outils de masquage', mode: 'Style de masquage',
+    modeBox: 'Rectangle plein', modePixel: 'Pixeliser', modeBlur: 'Flouter', modePan: 'Déplacer', color: 'Couleur', undo: 'Annuler', redo: 'Rétablir', clearAll: 'Tout retirer',
+    zoom: 'Zoom', zoomOut: 'Dézoomer', zoomIn: 'Zoomer', fit: 'Ajuster',
+    warnSoft: 'Le flou et la pixellisation peuvent parfois être en partie inversés ou devinés, surtout sur un texte court comme des chiffres. Pour ce qui doit rester secret, utilisez un rectangle plein.',
+    drawHint: 'Faites glisser sur l\'image pour couvrir une zone. Sur téléphone, glissez avec un doigt ; utilisez Déplacer pour faire défiler.', canvasLabel: 'Image à masquer',
+    ocr: 'Suggérer des zones (e-mails, IBAN, téléphones, IP)', ocrNote: 'Facultatif. La reconnaissance de texte a lieu sur votre appareil ; la première fois, elle télécharge environ 10 Mo de fichiers de reconnaissance depuis ce site.',
+    ocrLoading: 'Chargement de la reconnaissance de texte…', ocrRunning: 'Lecture de l\'image… {pct} %', ocrNone: 'Aucun e-mail, IBAN, numéro de carte, de téléphone ni adresse IP trouvé. Vérifiez aussi l\'image vous-même.',
+    ocrFound: '{n} suggestion(s). Cochez celles à couvrir, puis appliquez.', ocrFail: 'La reconnaissance de texte ne peut pas démarrer dans ce navigateur.', applyAll: 'Couvrir {n} zone(s) sélectionnée(s)',
+    t_email: 'E-mail', t_iban: 'IBAN', t_card: 'Numéro de carte', t_ip: 'Adresse IP', t_phone: 'Numéro de téléphone',
+    format: 'Format', download: 'Télécharger l\'image masquée', copyImg: 'Copier l\'image', newImg: 'Une autre image', copied: 'Copié',
+    exportNote: 'Le fichier exporté est une nouvelle image : les masques sont fondus dans les pixels et aucune métadonnée (EXIF, GPS, appareil) n\'est copiée.',
+    saved: '{name} enregistré ({w}×{h}).', notImage: 'Ce fichier n\'est pas une image que ce navigateur peut ouvrir.', copyFail: 'Ce navigateur ne peut pas copier d\'images ; utilisez Télécharger.', imgCopied: 'Image copiée dans le presse-papiers.' },
+  pt: { title: 'Ocultador de capturas de tela', subtitle: 'Cubra as partes sensíveis de uma imagem — no navegador',
+    dropHint: 'Cole uma captura (Ctrl+V / ⌘V), arraste uma imagem para cá ou', pick: 'Escolher uma imagem', toolbar: 'Ferramentas de ocultação', mode: 'Estilo',
+    modeBox: 'Caixa sólida', modePixel: 'Pixelar', modeBlur: 'Desfocar', modePan: 'Mover', color: 'Cor', undo: 'Desfazer', redo: 'Refazer', clearAll: 'Remover tudo',
+    zoom: 'Zoom', zoomOut: 'Diminuir', zoomIn: 'Aumentar', fit: 'Ajustar',
+    warnSoft: 'Desfoque e pixelização às vezes podem ser revertidos em parte ou adivinhados, principalmente em textos curtos como números. Para o que precisa ficar em segredo, use uma caixa sólida.',
+    drawHint: 'Arraste sobre a imagem para cobrir uma área. No celular, arraste com um dedo; use Mover para rolar.', canvasLabel: 'Imagem a ocultar',
+    ocr: 'Sugerir áreas (encontrar e-mails, IBAN, telefones, IPs)', ocrNote: 'Opcional. O reconhecimento de texto roda no seu dispositivo; na primeira vez ele baixa cerca de 10 MB de arquivos de reconhecimento deste site.',
+    ocrLoading: 'Carregando o reconhecimento de texto…', ocrRunning: 'Lendo a imagem… {pct}%', ocrNone: 'Nenhum e-mail, IBAN, cartão, telefone ou endereço IP encontrado. Confira a imagem você também.',
+    ocrFound: '{n} sugestões. Marque as que quer cobrir e aplique.', ocrFail: 'O reconhecimento de texto não consegue iniciar neste navegador.', applyAll: 'Cobrir {n} áreas selecionadas',
+    t_email: 'E-mail', t_iban: 'IBAN', t_card: 'Número de cartão', t_ip: 'Endereço IP', t_phone: 'Telefone',
+    format: 'Formato', download: 'Baixar a imagem ocultada', copyImg: 'Copiar imagem', newImg: 'Outra imagem', copied: 'Copiado',
+    exportNote: 'O arquivo exportado é uma imagem nova: as áreas cobertas ficam gravadas nos pixels e nenhum metadado (EXIF, GPS, câmera) é copiado.',
+    saved: '{name} salvo ({w}×{h}).', notImage: 'Esse arquivo não é uma imagem que este navegador consiga abrir.', copyFail: 'Este navegador não copia imagens; use Baixar.', imgCopied: 'Imagem copiada para a área de transferência.' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t;
+let src = null, name = 'screenshot', hist = new History(), mode = 'box', zoom = 1, suggestions = [];
+const work = document.createElement('canvas');     // full-resolution composite (what gets exported)
+const view = $('canvas'), vctx = view.getContext('2d');
+const status = (msg, el = 'status') => { $(el).textContent = msg; $(el).hidden = !msg; };
+
+/* ── loading ── */
+async function load(blob, filename) {
+  try {
+    // createImageBitmap applies EXIF orientation, so the pixels are what the user sees
+    src = await createImageBitmap(blob, { imageOrientation: 'from-image' });
+  } catch (e) { status(t('notImage')); return; }
+  name = filename || 'screenshot';
+  hist = new History(); suggestions = []; $('sugg').hidden = true; status('', 'ocr-status'); status('');
+  work.width = src.width; work.height = src.height;
+  $('drop').hidden = true; $('editor').hidden = false;
+  fit(); compose();
+  window.__redactLoaded = (window.__redactLoaded || 0) + 1;
+}
+$('pick').addEventListener('click', () => $('file').click());
+$('file').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) load(f, f.name); e.target.value = ''; });
+const drop = $('drop');
+['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, () => drop.classList.remove('over')));
+drop.addEventListener('drop', (e) => { e.preventDefault(); const f = [...e.dataTransfer.files].find((x) => x.type.startsWith('image/')); if (f) load(f, f.name); });
+window.addEventListener('paste', (e) => {
+  const item = [...(e.clipboardData || {}).items || []].find((i) => i.type.startsWith('image/'));
+  if (item) { e.preventDefault(); load(item.getAsFile(), 'pasted-screenshot.png'); }
+});
+$('new').addEventListener('click', () => { src = null; $('editor').hidden = true; $('drop').hidden = false; $('pick').focus(); });
+
+/* ── composing: every redaction is applied to the full-resolution pixels ── */
+function apply(ctx, r) {
+  if (r.mode === 'box') { ctx.fillStyle = r.color; ctx.fillRect(r.x, r.y, r.w, r.h); return; }
+  if (r.mode === 'pixelate') {
+    const b = pixelBlock(r), sw = Math.max(1, Math.ceil(r.w / b)), sh = Math.max(1, Math.ceil(r.h / b));
+    const tmp = Object.assign(document.createElement('canvas'), { width: sw, height: sh });
+    tmp.getContext('2d').drawImage(ctx.canvas, r.x, r.y, r.w, r.h, 0, 0, sw, sh);
+    ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(tmp, 0, 0, sw, sh, r.x, r.y, r.w, r.h); ctx.restore();
+    return;
+  }
+  // blur: blur a padded copy of the region and paint it back clipped to the region
+  const pad = Math.round(Math.max(6, Math.min(r.w, r.h) / 4));
+  const tmp = Object.assign(document.createElement('canvas'), { width: r.w + pad * 2, height: r.h + pad * 2 });
+  const tc = tmp.getContext('2d');
+  tc.filter = `blur(${Math.max(4, Math.round(Math.min(r.w, r.h) / 6))}px)`;
+  tc.drawImage(ctx.canvas, r.x - pad, r.y - pad, r.w + pad * 2, r.h + pad * 2, 0, 0, r.w + pad * 2, r.h + pad * 2);
+  ctx.save(); ctx.beginPath(); ctx.rect(r.x, r.y, r.w, r.h); ctx.clip(); ctx.drawImage(tmp, r.x - pad, r.y - pad); ctx.restore();
+}
+function compose() {
+  const ctx = work.getContext('2d');
+  ctx.clearRect(0, 0, work.width, work.height);
+  ctx.drawImage(src, 0, 0);
+  for (const r of hist.current) apply(ctx, r);
+  paint();
+  $('undo').disabled = !hist.canUndo; $('redo').disabled = !hist.canRedo;
+}
+let draft = null;
+function paint() {
+  view.width = Math.round(work.width * zoom); view.height = Math.round(work.height * zoom);
+  vctx.imageSmoothingEnabled = zoom < 1;
+  vctx.drawImage(work, 0, 0, view.width, view.height);
+  vctx.save(); vctx.scale(zoom, zoom);
+  vctx.lineWidth = 2 / zoom;
+  for (const s of suggestions) { vctx.setLineDash([6 / zoom, 4 / zoom]); vctx.strokeStyle = s.on ? '#ff3b5c' : '#9aa3af'; vctx.strokeRect(s.r.x, s.r.y, s.r.w, s.r.h); }
+  if (draft) { vctx.setLineDash([]); vctx.strokeStyle = '#2fd5ee'; vctx.fillStyle = 'rgba(47,213,238,.18)'; vctx.fillRect(draft.x, draft.y, draft.w, draft.h); vctx.strokeRect(draft.x, draft.y, draft.w, draft.h); }
+  vctx.restore();
+}
+
+/* ── drawing with pointer events (mouse, pen, touch) ── */
+const toImage = (e) => { const b = view.getBoundingClientRect(); return { x: (e.clientX - b.left) / zoom, y: (e.clientY - b.top) / zoom }; };
+let start = null, panFrom = null;
+view.addEventListener('pointerdown', (e) => {
+  if (!src) return;
+  try { view.setPointerCapture(e.pointerId); } catch (err) { /* capture is a nicety: drawing works without it */ }
+  if (mode === 'pan') { panFrom = { x: e.clientX, y: e.clientY, l: $('stage').scrollLeft, t: $('stage').scrollTop }; return; }
+  start = toImage(e);
+});
+view.addEventListener('pointermove', (e) => {
+  if (panFrom) { $('stage').scrollLeft = panFrom.l - (e.clientX - panFrom.x); $('stage').scrollTop = panFrom.t - (e.clientY - panFrom.y); return; }
+  if (!start) return;
+  draft = rectFrom(start, toImage(e), work.width, work.height, 1); paint();
+});
+const end = (e) => {
+  if (panFrom) { panFrom = null; return; }
+  if (!start) return;
+  const r = rectFrom(start, toImage(e), work.width, work.height);
+  start = null; draft = null;
+  if (r) { hist.push([...hist.current, { ...r, mode, color: $('color').value }]); compose(); } else paint();
+};
+view.addEventListener('pointerup', end);
+view.addEventListener('pointercancel', () => { start = null; draft = null; panFrom = null; paint(); });
+
+/* ── toolbar ── */
+document.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll('[data-mode]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+  $('warn').hidden = !(mode === 'pixelate' || mode === 'blur');
+  $('color-wrap').hidden = mode !== 'box';
+  $('stage').classList.toggle('pan', mode === 'pan');
+}));
+$('undo').addEventListener('click', () => { hist.undo(); compose(); });
+$('redo').addEventListener('click', () => { hist.redo(); compose(); });
+$('clear').addEventListener('click', () => { if (hist.current.length) { hist.push([]); compose(); } });
+window.addEventListener('keydown', (e) => {
+  if (!src || !(e.ctrlKey || e.metaKey)) return;
+  const k = e.key.toLowerCase();
+  if (k === 'z' && !e.shiftKey) { e.preventDefault(); hist.undo(); compose(); }
+  if (k === 'y' || (k === 'z' && e.shiftKey)) { e.preventDefault(); hist.redo(); compose(); }
+});
+function fit() { const w = $('stage').clientWidth - 2; zoom = Math.min(1, w / work.width) || 1; }
+$('zoom-fit').addEventListener('click', () => { fit(); paint(); });
+$('zoom-in').addEventListener('click', () => { zoom = Math.min(4, zoom * 1.25); paint(); });
+$('zoom-out').addEventListener('click', () => { zoom = Math.max(0.1, zoom / 1.25); paint(); });
+
+/* ── optional OCR suggestions (Tesseract.js, self-hosted, loaded on demand) ── */
+let tess = null;
+function loadTesseract() {
+  return (tess ||= new Promise((ok, fail) => { const s = document.createElement('script'); s.src = '/vendor/tesseract.js@5.1.1/tesseract.min.js'; s.onload = ok; s.onerror = fail; document.head.appendChild(s); }));
+}
+$('ocr').addEventListener('click', async () => {
+  $('ocr').disabled = true; status(t('ocrLoading'), 'ocr-status');
+  try {
+    await loadTesseract();
+    const worker = await Tesseract.createWorker('eng', 1, {
+      workerPath: '/vendor/tesseract.js@5.1.1/worker.min.js', corePath: '/vendor/tesseract.js-core@5.1.1/',
+      langPath: '/vendor/tesseract.js-data-eng@1.0.0', gzip: true,
+      logger: (m) => { if (m.status === 'recognizing text') status(t('ocrRunning', { pct: Math.round(m.progress * 100) }), 'ocr-status'); },
+    });
+    const { data } = await worker.recognize(work);
+    await worker.terminate();
+    const lines = (data.blocks || []).flatMap((b) => b.paragraphs.flatMap((p) => p.lines));
+    suggestions = findSensitive(lines, 3).map((m) => ({ ...m, on: true, r: { x: Math.max(0, m.bbox.x0), y: Math.max(0, m.bbox.y0), w: m.bbox.x1 - m.bbox.x0, h: m.bbox.y1 - m.bbox.y0 } }));
+    renderSuggestions();
+  } catch (e) { status(t('ocrFail'), 'ocr-status'); }
+  $('ocr').disabled = false;
+});
+function renderSuggestions() {
+  status(suggestions.length ? t('ocrFound', { n: suggestions.length }) : t('ocrNone'), 'ocr-status');
+  $('sugg').hidden = !suggestions.length;
+  $('sugg-list').innerHTML = suggestions.map((s, i) => `<label><input type="checkbox" data-i="${i}"${s.on ? ' checked' : ''}> ${TK.esc(t('t_' + s.type))}: <code>${TK.esc(s.text)}</code></label>`).join('');
+  $('sugg-list').querySelectorAll('input').forEach((c) => c.addEventListener('change', () => { suggestions[c.dataset.i].on = c.checked; updateApply(); paint(); }));
+  updateApply(); paint();
+  window.__redactSuggestions = suggestions.map((s) => ({ type: s.type, text: s.text }));
+}
+function updateApply() { $('apply-all').textContent = t('applyAll', { n: suggestions.filter((s) => s.on).length }); }
+$('apply-all').addEventListener('click', () => {
+  const add = suggestions.filter((s) => s.on).map((s) => ({ ...s.r, mode: 'box', color: $('color').value }));
+  if (add.length) { hist.push([...hist.current, ...add]); suggestions = []; $('sugg').hidden = true; status('', 'ocr-status'); compose(); }
+});
+/* used by the functional test: suggestions from OCR-like input, without running Tesseract */
+window.__redactSuggestFrom = (lines) => { suggestions = findSensitive(lines, 3).map((m) => ({ ...m, on: true, r: { x: m.bbox.x0, y: m.bbox.y0, w: m.bbox.x1 - m.bbox.x0, h: m.bbox.y1 - m.bbox.y0 } })); renderSuggestions(); };
+
+/* ── export: a fresh canvas encoding carries no EXIF/XMP/GPS ── */
+function exportBlob() {
+  const type = $('fmt').value === 'jpeg' ? 'image/jpeg' : 'image/png';
+  let canvas = work;
+  if (type === 'image/jpeg') {   // JPEG has no transparency: flatten on white
+    canvas = Object.assign(document.createElement('canvas'), { width: work.width, height: work.height });
+    const c = canvas.getContext('2d'); c.fillStyle = '#ffffff'; c.fillRect(0, 0, canvas.width, canvas.height); c.drawImage(work, 0, 0);
+  }
+  return new Promise((ok) => canvas.toBlob(ok, type, 0.92));
+}
+$('download').addEventListener('click', async () => {
+  const blob = await exportBlob(), ext = $('fmt').value === 'jpeg' ? 'jpg' : 'png', out = outputName(name, ext);
+  TK.download(blob, out); status(t('saved', { name: out, w: work.width, h: work.height }));
+});
+$('copy-img').addEventListener('click', async () => {
+  try {
+    const blob = await new Promise((ok) => work.toBlob(ok, 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    status(t('imgCopied'));
+  } catch (e) { status(t('copyFail')); }
+});
+window.__redactReady = true;
+window.__redactCount = () => hist.current.length;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

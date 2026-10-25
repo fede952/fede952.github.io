@@ -20,3 +20,6 @@ with a new version and changing the `src` that points here.
 | pdfjs-dist | 6.4.299 | Apache-2.0 | tools/pdf-merge-split (via `js/tools/pdf-kit.mjs`) — page thumbnails only; `pdf.min.mjs` + its worker, plus `cmaps/`, `standard_fonts/` and `wasm/` so CJK and non-embedded fonts render without a CDN |
 | js-yaml | 4.1.0 | MIT | tools/json-formatter — YAML ⇄ JSON, loaded the first time YAML is used |
 | diff (jsdiff) | 9.0.0 | BSD-3-Clause | tools/text-diff — `dist/diff.min.js` (UMD, global `Diff`) |
+| tesseract.js | 5.1.1 | Apache-2.0 | tools/screenshot-redactor — optional text detection, loaded only when the user asks for suggestions; `tesseract.min.js` + `worker.min.js` (source-map comments removed) |
+| tesseract.js-core | 5.1.1 | Apache-2.0 | tools/screenshot-redactor — the LSTM WebAssembly builds only (`tesseract-core-simd-lstm.wasm.js` and the non-SIMD fallback) |
+| @tesseract.js-data/eng | 1.0.0 | MIT (package) / Apache-2.0 (Tesseract `tessdata_best` model) | tools/screenshot-redactor — `eng.traineddata.gz` from `4.0.0_best_int` (2.9 MB) |

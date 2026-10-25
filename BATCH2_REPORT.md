@@ -74,3 +74,44 @@ No user data is involved.
   - `phishing-quiz-it`: Italian scenario text.
 
 **Forward link.** The pages mention the Email Header Analyzer as plain text for now; the links are added in Phase 4 once that tool exists, so every phase commit passes the link check.
+
+## Phase 3 — Screenshot Redactor (`/tools/screenshot-redactor/`)
+
+**Input.** Paste (Ctrl/⌘+V), drop or pick an image. `createImageBitmap(…, { imageOrientation: 'from-image' })` applies EXIF rotation first, so you redact what you see.
+
+**Redactions.**
+- **Solid box:** the default, black or any colour.
+- **Pixelate and Blur:** selecting either shows a visible warning that they can be partly reversed or guessed. "How it works" explains why: candidate texts rendered in the same font can be pixelated or blurred the same way and compared.
+
+Every box is stored as a rectangle, and a full-resolution composite is rebuilt from the original pixels after each change. There's undo/redo (buttons and Ctrl+Z / Ctrl+Y), zoom −/Fit/+, and a Move mode for scrolling a zoomed image. Drawing uses Pointer Events, so mouse, pen and touch all work (`touch-action: none` on the canvas).
+
+**Export.**
+- **Formats:** PNG, or JPEG flattened on white.
+- **Fresh encoding:** a new image from the composite, so redactions are burned into the pixels, with no layers, no original and no metadata.
+- **Copy image:** copies the result to the clipboard.
+
+**Optional OCR helper.** Tesseract.js 5.1.1 is self-hosted in `static/vendor/` (library, LSTM WASM core, English `best_int` model, 2.9 MB) and lazy-loaded only on "Suggest areas". Recognition runs on the device.
+
+The suggestions come from `js/tools/redact-kit.mjs`:
+- emails;
+- IBANs, which must pass the ISO 13616 mod-97 check;
+- card numbers, which must pass the Luhn check;
+- phone numbers, by digit count;
+- IPv4 (octet ranges) and IPv6 (compressed forms).
+
+Matches are made per OCR line, so values split across words get one box covering all of them. Each suggestion is a dashed box that can be ticked or unticked, then applied as solid boxes.
+
+**Privacy.** The only extra requests are same-site files, loaded on demand, and the page says so. There's no third-party request, so the privacy pages are unchanged.
+
+**Tests.**
+- **Unit:** validators against the ISO/ECBS IBAN examples and the 4111 test card; detection; multi-word box unions; no false positives on times, dates, versions, prices or invalid numbers; geometry; history.
+- **Functional (`screenshot-redactor`):**
+  - drawing with the mouse and with a touch drag, plus undo/redo;
+  - the soft-mode warning;
+  - **real OCR** on a generated screenshot finds exactly the email, IBAN and IP, and nothing on the decoy line;
+  - the PNG export has black pixels where boxes were, untouched pixels elsewhere and no metadata chunks;
+  - a JPEG export of the GPS fixture contains no EXIF.
+
+  It runs with every external request blocked, which also proves Tesseract never contacts a CDN.
+
+**Found and fixed.** `setPointerCapture` can throw for a pointer the browser doesn't track, and that aborted the drag. Capture is now optional.

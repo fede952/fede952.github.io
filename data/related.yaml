@@ -9,6 +9,9 @@
 # Used by partials/sidebar.html (via partials/related-tool-pages.html).
 
 tools:
+  screenshot-redactor:
+    tools: [exif-cleaner, pixel-shrink, images-to-pdf, steganography]
+    guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
   phishing-quiz:
     tools: [link-hazmat, pass-fort, security-headers, exif-cleaner]
     guides: [roadmaps/cyber-security-specialist, guides/osint-privacy-exif-data, interviews/python-security-interview-questions]
