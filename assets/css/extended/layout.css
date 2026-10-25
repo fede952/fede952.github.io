@@ -17,6 +17,12 @@
   max-width: calc(var(--page-max) + var(--gutter) * 2);
 }
 
+@media (max-width: 599.98px) {
+  .main {
+    padding-top: var(--s-3);
+  }
+}
+
 .page-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -119,7 +125,12 @@
   }
 }
 
-/* The sidebar ad slot is only filled at >= 1100 px (assets/js/site.js). */
+/* The sidebar ad is only inserted at >= 1100 px, into a computed "track"
+   (assets/js/site.js); it is sticky inside that track. */
+.page-sidebar {
+  position: relative;
+}
+
 .sidebar-ad {
   display: none;
 }
@@ -127,7 +138,11 @@
 @media (min-width: 1100px) {
   .sidebar-ad {
     display: block;
-    position: relative;
+  }
+
+  .sidebar-ad .ad-slot {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
   }
 }
 

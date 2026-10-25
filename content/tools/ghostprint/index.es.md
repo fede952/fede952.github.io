@@ -11,6 +11,7 @@ app_category: "SecurityApplication"
 tool_file: "/tools/ghostprint/"
 tool_title: "GhostPrint, test de huella del navegador"
 tool_height: 2200
+tool_settle_ms: 3000
 tool_sandbox: "allow-scripts allow-same-origin allow-downloads allow-modals"
 tool_allow: "clipboard-write"
 howto:

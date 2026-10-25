@@ -82,12 +82,19 @@ defaultContentLanguageInSubdir = true
   # AdSense (config-driven units: partials/ads/unit.html). An empty
   # slot_<position> falls back to slot_default. Create one display unit per
   # position in AdSense → Ads → By ad unit and paste the numeric IDs here.
+  # Placement (redesign Phase 3): tool pages tool_after + article_mid (before
+  # the 3rd h2 of the long-form text), learn pages article_mid before the 2nd
+  # and 5th h2, plus `sidebar` on desktop >= 1100 px; never two ads on one
+  # screen (see REDESIGN_REPORT.md).
   [params.ads]
     client = "ca-pub-7359888124148067"
     slot_default = "5511096259"
-    slot_tool_top = ""      # TODO Federico: create unit in AdSense
-    slot_tool_after = ""    # TODO
-    slot_article_mid = ""   # TODO
+    slot_tool_after = ""    # TODO(Federico): create unit in AdSense
+    slot_article_mid = ""   # TODO(Federico)
+    slot_sidebar = ""       # TODO(Federico): display unit, vertical/rectangle (300×250–300×600)
+    # Not placed any more (the slot above the tool pushed it below the fold);
+    # kept so the position can be reused: partial "ads/unit.html" (dict "position" "tool_top").
+    slot_tool_top = ""
 
   # Affiliate partner blocks on tool pages (partials/affiliate/block.html),
   # placed after the "How it works" section. One partner per category; a

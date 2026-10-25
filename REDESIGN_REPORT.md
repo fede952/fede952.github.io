@@ -182,3 +182,17 @@ Screens reviewed at 390 / 1440 px: home, /tools/, /learn/, a tool page (EN/IT), 
 | Overflow sweep, 360 px | 1,456 pages, 0 overflow, 0 JS errors |
 | Functional | 20/20 · Tool pages 144/144 (incl. the new frame-stability check) |
 | Static | 2,747 HTML files, 0 broken links, 0 JSON-LD errors, 503 sitemap URLs |
+
+## Phase 3 — Ad layout v2
+
+- **Tool pages:** intro → tool → `tool_after` → How to use → long-form text with `article_mid` before its 3rd `<h2>` → FAQ; `sidebar` unit at ≥ 1100 px. `tool_top` is no longer placed; its config key `slot_tool_top` stays in `hugo.toml` (documented there) so the position can be reused. `slot_sidebar = ""` added (falls back to `slot_default`).
+- **Learn pages:** `article_mid` before the 2nd and 5th `<h2>` as before, plus the desktop sidebar unit.
+- **One ad per screen:** `ads/inject-content.html` only places an in-content unit at least 450 words after the previous ad (the How-to words count). Otherwise the unit moves to the next `<h2>`, or is dropped. The sidebar unit (`site.js`) gets a "track" where no in-content ad is within one viewport and it never sits beside the tool; inside that track it is sticky. If there's no such track, it is never inserted or requested.
+- **No ad within 150 px of a tool control:** `tool_after` has 144 px of space above it.
+- **Above the fold:**
+  - Nothing sits between the intro and the tool, and the mobile tool header is tighter.
+  - ReflexGrid's start overlay is now aligned to the top.
+  - GhostPrint's frame may only grow during its first 3 s (`tool_settle_ms`). It used to shrink and then grow back, which caused a layout shift.
+- **New test, `tests/ads.mjs`:** one ad per screen, first control visible without scrolling, 150 px rule, CLS.
+  - Tool pages, 6 languages at 390×844 and 1440×900: **420 runs, 0 problems; max CLS 0.002**; the sidebar unit was placed on 144 of 210 desktop runs.
+  - Learn pages at all 3 viewports (390×844, 768×1024, 1440×900): last full run was EN+IT, with only button-distance failures, since fixed. Re-run in Phase 6.

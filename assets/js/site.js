@@ -149,5 +149,56 @@
     chips.forEach(function (c) { if (pre && c.getAttribute('data-chip') === pre) c.click(); });
   });
 
+  /* ── Sidebar ad (partials/sidebar.html), >= 1100 px only.
+        One ad per screen: the unit gets a "track" in the sidebar, a stretch
+        of the page where it can be seen without any in-content ad on screen
+        (at least one viewport of distance on both sides) and without sitting
+        beside the tool (no ad next to the tool's buttons). Inside the track
+        it is sticky. No such stretch → the unit is never inserted, so it is
+        never requested. Re-evaluated when the layout changes (the tool
+        iframe resizes after load). ── */
+  var side = document.querySelector('[data-sidebar-ad]');
+  if (side) {
+    var aside = side.parentElement, main = aside.parentElement.querySelector('.page-main');
+    var wideMq = window.matchMedia('(min-width: 1100px)');
+    var UNIT_H = 640, inserted = false, timer = 0; // 600 px unit + label
+    var pageY = function (el, edge) { return el.getBoundingClientRect()[edge] + window.scrollY; };
+    function track() {
+      var vh = window.innerHeight;
+      var asideTop = pageY(aside, 'top'), asideBottom = pageY(aside, 'bottom');
+      var start = asideTop, prev = side.previousElementSibling;
+      if (prev) start = pageY(prev, 'bottom') + 24;
+      var zones = [];
+      main.querySelectorAll('.ad-slot').forEach(function (el) { zones.push({ top: pageY(el, 'top'), bottom: pageY(el, 'bottom'), sep: vh }); });
+      var tool = main.querySelector('.tool-frame');
+      if (tool) zones.push({ top: pageY(tool, 'top'), bottom: pageY(tool, 'bottom') + 150, sep: 0 });
+      zones.sort(function (a, b) { return a.top - b.top; });
+      var from = start;
+      for (var i = 0; i <= zones.length; i++) {
+        var z = zones[i];
+        var to = z ? z.top - z.sep : asideBottom;
+        if (to - from >= UNIT_H) return { top: from - asideTop, height: to - from };
+        if (z) from = Math.max(from, z.bottom + z.sep);
+      }
+      return null;
+    }
+    function placeSideAd() {
+      if (!wideMq.matches) return;
+      var t = track();
+      if (!t) { side.style.display = 'none'; return; }
+      side.style.cssText = 'position:absolute;left:0;right:0;top:' + t.top + 'px;height:' + t.height + 'px';
+      if (!inserted) {
+        inserted = true;
+        side.appendChild(side.querySelector('template').content.cloneNode(true));
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { /* ad blocker */ }
+      }
+    }
+    var later = function () { clearTimeout(timer); timer = setTimeout(placeSideAd, 150); };
+    if (window.ResizeObserver) new ResizeObserver(later).observe(main);
+    window.addEventListener('resize', later, { passive: true });
+    window.addEventListener('load', placeSideAd);
+    placeSideAd();
+  }
+
   doc.classList.add('js');
 })();

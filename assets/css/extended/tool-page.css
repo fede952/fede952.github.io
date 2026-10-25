@@ -119,10 +119,10 @@
   box-shadow: var(--shadow-2);
 }
 
-/* Room between the tool's own controls and the ad that follows it
-   (AdSense accidental-click policy). */
+/* At least 150 px between the tool's controls and the ad that follows it
+   (accidental clicks; checked by tests/ads.mjs on every tool page). */
 .ad-slot--tool-after {
-  margin-top: var(--s-9);
+  margin-top: calc(var(--s-10) * 2 + var(--s-4));
 }
 
 .tool-section {
@@ -171,6 +171,21 @@
 }
 
 @media (max-width: 640px) {
+  /* keep the tool's first control above the fold on phones */
+  .tool-page .post-header {
+    margin-bottom: var(--s-4);
+  }
+
+  .tool-page .eyebrow {
+    margin-top: var(--s-1);
+  }
+
+  .tool-intro {
+    margin-top: var(--s-2);
+    font-size: var(--fs-md);
+    line-height: 1.55;
+  }
+
   .tool-frame {
     margin: var(--s-4) 0;
   }

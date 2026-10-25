@@ -1,21 +1,40 @@
-{{- /* Learn-page auto-injection: returns .Content with an article_mid unit
-     inserted right before the 2nd and the 5th <h2> (i.e. at the end of
-     the 1st and 4th sections), when those headings exist. Splitting on
-     "<h2" is safe: headings inside code blocks are HTML-escaped (&lt;h2).
-     Usage: partial "ads/inject-content.html" (dict "page" . "content" $html)
-     Optional "at" (slice of h2 ordinals) overrides the default (slice 2 5);
-     tool pages pass (slice 3) because they already carry two units above. */ -}}
+{{- /* In-content ad injection: returns .content with an article_mid unit
+     inserted before the <h2>s whose ordinals are listed in "at" (default
+     2 and 5: the end of the 1st and 4th sections of a learn page).
+
+     One ad per viewport: a unit is only placed when at least "gap" words
+     (default 450, ≈ one phone screen and more than one desktop screen of
+     prose) separate it from the previous ad — "wordsBefore" is the text
+     between the previous ad and the start of .content (tool pages pass the
+     How-to-use section that follows the tool_after unit; learn pages have
+     no ad above the article). When the gap is too small at the wanted
+     heading, the unit moves to the next <h2>; past the last one it is
+     dropped. tests/ads.mjs measures the result on the rendered pages.
+
+     Splitting on "<h2" is safe: headings inside code blocks are escaped.
+     Usage: partial "ads/inject-content.html" (dict "page" . "content" $html
+              ["at" (slice 3)] ["wordsBefore" 120] ["gap" 450]) */ -}}
 {{- $content := .content -}}
 {{- $at := .at | default (slice 2 5) -}}
+{{- $gap := .gap | default 450 -}}
+{{- $sinceAd := .wordsBefore | default 100000 -}}
 {{- if partial "ads/enabled.html" .page -}}
-  {{- $parts := split $content "<h2" -}}
-  {{- if gt (len $parts) 2 -}}
+  {{- $parts := split (string $content) "<h2" -}}
+  {{- if gt (len $parts) 1 -}}
     {{- $ad := partial "ads/unit.html" (dict "position" "article_mid") -}}
     {{- $out := index $parts 0 -}}
+    {{- $sinceAd = add $sinceAd (countwords (plainify (index $parts 0))) -}}
+    {{- $pending := 0 -}}
     {{- range $i, $p := after 1 $parts -}}
-      {{- $n := add $i 1 -}}{{/* $n = ordinal of the h2 this part starts with */}}
-      {{- if in $at $n }}{{ $out = printf "%s%s" $out $ad }}{{ end -}}
+      {{- $n := add $i 1 -}}{{/* ordinal of the h2 this part starts with */}}
+      {{- if in $at $n }}{{ $pending = add $pending 1 }}{{ end -}}
+      {{- if and (gt $pending 0) (ge $sinceAd $gap) -}}
+        {{- $out = printf "%s%s" $out $ad -}}
+        {{- $pending = sub $pending 1 -}}
+        {{- $sinceAd = 0 -}}
+      {{- end -}}
       {{- $out = printf "%s<h2%s" $out $p -}}
+      {{- $sinceAd = add $sinceAd (countwords (plainify (printf "<h2%s" $p))) -}}
     {{- end -}}
     {{- $content = $out -}}
   {{- end -}}
