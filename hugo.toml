@@ -89,9 +89,9 @@ defaultContentLanguageInSubdir = true
   [params.ads]
     client = "ca-pub-7359888124148067"
     slot_default = "5511096259"
-    slot_tool_after = ""    # TODO(Federico): create unit in AdSense
-    slot_article_mid = ""   # TODO(Federico)
-    slot_sidebar = ""       # TODO(Federico): display unit, vertical/rectangle (300×250–300×600)
+    slot_tool_after = "9173467729"
+    slot_article_mid = "2061972307"
+    slot_sidebar = "9967674640"     # display unit, vertical/rectangle (300×250–300×600)
     # Not placed any more (the slot above the tool pushed it below the fold);
     # kept so the position can be reused: partial "ads/unit.html" (dict "position" "tool_top").
     slot_tool_top = ""

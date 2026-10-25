@@ -3,8 +3,8 @@
      section. Structure:
        breadcrumbs → H1 → intro → TOOL → [ad tool_after]
        → How to use (front matter `howto`) → long-form markdown body
-         (## How it works, [partner block], ## Use cases …, with [ad article_mid]
-         before its 3rd <h2> when far enough from tool_after) → FAQ (`faq`)
+         (## How it works, [ad article_mid], [partner block], ## Use cases …;
+         the ad only when far enough from tool_after) → FAQ (`faq`)
      Nothing sits between the intro and the tool: the tool's first control is
      above the fold on phones and desktops (tests/ads.mjs). The tool_top
      position (and its config key) is kept but no longer placed.
@@ -77,10 +77,12 @@
        long-form section ("How it works"), i.e. before the 2nd <h2>. */}}
   {{- $html := string .Content }}
   {{- if not (.Param "disableAnchoredHeadings") }}{{ $html = string (partial "anchored_headings.html" .Content) }}{{ end }}
-  {{- /* article_mid before the 3rd <h2>, at least one screen of text below
-       the tool_after unit (the How-to-use words count towards that gap) */}}
+  {{- /* article_mid before the 2nd <h2> (after "How it works"; bodies have 2–3
+       sections, so the 3rd was usually missing and the unit never rendered),
+       at least one screen of text below the tool_after unit (the How-to-use
+       words count towards that gap); otherwise it moves down or is dropped. */}}
   {{- $howtoWords := countwords (plainify (delimit (.Params.howto | default slice) " ")) }}
-  {{- $html = string (partial "ads/inject-content.html" (dict "page" . "content" $html "at" (slice 3) "wordsBefore" $howtoWords)) }}
+  {{- $html = string (partial "ads/inject-content.html" (dict "page" . "content" $html "at" (slice 2) "wordsBefore" $howtoWords)) }}
   {{- $partner := partial "affiliate/block.html" . }}
   {{- if $partner }}
     {{- $parts := split $html "<h2" }}
