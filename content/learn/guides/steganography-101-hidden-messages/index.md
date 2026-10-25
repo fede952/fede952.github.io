@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
-## System Init
+## Hiding a message in plain sight
 
 A photograph of a sunset. A profile picture. A meme shared on social media. To any observer, they are ordinary image files. But buried inside the pixel data — invisible to the human eye — there can be a hidden message waiting to be extracted by someone who knows where to look.
 
@@ -19,7 +19,7 @@ This guide explains the most common digital steganography technique — **Least 
 
 ---
 
-## What Is Steganography
+## What steganography is (and how it differs from encryption)
 
 The word comes from Greek: *steganos* (covered) + *graphein* (writing). Literally, "covered writing."
 
@@ -40,7 +40,7 @@ The most powerful approach combines both: encrypt the message first, then embed 
 
 ---
 
-## How LSB Works
+## How LSB steganography hides data in pixels
 
 Digital images are made of pixels. Each pixel stores color values — typically Red, Green, and Blue (RGB) — with each channel using 8 bits (values 0-255).
 
@@ -88,7 +88,7 @@ That is enough to hide an entire document inside a single photograph.
 
 ---
 
-## Detection And Limits
+## Detecting LSB steganography and its limits
 
 LSB steganography is not perfect. Here are the known vulnerabilities:
 
@@ -113,7 +113,7 @@ Resizing, cropping, rotating, or applying filters (brightness, contrast, etc.) a
 
 ---
 
-## Try It Yourself
+## Try it: hide a message in an image
 
 Theory is nothing without practice. Use our free, client-side **[Steganography Lab](/en/tools/steganography/)** to encode your own hidden messages into images — directly in your browser.
 
@@ -129,7 +129,7 @@ No uploads, no server processing. Your data stays on your machine.
 
 ---
 
-## FAQ
+## Steganography FAQ
 
 **Can steganography be detected?**
 

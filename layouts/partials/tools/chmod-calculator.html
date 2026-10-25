@@ -140,8 +140,9 @@ input:checked + .slider:before {
 /* Filename Input */
 .chmod-filename-wrap {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 8px 12px;
   margin-top: 20px;
   padding: 0 5px;
 }
@@ -153,7 +154,8 @@ input:checked + .slider:before {
 }
 
 .chmod-filename-input {
-  flex: 1;
+  flex: 1 1 10rem;
+  min-width: 0;
   background: #111;
   border: 1px solid #333;
   border-radius: 4px;

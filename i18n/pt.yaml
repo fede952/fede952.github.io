@@ -183,3 +183,46 @@ aff_devsec_title:
   other: "Pegue segredos vazados antes de ir para produção"
 aff_devsec_text:
   other: "Esta página verifica um trecho por vez, no seu navegador. {{ .Name }} pode monitorar seus repositórios e pipelines continuamente, para que uma chave ou token vazado seja sinalizado antes de chegar à produção."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Principal"
+nav_search:
+  other: "Pesquisar"
+nav_language:
+  other: "Idioma"
+nav_menu:
+  other: "Menu"
+back_to_top:
+  other: "Voltar ao topo"
+code_copy:
+  other: "Copiar"
+code_copied:
+  other: "Copiado"
+code_label:
+  other: "Código"
+table_label:
+  other: "Tabela (rola na horizontal)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Ferramenta"
+type_game:
+  other: "Jogo"
+type_guides:
+  other: "Guia"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Solução"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Entrevista"
+
+type_project:
+  other: "Projeto"
+type_page:
+  other: "Página"

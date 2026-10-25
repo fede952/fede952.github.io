@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/python-security-scripts/"]
 ---
 
-## Systeminitialisierung
+## Was dieses Python-Security-Cheatsheet abdeckt
 
 Python ist die Lingua Franca der offensiven Sicherheit. Seine lesbare Syntax, die umfangreiche Standardbibliothek und leistungsfähige Drittanbieter-Pakete machen es zum Werkzeug der Wahl für Penetrationstester, Red Teamer und Sicherheitsforscher, die Aufklärung automatisieren, individuelle Exploits erstellen und Netzwerktools entwickeln müssen. Von der Raw-Socket-Programmierung über die Paketmanipulation mit Scapy bis hin zu Webanwendungstests mit Requests gibt Python die volle Kontrolle über jede Schicht des Netzwerk-Stacks. Dieses Feldhandbuch enthält praxiserprobte Code-Snippets für die gängigsten Sicherheits-Scripting-Aufgaben — bereit zum Kopieren, Anpassen und Einsetzen bei autorisierten Einsätzen.
 

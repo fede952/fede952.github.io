@@ -1,0 +1,17 @@
+{{- /* Fenced code block: a header bar (language + Copy button, wired by
+     assets/js/site.js) above a horizontally scrollable body. Rendered
+     server-side so the bar causes no layout shift. */ -}}
+{{- $lang := .Type | default "text" }}
+{{- $label := cond (in (slice "" "text" "plaintext") .Type) (i18n "code_label" | default "Code") .Type }}
+<div class="code-block">
+  <div class="code-head">
+    <span class="code-lang">{{ $label }}</span>
+    <button type="button" class="code-copy" data-copied="{{ i18n "code_copied" | default "Copied" }}">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+      <span class="code-copy-text">{{ i18n "code_copy" | default "Copy" }}</span>
+    </button>
+  </div>
+  <div class="code-body" data-scroll-x>
+    {{- highlight (strings.TrimRight "\n" .Inner) $lang .Options -}}
+  </div>
+</div>

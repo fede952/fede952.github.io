@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/linux-sysadmin-interview-questions/"]
 ---
 
-## System Init
+## What Linux Sysadmin Interviewers Look For
 
 Linux system administration is the bedrock of modern infrastructure. Whether you are interviewing for a SysAdmin, DevOps, SRE, or Cloud Engineer role, you will be tested on your ability to manage users, troubleshoot processes, configure networking, and secure servers — all from the command line. This guide covers 20 questions that separate senior candidates from junior ones, with answers that demonstrate real operational experience.
 

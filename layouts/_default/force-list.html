@@ -27,7 +27,7 @@
       {{ $direct = $featured | append $regular }}
       <div class="cyber-grid">
         {{ range $direct }}
-          {{ partial "cyber-card.html" . }}
+          {{ partial "cyber-card.html" (dict "page" .) }}
         {{ end }}
       </div>
     {{ end }}
@@ -46,7 +46,7 @@
         {{ with .Description }}<p class="hub-group-desc">{{ . }}</p>{{ end }}
         <div class="cyber-grid">
           {{ range $shown }}
-            {{ partial "cyber-card.html" . }}
+            {{ partial "cyber-card.html" (dict "page" .) }}
           {{ end }}
         </div>
         {{ if $overflow }}
@@ -69,7 +69,7 @@
 
     <div class="cyber-grid">
       {{ range $paginator.Pages }}
-        {{ partial "cyber-card.html" . }}
+        {{ partial "cyber-card.html" (dict "page" .) }}
       {{ end }}
     </div>
 

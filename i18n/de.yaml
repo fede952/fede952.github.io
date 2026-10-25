@@ -183,3 +183,46 @@ aff_devsec_title:
   other: "Geleakte Secrets finden, bevor sie live gehen"
 aff_devsec_text:
   other: "Diese Seite prüft jeweils ein Snippet, lokal im Browser. {{ .Name }} kann Ihre Repositories und Pipelines laufend überwachen, sodass ein geleakter Schlüssel oder Token gemeldet wird, bevor er in Produktion landet."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Hauptmenü"
+nav_search:
+  other: "Suchen"
+nav_language:
+  other: "Sprache"
+nav_menu:
+  other: "Menü"
+back_to_top:
+  other: "Nach oben"
+code_copy:
+  other: "Kopieren"
+code_copied:
+  other: "Kopiert"
+code_label:
+  other: "Code"
+table_label:
+  other: "Tabelle (seitlich scrollbar)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Tool"
+type_game:
+  other: "Spiel"
+type_guides:
+  other: "Guide"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Lösung"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Interview"
+
+type_project:
+  other: "Projekt"
+type_page:
+  other: "Seite"

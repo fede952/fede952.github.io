@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/react-hooks-lifecycle/"]
 ---
 
-## Componente en Línea
+## Por qué importan los Hooks de React
 
 Los React Hooks reemplazaron a los componentes de clase como la forma estándar de gestionar estado y efectos secundarios. Desde React 16.8, toda aplicación en producción se construye con hooks — y los entrevistadores esperan que los domines a la perfección. Esta guía te ofrece fragmentos de código listos para copiar y pegar para cada hook y los patrones del mundo real que encontrarás en entrevistas frontend y en el desarrollo diario. Sin clases teóricas. Solo código funcional que puedes insertar en cualquier componente.
 
@@ -675,6 +675,6 @@ function useMyHook() {        // ✅ Hook personalizado (empieza con "use")
 
 ---
 
-## Fin de la Transmisión
+## Cheatsheet de React Hooks: puntos clave
 
 Esta guía cubre cada patrón de React Hooks que encontrarás en codebases de producción y entrevistas frontend. Desde la gestión básica de estado hasta hooks personalizados que encapsulan lógica reutilizable — estos son los bloques de construcción del React moderno. Guárdala en marcadores, copia los patrones y construye.

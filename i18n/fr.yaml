@@ -183,3 +183,46 @@ aff_devsec_title:
   other: "Repérez les secrets exposés avant la mise en production"
 aff_devsec_text:
   other: "Cette page vérifie un extrait à la fois, dans votre navigateur. {{ .Name }} peut surveiller en continu vos dépôts et pipelines, pour qu'une clé ou un jeton exposé soit signalé avant d'arriver en production."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Principal"
+nav_search:
+  other: "Rechercher"
+nav_language:
+  other: "Langue"
+nav_menu:
+  other: "Menu"
+back_to_top:
+  other: "Haut de page"
+code_copy:
+  other: "Copier"
+code_copied:
+  other: "Copié"
+code_label:
+  other: "Code"
+table_label:
+  other: "Tableau (défile horizontalement)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Outil"
+type_game:
+  other: "Jeu"
+type_guides:
+  other: "Guide"
+type_cheatsheets:
+  other: "Aide-mémoire"
+type_debug-sys:
+  other: "Solution"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Entretien"
+
+type_project:
+  other: "Projet"
+type_page:
+  other: "Page"

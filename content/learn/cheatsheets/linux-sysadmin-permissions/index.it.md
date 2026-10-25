@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
-## Inizializzazione del Sistema
+## Cosa copre questa cheatsheet per sysadmin Linux
 
 I permessi dei file Linux sono la prima linea di difesa in qualsiasi sistema. Un permesso configurato in modo errato può esporre dati sensibili a utenti non autorizzati, o bloccare l'accesso ai file necessari per i servizi legittimi. Oltre ai permessi, la gestione di utenti, gruppi, servizi e processi è il pane quotidiano di qualsiasi amministratore di sistema. Questo manuale operativo copre i comandi che userai ogni giorno — dall'impostazione dei permessi corretti sulla document root di un server web all'eliminazione di un processo fuori controllo che sta consumando tutta la memoria disponibile. Ogni comando è spiegato con esempi pratici per scenari reali.
 

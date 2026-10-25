@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
-## $ System_Init
+## Was dieses Git-Cheatsheet abdeckt
 
 Jede Operation hinterlässt eine Spur. Jeder Commit ist ein Checkpoint. Git ist nicht nur Versionskontrolle — es ist das forensische Rückgrat jedes Softwareprojekts. Dieses Feldhandbuch enthält die Befehle, die Sie täglich verwenden werden, und diejenigen, die Sie retten, wenn alles zusammenbricht.
 
@@ -17,7 +17,7 @@ Befehle sind nach Missionstyp organisiert. Führen Sie sie präzise aus.
 
 ---
 
-## $ Emergency_Fixes
+## Commits rückgängig machen und Branches wiederherstellen
 
 Wenn ein Deployment schiefgeht und die Zeitlinie neu geschrieben werden muss.
 
@@ -68,7 +68,7 @@ git revert <commit-hash>
 
 ---
 
-## $ Stealth_Mode
+## Commits mit GPG signieren und prüfen
 
 Kryptographische Signierung und Identitätsverifizierung. Beweisen Sie, dass Ihre Commits authentisch sind.
 
@@ -114,7 +114,7 @@ git tag -v v1.0.0
 
 ---
 
-## $ Branch_Operations
+## Branch-Operationen
 
 Taktisches Branch-Management für parallele Entwicklung.
 
@@ -166,7 +166,7 @@ git rebase -i HEAD~3
 
 ---
 
-## $ Reconnaissance
+## Historie untersuchen und den schuldigen Commit finden
 
 Inspizieren Sie den Repository-Status, bevor Sie Entscheidungen treffen.
 
@@ -210,7 +210,7 @@ git bisect good abc1234 # Dieser alte Commit funktionierte
 
 ---
 
-## $ Stash_Operations
+## Laufende Arbeit mit stash zurückstellen
 
 Legen Sie Arbeit vorübergehend beiseite, ohne zu committen.
 
@@ -247,7 +247,7 @@ git stash branch feature/from-stash stash@{0}
 
 ---
 
-## $ Advanced_Protocols
+## Cherry-Pick, Patches und Shallow Clones
 
 Leistungsstarke Befehle für komplexe Szenarien.
 

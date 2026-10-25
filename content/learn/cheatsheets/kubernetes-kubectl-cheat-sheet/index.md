@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
-## System Init
+## What This kubectl Cheatsheet Covers
 
 Kubernetes is the operating system for the cloud. It orchestrates containers across clusters of machines, handling scaling, self-healing, load balancing, and service discovery automatically. But all that power is accessed through a single command-line tool: `kubectl`. This field manual contains the kubectl commands you need for every phase of cluster management — from deploying your first pod to debugging production incidents at 3 AM. Every command is production-tested and organized by workflow, so you can find what you need in seconds.
 

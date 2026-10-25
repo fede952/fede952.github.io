@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/javascript-es6-array-methods/"]
 ---
 
-## Inizializzazione del Runtime
+## Perché conta il JavaScript moderno (ES6+)
 
 JavaScript si è evoluto da un semplice linguaggio di scripting nella spina dorsale dello sviluppo web moderno. ES6 e versioni successive hanno introdotto funzionalità che rendono il codice più pulito, prevedibile e facile da mantenere — arrow function, destructuring, moduli, async/await e potenti metodi array che sostituiscono i cicli verbosi con trasformazioni dichiarative. Che tu stia costruendo componenti React, gestendo chiamate API o preparandoti per un colloquio frontend, questo cheatsheet copre la sintassi JS che userai ogni singolo giorno. Ogni snippet è pronto per la produzione. Copia, incolla, pubblica.
 
@@ -638,6 +638,6 @@ original.nested.value; // ancora 42
 
 ---
 
-## Fine della Trasmissione
+## Cheatsheet JavaScript ES6: i punti chiave
 
 Questo cheatsheet copre il JavaScript moderno che ogni sviluppatore frontend deve conoscere — dai fondamentali di ES6 ai pattern asincroni e la Fetch API. Aggiungilo ai preferiti, consultalo durante i colloqui frontend e costruisci più velocemente con sintassi JS pulita e dichiarativa. Il web gira su JavaScript. Ora sei tu a far girare JavaScript.

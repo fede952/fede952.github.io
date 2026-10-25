@@ -183,3 +183,46 @@ aff_devsec_title:
   other: "Intercetta i segreti esposti prima del rilascio"
 aff_devsec_text:
   other: "Questa pagina controlla un frammento alla volta, nel browser. {{ .Name }} può sorvegliare di continuo repository e pipeline, così una chiave o un token esposto viene segnalato prima di arrivare in produzione."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Principale"
+nav_search:
+  other: "Cerca"
+nav_language:
+  other: "Lingua"
+nav_menu:
+  other: "Menu"
+back_to_top:
+  other: "Torna su"
+code_copy:
+  other: "Copia"
+code_copied:
+  other: "Copiato"
+code_label:
+  other: "Codice"
+table_label:
+  other: "Tabella (scorre in orizzontale)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Strumento"
+type_game:
+  other: "Gioco"
+type_guides:
+  other: "Guida"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Soluzione"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Colloquio"
+
+type_project:
+  other: "Progetto"
+type_page:
+  other: "Pagina"

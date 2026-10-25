@@ -1,27 +1,30 @@
-{{- /* Render a single cyber-card for the force-list layout and the
-     homepage sections. Receives a Page. CTA labels are i18n'd and the
-     date uses CLDR month names so all 12 locales render natively. */ -}}
-{{- with . -}}
+{{- /* One card in the home sections and the /tools/ and /tools/games/ grids.
+     Args: dict "page" Page, "showType" bool. The type label ("Tool",
+     "Guide", ...) sits inline above the title and only appears on mixed
+     listings (showType), where it tells items apart; in a single-section
+     grid it would be noise. Tools and games show no date (they are
+     evergreen); learn content keeps its date. */ -}}
+{{- $p := .page -}}
+{{- $type := cond (.showType | default false) (partial "page-type.html" $p) "" -}}
+{{- $evergreen := eq $p.Section "tools" -}}
 <article class="cyber-card">
-  <span class="card-tag">{{ .Section }}</span>
   <div class="card-content">
     <header>
-      <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+      {{- with $type }}<span class="card-type">{{ . }}</span>{{ end }}
+      <h2><a href="{{ $p.Permalink }}">{{ $p.Title }}</a></h2>
     </header>
-    {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+    {{ with $p.Description }}<p>{{ . }}</p>{{ end }}
   </div>
   <div class="card-footer">
-    <span class="date-meta">{{ .Date | time.Format ":date_medium" }}</span>
-    <a class="btn-cyber" href="{{ .Permalink }}">
-      {{- $segs := split (strings.TrimPrefix "/" .RelPermalink) "/" -}}
-      {{- $sub := "" -}}
-      {{- if ge (len $segs) 3 }}{{ $sub = index $segs 2 }}{{ end -}}
-      {{ if or (eq .Section "games") (eq $sub "games") }}{{ i18n "card_play_now" | default "Play Now" }}
-      {{ else if eq .Section "tools" }}{{ i18n "card_use_tool" | default "Use Tool" }}
-      {{ else }}{{ i18n "card_read_more" | default "Read More" }}{{ end }}
-      <span class="visually-hidden">: {{ .Title }}</span>
+    {{- if not $evergreen }}
+    <time class="date-meta" datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date | time.Format ":date_medium" }}</time>
+    {{- end }}
+    <a class="btn-cyber" href="{{ $p.Permalink }}">
+      {{- if hasPrefix $p.Path "/tools/games/" }}{{ i18n "card_play_now" | default "Play Now" }}
+      {{- else if $evergreen }}{{ i18n "card_use_tool" | default "Use Tool" }}
+      {{- else }}{{ i18n "card_read_more" | default "Read More" }}{{ end -}}
+      <span class="visually-hidden">: {{ $p.Title }}</span>
     </a>
   </div>
-  <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>
+  <a class="entry-link" aria-hidden="true" tabindex="-1" href="{{ $p.Permalink }}"></a>
 </article>
-{{- end -}}

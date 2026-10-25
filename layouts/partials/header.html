@@ -1,121 +1,56 @@
-{{- /* theme-toggle is enabled */}}
-{{- if (not site.Params.disableThemeToggle) }}
-{{- /* theme-toggle is enabled */}}
-{{- end }}
+{{- /* Site header (replaces PaperMod's): brand on the left; nav, search,
+     language menu and (below 768 px) a hamburger on the right. One row,
+     sticky, <= 56 px on mobile. Behaviour (menu toggle, outside-click close,
+     scroll shadow) is in assets/js/site.js; it works without JS too: the
+     language menu is a <details>, and without JS the nav simply stays open. */ -}}
+{{- $currentPage := . -}}
+<header class="site-header" id="site-header" data-sticky-header>
+  <div class="site-header-inner">
+    <a class="brand" href="{{ "" | relLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
+      {{- with resources.Get "images/logo.webp" }}
+      {{- $img := .Resize "56x56 webp" }}
+      <img src="{{ $img.RelPermalink }}" width="28" height="28" alt="">
+      {{- end }}
+      <span class="brand-name">{{ site.Title }}</span>
+    </a>
 
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            {{- $label_text := (site.Params.label.text | default site.Title) }}
-            {{- if site.Title }}
-            <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
-                {{- if site.Params.label.icon }}
-                {{- $img := resources.Get site.Params.label.icon }}
-                {{- if $img }}
-                    {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
-                    {{- if hugo.IsExtended -}}
-                        {{- $processableFormats = $processableFormats | append "webp" -}}
-                    {{- end -}}
-                    {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
-                    {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
-                        {{- if site.Params.label.iconHeight }}
-                            {{- $img = $img.Resize (printf "x%d" site.Params.label.iconHeight) }}
-                        {{ else }}
-                            {{- $img = $img.Resize "x30" }}
-                        {{- end }}
-                    {{- end }}
-                    <img src="{{ $img.Permalink }}" alt=""
-                        height="{{- site.Params.label.iconHeight | default "30" -}}">
-                {{- else }}
-                <img src="{{- site.Params.label.icon | absURL -}}" alt=""
-                    height="{{- site.Params.label.iconHeight | default "30" -}}">
-                {{- end -}}
-                {{- else if hasPrefix site.Params.label.iconSVG "<svg" }}
-                    {{ site.Params.label.iconSVG | safeHTML }}
-                {{- end -}}
-                {{- $label_text -}}
-            </a>
-            {{- end }}
-            <div class="logo-switches">
-                {{- if (not site.Params.disableThemeToggle) }}
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-                {{- end }}
-
-                {{- /* --- FIX LINGUA BULLETPROOF --- */ -}}
-                {{- $currentPage := . -}}
-                <ul class="lang-switch">
-                    {{- range site.Home.AllTranslations -}}
-                        {{- /* 1. Cattura la lingua target (es. "it") in una variabile sicura */ -}}
-                        {{- $targetLang := .Lang -}}
-                        
-                        {{- /* 2. Se non è la lingua corrente, procedi */ -}}
-                        {{- if ne $targetLang $currentPage.Lang -}}
-                            <li>
-                                {{- /* 3. Default: Link alla Home Page di quella lingua */ -}}
-                                {{- $targetLink := .Permalink -}}
-                                
-                                {{- /* 4. Override: Cerca traduzione specifica */ -}}
-                                {{- range $currentPage.Translations -}}
-                                    {{- if eq .Lang $targetLang -}} 
-                                        {{- $targetLink = .Permalink -}}
-                                    {{- end -}}
-                                {{- end -}}
-
-                                <a href="{{ $targetLink }}" title="{{ .Language.Label | default .Lang }}" aria-label="{{ .Language.Label | default .Lang }}">
-                                    {{ .Language.Label | default .Lang }}
-                                </a>
-                            </li>
-                        {{- end -}}
-                    {{- end -}}
-                </ul>
-                {{- /* --- FINE FIX --- */ -}}
-
-            </div>
-        </div>
-        
-        <ul id="menu">
-            {{- range site.Menus.main }}
-            {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
-            {{- $page_url:= $currentPage.Permalink | absLangURL }}
-            {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
-            <li>
-                <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
-                {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}>
-                    <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
-                        {{- .Pre }}
-                        {{- .Name -}}
-                        {{- .Post -}}
-                    </span>
-                    {{- if (findRE "://" .URL) }}&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                    {{- end }}
-                </a>
-            </li>
-            {{- end }}
-        </ul>
+    <nav class="site-nav" id="site-nav" aria-label="{{ i18n "nav_main" | default "Main" }}">
+      <ul>
+        {{- range site.Menus.main }}
+        {{- $url := .URL | relLangURL }}
+        <li><a href="{{ .URL | relLangURL }}"
+          {{- if eq $currentPage.RelPermalink $url }} aria-current="page"
+          {{- else if hasPrefix $currentPage.RelPermalink $url }} aria-current="true"{{ end }}>{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
     </nav>
+
+    <div class="header-actions">
+      <button type="button" class="icon-btn" data-search-trigger aria-label="{{ i18n "nav_search" | default "Search" }} (Ctrl+K)" title="{{ i18n "nav_search" | default "Search" }} (Ctrl+K)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+
+      {{- /* Links go to the page's own translation when there is one,
+           otherwise to that language's home page (never to a 404). */}}
+      <details class="lang-menu">
+        <summary aria-label="{{ i18n "nav_language" | default "Language" }}: {{ site.Language.Label }}">
+          <span class="lang-code">{{ upper site.Language.Lang }}</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <ul class="lang-list">
+          {{- range site.Home.AllTranslations }}
+          {{- $target := .RelPermalink }}
+          {{- $lang := .Lang }}
+          {{- range $currentPage.AllTranslations }}{{ if eq .Lang $lang }}{{ $target = .RelPermalink }}{{ end }}{{ end }}
+          <li><a href="{{ $target }}" hreflang="{{ $lang }}" lang="{{ $lang }}"{{ if eq $lang $currentPage.Lang }} aria-current="true"{{ end }}>
+            <span class="lang-list-code" aria-hidden="true">{{ upper $lang }}</span>{{ .Language.Label }}</a></li>
+          {{- end }}
+        </ul>
+      </details>
+
+      <button type="button" class="icon-btn nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="{{ i18n "nav_menu" | default "Menu" }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="nav-toggle-open" d="M4 7h16M4 12h16M4 17h16"/><path class="nav-toggle-close" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
 </header>

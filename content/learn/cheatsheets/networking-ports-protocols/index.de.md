@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/networking-ports-protocols/"]
 ---
 
-## Gangige Ports
+## Gängige Ports
 
 Jeder Dienst in einem Netzwerk lauscht auf einem Port. Diese sollten Sie auswendig kennen.
 

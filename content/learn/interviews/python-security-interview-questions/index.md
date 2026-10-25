@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/python-security-interview-questions/"]
 ---
 
-## System Init
+## What Python Security Interviewers Look For
 
 Python is the dominant language in offensive and defensive security. Penetration testing, red team, SOC analyst, and security engineering roles all require fluency in Python for automation, tool development, and rapid prototyping. Interviewers expect you to write code on the spot — from TCP socket clients to packet crafters to web exploit scripts. This guide covers 20 questions that test the intersection of Python programming and security knowledge.
 

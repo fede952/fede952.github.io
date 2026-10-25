@@ -112,7 +112,7 @@ git rebase --abort
 
 ---
 
-## Recovery
+## Recover Lost Commits and Branches
 
 When everything is on fire, these commands are your fire extinguisher.
 

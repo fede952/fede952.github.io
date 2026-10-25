@@ -9,7 +9,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0 0.25rem;
   margin: 0 0 0.75rem;
   padding: 0;
   list-style: none;
@@ -29,6 +29,9 @@
 }
 
 .breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px; /* tap target: 28 px tall, row gap keeps wrapped rows apart */
   font-size: inherit;
   color: var(--secondary);
   text-decoration: none;
@@ -39,9 +42,16 @@
   text-decoration: underline;
 }
 
+.breadcrumbs ol {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .breadcrumbs [aria-current="page"] {
+  display: block;
   color: var(--content);
-  max-width: 60ch;
+  min-width: 0;
+  max-width: min(60ch, 100%);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
-## Desfazendo Alteracoes
+## Desfazendo alterações
 
 Os tres pilares do "eu errei": reset, revert e restore. Cada um tem um escopo e nivel de perigo diferente.
 
@@ -64,7 +64,7 @@ git revert -m 1 <merge-commit-hash>
 
 ---
 
-## Reescrevendo o Historico
+## Reescrevendo o histórico
 
 Para quando suas mensagens de commit sao vergonhosas ou o historico da branch esta uma bagunca.
 
@@ -112,7 +112,7 @@ git rebase --abort
 
 ---
 
-## Recuperacao
+## Recuperar commits e branches perdidos
 
 Quando tudo esta pegando fogo, esses comandos sao seu extintor de incendio.
 
@@ -164,7 +164,7 @@ git checkout -b recovered-branch HEAD@{5}
 
 ---
 
-## Cenarios Comuns de Desastre
+## Cenários comuns de desastre
 
 ### "Fiz commit na branch errada"
 
@@ -243,7 +243,7 @@ git cherry-pick --no-commit abc1234
 
 ---
 
-## Tabela de Referencia Rapida
+## Tabela de referência rápida
 
 | Situacao | Comando |
 |----------|---------|

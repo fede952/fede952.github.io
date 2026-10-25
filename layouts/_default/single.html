@@ -15,7 +15,7 @@
       {{- end }}
     </header>
 
-    <div class="post-content">
+    <div class="post-content md-content">
       {{- /* Learn pages get an article_mid unit before the 2nd and 5th <h2>;
            every other page class passes through untouched. */}}
       {{ partial "ads/inject-content.html" (dict "page" . "content" .Content) }}

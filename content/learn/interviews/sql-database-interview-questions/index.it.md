@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
-## Inizializzazione del Sistema
+## Cosa cercano i selezionatori nei colloqui SQL e database
 
 SQL è il linguaggio dei dati e i database sono la spina dorsale di ogni applicazione. I colloqui di livello senior testano la tua capacità di scrivere query efficienti, progettare schemi normalizzati, comprendere l'isolamento delle transazioni, ottimizzare le prestazioni con gli indici e prevenire le SQL injection. Che il ruolo sia Backend Engineer, DBA, Data Engineer o Security Analyst, queste 20 domande coprono i concetti che gli intervistatori chiedono costantemente — con risposte che dimostrano esperienza in produzione.
 

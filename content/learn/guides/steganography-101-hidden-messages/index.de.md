@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
-## $ System_Init
+## Eine Nachricht vor aller Augen verstecken
 
 Ein Foto eines Sonnenuntergangs. Ein Profilbild. Ein Meme, das in sozialen Medien geteilt wird. Für jeden Beobachter sind es gewöhnliche Bilddateien. Aber vergraben in den Pixeldaten — unsichtbar für das menschliche Auge — kann sich eine versteckte Nachricht befinden, die darauf wartet, von jemandem extrahiert zu werden, der weiß, wo er suchen muss.
 
@@ -19,7 +19,7 @@ Dieser Leitfaden erklärt die gängigste digitale Steganografie-Technik — **Le
 
 ---
 
-## $ What_Is_Steganography
+## Was Steganografie ist (und wie sie sich von Verschlüsselung unterscheidet)
 
 Das Wort stammt aus dem Griechischen: *steganos* (bedeckt) + *graphein* (schreiben). Wörtlich, "bedecktes Schreiben."
 
@@ -40,7 +40,7 @@ Der leistungsstärkste Ansatz kombiniert beides: Verschlüsseln Sie zuerst die N
 
 ---
 
-## $ How_LSB_Works
+## Wie LSB-Steganografie Daten in Pixeln versteckt
 
 Digitale Bilder bestehen aus Pixeln. Jedes Pixel speichert Farbwerte — typischerweise Rot, Grün und Blau (RGB) — wobei jeder Kanal 8 Bits verwendet (Werte 0-255).
 
@@ -86,7 +86,7 @@ Das reicht aus, um ein ganzes Dokument in einem einzigen Foto zu verstecken.
 
 ---
 
-## $ Detection_And_Limits
+## LSB-Steganografie erkennen und ihre Grenzen
 
 LSB-Steganografie ist nicht perfekt. Hier sind die bekannten Schwachstellen:
 
@@ -111,7 +111,7 @@ Größenänderung, Zuschneiden, Drehen oder Anwenden von Filtern (Helligkeit, Ko
 
 ---
 
-## $ Try_It_Yourself
+## Selbst ausprobieren: eine Nachricht in einem Bild verstecken
 
 Theorie ist nichts ohne Praxis. Verwenden Sie unser kostenloses, clientseitiges **[Steganografie-Labor](/de/tools/steganography/)**, um Ihre eigenen versteckten Nachrichten in Bilder zu kodieren — direkt in Ihrem Browser.
 
@@ -127,7 +127,7 @@ Keine Uploads, keine Serververarbeitung. Ihre Daten bleiben auf Ihrer Maschine.
 
 ---
 
-## $ FAQ_Database
+## FAQ zur Steganografie
 
 **Kann Steganografie erkannt werden?**
 

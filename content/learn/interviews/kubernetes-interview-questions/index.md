@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/kubernetes-interview-questions/"]
 ---
 
-## System Init
+## What Kubernetes Interviewers Look For
 
 Kubernetes is the operating system of the cloud — and the most in-demand skill for DevOps, SRE, and Platform Engineering roles. Senior-level interviews go deep: you will be asked about control plane internals, networking models, RBAC, resource management, and how to debug production incidents under pressure. This guide contains 20 questions that repeatedly appear in interviews at top tech companies, with answers that demonstrate the depth expected at Staff/Senior level.
 

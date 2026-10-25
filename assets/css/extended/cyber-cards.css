@@ -39,16 +39,17 @@
   flex-direction: column;
 }
 
-.card-tag {
-  position: absolute;
-  top: 15px;
-  inset-inline-end: 15px;
+.card-type {
+  display: inline-block;
+  margin: 0 0 0.6rem;
+  padding: 2px 8px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 4px;
   background: rgba(var(--accent-rgb), 0.1);
   color: var(--accent);
-  padding: 4px 10px;
-  border-radius: 4px;
   font-size: 0.7rem;
-  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -78,6 +79,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* no date (tools, games): the CTA alone, on the right */
+.card-footer > .btn-cyber:only-child {
+  margin-inline-start: auto;
 }
 
 .btn-cyber {

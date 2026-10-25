@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/sql-injection-payloads-database/"]
 ---
 
-## Systeminitialisierung
+## Wie SQL-Injection funktioniert
 
 SQL Injection bleibt eine der kritischsten Schwachstellen in Webanwendungen — durchgehend in den OWASP Top 10 gelistet. Sie tritt auf, wenn Benutzereingaben direkt in SQL-Abfragen eingefügt werden, ohne ordnungsgemäß bereinigt zu werden, wodurch ein Angreifer die Logik der Datenbankabfrage manipulieren kann. Eine erfolgreiche SQL Injection kann zur vollständigen Datenexfiltration, Umgehung der Authentifizierung, Rechteeskalation und in einigen Fällen zur Remote-Befehlsausführung auf dem Datenbankserver führen. Dieses Feldhandbuch bietet sowohl die offensiven Payloads für autorisierte Penetrationstests als auch die Standard-SQL-Abfragen, die jeder Datenbankadministrator kennen muss.
 

@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/kubernetes-interview-questions/"]
 ---
 
-## System-Initialisierung
+## Worauf Interviewer bei Kubernetes achten
 
 Kubernetes ist das Betriebssystem der Cloud — und die gefragteste Fähigkeit für DevOps-, SRE- und Platform-Engineering-Rollen. Interviews auf Senior-Level gehen in die Tiefe: Sie werden nach den Interna der Control Plane, Netzwerkmodellen, RBAC, Ressourcenverwaltung und dem Debugging von Produktionsvorfällen unter Druck gefragt. Dieser Leitfaden enthält 20 Fragen, die wiederholt in Interviews bei Top-Technologieunternehmen auftauchen, mit Antworten, die die auf Staff/Senior-Level erwartete Tiefe demonstrieren.
 

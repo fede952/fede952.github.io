@@ -19,6 +19,7 @@ const only = process.argv[2]?.split(',');
 const blobHref = (page, sel) => page.waitForFunction((s) => { const a = document.querySelector(s); return a && /^blob:|^data:/.test(a.href); }, sel, { timeout: 30000 });
 const decodeQR = (buf) => { const png = PNG.sync.read(buf); const r = jsQR(new Uint8ClampedArray(png.data), png.width, png.height); return r && r.data; };
 const assert = (cond, msg) => { if (!cond) throw new Error(msg); };
+const innerHeightGuess = () => 844 * 1.5 + 50;
 
 // name -> { url, run(page, ctx) => summary string }. New tools add an entry here.
 export const TESTS = {
@@ -84,6 +85,32 @@ export const TESTS = {
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },
+  'header-mobile': { url: '/it/learn/', viewport: { width: 390, height: 844 }, async run(p) {
+    const h = await p.evaluate(() => document.getElementById('site-header').getBoundingClientRect().height);
+    assert(h <= 56, 'header is ' + h + 'px tall');
+    assert(!(await p.isVisible('#site-nav')), 'nav visible before opening the menu');
+    await p.click('.nav-toggle'); assert(await p.isVisible('#site-nav a[aria-current]'), 'menu did not open / no current item');
+    await p.keyboard.press('Escape'); assert(!(await p.isVisible('#site-nav')), 'Escape did not close the menu');
+    await p.click('.lang-menu summary'); await p.click('.lang-list a[hreflang=de]');
+    await p.waitForURL(/\/de\/learn\/$/); return `header ${h}px, menu opens/closes, language switch → /de/learn/`; } },
+  'header-search': { url: '/en/tools/', async run(p) {
+    await p.click('.site-header [data-search-trigger]'); await p.fill('#search-input', 'exif');
+    await p.waitForSelector('#search-results li'); const label = await p.textContent('#search-results .search-result-section');
+    assert(['Tool', 'Guide'].includes(label.trim()), 'result label ' + label); return 'header search button opens the palette; results labelled by type'; } },
+  'code-copy': { url: '/it/learn/cheatsheets/nmap-network-scanning/', async run(p, { context }) {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    const btn = p.locator('.code-copy').first(); await btn.click();
+    await p.waitForFunction(() => document.querySelector('.code-copy').textContent.includes('Copiato'), null, { timeout: 3000 });
+    const clip = await p.evaluate(() => navigator.clipboard.readText());
+    assert(clip.startsWith('# ') && !clip.includes('Copia'), 'clipboard: ' + clip.slice(0, 40)); return 'localized Copy → Copiato, code on the clipboard'; } },
+  'back-to-top': { url: '/en/learn/guides/osint-privacy-exif-data/', viewport: { width: 390, height: 844 }, async run(p) {
+    assert(!(await p.isVisible('#top-link')), 'visible at the top of the page');
+    await p.evaluate(() => window.scrollTo(0, innerHeight * 0.5)); await p.waitForTimeout(300);
+    assert(!(await p.isVisible('#top-link')), 'visible before 1.5 viewports');
+    let seen = false;
+    for (let y = innerHeightGuess(); y < 9000 && !seen; y += 300) { await p.evaluate((yy) => window.scrollTo(0, yy), y); await p.waitForTimeout(150); seen = await p.isVisible('#top-link'); }
+    assert(seen, 'never shown'); await p.click('#top-link'); await p.waitForFunction(() => scrollY === 0);
+    return 'appears after 1.5 viewports, scrolls back to the top'; } },
   'search-deeplink': { url: '/it/?q=password', async run(p) {
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return '?q= opens the palette with results'; } },
 };
@@ -94,7 +121,7 @@ const browser = await chromium.launch();
 let fails = 0;
 for (const [name, t] of Object.entries(TESTS)) {
   if (only && !only.includes(name)) continue;
-  const context = await browser.newContext({ acceptDownloads: true, viewport: { width: 1280, height: 900 } });
+  const context = await browser.newContext({ acceptDownloads: true, viewport: t.viewport || { width: 1280, height: 900 }, isMobile: !!t.viewport, hasTouch: !!t.viewport });
   await blockExternal(context, origin);
   // registered after the block-all route, so these win (Playwright tries the newest route first)
   for (const [url, body] of Object.entries(t.mock || {})) await context.route(url, (r) => r.fulfill({ json: body, headers: { 'access-control-allow-origin': '*' } }));
@@ -103,7 +130,7 @@ for (const [name, t] of Object.entries(TESTS)) {
   page.on('pageerror', (e) => errs.push(String(e).slice(0, 160)));
   page.on('console', (m) => { if (m.type() === 'error' && !BLOCKED_NOISE.test(m.text())) errs.push('console: ' + m.text().slice(0, 160)); });
   let res;
-  try { await page.goto(origin + t.url, { waitUntil: 'load' }); res = await t.run(page, { origin, tmp }); }
+  try { await page.goto(origin + t.url, { waitUntil: 'load' }); res = await t.run(page, { origin, tmp, context }); }
   catch (e) { res = 'FAIL ' + e.message.split('\n')[0].slice(0, 200); }
   const bad = res.startsWith('FAIL') || errs.length;
   if (bad) fails++;

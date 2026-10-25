@@ -46,12 +46,16 @@ const ONLY = opt('pages', null)?.split(',');
 const CONCURRENCY = Number(opt('concurrency', 4));
 
 // Runs inside the page. Returns { overflow, pre, tap } problems for one document.
-function documentChecks() {
+// `expected` is the emulated screen width for the top document: on mobile
+// emulation Chrome widens the layout viewport (innerWidth) to fit content that
+// overflows, so innerWidth alone would hide the overflow.
+function documentChecks(expected) {
   const problems = [];
-  const vw = window.innerWidth;
-  const sw = document.documentElement.scrollWidth;
+  const vw = expected || window.innerWidth;
+  const sw = Math.max(document.documentElement.scrollWidth, window.innerWidth);
   if (sw > vw) {
-    const wide = [...document.querySelectorAll('body *')].filter((el) => el.getBoundingClientRect().right > vw + 1 && getComputedStyle(el).position !== 'fixed')
+    const clipped = (el) => { for (let e = el.parentElement; e && e !== document.body; e = e.parentElement) { if (/auto|scroll|hidden|clip/.test(getComputedStyle(e).overflowX)) return true; } return false; };
+    const wide = [...document.querySelectorAll('body *')].filter((el) => el.getBoundingClientRect().right > vw + 1 && getComputedStyle(el).position !== 'fixed' && !clipped(el))
       .filter((el) => !el.parentElement || el.parentElement.getBoundingClientRect().right <= vw + 1).slice(0, 3)
       .map((el) => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : ''));
     problems.push({ kind: 'overflow', detail: `scrollWidth ${sw} > ${vw}`, culprits: wide });
@@ -195,7 +199,7 @@ async function checkPage(browser, origin, lang, name, rel, [w, h]) {
     if (!frame.url().startsWith(origin)) continue;
     const inFrame = frame !== page.mainFrame();
     try {
-      for (const p of await frame.evaluate(documentChecks)) problems.push(inFrame ? { ...p, frame: new URL(frame.url()).pathname } : p);
+      for (const p of await frame.evaluate(documentChecks, inFrame ? 0 : w)) problems.push(inFrame ? { ...p, frame: new URL(frame.url()).pathname } : p);
     } catch (e) { problems.push({ kind: 'harness', detail: 'frame check failed: ' + e.message.split('\n')[0] }); }
   }
   for (const sel of ['h1', 'iframe.tool-iframe']) problems.push(...await page.evaluate(overlapCheck, sel));

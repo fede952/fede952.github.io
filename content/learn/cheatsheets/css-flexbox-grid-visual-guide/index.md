@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
-## Rendering Engine Online
+## Why Flexbox and Grid Matter
 
 CSS layout is the skill that separates developers who build from developers who struggle. Flexbox handles one-dimensional flow — rows or columns. Grid handles two-dimensional layouts — rows AND columns simultaneously. Together, they replace every float hack, clearfix, and positioning trick from the past decade. This cheatsheet covers both systems with production-ready snippets, responsive patterns, and the modern CSS variables that keep your code maintainable. Every technique here is what frontend interviewers expect you to know. Copy, paste, ship.
 
@@ -716,6 +716,6 @@ ul, ol { list-style: none; }
 
 ---
 
-## End of Transmission
+## CSS Layout Cheatsheet: Key Takeaways
 
 This cheatsheet covers the CSS layout techniques that power every modern website — from centering a div to building complex responsive dashboards. Flexbox for one-dimensional flow, Grid for two-dimensional layouts, and CSS variables for maintainable design systems. Bookmark it, reference it in frontend interviews, and stop fighting with CSS. The layout engine works for you now.

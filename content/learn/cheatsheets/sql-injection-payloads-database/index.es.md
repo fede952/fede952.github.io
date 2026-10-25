@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/sql-injection-payloads-database/"]
 ---
 
-## Inicio del Sistema
+## Cómo funciona la inyección SQL
 
 La SQL injection sigue siendo una de las vulnerabilidades más críticas en aplicaciones web — consistentemente clasificada en el OWASP Top 10. Ocurre cuando la entrada del usuario se concatena directamente en consultas SQL sin la sanitización adecuada, permitiendo a un atacante manipular la lógica de la consulta a la base de datos. Una SQL injection exitosa puede conducir a la exfiltración completa de datos, elusión de autenticación, escalación de privilegios y, en algunos casos, ejecución remota de comandos en el servidor de la base de datos. Este manual de campo proporciona tanto los payloads ofensivos para pruebas de penetración autorizadas como las consultas SQL estándar que todo administrador de bases de datos necesita conocer.
 

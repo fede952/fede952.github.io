@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/networking-ports-protocols/"]
 ---
 
-## Puertos Comunes
+## Puertos comunes
 
 Cada servicio en una red escucha en un puerto. Estos son los que necesitas saber de memoria.
 
@@ -48,7 +48,7 @@ Cada servicio en una red escucha en un puerto. Estos son los que necesitas saber
 
 ---
 
-## Codigos de Estado HTTP
+## Códigos de estado HTTP
 
 La forma que tiene el servidor de decirte que paso. Agrupados por categoria.
 
@@ -207,7 +207,7 @@ Como los nombres de dominio se mapean a servicios.
 
 ---
 
-## Reenvio de Puertos SSH
+## Reenvío de puertos SSH
 
 Tunelizar trafico a traves de SSH. Esencial para acceder a servicios detras de firewalls.
 
@@ -227,7 +227,7 @@ ssh -J jump_host user@final_host
 
 ---
 
-## Tabla de Referencia Rapida
+## Tabla de referencia rápida
 
 | Que | Comando / Valor |
 |-----|-----------------|

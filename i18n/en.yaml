@@ -183,3 +183,46 @@ aff_devsec_title:
   other: "Catch leaked secrets before they ship"
 aff_devsec_text:
   other: "This page checks one snippet at a time, in your browser. {{ .Name }} can watch your repositories and pipelines continuously, so a leaked key or token is flagged before it reaches production."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Main"
+nav_search:
+  other: "Search"
+nav_language:
+  other: "Language"
+nav_menu:
+  other: "Menu"
+back_to_top:
+  other: "Back to top"
+code_copy:
+  other: "Copy"
+code_copied:
+  other: "Copied"
+code_label:
+  other: "Code"
+table_label:
+  other: "Table (scrolls sideways)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Tool"
+type_game:
+  other: "Game"
+type_guides:
+  other: "Guide"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Fix"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Interview prep"
+
+type_project:
+  other: "Project"
+type_page:
+  other: "Page"

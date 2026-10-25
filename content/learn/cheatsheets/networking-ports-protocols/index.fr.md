@@ -139,7 +139,7 @@ Client              Server
 
 ---
 
-## Poignee de Main SSL/TLS
+## Poignée de main SSL/TLS
 
 Comment HTTPS etablit une connexion chiffree.
 
@@ -162,7 +162,7 @@ Concepts cles :
 
 ---
 
-## Le Modele OSI
+## Le modèle OSI
 
 Sept couches, des cables physiques a votre navigateur. Chaque couche communique avec son homologue a l'autre extremite.
 
@@ -227,7 +227,7 @@ ssh -J jump_host user@final_host
 
 ---
 
-## Tableau de Reference Rapide
+## Tableau de référence rapide
 
 | Quoi | Commande / Valeur |
 |------|-------------------|

@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
-## Annuler des Modifications
+## Annuler des modifications
 
 Les trois piliers du "j'ai tout casse" : reset, revert et restore. Chacun a une portee et un niveau de danger different.
 
@@ -64,7 +64,7 @@ git revert -m 1 <merge-commit-hash>
 
 ---
 
-## Reecrire l'Historique
+## Réécrire l'historique
 
 Pour quand vos messages de commit sont embarrassants ou que l'historique de votre branche est un chaos.
 
@@ -112,7 +112,7 @@ git rebase --abort
 
 ---
 
-## Recuperation
+## Récupérer des commits et des branches perdus
 
 Quand tout est en feu, ces commandes sont votre extincteur.
 
@@ -164,7 +164,7 @@ git checkout -b recovered-branch HEAD@{5}
 
 ---
 
-## Scenarios de Catastrophe Courants
+## Scénarios de catastrophe courants
 
 ### "J'ai commite sur la mauvaise branche"
 
@@ -243,7 +243,7 @@ git cherry-pick --no-commit abc1234
 
 ---
 
-## Tableau de Reference Rapide
+## Tableau de référence rapide
 
 | Situation | Commande |
 |-----------|----------|

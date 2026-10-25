@@ -48,7 +48,7 @@ Todo servico em uma rede escuta em uma porta. Estas sao as que voce precisa sabe
 
 ---
 
-## Codigos de Status HTTP
+## Códigos de status HTTP
 
 A forma do servidor te dizer o que aconteceu. Agrupados por categoria.
 
@@ -227,7 +227,7 @@ ssh -J jump_host user@final_host
 
 ---
 
-## Tabela de Referencia Rapida
+## Tabela de referência rápida
 
 | O que | Comando / Valor |
 |-------|-----------------|

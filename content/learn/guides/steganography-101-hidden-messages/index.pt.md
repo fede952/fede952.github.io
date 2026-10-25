@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
-## $ System_Init
+## Esconder uma mensagem à vista de todos
 
 Uma fotografia de um pôr do sol. Uma foto de perfil. Um meme compartilhado nas redes sociais. Para qualquer observador, são arquivos de imagem comuns. Mas enterrado dentro dos dados de pixels — invisível ao olho humano — pode haver uma mensagem oculta esperando para ser extraída por alguém que sabe onde procurar.
 
@@ -19,7 +19,7 @@ Este guia explica a técnica de esteganografia digital mais comum — **inserç�
 
 ---
 
-## $ What_Is_Steganography
+## O que é esteganografia (e como ela difere da criptografia)
 
 A palavra vem do grego: *steganos* (coberto) + *graphein* (escrita). Literalmente, "escrita coberta."
 
@@ -40,7 +40,7 @@ A abordagem mais poderosa combina ambas: criptografe a mensagem primeiro, depois
 
 ---
 
-## $ How_LSB_Works
+## Como a esteganografia LSB esconde dados nos pixels
 
 Imagens digitais são feitas de pixels. Cada pixel armazena valores de cor — tipicamente Vermelho, Verde e Azul (RGB) — com cada canal usando 8 bits (valores 0-255).
 
@@ -86,7 +86,7 @@ Isso é suficiente para esconder um documento inteiro dentro de uma única fotog
 
 ---
 
-## $ Detection_And_Limits
+## Detectar a esteganografia LSB e seus limites
 
 A esteganografia LSB não é perfeita. Aqui estão as vulnerabilidades conhecidas:
 
@@ -111,7 +111,7 @@ Redimensionar, recortar, girar ou aplicar filtros (brilho, contraste, etc.) modi
 
 ---
 
-## $ Try_It_Yourself
+## Experimente: esconda uma mensagem em uma imagem
 
 A teoria não é nada sem prática. Use nosso **[Laboratório de Esteganografia](/pt/tools/steganography/)** gratuito do lado do cliente para codificar suas próprias mensagens ocultas em imagens — diretamente no seu navegador.
 
@@ -127,7 +127,7 @@ Sem uploads, sem processamento no servidor. Seus dados permanecem na sua máquin
 
 ---
 
-## $ FAQ_Database
+## Perguntas frequentes sobre esteganografia
 
 **A esteganografia pode ser detectada?**
 

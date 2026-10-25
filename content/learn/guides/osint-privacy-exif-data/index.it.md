@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/osint-privacy-exif-data/"]
 ---
 
-## $ System_Init
+## Perché una sola foto può rivelare dove vivi
 
 Scatti una foto del tuo caffè mattutino. La pubblichi su un forum, la invii via email o la carichi su un cloud. Sembra innocua. Ma incorporato all'interno di quel file immagine — invisibile in qualsiasi visualizzatore di foto — c'è un pacchetto di metadati che può rivelare:
 
@@ -26,7 +26,7 @@ Questa guida spiega cosa contengono i dati EXIF, come gli analisti OSINT e gli a
 
 ---
 
-## $ What_Is_EXIF
+## Cosa rivelano i metadati EXIF
 
 EXIF è uno standard che definisce il formato dei metadati memorizzati all'interno dei file immagine (JPEG, TIFF e alcuni formati RAW). È stato creato nel 1995 dalla Japan Electronic Industries Development Association (JEIDA) per standardizzare i dati delle impostazioni della fotocamera.
 
@@ -58,7 +58,7 @@ Il campo più pericoloso è rappresentato dalle **coordinate GPS**. Quando i ser
 
 ---
 
-## $ How_OSINT_Exploits_EXIF
+## Come gli investigatori OSINT sfruttano i dati EXIF
 
 I professionisti dell'Open Source Intelligence (OSINT) estraggono regolarmente i dati EXIF come parte delle investigazioni. Ecco come i metadati vengono utilizzati come arma:
 
@@ -82,7 +82,7 @@ I timestamp EXIF rivelano non solo quando una foto è stata scattata, ma combina
 
 ---
 
-## $ Protection_Protocol
+## Come rimuovere i dati EXIF prima di condividere una foto
 
 ### Passo 1: Disabilita la geolocalizzazione sul tuo dispositivo
 
@@ -117,7 +117,7 @@ Se hai precedentemente condiviso foto non pulite, considera:
 
 ---
 
-## $ FAQ_Database
+## Domande frequenti su EXIF e privacy delle foto
 
 **Tutti i telefoni salvano il GPS nelle foto?**
 

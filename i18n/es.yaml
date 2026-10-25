@@ -183,3 +183,46 @@ aff_devsec_title:
   other: "Detecta secretos filtrados antes de publicar"
 aff_devsec_text:
   other: "Esta página revisa un fragmento cada vez, en tu navegador. {{ .Name }} puede vigilar tus repositorios y pipelines de forma continua, para que una clave o token filtrado se detecte antes de llegar a producción."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Principal"
+nav_search:
+  other: "Buscar"
+nav_language:
+  other: "Idioma"
+nav_menu:
+  other: "Menú"
+back_to_top:
+  other: "Volver arriba"
+code_copy:
+  other: "Copiar"
+code_copied:
+  other: "Copiado"
+code_label:
+  other: "Código"
+table_label:
+  other: "Tabla (se desplaza en horizontal)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Herramienta"
+type_game:
+  other: "Juego"
+type_guides:
+  other: "Guía"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Solución"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Entrevista"
+
+type_project:
+  other: "Proyecto"
+type_page:
+  other: "Página"

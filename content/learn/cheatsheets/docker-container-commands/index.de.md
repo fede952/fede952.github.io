@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/docker-container-commands/"]
 ---
 
-## Systeminitialisierung
+## Was dieses Docker-Cheatsheet abdeckt
 
 Docker hat die Art und Weise verändert, wie Software gebaut, ausgeliefert und bereitgestellt wird. Anstatt Server manuell zu konfigurieren und zu hoffen, dass die Umgebung mit der Produktion übereinstimmt, verpacken Sie Ihre Anwendung und alle ihre Abhängigkeiten in einen Container — eine leichtgewichtige, portable, eigenständige Einheit, die auf jeder Maschine identisch läuft. Ob Sie eine Microservice-Architektur bereitstellen, CI/CD-Pipelines ausführen oder isolierte Entwicklungsumgebungen hochfahren, Docker ist der Motor, der es möglich macht. Dieses Feldhandbuch enthält jeden Befehl, den Sie benötigen, um den gesamten Container-Lebenszyklus zu verwalten, vom Herunterladen Ihres ersten Images bis zur Orchestrierung von Multi-Service-Stacks mit Docker Compose.
 

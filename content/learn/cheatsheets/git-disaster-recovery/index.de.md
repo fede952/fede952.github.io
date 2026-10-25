@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
-## Anderungen Ruckgangig Machen
+## Änderungen rückgängig machen
 
 Die drei Saulen von "Ich habe Mist gebaut": reset, revert und restore. Jeder hat einen anderen Wirkungsbereich und Gefahrenstufe.
 
@@ -64,7 +64,7 @@ git revert -m 1 <merge-commit-hash>
 
 ---
 
-## Historie Umschreiben
+## Historie umschreiben
 
 Fur den Fall, dass Ihre Commit-Nachrichten peinlich sind oder Ihre Branch-Historie ein Chaos ist.
 
@@ -112,7 +112,7 @@ git rebase --abort
 
 ---
 
-## Wiederherstellung
+## Verlorene Commits und Branches wiederherstellen
 
 Wenn alles brennt, sind diese Befehle Ihr Feuerloscher.
 
@@ -164,7 +164,7 @@ git checkout -b recovered-branch HEAD@{5}
 
 ---
 
-## Haufige Katastrophen-Szenarien
+## Häufige Katastrophen-Szenarien
 
 ### "Ich habe auf dem falschen Branch committet"
 

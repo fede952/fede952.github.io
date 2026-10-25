@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
-## Deshacer Cambios
+## Deshacer cambios
 
 Los tres pilares de "la regue": reset, revert y restore. Cada uno tiene un alcance y nivel de peligro diferente.
 
@@ -64,7 +64,7 @@ git revert -m 1 <merge-commit-hash>
 
 ---
 
-## Reescribir el Historial
+## Reescribir el historial
 
 Para cuando tus mensajes de commit son vergonzosos o el historial de tu rama es un desastre.
 
@@ -112,7 +112,7 @@ git rebase --abort
 
 ---
 
-## Recuperacion
+## Recuperar commits y ramas perdidos
 
 Cuando todo esta en llamas, estos comandos son tu extintor.
 
@@ -164,7 +164,7 @@ git checkout -b recovered-branch HEAD@{5}
 
 ---
 
-## Escenarios de Desastre Comunes
+## Escenarios de desastre comunes
 
 ### "Hice commit en la rama equivocada"
 
@@ -243,7 +243,7 @@ git cherry-pick --no-commit abc1234
 
 ---
 
-## Tabla de Referencia Rapida
+## Tabla de referencia rápida
 
 | Situacion | Comando |
 |-----------|---------|

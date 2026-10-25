@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
-## System Init
+## What This Linux Sysadmin Cheatsheet Covers
 
 Linux file permissions are the first line of defense in any system. A misconfigured permission can expose sensitive data to unauthorized users, or lock out legitimate services from the files they need. Beyond permissions, managing users, groups, services, and processes is the daily bread of any system administrator. This field manual covers the commands you will use every day — from setting the correct permissions on a web server's document root to killing a runaway process that is consuming all available memory. Every command is explained with practical examples for real-world scenarios.
 

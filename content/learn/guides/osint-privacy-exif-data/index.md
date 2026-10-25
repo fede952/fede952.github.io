@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/osint-privacy-exif-data/"]
 ---
 
-## System Init
+## Why one photo can reveal where you live
 
 You take a photo of your morning coffee. You post it on a forum, send it in an email, or upload it to a cloud drive. It looks harmless. But embedded inside that image file — invisible in any photo viewer — is a packet of metadata that can reveal:
 
@@ -26,7 +26,7 @@ This guide explains what EXIF data contains, how OSINT analysts and adversaries 
 
 ---
 
-## What Is EXIF
+## What EXIF metadata reveals
 
 EXIF is a standard that defines the format for metadata stored inside image files (JPEG, TIFF, and some RAW formats). It was created in 1995 by the Japan Electronic Industries Development Association (JEIDA) to standardize camera settings data.
 
@@ -58,7 +58,7 @@ The most dangerous field is **GPS coordinates**. When location services are enab
 
 ---
 
-## How OSINT Exploits EXIF
+## How OSINT investigators use EXIF data
 
 Open Source Intelligence (OSINT) practitioners routinely extract EXIF data as part of investigations. Here is how the metadata gets weaponized:
 
@@ -82,7 +82,7 @@ EXIF timestamps reveal not just when a photo was taken, but combined with GPS da
 
 ---
 
-## Protection Protocol
+## How to remove EXIF data before you share a photo
 
 ### Step 1: Disable geotagging on your device
 
@@ -117,7 +117,7 @@ If you have previously shared unstripped photos, consider:
 
 ---
 
-## FAQ
+## EXIF and photo privacy FAQ
 
 **Do all phones save GPS in photos?**
 
