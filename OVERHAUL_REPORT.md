@@ -414,7 +414,7 @@ root) so it can never drift from the content:
 ## Federico TODO (what still needs you)
 
 **Merge & deploy**
-- [ ] Review the branch (`git log main..overhaul`, 9 commits) and merge it yourself. Nothing was pushed.
+- [ ] Review the branch (`git log main..overhaul`: one commit per phase, 0–9) and merge it yourself. Nothing was pushed.
 - [ ] After the first deploy: open a page you visited before in your normal browser and check DevTools → Application →
       Service workers shows nothing registered (the kill switch ran).
 
