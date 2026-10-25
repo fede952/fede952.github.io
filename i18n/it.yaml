@@ -294,3 +294,8 @@ search_open:
   other: "Apri"
 search_close:
   other: "Chiudi"
+
+home_show_all:
+  other: "Mostra tutti ({{ . }})"
+home_show_fewer:
+  other: "Mostra meno"

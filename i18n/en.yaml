@@ -294,3 +294,8 @@ search_open:
   other: "Open"
 search_close:
   other: "Close"
+
+home_show_all:
+  other: "Show all {{ . }}"
+home_show_fewer:
+  other: "Show fewer"

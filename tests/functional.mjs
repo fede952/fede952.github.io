@@ -28,7 +28,7 @@ export const TESTS = {
     await p.setInputFiles('#fileInput', PHOTO); await p.waitForSelector('#compressBtn:not([disabled])'); await p.click('#compressBtn');
     await blobHref(p, '#downloadBtn'); return 'compressed (Web Worker, self-hosted lib)'; } },
   'exif-cleaner': { url: '/tools/exif-cleaner/', async run(p) {
-    await p.setInputFiles('#fileInput', PHOTO); await p.waitForFunction(() => /GPS|Canon/i.test(document.body.innerText));
+    await p.setInputFiles('#fileInput', PHOTO); await p.waitForFunction(() => /GPS|FixtureCam/i.test(document.body.innerText));
     await p.click('#purgeBtn'); await blobHref(p, '#downloadBtn');
     const hasExif = await p.evaluate(async () => { const b = await (await fetch(document.querySelector('#downloadBtn').href)).arrayBuffer(); return new TextDecoder('latin1').decode(new Uint8Array(b).slice(0, 4096)).includes('Exif'); });
     assert(!hasExif, 'clean image still has an Exif block'); return 'GPS shown, purged image has no Exif'; } },
@@ -111,6 +111,18 @@ export const TESTS = {
     await context.unroute('https://api.pwnedpasswords.com/range/*');
     await p.fill('#auditInput', 'another one'); await p.click('#breachBtn'); await p.waitForSelector('#breachResult.err');
     return 'opt-in only, 5-char prefix + Add-Padding, found / not found / offline (mocked API)'; } },
+  'pass-fort-page': { url: '/it/tools/pass-fort/', async run(p) {
+    // embedded on the Italian page: the checker opens first and the generator tab links to the generator tool
+    const f = p.frameLocator('iframe.tool-iframe');
+    await f.locator('#panel-auditor').waitFor({ state: 'visible' });
+    assert(!(await f.locator('#panel-generator').isVisible()), 'generator panel visible by default');
+    assert((await p.textContent('h1')).trim() === 'Verifica Password: Sicurezza e Violazioni', 'H1: ' + await p.textContent('h1'));
+    await f.locator('.tab-btn[data-tab=generator]').click();
+    const link = f.locator('#pgLink');
+    assert(await link.getAttribute('href') === '/it/tools/password-generator/', 'generator link ' + await link.getAttribute('href'));
+    await Promise.all([p.waitForURL(/\/it\/tools\/password-generator\/$/), link.click()]);
+    assert(/pass-fort/.test(await p.locator('main a[href="/it/tools/pass-fort/"]').first().getAttribute('href')), 'generator page links back to PassFort');
+    return 'checker first, H1 refocused, generator link navigates the top window to /it/tools/password-generator/ and back-links'; } },
   'jwt-inspector': { url: '/tools/jwt-inspector/', async run(p) {
     const tok = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
     const ta = await p.$('textarea'); await ta.fill(tok); await ta.dispatchEvent('input');
@@ -224,7 +236,7 @@ export const TESTS = {
     // photo 480x360 rotated → portrait A4; 400x200 PNG → landscape A4
     assert(sizes.join(',') === '595x842,842x595', 'page sizes ' + sizes.join(','));
     const pdfBytes = fs.readFileSync(await dl.path());
-    assert(!pdfBytes.includes(Buffer.from('Canon')), 'EXIF camera model leaked into the PDF');
+    assert(!pdfBytes.includes(Buffer.from('FixtureCam')), 'EXIF camera make leaked into the PDF');
     return 'JPG + PNG → 2-page A4 PDF, rotation and auto orientation, no EXIF'; } },
   'json-formatter': { url: '/tools/json-formatter/?lang=en', async run(p) {
     await p.waitForFunction(() => window.__jsonReady);

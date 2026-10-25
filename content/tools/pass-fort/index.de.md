@@ -1,25 +1,25 @@
 ---
-title: "Passwort-Stärke testen & Passwort-Generator"
-description: "Testen Sie, wie sicher ein Passwort ist (Entropie in Bit, Knackzeit per Brute Force), und erzeugen Sie zufällige Passwörter oder Passphrasen im Browser."
-intro: "**PassFort** erzeugt zufällige Passwörter und Passphrasen mit dem kryptografischen Zufallsgenerator Ihres Browsers und prüft Entropie und Brute-Force-Knackzeit beliebiger Passwörter. Nichts, was Sie eingeben, verlässt diese Seite. Die optionale Leak-Prüfung sendet nur 5 Zeichen des Passwort-Hashes, und nur auf Ihren Wunsch."
+title: "Passwort-Check: Stärke und Datenlecks"
+description: "Prüfen Sie, wie sicher ein Passwort ist (Entropie, Brute-Force-Knackzeit) und ob es in bekannten Datenlecks vorkommt – mit k-Anonymität, im Browser."
+intro: "**PassFort** prüft ein Passwort, das Sie bereits verwenden: seine Entropie, wie lange ein Brute-Force-Angriff bräuchte, Muster, die Sie meiden sollten, und – auf Wunsch – ob es in einem bekannten **Datenleck** aufgetaucht ist. Die Stärkeanalyse verlässt diese Seite nie; die optionale Leak-Prüfung sendet nur 5 Zeichen des Passwort-Hashes. Sie brauchen ein neues Passwort? Nutzen Sie den [Zufalls-Passwort-Generator](/de/tools/password-generator/)."
 date: 2026-02-03
 lastmod: 2026-10-25
 reviewed: false
-keywords: ["passwort stärke testen", "passwort generator", "sicheres passwort generieren", "passphrase generator", "passwort entropie berechnen", "wie lange dauert es mein passwort zu knacken", "zufälliges passwort", "passwort check"]
+keywords: ["passwort stärke testen", "passwort check", "passwort geleakt prüfen", "wurde mein passwort gehackt", "passwort entropie berechnen", "wie lange dauert es mein passwort zu knacken", "passwort sicherheit prüfen", "have i been pwned passwort"]
 tags: ["sicherheit", "passwörter", "datenschutz", "tool"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: Passwort-Generator und Passwort-Stärke-Test"
+tool_title: "PassFort: Passwort-Stärke- und Datenleck-Prüfung"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Öffnen Sie den Reiter **Generator**. Wählen Sie die Länge (8–128 Zeichen) und die Zeichengruppen: Großbuchstaben, Kleinbuchstaben, Ziffern, Sonderzeichen."
-  - "Für etwas, das Sie tippen und sich merken können, aktivieren Sie **Passphrase Mode** und wählen 3–8 Wörter. Für ein Master-Passwort mindestens 6."
-  - "Klicken Sie auf **Generate Password**, bis Ihnen das Ergebnis gefällt; die Zwischenablage-Schaltfläche kopiert es. Fügen Sie es direkt in Ihren Passwortmanager ein."
-  - "Um ein bereits genutztes Passwort zu prüfen, wechseln Sie zum Reiter **Auditor** und tippen oder fügen es ein. Das Augen-Symbol blendet es ein oder aus."
+  - "Tippen Sie das zu prüfende Passwort in den Reiter **Auditor**, der sich zuerst öffnet, oder fügen Sie es ein. Das Augen-Symbol blendet es ein oder aus."
   - "Lesen Sie Entropie-Anzeige, geschätzte Knackzeit und Checkliste: Alles Rote sollten Sie beheben, bevor Sie dieses Passwort weiterverwenden."
   - "Optional prüft **Check against known breaches**, ob genau dieses Passwort in einem Datenleck aufgetaucht ist. Bis Sie darauf klicken, wird nichts gesendet."
+  - "Um eine Passphrase oder ein neues Passwort zu erzeugen, öffnen Sie den Reiter **Generator**. Wählen Sie die Länge (8–128 Zeichen) und die Zeichengruppen: Großbuchstaben, Kleinbuchstaben, Ziffern, Sonderzeichen."
+  - "Für etwas, das Sie tippen und sich merken können, aktivieren Sie **Passphrase Mode** und wählen 3–8 Wörter. Für ein Master-Passwort mindestens 6."
+  - "Klicken Sie auf **Generate Password**, bis Ihnen das Ergebnis gefällt; die Zwischenablage-Schaltfläche kopiert es. Fügen Sie es direkt in Ihren Passwortmanager ein."
 faq:
   - q: "Ist es sicher, mein echtes Passwort hier einzugeben?"
     a: "Ja. Der Auditor ist JavaScript, das innerhalb dieser Seite läuft: Er sendet Ihre Eingabe nie über das Netzwerk, und der Wert ist weg, sobald Sie das Feld leeren oder den Tab schließen. Das können Sie in den Entwicklerwerkzeugen des Browsers (Reiter „Netzwerk“) beim Tippen überprüfen. Wenn Ihnen das lieber ist, testen Sie ein Passwort, das *demselben Muster* folgt wie Ihr echtes. Einzige Ausnahme ist die optionale Leak-Prüfung, und nur wenn Sie ihre Schaltfläche anklicken: Sie sendet 5 Zeichen des SHA-1-Hashes, nie das Passwort (siehe nächste Frage)."

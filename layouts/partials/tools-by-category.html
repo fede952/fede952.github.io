@@ -13,6 +13,9 @@
   {{- range $p := sort $tools "Title" -}}
     {{- with index $d.tools (path.Base $p.Path) }}{{ if eq .category $id }}{{ $pages = $pages | append $p }}{{ end }}{{ end -}}
   {{- end -}}
-  {{- if $pages }}{{ $groups = $groups | append (dict "id" $id "icon" .icon "pages" $pages) }}{{ end -}}
+  {{- /* top: slugs shown first on small screens (home page) */ -}}
+  {{- $top := .top | default slice -}}
+  {{- if not $top }}{{ range first 3 $pages }}{{ $top = $top | append (path.Base .Path) }}{{ end }}{{ end -}}
+  {{- if $pages }}{{ $groups = $groups | append (dict "id" $id "icon" .icon "pages" $pages "top" $top) }}{{ end -}}
 {{- end -}}
 {{- return $groups -}}

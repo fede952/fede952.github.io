@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Responsable du traitement
 
-**Federico Sella** — Suisio (Bergame), Italie
+**Federico Sella** — Italie
 E-mail : [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. En bref

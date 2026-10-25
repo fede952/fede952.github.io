@@ -1,5 +1,5 @@
 # Security contact for federicosella.com (RFC 9116)
-Contact: mailto:fedesella95@gmail.com
+Contact: mailto:security@federicosella.com
 Expires: 2027-10-25T00:00:00.000Z
 Preferred-Languages: en, it
 Canonical: https://federicosella.com/.well-known/security.txt

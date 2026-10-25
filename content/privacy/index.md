@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Data Controller
 
-**Federico Sella** — Suisio (Bergamo), Italy
+**Federico Sella** — Italy
 Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. The Short Version

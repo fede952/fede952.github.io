@@ -19,14 +19,23 @@
     <h2 id="home-tools">{{ i18n "home_tools" }}</h2>
     {{- with site.GetPage "/tools" }}<a class="section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>{{ end }}
   </div>
+  {{- /* On phones each category shows its `top` tools; the others appear when
+       the "Show all N" <details> is opened (CSS :has(), no JavaScript).
+       Desktop renders every card in alphabetical order, as before. */}}
   {{- range $byCat }}
+  {{- $top := .top }}
   <div class="home-cat">
     <h3 class="home-cat-title">{{ partial "icon.html" (dict "name" .icon "size" 18) }}{{ i18n (printf "cat_%s" .id) }}</h3>
     <ul class="card-grid card-grid--compact">
       {{- range .pages }}
-      <li>{{ partial "card.html" (dict "page" . "level" "h4") }}</li>
+      <li{{ if in $top (path.Base .Path) }} class="is-top"{{ end }}>{{ partial "card.html" (dict "page" . "level" "h4") }}</li>
       {{- end }}
     </ul>
+    {{- if gt (len .pages) (len $top) }}
+    <details class="home-cat-more">
+      <summary><span class="when-closed">{{ i18n "home_show_all" (len .pages) }}</span><span class="when-open">{{ i18n "home_show_fewer" }}</span></summary>
+    </details>
+    {{- end }}
   </div>
   {{- end }}
 </section>

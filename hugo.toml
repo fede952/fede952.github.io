@@ -52,7 +52,7 @@ defaultContentLanguageInSubdir = true
   description = "Free, privacy-first web utilities that run 100% in your browser — password security, image compression, QR codes and developer tools, plus practical guides and cheatsheets."
   keywords = ["free online tools", "web utilities", "privacy-first tools", "password generator", "image compressor", "qr code generator", "developer tools", "browser tools", "Federico Sella"]
   author = "Federico Sella"
-  images = ["images/social-banner.png"]
+  images = ["images/og-card.png"] # default share card, 1200x630 (scripts/og-card.mjs)
   ShowShareButtons = true
 
   # Home "Popular guides": hand-picked learn pages (resolved per language
@@ -125,10 +125,12 @@ defaultContentLanguageInSubdir = true
       jwt-inspector = "devsec"
 
   [params.assets]
-    favicon = "/favicon.png"
-    favicon16x16 = "/favicon.png"
-    favicon32x32 = "/favicon.png"
-    apple_touch_icon = "/favicon.png"
+    # small-size raven mark (static/images/logo-mark.svg); the full logo stays for large uses
+    favicon = "/favicon.svg"
+    favicon16x16 = "/favicon-16x16.png"
+    favicon32x32 = "/favicon-32x32.png"
+    apple_touch_icon = "/apple-touch-icon.png"
+    safari_pinned_tab = "/safari-pinned-tab.svg"
     # = --bg in assets/css/extended/tokens.css (browser UI colour, dark-only site)
     theme_color = "#0b0e12"
     msapplication_TileColor = "#0b0e12"
@@ -142,7 +144,7 @@ defaultContentLanguageInSubdir = true
     buttons = [
       { name = "About Me", url = "about/" },
       { name = "My Projects", url = "projects/" },
-      { name = "Contact", url = "mailto:fedesella95@gmail.com" }
+      { name = "Contact", url = "mailto:contact@federicosella.com" }
     ]
     
     [[params.socialIcons]]
@@ -153,7 +155,7 @@ defaultContentLanguageInSubdir = true
       url = "https://github.com/fede952"
     [params.label]
     text = "Federico Sella"
-    icon = "images/logo.webp" # Questo mette il logo piccolo in alto a sinistra vicino al nome
+    icon = "images/logo-mark.svg" # header mark (our header partial renders its own; kept in sync)
     iconHeight = 35
 
 # --- Configurazione Lingue (Fix Menu) ---

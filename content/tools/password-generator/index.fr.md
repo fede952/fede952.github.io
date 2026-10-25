@@ -61,4 +61,4 @@ Un attaquant qui connaît parfaitement ce générateur, ensemble et longueur com
 - **Réseaux Wi-Fi.** Générez une clé de 20 à 30 caractères pour votre box ; vous ne la tapez qu'une fois par appareil.
 - **Identifiants temporaires.** Créez un mot de passe jetable pour un compte invité ou un document partagé, puis supprimez le compte une fois terminé.
 
-Pour les phrases de passe et pour tester un mot de passe que vous utilisez déjà, essayez [PassFort](/fr/tools/pass-fort/).
+Pour tester un mot de passe que vous utilisez déjà, et vérifier s'il figure dans une fuite de données connue, essayez [PassFort](/fr/tools/pass-fort/).

@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Controlador dos dados
 
-**Federico Sella** — Suisio (Bérgamo), Itália
+**Federico Sella** — Itália
 E-mail: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. Resumo

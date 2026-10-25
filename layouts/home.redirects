@@ -26,6 +26,20 @@
 {{- end }}
 {{- end }}
 
+# Removed translations (data/removed_translations.yaml)
+{{- range $r := hugo.Data.removed_translations }}
+{{- $target := printf "/%s%s" $r.to $r.page }}
+{{- range $l := $r.langs }}
+{{- range $from := $r.from }}
+{{- $old := printf "/%s%s" $l $from }}
+{{ $old }} {{ $target }} 301
+{{- /* the same redirect as a page, for hosts that ignore _redirects */}}
+{{- $html := printf `<!doctype html><html lang="%s"><head><meta charset="utf-8"><title>%s</title><link rel="canonical" href="%s"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=%s"></head><body><a href="%s">%s</a></body></html>` $l ($target | absURL) ($target | absURL) $target $target ($target | absURL) }}
+{{- $_ := (resources.FromString (printf "%sindex.html" (strings.TrimPrefix "/" $old)) $html).Publish }}
+{{- end }}
+{{- end }}
+{{- end }}
+
 # Removed languages (Phase 3): same path in English
 {{- range slice "zh-cn" "hi" "ar" "ja" "ru" "ko" }}
 /{{ . }}/* /en/:splat 301

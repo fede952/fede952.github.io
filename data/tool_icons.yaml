@@ -6,15 +6,22 @@
 # Categories are shown in this order on the home page and /tools/; labels
 # are i18n keys cat_<id>.
 
+# `top`: the 3 tools shown per category on the home page on phones (< 768 px);
+# the rest sit behind "Show all N". Initial picks by search intent —
+# TODO(Federico): re-rank from Umami. Without `top`, the first 3 by title.
 categories:
   - id: security
     icon: shield
+    top: [password-generator, pass-fort, exif-cleaner]
   - id: images
     icon: image
+    top: [pdf-merge-split, qr-generator, heic-converter]
   - id: dev
     icon: code
+    top: [json-formatter, text-diff, base64-converter]
   - id: productivity
     icon: bolt
+    top: [freelance-calculator, zen-focus, string-master]
 
 tools:
   pass-fort:            { category: security, icon: shield-check }

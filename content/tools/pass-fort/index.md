@@ -1,25 +1,25 @@
 ---
-title: "Password Strength Checker & Generator"
-description: "Test how strong a password is (entropy in bits, brute-force crack time) and generate random passwords or passphrases. Runs entirely in your browser."
-intro: "**PassFort** generates random passwords and passphrases with your browser's cryptographic random number generator, and audits any password's entropy and brute-force crack time. Nothing you type ever leaves this page. The optional breach check sends only 5 characters of the password's hash, and only when you ask for it."
+title: "Password Strength Checker & Breach Test"
+description: "Check how strong a password is (entropy, brute-force crack time) and whether it appears in known data breaches, using k-anonymity. Runs in your browser."
+intro: "**PassFort** checks a password you already use: its entropy, how long a brute-force attack would take, the patterns to avoid and, if you ask, whether it has appeared in a known **data breach**. Strength analysis never leaves this page; the optional breach check sends only 5 characters of the password's hash. Need a brand-new password instead? Use the [Random Password Generator](/en/tools/password-generator/)."
 date: 2026-02-03
 lastmod: 2026-10-25
 reviewed: false
-keywords: ["password strength checker", "password generator", "passphrase generator", "password entropy calculator", "how long to crack my password", "strong password generator", "random password", "password tester"]
+keywords: ["password strength checker", "check password strength", "password breach check", "has my password been pwned", "password entropy calculator", "how long to crack my password", "password tester", "pwned passwords check"]
 tags: ["security", "passwords", "privacy", "tool"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort password generator and strength checker"
+tool_title: "PassFort password strength and breach checker"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Open the **Generator** tab. Pick a length (8–128 characters) and the character sets you want: uppercase, lowercase, digits, symbols."
-  - "For something you can type and remember, tick **Passphrase Mode** and choose 3–8 words. For a master password, use at least 6."
-  - "Press **Generate Password** until you like the result, then the clipboard button copies it. Paste it straight into your password manager."
-  - "To check a password you already use, switch to the **Auditor** tab and type or paste it. The eye button toggles visibility."
+  - "Type or paste the password you want to test into the **Auditor** tab, which opens first. The eye button toggles visibility."
   - "Read the entropy meter, the estimated crack time and the checklist. Anything red is worth fixing before you reuse that password."
   - "Optionally, press **Check against known breaches** to see whether that exact password has appeared in a data breach. Nothing is sent until you press it."
+  - "To create a passphrase or a new password, open the **Generator** tab. Pick a length (8–128 characters) and the character sets you want: uppercase, lowercase, digits, symbols."
+  - "For something you can type and remember, tick **Passphrase Mode** and choose 3–8 words. For a master password, use at least 6."
+  - "Press **Generate Password** until you like the result, then the clipboard button copies it. Paste it straight into your password manager."
 faq:
   - q: "Is it safe to type my real password into this checker?"
     a: "Yes. The auditor is plain JavaScript running inside this page. It never makes a network request with what you type, and the value is gone as soon as you clear the field or close the tab. You can confirm it in your browser's developer tools (Network tab) while you type. If you prefer, test a password that *follows the same pattern* as your real one. The only exception is the optional breach check, and only when you press its button: it sends 5 characters of the password's SHA-1 hash, never the password (see the next question)."

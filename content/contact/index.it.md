@@ -7,7 +7,7 @@ hidemeta: true
 
 Leggo ogni messaggio. Ecco come raggiungermi:
 
-- **Richieste generali:** [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+- **Richieste generali:** [contact@federicosella.com](mailto:contact@federicosella.com)
 - **Richieste privacy** (diritti GDPR, domande sui dati): [privacy@federicosella.com](mailto:privacy@federicosella.com)
 - **Problemi di sicurezza:** hai trovato una vulnerabilità in uno dei miei strumenti? Scrivimi con oggetto `[SECURITY]` — la divulgazione responsabile è sempre apprezzata.
 

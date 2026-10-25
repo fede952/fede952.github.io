@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Titolare del trattamento
 
-**Federico Sella** — Suisio (Bergamo), Italia
+**Federico Sella** — Italia
 Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. In breve

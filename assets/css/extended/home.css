@@ -105,6 +105,24 @@
   color: var(--accent);
 }
 
+/* Phones: the category's `top` tools first, the rest behind "Show all N" */
+.home-cat-more { display: none; }
+@media (max-width: 767.98px) {
+  .home-cat .card-grid > li.is-top { order: -1; }
+  .home-cat:has(> .home-cat-more:not([open])) .card-grid > li:not(.is-top) { display: none; }
+  .home-cat-more { display: block; margin-top: var(--s-3); }
+  .home-cat-more > summary {
+    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0 var(--s-4);
+    border: 1px solid var(--border-strong); border-radius: var(--r); color: var(--accent);
+    font-size: var(--fs-sm); font-weight: var(--fw-semibold); cursor: pointer; list-style: none;
+  }
+  .home-cat-more > summary::-webkit-details-marker { display: none; }
+  .home-cat-more > summary::after { content: '▾'; transition: transform .15s; }
+  .home-cat-more[open] > summary::after { transform: rotate(180deg); }
+  .home-cat-more > summary:hover, .home-cat-more > summary:focus-visible { border-color: var(--accent); }
+  .home-cat-more:not([open]) .when-open, .home-cat-more[open] .when-closed { display: none; }
+}
+
 /* "Who builds this" */
 .home-builder {
   display: flex;

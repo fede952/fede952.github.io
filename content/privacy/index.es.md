@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Responsable del tratamiento
 
-**Federico Sella** — Suisio (Bérgamo), Italia
+**Federico Sella** — Italia
 Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. En resumen

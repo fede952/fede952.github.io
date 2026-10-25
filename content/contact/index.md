@@ -7,7 +7,7 @@ hidemeta: true
 
 I read every message. Here's how to reach me:
 
-- **General inquiries:** [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+- **General inquiries:** [contact@federicosella.com](mailto:contact@federicosella.com)
 - **Privacy requests** (GDPR rights, data questions): [privacy@federicosella.com](mailto:privacy@federicosella.com)
 - **Security issues:** found a vulnerability in one of my tools? Please email with the subject line `[SECURITY]` — responsible disclosure is always appreciated.
 

@@ -1,25 +1,25 @@
 ---
-title: "Comprobar Contraseña Segura y Generador"
-description: "Comprueba lo segura que es una contraseña (entropía en bits, tiempo para descifrarla) y genera contraseñas o frases de paso aleatorias en tu navegador."
-intro: "**PassFort** genera contraseñas y frases de paso aleatorias con el generador criptográfico de tu navegador, y analiza la entropía y el tiempo de ataque por fuerza bruta de cualquier contraseña. Nada de lo que escribes sale de esta página. La comprobación opcional de filtraciones envía solo 5 caracteres del hash de la contraseña, y solo si la pides."
+title: "Comprobador de Contraseñas y Filtraciones"
+description: "Comprueba lo segura que es una contraseña (entropía, tiempo de ataque por fuerza bruta) y si aparece en filtraciones conocidas, con k-anonimato."
+intro: "**PassFort** revisa una contraseña que ya usas: su entropía, cuánto tardaría un ataque por fuerza bruta, los patrones que conviene evitar y, si lo pides, si ha aparecido en una **filtración de datos** conocida. El análisis de seguridad no sale de esta página; la comprobación opcional de filtraciones envía solo 5 caracteres del hash de la contraseña. ¿Necesitas una contraseña nueva? Usa el [Generador de Contraseñas Aleatorias](/es/tools/password-generator/)."
 date: 2026-02-03
 lastmod: 2026-10-25
 reviewed: false
-keywords: ["comprobar seguridad contraseña", "generador de contraseñas seguras", "generador de frases de paso", "entropía de contraseña", "cuánto se tarda en descifrar mi contraseña", "contraseña aleatoria", "test de contraseña", "contraseña segura"]
+keywords: ["comprobar seguridad contraseña", "comprobador de contraseñas", "contraseña filtrada", "mi contraseña ha sido filtrada", "entropía de contraseña", "cuánto se tarda en descifrar mi contraseña", "test de contraseña", "have i been pwned contraseña"]
 tags: ["seguridad", "contraseñas", "privacidad", "herramienta"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: generador y comprobador de contraseñas"
+tool_title: "PassFort: comprobador de seguridad y filtraciones de contraseñas"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Abre la pestaña **Generator**. Elige la longitud (de 8 a 128 caracteres) y los grupos de caracteres: mayúsculas, minúsculas, dígitos y símbolos."
-  - "Para algo que puedas escribir y recordar, marca **Passphrase Mode** y elige de 3 a 8 palabras. Para una contraseña maestra, usa al menos 6."
-  - "Pulsa **Generate Password** hasta que te guste el resultado; el botón del portapapeles lo copia. Pégalo directamente en tu gestor de contraseñas."
-  - "Para revisar una contraseña que ya usas, cambia a la pestaña **Auditor** y escríbela o pégala. El botón del ojo la muestra u oculta."
+  - "Escribe o pega la contraseña que quieres revisar en la pestaña **Auditor**, que se abre primero. El botón del ojo la muestra u oculta."
   - "Mira el medidor de entropía, el tiempo estimado de descifrado y la lista de comprobaciones: lo que aparezca en rojo conviene corregirlo antes de reutilizar esa contraseña."
   - "Si quieres, pulsa **Check against known breaches** para saber si esa contraseña exacta ha aparecido en alguna filtración. No se envía nada hasta que lo pulsas."
+  - "Para crear una frase de paso o una contraseña nueva, abre la pestaña **Generator**. Elige la longitud (de 8 a 128 caracteres) y los grupos de caracteres: mayúsculas, minúsculas, dígitos y símbolos."
+  - "Para algo que puedas escribir y recordar, marca **Passphrase Mode** y elige de 3 a 8 palabras. Para una contraseña maestra, usa al menos 6."
+  - "Pulsa **Generate Password** hasta que te guste el resultado; el botón del portapapeles lo copia. Pégalo directamente en tu gestor de contraseñas."
 faq:
   - q: "¿Es seguro escribir mi contraseña real en este comprobador?"
     a: "Sí. El auditor es JavaScript que se ejecuta dentro de esta página: nunca envía por la red lo que escribes, y el valor desaparece en cuanto vacías el campo o cierras la pestaña. Puedes confirmarlo en las herramientas de desarrollo del navegador (pestaña Red) mientras escribes. Si lo prefieres, prueba una contraseña que *siga el mismo patrón* que la real. La única excepción es la comprobación opcional de filtraciones, y solo cuando pulsas su botón: envía 5 caracteres del hash SHA-1 de la contraseña, nunca la contraseña (mira la siguiente pregunta)."

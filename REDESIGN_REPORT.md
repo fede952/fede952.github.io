@@ -206,7 +206,7 @@ Screens reviewed at 390 / 1440 px: home, /tools/, /learn/, a tool page (EN/IT), 
    - eJPT; cybersecurity bootcamp; Python, C#, Next.js.
    - Why the site exists, plus contact links.
 
-   Removed: "Security Developer", "Red Team Aspirant", the contradictory "7+ years" and "over 10 years", "Zero-Error precision", "Arsenal", "digital warfare", and the Bergamo keyword.
+   Removed: "Security Developer", "Red Team Aspirant", the contradictory "7+ years" and "over 10 years", "Zero-Error precision", "Arsenal", "digital warfare", and a home-town keyword.
 
    The other certifications (Cisco Ethical Hacker, ISC2 CC, Google Cybersecurity) and the years of CNC work are kept only in a `TODO(Federico): confirm` YAML comment in each file's front matter. They are not rendered.
 
@@ -317,21 +317,120 @@ Checks:
 
 **Screenshots:** the after set is in `docs/screenshots/after/` (89 files, matching `docs/screenshots/before/`). The folder is git-ignored.
 
+## Phase 7 — Personal data hardening and leftover TODOs
+
+### 7.1 Personal location and mailbox removed
+
+Every hit of a case-insensitive search for the home town, its province, the personal mailbox, `gmail.com`, `+39` and street-address patterns (`streetAddress`, `postalCode`, "Via …", postcodes), across tracked files and the built `public/` (JSON-LD included), and what was done:
+
+| File | Was | Now |
+|---|---|---|
+| `content/privacy/index{,.it,.es,.de,.fr,.pt}.md` | "Federico Sella — ‹town› (‹province›), Italy" (localised) | "Federico Sella — Italy / Italia / Italien / Italie / Itália"; the `privacy@federicosella.com` address stays |
+| `content/contact/index.*.md` (6) | personal mailbox | `contact@federicosella.com` |
+| `hugo.toml` profileMode "Contact" button | `mailto:` personal mailbox | `mailto:contact@federicosella.com` |
+| `layouts/links/list.html` (2 links) | `mailto:` personal mailbox | `mailto:contact@federicosella.com` |
+| `static/.well-known/security.txt` | personal mailbox | `Contact: mailto:security@federicosella.com` |
+| `content/apps/pasta-stack/privacy/index{,.it}.md` | personal mailbox | `privacy@federicosella.com` (only the email line changed) |
+| `REDESIGN_REPORT.md` (Phase 4 note) | named the home-town keyword | "a home-town keyword" |
+| `static/tools/json-to-csharp/index.html` | sample "John Doe, 123 Main St, New York" | unchanged: fictional sample data |
+
+No `+39` number, street address or postcode anywhere. After the build, `public/` has no hit; the only `email` value in any JSON-LD-like block is the tool's `john@example.com` sample.
+
+### 7.2 Metadata hygiene
+
+1. **Test fixtures.** `tests/fixtures/photo-gps.jpg` and `photo-gps.heic` are rebuilt by the new `tests/fixtures/make-photos.py` (synthetic 480×360 image): GPS 0°30′0″S 25°0′0″W (open South Atlantic), Make `FixtureCam`, Model `Model T-1`. The old fixtures carried a point near the owner's home area and a real camera model. Updated assertions: `exif-cleaner` waits for "GPS|FixtureCam", `images-to-pdf` checks that `FixtureCam` does not leak into the PDF. The HEIC unit test only checks that a GPS block exists, so it was unaffected.
+2. **Published images.** A byte-level scan of all 17 images under `static/`, `assets/` and `content/`. Five carried metadata, stripped losslessly at chunk level (pixels verified identical after decoding; colour profiles kept):
+   - `favicon.png`, `images/icon-192.png`, `images/icon-512.png`: an XMP packet (orientation only);
+   - `images/pixel-shrink-icon.webp`: EXIF with the generator's `Artist` UUID and an `ImageDescription` "Signature: …" blob;
+   - `images/social-banner.png` (actually a JPEG): the same generator EXIF.
+
+   The other 12 were clean. All icons generated in this phase come from headless Chromium screenshots, which carry no metadata.
+3. **New default share card.** `static/images/og-card.png` is 1200×630, rendered by `scripts/og-card.mjs` from the design tokens: the new mark, "Federico Sella", "Free, privacy-first web tools", "federicosella.com", in the self-hosted JetBrains Mono. `params.images` points to it.
+   - `og:image:width` (1200), `og:image:height` (630), `og:image:type` and `og:image:alt` are read from the file. They are emitted right after `og:image`, through a copy of PaperMod's `templates/opengraph.html` with only that block added, and only where the default card is used. Pages with their own cover (the writeup, projects) keep theirs.
+   - The old portrait `social-banner.png` stays at its URL, metadata stripped, so cached shares still resolve.
+4. **Guard: `tests/privacy-guard.mjs`.** No dependencies, needs only Node and git. It fails when:
+   - a tracked or new, non-ignored file outside `static/vendor/` matches the home town or the personal mailbox. The patterns are built from fragments, so the guard never matches itself;
+   - an image under `static/`, `assets/` or `content/` has EXIF GPS. It parses the real container (JPEG APP1, PNG `eXIf`, WebP `EXIF`, HEIF/TIFF) and looks for the GPS IFD pointer (tag 0x8825), and also catches GPS fields in XMP.
+
+   It runs as the first step of `npm test` (`npm run test:privacy` alone) and as a **"Privacy guard" step in `.github/workflows/production.yaml` before "Build Site"**, with no secrets and no `npm install`. Verified both ways: 0 problems on the tree, and 4 of 4 planted probes caught (JPEG GPS, PNG `eXIf` GPS, HEIC GPS, a file containing the old mailbox).
+
+### 7.3 Leftover TODOs
+
+1. **Stripped accents restored**, checked with a dictionary pass (`pyspellchecker`, es/fr/pt/de).
+   - **Scope:** a scan of every ES/DE/FR/PT page and i18n file found the damage only in `networking-ports-protocols` and `git-disaster-recovery` (both born without accents in `8e8ecf2`, so there was no original to restore), `code-breaker-typing`, `sysadmin-tycoon`, and SysAdmin Tycoon's in-game strings. The few hits elsewhere were valid verb forms or English terms (*indica*, *calculo*, *publica*, `penetration-testing`) and were left alone.
+   - **Method:**
+     - Unambiguous words were auto-fixed only in those files.
+     - Homographs (*esta/está*, *a/à*, *e/é*, *chiffre/chiffré*, *mochte/möchte*…) were fixed by reading every file and applying 125 exact edits.
+     - Translated comments inside code blocks (PT, DE) were fixed too: 48 lines. Commands are untouched.
+   - **Three wrong automatic changes caught in review and reverted:**
+     - "s'écoulé" back to "s'écoule";
+     - "envío una respuesta" to "envió";
+     - the Spanish tag `versión-control` back to `version-control`, since tags are identifiers.
+   - **Choices:** Brazilian Portuguese spellings (*mnemônico*, *cronômetro*); Spanish *¡…!*/*¿…?* added where the sentence is an exclamation or question.
+   - **Re-run of the dictionary pass on the 16 files:** 0 candidates left.
+   - **Game strings:**
+     - The ES/FR/DE/PT UI strings now carry their accents, e.g. *Kühlung*, *Énergie*, *Amélior.*, *Núcleo Quântico*, *¡APAGÓN!*.
+     - The font is the site's monospace stack, which covers accented Latin, and the page declares UTF-8.
+     - The game pages quote the new tab labels.
+2. **HTB Cap writeup — EN + IT only.**
+   - **What was removed:** the ES/DE/FR/PT files (English bodies) and the then-empty ES/DE/FR/PT writeups sections.
+   - **Redirects:** both come from `data/removed_translations.yaml`, read by `layouts/home.redirects`:
+     - 301s to the English page in Cloudflare's `_redirects`;
+     - a published `noindex` meta-refresh page with a canonical tag at each old URL (8 for the writeup, 8 for the section), for GitHub Pages, which ignores `_redirects`.
+   - **hreflang** on the writeup lists only `en`, `it` and `x-default`.
+   - **Language switcher:** a missing translation now leads to the nearest translated ancestor (here `/es/learn/`, …) instead of the language's home page.
+   - **Learn hub:** it only shows type chips that have articles in that language, so there's no "Writeups" chip in ES/DE/FR/PT.
+   - **Sitemap:** 545 → 537 URLs.
+3. **PassFort vs Password Generator (6 languages, URLs kept).**
+   - **PassFort's page** is refocused on strength + breach testing: title/H1, meta description, keywords, `tool_title`, and an intro that points generation to the Random Password Generator, e.g. "Password Strength Checker & Breach Test" / "Verifica Password: Sicurezza e Violazioni" / "Passwort-Check: Stärke und Datenlecks". The how-to now starts with checking.
+   - **In the app:** the **Auditor** tab opens first. The Generator tab links to the generator page in the visitor's language with `target="_top"`; the sandbox gained `allow-top-navigation-by-user-activation`, so it works only on a click.
+   - **The generator pages' link sentence** now mentions the breach check.
+   - **Side fix found by the visual suite:** the eye and clear buttons, now visible by default, were 23×35 px and too close together. They are now 44×44 and spaced apart.
+   - **Test:** `pass-fort-page` checks the checker opens first, the Italian H1, and that the link navigates the top window to `/it/tools/password-generator/` and back-links.
+4. **Small-size logo.** `static/images/logo-mark.svg` is a silhouette of the raven's head drawn from the full mark: one red (`#e91e20`, sampled from the logo) on the site's `--bg`, with the long beak, angled eye and shaggy throat kept. It's used for:
+   - the header (28 px);
+   - `favicon.svg`, plus `favicon-16x16.png` and `favicon-32x32.png` (the legacy `/favicon.png` now has the 32 px mark);
+   - `apple-touch-icon.png` (180 px), and the manifest icons 192/512, which are full-bleed with the mark inside the maskable safe zone (`purpose: any maskable`);
+   - `safari-pinned-tab.svg`, which was a shield and is now the one-colour silhouette.
+
+   The full `logo.webp` stays for large uses. Old vs new at 16/24/32 px: `docs/screenshots/logo-comparison.png`.
+5. **Home on phones.**
+   - Below 768 px, each category shows its three `top` tools, and a `<details>` "Show all N" reveals the rest. It's pure CSS with `:has()`, and the summary follows the list in source order.
+   - The picks live in `data/tool_icons.yaml` (`top:` per category, first three by title if absent).
+   - Desktop renders every card in alphabetical order exactly as before; the summary is hidden at 768 px and up.
+   - Result on a phone: 12 cards and 4 summaries instead of 31 cards.
+
+### 7.4 Verification
+
+- **Privacy guard:** 957 files, 20 images, 0 problems. **Static:** 2,840 HTML files, 0 broken internal links; 1,189 JSON-LD blocks, 0 errors; sitemap 537 URLs, all new tools in 6 languages.
+- **Unit:** 55/55. **Functional:** all pass, including the updated fixtures and the new `pass-fort-page` test.
+- **Tool pages:** 186 runs, 0 problems. **Visual:** 88 runs, 0 problems (after the PassFort tap-target fix). **Ads:** 420 runs, 0 problems, max CLS 0.019.
+- **Lighthouse 12.6.1 mobile**, third parties blocked / allowed:
+
+  | Page | Perf | A11y | BP | SEO | CLS |
+  |---|---|---|---|---|---|
+  | Home | 97 / 97 | 100 | 100 | 100 | 0.000 |
+  | PassFort | 95 / 96 | 100 | 100 | 100 | 0.000 |
+
+- **Screenshots:** the after set in `docs/screenshots/after/` is refreshed.
+
+### Ad slots (separate commit `7e31d1c`)
+
+- `slot_tool_after` 9173467729, `slot_article_mid` 2061972307, `slot_sidebar` 9967674640 (client and `slot_default` unchanged).
+- **Fix needed to verify them:** on tool pages `article_mid` targeted the 3rd `<h2>`, which tool bodies rarely have, so it never rendered on any tool page. It now targets the 2nd, with the 450-word gap after `tool_after` unchanged, and renders on 55 of 186 tool pages.
+- **Rendered at 1280 px:** a tool page shows `tool_after` + `article_mid` + `sidebar`; a learn page shows `article_mid` ×2 + `sidebar`. At 1024 px there's no sidebar unit.
+
 ## Federico TODO
 
-Things only you can decide or provide. Nothing below was guessed.
+Things only you can decide or provide. Nothing below was guessed. Resolved since Phase 6: AdSense slots (commit `7e31d1c`), accent-stripped content, the HTB Cap translations, and the small-size logo (Phase 7).
 
-1. **AdSense slots** (`hugo.toml`): create the units and fill `slot_tool_after`, `slot_article_mid` and `slot_sidebar` (vertical display unit, 300×250–300×600). Until then those placements render nothing.
-2. **About page** (6 languages): confirm or correct the facts parked in the `TODO(Federico)` front-matter comment before they are shown:
+1. **About page** (6 languages): confirm or correct the facts parked in the `TODO(Federico)` front-matter comment before they are shown:
    - Cisco Ethical Hacker, ISC2 CC and Google Cybersecurity certificates;
    - the years of CNC work.
-3. **`popular_guides`** (`hugo.toml`): hand-picked for now. Replace them with the top guides from Umami.
-4. **Review new and rewritten pages:** 186 pages carry `reviewed: false`, including every new tool page in 6 languages. Read them, especially the non-English ones, and flip the flag.
-5. **Accent-stripped content:**
-   - the bodies of `git-disaster-recovery` and `networking-ports-protocols` in ES/DE/FR/PT (headings already fixed);
-   - SysAdmin Tycoon's in-game UI strings ("Kuhlung", "fur", …).
-6. **HTB Cap writeup:** the body is still English on the ES/DE/FR/PT pages. Translate it or mark those pages English-only.
-7. **Logo:** the raven mark is unreadable at header size (24 px). It needs a simplified small-size variant.
-8. **PassFort breach check in production:** after deploy, press **Check against known breaches** once on the live site and confirm a result appears. The `Add-Padding` header triggers a CORS preflight, and this could not be verified offline. If it fails, users see the "could not be reached" message, nothing worse.
-9. **Translations of PassFort's UI:** the app itself is English-only, as it was before. The new breach-check strings follow that; the pages around it are localised.
-10. **Merge:** branch `redesign` holds one commit per phase and is not pushed.
+2. **`popular_guides`** (`hugo.toml`) and the **home `top:` tools per category** (`data/tool_icons.yaml`): both are hand-picked. Re-rank them from Umami.
+3. **Review new and rewritten pages:** 186 pages carry `reviewed: false`, including every new tool page in 6 languages and PassFort's refocused copy. Read them, especially the non-English ones, and flip the flag.
+4. **PassFort breach check in production:** after deploy, press **Check against known breaches** once on the live site and confirm a result appears. The `Add-Padding` header triggers a CORS preflight, and this could not be verified offline. If it fails, users see the "could not be reached" message, nothing worse.
+5. **Translations of PassFort's UI:** the app itself is English-only, as it was before; the pages around it are localised.
+6. **Email aliases:** check that Cloudflare Email Routing delivers `contact@`, `privacy@` and `security@federicosella.com` before deploy. The site now publishes only those.
+7. **Logo:** look at `docs/screenshots/logo-comparison.png`. If you have a designer's simplified mark, swap it into `static/images/logo-mark.svg`. The favicon, touch and manifest PNGs were rendered from that SVG with headless Chromium (not scripted in the repo), so regenerate them the same way, and rerun `node scripts/og-card.mjs` for the share card.
+8. **Merge:** branch `redesign` holds one commit per phase (plus the ad-slot commit) and is not pushed.

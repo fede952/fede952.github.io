@@ -143,7 +143,7 @@ Ti invitiamo a consultare periodicamente questa Informativa sulla Privacy per ev
 Se hai domande, dubbi o richieste riguardo a questa Informativa sulla Privacy o ai tuoi dati, contattaci a:
 
 **Federico Sella**
-Email: [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 Sito Web: [https://federicosella.com](https://federicosella.com)
 
 ---

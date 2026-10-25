@@ -5,7 +5,7 @@
 <link rel="canonical" href="https://federicosella.com/en/tools/pass-fort/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PassFort - Password Generator & Strength Auditor</title>
+<title>PassFort - Password Strength & Breach Checker</title>
 <link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -70,12 +70,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 
 /* Auditor */
 .audit-input-wrap{position:relative}
-.audit-input{width:100%;background:var(--bg);border:2px solid var(--border);border-radius:6px;padding:14px 80px 14px 14px;font-family:var(--mono);font-size:18px;color:var(--green);outline:none;transition:border-color .2s}
+.audit-input{width:100%;background:var(--bg);border:2px solid var(--border);border-radius:6px;padding:14px 104px 14px 14px;font-family:var(--mono);font-size:18px;color:var(--green);outline:none;transition:border-color .2s}
 .audit-input:focus{border-color:var(--green)}
 .audit-input::placeholder{color:var(--text3)}
-.eye-btn{position:absolute;top:50%;right:44px;transform:translateY(-50%);background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer;padding:4px}
+.eye-btn{position:absolute;top:50%;right:52px;transform:translateY(-50%);width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:6px;color:var(--text2);font-size:18px;cursor:pointer;padding:0}
 .eye-btn:hover{color:var(--green)}
-.clear-btn{position:absolute;top:50%;right:10px;transform:translateY(-50%);background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:4px}
+.clear-btn{position:absolute;top:50%;right:4px;transform:translateY(-50%);width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:6px;color:var(--text3);font-size:18px;cursor:pointer;padding:0}
 .clear-btn:hover{color:var(--red)}
 
 /* Meter */
@@ -122,6 +122,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 }
 
 .header h1 span{color:var(--text)}
+.gen-more{margin-top:12px;font-size:12px;line-height:1.5;color:var(--text2);text-align:center}
+.gen-more a{color:var(--green)}
 
 /* Breach check */
 .breach-note{font-size:12px;line-height:1.55;color:var(--text2);margin-bottom:12px}
@@ -141,7 +143,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 
   <header class="header">
     <h1>Pass<span>Fort</span></h1>
-    <div class="sub">Password Generator &amp; Strength Auditor</div>
+    <div class="sub">Password Strength &amp; Breach Checker</div>
   </header>
 
   <div class="privacy-badge">
@@ -150,12 +152,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="generator">Generator</button>
-    <button class="tab-btn" data-tab="auditor">Auditor</button>
+    <button class="tab-btn active" data-tab="auditor">Auditor</button>
+    <button class="tab-btn" data-tab="generator">Generator</button>
   </div>
 
   <!-- ── GENERATOR TAB ── -->
-  <div class="tab-panel active" id="panel-generator">
+  <div class="tab-panel" id="panel-generator">
     <div class="section">
       <div class="section-title">Generated Password</div>
       <div class="pw-display" id="pwDisplay">-</div>
@@ -197,10 +199,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
     </div>
 
     <button class="gen-btn" id="genBtn">Generate Password</button>
+    <p class="gen-more">Only need a random password? The <a id="pgLink" href="/en/tools/password-generator/" target="_top">Random Password Generator</a> is built for that.</p>
   </div>
 
   <!-- ── AUDITOR TAB ── -->
-  <div class="tab-panel" id="panel-auditor">
+  <div class="tab-panel active" id="panel-auditor">
     <div class="section">
       <div class="section-title">Test Your Password</div>
       <div class="audit-input-wrap">
@@ -461,6 +464,13 @@ document.getElementById('clearBtn').addEventListener('click',()=>{
   document.getElementById('auditInput').value='';
   auditPassword('');
 });
+
+/* Link to the generator page in the visitor's language (the app is embedded on /<lang>/tools/pass-fort/) */
+(function(){
+  let lang='en';
+  try{ const m=(window.parent.location.pathname||'').match(/^\/(en|it|es|de|fr|pt)\//); if(m) lang=m[1]; }catch(e){}
+  document.getElementById('pgLink').href='/'+lang+'/tools/password-generator/';
+})();
 
 /* Init */
 doGenerate();

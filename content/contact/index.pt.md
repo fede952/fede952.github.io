@@ -7,7 +7,7 @@ hidemeta: true
 
 Leio todas as mensagens. Eis como me contactar:
 
-- **Questões gerais:** [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+- **Questões gerais:** [contact@federicosella.com](mailto:contact@federicosella.com)
 - **Pedidos de privacidade** (direitos RGPD, questões sobre dados): [privacy@federicosella.com](mailto:privacy@federicosella.com)
 - **Problemas de segurança:** encontrou uma vulnerabilidade numa das minhas ferramentas? Escreva com o assunto `[SECURITY]` — a divulgação responsável é sempre apreciada.
 

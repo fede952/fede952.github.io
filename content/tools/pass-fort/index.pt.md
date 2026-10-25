@@ -1,25 +1,25 @@
 ---
-title: "Testar Força da Senha e Gerador de Senhas"
-description: "Descubra se uma senha é forte (entropia em bits, tempo para quebrá-la) e gere senhas ou frases-senha aleatórias. Tudo roda no seu navegador."
-intro: "O **PassFort** gera senhas e frases-senha aleatórias com o gerador criptográfico do seu navegador e avalia a entropia e o tempo de ataque por força bruta de qualquer senha. Nada do que você digita sai desta página. A verificação opcional de vazamentos envia só 5 caracteres do hash da senha, e só quando você pede."
+title: "Testar Senha: Força e Vazamentos"
+description: "Descubra se uma senha é forte (entropia, tempo de ataque por força bruta) e se aparece em vazamentos de dados conhecidos, com k-anonimato. No navegador."
+intro: "O **PassFort** confere uma senha que você já usa: a entropia, quanto tempo um ataque de força bruta levaria, os padrões a evitar e, se você pedir, se ela já apareceu em um **vazamento de dados** conhecido. A análise de força nunca sai desta página; a verificação opcional de vazamentos envia só 5 caracteres do hash da senha. Precisa de uma senha nova? Use o [Gerador de Senhas Aleatórias](/pt/tools/password-generator/)."
 date: 2026-02-03
 lastmod: 2026-10-25
 reviewed: false
-keywords: ["testar força da senha", "gerador de senha forte", "gerador de senhas", "gerador de frase-senha", "entropia de senha", "quanto tempo para quebrar minha senha", "senha aleatória", "verificador de senha"]
+keywords: ["testar força da senha", "verificador de senha", "senha vazada", "minha senha vazou", "entropia de senha", "quanto tempo para quebrar minha senha", "testar senha", "have i been pwned senha"]
 tags: ["segurança", "senhas", "privacidade", "ferramenta"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: gerador e verificador de senhas"
+tool_title: "PassFort: teste de força e de vazamentos de senhas"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Abra a aba **Generator**. Escolha o tamanho (de 8 a 128 caracteres) e os grupos de caracteres: maiúsculas, minúsculas, números e símbolos."
-  - "Para algo que você consiga digitar e lembrar, marque **Passphrase Mode** e escolha de 3 a 8 palavras. Para uma senha mestra, use pelo menos 6."
-  - "Clique em **Generate Password** até gostar do resultado; o botão da área de transferência copia a senha. Cole direto no seu gerenciador de senhas."
-  - "Para conferir uma senha que você já usa, vá para a aba **Auditor** e digite ou cole a senha. O botão do olho mostra ou esconde o texto."
+  - "Digite ou cole a senha que quer conferir na aba **Auditor**, que abre primeiro. O botão do olho mostra ou esconde o texto."
   - "Veja o medidor de entropia, o tempo estimado para quebrar e a lista de verificação: o que estiver em vermelho deve ser corrigido antes de reutilizar essa senha."
   - "Se quiser, clique em **Check against known breaches** para saber se essa senha exata já apareceu em algum vazamento de dados. Nada é enviado até você clicar."
+  - "Para criar uma frase-senha ou uma senha nova, abra a aba **Generator**. Escolha o tamanho (de 8 a 128 caracteres) e os grupos de caracteres: maiúsculas, minúsculas, números e símbolos."
+  - "Para algo que você consiga digitar e lembrar, marque **Passphrase Mode** e escolha de 3 a 8 palavras. Para uma senha mestra, use pelo menos 6."
+  - "Clique em **Generate Password** até gostar do resultado; o botão da área de transferência copia a senha. Cole direto no seu gerenciador de senhas."
 faq:
   - q: "É seguro digitar minha senha de verdade neste verificador?"
     a: "Sim. O auditor é JavaScript rodando dentro desta página: ele nunca envia pela rede o que você digita, e o valor some assim que você limpa o campo ou fecha a aba. Dá para confirmar nas ferramentas de desenvolvedor do navegador (aba Rede) enquanto digita. Se preferir, teste uma senha que *siga o mesmo padrão* da verdadeira. A única exceção é a verificação opcional de vazamentos, e só quando você clica no botão dela: ela envia 5 caracteres do hash SHA-1 da senha, nunca a senha (veja a próxima pergunta)."

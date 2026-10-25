@@ -7,10 +7,8 @@
 <header class="site-header" id="site-header" data-sticky-header>
   <div class="site-header-inner">
     <a class="brand" href="{{ "" | relLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)">
-      {{- with resources.Get "images/logo.webp" }}
-      {{- $img := .Resize "56x56 webp" }}
-      <img src="{{ $img.RelPermalink }}" width="28" height="28" alt="">
-      {{- end }}
+      {{- /* small-size mark: the full logo is unreadable at 28 px */}}
+      <img src="/images/logo-mark.svg" width="28" height="28" alt="">
       <span class="brand-name">{{ site.Title }}</span>
     </a>
 
@@ -42,7 +40,15 @@
           {{- range site.Home.AllTranslations }}
           {{- $target := .RelPermalink }}
           {{- $lang := .Lang }}
-          {{- range $currentPage.AllTranslations }}{{ if eq .Lang $lang }}{{ $target = .RelPermalink }}{{ end }}{{ end }}
+          {{- $found := false }}
+          {{- range $currentPage.AllTranslations }}{{ if eq .Lang $lang }}{{ $target = .RelPermalink }}{{ $found = true }}{{ end }}{{ end }}
+          {{- /* no translation (e.g. a writeup that exists in EN/IT only): the nearest
+               ancestor section in that language, else its home page */}}
+          {{- if not $found }}
+            {{- range $currentPage.Ancestors }}
+              {{- if not $found }}{{ range .AllTranslations }}{{ if and (not $found) (eq .Lang $lang) }}{{ $target = .RelPermalink }}{{ $found = true }}{{ end }}{{ end }}{{ end }}
+            {{- end }}
+          {{- end }}
           <li><a href="{{ $target }}" hreflang="{{ $lang }}" lang="{{ $lang }}"{{ if eq $lang $currentPage.Lang }} aria-current="true"{{ end }}>
             <span class="lang-list-code" aria-hidden="true">{{ upper $lang }}</span>{{ .Language.Label }}</a></li>
           {{- end }}

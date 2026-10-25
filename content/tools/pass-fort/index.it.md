@@ -1,25 +1,25 @@
 ---
-title: "Verifica Sicurezza Password e Generatore"
-description: "Scopri quanto è sicura una password (entropia in bit, tempo per craccarla) e genera password o passphrase casuali. Funziona interamente nel browser."
-intro: "**PassFort** genera password e passphrase casuali con il generatore crittografico del tuo browser e verifica entropia e tempo di attacco brute-force di qualsiasi password. Nulla di ciò che scrivi lascia questa pagina. Il controllo facoltativo delle violazioni invia solo 5 caratteri dell'hash della password, e solo se lo chiedi."
+title: "Verifica Password: Sicurezza e Violazioni"
+description: "Scopri quanto è sicura una password (entropia, tempo di attacco brute-force) e se compare in violazioni di dati note, con k-anonimato. Nel browser."
+intro: "**PassFort** controlla una password che usi già: la sua entropia, quanto ci vorrebbe a forzarla, gli schemi da evitare e, se lo chiedi, se è comparsa in una **violazione di dati** nota. L'analisi della robustezza non lascia questa pagina; il controllo facoltativo delle violazioni invia solo 5 caratteri dell'hash della password. Ti serve una password nuova? Usa il [Generatore di Password Casuali](/it/tools/password-generator/)."
 date: 2026-02-03
 lastmod: 2026-10-25
 reviewed: false
-keywords: ["verifica sicurezza password", "generatore password sicure", "generatore passphrase", "calcolo entropia password", "quanto tempo per craccare una password", "password casuale", "test password", "password forte"]
+keywords: ["verifica sicurezza password", "controllo password", "password violata", "la mia password è stata rubata", "calcolo entropia password", "quanto tempo per craccare una password", "test password", "have i been pwned password"]
 tags: ["sicurezza", "password", "privacy", "strumento"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: generatore e verifica sicurezza password"
+tool_title: "PassFort: verifica sicurezza e violazioni delle password"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Apri la scheda **Generator**. Scegli la lunghezza (da 8 a 128 caratteri) e i gruppi di caratteri: maiuscole, minuscole, cifre, simboli."
-  - "Per qualcosa da digitare e ricordare, attiva **Passphrase Mode** e scegli da 3 a 8 parole. Per una master password usane almeno 6."
-  - "Premi **Generate Password** finché il risultato ti piace, poi copialo con il pulsante degli appunti e incollalo direttamente nel tuo password manager."
-  - "Per controllare una password che usi già, passa alla scheda **Auditor** e scrivila o incollala. Il pulsante con l'occhio la mostra o la nasconde."
+  - "Scrivi o incolla la password da controllare nella scheda **Auditor**, che si apre per prima. Il pulsante con l'occhio la mostra o la nasconde."
   - "Leggi il misuratore di entropia, il tempo stimato per craccarla e la checklist: tutto ciò che è rosso va sistemato prima di riusare quella password."
   - "Se vuoi, premi **Check against known breaches** per sapere se quella password esatta è comparsa in un data breach. Non viene inviato nulla finché non lo premi."
+  - "Per creare una passphrase o una password nuova, apri la scheda **Generator**. Scegli la lunghezza (da 8 a 128 caratteri) e i gruppi di caratteri: maiuscole, minuscole, cifre, simboli."
+  - "Per qualcosa da digitare e ricordare, attiva **Passphrase Mode** e scegli da 3 a 8 parole. Per una master password usane almeno 6."
+  - "Premi **Generate Password** finché il risultato ti piace, poi copialo con il pulsante degli appunti e incollalo direttamente nel tuo password manager."
 faq:
   - q: "È sicuro inserire la mia vera password in questo verificatore?"
     a: "Sì. L'auditor è JavaScript che gira dentro questa pagina: non invia mai in rete ciò che scrivi, e il valore sparisce appena svuoti il campo o chiudi la scheda. Puoi verificarlo negli strumenti per sviluppatori del browser (scheda Rete) mentre digiti. Se preferisci, prova una password che *segue lo stesso schema* di quella vera. L'unica eccezione è il controllo facoltativo delle violazioni, e solo quando premi il suo pulsante: invia 5 caratteri dell'hash SHA-1 della password, mai la password (vedi la domanda successiva)."

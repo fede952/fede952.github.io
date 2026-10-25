@@ -1,25 +1,25 @@
 ---
-title: "Tester un Mot de Passe & Générateur"
-description: "Testez la robustesse d'un mot de passe (entropie en bits, temps pour le casser) et générez mots de passe et phrases de passe aléatoires, en local."
-intro: "**PassFort** génère des mots de passe et des phrases de passe aléatoires avec le générateur cryptographique de votre navigateur, et évalue l'entropie et le temps d'attaque par force brute de n'importe quel mot de passe. Rien de ce que vous tapez ne quitte cette page. La vérification facultative des fuites n'envoie que 5 caractères du hash du mot de passe, et seulement si vous la demandez."
+title: "Tester un Mot de Passe : Force et Fuites"
+description: "Testez la robustesse d'un mot de passe (entropie, temps d'attaque par force brute) et vérifiez s'il figure dans des fuites connues, par k-anonymat."
+intro: "**PassFort** vérifie un mot de passe que vous utilisez déjà : son entropie, le temps qu'il faudrait pour le casser par force brute, les schémas à éviter et, si vous le demandez, s'il est apparu dans une **fuite de données** connue. L'analyse de robustesse ne quitte jamais cette page ; la vérification facultative des fuites n'envoie que 5 caractères du hash du mot de passe. Besoin d'un nouveau mot de passe ? Utilisez le [Générateur de Mot de Passe Aléatoire](/fr/tools/password-generator/)."
 date: 2026-02-03
 lastmod: 2026-10-25
 reviewed: false
-keywords: ["tester mot de passe", "générateur de mot de passe", "vérifier robustesse mot de passe", "générateur phrase de passe", "entropie mot de passe", "combien de temps pour casser mon mot de passe", "mot de passe aléatoire", "mot de passe fort"]
+keywords: ["tester mot de passe", "vérifier robustesse mot de passe", "mot de passe piraté", "mon mot de passe a-t-il fuité", "entropie mot de passe", "combien de temps pour casser mon mot de passe", "test mot de passe", "have i been pwned mot de passe"]
 tags: ["sécurité", "mots de passe", "vie privée", "outil"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort : générateur et testeur de mots de passe"
+tool_title: "PassFort : test de robustesse et de fuites de mots de passe"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Ouvrez l'onglet **Generator**. Choisissez la longueur (8 à 128 caractères) et les jeux de caractères : majuscules, minuscules, chiffres, symboles."
-  - "Pour un secret à taper et à retenir, cochez **Passphrase Mode** et choisissez de 3 à 8 mots. Pour un mot de passe maître, au moins 6."
-  - "Cliquez sur **Generate Password** jusqu'à obtenir un résultat qui vous convient ; le bouton presse-papiers le copie. Collez-le directement dans votre gestionnaire de mots de passe."
-  - "Pour vérifier un mot de passe que vous utilisez déjà, passez à l'onglet **Auditor** et tapez-le ou collez-le. Le bouton en forme d'œil l'affiche ou le masque."
+  - "Tapez ou collez le mot de passe à vérifier dans l'onglet **Auditor**, qui s'ouvre en premier. Le bouton en forme d'œil l'affiche ou le masque."
   - "Lisez la jauge d'entropie, le temps de cassage estimé et la liste de contrôles : tout ce qui est rouge mérite d'être corrigé avant de réutiliser ce mot de passe."
   - "Si vous le souhaitez, cliquez sur **Check against known breaches** pour savoir si ce mot de passe exact est apparu dans une fuite de données. Rien n'est envoyé avant ce clic."
+  - "Pour créer une phrase de passe ou un nouveau mot de passe, ouvrez l'onglet **Generator**. Choisissez la longueur (8 à 128 caractères) et les jeux de caractères : majuscules, minuscules, chiffres, symboles."
+  - "Pour un secret à taper et à retenir, cochez **Passphrase Mode** et choisissez de 3 à 8 mots. Pour un mot de passe maître, au moins 6."
+  - "Cliquez sur **Generate Password** jusqu'à obtenir un résultat qui vous convient ; le bouton presse-papiers le copie. Collez-le directement dans votre gestionnaire de mots de passe."
 faq:
   - q: "Est-il sûr de taper mon vrai mot de passe dans ce testeur ?"
     a: "Oui. L'auditeur est du JavaScript qui s'exécute dans cette page : il n'envoie jamais sur le réseau ce que vous tapez, et la valeur disparaît dès que vous videz le champ ou fermez l'onglet. Vous pouvez le vérifier dans les outils de développement du navigateur (onglet Réseau) pendant la saisie. Si vous préférez, testez un mot de passe qui *suit le même schéma* que le vrai. La seule exception est la vérification facultative des fuites, et uniquement quand vous cliquez sur son bouton : elle envoie 5 caractères du hash SHA-1 du mot de passe, jamais le mot de passe (voir la question suivante)."

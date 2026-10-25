@@ -10,9 +10,10 @@
 {{- if eq .Path "/learn" }}
 {{- $chips := slice }}
 {{- range slice "guides" "cheatsheets" "debug-sys" "interviews" "roadmaps" "writeups" }}
-  {{- if $.GetPage . }}
-  {{- $chips = $chips | append (dict "id" . "label" (i18n (printf "chip_%s" .)) "icon" (index hugo.Data.tool_icons.learn .)) }}
-  {{- end }}
+  {{- /* only types with articles in this language (writeups exist in EN/IT only) */}}
+  {{- with $.GetPage . }}{{ if .RegularPagesRecursive }}
+  {{- $chips = $chips | append (dict "id" (path.Base .Path) "label" (i18n (printf "chip_%s" (path.Base .Path))) "icon" (index hugo.Data.tool_icons.learn (path.Base .Path))) }}
+  {{- end }}{{ end }}
 {{- end }}
 {{ partial "filter-bar.html" (dict "chips" $chips "placeholder" (i18n "hero_search_label")) }}
 <section class="list-group" data-filter-group>

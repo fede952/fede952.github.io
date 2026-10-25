@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Verantwortlicher
 
-**Federico Sella** — Suisio (Bergamo), Italien
+**Federico Sella** — Italien
 E-Mail: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. Das Wichtigste in Kürze
