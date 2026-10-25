@@ -6,7 +6,7 @@ tags: ["git", "cheatsheet", "version-control", "developer-tools"]
 keywords: ["comandi git cheatsheet", "git annullare commit", "git firma gpg", "comandi git branch", "guida git reset", "tutorial git rebase", "comandi git avanzati", "git per hacker"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/it/cheatsheets/git-commands-for-hackers/"]
+aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
 ## $ System_Init

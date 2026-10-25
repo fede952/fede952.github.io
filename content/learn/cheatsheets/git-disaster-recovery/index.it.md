@@ -6,7 +6,7 @@ tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git undo commit", "git reset hard vs soft", "recover deleted branch", "git rebase tutorial", "fix merge conflict", "git cherry-pick"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/it/cheatsheets/git-disaster-recovery/"]
+aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Annullare le Modifiche

@@ -6,7 +6,7 @@ tags: ["kubernetes", "cheatsheet", "devops", "kubectl", "cloud-native"]
 keywords: ["kubectl cheat sheet", "comandos k8s", "gestión de pods kubernetes", "escalado de deployments k8s", "depuración kubernetes", "kubectl get pods", "exponer servicios kubernetes", "configmap secrets k8s", "administración de clústeres kubernetes", "kubectl logs solución de problemas"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/es/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
+aliases: ["/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## Inicio del Sistema

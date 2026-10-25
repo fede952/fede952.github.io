@@ -5,7 +5,7 @@ description: "Costruisci e gestisci il tuo Data Center. Gestisci energia, raffre
 categories: ["Games", "Strategy"]
 tags: ["idle", "tycoon", "sysadmin", "strategy", "html5"]
 draft: false
-aliases: ["/it/games/sysadmin-tycoon/"]
+aliases: ["/games/sysadmin-tycoon/"]
 ---
 
 Inizia con un umile laptop e costruisci un impero di server. Bilancia consumo energetico, raffreddamento e flusso di cassa mentre sopravvivi ad attacchi DDOS, picchi di corrente e altri disastri IT.

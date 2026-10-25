@@ -6,7 +6,7 @@ tags: ["react", "cheatsheet", "frontend", "hooks", "web-dev"]
 keywords: ["react hooks cheatsheet", "usestate useeffect", "react hooks tutorial", "webentwicklung lernen", "frontend interview", "custom hooks react", "react performance", "usememo usecallback", "react context tutorial", "useref react", "react muster 2026", "react hooks beispiele"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/de/cheatsheets/react-hooks-lifecycle/"]
+aliases: ["/cheatsheets/react-hooks-lifecycle/"]
 ---
 
 ## Komponente Online

@@ -5,7 +5,7 @@ description: "Il classico puzzle logico in stile Cyberpunk. Unisci i cubi al neo
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
-aliases: ["/it/games/neon-blocks/"]
+aliases: ["/games/neon-blocks/"]
 ---
 
 Fai scorrere i blocchi luminosi sulla griglia. Quando due blocchi con lo stesso numero si scontrano, si fondono in uno. Raggiungi **2048** per vincere, oppure continua per un punteggio ancora pi alto.

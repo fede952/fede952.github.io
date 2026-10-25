@@ -6,7 +6,7 @@ tags: ["python", "cheatsheet", "penetration-testing", "security", "scripting"]
 keywords: ["programmazione socket python", "cheat sheet scapy", "libreria requests python", "script hacking python", "port scanner python", "sicurezza di rete python", "penetration testing python", "creazione pacchetti scapy", "reverse shell python", "automazione sicurezza python"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/it/cheatsheets/python-security-scripts/"]
+aliases: ["/cheatsheets/python-security-scripts/"]
 ---
 
 ## Inizializzazione del Sistema

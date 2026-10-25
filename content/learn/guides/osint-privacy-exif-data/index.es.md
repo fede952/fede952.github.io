@@ -6,7 +6,7 @@ tags: ["exif", "privacy", "osint", "metadata", "security", "guide"]
 keywords: ["privacidad metadatos exif", "ubicación gps fotos", "eliminar datos exif", "análisis fotos osint", "riesgos metadatos imágenes", "guía privacidad fotos", "rastreo gps exif", "eliminar metadatos de fotos"]
 draft: false
 proficiency: "Beginner"
-aliases: ["/es/guides/osint-privacy-exif-data/"]
+aliases: ["/guides/osint-privacy-exif-data/"]
 ---
 
 ## $ System_Init

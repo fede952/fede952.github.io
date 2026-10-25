@@ -6,7 +6,7 @@ tags: ["css", "cheatsheet", "frontend", "flexbox", "grid", "web-dev"]
 keywords: ["css flexbox cheatsheet", "css grid tutorial", "div zentrieren css", "web dev lernen", "responsive layout css", "media queries", "css variablen", "frontend interview", "flexbox vs grid", "css layout leitfaden", "css grid beispiele", "flexbox align items", "css gap eigenschaft", "modernes css 2026"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/de/cheatsheets/css-flexbox-grid-visual-guide/"]
+aliases: ["/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## Rendering-Engine Online

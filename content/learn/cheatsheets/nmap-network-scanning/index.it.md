@@ -6,7 +6,7 @@ tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconna
 keywords: ["nmap cheatsheet", "comandi nmap", "guida scansione rete", "nmap scansione porte", "nmap rilevamento servizi", "nmap script NSE", "nmap scansione vulnerabilità", "comandi penetration testing"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/it/cheatsheets/nmap-network-scanning/"]
+aliases: ["/cheatsheets/nmap-network-scanning/"]
 ---
 
 ## $ System_Init

@@ -6,7 +6,7 @@ tags: ["javascript", "cheatsheet", "frontend", "es6", "web-dev"]
 keywords: ["cheatsheet javascript", "cheatsheet es6", "apprendre le dev web", "syntaxe js", "méthodes de tableaux javascript", "tutoriel async await", "entretien frontend", "javascript développeur react", "map filter reduce", "destructuring javascript", "opérateur spread", "exemples fetch api", "chaînage de promesses", "arrow functions", "template literals"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/fr/cheatsheets/javascript-es6-array-methods/"]
+aliases: ["/cheatsheets/javascript-es6-array-methods/"]
 ---
 
 ## Initialisation du Runtime

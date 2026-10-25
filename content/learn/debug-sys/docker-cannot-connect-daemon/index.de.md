@@ -6,7 +6,7 @@ tags: ["docker", "debug", "linux", "devops"]
 keywords: ["cannot connect to the docker daemon", "docker daemon not running", "docker.sock permission denied", "var run docker.sock", "is the docker daemon running", "docker service start", "docker permission denied", "docker socket error", "sudo docker fix", "docker usermod group"]
 draft: false
 proficiency: "Beginner"
-aliases: ["/de/debug-sys/docker-cannot-connect-daemon/"]
+aliases: ["/debug-sys/docker-cannot-connect-daemon/"]
 ---
 
 ## Der Fehler

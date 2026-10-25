@@ -6,7 +6,7 @@ tags: ["linux", "cheatsheet", "sysadmin", "permissions", "devops"]
 keywords: ["calculadora chmod", "ejemplos chown", "linux matar proceso", "gestión usuarios linux", "comandos systemd", "permisos archivos linux", "cheatsheet sysadmin linux", "chmod 755 explicado", "grupos usuarios linux", "systemctl restart servicio"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/es/cheatsheets/linux-sysadmin-permissions/"]
+aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
 ## Inicio del Sistema

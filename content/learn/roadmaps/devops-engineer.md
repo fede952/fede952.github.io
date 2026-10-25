@@ -5,7 +5,7 @@ date: 2026-02-11
 tags: ["devops", "roadmap", "career"]
 keywords: ["devops engineer roadmap", "devops career path 2026", "learn kubernetes", "docker certification path", "devops interview prep"]
 draft: false
-aliases: ["/en/roadmaps/devops-engineer/", "/roadmaps/devops-engineer/"]
+aliases: ["/roadmaps/devops-engineer/"]
 ---
 
 ## Your Path to DevOps Engineering

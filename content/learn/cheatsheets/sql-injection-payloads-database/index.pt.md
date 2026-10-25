@@ -6,7 +6,7 @@ tags: ["sql-injection", "cheatsheet", "penetration-testing", "database", "securi
 keywords: ["payloads sql injection", "cheatsheet comandos mysql", "cheat sheet postgresql", "hacking de banco de dados", "comandos sqlmap", "union sql injection", "blind sql injection", "testes sql injection", "enumeração de banco de dados", "prevenção sql injection"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/pt/cheatsheets/sql-injection-payloads-database/"]
+aliases: ["/cheatsheets/sql-injection-payloads-database/"]
 ---
 
 ## Inicialização do Sistema

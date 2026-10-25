@@ -5,7 +5,7 @@ date: 2026-02-11
 tags: ["devops", "roadmap", "career"]
 keywords: ["devops engineer roadmap", "devops karrierepfad 2026", "kubernetes lernen", "docker zertifizierung", "devops vorstellungsgespräch vorbereitung"]
 draft: false
-aliases: ["/de/roadmaps/devops-engineer/"]
+aliases: ["/roadmaps/devops-engineer/"]
 ---
 
 ## Dein Weg zum DevOps Engineering

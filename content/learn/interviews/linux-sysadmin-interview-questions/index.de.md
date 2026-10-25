@@ -6,7 +6,7 @@ tags: ["linux", "interview", "sysadmin", "devops"]
 keywords: ["linux interview questions", "red hat interview", "bash scripting questions", "linux permissions interview", "sysadmin interview questions", "linux process management", "systemd interview", "linux networking questions", "senior linux engineer", "rhcsa exam prep"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/de/interviews/linux-sysadmin-interview-questions/"]
+aliases: ["/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## Systeminitialisierung

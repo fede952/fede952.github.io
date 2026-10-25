@@ -6,7 +6,7 @@ tags: ["linux", "cheatsheet", "sysadmin", "permissions", "devops"]
 keywords: ["chmod Rechner", "chown Beispiele", "Linux Prozess beenden", "Benutzerverwaltung Linux", "systemd Befehle", "Linux Dateiberechtigungen", "Linux Sysadmin Cheatsheet", "chmod 755 erklärt", "Linux Benutzergruppen", "systemctl restart Dienst"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/de/cheatsheets/linux-sysadmin-permissions/"]
+aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
 ## Systeminitialisierung

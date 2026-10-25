@@ -5,7 +5,7 @@ description: "Das klassische Logikrätsel. Verbinde die Neon-Würfel, um 2048 zu
 categories: ["Games", "Puzzle"]
 tags: ["2048", "puzzle", "cyberpunk", "html5", "neon"]
 draft: false
-aliases: ["/de/games/neon-blocks/"]
+aliases: ["/games/neon-blocks/"]
 ---
 
 Schiebe die leuchtenden Blöcke über das Spielfeld. Wenn zwei Blöcke mit gleicher Zahl aufeinandertreffen, verschmelzen sie. Erreiche **2048**, um zu gewinnen, oder spiele weiter für einen noch höheren Punktestand.

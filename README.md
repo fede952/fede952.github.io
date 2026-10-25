@@ -90,6 +90,38 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for how the pieces fit together.
 Every push to `main` runs `.github/workflows/production.yaml`: Hugo 0.168.0 Extended builds the site and deploys it to
 GitHub Pages (custom domain `federicosella.com`).
 
+### Cloudflare
+
+The build also emits two files that only **Cloudflare Pages** reads (GitHub Pages serves them as plain files and
+ignores them):
+
+- `static/_headers`: security headers (nosniff, referrer policy, HSTS, CSP incl. `frame-ancestors`, frame options,
+  permissions policy) and cache rules (a year for fingerprinted `/assets/`, versioned `/vendor/` and fonts; short for
+  unversioned `/js/` and `/images/`; always revalidate the embedded apps and `/sw.js`).
+- `public/_redirects`, **generated** by Hugo (`layouts/home.redirects`, output format `redirects` in `hugo.toml`) from
+  every front-matter `aliases` entry, plus the removed languages (`/ar/*` … → `/en/:splat`) and the removed news section
+  (→ `/<lang>/learn/`). Don't add a `static/_redirects`: it would collide with the generated one. Add an alias to the
+  page instead (aliases are relative to the page's language: `/old-path/` on an IT page means `/it/old-path/`).
+
+How to use them, depending on how Cloudflare is set up:
+
+1. **Cloudflare Pages (recommended).** Create a Pages project from this repo with build command
+   `hugo --gc --minify` (set `HUGO_VERSION=0.168.0`, and `HUGO_ENV=production`), output directory `public`, then move the
+   custom domain to it and turn off the GitHub Pages workflow. Both files then work as-is. After the first deploy, check:
+   `curl -I https://federicosella.com/` (expect `302` → `/en/`), `curl -I https://federicosella.com/it/cheatsheets/nmap-network-scanning/`
+   (expect `301`), and that `Content-Security-Policy` and `Cache-Control` headers are present.
+2. **Cloudflare as a proxy in front of GitHub Pages.** The files do nothing; the alias pages (meta refresh) and
+   `static/404.html` keep handling old URLs. Recreate the important parts in the dashboard instead: Rules → Transform
+   Rules → *Modify response header* for the security headers above, and Rules → Redirect Rules for `/` and the removed
+   languages (`/ar/*` etc.) if you want true 301s.
+
+Dashboard settings in either case: SSL/TLS mode **Full (strict)**; **Always Use HTTPS** on; minimum TLS 1.2;
+**HSTS** only via the header (turn on `includeSubDomains`/`preload` in `_headers` only once every subdomain is
+HTTPS-only, because preload is hard to undo); Speed → **Rocket Loader off** (it rewrites script loading and breaks
+AdSense and the tool apps); **Auto Minify** is not needed (Hugo already minifies); Caching → **Browser Cache TTL:
+Respect Existing Headers**; leave **Email Obfuscation** and **Bot Fight Mode** off if they interfere with AdSense
+crawling (check AdSense → Sites for crawler errors after switching).
+
 ## License
 
 MIT, see [LICENSE](LICENSE). Vendored libraries keep their own licences (static/vendor/README.md, static/fonts/).

@@ -5,7 +5,7 @@ date: 2026-02-11
 tags: ["security", "roadmap", "career"]
 keywords: ["roadmap cyber security", "parcours carrière penetration testing", "parcours apprentissage infosec", "roadmap ethical hacking 2026", "carrière security engineer"]
 draft: false
-aliases: ["/fr/roadmaps/cyber-security-specialist/"]
+aliases: ["/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Votre Parcours vers la Cyber Security

@@ -6,7 +6,7 @@ tags: ["sql", "interview", "database", "backend"]
 keywords: ["perguntas entrevista consultas sql", "normalização de banco de dados", "propriedades acid", "prevenção de sql injection", "entrevista índices de banco de dados", "perguntas join sql", "entrevista postgresql", "perguntas entrevista mysql", "padrões design de banco de dados", "otimização performance sql"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/pt/interviews/sql-database-interview-questions/"]
+aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
 ## Inicialização do Sistema

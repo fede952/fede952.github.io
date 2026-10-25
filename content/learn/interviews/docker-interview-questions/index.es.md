@@ -6,7 +6,7 @@ tags: ["docker", "interview", "devops", "containers"]
 keywords: ["preguntas entrevista docker", "entrevista senior devops", "preguntas contenedorización", "respuestas entrevista docker", "entrevista docker compose", "mejores prácticas dockerfile", "entrevista orquestación contenedores", "preguntas redes docker", "entrevista ingeniero devops", "preguntas docker producción"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/es/interviews/docker-interview-questions/"]
+aliases: ["/interviews/docker-interview-questions/"]
 ---
 
 ## Inicialización del Sistema

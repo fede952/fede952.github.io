@@ -6,7 +6,7 @@ tags: ["sql", "interview", "database", "backend"]
 keywords: ["sql query interview questions", "database normalization", "acid properties", "sql injection prevention", "database index interview", "sql join questions", "postgresql interview", "mysql interview questions", "database design patterns", "sql performance tuning"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/en/interviews/sql-database-interview-questions/", "/interviews/sql-database-interview-questions/"]
+aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
 ## System Init

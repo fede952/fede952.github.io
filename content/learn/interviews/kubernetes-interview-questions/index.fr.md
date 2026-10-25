@@ -6,7 +6,7 @@ tags: ["kubernetes", "interview", "devops", "cloud-native"]
 keywords: ["k8s interview questions", "cka exam prep", "kubernetes architecture questions", "kubernetes interview answers", "pod lifecycle interview", "kubernetes networking questions", "kubernetes rbac", "senior sre interview", "kubernetes troubleshooting", "helm interview questions"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/fr/interviews/kubernetes-interview-questions/"]
+aliases: ["/interviews/kubernetes-interview-questions/"]
 ---
 
 ## Initialisation du Système

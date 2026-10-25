@@ -6,7 +6,7 @@ tags: ["python", "cheatsheet", "penetration-testing", "security", "scripting"]
 keywords: ["Python Socket-Programmierung", "Scapy Cheat Sheet", "Requests-Bibliothek Python", "Python Hacking-Skripte", "Python Port-Scanner", "Python Netzwerksicherheit", "Python Penetrationstest", "Scapy Paketerstellung", "Python Reverse Shell", "Python Sicherheitsautomatisierung"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/de/cheatsheets/python-security-scripts/"]
+aliases: ["/cheatsheets/python-security-scripts/"]
 ---
 
 ## Systeminitialisierung

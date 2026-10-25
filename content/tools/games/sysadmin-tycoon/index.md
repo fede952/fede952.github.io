@@ -5,7 +5,7 @@ description: "Build and manage your own Data Center. Manage power, cooling, and 
 categories: ["Games", "Strategy"]
 tags: ["idle", "tycoon", "sysadmin", "strategy", "html5"]
 draft: false
-aliases: ["/en/games/sysadmin-tycoon/"]
+aliases: ["/games/sysadmin-tycoon/"]
 ---
 
 Start with a humble laptop and build a server empire. Balance power consumption, cooling, and cash flow while surviving DDOS attacks, power surges, and other IT disasters.

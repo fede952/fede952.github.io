@@ -6,7 +6,7 @@ tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git deshacer commit", "git reset hard vs soft", "recuperar rama eliminada", "git rebase tutorial", "resolver conflicto merge", "git cherry-pick"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/es/cheatsheets/git-disaster-recovery/"]
+aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Deshacer Cambios

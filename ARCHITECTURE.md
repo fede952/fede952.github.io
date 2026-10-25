@@ -28,7 +28,9 @@ Four templates render tool pages:
 - `layouts/_default/tool-split.html`: `layout: tool-split`, inline tool (`tool_html` + `tool_js`) next to an explanation
 - `layouts/_default/game.html`: `layout: game`
 
-`partials/related-tools.html` closes every tool page with 4 related tools (Hugo `.Related` on tags).
+`partials/related-tools.html` closes every tool page and learn article with 4 related tools: hand-picked ones from
+`data/related.yaml` first, then Hugo `.Related` on tags, then the newest. `partials/related-guides.html` does the same
+for guides on tool pages.
 
 ## Monetization
 
@@ -43,8 +45,10 @@ banner, which the footer "Cookie Settings" link reopens). Manual units are confi
 - Tool templates place `tool_top` under the intro and `tool_after` after the tool (max 3 units per page).
 - `{{< ad-banner position="…" >}}` places a unit manually in markdown.
 
-**Affiliate.** `partner-card` shortcode/partial, config under `[params.affiliate]`; a block whose URL is empty
-renders nothing. Links are `rel="sponsored noopener"` with a visible localized disclosure.
+**Affiliate.** `partials/affiliate/block.html`, inserted by `layouts/tools/single.html` after "How it works".
+`[params.affiliate]` holds one partner (`<category>_name`, `<category>_url`) per category (password_manager, vpn,
+privacy, devsec) and `[params.affiliate.tools]` maps tool → category; a block renders only when name and URL are both
+set. Links are `rel="sponsored noopener"` with a visible localized disclosure (`aff_*` i18n keys).
 
 ## Head, privacy, security
 
@@ -54,14 +58,21 @@ renders nothing. Links are `rel="sponsored noopener"` with a visible localized d
 - Analytics: Umami, cookieless, production builds only. No Google Analytics.
 - Fonts (`static/fonts/`) and JS libraries (`static/vendor/`) are self-hosted; no third-party CDN.
 - `layouts/partials/extend_head.html` also emits the hreflang `x-default` (PaperMod emits the per-language ones).
+- Structured data: `layouts/partials/templates/schema_json.html` (everything built with `dict | jsonify`). One Person
+  from `[params.person]` is author/publisher everywhere; tools get WebApplication + FAQPage (from front matter `faq`),
+  learn pages TechArticle, About a ProfilePage, home WebSite + SearchAction (`/<lang>/?q=`). Learn pages also render
+  breadcrumbs, a byline and `partials/author-box.html` from the same params.
 
 ## Search, sitemap, redirects
 
 - Search: `layouts/_default/index.json` builds a per-language JSON index of regular pages; the command palette in
   `extend_footer.html` loads it lazily with Fuse.js (Ctrl/Cmd+K).
-- Sitemap: `layouts/_default/sitemap.xml`, skips pages with `robotsNoIndex`.
-- Removed sections/languages: `/<lang>/news/` is a Hugo alias of `/<lang>/learn/`. Deeper old URLs are redirected
-  by `static/_redirects` (Cloudflare, 301) and by a small script in `static/404.html` (GitHub Pages fallback).
+- Sitemap: `layouts/_default/sitemap.xml`, skips pages with `robotsNoIndex` (tag/category listings, via the
+  `cascade` in `hugo.toml`).
+- Old URLs: front-matter `aliases` (relative to the page's language) produce meta-refresh pages, and Hugo also
+  generates `public/_redirects` from them (`layouts/home.redirects`) with 301s for Cloudflare Pages, plus rules for
+  the removed languages and news section. On GitHub Pages a small script in `static/404.html` covers the rest.
+- Headers: `static/_headers` (Cloudflare Pages only); see README → Cloudflare.
 
 ## Caching
 

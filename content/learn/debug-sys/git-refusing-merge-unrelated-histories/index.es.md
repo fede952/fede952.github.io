@@ -6,7 +6,7 @@ tags: ["git", "debug", "devops", "version-control"]
 keywords: ["refusing to merge unrelated histories", "git pull unrelated histories", "git merge unrelated histories", "allow unrelated histories", "fatal refusing to merge", "git pull origin main error", "git merge two repos", "git init push error", "github first commit merge", "git unrelated histories fix"]
 draft: false
 proficiency: "Beginner"
-aliases: ["/es/debug-sys/git-refusing-merge-unrelated-histories/"]
+aliases: ["/debug-sys/git-refusing-merge-unrelated-histories/"]
 ---
 
 ## El Error

@@ -1,0 +1,54 @@
+# Cloudflare Pages response headers (GitHub Pages ignores this file).
+# Setup and the dashboard settings that go with it: README.md, "Cloudflare".
+# Rules are merged: every path gets the /* block plus any more specific one.
+#
+# /* notes:
+# - CSP is the same minimal policy as the <meta> tag in extend_head.html,
+#   plus frame-ancestors (header-only). No host allowlists on purpose:
+#   AdSense serves creatives from rotating hosts.
+# - Permissions-Policy only disables features nothing on the site uses;
+#   ad-related APIs (Topics, attribution reporting) are left alone.
+# - HSTS without includeSubDomains/preload: add them only once every
+#   subdomain of federicosella.com is HTTPS-only (see README).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: upgrade-insecure-requests; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+# Fingerprinted by Hugo (stylesheet.<hash>.css), versioned paths
+# (vendor/fuse.js@7.0.0/...) and fonts: cache for a year
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Unversioned file names: cache, but revalidate
+/images/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Embedded tool and game apps (HTML with inline JS)
+/tools/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/games/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Search index, rebuilt on every deploy
+/:lang/index.json
+  Cache-Control: public, max-age=3600
+
+# Service-worker kill switch must never be served stale
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate

@@ -6,7 +6,7 @@ tags: ["docker", "interview", "devops", "containers"]
 keywords: ["docker interview questions", "senior devops interview", "containerization questions", "docker interview answers", "docker compose interview", "dockerfile best practices", "container orchestration interview", "docker networking questions", "devops engineer interview", "docker production questions"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/en/interviews/docker-interview-questions/", "/interviews/docker-interview-questions/"]
+aliases: ["/interviews/docker-interview-questions/"]
 ---
 
 ## System Init

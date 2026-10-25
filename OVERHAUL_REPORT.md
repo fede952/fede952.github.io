@@ -336,3 +336,46 @@ check 0/42 · search deep link OK · learn page visually checked at 1280 px and 
 - Verification: a build with test partners injected via `HUGOxPARAMSxAFFILIATEx…` env vars rendered the right
   category on all 9 tools and none elsewhere; real build renders only the 3 VPN blocks. Screenshots at 1280 px/390 px.
   Tool suite (incl. NetGuard scan after the banner JS was removed), 144-page audit and CSP check: all pass.
+
+## Phase 8 — Cloudflare `_headers` / `_redirects`
+
+### Pre-existing bug found and fixed: legacy URLs of IT/ES/DE/FR/PT were 404
+Hugo resolves `aliases` relative to the page's **language root**. The content declared them with the language prefix
+(`/it/cheatsheets/x/` on an IT page), so Hugo wrote the redirect stub to **`/it/it/cheatsheets/x/`** — the old URL
+`/it/cheatsheets/x/` had no redirect at all (same in the baseline build of `main`). EN had the same doubled form
+(`/en/en/…`) next to a correct twin. **270 content files fixed** (225 non-EN aliases made language-relative; 41
+redundant EN `/en/…` aliases dropped where the twin already existed, 4 converted). The `/xx/xx/` stub directories are
+gone and every legacy URL now has a stub at the right path (works on GitHub Pages today).
+
+### `_redirects` — generated, not hand-written
+`public/_redirects` is produced by Hugo (`layouts/home.redirects`, output format `redirects` written to the publish
+root) so it can never drift from the content:
+- `/` → `/en/` **302** (a language-root redirect; kept temporary so language negotiation stays possible later).
+- **319 alias rules (301)**: every front-matter alias → its page; EN aliases also without `/en` for the pre-`/en/`
+  root-level URLs — except where a real static file lives (e.g. `static/games/<x>/`, which the game pages embed;
+  caught by a `fileExists` guard after the first draft would have redirected them).
+- Removed languages: `/zh-cn|hi|ar|ja|ru|ko/*` → `/en/:splat` (301). Removed news: `/news/*` and `/<lang>/news/*` →
+  that language's Learn hub (301). 13 dynamic + 319 static rules (Cloudflare Pages limits: 100 / 2,000).
+- Checked against the build: every target exists, no source shadows a real page.
+- `static/404.html` (the GitHub Pages fallback) also sends old root-level English URLs to `/en/…` now (no loops).
+
+### `_headers`
+- All paths: `nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, HSTS 1 year (no `includeSubDomains`/
+  `preload` until you confirm every subdomain is HTTPS-only), CSP = the minimal meta policy + `frame-ancestors 'self'`,
+  `X-Frame-Options: SAMEORIGIN`, `Permissions-Policy` disabling camera/microphone/geolocation/payment/usb (unused
+  anywhere — checked; ad APIs deliberately untouched), `COOP: same-origin-allow-popups`.
+- Caching: `immutable` 1 year for fingerprinted `/assets/`, versioned `/vendor/…@x.y.z/` and `/fonts/`; 1 day +
+  SWR for `/images/`; 1 h for `/js/`; always revalidate `/tools/*`, `/games/*` (apps) and `/sw.js` (kill switch);
+  1 h for the search index.
+- Verified with a local server that emulates Cloudflare Pages semantics (merged header rules, first-match redirects,
+  `:splat`/`:placeholder`): redirect probes behave as listed above, and with all headers active the 144-page audit
+  (iframes under `frame-ancestors`/XFO), the functional tool suite and the CSP check all pass.
+
+### Docs and cleanup
+- README → "Cloudflare": both setups (Cloudflare Pages = files work as-is, with build settings and post-deploy `curl`
+  checks; Cloudflare proxy in front of GitHub Pages = files are inert, recreate headers with Transform Rules) and the
+  dashboard settings (Full (strict), Always HTTPS, TLS ≥ 1.2, Rocket Loader **off**, no Auto Minify, respect existing
+  cache headers, HSTS via header only).
+- ARCHITECTURE.md updated (redirects, headers, sitemap, structured data, affiliate, related content).
+- Dead code removed: the unused `partner-card` shortcode + its CSS + `partner_label` i18n key (superseded by the
+  Phase 7 block).

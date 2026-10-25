@@ -6,7 +6,7 @@ tags: ["docker", "cheatsheet", "devops", "containers", "docker-compose"]
 keywords: ["docker commands cheatsheet", "docker run examples", "docker compose tutorial", "container networking", "dockerfile syntax", "devops tools", "docker volume mount", "docker image build", "docker container management", "docker registry push pull"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/en/cheatsheets/docker-container-commands/", "/cheatsheets/docker-container-commands/"]
+aliases: ["/cheatsheets/docker-container-commands/"]
 ---
 
 ## System Init

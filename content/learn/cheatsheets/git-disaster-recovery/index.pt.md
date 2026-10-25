@@ -6,7 +6,7 @@ tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git desfazer commit", "git reset hard vs soft", "recuperar branch deletada", "git rebase tutorial", "resolver conflito merge", "git cherry-pick"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/pt/cheatsheets/git-disaster-recovery/"]
+aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Desfazendo Alteracoes

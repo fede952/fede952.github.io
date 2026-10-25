@@ -6,7 +6,7 @@ tags: ["python", "debug", "pip", "ssl"]
 keywords: ["pip ssl certificate verify failed", "pip install ssl error", "certificate verify failed python", "pip trusted host", "pip ssl error fix", "python ssl certificate", "pip corporate proxy", "pip install behind firewall", "pip certificate error windows", "pip ssl module not available"]
 draft: false
 proficiency: "Beginner"
-aliases: ["/fr/debug-sys/python-pip-ssl-cert-verify-failed/"]
+aliases: ["/debug-sys/python-pip-ssl-cert-verify-failed/"]
 ---
 
 ## L'Erreur

@@ -323,7 +323,20 @@ defaultContentLanguageInSubdir = true
         weight = 30
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON", "redirects"]
+
+# Cloudflare Pages `_redirects` (layouts/home.redirects): 301s for every
+# front-matter alias, removed languages and the old news section. Written to
+# the publish root; every language renders the same full list.
+[mediaTypes."text/redirects"]
+  delimiter = ""
+
+[outputFormats.redirects]
+  mediaType = "text/redirects"
+  baseName = "_redirects"
+  isPlainText = true
+  notAlternative = true
+  root = true
 
 [markup]
   [markup.goldmark]

@@ -6,7 +6,7 @@ tags: ["networking", "cheatsheet", "devops", "security", "sysadmin"]
 keywords: ["puertos comunes cheat sheet", "codigos de estado http", "tcp vs udp", "modelo osi explicado", "tipos de registros dns", "ssh port forwarding"]
 draft: false
 proficiency: "Intermediate"
-aliases: ["/es/cheatsheets/networking-ports-protocols/"]
+aliases: ["/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## Puertos Comunes

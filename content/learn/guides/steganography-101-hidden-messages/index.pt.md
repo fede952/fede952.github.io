@@ -6,7 +6,7 @@ tags: ["steganography", "privacy", "security", "tutorial", "guide"]
 keywords: ["tutorial esteganografia", "esconder mensagem em imagem", "esteganografia LSB explicada", "esteganografia digital", "como esteganografia funciona", "dados ocultos em imagens", "guia esteganografia imagens", "comunicação secreta"]
 draft: false
 proficiency: "Beginner"
-aliases: ["/pt/guides/steganography-101-hidden-messages/"]
+aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
 ## $ System_Init

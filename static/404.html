@@ -3,14 +3,17 @@
 <head>
     <script>
     // Legacy-URL recovery for GitHub Pages, which has no server-side
-    // redirects (Cloudflare Pages uses static/_redirects instead): any URL
-    // under the removed news section lands on that language's Learn hub, and
-    // URLs of the dropped languages (hi/ar/ru/ja/ko/zh-cn) fall back to English.
+    // redirects (Cloudflare Pages uses the generated _redirects instead): any
+    // URL under the removed news section lands on that language's Learn hub,
+    // URLs of the dropped languages (hi/ar/ru/ja/ko/zh-cn) fall back to
+    // English, and old root-level English URLs (/cheatsheets/x/) get /en/.
+    // No loops: a second 404 is already under a language prefix.
     (function () {
         var p = location.pathname, m;
         if ((m = p.match(/^\/(en|it|es|de|fr|pt)\/news(\/|$)/))) { location.replace('/' + m[1] + '/learn/'); return; }
         if (/^\/news(\/|$)/.test(p)) { location.replace('/en/learn/'); return; }
         if ((m = p.match(/^\/(?:hi|ar|ru|ja|ko|zh-cn)(\/.*)?$/))) { location.replace('/en' + (m[1] || '/')); }
+        else if (!/^\/(en|it|es|de|fr|pt)(\/|$)/.test(p) && p !== '/') { location.replace('/en' + p); }
     })();
     </script>
     <meta charset="UTF-8">

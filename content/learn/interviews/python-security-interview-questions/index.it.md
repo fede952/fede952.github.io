@@ -6,7 +6,7 @@ tags: ["python", "interview", "security", "penetration-testing"]
 keywords: ["python security interview", "infosec python questions", "scripting for hackers", "python pentest interview", "socket programming interview", "scapy interview questions", "python cryptography", "ethical hacking python", "security automation interview", "python exploit development"]
 draft: false
 proficiency: "Advanced"
-aliases: ["/it/interviews/python-security-interview-questions/"]
+aliases: ["/interviews/python-security-interview-questions/"]
 ---
 
 ## Inizializzazione del Sistema
