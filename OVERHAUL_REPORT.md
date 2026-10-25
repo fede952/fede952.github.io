@@ -379,3 +379,75 @@ root) so it can never drift from the content:
 - ARCHITECTURE.md updated (redirects, headers, sitemap, structured data, affiliate, related content).
 - Dead code removed: the unused `partner-card` shortcode + its CSS + `partner_label` i18n key (superseded by the
   Phase 7 block).
+
+## Phase 9 — Final verification
+
+### Numbers vs baseline (same machine, Hugo 0.168.0, `hugo --gc --minify`)
+| Metric | Baseline (`main`) | `overhaul` |
+|---|---|---|
+| Pages (Hugo count, all languages) | 14,457 | **2,509** (EN 413 · IT 424 · ES 419 · DE 417 · FR 419 · PT 417) |
+| HTML files in `public/` | 17,221 | **2,753** |
+| `public/` size | 535 MB | **43 MB** |
+| Build time | ~162 s | **~9.5 s** |
+| Content files | 10,703 | **495** |
+| Tracked files in repo | 10,865 | **637** |
+| URLs in the 6 kept languages' sitemaps | 1,398 (mostly tags + news) | **503**, all indexable |
+| CSP violations on the 42-page sample | 684 | **0** |
+| Tool pages with full copy + FAQ + schema | 0 | **24 × 6 = 144** |
+
+### Checks on the final build
+- Build: 0 errors, 0 warnings.
+- **Internal link check** over every HTML file (2,753 files, 72,233 internal `href`/`src`/`srcset` references):
+  **0 broken**. The only failure found — `/safari-pinned-tab.svg`, which PaperMod links from every page (1,462 pages)
+  but which never existed — fixed by adding a small monochrome SVG mask icon.
+- Playwright (Chromium): 144/144 tool pages (H1, JSON-LD types, FAQ DOM = schema, iframe `?lang` + auto-resize, 0 JS
+  errors); functional suite for every tool with an action (compress, purge, QR, chart, password, JWT, secrets,
+  fingerprint, NetGuard, search); steganography round-trip; StringMaster/ZenFocus/`?lang` checks; learn page
+  breadcrumbs/byline/author box/related tools; `?q=` search deep link; service-worker kill switch; GitHub Pages 404
+  fallbacks; Cloudflare headers/redirects via an emulating server. All pass.
+- JSON-LD: every block on every page parses (0 errors).
+- Lighthouse (mobile, local): Performance 95–99, Accessibility/Best Practices/SEO 100 on the re-measured pages
+  (Phase 6 table).
+- Not verifiable locally: real ad fill and AdSense policy review, Cloudflare's actual behaviour (emulated only),
+  field Core Web Vitals.
+
+## Federico TODO (what still needs you)
+
+**Merge & deploy**
+- [ ] Review the branch (`git log main..overhaul`, 9 commits) and merge it yourself. Nothing was pushed.
+- [ ] After the first deploy: open a page you visited before in your normal browser and check DevTools → Application →
+      Service workers shows nothing registered (the kill switch ran).
+
+**AdSense**
+- [ ] Create three display units (AdSense → Ads → By ad unit) and paste their IDs into `hugo.toml`
+      `[params.ads]`: `slot_tool_top`, `slot_tool_after`, `slot_article_mid` (until then all use `slot_default`).
+- [ ] If Auto ads is on, exclude `/*/about/`, `/*/privacy/`, `/*/cookies/`, `/*/contact/` (Phase 1).
+- [ ] A week after deploy, compare impressions/RPM against the period before (the CSP fix should show up).
+
+**Affiliate**
+- [ ] Fill `[params.affiliate]` in `hugo.toml` once you have the programs: `password_manager_name/url`,
+      `privacy_name/url`, `devsec_name/url`. Empty = no block (safe as is).
+- [ ] Confirm the NordVPN link (`vpn_url`, moved unchanged from NetGuard/Link Hazmat) is still valid in your NordVPN
+      affiliate dashboard; decide whether Link Hazmat should keep the VPN block (one line in `[params.affiliate.tools]`).
+
+**Content review**
+- [ ] Every tool page is `reviewed: false` (144 pages). Read the EN copy of the 24 tools, then spot-check the
+      translations; flip to `reviewed: true` as you go. Translations were written directly in each language, so a native
+      read matters most for IT (your language) first.
+- [ ] Check the author-box bio and `jobTitle` ("Network Security Analyst") match how you want to present yourself; the
+      About page still says "SOC Analyst" / "Security Developer" — align the two if you like.
+
+**Cloudflare / hosting** (README → Cloudflare)
+- [ ] Decide: move hosting to Cloudflare Pages (then `_headers` and the generated `_redirects` just work) or keep GitHub
+      Pages behind Cloudflare (then recreate headers with Transform Rules). Apply the listed dashboard settings
+      (Full (strict), Always HTTPS, Rocket Loader off, etc.).
+- [ ] After switching: `curl -I` checks from the README (root 302, a legacy `/it/cheatsheets/…` URL 301, headers present).
+- [ ] Only if every subdomain is HTTPS-only: add `includeSubDomains; preload` to HSTS.
+
+**Search Console**
+- [ ] Submit `https://federicosella.com/sitemap.xml` again; expect a wave of "Page with redirect" / "Not found" for the
+      removed news and languages — that's intended.
+- [ ] Watch "Duplicate without user-selected canonical" for the tag pages (now `noindex`) — they should drop out.
+
+**Assets**
+- [ ] `social-banner.png` (default share image) is 784×1168 portrait; replace it with a 1200×630 landscape image.
