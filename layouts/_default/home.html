@@ -1,56 +1,70 @@
 {{- define "main" }}
-
-{{/* ── HERO (P4.1) ─────────────────────────────────────────────
-     SaaS-style landing: value proposition + prominent search.
-     The search button opens the existing command palette (bound
-     via data-search-trigger in extend_footer.html). The personal
-     bio lives on /about/ — not here. */}}
+{{- /* Home: value proposition + search, every tool grouped by category
+     (data/tool_icons.yaml), popular guides (site.Params.popular_guides),
+     and a short "who builds this" strip linking to About. */ -}}
 <section class="home-hero">
-  <h1 class="home-hero-title">{{ i18n "hero_title" | default "Free, Privacy-First Web Utilities" }}</h1>
-  <p class="home-hero-sub">{{ i18n "hero_subtitle" | default "No sign-ups. No uploads. No bloat. Everything you enter is processed right in your browser." }}</p>
+  <h1 class="home-hero-title">{{ i18n "hero_title" }}</h1>
+  <p class="home-hero-sub">{{ i18n "hero_subtitle" }}</p>
   <button type="button" class="home-hero-search" data-search-trigger>
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="8"></circle>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
-    <span class="home-hero-search-text">{{ i18n "hero_search_label" | default "Search tools, guides, cheatsheets…" }}</span>
+    {{ partial "icon.html" (dict "name" "search-star" "size" 20) }}
+    <span class="home-hero-search-text">{{ i18n "hero_search_label" }}</span>
     <kbd class="home-hero-search-kbd" aria-hidden="true">Ctrl K</kbd>
   </button>
-  <p class="home-hero-trust">&#128274; {{ i18n "footer_tagline" | default "All tools process your data locally in your browser — nothing you enter is uploaded." }}</p>
+  <p class="home-hero-trust">{{ partial "icon.html" (dict "name" "shield-check" "size" 16) }} {{ i18n "footer_tagline" }}</p>
 </section>
 
-{{/* ── FEATURED TOOLS ── resolved per language via GetPage so titles
-     and descriptions come localized from the content bundles. */}}
-{{- $featured := slice }}
-{{- range site.Params.featured_tool_pages }}
-  {{- with site.GetPage . }}{{ $featured = $featured | append . }}{{ end }}
-{{- end }}
-{{- if $featured }}
-<section class="home-section">
-  <div class="home-section-head">
-    <h2>{{ i18n "home_featured_tools" | default "Featured Tools" }}</h2>
-    {{ with site.GetPage "/tools" }}<a class="home-section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>{{ end }}
+{{- $byCat := partial "tools-by-category.html" . }}
+<section class="home-section" aria-labelledby="home-tools">
+  <div class="section-head">
+    <h2 id="home-tools">{{ i18n "home_tools" }}</h2>
+    {{- with site.GetPage "/tools" }}<a class="section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>{{ end }}
   </div>
-  <div class="cyber-grid">
-    {{- range $featured }}
-    {{ partial "cyber-card.html" . }}
+  {{- /* On phones each category shows its `top` tools; the others appear when
+       the "Show all N" <details> is opened (CSS :has(), no JavaScript).
+       Desktop renders every card in alphabetical order, as before. */}}
+  {{- range $byCat }}
+  {{- $top := .top }}
+  <div class="home-cat">
+    <h3 class="home-cat-title">{{ partial "icon.html" (dict "name" .icon "size" 18) }}{{ i18n (printf "cat_%s" .id) }}</h3>
+    <ul class="card-grid card-grid--compact">
+      {{- range .pages }}
+      <li{{ if in $top (path.Base .Path) }} class="is-top"{{ end }}>{{ partial "card.html" (dict "page" . "level" "h4") }}</li>
+      {{- end }}
+    </ul>
+    {{- if gt (len .pages) (len $top) }}
+    <details class="home-cat-more">
+      <summary><span class="when-closed">{{ i18n "home_show_all" (len .pages) }}</span><span class="when-open">{{ i18n "home_show_fewer" }}</span></summary>
+    </details>
     {{- end }}
   </div>
+  {{- end }}
 </section>
-{{- end }}
 
-{{/* ── LATEST GUIDES ── newest three pages from the learn hub. */}}
-{{- $guides := first 3 (where site.RegularPages "Section" "learn").ByDate.Reverse }}
+{{- $guides := slice }}
+{{- range site.Params.popular_guides }}{{ with site.GetPage . }}{{ $guides = $guides | append . }}{{ end }}{{ end }}
 {{- if $guides }}
-<section class="home-section">
-  <div class="home-section-head">
-    <h2>{{ i18n "home_latest_guides" | default "Latest Guides" }}</h2>
-    {{ with site.GetPage "/learn" }}<a class="home-section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>{{ end }}
+<section class="home-section" aria-labelledby="home-guides">
+  <div class="section-head">
+    <h2 id="home-guides">{{ i18n "home_popular_guides" }}</h2>
+    {{- with site.GetPage "/learn" }}<a class="section-more" href="{{ .RelPermalink }}">{{ i18n "view_all" .Title }}</a>{{ end }}
   </div>
-  <div class="cyber-grid">
+  <ul class="card-grid">
     {{- range $guides }}
-    {{ partial "cyber-card.html" . }}
+    <li>{{ partial "card.html" (dict "page" . "showType" true) }}</li>
     {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with site.GetPage "/about" }}
+<section class="home-builder" aria-labelledby="home-builder">
+  {{- with resources.Get site.Params.person.image }}
+  {{- $img := .Fill "128x128 webp q80" }}
+  <img class="home-builder-photo" src="{{ $img.RelPermalink }}" width="64" height="64" alt="" loading="lazy" decoding="async">
+  {{- end }}
+  <div>
+    <h2 id="home-builder" class="home-builder-title">{{ i18n "home_builder_title" }}</h2>
+    <p class="home-builder-text">{{ i18n "home_builder_text" }} <a href="{{ .RelPermalink }}">{{ i18n "home_builder_link" }} {{ partial "icon.html" (dict "name" "arrow-right" "size" 16) }}</a></p>
   </div>
 </section>
 {{- end }}

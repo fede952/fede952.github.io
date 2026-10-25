@@ -1,0 +1,21 @@
+{{- /* Tools of the current language grouped by category, in the order of
+     data/tool_icons.yaml: slice of (dict "id" "icon" "pages"), pages sorted
+     by title. Games are not included. */ -}}
+{{- $d := hugo.Data.tool_icons -}}
+{{- $tools := slice -}}
+{{- range where site.RegularPages "Section" "tools" -}}
+  {{- if not (strings.HasPrefix .Path "/tools/games") }}{{ $tools = $tools | append . }}{{ end -}}
+{{- end -}}
+{{- $groups := slice -}}
+{{- range $d.categories -}}
+  {{- $id := .id -}}
+  {{- $pages := slice -}}
+  {{- range $p := sort $tools "Title" -}}
+    {{- with index $d.tools (path.Base $p.Path) }}{{ if eq .category $id }}{{ $pages = $pages | append $p }}{{ end }}{{ end -}}
+  {{- end -}}
+  {{- /* top: slugs shown first on small screens (home page) */ -}}
+  {{- $top := .top | default slice -}}
+  {{- if not $top }}{{ range first 3 $pages }}{{ $top = $top | append (path.Base .Path) }}{{ end }}{{ end -}}
+  {{- if $pages }}{{ $groups = $groups | append (dict "id" $id "icon" .icon "pages" $pages "top" $top) }}{{ end -}}
+{{- end -}}
+{{- return $groups -}}

@@ -38,6 +38,10 @@
 /js/*
   Cache-Control: public, max-age=3600, must-revalidate
 
+# Generated, unversioned stylesheet of the embedded tool apps
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
 # Embedded tool and game apps (HTML with inline JS)
 /tools/*
   Cache-Control: public, max-age=0, must-revalidate

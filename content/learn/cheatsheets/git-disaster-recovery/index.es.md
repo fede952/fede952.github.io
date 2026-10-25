@@ -9,9 +9,9 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
-## Deshacer Cambios
+## Deshacer cambios
 
-Los tres pilares de "la regue": reset, revert y restore. Cada uno tiene un alcance y nivel de peligro diferente.
+Los tres pilares de "la regué": reset, revert y restore. Cada uno tiene un alcance y nivel de peligro diferente.
 
 ### git restore — Descartar Cambios No Preparados
 
@@ -29,7 +29,7 @@ git restore --staged file.txt
 git restore --source=abc1234 file.txt
 ```
 
-### git reset — Mover HEAD Hacia Atras
+### git reset — Mover HEAD Hacia Atrás
 
 ```bash
 # Soft reset: undo commit, keep changes staged
@@ -47,7 +47,7 @@ git reset --hard abc1234
 
 > **--soft** mantiene todo preparado (staged). **--mixed** quita del staging pero conserva los archivos. **--hard** destruye todo. En caso de duda, usa `--soft`.
 
-### git revert — Deshacer un Commit de Forma Segura (Historial Publico)
+### git revert — Deshacer un Commit de Forma Segura (Historial Público)
 
 ```bash
 # Create a new commit that undoes a specific commit
@@ -64,7 +64,7 @@ git revert -m 1 <merge-commit-hash>
 
 ---
 
-## Reescribir el Historial
+## Reescribir el historial
 
 Para cuando tus mensajes de commit son vergonzosos o el historial de tu rama es un desastre.
 
@@ -108,17 +108,17 @@ git rebase --continue
 git rebase --abort
 ```
 
-> **Rebase vs Merge:** Rebase crea un historial lineal (logs mas limpios). Merge preserva la topologia de ramas (mas seguro para ramas compartidas). Nunca hagas rebase de commits que otros ya hayan descargado.
+> **Rebase vs Merge:** Rebase crea un historial lineal (logs más limpios). Merge preserva la topología de ramas (más seguro para ramas compartidas). Nunca hagas rebase de commits que otros ya hayan descargado.
 
 ---
 
-## Recuperacion
+## Recuperar commits y ramas perdidos
 
-Cuando todo esta en llamas, estos comandos son tu extintor.
+Cuando todo está en llamas, estos comandos son tu extintor.
 
 ### git reflog — El Salvavidas
 
-El reflog registra cada movimiento de HEAD. Incluso despues de un hard reset, tus commits siguen ahi.
+El reflog registra cada movimiento de HEAD. Incluso después de un hard reset, tus commits siguen ahí.
 
 ```bash
 # View the reflog (all recent HEAD positions)
@@ -136,7 +136,7 @@ git reset --hard HEAD@{1}
 git cherry-pick def5678
 ```
 
-### git fsck — Encontrar Objetos Huerfanos
+### git fsck — Encontrar Objetos Huérfanos
 
 ```bash
 # Find unreachable commits and blobs
@@ -164,7 +164,7 @@ git checkout -b recovered-branch HEAD@{5}
 
 ---
 
-## Escenarios de Desastre Comunes
+## Escenarios de desastre comunes
 
 ### "Hice commit en la rama equivocada"
 
@@ -228,7 +228,7 @@ git commit
 git merge --abort
 ```
 
-### git cherry-pick — Tomar Commits Especificos
+### git cherry-pick — Tomar Commits Específicos
 
 ```bash
 # Apply a single commit from another branch
@@ -243,17 +243,17 @@ git cherry-pick --no-commit abc1234
 
 ---
 
-## Tabla de Referencia Rapida
+## Tabla de referencia rápida
 
-| Situacion | Comando |
+| Situación | Comando |
 |-----------|---------|
-| Deshacer ultimo commit (conservar cambios) | `git reset --soft HEAD~1` |
-| Deshacer ultimo commit (eliminar cambios) | `git reset --hard HEAD~1` |
+| Deshacer último commit (conservar cambios) | `git reset --soft HEAD~1` |
+| Deshacer último commit (eliminar cambios) | `git reset --hard HEAD~1` |
 | Deshacer un commit ya pusheado | `git revert <hash>` |
 | Descartar cambios en un archivo | `git restore <file>` |
 | Quitar un archivo del staging | `git restore --staged <file>` |
 | Recuperar rama eliminada | `git reflog` + `git branch name <hash>` |
-| Corregir mensaje del ultimo commit | `git commit --amend -m "new msg"` |
-| Aplastar los ultimos N commits | `git rebase -i HEAD~N` |
+| Corregir mensaje del último commit | `git commit --amend -m "new msg"` |
+| Aplastar los últimos N commits | `git rebase -i HEAD~N` |
 | Mover commit a la rama correcta | `git reset --soft HEAD~1` + stash + switch |
 | Dejar de rastrear un archivo | `git rm --cached <file>` |

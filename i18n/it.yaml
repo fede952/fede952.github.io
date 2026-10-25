@@ -152,7 +152,7 @@ byline_updated:
 author_box_heading:
   other: "Chi scrive"
 author_box_bio:
-  other: "Lavoro come Network Security Analyst in ambito SOC e sicurezza di rete di secondo livello (L2): piattaforme SSE/SASE, accesso Zero Trust, analisi del traffico e triage degli incidenti. Ho la certificazione eJPT (Junior Penetration Tester) e scrivo queste guide partendo dal lavoro sul campo e dalla pratica in laboratorio."
+  other: "Lavoro come Network Security Analyst (L2) su piattaforme SSE/SASE: accesso Zero Trust, secure web gateway e troubleshooting della connettività dei client. In precedenza ho lavorato circa un anno come analista SOC Tier 1. Ho la certificazione eJPT e scrivo queste guide partendo da quel lavoro e dalla pratica in laboratorio."
 author_box_more:
   other: "Di più su di me"
 related_tools_learn:
@@ -183,3 +183,119 @@ aff_devsec_title:
   other: "Intercetta i segreti esposti prima del rilascio"
 aff_devsec_text:
   other: "Questa pagina controlla un frammento alla volta, nel browser. {{ .Name }} può sorvegliare di continuo repository e pipeline, così una chiave o un token esposto viene segnalato prima di arrivare in produzione."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Principale"
+nav_search:
+  other: "Cerca"
+nav_language:
+  other: "Lingua"
+nav_menu:
+  other: "Menu"
+back_to_top:
+  other: "Torna su"
+code_copy:
+  other: "Copia"
+code_copied:
+  other: "Copiato"
+code_label:
+  other: "Codice"
+table_label:
+  other: "Tabella (scorre in orizzontale)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Strumento"
+type_game:
+  other: "Gioco"
+type_guides:
+  other: "Guida"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Soluzione"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Colloquio"
+
+type_project:
+  other: "Progetto"
+type_page:
+  other: "Pagina"
+
+# Design system: categories, filters, home sections (redesign Phase 2)
+cat_security:
+  other: "Sicurezza e privacy"
+cat_images:
+  other: "Immagini e media"
+cat_dev:
+  other: "Sviluppatori"
+cat_productivity:
+  other: "Produttività"
+chip_all:
+  other: "Tutti"
+chip_security:
+  other: "Sicurezza"
+chip_images:
+  other: "Immagini"
+chip_dev:
+  other: "Dev"
+chip_productivity:
+  other: "Produttività"
+filter_label:
+  other: "Filtra gli strumenti"
+filter_placeholder:
+  other: "Filtra per nome o attività…"
+filter_empty:
+  other: "Nessuno strumento corrisponde al filtro."
+filter_count:
+  other: "{{ . }} strumenti mostrati"
+read_time:
+  other: "{{ . }} min di lettura"
+home_tools:
+  other: "Strumenti gratuiti"
+home_popular_guides:
+  other: "Guide più lette"
+home_builder_title:
+  other: "Chi c'è dietro"
+home_builder_text:
+  other: "Creato da Federico Sella, network security analyst che lavora ogni giorno su piattaforme Zero Trust e secure web gateway."
+home_builder_link:
+  other: "Chi sono"
+sidebar_more_guides:
+  other: "Altre guide"
+games_title:
+  other: "Giochi nel browser"
+
+chip_guides:
+  other: "Guide"
+chip_cheatsheets:
+  other: "Cheatsheet"
+chip_debug-sys:
+  other: "Soluzioni"
+chip_interviews:
+  other: "Colloqui"
+chip_roadmaps:
+  other: "Roadmap"
+chip_writeups:
+  other: "Writeup"
+
+search_results:
+  other: "Risultati della ricerca"
+search_empty:
+  other: "Nessun risultato."
+search_navigate:
+  other: "Naviga"
+search_open:
+  other: "Apri"
+search_close:
+  other: "Chiudi"
+
+home_show_all:
+  other: "Mostra tutti ({{ . }})"
+home_show_fewer:
+  other: "Mostra meno"

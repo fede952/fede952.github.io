@@ -1,0 +1,162 @@
+/* ============================================
+   CODE BLOCKS AND TABLES in Markdown content
+   (render hooks: _markup/render-codeblock.html, render-table.html;
+   fades and Copy: assets/js/site.js)
+   ============================================ */
+
+/* ── Code blocks: header bar + horizontally scrolling body ── */
+.code-block {
+  margin: 0 0 var(--content-gap);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--code-block-bg);
+  overflow: hidden;
+}
+
+.code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 36px;
+  padding: 0 0.35rem 0 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.code-lang {
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+.code-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 28px;
+  min-width: 44px;
+  padding: 0 0.6rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  font: inherit;
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+
+.code-copy:hover { color: var(--text); border-color: var(--border-strong); }
+.code-copy:focus-visible { outline: var(--focus-width) solid var(--focus-color); outline-offset: 1px; }
+.code-copy.copied { color: var(--success); }
+
+.code-body,
+.table-frame {
+  position: relative;
+}
+
+.md-content .code-block .highlight {
+  margin: 0;
+  border-radius: 0;
+  background: transparent !important;
+}
+
+.md-content .code-block pre {
+  margin: 0;
+  overflow-x: auto;
+  background: transparent !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.md-content .code-block pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  padding: var(--s-4);
+  overflow: visible;
+  word-break: normal;
+  white-space: pre;
+  border-radius: 0;
+  background: transparent !important;
+  font-size: var(--fs-sm);
+}
+
+/* Fade on the side that has more to scroll to */
+.code-body::before,
+.code-body::after,
+.table-frame::before,
+.table-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 1;
+}
+
+.code-body::before,
+.table-frame::before {
+  left: 0;
+  background: linear-gradient(to right, var(--code-block-bg), transparent);
+}
+
+.code-body::after,
+.table-frame::after {
+  right: 0;
+  background: linear-gradient(to left, var(--code-block-bg), transparent);
+}
+
+.table-frame::before { background: linear-gradient(to right, var(--bg), transparent); }
+.table-frame::after { background: linear-gradient(to left, var(--bg), transparent); }
+
+.more-left::before,
+.more-right::after {
+  opacity: 1;
+}
+
+/* ── Tables: scroll sideways instead of crushing columns ── */
+.table-frame {
+  margin: 0 0 var(--content-gap);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  border-radius: var(--r-sm);
+}
+
+.table-wrap:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+.md-content .table-wrap table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.md-content .table-wrap th,
+.md-content .table-wrap td {
+  min-width: 7.5rem;
+  max-width: 26rem;
+  vertical-align: top;
+}
+
+.md-content .table-wrap th {
+  background: var(--surface);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.md-content .table-wrap td:first-child {
+  min-width: 6rem;
+}

@@ -4,8 +4,8 @@ description: "Sfonda il firewall aziendale. Devia il pacchetto dati, distruggi i
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
-keywords: ["arkanoid online", "breakout gioco", "rompi mattoni", "arcade cyberpunk"]
+tags: ["game", "arcade", "html5", "cyberpunk"]
+keywords: ["rompi mattoni", "arcade cyberpunk"]
 draft: false
 aliases: ["/games/firewall-breaker/"]
 ---

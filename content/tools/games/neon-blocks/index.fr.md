@@ -13,3 +13,11 @@ Faites glisser les blocs lumineux sur la grille. Lorsque deux blocs de même val
 NeonBlocks sauvegarde votre progression automatiquement.
 
 <iframe src="/games/neon-blocks/index.html?lang=fr" width="100%" height="620px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+
+## Comment Jouer
+
+- **Ordinateur :** flèches ou WASD pour faire glisser les tuiles.
+- **Mobile :** balayez dans n'importe quelle direction.
+- Les tuiles de même valeur fusionnent en se rencontrant.
+- Chaque fusion augmente le score.
+- La partie se termine quand plus aucun coup n'est possible.

@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/linux-sysadmin-interview-questions/"]
 ---
 
-## Inicialização do Sistema
+## O que os entrevistadores de administração Linux buscam
 
 A administração de sistemas Linux é a base da infraestrutura moderna. Seja para uma entrevista para um cargo de SysAdmin, DevOps, SRE ou Cloud Engineer, você será testado em sua capacidade de gerenciar usuários, solucionar problemas de processos, configurar redes e proteger servidores — tudo pela linha de comando. Este guia cobre 20 perguntas que separam candidatos seniores dos juniores, com respostas que demonstram experiência operacional real.
 

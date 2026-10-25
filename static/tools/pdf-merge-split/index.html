@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/pdf-merge-split/">
+<title>Merge, split and reorder PDF</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style id="tile-css"></style>
+<style>
+.actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--s-3); }
+.actions .tb-panel { align-content: start; }
+.count { color: var(--text-2); font-size: var(--fs-sm); margin: 0; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5h7l4 4V17a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 17V5A1.5 1.5 0 0 1 8 3.5z"/><path d="M15 3.5V7.5h4"/><path d="M3.5 7v12A1.5 1.5 0 0 0 5 20.5h9.5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Merge, split & reorder PDF</h1>
+      <p class="tb-sub" data-i18n="subtitle">Your PDFs never leave this device</p>
+    </div>
+  </header>
+
+  <label class="tb-drop" id="drop" tabindex="0">
+    <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5h7l4 4V17a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 17V5A1.5 1.5 0 0 1 8 3.5z"/><path d="M15 3.5V7.5h4"/><path d="M3.5 7v12A1.5 1.5 0 0 0 5 20.5h9.5"/></svg>
+    <strong data-i18n="drop">Drop PDF files here, or click to choose</strong>
+    <span class="tb-hint" data-i18n="dropHint">Add several files to merge them; drag the pages to change the order.</span>
+    <input type="file" id="file" accept="application/pdf,.pdf" multiple hidden>
+  </label>
+
+  <p class="tb-note" id="status" role="status" hidden></p>
+
+  <section class="tb-panel" id="pages-panel" hidden aria-labelledby="pages-title">
+    <div class="tb-row" style="justify-content:space-between">
+      <h2 class="tb-panel-title" id="pages-title" data-i18n="pages">Pages</h2>
+      <p class="count" id="count"></p>
+    </div>
+    <p class="tb-hint" data-i18n="pagesHint">Drag a page to move it, or use ← and →. ⟳ rotates, ✕ removes it from the result.</p>
+    <ul class="tiles" id="tiles"></ul>
+  </section>
+
+  <div class="actions" id="actions" hidden>
+    <section class="tb-panel">
+      <h2 class="tb-panel-title" data-i18n="mergeTitle">Merge</h2>
+      <p class="tb-hint" data-i18n="mergeHint">One PDF with all the pages above, in this order.</p>
+      <label class="tb-field"><span class="tb-label" data-i18n="fileName">File name</span><input id="mname" class="tb-input" value="merged.pdf"></label>
+      <button type="button" class="tb-btn" id="merge" data-i18n="mergeBtn">Merge & download</button>
+    </section>
+    <section class="tb-panel">
+      <h2 class="tb-panel-title" data-i18n="splitTitle">Split</h2>
+      <label class="tb-check"><input type="radio" name="smode" value="each" checked> <span data-i18n="splitEach">Every page as its own PDF</span></label>
+      <label class="tb-check"><input type="radio" name="smode" value="ranges"> <span data-i18n="splitRanges">By page ranges</span></label>
+      <label class="tb-field" id="ranges-field" hidden><span class="tb-label" data-i18n="rangesLabel">Ranges (one file per group)</span><input id="ranges" class="tb-input tb-mono" value="1-2, 3-" spellcheck="false"><span class="tb-hint" data-i18n="rangesHint">e.g. 1-3, 4, 5- (page numbers as shown above)</span></label>
+      <button type="button" class="tb-btn" id="split" data-i18n="splitBtn">Split & download (.zip)</button>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+import { parseRanges, partName, pdfLib, jsZip, openForPreview, renderThumb, sortableGrid, TILE_CSS } from '/js/tools/pdf-kit.mjs';
+document.getElementById('tile-css').textContent = TILE_CSS;
+
+TK.init({
+  en: { title: 'Merge, split & reorder PDF', subtitle: 'Your PDFs never leave this device', drop: 'Drop PDF files here, or click to choose', dropHint: 'Add several files to merge them; drag the pages to change the order.',
+    pages: 'Pages', pagesHint: 'Drag a page to move it, or use ← and →. ⟳ rotates, ✕ removes it from the result.', count: '{p} pages from {f} files',
+    mergeTitle: 'Merge', mergeHint: 'One PDF with all the pages above, in this order.', fileName: 'File name', mergeBtn: 'Merge & download',
+    splitTitle: 'Split', splitEach: 'Every page as its own PDF', splitRanges: 'By page ranges', rangesLabel: 'Ranges (one file per group)', rangesHint: 'e.g. 1-3, 4, 5- (page numbers as shown above)', splitBtn: 'Split & download (.zip)',
+    left: 'Move left', right: 'Move right', remove: 'Remove page', rotate: 'Rotate 90°', page: 'p. {n}',
+    reading: 'Reading {name}…', building: 'Building the PDF…', zipping: 'Building the ZIP…', done: 'Done: {name}', loaded: '{n} files loaded.',
+    notPdf: '{name} is not a PDF.', locked: '{name} is password-protected: remove the password first.', broken: '{name} could not be read.',
+    'e-syntax': 'Check the ranges: "{part}" is not a page or a range.', 'e-range': '"{part}" is outside pages 1–{n}.', empty: 'There are no pages left.', copied: 'Copied' },
+  it: { title: 'Unisci, dividi e riordina PDF', subtitle: 'I tuoi PDF non lasciano mai questo dispositivo', drop: 'Trascina qui i file PDF o fai clic per sceglierli', dropHint: 'Aggiungi più file per unirli; trascina le pagine per cambiare l\'ordine.',
+    pages: 'Pagine', pagesHint: 'Trascina una pagina per spostarla, oppure usa ← e →. ⟳ la ruota, ✕ la toglie dal risultato.', count: '{p} pagine da {f} file',
+    mergeTitle: 'Unisci', mergeHint: 'Un unico PDF con tutte le pagine qui sopra, in questo ordine.', fileName: 'Nome del file', mergeBtn: 'Unisci e scarica',
+    splitTitle: 'Dividi', splitEach: 'Ogni pagina in un PDF separato', splitRanges: 'Per intervalli di pagine', rangesLabel: 'Intervalli (un file per gruppo)', rangesHint: 'es. 1-3, 4, 5- (numeri di pagina come sopra)', splitBtn: 'Dividi e scarica (.zip)',
+    left: 'Sposta a sinistra', right: 'Sposta a destra', remove: 'Rimuovi pagina', rotate: 'Ruota di 90°', page: 'p. {n}',
+    reading: 'Lettura di {name}…', building: 'Creazione del PDF…', zipping: 'Creazione dello ZIP…', done: 'Fatto: {name}', loaded: '{n} file caricati.',
+    notPdf: '{name} non è un PDF.', locked: '{name} è protetto da password: rimuovi prima la password.', broken: 'Impossibile leggere {name}.',
+    'e-syntax': 'Controlla gli intervalli: "{part}" non è una pagina né un intervallo.', 'e-range': '"{part}" è fuori dalle pagine 1–{n}.', empty: 'Non ci sono più pagine.', copied: 'Copiato' },
+  es: { title: 'Unir, dividir y ordenar PDF', subtitle: 'Tus PDF nunca salen de este dispositivo', drop: 'Suelta aquí los PDF o haz clic para elegirlos', dropHint: 'Añade varios archivos para unirlos; arrastra las páginas para cambiar el orden.',
+    pages: 'Páginas', pagesHint: 'Arrastra una página para moverla o usa ← y →. ⟳ la gira, ✕ la quita del resultado.', count: '{p} páginas de {f} archivos',
+    mergeTitle: 'Unir', mergeHint: 'Un solo PDF con todas las páginas de arriba, en este orden.', fileName: 'Nombre del archivo', mergeBtn: 'Unir y descargar',
+    splitTitle: 'Dividir', splitEach: 'Cada página en un PDF aparte', splitRanges: 'Por rangos de páginas', rangesLabel: 'Rangos (un archivo por grupo)', rangesHint: 'p. ej. 1-3, 4, 5- (números de página como arriba)', splitBtn: 'Dividir y descargar (.zip)',
+    left: 'Mover a la izquierda', right: 'Mover a la derecha', remove: 'Quitar página', rotate: 'Girar 90°', page: 'pág. {n}',
+    reading: 'Leyendo {name}…', building: 'Creando el PDF…', zipping: 'Creando el ZIP…', done: 'Listo: {name}', loaded: '{n} archivos cargados.',
+    notPdf: '{name} no es un PDF.', locked: '{name} está protegido con contraseña: quítala primero.', broken: 'No se pudo leer {name}.',
+    'e-syntax': 'Revisa los rangos: "{part}" no es una página ni un rango.', 'e-range': '"{part}" está fuera de las páginas 1–{n}.', empty: 'No quedan páginas.', copied: 'Copiado' },
+  de: { title: 'PDF zusammenfügen, teilen, sortieren', subtitle: 'Ihre PDFs verlassen dieses Gerät nicht', drop: 'PDF-Dateien hier ablegen oder zum Auswählen klicken', dropHint: 'Mehrere Dateien hinzufügen, um sie zusammenzufügen; Seiten ziehen, um die Reihenfolge zu ändern.',
+    pages: 'Seiten', pagesHint: 'Seite ziehen, um sie zu verschieben, oder ← und → verwenden. ⟳ dreht, ✕ entfernt sie aus dem Ergebnis.', count: '{p} Seiten aus {f} Dateien',
+    mergeTitle: 'Zusammenfügen', mergeHint: 'Ein PDF mit allen Seiten oben, in dieser Reihenfolge.', fileName: 'Dateiname', mergeBtn: 'Zusammenfügen und herunterladen',
+    splitTitle: 'Teilen', splitEach: 'Jede Seite als eigenes PDF', splitRanges: 'Nach Seitenbereichen', rangesLabel: 'Bereiche (eine Datei pro Gruppe)', rangesHint: 'z. B. 1-3, 4, 5- (Seitennummern wie oben)', splitBtn: 'Teilen und herunterladen (.zip)',
+    left: 'Nach links', right: 'Nach rechts', remove: 'Seite entfernen', rotate: 'Um 90° drehen', page: 'S. {n}',
+    reading: '{name} wird gelesen …', building: 'PDF wird erstellt …', zipping: 'ZIP wird erstellt …', done: 'Fertig: {name}', loaded: '{n} Dateien geladen.',
+    notPdf: '{name} ist kein PDF.', locked: '{name} ist passwortgeschützt: Entfernen Sie zuerst das Passwort.', broken: '{name} konnte nicht gelesen werden.',
+    'e-syntax': 'Bereiche prüfen: „{part}“ ist keine Seite und kein Bereich.', 'e-range': '„{part}“ liegt außerhalb der Seiten 1–{n}.', empty: 'Es sind keine Seiten mehr übrig.', copied: 'Kopiert' },
+  fr: { title: 'Fusionner, diviser et réordonner un PDF', subtitle: 'Vos PDF ne quittent jamais cet appareil', drop: 'Déposez vos fichiers PDF ici ou cliquez pour les choisir', dropHint: 'Ajoutez plusieurs fichiers pour les fusionner ; faites glisser les pages pour changer l\'ordre.',
+    pages: 'Pages', pagesHint: 'Faites glisser une page pour la déplacer, ou utilisez ← et →. ⟳ la fait pivoter, ✕ la retire du résultat.', count: '{p} pages de {f} fichiers',
+    mergeTitle: 'Fusionner', mergeHint: 'Un seul PDF avec toutes les pages ci-dessus, dans cet ordre.', fileName: 'Nom du fichier', mergeBtn: 'Fusionner et télécharger',
+    splitTitle: 'Diviser', splitEach: 'Chaque page dans son propre PDF', splitRanges: 'Par plages de pages', rangesLabel: 'Plages (un fichier par groupe)', rangesHint: 'ex. 1-3, 4, 5- (numéros de page comme ci-dessus)', splitBtn: 'Diviser et télécharger (.zip)',
+    left: 'Déplacer à gauche', right: 'Déplacer à droite', remove: 'Retirer la page', rotate: 'Pivoter de 90°', page: 'p. {n}',
+    reading: 'Lecture de {name}…', building: 'Création du PDF…', zipping: 'Création du ZIP…', done: 'Terminé : {name}', loaded: '{n} fichiers chargés.',
+    notPdf: '{name} n\'est pas un PDF.', locked: '{name} est protégé par mot de passe : retirez d\'abord le mot de passe.', broken: 'Impossible de lire {name}.',
+    'e-syntax': 'Vérifiez les plages : « {part} » n\'est ni une page ni une plage.', 'e-range': '« {part} » est hors des pages 1–{n}.', empty: 'Il ne reste aucune page.', copied: 'Copié' },
+  pt: { title: 'Juntar, dividir e reordenar PDF', subtitle: 'Seus PDFs nunca saem deste dispositivo', drop: 'Solte os arquivos PDF aqui ou clique para escolher', dropHint: 'Adicione vários arquivos para juntá-los; arraste as páginas para mudar a ordem.',
+    pages: 'Páginas', pagesHint: 'Arraste uma página para movê-la ou use ← e →. ⟳ gira, ✕ remove do resultado.', count: '{p} páginas de {f} arquivos',
+    mergeTitle: 'Juntar', mergeHint: 'Um único PDF com todas as páginas acima, nesta ordem.', fileName: 'Nome do arquivo', mergeBtn: 'Juntar e baixar',
+    splitTitle: 'Dividir', splitEach: 'Cada página num PDF separado', splitRanges: 'Por intervalos de páginas', rangesLabel: 'Intervalos (um arquivo por grupo)', rangesHint: 'ex.: 1-3, 4, 5- (números de página como acima)', splitBtn: 'Dividir e baixar (.zip)',
+    left: 'Mover para a esquerda', right: 'Mover para a direita', remove: 'Remover página', rotate: 'Girar 90°', page: 'p. {n}',
+    reading: 'Lendo {name}…', building: 'Gerando o PDF…', zipping: 'Gerando o ZIP…', done: 'Pronto: {name}', loaded: '{n} arquivos carregados.',
+    notPdf: '{name} não é um PDF.', locked: '{name} é protegido por senha: remova a senha primeiro.', broken: 'Não foi possível ler {name}.',
+    'e-syntax': 'Confira os intervalos: "{part}" não é uma página nem um intervalo.', 'e-range': '"{part}" está fora das páginas 1–{n}.', empty: 'Não sobrou nenhuma página.', copied: 'Copiado' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t;
+const docs = [];   // { name, bytes }
+const pages = [];  // { doc, index, rotate, el }
+const status = (msg, kind) => { $('status').hidden = !msg; $('status').textContent = msg || ''; $('status').className = 'tb-note' + (kind ? ' tb-note--' + kind : ''); };
+const isPdf = (b) => b.length > 5 && String.fromCharCode(...b.subarray(0, 5)) === '%PDF-';
+
+const grid = sortableGrid($('tiles'), pages, {
+  labels: { left: t('left'), right: t('right'), remove: t('remove'), rotate: t('rotate') },
+  onRotate: (p) => { p.rotate = (p.rotate + 90) % 360; p.el.querySelector('canvas').style.transform = `rotate(${p.rotate}deg)`; },
+  onChange: refresh,
+});
+
+function refresh() {
+  const n = pages.length;
+  $('pages-panel').hidden = $('actions').hidden = n === 0;
+  $('count').textContent = t('count', { p: n, f: new Set(pages.map((p) => p.doc)).size });
+}
+
+async function addFiles(list) {
+  for (const file of [...list]) {
+    status(t('reading', { name: file.name }));
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (!isPdf(bytes)) { status(t('notPdf', { name: file.name }), 'bad'); continue; }
+    let preview;
+    try { preview = await openForPreview(bytes); }
+    catch (e) { status(t(/password/i.test(e.name + e.message) ? 'locked' : 'broken', { name: file.name }), 'bad'); continue; }
+    const doc = docs.push({ name: file.name, bytes }) - 1;
+    for (let i = 0; i < preview.numPages; i++) {
+      const el = document.createElement('div');
+      el.style.display = 'grid'; el.style.justifyItems = 'center'; el.style.gap = '4px';
+      const cap = document.createElement('span');
+      cap.className = 'tile-cap';
+      cap.textContent = `${file.name.replace(/\.pdf$/i, '')} · ${t('page', { n: i + 1 })}`;
+      el.append(await renderThumb(preview, i), cap);
+      pages.push({ doc, index: i, rotate: 0, el });
+    }
+    await preview.loadingTask.destroy(); // frees the worker-side document
+    grid.render(); refresh();
+  }
+  status(t('loaded', { n: docs.length }), 'ok');
+  window.__pdfLoaded = (window.__pdfLoaded || 0) + 1;
+}
+
+/** A new PDF with the given page items, in order. */
+async function build(items) {
+  const { PDFDocument, degrees } = await pdfLib();
+  const out = await PDFDocument.create();
+  const loaded = new Map();
+  for (const p of items) {
+    if (!loaded.has(p.doc)) loaded.set(p.doc, await PDFDocument.load(docs[p.doc].bytes, { updateMetadata: false }));
+    const [copy] = await out.copyPages(loaded.get(p.doc), [p.index]);
+    if (p.rotate) copy.setRotation(degrees((copy.getRotation().angle + p.rotate) % 360));
+    out.addPage(copy);
+  }
+  return new Blob([await out.save()], { type: 'application/pdf' });
+}
+
+$('merge').addEventListener('click', async () => {
+  if (!pages.length) return status(t('empty'), 'bad');
+  status(t('building'));
+  let name = $('mname').value.trim() || 'merged.pdf';
+  if (!/\.pdf$/i.test(name)) name += '.pdf';
+  try { TK.download(await build(pages), name); status(t('done', { name }), 'ok'); window.__pdfMerged = (window.__pdfMerged || 0) + 1; }
+  catch (e) { status(t('broken', { name: e.message }), 'bad'); }
+});
+
+$('split').addEventListener('click', async () => {
+  if (!pages.length) return status(t('empty'), 'bad');
+  let groups;
+  if (document.querySelector('input[name=smode]:checked').value === 'each') groups = pages.map((_, i) => [i]);
+  else {
+    const r = parseRanges($('ranges').value, pages.length);
+    if (r.error) return status(t('e-' + r.error, { part: r.part, n: pages.length }), 'bad');
+    groups = r.groups;
+  }
+  status(t('building'));
+  const base = docs[pages[0].doc].name;
+  const files = [];
+  for (let g = 0; g < groups.length; g++) files.push({ name: partName(base, g + 1), blob: await build(groups[g].map((i) => pages[i])) });
+  if (files.length === 1) { TK.download(files[0].blob, files[0].name); return status(t('done', { name: files[0].name }), 'ok'); }
+  status(t('zipping'));
+  const JSZip = await jsZip();
+  const zip = new JSZip();
+  files.forEach((f) => zip.file(f.name, f.blob));
+  const name = (base.replace(/\.pdf$/i, '') || 'document') + '-split.zip';
+  TK.download(await zip.generateAsync({ type: 'blob' }), name);
+  status(t('done', { name }), 'ok');
+  window.__pdfSplit = (window.__pdfSplit || 0) + 1;
+});
+
+document.querySelectorAll('input[name=smode]').forEach((r) => r.addEventListener('change', () => { $('ranges-field').hidden = r.value !== 'ranges' || !r.checked; }));
+$('file').addEventListener('change', (e) => { addFiles(e.target.files); e.target.value = ''; });
+const drop = $('drop');
+drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('file').click(); } });
+['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
+['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
+drop.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

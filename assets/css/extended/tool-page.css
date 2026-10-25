@@ -1,103 +1,147 @@
-/* ============================================
-   TOOL PAGE — layouts/tools/single.html
-   breadcrumbs, intro, embedded tool, How to use,
-   long-form copy and FAQ.
-   ============================================ */
+/* ============================================================
+   TOOL PAGE (layouts/tools/single.html) — breadcrumbs, eyebrow,
+   intro, embedded tool, How to use, long-form copy, FAQ,
+   affiliate block. Breadcrumbs and eyebrow are shared with
+   learn and game pages.
+   ============================================================ */
 
-/* Breadcrumbs (layouts/partials/breadcrumbs.html), also used on learn pages */
+/* ── Breadcrumbs (partials/breadcrumbs.html) ── */
 .breadcrumbs ol {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
-  margin: 0 0 0.75rem;
+  gap: 0 var(--s-1);
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 0 var(--s-2);
   padding: 0;
   list-style: none;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
 }
 
 .breadcrumbs li {
   display: inline-flex;
   align-items: center;
-  color: var(--secondary);
+  color: var(--text-2);
 }
 
 .breadcrumbs li + li::before {
   content: "›";
-  margin: 0 0.4rem;
-  opacity: 0.6;
+  margin: 0 var(--s-2) 0 var(--s-1);
+  color: var(--text-3);
 }
 
 .breadcrumbs a {
-  font-size: inherit;
-  color: var(--secondary);
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px; /* tap target; wrapped rows keep their distance */
+  color: var(--text-2);
   text-decoration: none;
 }
 
 .breadcrumbs a:hover {
-  color: var(--primary);
+  color: var(--text);
   text-decoration: underline;
 }
 
 .breadcrumbs [aria-current="page"] {
-  color: var(--content);
-  max-width: 60ch;
+  display: block;
+  min-width: 0;
+  max-width: min(60ch, 100%);
   overflow: hidden;
+  color: var(--text-3);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* ── Eyebrow above the H1: icon + category / type ── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: var(--s-3) 0 var(--s-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+
+.eyebrow a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.eyebrow a:hover {
+  text-decoration: underline;
+}
+
+.eyebrow-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.eyebrow-icon--learn {
+  background: var(--accent-2-soft);
+  color: var(--accent-2);
+}
+
 .tool-intro {
-  margin: 0.75rem 0 0;
-  font-size: 1.05rem;
+  margin: var(--s-3) 0 0;
+  color: var(--text-2);
+  font-size: var(--fs-lg);
   line-height: 1.6;
-  color: var(--secondary);
 }
 
-.tool-intro p {
-  margin: 0;
-}
-
-/* The embedded tool. Its height is set by /js/iframe-resizer.js from the
-   app's own content height; the attribute height is only the pre-JS fallback. */
+/* ── The embedded tool. Height comes from /js/iframe-resizer.js; the
+      height attribute is only the pre-JS fallback. ── */
 .tool-frame {
-  margin: 1.5rem 0;
+  margin: var(--s-6) 0;
 }
 
 .tool-iframe {
   display: block;
   width: 100%;
-  border: 0;
-  border-radius: 12px;
-  background: var(--entry);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
 }
 
-/* Breathing room between the tool's own controls and the ad that follows
-   it (AdSense accidental-click policy). */
+.tool-inline {
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+}
+
+/* At least 150 px between the tool's controls and the ad that follows it
+   (accidental clicks; checked by tests/ads.mjs on every tool page). */
 .ad-slot--tool-after {
-  margin-top: 3rem;
+  margin-top: calc(var(--s-10) * 2 + var(--s-4));
 }
 
 .tool-section {
-  margin: 2.5rem 0;
-}
-
-.tool-section h2,
-.tool-longform h2 {
-  margin: 2.5rem 0 1rem;
-  font-size: 1.45rem;
+  margin: var(--s-8) 0;
 }
 
 .tool-howto ol {
   margin: 0;
   padding-left: 1.4rem;
-  line-height: 1.7;
 }
 
 .tool-howto li {
-  margin-bottom: 0.6rem;
-  padding-left: 0.25rem;
+  margin-bottom: var(--s-2);
+  padding-left: var(--s-1);
+}
+
+.tool-howto li::marker {
+  color: var(--accent);
+  font-weight: var(--fw-semibold);
 }
 
 .tool-howto li p {
@@ -105,8 +149,8 @@
 }
 
 .tool-faq-item {
-  padding: 1rem 0;
-  border-bottom: 1px dashed var(--border);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .tool-faq-item:last-child {
@@ -114,13 +158,12 @@
 }
 
 .tool-faq-item h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.05rem;
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-lg);
 }
 
 .tool-faq-answer p {
-  margin: 0 0 0.5rem;
-  line-height: 1.7;
+  margin: 0 0 var(--s-2);
 }
 
 .tool-faq-answer p:last-child {
@@ -128,64 +171,85 @@
 }
 
 @media (max-width: 640px) {
+  /* keep the tool's first control above the fold on phones */
+  .tool-page .post-header {
+    margin-bottom: var(--s-4);
+  }
+
+  .tool-page .eyebrow {
+    margin-top: var(--s-1);
+  }
+
+  .tool-intro {
+    margin-top: var(--s-2);
+    font-size: var(--fs-md);
+    line-height: 1.55;
+  }
+
   .tool-frame {
-    margin: 1rem -0.25rem;
+    margin: var(--s-4) 0;
   }
 
   .tool-iframe {
-    border-radius: 8px;
+    border-radius: var(--r);
+  }
+
+  .tool-inline {
+    padding: var(--s-4);
   }
 }
 
-/* Affiliate partner block (partials/affiliate/block.html), after "How it works" */
+/* ── Affiliate partner block (partials/affiliate/block.html) ── */
 .affiliate-block {
-  margin: 2rem 0;
-  padding: 1.25rem 1.25rem 1rem;
-  background: var(--entry);
+  margin: var(--s-7) 0;
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent, #00e5ff);
-  border-radius: 10px;
+  border-left: 3px solid var(--accent-2);
+  border-radius: var(--r);
 }
 
 .affiliate-label {
   display: inline-block;
-  margin-bottom: 0.5rem;
-  padding: 1px 8px;
-  font-size: 0.72rem;
+  margin-bottom: var(--s-2);
+  padding: 1px var(--s-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--secondary);
-  border: 1px solid var(--border);
-  border-radius: 999px;
 }
 
 .post-content .affiliate-title {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-lg);
 }
 
 .post-content .affiliate-text {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--s-4);
 }
 
 .post-content a.affiliate-cta {
-  display: inline-block;
-  padding: 0.55rem 1.1rem;
-  font-weight: 600;
-  color: #0b0c0e;
-  background: var(--accent, #00e5ff);
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--s-5);
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: var(--fw-semibold);
   text-decoration: none;
   box-shadow: none;
 }
 
 .post-content a.affiliate-cta:hover {
-  filter: brightness(1.1);
+  background: var(--accent-hover);
 }
 
 .post-content .affiliate-disclosure {
-  margin: 0.9rem 0 0;
-  font-size: 0.8rem;
+  margin: var(--s-3) 0 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
   line-height: 1.5;
-  color: var(--secondary);
 }

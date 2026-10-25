@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
-## $ System_Init
+## Nascondere un messaggio in bella vista
 
 Una fotografia di un tramonto. Un'immagine del profilo. Un meme condiviso sui social media. Per qualsiasi osservatore, sono normali file di immagine. Ma sepolto all'interno dei dati dei pixel — invisibile all'occhio umano — può esserci un messaggio nascosto in attesa di essere estratto da qualcuno che sa dove guardare.
 
@@ -19,7 +19,7 @@ Questa guida spiega la tecnica di steganografia digitale più comune — **l'ins
 
 ---
 
-## $ What_Is_Steganography
+## Cos'è la steganografia (e in cosa differisce dalla crittografia)
 
 La parola deriva dal greco: *steganos* (coperto) + *graphein* (scrittura). Letteralmente, "scrittura coperta."
 
@@ -40,7 +40,7 @@ L'approccio più potente combina entrambi: crittografa prima il messaggio, poi i
 
 ---
 
-## $ How_LSB_Works
+## Come la steganografia LSB nasconde i dati nei pixel
 
 Le immagini digitali sono composte da pixel. Ogni pixel memorizza valori di colore — tipicamente Rosso, Verde e Blu (RGB) — con ogni canale che utilizza 8 bit (valori 0-255).
 
@@ -86,7 +86,7 @@ Ogni pixel memorizza 3 bit (uno per canale RGB). Un'immagine 1920x1080 ha 2.073.
 
 ---
 
-## $ Detection_And_Limits
+## Rilevare la steganografia LSB e i suoi limiti
 
 La steganografia LSB non è perfetta. Ecco le vulnerabilità note:
 
@@ -111,7 +111,7 @@ Ridimensionare, ritagliare, ruotare o applicare filtri (luminosità, contrasto, 
 
 ---
 
-## $ Try_It_Yourself
+## Prova tu: nascondi un messaggio in un'immagine
 
 La teoria non è nulla senza la pratica. Usa il nostro **[Laboratorio di Steganografia](/it/tools/steganography/)** gratuito lato client per codificare i tuoi messaggi nascosti nelle immagini — direttamente nel tuo browser.
 
@@ -127,7 +127,7 @@ Nessun upload, nessuna elaborazione server. I tuoi dati rimangono sulla tua macc
 
 ---
 
-## $ FAQ_Database
+## Domande frequenti sulla steganografia
 
 **La steganografia può essere rilevata?**
 

@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/docker-interview-questions/"]
 ---
 
-## Initialisation du Système
+## Ce que les recruteurs attendent sur Docker
 
 Docker est devenu une compétence incontournable pour tout rôle DevOps, SRE ou ingénierie backend. Les recruteurs au niveau senior s'attendent à ce que vous alliez au-delà de `docker run` — ils veulent voir que vous comprenez la stratification des images, les mécanismes internes du réseau, le renforcement de la sécurité et les patterns d'orchestration en production. Ce guide contient les 20 questions les plus fréquemment posées lors d'entretiens de niveau Senior et Lead, avec des réponses détaillées qui démontrent la profondeur.
 

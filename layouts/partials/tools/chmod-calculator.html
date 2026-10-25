@@ -56,32 +56,31 @@
 <style>
 .chmod-calculator {
   max-width: 620px;
-  margin: 2rem auto;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  margin: 0 auto;
+  font-family: var(--font-sans);
 }
 
 .chmod-grid {
   display: grid;
   grid-template-columns: 1fr repeat(3, 1fr);
   gap: 15px;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--bg-raised);
   padding: 25px 20px;
-  border: 1px solid #333;
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
   align-items: center;
 }
 
 .chmod-label {
-  color: #00e5ff;
+  color: var(--accent);
   font-weight: bold;
   font-size: 0.95rem;
 }
 
 .chmod-header {
-  color: #888;
+  color: var(--text-2);
   text-align: center;
   font-size: 0.8rem;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
@@ -107,8 +106,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #222;
-  border: 1px solid #444;
+  background-color: var(--surface-3);
+  border: 1px solid var(--border-input);
   transition: 0.3s;
   border-radius: 34px;
 }
@@ -120,63 +119,62 @@
   width: 18px;
   left: 3px;
   bottom: 3px;
-  background-color: #666;
+  background-color: var(--text-3);
   transition: 0.3s;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: rgba(0, 229, 255, 0.15);
-  border-color: #00e5ff;
-  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
 }
 
 input:checked + .slider:before {
   transform: translateX(24px);
-  background-color: #00e5ff;
-  box-shadow: 0 0 6px #00e5ff;
+  background-color: var(--accent);
 }
 
 /* Filename Input */
 .chmod-filename-wrap {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 8px 12px;
   margin-top: 20px;
   padding: 0 5px;
 }
 
 .chmod-filename-label {
-  color: #888;
+  color: var(--text-2);
   font-size: 0.85rem;
   white-space: nowrap;
 }
 
 .chmod-filename-input {
-  flex: 1;
-  background: #111;
-  border: 1px solid #333;
+  flex: 1 1 10rem;
+  min-width: 0;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-strong);
   border-radius: 4px;
   padding: 8px 12px;
-  color: #fff;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  color: var(--text);
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .chmod-filename-input:focus {
-  border-color: #00e5ff;
+  border-color: var(--accent);
 }
 
 /* Result Terminal Box */
 .chmod-result-box {
   margin-top: 20px;
-  background: #0a0a0a;
-  border: 1px solid #00e5ff;
+  background: var(--bg-raised);
+  border: 1px solid var(--accent);
   border-radius: 8px;
   padding: 20px 25px;
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
 }
 
 .chmod-result-line {
@@ -188,29 +186,27 @@ input:checked + .slider:before {
 }
 
 .chmod-prompt {
-  color: #00e5ff;
+  color: var(--accent);
   font-weight: bold;
 }
 
 .chmod-cmd {
-  color: #888;
+  color: var(--text-2);
 }
 
 .chmod-octal {
-  color: #ff00ff;
+  color: var(--accent-2);
   font-weight: bold;
-  text-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
 }
 
 .chmod-file {
-  color: #00e5ff;
+  color: var(--accent);
 }
 
 .chmod-symbol-line {
   margin-top: 10px;
-  color: #555;
+  color: var(--text-3);
   font-size: 1rem;
-  letter-spacing: 1px;
 }
 
 /* Copy Button */
@@ -221,27 +217,26 @@ input:checked + .slider:before {
   gap: 8px;
   margin: 20px auto;
   background: transparent;
-  border: 1px solid #00e5ff;
-  color: #00e5ff;
+  border: 1px solid var(--accent);
+  color: var(--accent);
   padding: 10px 24px;
   border-radius: 6px;
   cursor: pointer;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.2s;
 }
 
 .chmod-copy-btn:hover {
-  background: #00e5ff;
-  color: #000;
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .chmod-copy-btn.copied {
-  background: #00e5ff;
-  color: #000;
-  border-color: #00e5ff;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
 }
 
 /* Presets */
@@ -255,26 +250,25 @@ input:checked + .slider:before {
 }
 
 .chmod-presets-label {
-  color: #555;
+  color: var(--text-3);
   font-size: 0.8rem;
 }
 
 .chmod-preset-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333;
-  color: #aaa;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  color: var(--text-2);
   padding: 5px 14px;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: 0.8rem;
   transition: all 0.2s;
 }
 
 .chmod-preset-btn:hover {
-  border-color: #00e5ff;
-  color: #00e5ff;
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 @media (max-width: 480px) {

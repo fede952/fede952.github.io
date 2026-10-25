@@ -1,27 +1,30 @@
 ---
-title: "Verifica Sicurezza Password e Generatore"
-description: "Scopri quanto è sicura una password (entropia in bit, tempo per craccarla) e genera password o passphrase casuali. Funziona interamente nel browser."
-intro: "**PassFort** genera password e passphrase casuali con il generatore crittografico del tuo browser e verifica entropia e tempo di attacco brute-force di qualsiasi password. Nulla di ciò che scrivi lascia questa pagina."
+title: "Verifica Password: Sicurezza e Violazioni"
+description: "Scopri quanto è sicura una password (entropia, tempo di attacco brute-force) e se compare in violazioni di dati note, con k-anonimato. Nel browser."
+intro: "**PassFort** controlla una password che usi già: la sua entropia, quanto ci vorrebbe a forzarla, gli schemi da evitare e, se lo chiedi, se è comparsa in una **violazione di dati** nota. L'analisi della robustezza non lascia questa pagina; il controllo facoltativo delle violazioni invia solo 5 caratteri dell'hash della password. Ti serve una password nuova? Usa il [Generatore di Password Casuali](/it/tools/password-generator/)."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
-keywords: ["verifica sicurezza password", "generatore password sicure", "generatore passphrase", "calcolo entropia password", "quanto tempo per craccare una password", "password casuale", "test password", "password forte"]
+keywords: ["verifica sicurezza password", "controllo password", "password violata", "la mia password è stata rubata", "calcolo entropia password", "quanto tempo per craccare una password", "test password", "have i been pwned password"]
 tags: ["sicurezza", "password", "privacy", "strumento"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: generatore e verifica sicurezza password"
+tool_title: "PassFort: verifica sicurezza e violazioni delle password"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Apri la scheda **Generator**. Scegli la lunghezza (da 8 a 128 caratteri) e i gruppi di caratteri: maiuscole, minuscole, cifre, simboli."
+  - "Scrivi o incolla la password da controllare nella scheda **Auditor**, che si apre per prima. Il pulsante con l'occhio la mostra o la nasconde."
+  - "Leggi il misuratore di entropia, il tempo stimato per craccarla e la checklist: tutto ciò che è rosso va sistemato prima di riusare quella password."
+  - "Se vuoi, premi **Check against known breaches** per sapere se quella password esatta è comparsa in un data breach. Non viene inviato nulla finché non lo premi."
+  - "Per creare una passphrase o una password nuova, apri la scheda **Generator**. Scegli la lunghezza (da 8 a 128 caratteri) e i gruppi di caratteri: maiuscole, minuscole, cifre, simboli."
   - "Per qualcosa da digitare e ricordare, attiva **Passphrase Mode** e scegli da 3 a 8 parole. Per una master password usane almeno 6."
   - "Premi **Generate Password** finché il risultato ti piace, poi copialo con il pulsante degli appunti e incollalo direttamente nel tuo password manager."
-  - "Per controllare una password che usi già, passa alla scheda **Auditor** e scrivila o incollala. Il pulsante con l'occhio la mostra o la nasconde."
-  - "Leggi il misuratore di entropia, il tempo stimato per craccarla e la checklist: tutto ciò che è rosso va sistemato prima di riusare quella password."
 faq:
   - q: "È sicuro inserire la mia vera password in questo verificatore?"
-    a: "Sì. L'auditor è JavaScript che gira dentro questa pagina: non invia mai in rete ciò che scrivi, e il valore sparisce appena svuoti il campo o chiudi la scheda. Puoi verificarlo negli strumenti per sviluppatori del browser (scheda Rete) mentre digiti. Se preferisci, prova una password che *segue lo stesso schema* di quella vera."
+    a: "Sì. L'auditor è JavaScript che gira dentro questa pagina: non invia mai in rete ciò che scrivi, e il valore sparisce appena svuoti il campo o chiudi la scheda. Puoi verificarlo negli strumenti per sviluppatori del browser (scheda Rete) mentre digiti. Se preferisci, prova una password che *segue lo stesso schema* di quella vera. L'unica eccezione è il controllo facoltativo delle violazioni, e solo quando premi il suo pulsante: invia 5 caratteri dell'hash SHA-1 della password, mai la password (vedi la domanda successiva)."
+  - q: "Come funziona il controllo delle violazioni senza rivelare la password?"
+    a: "Usa il modello di k-anonimato del servizio Pwned Passwords di Have I Been Pwned. PassFort calcola nel browser l'hash SHA-1 della password e invia solo i primi 5 caratteri esadecimali ad `api.pwnedpasswords.com`. Il servizio risponde con le circa 1.000 terminazioni di hash che condividono quel prefisso, ognuna con il numero di violazioni, e PassFort cerca la corrispondenza in locale. La richiesta chiede anche il riempimento (`Add-Padding: true`), così ogni risposta ha una dimensione simile qualunque sia il risultato. Il servizio non vede mai la password né il suo hash completo; vede il tuo indirizzo IP, come per qualsiasi richiesta web. Il controllo parte solo quando premi il pulsante."
   - q: "Quanti bit di entropia servono per una password sicura?"
     a: "Per account protetti da un hash lento e con salt, 60–70 bit di entropia *casuale* resistono a lungo a un attacco brute-force offline. Per la master password del password manager o per la cifratura del disco punta a 80–100 bit. Una password casuale di 16 caratteri con tutti e quattro i gruppi dà circa 103 bit; una passphrase PassFort di 7 parole circa 72 bit."
   - q: "Meglio una passphrase o una password casuale?"
@@ -67,6 +70,10 @@ L'auditor stima la dimensione dell'"alfabeto" da cui attinge la tua password: 26
 Il tempo per craccarla è quello necessario a provare tutte le 2^entropia combinazioni a **10¹⁰ tentativi al secondo**, mostrato in unità comprensibili fino a "secoli". Il misuratore si riempie a 100 bit e passa da rosso ad arancione, giallo e verde a 25, 50 e 75 bit. Sotto trovi otto controlli: almeno 8 e 12 caratteri, ciascun gruppo di caratteri, nessuno schema iniziale comune, almeno 60 bit.
 
 È il classico modello "brute-force". È preciso per password casuali come quelle del generatore, ed è **ottimista per le password inventate dalle persone**, perché non riconosce parole di dizionario, nomi o date.
+
+### Il controllo facoltativo delle violazioni
+
+Una password può avere molta entropia ed essere comunque inutile perché è trapelata: gli attaccanti provano per prime le password dei data breach. **Check against known breaches** chiede a Have I Been Pwned se quella password esatta è nel suo elenco di password provenienti da violazioni reali, con il k-anonimato: escono dalla pagina solo i primi 5 dei 40 caratteri esadecimali del suo hash SHA-1 (`5BAA6` per `password`), il confronto con i suffissi restituiti avviene nel browser e le risposte sono riempite perché la dimensione non riveli nulla. È disattivato finché non premi il pulsante, e scrivere una nuova password cancella il risultato precedente.
 
 ## Casi d'uso
 

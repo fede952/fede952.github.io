@@ -112,7 +112,7 @@ git rebase --abort
 
 ---
 
-## Recupero
+## Recuperare commit e branch persi
 
 Quando tutto va in fiamme, questi comandi sono il tuo estintore.
 

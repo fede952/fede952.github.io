@@ -1,0 +1,23 @@
+# Translations deleted on purpose. For every language in `langs`, each path
+# in `from` (the old URLs, without the language prefix) 301s to `page` in
+# language `to`: layouts/home.redirects writes the rules into Cloudflare's
+# `_redirects` and also publishes a small meta-refresh page at each old URL
+# for hosts that ignore `_redirects` (GitHub Pages).
+#
+# HTB Cap writeup: the ES/DE/FR/PT versions were English bodies under other
+# languages (duplicate, thin content). Only EN and IT remain.
+- page: /learn/writeups/htb-cap/htb-cap/
+  to: en
+  langs: [es, de, fr, pt]
+  from:
+    - /learn/writeups/htb-cap/htb-cap/
+    - /writeups/htb-cap/            # older alias of the same page
+
+# With the HTB Cap translations gone, the ES/DE/FR/PT writeups sections had
+# no articles left: their listing pages are removed too.
+- page: /learn/writeups/
+  to: en
+  langs: [es, de, fr, pt]
+  from:
+    - /learn/writeups/
+    - /writeups/                    # older section URL

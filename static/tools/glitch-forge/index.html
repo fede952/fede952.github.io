@@ -6,34 +6,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GlitchForge</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --neon:#00ff41;--neon-dim:#00cc33;--neon-glow:rgba(0,255,65,.25);
-  --bg:#0a0a0a;--panel:#111;--border:#1a1a1a;--text:#c0c0c0;
-  --mono:'Courier New',Consolas,'Liberation Mono',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --neon:var(--accent);--neon-dim:var(--accent-hover);--neon-glow:var(--accent-soft);--bg:var(--surface);--panel:var(--surface-2);--mono:var(--font-mono);--tool-accent:var(--success);
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);overflow-x:hidden}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));overflow-x:hidden}
 a{color:var(--neon)}
 
 /* ── Layout ── */
 .app{display:flex;flex-direction:column;min-height:100vh;padding:12px;gap:12px}
 .header{text-align:center;padding:12px 0;border-bottom:2px solid var(--neon)}
-.header h1{font-size:clamp(20px,4vw,32px);color:var(--neon);text-transform:uppercase;letter-spacing:6px;text-shadow:0 0 20px var(--neon-glow)}
-.header .badge{display:inline-block;margin-top:8px;padding:4px 12px;border:1px solid #333;font-size:11px;color:#888;letter-spacing:1px}
+.header h1{font-size:clamp(20px,4vw,32px);color:var(--tool-accent);}
+.header .badge{display:inline-block;margin-top:8px;padding:4px 12px;border:1px solid var(--border-strong);font-size:11px;color:var(--text-2);}
 .main{display:flex;gap:16px;flex:1;min-height:0}
-.canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:#000;border:2px solid var(--neon);position:relative;min-height:300px;overflow:hidden}
+.canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--border-strong);position:relative;min-height:300px;overflow:hidden}
 .controls{width:280px;display:flex;flex-direction:column;gap:8px;flex-shrink:0}
-.footer{text-align:center;padding:8px 0;font-size:11px;color:#555;border-top:1px solid #1a1a1a}
+.footer{text-align:center;padding:8px 0;font-size:11px;color:var(--text-3);border-top:1px solid var(--border)}
 
 /* ── Drop zone ── */
 .drop-zone{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
 .drop-zone.has-image{display:none}
-.drop-zone.drag-over{background:rgba(0,255,65,.06)}
-.drop-icon{font-size:48px;margin-bottom:12px}
-.drop-text{font-size:14px;color:#888;text-align:center;line-height:1.6}
+.drop-zone.drag-over{background:var(--accent-soft)}
+.drop-icon{margin-bottom:12px;color:var(--accent)}
+.drop-text{font-size:14px;color:var(--text-2);text-align:center;line-height:1.6}
 .drop-text span{color:var(--neon);text-decoration:underline;cursor:pointer}
-.drop-text small{display:block;margin-top:6px;font-size:11px;color:#555}
+.drop-text small{display:block;margin-top:6px;font-size:11px;color:var(--text-3)}
 
 /* ── Canvas ── */
 #canvas{display:none;max-width:100%;max-height:100%;image-rendering:auto}
@@ -41,27 +41,27 @@ a{color:var(--neon)}
 
 /* ── Controls panel ── */
 .ctrl-section{background:var(--panel);border:1px solid var(--border);padding:12px}
-.ctrl-section h3{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--neon);margin-bottom:10px;border-bottom:1px solid #222;padding-bottom:6px}
+.ctrl-section h3{font-size:11px;color:var(--neon);margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
 .ctrl-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .ctrl-row:last-child{margin-bottom:0}
-.ctrl-label{font-size:12px;color:#999;flex-shrink:0}
+.ctrl-label{font-size:12px;color:var(--text-2);flex-shrink:0}
 .ctrl-val{font-size:12px;color:var(--neon);width:36px;text-align:right;flex-shrink:0}
-.slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;margin:0 10px;background:#222;outline:none;border-radius:2px;cursor:pointer}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--neon);cursor:pointer;box-shadow:0 0 6px var(--neon-glow)}
-.slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--neon);cursor:pointer;border:none;box-shadow:0 0 6px var(--neon-glow)}
+.slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;margin:0 10px;background:var(--border-strong);outline:none;border-radius:2px;cursor:pointer}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--neon);cursor:pointer;}
+.slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--neon);cursor:pointer;border:none;}
 
 /* ── Buttons ── */
-.btn{display:block;width:100%;padding:14px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:2px;cursor:pointer;border:2px solid;text-align:center;transition:all .15s}
-.btn-export{background:transparent;color:var(--neon);border-color:var(--neon)}
-.btn-export:hover{background:var(--neon);color:#000}
-.btn-export:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:var(--neon)}
-.btn-reset{background:transparent;color:#f44;border-color:#f44;font-size:11px;padding:10px}
-.btn-reset:hover{background:#f44;color:#000}
-.btn-reset:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:#f44}
+.btn{display:block;width:100%;padding:14px;font-family:var(--font-sans);font-size:13px;cursor:pointer;border:2px solid;text-align:center;transition:all .15s}
+.btn-export{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn-export:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--accent-ink);}
+.btn-export:disabled{opacity:.3;cursor:not-allowed;background:var(--accent);color:var(--accent-ink)}
+.btn-reset{background:transparent;color:var(--danger);border-color:var(--danger);font-size:11px;padding:10px}
+.btn-reset:hover{background:var(--danger);color:var(--bg)}
+.btn-reset:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:var(--danger)}
 
 /* ── Presets ── */
 .presets{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.btn-preset{padding:8px 6px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1px;background:transparent;color:var(--text);border:1px solid #333;cursor:pointer;transition:all .15s}
+.btn-preset{padding:8px 6px;font-family:var(--font-sans);font-size:10px;background:transparent;color:var(--text);border:1px solid var(--border-strong);cursor:pointer;transition:all .15s}
 .btn-preset:hover,.btn-preset.active{border-color:var(--neon);color:var(--neon)}
 
 /* ── Responsive ── */
@@ -87,7 +87,7 @@ a{color:var(--neon)}
   <div class="main">
     <div class="canvas-wrap" id="canvasWrap">
       <div class="drop-zone" id="dropZone">
-        <div class="drop-icon">&#x1f4c2;</div>
+        <div class="drop-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19.5H5a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V12"/><path d="M3 15.5l4.5-4.5 4 4"/><circle cx="15.5" cy="8.5" r="1.25"/><path d="M18 21v-6M15.5 17.5 18 15l2.5 2.5"/></svg></div>
         <div class="drop-text">
           Drag &amp; drop an image here<br>
           or <span id="browseBtn">browse files</span>

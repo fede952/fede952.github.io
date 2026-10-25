@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/docker-container-commands/"]
 ---
 
-## System Init
+## What This Docker Cheatsheet Covers
 
 Docker changed the way software is built, shipped, and deployed. Instead of configuring servers manually and hoping the environment matches production, you package your application and all its dependencies into a container — a lightweight, portable, self-contained unit that runs identically on any machine. Whether you are deploying a microservice architecture, running CI/CD pipelines, or spinning up isolated development environments, Docker is the engine that makes it possible. This field manual contains every command you need to manage the full container lifecycle, from pulling your first image to orchestrating multi-service stacks with Docker Compose.
 

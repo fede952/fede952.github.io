@@ -1,6 +1,6 @@
 ---
 title: "Git Disaster Recovery : Annuler les Erreurs et Corriger l'Historique"
-description: "Le kit d'urgence pour developpeurs. Apprenez a annuler des commits, resoudre des conflits de merge, recuperer des branches supprimees et maitriser git rebase vs merge."
+description: "Le kit d'urgence pour développeurs. Apprenez à annuler des commits, résoudre des conflits de merge, récupérer des branches supprimées et maîtriser git rebase vs merge."
 date: 2026-02-13
 tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git undo commit", "git reset hard vs soft", "recover deleted branch", "git rebase tutorial", "fix merge conflict", "git cherry-pick"]
@@ -9,11 +9,11 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
-## Annuler des Modifications
+## Annuler des modifications
 
-Les trois piliers du "j'ai tout casse" : reset, revert et restore. Chacun a une portee et un niveau de danger different.
+Les trois piliers du "j'ai tout cassé" : reset, revert et restore. Chacun a une portée et un niveau de danger différent.
 
-### git restore — Annuler les Modifications Non Indexees
+### git restore — Annuler les Modifications Non Indexées
 
 ```bash
 # Discard changes in a single file (working directory only)
@@ -29,7 +29,7 @@ git restore --staged file.txt
 git restore --source=abc1234 file.txt
 ```
 
-### git reset — Deplacer HEAD en Arriere
+### git reset — Déplacer HEAD en Arrière
 
 ```bash
 # Soft reset: undo commit, keep changes staged
@@ -45,9 +45,9 @@ git reset --hard HEAD~1
 git reset --hard abc1234
 ```
 
-> **--soft** conserve tout dans l'index. **--mixed** desindexe mais garde les fichiers. **--hard** detruit tout. En cas de doute, utilisez `--soft`.
+> **--soft** conserve tout dans l'index. **--mixed** désindexe mais garde les fichiers. **--hard** détruit tout. En cas de doute, utilisez `--soft`.
 
-### git revert — Annuler un Commit en Toute Securite (Historique Public)
+### git revert — Annuler un Commit en Toute Sécurité (Historique Public)
 
 ```bash
 # Create a new commit that undoes a specific commit
@@ -60,11 +60,11 @@ git revert --no-commit abc1234
 git revert -m 1 <merge-commit-hash>
 ```
 
-> Utilisez `revert` au lieu de `reset` sur les branches partagees — cela ne reecrit pas l'historique.
+> Utilisez `revert` au lieu de `reset` sur les branches partagées — cela ne réécrit pas l'historique.
 
 ---
 
-## Reecrire l'Historique
+## Réécrire l'historique
 
 Pour quand vos messages de commit sont embarrassants ou que l'historique de votre branche est un chaos.
 
@@ -86,16 +86,16 @@ git commit --amend --no-edit
 git rebase -i HEAD~3
 ```
 
-Dans l'editeur, vous pouvez :
+Dans l'éditeur, vous pouvez :
 
 | Commande | Effet                                  |
 |----------|----------------------------------------|
 | `pick`   | Garder le commit tel quel              |
 | `reword` | Changer le message du commit           |
-| `edit`   | S'arreter pour modifier le commit      |
-| `squash` | Fusionner avec le commit precedent     |
+| `edit`   | S'arrêter pour modifier le commit      |
+| `squash` | Fusionner avec le commit précédent     |
 | `fixup`  | Comme squash, mais ignorer le message  |
-| `drop`   | Supprimer le commit entierement        |
+| `drop`   | Supprimer le commit entièrement        |
 
 ```bash
 # Rebase current branch onto main (linear history)
@@ -108,17 +108,17 @@ git rebase --continue
 git rebase --abort
 ```
 
-> **Rebase vs Merge :** Rebase cree un historique lineaire (logs plus propres). Merge preserve la topologie des branches (plus sur pour les branches partagees). Ne jamais rebaser des commits que d'autres ont deja recuperes.
+> **Rebase vs Merge :** Rebase crée un historique linéaire (logs plus propres). Merge préserve la topologie des branches (plus sûr pour les branches partagées). Ne jamais rebaser des commits que d'autres ont déjà récupérés.
 
 ---
 
-## Recuperation
+## Récupérer des commits et des branches perdus
 
 Quand tout est en feu, ces commandes sont votre extincteur.
 
-### git reflog — La Bouee de Sauvetage
+### git reflog — La Bouée de Sauvetage
 
-Le reflog enregistre chaque mouvement de HEAD. Meme apres un hard reset, vos commits sont toujours la.
+Le reflog enregistre chaque mouvement de HEAD. Même après un hard reset, vos commits sont toujours là.
 
 ```bash
 # View the reflog (all recent HEAD positions)
@@ -147,7 +147,7 @@ git fsck --lost-found
 # Results saved to .git/lost-found/
 ```
 
-### Recuperer une Branche Supprimee
+### Récupérer une Branche Supprimée
 
 ```bash
 # Step 1: find the last commit of the deleted branch
@@ -164,9 +164,9 @@ git checkout -b recovered-branch HEAD@{5}
 
 ---
 
-## Scenarios de Catastrophe Courants
+## Scénarios de catastrophe courants
 
-### "J'ai commite sur la mauvaise branche"
+### "J'ai commité sur la mauvaise branche"
 
 ```bash
 # Step 1: Note the commit hash
@@ -183,7 +183,7 @@ git stash pop
 git add . && git commit -m "feature in the right place"
 ```
 
-### "Je dois arreter de suivre un fichier mais le garder localement"
+### "Je dois arrêter de suivre un fichier mais le garder localement"
 
 ```bash
 # Remove from git tracking but keep the file on disk
@@ -228,7 +228,7 @@ git commit
 git merge --abort
 ```
 
-### git cherry-pick — Recuperer des Commits Specifiques
+### git cherry-pick — Récupérer des Commits Spécifiques
 
 ```bash
 # Apply a single commit from another branch
@@ -243,17 +243,17 @@ git cherry-pick --no-commit abc1234
 
 ---
 
-## Tableau de Reference Rapide
+## Tableau de référence rapide
 
 | Situation | Commande |
 |-----------|----------|
 | Annuler le dernier commit (garder les modifications) | `git reset --soft HEAD~1` |
 | Annuler le dernier commit (supprimer les modifications) | `git reset --hard HEAD~1` |
-| Annuler un commit pousse | `git revert <hash>` |
+| Annuler un commit poussé | `git revert <hash>` |
 | Annuler les modifications d'un fichier | `git restore <file>` |
-| Desindexer un fichier | `git restore --staged <file>` |
-| Recuperer une branche supprimee | `git reflog` + `git branch name <hash>` |
+| Désindexer un fichier | `git restore --staged <file>` |
+| Récupérer une branche supprimée | `git reflog` + `git branch name <hash>` |
 | Corriger le dernier message de commit | `git commit --amend -m "new msg"` |
 | Fusionner les N derniers commits | `git rebase -i HEAD~N` |
-| Deplacer un commit vers la bonne branche | `git reset --soft HEAD~1` + stash + switch |
-| Arreter de suivre un fichier | `git rm --cached <file>` |
+| Déplacer un commit vers la bonne branche | `git reset --soft HEAD~1` + stash + switch |
+| Arrêter de suivre un fichier | `git rm --cached <file>` |

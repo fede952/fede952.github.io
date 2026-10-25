@@ -2,7 +2,7 @@
 title: "Privacy Policy"
 description: "How federicosella.com handles your data: browser tools that process everything locally with zero uploads, cookieless analytics, consent-based ads and disclosed affiliate links."
 date: 2026-07-04
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 hidemeta: true
 showToc: true
 ---
@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Data Controller
 
-**Federico Sella** — Suisio (Bergamo), Italy
+**Federico Sella** — Italy
 Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. The Short Version
@@ -32,6 +32,8 @@ Every interactive tool on this site (password generator and auditor, EXIF cleane
 - are discarded when you close or reload the page, unless you save the result yourself.
 
 **One exception, by design:** **NetGuard** shows you your public IP address and its approximate location. To do that, your browser sends a request to the IP-lookup service [ipwho.is](https://ipwho.is/). Like any web request, this reveals your IP address (and browser user-agent) to that service. Nothing else is sent, and the request is made only when you click Scan in NetGuard.
+
+**A second exception, opt-in:** the **PassFort** auditor can check whether a password appears in known data breaches. This happens only when you press **Check against known breaches**. Your browser then computes the password's SHA-1 hash and sends only its first 5 characters to Have I Been Pwned's Pwned Passwords service at [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-anonymity); the password and the rest of its hash are never sent, and the comparison happens on your device. Like any web request, it reveals your IP address and browser user-agent to that service.
 
 Some tools also offer links to external services (for example "check this URL on VirusTotal" in Link Hazmat, or share buttons). Those are ordinary links: nothing is sent until you click one.
 

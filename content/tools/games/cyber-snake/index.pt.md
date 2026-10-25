@@ -1,11 +1,11 @@
 ---
-title: "Cyber Snake: Devorador de Dados"
+title: "Data Eater: perseguição retrô na grade"
 description: "Navegue pela grade. Consuma pacotes de dados. Aumente sua cauda. Não bata no firewall."
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "retro", "html5", "cyberpunk", "snake"]
-keywords: ["jogo snake", "jogo retro", "snake cyberpunk", "jogo navegador"]
+tags: ["game", "retro", "html5", "cyberpunk"]
+keywords: ["jogo retro", "jogo navegador"]
 draft: false
 aliases: ["/games/cyber-snake/"]
 ---

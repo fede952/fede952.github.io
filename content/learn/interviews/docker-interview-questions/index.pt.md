@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/docker-interview-questions/"]
 ---
 
-## Inicialização do Sistema
+## O que os entrevistadores buscam em Docker
 
 Docker tornou-se uma habilidade indispensável para qualquer cargo de DevOps, SRE ou engenharia backend. Entrevistadores de nível sênior esperam que você vá além do `docker run` — eles querem ver que você entende camadas de imagem, detalhes internos de rede, endurecimento de segurança e padrões de orquestração para produção. Este guia contém as 20 perguntas mais frequentes em entrevistas de nível Sênior e Lead, com respostas detalhadas que demonstram profundidade.
 

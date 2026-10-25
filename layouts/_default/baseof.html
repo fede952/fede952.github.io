@@ -3,14 +3,9 @@
 {{- end -}}
 
 <!DOCTYPE html>
-{{- $theme := site.Params.defaultTheme | default "auto" }}
-{{- if eq $theme "dark" }}
+{{- /* Dark-only site (theme toggle disabled, no light palette): the theme
+     attribute is fixed so PaperMod's dark rules always apply. */}}
 <html lang="{{ site.Language }}" dir="{{ .Language.Direction | default "auto" }}" data-theme="dark">
-{{- else if eq $theme "light" }}
-<html lang="{{ site.Language }}" dir="{{ .Language.Direction | default "auto" }}" data-theme="light">
-{{- else }}
-<html lang="{{ site.Language }}" dir="{{ .Language.Direction | default "auto" }}" data-theme="auto">
-{{- end }}
 
 <head>
     {{- partial "head.html" . }}
@@ -22,13 +17,15 @@
 <body id="top">
 {{- end }}
     {{ partialCached "header.html" . .Page -}}
-    <main class="main">
+    {{- /* listings and pages with a sidebar get the wide container */}}
+    {{- $wide := or (ne .Kind "page") (in (slice "tools" "learn") .Section) }}
+    <main class="main{{ if $wide }} main--wide{{ end }}">
         {{- block "main" . }}{{ end }}
     </main>
     {{/* Cache key extended with .Section so any section-gated logic inside
          footer.html / extend_footer.html caches correctly across page
          classes sharing .Layout="" / .Kind="page". */}}
-    {{ partialCached "footer.html" . .Layout .Kind .Section (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+    {{ partialCached "footer.html" . .Layout .Kind .Section (.Param "hideFooter") -}}
 </body>
 
 </html>

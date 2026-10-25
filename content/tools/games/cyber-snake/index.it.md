@@ -1,11 +1,11 @@
 ---
-title: "Cyber Snake: Divoratore di Dati"
+title: "Data Eater: inseguimento retro sulla griglia"
 description: "Naviga nella griglia. Consuma pacchetti dati. Fai crescere la coda. Non colpire il firewall."
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "retro", "html5", "cyberpunk", "snake"]
-keywords: ["gioco snake", "gioco retro", "snake cyberpunk", "gioco browser"]
+tags: ["game", "retro", "html5", "cyberpunk"]
+keywords: ["gioco retro", "gioco browser"]
 draft: false
 aliases: ["/games/cyber-snake/"]
 ---

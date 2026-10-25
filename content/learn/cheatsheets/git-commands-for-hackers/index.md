@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
-## System Init
+## What this Git cheatsheet covers
 
 Every operation leaves a trace. Every commit is a checkpoint. Git is not just version control — it is the forensic backbone of every software project. This field manual contains the commands you will use daily and the ones that will save you when everything breaks.
 
@@ -17,7 +17,7 @@ Commands are organized by mission type. Execute with precision.
 
 ---
 
-## Emergency Fixes
+## Undo commits and recover branches
 
 When a deploy goes wrong and the timeline needs rewriting.
 
@@ -68,7 +68,7 @@ git revert <commit-hash>
 
 ---
 
-## Stealth Mode
+## Sign and verify commits with GPG
 
 Cryptographic signing and identity verification. Prove your commits are authentic.
 
@@ -114,7 +114,7 @@ git tag -v v1.0.0
 
 ---
 
-## Branch Operations
+## Branch operations
 
 Tactical branch management for parallel development.
 
@@ -166,7 +166,7 @@ git rebase -i HEAD~3
 
 ---
 
-## Reconnaissance
+## Inspect history and find the commit that broke it
 
 Inspect the repository state before making decisions.
 
@@ -210,7 +210,7 @@ git bisect good abc1234 # This old commit was working
 
 ---
 
-## Stash Operations
+## Stash work in progress
 
 Temporarily shelve work without committing.
 
@@ -247,7 +247,7 @@ git stash branch feature/from-stash stash@{0}
 
 ---
 
-## Advanced Protocols
+## Cherry-pick, patches and shallow clones
 
 Power commands for complex scenarios.
 

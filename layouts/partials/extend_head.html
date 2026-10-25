@@ -24,7 +24,7 @@
 
 <!-- PWA Manifest + Theme Color -->
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#1d1e20">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 {{- /* No service worker any more: the old one served /js and /vendor
@@ -38,3 +38,6 @@
 
 <!-- JetBrains Mono, self-hosted (assets/css/extended/fonts.css) -->
 <link rel="preload" href="/fonts/jetbrains-mono/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+{{- /* publishes /css/tool-base.css for the embedded tool apps */}}
+{{- $_ := partialCached "tool-base.html" "tool-base" }}

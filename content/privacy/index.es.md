@@ -2,7 +2,7 @@
 title: "Política de Privacidad"
 description: "Cómo trata tus datos federicosella.com: herramientas que procesan todo localmente en el navegador sin subidas, analítica sin cookies, anuncios con consentimiento y enlaces de afiliado declarados."
 date: 2026-07-04
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 hidemeta: true
 showToc: true
 ---
@@ -11,7 +11,7 @@ showToc: true
 
 ## 1. Responsable del tratamiento
 
-**Federico Sella** — Suisio (Bérgamo), Italia
+**Federico Sella** — Italia
 Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 
 ## 2. En resumen
@@ -32,6 +32,8 @@ Todas las herramientas interactivas del sitio (generador y auditor de contraseñ
 - se descartan al cerrar o recargar la página, salvo que guardes tú el resultado.
 
 **Una excepción, intencionada:** **NetGuard** te muestra tu dirección IP pública y su ubicación aproximada. Para ello, tu navegador envía una petición al servicio de consulta de IP [ipwho.is](https://ipwho.is/). Como cualquier petición web, revela a ese servicio tu dirección IP (y el user-agent del navegador). No se envía nada más, y la petición solo se hace cuando pulsas Scan en NetGuard.
+
+**Una segunda excepción, opcional:** el auditor de **PassFort** puede comprobar si una contraseña aparece en filtraciones de datos conocidas. Solo ocurre cuando pulsas **Check against known breaches**. Tu navegador calcula entonces el hash SHA-1 de la contraseña y envía solo sus 5 primeros caracteres al servicio Pwned Passwords de Have I Been Pwned en [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-anonimato); la contraseña y el resto del hash nunca se envían y la comparación se hace en tu dispositivo. Como cualquier petición web, revela a ese servicio tu dirección IP y el user-agent del navegador.
 
 Algunas herramientas ofrecen además enlaces a servicios externos (por ejemplo "comprobar esta URL en VirusTotal" en Link Hazmat, o los botones para compartir). Son enlaces normales: no se envía nada hasta que haces clic.
 

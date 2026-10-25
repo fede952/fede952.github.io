@@ -1,0 +1,28 @@
+{{- /* Markdown table inside a keyboard-focusable, horizontally scrollable
+     region, so wide tables scroll on phones instead of being crushed into
+     narrow columns (cell minimum widths: tables.css). */ -}}
+<div class="table-frame" data-scroll-x><div class="table-wrap" role="region" tabindex="0" aria-label="{{ i18n "table_label" | default "Table" }}">
+<table
+  {{- range $k, $v := .Attributes }}
+    {{- if $v }}{{ printf " %s=%q" $k $v | safeHTMLAttr }}{{ end }}
+  {{- end }}>
+  <thead>
+    {{- range .THead }}
+    <tr>
+      {{- range . }}
+      <th{{ with .Alignment }} style="text-align: {{ . }}"{{ end }}>{{ .Text }}</th>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </thead>
+  <tbody>
+    {{- range .TBody }}
+    <tr>
+      {{- range . }}
+      <td{{ with .Alignment }} style="text-align: {{ . }}"{{ end }}>{{ .Text }}</td>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </tbody>
+</table>
+</div></div>

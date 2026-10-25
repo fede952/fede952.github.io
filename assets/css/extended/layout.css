@@ -1,0 +1,204 @@
+/* ============================================================
+   PAGE LAYOUT
+   .main is PaperMod's page container. Reading pages stay at
+   --content-max; listings and pages with a sidebar get
+   .main--wide (baseof.html). Tool and learn pages use
+   .page-grid: main column + a 300 px sidebar at >= 1100 px;
+   below that the sidebar content simply follows the article.
+   ============================================================ */
+
+.main {
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  padding: var(--s-6) var(--gutter) var(--s-9);
+  min-height: calc(100vh - var(--header-h) - 200px);
+}
+
+.main--wide {
+  max-width: calc(var(--page-max) + var(--gutter) * 2);
+}
+
+@media (max-width: 599.98px) {
+  .main {
+    padding-top: var(--s-3);
+  }
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-8);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+@media (min-width: 1100px) {
+  .page-grid {
+    grid-template-columns: minmax(0, var(--content-max)) var(--sidebar-w);
+    max-width: none;
+    justify-content: center;
+    column-gap: var(--s-8);
+  }
+}
+
+.page-main {
+  min-width: 0;
+}
+
+/* ── Sidebar ── */
+.page-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  min-width: 0;
+}
+
+.side-box {
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.side-box-title {
+  margin: 0 0 var(--s-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.side-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 44px;
+  padding: var(--s-2);
+  border-radius: var(--r);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  text-decoration: none;
+}
+
+.side-link:hover {
+  background: var(--surface-2);
+  color: var(--accent-hover);
+}
+
+.side-link-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.side-link-text {
+  display: grid;
+  min-width: 0;
+}
+
+.side-link-meta {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+/* Below 1100 px the sidebar sits under the article: show its lists as a
+   two-column grid instead of a narrow rail. */
+@media (min-width: 600px) and (max-width: 1099.98px) {
+  .page-sidebar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    align-items: start;
+  }
+}
+
+/* The sidebar ad is only inserted at >= 1100 px, into a computed "track"
+   (assets/js/site.js); it is sticky inside that track. */
+.page-sidebar {
+  position: relative;
+}
+
+.sidebar-ad {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .sidebar-ad {
+    display: block;
+  }
+
+  .sidebar-ad .ad-slot {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
+  }
+}
+
+/* ── Section headings used by listings ── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin: 0 0 var(--s-4);
+}
+
+.section-head h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  font-size: var(--fs-xl);
+  line-height: var(--lh-tight);
+}
+
+.section-head h2 .icon {
+  color: var(--accent);
+}
+
+.section-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  min-height: 32px;
+  color: var(--accent);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.section-more:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* ── Page header of listings (/tools/, /learn/, sub-sections) ── */
+.page-header {
+  margin: var(--s-4) 0 var(--s-7);
+}
+
+.page-header h1 {
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+}
+
+.page-header .post-description {
+  max-width: 65ch;
+  color: var(--text-2);
+  font-size: var(--fs-lg);
+}

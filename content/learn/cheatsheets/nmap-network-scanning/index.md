@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/nmap-network-scanning/"]
 ---
 
-## System Init
+## What this Nmap cheatsheet covers
 
 Nmap is the first tool loaded in any reconnaissance engagement. It maps the attack surface, identifies live hosts, enumerates open ports, fingerprints services, and detects vulnerabilities — all from a single binary. This field manual provides the exact commands for each phase of network reconnaissance.
 
@@ -17,7 +17,7 @@ All commands assume authorized testing. Deploy responsibly.
 
 ---
 
-## Host Discovery
+## Host discovery: find live hosts
 
 Identify live targets on the network before port scanning.
 
@@ -58,7 +58,7 @@ nmap -sL 192.168.1.0/24
 
 ---
 
-## Port Scanning
+## Port scanning techniques
 
 Enumerate open ports to map the target's attack surface.
 
@@ -112,7 +112,7 @@ nmap -F 192.168.1.100
 
 ---
 
-## Service Detection
+## Service and version detection
 
 Identify what software is running on each open port.
 
@@ -153,7 +153,7 @@ sudo nmap -A 192.168.1.100
 
 ---
 
-## NSE Scripts
+## Nmap Scripting Engine (NSE) scripts
 
 Nmap Scripting Engine — automated vulnerability detection and enumeration.
 
@@ -210,7 +210,7 @@ nmap --script=ssl-cert,ssl-enum-ciphers -p 443 192.168.1.100
 
 ---
 
-## Evasion Techniques
+## Firewall and IDS evasion techniques
 
 Bypass firewalls and IDS during authorized penetration tests.
 
@@ -251,7 +251,7 @@ sudo nmap -sI zombie-host.com 192.168.1.100
 
 ---
 
-## Output Formats
+## Saving results: Nmap output formats
 
 Save scan results for documentation and post-processing.
 
@@ -285,7 +285,7 @@ nmap -oA full_scan 192.168.1.100
 
 ---
 
-## Mission Templates
+## Ready-to-use Nmap scan recipes
 
 Copy-paste command chains for common engagement scenarios.
 

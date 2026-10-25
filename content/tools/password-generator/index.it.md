@@ -61,4 +61,4 @@ Un attaccante che conosce perfettamente questo generatore, insieme e lunghezza c
 - **Reti Wi-Fi.** Genera una chiave di 20–30 caratteri per il router: la digiti una sola volta per dispositivo.
 - **Credenziali temporanee.** Crea una password usa e getta per un account ospite o un documento condiviso, poi elimina l'account quando hai finito.
 
-Per le passphrase e per verificare la robustezza di una password che usi già, prova [PassFort](/it/tools/pass-fort/).
+Per verificare la robustezza di una password che usi già, e se compare in una violazione di dati nota, prova [PassFort](/it/tools/pass-fort/).

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/subnet-calculator/">
+<title>Subnet Calculator (IPv4 / IPv6, CIDR, VLSM)</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.bin { font-family: var(--font-mono); font-size: var(--fs-sm); letter-spacing: .02em; overflow-wrap: anywhere; }
+.bin .net { color: var(--accent); }
+.bin .host { color: var(--text-2); }
+.err { color: var(--danger); font-size: var(--fs-sm); min-height: 1.2em; margin: 0; }
+.mode { display: flex; flex-wrap: wrap; gap: var(--s-4); }
+.tb-kv dd .tb-badge { font-family: var(--font-sans); }
+.sum { color: var(--text-2); font-size: var(--fs-sm); margin: 0; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Subnet Calculator</h1>
+      <p class="tb-sub" data-i18n="subtitle">IPv4 and IPv6 · CIDR · VLSM — calculated in your browser</p>
+    </div>
+  </header>
+
+  <div class="tb-tabs" role="tablist">
+    <button class="tb-tab" role="tab" id="tab-v4" aria-controls="pane-v4" aria-selected="true" data-i18n="tabV4">IPv4</button>
+    <button class="tb-tab" role="tab" id="tab-v6" aria-controls="pane-v6" aria-selected="false" data-i18n="tabV6">IPv6</button>
+    <button class="tb-tab" role="tab" id="tab-split" aria-controls="pane-split" aria-selected="false" data-i18n="tabSplit">Split (VLSM)</button>
+  </div>
+
+  <!-- IPv4 -->
+  <section id="pane-v4" role="tabpanel" aria-labelledby="tab-v4" class="tb-panel">
+    <label class="tb-field">
+      <span class="tb-label" data-i18n="v4Label">IPv4 address with prefix or mask</span>
+      <input id="v4" class="tb-input tb-mono" value="192.168.1.10/24" autocomplete="off" spellcheck="false" inputmode="decimal">
+      <span class="tb-hint" data-i18n="v4Hint">e.g. 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255</span>
+    </label>
+    <p class="err" id="v4err" role="alert"></p>
+    <dl class="tb-kv" id="v4out"></dl>
+    <div id="v4bin" class="tb-scroll"></div>
+  </section>
+
+  <!-- IPv6 -->
+  <section id="pane-v6" role="tabpanel" aria-labelledby="tab-v6" class="tb-panel" hidden>
+    <label class="tb-field">
+      <span class="tb-label" data-i18n="v6Label">IPv6 address with prefix</span>
+      <input id="v6" class="tb-input tb-mono" value="2001:db8:abcd:12::1/48" autocomplete="off" spellcheck="false">
+      <span class="tb-hint" data-i18n="v6Hint">Full or compressed form; no prefix means /128.</span>
+    </label>
+    <p class="err" id="v6err" role="alert"></p>
+    <dl class="tb-kv" id="v6out"></dl>
+  </section>
+
+  <!-- Split -->
+  <section id="pane-split" role="tabpanel" aria-labelledby="tab-split" class="tb-panel" hidden>
+    <label class="tb-field">
+      <span class="tb-label" data-i18n="splitBase">Network to split</span>
+      <input id="sbase" class="tb-input tb-mono" value="10.0.0.0/24" autocomplete="off" spellcheck="false">
+    </label>
+    <div class="mode" role="radiogroup">
+      <label class="tb-check"><input type="radio" name="smode" value="equal" checked> <span data-i18n="modeEqual">Into equal subnets</span></label>
+      <label class="tb-check"><input type="radio" name="smode" value="hosts"> <span data-i18n="modeHosts">By hosts per subnet (VLSM)</span></label>
+    </div>
+    <label class="tb-field" id="f-count">
+      <span class="tb-label" data-i18n="countLabel">Number of subnets</span>
+      <input id="scount" class="tb-input" type="number" min="1" max="65536" value="4">
+    </label>
+    <label class="tb-field" id="f-hosts" hidden>
+      <span class="tb-label" data-i18n="hostsLabel">Hosts needed in each subnet, comma-separated</span>
+      <input id="shosts" class="tb-input tb-mono" value="100, 50, 20, 2" autocomplete="off" spellcheck="false">
+    </label>
+    <p class="err" id="serr" role="alert"></p>
+    <p class="sum" id="ssum"></p>
+    <div class="tb-scroll"><table class="tb-table" id="sout"></table></div>
+    <div class="tb-row"><button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="scopy" data-i18n="copyTable" hidden>Copy table</button></div>
+  </section>
+</main>
+
+<script type="module">
+import * as S from '/js/tools/subnet.mjs';
+
+TK.init({
+  en: { title: 'Subnet Calculator', subtitle: 'IPv4 and IPv6 · CIDR · VLSM — calculated in your browser', tabV4: 'IPv4', tabV6: 'IPv6', tabSplit: 'Split (VLSM)',
+    v4Label: 'IPv4 address with prefix or mask', v4Hint: 'e.g. 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255',
+    v6Label: 'IPv6 address with prefix', v6Hint: 'Full or compressed form; no prefix means /128.',
+    address: 'Address', network: 'Network', broadcast: 'Broadcast', first: 'First host', last: 'Last host', firstAddr: 'First address', lastAddr: 'Last address',
+    mask: 'Netmask', wildcard: 'Wildcard', cidr: 'CIDR', usable: 'Usable hosts', total: 'Total addresses', type: 'Type',
+    compressed: 'Compressed', expanded: 'Expanded', subnets64: '/64 subnets', none: 'none', binary: 'Binary', p2p: 'point-to-point (RFC 3021)', single: 'single host',
+    copy: 'Copy', copied: 'Copied', copyTable: 'Copy table',
+    'e-syntax': 'Write an address, optionally followed by /prefix or a mask.', 'e-address': 'That is not a valid address.', 'e-prefix': 'The prefix is out of range.', 'e-mask': 'That mask is not contiguous (it must be ones followed by zeros).',
+    'e-count': 'Enter a number of subnets of 1 or more.', 'e-too-many': 'Not enough address bits to split that many times.', 'e-hosts': 'List host counts as positive numbers, e.g. 100, 50, 20.',
+    'e-too-big': 'A subnet for {hosts} hosts does not fit in this network.', 'e-no-space': 'Out of space: the subnet for {hosts} hosts does not fit after the larger ones.',
+    splitBase: 'Network to split', modeEqual: 'Into equal subnets', modeHosts: 'By hosts per subnet (VLSM)', countLabel: 'Number of subnets', hostsLabel: 'Hosts needed in each subnet, comma-separated',
+    colNet: 'Subnet', colRange: 'Usable range', colHosts: 'Usable', colNeed: 'Needed', sumEqual: '{n} subnets of /{p}, {h} usable hosts each.', sumVlsm: '{used} of {size} addresses allocated, {free} free.',
+    s_private: 'Private (RFC 1918)', s_public: 'Public', s_loopback: 'Loopback', s_cgnat: 'Carrier-grade NAT (RFC 6598)', 's_link-local': 'Link-local', s_documentation: 'Documentation (not routable)', s_multicast: 'Multicast', s_broadcast: 'Limited broadcast', s_reserved: 'Reserved', 's_this-network': '"This network" (0.0.0.0/8)',
+    s_global: 'Global unicast', 's_unique-local': 'Unique local (ULA, fc00::/7)', s_unspecified: 'Unspecified', 's_ipv4-mapped': 'IPv4-mapped' },
+  it: { title: 'Calcolatore di subnet', subtitle: 'IPv4 e IPv6 · CIDR · VLSM — calcolato nel tuo browser', tabSplit: 'Suddividi (VLSM)',
+    v4Label: 'Indirizzo IPv4 con prefisso o maschera', v4Hint: 'es. 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255',
+    v6Label: 'Indirizzo IPv6 con prefisso', v6Hint: 'Forma completa o compressa; senza prefisso vale /128.',
+    address: 'Indirizzo', network: 'Rete', broadcast: 'Broadcast', first: 'Primo host', last: 'Ultimo host', firstAddr: 'Primo indirizzo', lastAddr: 'Ultimo indirizzo',
+    mask: 'Maschera', wildcard: 'Wildcard', usable: 'Host utilizzabili', total: 'Indirizzi totali', type: 'Tipo',
+    compressed: 'Compresso', expanded: 'Esteso', subnets64: 'Subnet /64', none: 'nessuno', binary: 'Binario', p2p: 'punto-punto (RFC 3021)', single: 'host singolo',
+    copy: 'Copia', copied: 'Copiato', copyTable: 'Copia tabella',
+    'e-syntax': 'Scrivi un indirizzo, eventualmente seguito da /prefisso o da una maschera.', 'e-address': 'Non è un indirizzo valido.', 'e-prefix': 'Il prefisso è fuori intervallo.', 'e-mask': 'La maschera non è contigua (devono esserci uni seguiti da zeri).',
+    'e-count': 'Inserisci un numero di subnet pari a 1 o più.', 'e-too-many': 'Non ci sono abbastanza bit per suddividere così tante volte.', 'e-hosts': 'Elenca il numero di host come numeri positivi, es. 100, 50, 20.',
+    'e-too-big': 'Una subnet per {hosts} host non entra in questa rete.', 'e-no-space': 'Spazio esaurito: la subnet per {hosts} host non entra dopo quelle più grandi.',
+    splitBase: 'Rete da suddividere', modeEqual: 'In subnet uguali', modeHosts: 'Per numero di host (VLSM)', countLabel: 'Numero di subnet', hostsLabel: 'Host necessari in ogni subnet, separati da virgole',
+    colNet: 'Subnet', colRange: 'Intervallo utilizzabile', colHosts: 'Utilizzabili', colNeed: 'Richiesti', sumEqual: '{n} subnet /{p}, {h} host utilizzabili ciascuna.', sumVlsm: '{used} indirizzi su {size} assegnati, {free} liberi.',
+    s_private: 'Privato (RFC 1918)', s_public: 'Pubblico', s_loopback: 'Loopback', s_cgnat: 'NAT di operatore (RFC 6598)', 's_link-local': 'Link-local', s_documentation: 'Documentazione (non instradabile)', s_multicast: 'Multicast', s_broadcast: 'Broadcast limitato', s_reserved: 'Riservato', 's_this-network': '"Questa rete" (0.0.0.0/8)',
+    s_global: 'Unicast globale', 's_unique-local': 'Unique local (ULA, fc00::/7)', s_unspecified: 'Non specificato', 's_ipv4-mapped': 'IPv4-mapped' },
+  es: { title: 'Calculadora de subredes', subtitle: 'IPv4 e IPv6 · CIDR · VLSM — calculado en tu navegador', tabSplit: 'Dividir (VLSM)',
+    v4Label: 'Dirección IPv4 con prefijo o máscara', v4Hint: 'p. ej. 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255',
+    v6Label: 'Dirección IPv6 con prefijo', v6Hint: 'Forma completa o comprimida; sin prefijo es /128.',
+    address: 'Dirección', network: 'Red', broadcast: 'Broadcast', first: 'Primer host', last: 'Último host', firstAddr: 'Primera dirección', lastAddr: 'Última dirección',
+    mask: 'Máscara', wildcard: 'Wildcard', usable: 'Hosts utilizables', total: 'Direcciones totales', type: 'Tipo',
+    compressed: 'Comprimida', expanded: 'Expandida', subnets64: 'Subredes /64', none: 'ninguno', binary: 'Binario', p2p: 'punto a punto (RFC 3021)', single: 'host único',
+    copy: 'Copiar', copied: 'Copiado', copyTable: 'Copiar tabla',
+    'e-syntax': 'Escribe una dirección, opcionalmente seguida de /prefijo o de una máscara.', 'e-address': 'No es una dirección válida.', 'e-prefix': 'El prefijo está fuera de rango.', 'e-mask': 'La máscara no es contigua (deben ser unos seguidos de ceros).',
+    'e-count': 'Indica un número de subredes de 1 o más.', 'e-too-many': 'No hay bits suficientes para dividir tantas veces.', 'e-hosts': 'Indica el número de hosts como números positivos, p. ej. 100, 50, 20.',
+    'e-too-big': 'Una subred para {hosts} hosts no cabe en esta red.', 'e-no-space': 'Sin espacio: la subred para {hosts} hosts no cabe tras las más grandes.',
+    splitBase: 'Red a dividir', modeEqual: 'En subredes iguales', modeHosts: 'Por hosts por subred (VLSM)', countLabel: 'Número de subredes', hostsLabel: 'Hosts necesarios en cada subred, separados por comas',
+    colNet: 'Subred', colRange: 'Rango utilizable', colHosts: 'Utilizables', colNeed: 'Necesarios', sumEqual: '{n} subredes /{p}, {h} hosts utilizables cada una.', sumVlsm: '{used} de {size} direcciones asignadas, {free} libres.',
+    s_private: 'Privada (RFC 1918)', s_public: 'Pública', s_loopback: 'Loopback', s_cgnat: 'NAT de operador (RFC 6598)', 's_link-local': 'Link-local', s_documentation: 'Documentación (no enrutable)', s_multicast: 'Multicast', s_broadcast: 'Broadcast limitado', s_reserved: 'Reservada', 's_this-network': '"Esta red" (0.0.0.0/8)',
+    s_global: 'Unicast global', 's_unique-local': 'Unique local (ULA, fc00::/7)', s_unspecified: 'No especificada', 's_ipv4-mapped': 'IPv4 mapeada' },
+  de: { title: 'Subnetzrechner', subtitle: 'IPv4 und IPv6 · CIDR · VLSM — im Browser berechnet', tabSplit: 'Aufteilen (VLSM)',
+    v4Label: 'IPv4-Adresse mit Präfix oder Maske', v4Hint: 'z. B. 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255',
+    v6Label: 'IPv6-Adresse mit Präfix', v6Hint: 'Volle oder komprimierte Form; ohne Präfix gilt /128.',
+    address: 'Adresse', network: 'Netz', broadcast: 'Broadcast', first: 'Erster Host', last: 'Letzter Host', firstAddr: 'Erste Adresse', lastAddr: 'Letzte Adresse',
+    mask: 'Netzmaske', wildcard: 'Wildcard', usable: 'Nutzbare Hosts', total: 'Adressen gesamt', type: 'Typ',
+    compressed: 'Komprimiert', expanded: 'Ausgeschrieben', subnets64: '/64-Subnetze', none: 'keiner', binary: 'Binär', p2p: 'Punkt-zu-Punkt (RFC 3021)', single: 'einzelner Host',
+    copy: 'Kopieren', copied: 'Kopiert', copyTable: 'Tabelle kopieren',
+    'e-syntax': 'Gib eine Adresse ein, optional gefolgt von /Präfix oder einer Maske.', 'e-address': 'Das ist keine gültige Adresse.', 'e-prefix': 'Das Präfix liegt außerhalb des Bereichs.', 'e-mask': 'Die Maske ist nicht zusammenhängend (erst Einsen, dann Nullen).',
+    'e-count': 'Gib eine Anzahl von mindestens 1 Subnetz an.', 'e-too-many': 'Nicht genug Adressbits, um so oft aufzuteilen.', 'e-hosts': 'Gib die Host-Anzahlen als positive Zahlen an, z. B. 100, 50, 20.',
+    'e-too-big': 'Ein Subnetz für {hosts} Hosts passt nicht in dieses Netz.', 'e-no-space': 'Kein Platz mehr: Das Subnetz für {hosts} Hosts passt nicht hinter die größeren.',
+    splitBase: 'Aufzuteilendes Netz', modeEqual: 'In gleich große Subnetze', modeHosts: 'Nach Hosts pro Subnetz (VLSM)', countLabel: 'Anzahl der Subnetze', hostsLabel: 'Benötigte Hosts je Subnetz, durch Kommas getrennt',
+    colNet: 'Subnetz', colRange: 'Nutzbarer Bereich', colHosts: 'Nutzbar', colNeed: 'Benötigt', sumEqual: '{n} Subnetze /{p}, je {h} nutzbare Hosts.', sumVlsm: '{used} von {size} Adressen vergeben, {free} frei.',
+    s_private: 'Privat (RFC 1918)', s_public: 'Öffentlich', s_loopback: 'Loopback', s_cgnat: 'Carrier-Grade-NAT (RFC 6598)', 's_link-local': 'Link-Local', s_documentation: 'Dokumentation (nicht routbar)', s_multicast: 'Multicast', s_broadcast: 'Limited Broadcast', s_reserved: 'Reserviert', 's_this-network': '„Dieses Netz“ (0.0.0.0/8)',
+    s_global: 'Globales Unicast', 's_unique-local': 'Unique Local (ULA, fc00::/7)', s_unspecified: 'Unspezifiziert', 's_ipv4-mapped': 'IPv4-gemappt' },
+  fr: { title: 'Calculateur de sous-réseaux', subtitle: 'IPv4 et IPv6 · CIDR · VLSM — calculé dans votre navigateur', tabSplit: 'Découper (VLSM)',
+    v4Label: 'Adresse IPv4 avec préfixe ou masque', v4Hint: 'ex. 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255',
+    v6Label: 'Adresse IPv6 avec préfixe', v6Hint: 'Forme complète ou compressée ; sans préfixe, /128.',
+    address: 'Adresse', network: 'Réseau', broadcast: 'Broadcast', first: 'Premier hôte', last: 'Dernier hôte', firstAddr: 'Première adresse', lastAddr: 'Dernière adresse',
+    mask: 'Masque', wildcard: 'Wildcard', usable: 'Hôtes utilisables', total: 'Adresses au total', type: 'Type',
+    compressed: 'Compressée', expanded: 'Développée', subnets64: 'Sous-réseaux /64', none: 'aucun', binary: 'Binaire', p2p: 'point à point (RFC 3021)', single: 'hôte unique',
+    copy: 'Copier', copied: 'Copié', copyTable: 'Copier le tableau',
+    'e-syntax': 'Saisissez une adresse, suivie si besoin de /préfixe ou d\'un masque.', 'e-address': 'Ce n\'est pas une adresse valide.', 'e-prefix': 'Le préfixe est hors limites.', 'e-mask': 'Le masque n\'est pas contigu (des 1 suivis de 0).',
+    'e-count': 'Indiquez un nombre de sous-réseaux d\'au moins 1.', 'e-too-many': 'Pas assez de bits d\'adresse pour découper autant.', 'e-hosts': 'Indiquez les nombres d\'hôtes en nombres positifs, ex. 100, 50, 20.',
+    'e-too-big': 'Un sous-réseau de {hosts} hôtes ne tient pas dans ce réseau.', 'e-no-space': 'Plus de place : le sous-réseau de {hosts} hôtes ne tient pas après les plus grands.',
+    splitBase: 'Réseau à découper', modeEqual: 'En sous-réseaux égaux', modeHosts: 'Selon les hôtes par sous-réseau (VLSM)', countLabel: 'Nombre de sous-réseaux', hostsLabel: 'Hôtes nécessaires par sous-réseau, séparés par des virgules',
+    colNet: 'Sous-réseau', colRange: 'Plage utilisable', colHosts: 'Utilisables', colNeed: 'Demandés', sumEqual: '{n} sous-réseaux /{p}, {h} hôtes utilisables chacun.', sumVlsm: '{used} adresses sur {size} attribuées, {free} libres.',
+    s_private: 'Privée (RFC 1918)', s_public: 'Publique', s_loopback: 'Loopback', s_cgnat: 'NAT d\'opérateur (RFC 6598)', 's_link-local': 'Link-local', s_documentation: 'Documentation (non routable)', s_multicast: 'Multicast', s_broadcast: 'Broadcast limité', s_reserved: 'Réservée', 's_this-network': '« Ce réseau » (0.0.0.0/8)',
+    s_global: 'Unicast globale', 's_unique-local': 'Unique local (ULA, fc00::/7)', s_unspecified: 'Non spécifiée', 's_ipv4-mapped': 'IPv4 mappée' },
+  pt: { title: 'Calculadora de sub-redes', subtitle: 'IPv4 e IPv6 · CIDR · VLSM — calculado no seu navegador', tabSplit: 'Dividir (VLSM)',
+    v4Label: 'Endereço IPv4 com prefixo ou máscara', v4Hint: 'ex.: 10.0.0.5/8 · 172.16.5.4 255.255.240.0 · 192.168.1.1 0.0.0.255',
+    v6Label: 'Endereço IPv6 com prefixo', v6Hint: 'Forma completa ou comprimida; sem prefixo vale /128.',
+    address: 'Endereço', network: 'Rede', broadcast: 'Broadcast', first: 'Primeiro host', last: 'Último host', firstAddr: 'Primeiro endereço', lastAddr: 'Último endereço',
+    mask: 'Máscara', wildcard: 'Wildcard', usable: 'Hosts utilizáveis', total: 'Total de endereços', type: 'Tipo',
+    compressed: 'Comprimido', expanded: 'Expandido', subnets64: 'Sub-redes /64', none: 'nenhum', binary: 'Binário', p2p: 'ponto a ponto (RFC 3021)', single: 'host único',
+    copy: 'Copiar', copied: 'Copiado', copyTable: 'Copiar tabela',
+    'e-syntax': 'Digite um endereço, opcionalmente seguido de /prefixo ou de uma máscara.', 'e-address': 'Não é um endereço válido.', 'e-prefix': 'O prefixo está fora do intervalo.', 'e-mask': 'A máscara não é contígua (devem ser uns seguidos de zeros).',
+    'e-count': 'Informe um número de sub-redes igual a 1 ou mais.', 'e-too-many': 'Não há bits suficientes para dividir tantas vezes.', 'e-hosts': 'Informe as quantidades de hosts como números positivos, ex.: 100, 50, 20.',
+    'e-too-big': 'Uma sub-rede para {hosts} hosts não cabe nesta rede.', 'e-no-space': 'Sem espaço: a sub-rede para {hosts} hosts não cabe depois das maiores.',
+    splitBase: 'Rede a dividir', modeEqual: 'Em sub-redes iguais', modeHosts: 'Por hosts por sub-rede (VLSM)', countLabel: 'Número de sub-redes', hostsLabel: 'Hosts necessários em cada sub-rede, separados por vírgulas',
+    colNet: 'Sub-rede', colRange: 'Faixa utilizável', colHosts: 'Utilizáveis', colNeed: 'Necessários', sumEqual: '{n} sub-redes /{p}, {h} hosts utilizáveis cada.', sumVlsm: '{used} de {size} endereços alocados, {free} livres.',
+    s_private: 'Privado (RFC 1918)', s_public: 'Público', s_loopback: 'Loopback', s_cgnat: 'NAT de operadora (RFC 6598)', 's_link-local': 'Link-local', s_documentation: 'Documentação (não roteável)', s_multicast: 'Multicast', s_broadcast: 'Broadcast limitado', s_reserved: 'Reservado', 's_this-network': '"Esta rede" (0.0.0.0/8)',
+    s_global: 'Unicast global', 's_unique-local': 'Unique local (ULA, fc00::/7)', s_unspecified: 'Não especificado', 's_ipv4-mapped': 'IPv4 mapeado' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc, f = S.formatIPv4;
+const row = (k, v, extra = '') => `<dt>${esc(t(k))}</dt><dd>${esc(v)}${extra}</dd><dd><button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" data-copy-text="${esc(v)}">${esc(t('copy'))}</button></dd>`;
+const scopeBadge = (s) => ` <span class="tb-badge ${s === 'public' || s === 'global' ? 'tb-badge--info' : 'tb-badge--ok'}">${esc(t('s_' + s))}</span>`;
+
+function ipv4() {
+  const r = S.parseIPv4Cidr($('v4').value);
+  $('v4err').textContent = r.error ? t('e-' + r.error) : '';
+  if (r.error) { $('v4out').innerHTML = ''; $('v4bin').innerHTML = ''; return; }
+  const i = S.ipv4Info(r.ip, r.prefix);
+  const note = i.prefix === 31 ? ` (${t('p2p')})` : i.prefix === 32 ? ` (${t('single')})` : '';
+  $('v4out').innerHTML =
+    row('address', f(i.ip), scopeBadge(i.scope)) +
+    row('cidr', `${f(i.network)}/${i.prefix}`) +
+    row('network', f(i.network)) +
+    row('broadcast', i.hasBroadcast ? f(i.broadcast) : t('none')) +
+    row('first', f(i.first)) +
+    row('last', f(i.last)) +
+    row('mask', f(i.mask)) +
+    row('wildcard', f(i.wildcard)) +
+    row('usable', TK.num(i.usable) + note) +
+    row('total', TK.num(i.total));
+  const fmtBin = (n) => { const b = S.toBinary32(n); let out = '', bit = 0; for (const c of b) { if (c === '.') { out += '.'; continue; } out += `<span class="${bit < i.prefix ? 'net' : 'host'}">${c}</span>`; bit++; } return out; };
+  $('v4bin').innerHTML = `<table class="tb-table"><caption class="tb-panel-title" style="text-align:left;padding-bottom:6px">${esc(t('binary'))}</caption>` +
+    [['address', i.ip], ['mask', i.mask], ['network', i.network]].map(([k, n]) => `<tr><th scope="row">${esc(t(k))}</th><td class="bin">${fmtBin(n)}</td></tr>`).join('') + '</table>';
+}
+
+function ipv6() {
+  const r = S.parseIPv6Cidr($('v6').value);
+  $('v6err').textContent = r.error ? t('e-' + r.error) : '';
+  if (r.error) { $('v6out').innerHTML = ''; return; }
+  const i = S.ipv6Info(r.ip, r.prefix);
+  $('v6out').innerHTML =
+    row('compressed', S.compressIPv6(i.ip), scopeBadge(i.scope)) +
+    row('expanded', S.expandIPv6(i.ip)) +
+    row('network', `${S.compressIPv6(i.network)}/${i.prefix}`) +
+    row('firstAddr', S.compressIPv6(i.network)) +
+    row('lastAddr', S.compressIPv6(i.last)) +
+    row('total', S.humanBig(i.total)) +
+    (i.prefix <= 64 ? row('subnets64', S.humanBig(i.subnets64)) : '');
+}
+
+let tableText = '';
+function split() {
+  const base = S.parseIPv4Cidr($('sbase').value);
+  const hostsMode = document.querySelector('input[name=smode]:checked').value === 'hosts';
+  $('f-count').hidden = hostsMode; $('f-hosts').hidden = !hostsMode;
+  const fail = (e, vars) => { $('serr').textContent = t('e-' + e, vars); $('sout').innerHTML = ''; $('ssum').textContent = ''; $('scopy').hidden = true; };
+  if (base.error) return fail(base.error);
+  const net = (base.ip & S.maskFromPrefix(base.prefix)) >>> 0;
+  let rows, head, sum;
+  if (!hostsMode) {
+    const r = S.splitEqual(net, base.prefix, Number($('scount').value));
+    if (r.error) return fail(r.error);
+    head = ['#', t('colNet'), t('mask'), t('colRange'), t('colHosts')];
+    rows = r.subnets.slice(0, 1024).map((s, k) => [k + 1, `${f(s.network)}/${s.prefix}`, f(s.mask), `${f(s.first)} – ${f(s.last)}`, TK.num(s.usable)]);
+    sum = t('sumEqual', { n: TK.num(r.subnets.length), p: r.prefix, h: TK.num(r.subnets[0].usable) });
+  } else {
+    const counts = $('shosts').value.split(/[,;\s]+/).filter(Boolean).map(Number);
+    if (!counts.length || counts.some((n) => !Number.isInteger(n) || n < 1)) return fail('hosts');
+    const r = S.vlsm(net, base.prefix, counts);
+    if (r.error) return fail(r.error, { hosts: TK.num(r.hosts || 0) });
+    head = ['#', t('colNeed'), t('colNet'), t('mask'), t('colRange'), t('colHosts')];
+    rows = r.subnets.map((s, k) => [k + 1, TK.num(s.hosts), `${f(s.info.network)}/${s.info.prefix}`, f(s.info.mask), `${f(s.info.first)} – ${f(s.info.last)}`, TK.num(s.info.usable)]);
+    sum = t('sumVlsm', { used: TK.num(r.used), size: TK.num(r.used + r.free), free: TK.num(r.free) });
+  }
+  $('serr').textContent = '';
+  $('ssum').textContent = sum;
+  $('sout').innerHTML = `<thead><tr>${head.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>` +
+    rows.map((r) => `<tr>${r.map((c, k) => `<td${k > 0 ? ' class="tb-mono"' : ''}>${esc(c)}</td>`).join('')}</tr>`).join('') + '</tbody>';
+  tableText = [head, ...rows].map((r) => r.join('\t')).join('\n');
+  $('scopy').hidden = false;
+}
+
+$('scopy').addEventListener('click', (e) => TK.copy(tableText, e.currentTarget));
+$('v4').addEventListener('input', ipv4);
+$('v6').addEventListener('input', ipv6);
+['sbase', 'scount', 'shosts'].forEach((id) => $(id).addEventListener('input', split));
+document.querySelectorAll('input[name=smode]').forEach((el) => el.addEventListener('change', split));
+
+const tabs = [...document.querySelectorAll('.tb-tab')];
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((x) => { const on = x === tab; x.setAttribute('aria-selected', on); document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
+}));
+ipv4(); ipv6(); split();
+window.__subnetReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

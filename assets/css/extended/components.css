@@ -1,0 +1,235 @@
+/* ============================================================
+   CONTENT COMPONENTS: roadmap timeline (shortcodes roadmap /
+   roadmap_step), stack cards (shortcode tool, /stack/), the
+   /links/ page.
+   ============================================================ */
+
+/* ── Roadmap timeline ── */
+.roadmap-timeline {
+  position: relative;
+  margin: var(--s-8) 0;
+  padding: var(--s-2) 0 var(--s-2) var(--s-8);
+}
+
+.roadmap-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 11px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--border));
+}
+
+.roadmap-step {
+  position: relative;
+  margin-bottom: var(--s-8);
+}
+
+.roadmap-step::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--s-8) + 3px);
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.roadmap-step h3 {
+  margin: 0 0 var(--s-1);
+  color: var(--text);
+  font-size: var(--fs-lg);
+}
+
+.roadmap-step p {
+  margin: 0 0 var(--s-3);
+  color: var(--text-2);
+}
+
+.md-content a.roadmap-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.md-content a.roadmap-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Stack page cards (shortcode tool) ── */
+.stack-category h2 {
+  margin-top: var(--s-8);
+}
+
+.stack-tool-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  margin: 0 0 var(--s-3);
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.stack-tool-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r);
+  background: var(--surface-2);
+  font-size: 1.2rem;
+}
+
+.stack-tool-info h3 {
+  margin: 0 0 var(--s-1);
+  color: var(--text);
+  font-size: var(--fs-md);
+}
+
+.stack-tool-info p {
+  margin: 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+.md-content a.stack-tool-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-top: var(--s-2);
+  color: var(--accent);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+}
+
+/* ── /links/ (layouts/links/list.html, standalone page) ── */
+body.links-page {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: var(--s-10) var(--gutter);
+  text-align: center;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  margin-bottom: var(--s-5);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.links-name {
+  margin: 0 0 var(--s-1);
+  font-size: var(--fs-2xl);
+}
+
+.links-bio {
+  margin: 0 0 var(--s-7);
+  color: var(--text-2);
+}
+
+.links-list {
+  width: 100%;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 56px;
+  margin-bottom: var(--s-3);
+  padding: 0 var(--s-5);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.link-btn:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+
+.links-social {
+  display: flex;
+  justify-content: center;
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+}
+
+.links-social a {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--text-2);
+}
+
+.links-social a:hover {
+  color: var(--accent);
+}
+
+.links-footer {
+  margin-top: var(--s-9);
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+}
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--s-3);
+}
+
+.stack-grid .stack-tool-card {
+  margin: 0;
+}
+
+/* ── About page photo ── */
+.md-content img.about-photo {
+  display: block;
+  width: 160px;
+  height: auto;
+  margin: 0 0 var(--s-5);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+}
+
+@media (min-width: 600px) {
+  .md-content img.about-photo {
+    float: right;
+    width: 200px;
+    margin: 0 0 var(--s-5) var(--s-6);
+  }
+}

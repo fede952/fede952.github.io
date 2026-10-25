@@ -1,0 +1,265 @@
+/* ============================================================
+   ARTICLE TYPOGRAPHY — post headers and Markdown content
+   (.md-content: PaperMod's content styles, re-tuned to tokens),
+   learn byline, author box, tags.
+   ============================================================ */
+
+.post-header {
+  margin: 0 0 var(--s-6);
+}
+
+.post-title {
+  margin: 0;
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+}
+
+.post-description {
+  margin-top: var(--s-3);
+  color: var(--text-2);
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+}
+
+.post-content {
+  color: var(--text);
+}
+
+.md-content h2 {
+  margin: var(--s-9) 0 var(--s-4);
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-tight);
+}
+
+.md-content h3 {
+  margin: var(--s-7) 0 var(--s-3);
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+}
+
+.md-content h4 {
+  margin: var(--s-6) 0 var(--s-2);
+  font-size: var(--fs-lg);
+}
+
+.md-content p,
+.md-content ul,
+.md-content ol {
+  margin-bottom: var(--s-5);
+}
+
+.md-content li {
+  margin-bottom: var(--s-1);
+}
+
+.md-content li::marker {
+  color: var(--text-3);
+}
+
+.md-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  box-shadow: none;
+}
+
+.md-content a:hover {
+  color: var(--accent-hover);
+}
+
+.md-content strong {
+  color: var(--text);
+}
+
+.md-content blockquote {
+  margin: 0 0 var(--s-5);
+  padding: var(--s-1) 0 var(--s-1) var(--s-4);
+  border-inline-start: 3px solid var(--accent-2);
+  color: var(--text-2);
+}
+
+.md-content hr {
+  margin: var(--s-8) 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.md-content :not(pre) > code {
+  padding: 0.15em 0.4em;
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85em;
+}
+
+.md-content img {
+  border-radius: var(--r);
+}
+
+/* heading anchors (PaperMod's anchored_headings) */
+.md-content .anchor {
+  color: var(--text-3);
+  text-decoration: none;
+}
+
+/* Interview Q&A and other content accordions */
+.md-content details {
+  margin: 0 0 var(--s-3);
+  padding: 0 var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+
+.md-content details[open] {
+  border-color: var(--accent-line);
+}
+
+.md-content summary {
+  position: relative;
+  min-height: 48px;
+  padding: var(--s-3) 0 var(--s-3) var(--s-6);
+  color: var(--text);
+  font-weight: var(--fw-semibold);
+  list-style: none;
+  cursor: pointer;
+}
+
+.md-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.md-content summary::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 1.15em;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+  transition: transform var(--dur) var(--ease);
+}
+
+.md-content details[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+.md-content details > :not(summary) {
+  margin-top: 0;
+  padding-bottom: var(--s-3);
+  color: var(--text-2);
+}
+
+/* ── Learn byline + author box ── */
+.article-byline {
+  margin-top: var(--s-3);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.article-byline a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
+
+.author-box {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  margin: var(--s-8) 0 0;
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.author-box-photo {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.author-box-body {
+  min-width: 0;
+}
+
+.author-box-heading {
+  margin: 0 0 var(--s-1);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.author-box-name,
+.author-box-bio,
+.author-box-links {
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+.author-box-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-4);
+  margin-bottom: 0;
+}
+
+.author-box-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .author-box {
+    flex-direction: column;
+  }
+}
+
+/* ── Tags ── */
+.post-footer {
+  margin-top: var(--s-7);
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-tags a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.post-tags a:hover {
+  border-color: var(--accent-line);
+  color: var(--text);
+}

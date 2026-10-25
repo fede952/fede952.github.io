@@ -1,0 +1,413 @@
+/* ============================================================
+   EMBEDDED TOOL APPS (static/tools/*/index.html)
+   Published, together with tokens.css, as /css/tool-base.css
+   (layouts/partials/tool-base.html). Every app links it first,
+   then maps its own variable names onto the tokens, so the
+   apps share the site's surfaces, inputs, buttons, toggles and
+   focus states. Personality: --tool-accent (logo mark only).
+   ============================================================ */
+
+:root {
+  --tool-accent: var(--accent);
+  font-size: 15px;
+}
+
+html,
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* Native controls: one look everywhere */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="number"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+  background-color: var(--bg-raised);
+  border-color: var(--border-input);
+  color: var(--text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-3);
+  opacity: 1;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible,
+label:focus-within {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress {
+  accent-color: var(--accent);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+* {
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+/* Shared building blocks apps can use directly */
+.tb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-5);
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.tb-btn:hover {
+  background: var(--accent-hover);
+}
+
+.tb-btn--ghost {
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--text);
+}
+
+.tb-btn--ghost:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  color: var(--accent);
+}
+
+.tb-btn--sm {
+  min-height: 36px;
+  padding: 0 var(--s-3);
+  font-size: var(--fs-sm);
+}
+
+.tb-btn.is-done {
+  border-color: var(--success);
+  background: var(--success);
+  color: var(--bg);
+}
+
+/* ============================================================
+   APP SHELL of the tools added in the redesign (they also load
+   /js/tool-kit.js). Older apps keep their own markup.
+   ============================================================ */
+
+.tb-app {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--s-4);
+}
+
+.tb-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.tb-mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r);
+  background: var(--accent-soft);
+  color: var(--tool-accent);
+}
+
+.tb-title {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+
+.tb-sub {
+  margin: 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.tb-panel {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.tb-panel-title {
+  margin: 0;
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tb-field {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.tb-label {
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.tb-hint {
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+}
+
+.tb-input,
+.tb-textarea,
+.tb-select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--border-input);
+  border-radius: var(--r);
+  background: var(--bg-raised);
+  color: var(--text);
+  font: inherit;
+}
+
+.tb-textarea {
+  min-height: 160px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.tb-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+}
+
+.tb-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.tb-row > .tb-input,
+.tb-row > .tb-field {
+  flex: 1 1 200px;
+  width: auto;
+}
+
+.tb-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 32px;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.tb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  padding: var(--s-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--bg-raised);
+}
+
+.tb-tab {
+  flex: 1 1 auto;
+  min-height: 40px;
+  padding: 0 var(--s-4);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.tb-tab:hover {
+  color: var(--text);
+}
+
+.tb-tab[aria-selected="true"] {
+  background: var(--surface-3);
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.tb-scroll {
+  overflow-x: auto;
+}
+
+.tb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.tb-table th,
+.tb-table td {
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tb-table th {
+  color: var(--text-2);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.tb-kv {
+  display: grid;
+  grid-template-columns: minmax(8rem, max-content) 1fr auto;
+  gap: var(--s-1) var(--s-3);
+  align-items: center;
+  margin: 0;
+}
+
+.tb-kv dt {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.tb-kv dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+}
+
+.tb-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.tb-badge--ok { background: var(--success-soft); color: var(--success); }
+.tb-badge--warn { background: var(--warn-soft); color: var(--warn); }
+.tb-badge--bad { background: var(--danger-soft); color: var(--danger); }
+.tb-badge--info { background: var(--accent-soft); color: var(--accent); }
+
+.tb-note {
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  font-size: var(--fs-sm);
+}
+
+.tb-note--bad { border-left-color: var(--danger); background: var(--danger-soft); }
+.tb-note--ok { border-left-color: var(--success); background: var(--success-soft); }
+.tb-note--warn { border-left-color: var(--warn); background: var(--warn-soft); }
+
+.tb-drop {
+  display: grid;
+  place-items: center;
+  gap: var(--s-2);
+  min-height: 150px;
+  padding: var(--s-5);
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--r-lg);
+  background: var(--bg-raised);
+  color: var(--text-2);
+  text-align: center;
+  cursor: pointer;
+}
+
+.tb-drop:hover,
+.tb-drop.is-over {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.tb-drop .icon {
+  color: var(--accent);
+}
+
+.tb-empty {
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .tb-app {
+    padding: var(--s-3);
+  }
+
+  .tb-kv {
+    grid-template-columns: 1fr auto;
+  }
+
+  .tb-kv dt {
+    grid-column: 1 / -1;
+  }
+}

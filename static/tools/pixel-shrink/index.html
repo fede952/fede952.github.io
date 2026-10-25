@@ -7,18 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PixelShrink Pro - Privacy-First Image Compressor</title>
 <script src="/vendor/browser-image-compression@2.0.2/browser-image-compression.js"></script>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);--tool-accent:var(--accent-2);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 
 .app{max-width:720px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
@@ -26,8 +22,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .header{text-align:center;padding:24px 0;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
 .header img{width:80px;margin-bottom:12px;filter:drop-shadow(0 0 12px var(--cyan-glow))}
-.header h1{font-size:clamp(22px,5vw,32px);text-transform:uppercase;letter-spacing:6px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:8px;letter-spacing:2px}
+.header h1{font-size:clamp(22px,5vw,32px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:8px;}
 
 /* ── Drop Zone ── */
 .dropzone{
@@ -35,15 +31,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
   cursor:pointer;transition:all .3s ease;background:var(--bg2);min-height:200px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
 }
-.dropzone:hover{border-color:var(--cyan);background:var(--cyan-glow);box-shadow:0 0 40px rgba(0,229,255,.05)}
-.dropzone.dragover{border-color:var(--magenta);background:var(--magenta-glow);box-shadow:0 0 60px rgba(255,45,206,.08);transform:scale(1.01)}
-.dropzone .dz-icon{font-size:44px;line-height:1;transition:transform .3s}
+.dropzone:hover{border-color:var(--cyan);background:var(--cyan-glow);}
+.dropzone.dragover{border-color:var(--magenta);background:var(--magenta-glow);transform:scale(1.01)}
+.dropzone .dz-icon{line-height:1;color:var(--accent);transition:transform .3s}
 .dropzone.dragover .dz-icon{transform:scale(1.2)}
-.dropzone .dz-label{font-size:14px;color:var(--text);letter-spacing:1px}
+.dropzone .dz-label{font-size:14px;color:var(--text);}
 .dropzone .dz-hint{font-size:11px;color:var(--text3)}
 .dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
 .dropzone.processing{animation:pulse-cyan 1.2s ease infinite}
-@keyframes pulse-cyan{0%,100%{border-color:var(--cyan);box-shadow:0 0 12px var(--cyan-glow)}50%{border-color:var(--magenta);box-shadow:0 0 30px var(--magenta-glow)}}
+@keyframes pulse-cyan{0%,100%{border-color:var(--cyan);}50%{border-color:var(--magenta);}}
 
 /* ── Preview ── */
 .preview{display:none;text-align:center}
@@ -54,7 +50,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 /* ── Controls Grid ── */
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .ctrl{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px}
-.ctrl-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px;display:block}
+.ctrl-label{font-size:10px;color:var(--text3);margin-bottom:8px;display:block}
 .ctrl select,.ctrl input[type=number]{width:100%;padding:10px;font-family:var(--mono);font-size:13px;background:var(--bg4);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;transition:border-color .2s}
 .ctrl select:focus,.ctrl input[type=number]:focus{border-color:var(--cyan)}
 .ctrl input[type=number]{-moz-appearance:textfield}
@@ -63,18 +59,18 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 /* Slider */
 .slider-row{display:flex;align-items:center;gap:10px}
 .slider-row input[type=range]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--bg4);outline:none}
-.slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 10px var(--cyan-glow)}
+.slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;}
 .slider-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;border:none}
 .slider-val{font-size:18px;color:var(--cyan);font-weight:700;min-width:36px;text-align:right}
 
 /* ── Compress Button ── */
-.compress-btn{display:block;width:100%;padding:16px;font-family:var(--mono);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:4px;background:transparent;color:var(--cyan);border:2px solid var(--cyan);border-radius:8px;cursor:pointer;transition:all .25s;text-align:center}
-.compress-btn:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 40px var(--cyan-glow)}
+.compress-btn{display:block;width:100%;padding:16px;font-family:var(--font-sans);font-size:15px;font-weight:700;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:8px;cursor:pointer;transition:all .25s;text-align:center}
+.compress-btn:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--accent-ink);}
 .compress-btn:disabled{opacity:.35;cursor:not-allowed}
-.compress-btn:disabled:hover{background:transparent;color:var(--cyan);box-shadow:none}
+.compress-btn:disabled:hover{background:var(--accent);color:var(--accent-ink);box-shadow:none}
 
 /* ── Status ── */
-.status{text-align:center;font-size:12px;color:var(--cyan);letter-spacing:1px;min-height:18px;opacity:.85}
+.status{text-align:center;font-size:12px;color:var(--cyan);min-height:18px;opacity:.85}
 .status .blink{animation:blink .6s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
@@ -84,22 +80,22 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .results.visible{display:block}
 .stats-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center}
 .stat-col{text-align:center}
-.stat-heading{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
+.stat-heading{font-size:10px;color:var(--text3);margin-bottom:8px}
 .stat-size{font-size:clamp(18px,3.5vw,24px);font-weight:700;color:var(--text)}
 .stat-dim{font-size:11px;color:var(--text3);margin-top:4px}
 .stat-col.after .stat-size{color:var(--cyan)}
 .stat-arrow{font-size:24px;color:var(--magenta);opacity:.7}
 .saved-row{text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
 .saved-pct{font-size:clamp(22px,4vw,30px);font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.saved-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-top:4px}
+.saved-label{font-size:10px;color:var(--text3);margin-top:4px}
 
 /* ── Download ── */
-.download-btn{display:none;width:100%;padding:16px;font-family:var(--mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:3px;background:linear-gradient(135deg,var(--cyan),var(--magenta));color:#fff;border:none;border-radius:8px;cursor:pointer;transition:all .25s;text-align:center;text-decoration:none}
-.download-btn:hover{box-shadow:0 0 40px var(--cyan-glow),0 0 40px var(--magenta-glow);opacity:.92}
+.download-btn{display:none;width:100%;padding:16px;font-family:var(--font-sans);font-size:14px;font-weight:700;background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;cursor:pointer;transition:all .25s;text-align:center;text-decoration:none}
+.download-btn:hover{opacity:.92}
 .download-btn.visible{display:block}
 
 /* ── AVIF badge ── */
-.avif-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;background:var(--magenta);color:#fff;vertical-align:middle;margin-left:4px;letter-spacing:1px}
+.avif-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;background:var(--magenta);color:var(--bg);vertical-align:middle;margin-left:4px;}
 
 /* ── Responsive ── */
 @media(max-width:600px){
@@ -121,7 +117,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 
   <!-- Drop Zone -->
   <div class="dropzone" id="dropzone">
-    <div class="dz-icon">&#128444;&#65039;</div>
+    <div class="dz-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19.5H5a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V12"/><path d="M3 15.5l4.5-4.5 4 4"/><circle cx="15.5" cy="8.5" r="1.25"/><path d="M18 21v-6M15.5 17.5 18 15l2.5 2.5"/></svg></div>
     <div class="dz-label" id="dropLabel"></div>
     <div class="dz-hint" id="dropHint"></div>
     <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/avif">

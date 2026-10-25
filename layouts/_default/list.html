@@ -1,102 +1,44 @@
 {{ define "main" }}
-<main class="main">
-  <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
-  </header>
+{{- /* Generic listing: the /learn/ hub (every article, newest first, with
+     type chips and a text filter), learn sub-sections, projects, and
+     tag/category pages. Mixed listings show each card's type label. */ -}}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
+</header>
 
-  {{ $currentSection := .Section }}
-  {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "learn") (eq $currentSection "cheatsheets") (eq $currentSection "debug-sys") (eq $currentSection "interviews") (eq $currentSection "guides") (eq $currentSection "projects") (eq $currentSection "writeups") (eq $currentSection "roadmaps") }}
+{{- if eq .Path "/learn" }}
+{{- $chips := slice }}
+{{- range slice "guides" "cheatsheets" "debug-sys" "interviews" "roadmaps" "writeups" }}
+  {{- /* only types with articles in this language (writeups exist in EN/IT only) */}}
+  {{- with $.GetPage . }}{{ if .RegularPagesRecursive }}
+  {{- $chips = $chips | append (dict "id" (path.Base .Path) "label" (i18n (printf "chip_%s" (path.Base .Path))) "icon" (index hugo.Data.tool_icons.learn (path.Base .Path))) }}
+  {{- end }}{{ end }}
+{{- end }}
+{{ partial "filter-bar.html" (dict "chips" $chips "placeholder" (i18n "hero_search_label")) }}
+<section class="list-group" data-filter-group>
+  <ul class="card-grid">
+    {{- range .RegularPagesRecursive.ByDate.Reverse }}
+    <li>{{ partial "card.html" (dict "page" . "level" "h2" "showType" true) }}</li>
+    {{- end }}
+  </ul>
+</section>
 
-  {{/* Hub mode: only the top-level /learn/ and /tools/ section pages. Nested
-       sections (/learn/cheatsheets/) and other lists (taxonomies) keep
-       the flat layout below. */}}
-  {{ $isHub := and (eq .Kind "section") (in (slice "learn" "tools") $currentSection) (eq .Parent.Kind "home") }}
-
-  {{ if $isHub }}
-    {{/* 1. Direct child pages of the hub (e.g. tools at /tools/).
-         `.RegularPages` is recursive in this Hugo version, so we filter to
-         pages whose immediate parent IS the hub. */}}
-    {{ $hubURL := .RelPermalink }}
-    {{ $direct := slice }}
-    {{ range .RegularPages }}
-      {{ if and .Parent (eq .Parent.RelPermalink $hubURL) }}
-        {{ $direct = $direct | append . }}
-      {{ end }}
-    {{ end }}
-    {{ if $direct }}
-      {{ $featured := where $direct "Params.featured" true }}
-      {{ $regular := where $direct "Params.featured" "!=" true }}
-      {{ $regular = $regular.ByDate.Reverse }}
-      {{ $direct = $featured | append $regular }}
-      <div class="uni-grid">
-        {{ range $direct }}
-          {{ partial "uni-card.html" (dict "page" . "isGaming" $isGaming) }}
-        {{ end }}
-      </div>
-    {{ end }}
-
-    {{/* 2. One group per sub-section, ordered by localized title. Each group
-         shows up to 5 most-recent posts with a "View All" overflow link. */}}
-    {{ $hubLimit := 5 }}
-    {{ range .Sections.ByTitle }}
-      {{ $children := .RegularPagesRecursive.ByDate.Reverse }}
-      {{ if $children }}
-        {{ $shown := first $hubLimit $children }}
-        {{ $overflow := gt (len $children) $hubLimit }}
-        <section class="hub-group" style="margin-top: 2.5rem;">
-          <h2 style="margin-bottom: 0.25rem;">
-            <a href="{{ .Permalink }}" style="color: inherit; text-decoration: none;">{{ .Title }}</a>
-          </h2>
-          {{ with .Description }}<p style="opacity: 0.75; margin: 0 0 1rem;">{{ . }}</p>{{ end }}
-          <div class="uni-grid">
-            {{ range $shown }}
-              {{ partial "uni-card.html" (dict "page" . "isGaming" $isGaming) }}
-            {{ end }}
-          </div>
-          {{ if $overflow }}
-            <a class="hub-view-all" href="{{ .Permalink }}">{{ i18n "view_all" .Title }}</a>
-          {{ end }}
-        </section>
-      {{ end }}
-    {{ end }}
-  {{ else }}
-    {{/* Use the current page's descendants so nested sections (e.g.
-         /learn/cheatsheets/) list only their own pages. */}}
-    {{ $rawItems := .RegularPagesRecursive }}
-    {{ if not $rawItems }}
-      {{ $rawItems = where site.RegularPages "Section" $currentSection }}
-    {{ end }}
-
-    {{ $featured := where $rawItems "Params.featured" true }}
-    {{ $regular := where $rawItems "Params.featured" "!=" true }}
-    {{ $regular = $regular.ByDate.Reverse }}
-    {{ $items := $featured | append $regular }}
-
-    {{ $items = where $items "Kind" "page" }}
-
-    {{/* 24/page. Also caps taxonomy/term archives; lists with ≤24 items
-         render a single page (the pager only appears past one page). */}}
-    {{ $paginator := .Paginate $items 24 }}
-
-    <div class="uni-grid">
-      {{ range $paginator.Pages }}
-        {{ partial "uni-card.html" (dict "page" . "isGaming" $isGaming) }}
-      {{ end }}
-    </div>
-
-    {{ if gt $paginator.TotalPages 1 }}
-    <footer class="page-footer">
-      <nav class="pagination">
-        {{- if $paginator.HasPrev }}
-        <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">«&nbsp;{{ i18n "prev_page" }}&nbsp;{{ sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}</a>
-        {{- end }}
-        {{- if $paginator.HasNext }}
-        <a class="next" href="{{ $paginator.Next.URL | absURL }}">{{ i18n "next_page" }}&nbsp;{{ add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}&nbsp;»</a>
-        {{- end }}
-      </nav>
-    </footer>
-    {{ end }}
-  {{ end }}
-</main>
+{{- else }}
+{{- $items := .RegularPagesRecursive }}
+{{- $mixed := in (slice "taxonomy" "term") .Kind }}
+{{- if $mixed }}{{ $items = .Pages }}{{ end }}
+{{- $paginator := .Paginate $items.ByDate.Reverse 24 }}
+<ul class="card-grid">
+  {{- range $paginator.Pages }}
+  <li>{{ partial "card.html" (dict "page" . "level" "h2" "showType" $mixed) }}</li>
+  {{- end }}
+</ul>
+{{- if gt $paginator.TotalPages 1 }}
+<nav class="pagination" aria-label="{{ i18n "nav_main" }}">
+  {{- with $paginator.Prev }}<a class="prev" href="{{ .URL }}">« {{ i18n "prev_page" }}</a>{{ end }}
+  {{- with $paginator.Next }}<a class="next" href="{{ .URL }}">{{ i18n "next_page" }} »</a>{{ end }}
+</nav>
+{{- end }}
+{{- end }}
 {{ end }}

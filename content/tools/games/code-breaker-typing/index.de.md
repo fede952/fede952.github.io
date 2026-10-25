@@ -9,13 +9,13 @@ draft: false
 aliases: ["/games/code-breaker-typing/"]
 ---
 
-Das Zielsystem ist hinter einer verschlusselten Firewall gesperrt. Ihr einziger Weg hinein? **Tippen Sie die exakte Code-Sequenz, bevor die Zeit ablauft.** Ein Fehler und Sie werden ausgesperrt. Wie schnell sind Ihre Finger?
+Das Zielsystem ist hinter einer verschlüsselten Firewall gesperrt. Ihr einziger Weg hinein? **Tippen Sie die exakte Code-Sequenz, bevor die Zeit abläuft.** Ein Fehler und Sie werden ausgesperrt. Wie schnell sind Ihre Finger?
 
 {{< code-breaker >}}
 
 ## So Wird Gespielt
 
 - **Klicken Sie auf "INITIALIZE HACK"**, um den Timer zu starten und ein Code-Snippet anzuzeigen.
-- **Tippen Sie das Snippet exakt ab** — jedes Zeichen, jedes Leerzeichen und jedes Symbol zahlt.
+- **Tippen Sie das Snippet exakt ab** — jedes Zeichen, jedes Leerzeichen und jedes Symbol zählt.
 - **Schlagen Sie die 30-Sekunden-Uhr**, um das System zu knacken.
-- Wenn die Zeit ablauft, wird die Verbindung getrennt. Klicken Sie auf **RETRY HACK**, um es erneut zu versuchen.
+- Wenn die Zeit abläuft, wird die Verbindung getrennt. Klicken Sie auf **RETRY HACK**, um es erneut zu versuchen.

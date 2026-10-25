@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
-## Systeminitialisierung
+## Was dieses kubectl-Cheatsheet abdeckt
 
 Kubernetes ist das Betriebssystem der Cloud. Es orchestriert Container über Cluster von Maschinen hinweg und übernimmt automatisch Skalierung, Selbstheilung, Lastverteilung und Service-Erkennung. Aber all diese Leistung wird über ein einziges Kommandozeilen-Tool gesteuert: `kubectl`. Dieses Feldhandbuch enthält die kubectl-Befehle, die Sie für jede Phase der Cluster-Verwaltung benötigen — vom Deployment Ihres ersten Pods bis zum Debugging von Produktionsvorfällen um 3 Uhr morgens. Jeder Befehl ist in der Produktion getestet und nach Arbeitsabläufen organisiert, damit Sie in Sekunden finden, was Sie brauchen.
 

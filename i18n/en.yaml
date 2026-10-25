@@ -152,7 +152,7 @@ byline_updated:
 author_box_heading:
   other: "About the author"
 author_box_bio:
-  other: "I'm a Network Security Analyst working in SOC and L2 network security: SSE/SASE platforms, Zero Trust access, traffic and incident triage. I hold the eJPT (Junior Penetration Tester) certification and write these guides from hands-on work and lab practice."
+  other: "I'm a Network Security Analyst (L2) working on SSE/SASE platforms: Zero Trust access, the secure web gateway and client connectivity troubleshooting. Before that I spent about a year as a SOC Tier 1 analyst. I hold the eJPT certification and write these guides from that work and from lab practice."
 author_box_more:
   other: "More about me"
 related_tools_learn:
@@ -183,3 +183,119 @@ aff_devsec_title:
   other: "Catch leaked secrets before they ship"
 aff_devsec_text:
   other: "This page checks one snippet at a time, in your browser. {{ .Name }} can watch your repositories and pipelines continuously, so a leaked key or token is flagged before it reaches production."
+
+# Header, back-to-top, code blocks, tables (redesign Phase 1)
+nav_main:
+  other: "Main"
+nav_search:
+  other: "Search"
+nav_language:
+  other: "Language"
+nav_menu:
+  other: "Menu"
+back_to_top:
+  other: "Back to top"
+code_copy:
+  other: "Copy"
+code_copied:
+  other: "Copied"
+code_label:
+  other: "Code"
+table_label:
+  other: "Table (scrolls sideways)"
+
+# Content-type labels (cards, search results)
+type_tool:
+  other: "Tool"
+type_game:
+  other: "Game"
+type_guides:
+  other: "Guide"
+type_cheatsheets:
+  other: "Cheatsheet"
+type_debug-sys:
+  other: "Fix"
+type_writeups:
+  other: "Writeup"
+type_roadmaps:
+  other: "Roadmap"
+type_interviews:
+  other: "Interview prep"
+
+type_project:
+  other: "Project"
+type_page:
+  other: "Page"
+
+# Design system: categories, filters, home sections (redesign Phase 2)
+cat_security:
+  other: "Security & Privacy"
+cat_images:
+  other: "Images & Media"
+cat_dev:
+  other: "Developer"
+cat_productivity:
+  other: "Productivity"
+chip_all:
+  other: "All"
+chip_security:
+  other: "Security"
+chip_images:
+  other: "Images"
+chip_dev:
+  other: "Dev"
+chip_productivity:
+  other: "Productivity"
+filter_label:
+  other: "Filter tools"
+filter_placeholder:
+  other: "Filter by name or task…"
+filter_empty:
+  other: "No tool matches this filter."
+filter_count:
+  other: "{{ . }} tools shown"
+read_time:
+  other: "{{ . }} min read"
+home_tools:
+  other: "Free tools"
+home_popular_guides:
+  other: "Popular guides"
+home_builder_title:
+  other: "Who builds this"
+home_builder_text:
+  other: "Built by Federico Sella, a network security analyst who works on Zero Trust and secure web gateway platforms every day."
+home_builder_link:
+  other: "About me"
+sidebar_more_guides:
+  other: "More guides"
+games_title:
+  other: "Browser games"
+
+chip_guides:
+  other: "Guides"
+chip_cheatsheets:
+  other: "Cheatsheets"
+chip_debug-sys:
+  other: "Fixes"
+chip_interviews:
+  other: "Interview prep"
+chip_roadmaps:
+  other: "Roadmaps"
+chip_writeups:
+  other: "Writeups"
+
+search_results:
+  other: "Search results"
+search_empty:
+  other: "No results found."
+search_navigate:
+  other: "Navigate"
+search_open:
+  other: "Open"
+search_close:
+  other: "Close"
+
+home_show_all:
+  other: "Show all {{ . }}"
+home_show_fewer:
+  other: "Show fewer"

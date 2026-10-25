@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/nmap-network-scanning/"]
 ---
 
-## $ System_Init
+## O que esta cheatsheet de Nmap cobre
 
 Nmap é a primeira ferramenta carregada em qualquer atividade de reconhecimento. Ele mapeia a superfície de ataque, identifica hosts ativos, enumera portas abertas, identifica serviços e detecta vulnerabilidades — tudo a partir de um único binário. Este manual de campo fornece os comandos exatos para cada fase do reconhecimento de rede.
 
@@ -17,7 +17,7 @@ Todos os comandos pressupõem testes autorizados. Implemente responsavelmente.
 
 ---
 
-## $ Host_Discovery
+## Descoberta de hosts ativos
 
 Identificar alvos ativos na rede antes da varredura de portas.
 
@@ -58,7 +58,7 @@ nmap -sL 192.168.1.0/24
 
 ---
 
-## $ Port_Scanning
+## Técnicas de varredura de portas
 
 Enumerar portas abertas para mapear a superfície de ataque do alvo.
 
@@ -112,7 +112,7 @@ nmap -F 192.168.1.100
 
 ---
 
-## $ Service_Detection
+## Detecção de serviços e versões
 
 Identificar qual software está sendo executado em cada porta aberta.
 
@@ -153,7 +153,7 @@ sudo nmap -A 192.168.1.100
 
 ---
 
-## $ NSE_Scripts
+## Scripts do Nmap Scripting Engine (NSE)
 
 Nmap Scripting Engine — detecção automatizada de vulnerabilidades e enumeração.
 
@@ -210,7 +210,7 @@ nmap --script=ssl-cert,ssl-enum-ciphers -p 443 192.168.1.100
 
 ---
 
-## $ Evasion_Techniques
+## Técnicas de evasão de firewall e IDS
 
 Contornar firewalls e IDS durante testes de penetração autorizados.
 
@@ -251,7 +251,7 @@ sudo nmap -sI zombie-host.com 192.168.1.100
 
 ---
 
-## $ Output_Formats
+## Salvar resultados: formatos de saída do Nmap
 
 Salvar resultados de varredura para documentação e pós-processamento.
 
@@ -285,7 +285,7 @@ nmap -oA full_scan 192.168.1.100
 
 ---
 
-## $ Mission_Templates
+## Receitas de varredura Nmap prontas para usar
 
 Cadeias de comandos copiar-colar para cenários de engajamento comuns.
 

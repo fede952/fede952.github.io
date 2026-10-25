@@ -143,7 +143,7 @@ We encourage you to review this Privacy Policy periodically for any changes.
 If you have any questions, concerns, or requests regarding this Privacy Policy or your data, please contact us at:
 
 **Federico Sella**
-Email: [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+Email: [privacy@federicosella.com](mailto:privacy@federicosella.com)
 Website: [https://federicosella.com](https://federicosella.com)
 
 ---

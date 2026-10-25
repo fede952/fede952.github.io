@@ -1,32 +1,31 @@
-/* ============================================
-   AD SLOT — AdSense responsive display unit
-   (partials/ads/unit.html). The space is reserved
-   by .ad-slot-spacer, a sibling stacked in the
-   same grid cell as the ad, because adsbygoogle.js
-   forces height/min-height:auto on the ad's
-   ancestors. Result: no layout shift whether the
-   slot fills, stays empty or gets a taller ad.
-   ============================================ */
+/* ============================================================
+   AD SLOT — AdSense responsive unit (partials/ads/unit.html).
+   The space is reserved by .ad-slot-spacer, a sibling stacked
+   in the same grid cell as the ad, because adsbygoogle.js
+   forces height/min-height:auto on the ad's ancestors. No
+   layout shift whether the slot fills, stays empty or gets a
+   taller creative.
+   ============================================================ */
 
 .ad-slot {
   display: grid;
   grid-template-columns: 100%;
   grid-template-areas: "label" "ad";
-  row-gap: 6px;
+  row-gap: var(--s-2);
   width: 100%;
-  margin: 2rem auto;
-  padding: 8px 0;
+  margin: var(--s-7) auto;
+  padding: var(--s-2) 0;
   border-block: 1px dashed var(--border);
 }
 
 .ad-slot-label {
   grid-area: label;
   justify-self: start;
-  font-size: 0.62rem;
-  letter-spacing: 1.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--secondary);
-  font-family: 'JetBrains Mono', monospace;
 }
 
 .ad-slot-spacer,
@@ -39,9 +38,20 @@
   height: 280px;
 }
 
+/* Sidebar: 300×250 up to 300×600 */
+.ad-slot--sidebar {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.ad-slot--sidebar .ad-slot-spacer {
+  height: 600px;
+}
+
 @media (max-width: 640px) {
   .ad-slot {
-    margin: 1.5rem auto;
+    margin: var(--s-6) auto;
   }
 
   .ad-slot-spacer {

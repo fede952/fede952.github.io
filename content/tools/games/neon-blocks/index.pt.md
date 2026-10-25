@@ -13,3 +13,11 @@ Deslize os blocos brilhantes pela grade. Quando dois blocos com o mesmo número 
 NeonBlocks salva seu progresso automaticamente.
 
 <iframe src="/games/neon-blocks/index.html?lang=pt" width="100%" height="620px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+
+## Como Jogar
+
+- **Computador:** setas ou WASD para deslizar as peças.
+- **Celular:** deslize o dedo em qualquer direção.
+- Peças com o mesmo valor se fundem ao colidir.
+- Cada fusão aumenta a pontuação.
+- O jogo termina quando não há mais jogadas possíveis.

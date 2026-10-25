@@ -1,0 +1,9 @@
+{{- /* Publishes /css/tool-base.css for the embedded apps in static/tools/:
+     the site's design tokens + the tool UI components + the app base styles.
+     Same sources the site uses, so the apps can never drift from the site
+     palette. Called once from extend_head.html (Hugo publishes a resource
+     when its URL is read). Not fingerprinted: the apps link a stable URL. */ -}}
+{{- $src := slice (resources.Get "css/extended/tokens.css") (resources.Get "css/extended/tool-ui.css") (resources.Get "css/tool-app.css") | resources.Concat "css/tool-base.src.css" -}}
+{{- /* minify names its output *.min.css; re-wrap the content under the stable name */ -}}
+{{- $css := resources.FromString "css/tool-base.css" ($src | minify).Content -}}
+{{- return $css.RelPermalink -}}

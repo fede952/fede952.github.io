@@ -4,8 +4,8 @@ description: "The classic block-stacking game re-imagined. Survive the neon rain
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
-keywords: ["tetris online", "neon puzzle", "block game", "browser game", "cyberpunk game"]
+tags: ["game", "puzzle", "html5", "cyberpunk"]
+keywords: ["neon puzzle", "block game", "browser game", "cyberpunk game"]
 draft: false
 aliases: ["/games/neon-stacker/"]
 ---

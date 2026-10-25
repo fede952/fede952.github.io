@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/python-security-interview-questions/"]
 ---
 
-## Inizializzazione del Sistema
+## Cosa cercano i selezionatori nei colloqui Python per la sicurezza
 
 Python è il linguaggio dominante nella sicurezza offensiva e difensiva. I ruoli di penetration testing, red team, analista SOC e security engineering richiedono tutti padronanza di Python per automazione, sviluppo di strumenti e prototipazione rapida. I colloqui tecnici richiedono di scrivere codice al momento — dai client socket TCP ai crafter di pacchetti agli script di exploit web. Questa guida copre 20 domande che testano l'intersezione tra programmazione Python e conoscenze di sicurezza.
 

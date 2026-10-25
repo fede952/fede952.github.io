@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/heic-converter/">
+<title>HEIC to JPG / PNG Converter</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--s-3); align-items: end; }
+.files { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.file { display: grid; grid-template-columns: 64px 1fr auto; gap: var(--s-3); align-items: center; padding: var(--s-2); background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--r); }
+.file img, .file .ph { width: 64px; height: 64px; object-fit: cover; border-radius: var(--r-sm); background: var(--surface-3); }
+.file .name { overflow-wrap: anywhere; font-weight: var(--fw-semibold); font-size: var(--fs-sm); }
+.file .meta { color: var(--text-2); font-size: var(--fs-xs); }
+.file .meta.bad { color: var(--danger); }
+.q-val { font-family: var(--font-mono); color: var(--accent); }
+input[type=range] { width: 100%; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19.5H5a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V12"/><path d="M3 15.5l4.5-4.5 4 4"/><circle cx="15.5" cy="8.5" r="1.25"/><path d="M15 17.5h6M18.5 15l2.5 2.5-2.5 2.5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">HEIC to JPG / PNG</h1>
+      <p class="tb-sub" data-i18n="subtitle">Batch converter — your photos never leave this device</p>
+    </div>
+  </header>
+
+  <label class="tb-drop" id="drop" tabindex="0">
+    <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19.5H5a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V12"/><path d="M3 15.5l4.5-4.5 4 4"/><circle cx="15.5" cy="8.5" r="1.25"/><path d="M18 21v-6M15.5 17.5 18 15l2.5 2.5"/></svg>
+    <strong data-i18n="drop">Drop HEIC / HEIF photos here, or click to choose</strong>
+    <span class="tb-hint" data-i18n="dropHint">Several at once is fine. Converted in this browser tab.</span>
+    <input type="file" id="file" accept=".heic,.heif,.hif,image/heic,image/heif" multiple hidden>
+  </label>
+
+  <section class="tb-panel" aria-labelledby="opts-title">
+    <h2 class="tb-panel-title" id="opts-title" data-i18n="options">Options</h2>
+    <div class="opts">
+      <label class="tb-field"><span class="tb-label" data-i18n="format">Output format</span>
+        <select id="fmt" class="tb-select"><option value="jpeg">JPG</option><option value="png">PNG</option></select></label>
+      <label class="tb-field" id="q-field"><span class="tb-label"><span data-i18n="quality">JPG quality</span>: <span class="q-val" id="q-val">85</span></span>
+        <input type="range" id="q" min="40" max="100" value="85"></label>
+      <label class="tb-check"><input type="checkbox" id="strip" checked> <span data-i18n="strip">Remove metadata (EXIF, GPS location)</span></label>
+    </div>
+    <p class="tb-hint" id="png-note" hidden data-i18n="pngNote">PNG files are always written without metadata.</p>
+  </section>
+
+  <p class="tb-note" id="status" role="status" hidden></p>
+  <ul class="files" id="files"></ul>
+  <div class="tb-row" id="all-row" hidden>
+    <button type="button" class="tb-btn" id="zip" data-i18n="zip">Download all (.zip)</button>
+    <button type="button" class="tb-btn tb-btn--ghost" id="clear" data-i18n="clear">Clear</button>
+  </div>
+</main>
+
+<script type="module">
+import * as H from '/js/tools/heic.mjs';
+
+TK.init({
+  en: { title: 'HEIC to JPG / PNG', subtitle: 'Batch converter — your photos never leave this device', drop: 'Drop HEIC / HEIF photos here, or click to choose', dropHint: 'Several at once is fine. Converted in this browser tab.',
+    options: 'Options', format: 'Output format', quality: 'JPG quality', strip: 'Remove metadata (EXIF, GPS location)', pngNote: 'PNG files are always written without metadata.',
+    zip: 'Download all (.zip)', clear: 'Clear', download: 'Download', loading: 'Loading the HEIC decoder (about 1.5 MB, once)…', working: 'Converting {i} of {n}…', done: '{n} converted.', doneErr: '{n} converted, {e} failed.',
+    notHeic: 'Not a HEIC/HEIF file.', failed: 'Could not decode this file.', kept: 'metadata kept', stripped: 'metadata removed', gps: 'incl. GPS', zipping: 'Building the ZIP…', copied: 'Copied' },
+  it: { title: 'Da HEIC a JPG / PNG', subtitle: 'Conversione in blocco — le tue foto non lasciano mai questo dispositivo', drop: 'Trascina qui le foto HEIC / HEIF o fai clic per sceglierle', dropHint: 'Puoi caricarne più di una. La conversione avviene in questa scheda.',
+    options: 'Opzioni', format: 'Formato di uscita', quality: 'Qualità JPG', strip: 'Rimuovi i metadati (EXIF, posizione GPS)', pngNote: 'I file PNG vengono sempre salvati senza metadati.',
+    zip: 'Scarica tutto (.zip)', clear: 'Svuota', download: 'Scarica', loading: 'Caricamento del decoder HEIC (circa 1,5 MB, una sola volta)…', working: 'Conversione {i} di {n}…', done: '{n} convertite.', doneErr: '{n} convertite, {e} non riuscite.',
+    notHeic: 'Non è un file HEIC/HEIF.', failed: 'Impossibile decodificare questo file.', kept: 'metadati mantenuti', stripped: 'metadati rimossi', gps: 'GPS incluso', zipping: 'Creazione dello ZIP…', copied: 'Copiato' },
+  es: { title: 'HEIC a JPG / PNG', subtitle: 'Conversión por lotes — tus fotos nunca salen de este dispositivo', drop: 'Suelta aquí tus fotos HEIC / HEIF o haz clic para elegirlas', dropHint: 'Puedes añadir varias a la vez. Se convierten en esta pestaña.',
+    options: 'Opciones', format: 'Formato de salida', quality: 'Calidad JPG', strip: 'Eliminar metadatos (EXIF, ubicación GPS)', pngNote: 'Los archivos PNG se guardan siempre sin metadatos.',
+    zip: 'Descargar todo (.zip)', clear: 'Vaciar', download: 'Descargar', loading: 'Cargando el decodificador HEIC (unos 1,5 MB, una sola vez)…', working: 'Convirtiendo {i} de {n}…', done: '{n} convertidas.', doneErr: '{n} convertidas, {e} con error.',
+    notHeic: 'No es un archivo HEIC/HEIF.', failed: 'No se pudo decodificar este archivo.', kept: 'metadatos conservados', stripped: 'metadatos eliminados', gps: 'incl. GPS', zipping: 'Creando el ZIP…', copied: 'Copiado' },
+  de: { title: 'HEIC in JPG / PNG', subtitle: 'Stapelkonvertierung — Ihre Fotos verlassen dieses Gerät nicht', drop: 'HEIC-/HEIF-Fotos hier ablegen oder zum Auswählen klicken', dropHint: 'Mehrere auf einmal sind möglich. Umgewandelt wird in diesem Tab.',
+    options: 'Optionen', format: 'Ausgabeformat', quality: 'JPG-Qualität', strip: 'Metadaten entfernen (EXIF, GPS-Standort)', pngNote: 'PNG-Dateien werden immer ohne Metadaten gespeichert.',
+    zip: 'Alle herunterladen (.zip)', clear: 'Leeren', download: 'Herunterladen', loading: 'HEIC-Decoder wird geladen (ca. 1,5 MB, nur einmal) …', working: 'Konvertiere {i} von {n} …', done: '{n} konvertiert.', doneErr: '{n} konvertiert, {e} fehlgeschlagen.',
+    notHeic: 'Keine HEIC/HEIF-Datei.', failed: 'Diese Datei konnte nicht dekodiert werden.', kept: 'Metadaten behalten', stripped: 'Metadaten entfernt', gps: 'inkl. GPS', zipping: 'ZIP wird erstellt …', copied: 'Kopiert' },
+  fr: { title: 'HEIC en JPG / PNG', subtitle: 'Conversion par lots — vos photos ne quittent jamais cet appareil', drop: 'Déposez vos photos HEIC / HEIF ici ou cliquez pour les choisir', dropHint: 'Plusieurs à la fois, c\'est possible. La conversion se fait dans cet onglet.',
+    options: 'Options', format: 'Format de sortie', quality: 'Qualité JPG', strip: 'Supprimer les métadonnées (EXIF, position GPS)', pngNote: 'Les fichiers PNG sont toujours enregistrés sans métadonnées.',
+    zip: 'Tout télécharger (.zip)', clear: 'Vider', download: 'Télécharger', loading: 'Chargement du décodeur HEIC (environ 1,5 Mo, une seule fois)…', working: 'Conversion {i} sur {n}…', done: '{n} converties.', doneErr: '{n} converties, {e} en échec.',
+    notHeic: 'Ce n\'est pas un fichier HEIC/HEIF.', failed: 'Impossible de décoder ce fichier.', kept: 'métadonnées conservées', stripped: 'métadonnées supprimées', gps: 'GPS inclus', zipping: 'Création du ZIP…', copied: 'Copié' },
+  pt: { title: 'HEIC para JPG / PNG', subtitle: 'Conversão em lote — suas fotos nunca saem deste dispositivo', drop: 'Solte aqui as fotos HEIC / HEIF ou clique para escolher', dropHint: 'Pode enviar várias de uma vez. A conversão acontece nesta aba.',
+    options: 'Opções', format: 'Formato de saída', quality: 'Qualidade JPG', strip: 'Remover metadados (EXIF, localização GPS)', pngNote: 'Arquivos PNG são sempre gravados sem metadados.',
+    zip: 'Baixar tudo (.zip)', clear: 'Limpar', download: 'Baixar', loading: 'Carregando o decodificador HEIC (cerca de 1,5 MB, uma única vez)…', working: 'Convertendo {i} de {n}…', done: '{n} convertidas.', doneErr: '{n} convertidas, {e} com erro.',
+    notHeic: 'Não é um arquivo HEIC/HEIF.', failed: 'Não foi possível decodificar este arquivo.', kept: 'metadados mantidos', stripped: 'metadados removidos', gps: 'incl. GPS', zipping: 'Gerando o ZIP…', copied: 'Copiado' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t;
+const VENDOR = '/vendor/libheif-js@1.23.5/';
+const items = [];                  // { file, canvas, exif, out: {blob, name}, li }
+let decoderP = null;
+
+const loadScript = (src) => new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => fail(new Error(src)); document.head.appendChild(s); });
+function decoder() {
+  // Loaded only when the first file arrives: 90 KB of JS + a 1.4 MB WebAssembly binary.
+  if (!decoderP) decoderP = (async () => {
+    status(t('loading'));
+    await loadScript(VENDOR + 'libheif.js');
+    const wasmBinary = await (await fetch(VENDOR + 'libheif.wasm')).arrayBuffer();
+    return window.libheif({ wasmBinary });
+  })();
+  return decoderP;
+}
+function status(msg, kind) { const el = $('status'); el.hidden = !msg; el.textContent = msg || ''; el.className = 'tb-note' + (kind ? ' tb-note--' + kind : ''); }
+const kb = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+
+async function decode(lib, bytes) {
+  const images = new lib.HeifDecoder().decode(bytes);
+  if (!images || !images.length) throw new Error('no image');
+  const img = images.find((x) => x.is_primary && x.is_primary()) || images[0];
+  const w = img.get_width(), h = img.get_height();
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  const data = ctx.createImageData(w, h);
+  await new Promise((ok, fail) => img.display(data, (d) => (d ? ok() : fail(new Error('display')))));
+  ctx.putImageData(data, 0, 0);
+  images.forEach((x) => x.free && x.free());
+  return canvas;
+}
+
+async function encode(it, taken) {
+  const fmt = $('fmt').value, q = Number($('q').value) / 100, strip = $('strip').checked;
+  let blob = await new Promise((ok) => it.canvas.toBlob(ok, 'image/' + fmt, q));
+  let note = t('stripped');
+  if (fmt === 'jpeg' && !strip && it.exif) {
+    const bytes = H.insertExif(new Uint8Array(await blob.arrayBuffer()), H.resetOrientation(it.exif.slice()));
+    blob = new Blob([bytes], { type: 'image/jpeg' });
+    note = t('kept') + (H.hasGps(it.exif) ? ' · ' + t('gps') : '');
+  }
+  it.out = { blob, name: H.outputName(it.file.name, fmt === 'jpeg' ? 'jpg' : 'png', taken) };
+  return note;
+}
+
+function rowFor(it) {
+  const li = document.createElement('li');
+  li.className = 'file';
+  li.innerHTML = '<span class="ph"></span><div><div class="name"></div><div class="meta"></div></div><button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" disabled></button>';
+  li.querySelector('.name').textContent = it.file.name;
+  const btn = li.querySelector('button');
+  btn.textContent = t('download');
+  btn.addEventListener('click', () => it.out && TK.download(it.out.blob, it.out.name));
+  $('files').appendChild(li);
+  return li;
+}
+
+async function render(it, note) {
+  const li = it.li;
+  li.querySelector('.meta').textContent = `${kb(it.file.size)} → ${kb(it.out.blob.size)} · ${it.canvas.width}×${it.canvas.height} · ${note}`;
+  li.querySelector('.name').textContent = it.out.name;
+  const thumb = document.createElement('img');
+  thumb.alt = ''; thumb.src = it.canvas.toDataURL('image/jpeg', 0.5);
+  li.replaceChild(thumb, li.firstElementChild);
+  li.querySelector('button').disabled = false;
+}
+
+async function addFiles(list) {
+  const files = [...list];
+  if (!files.length) return;
+  const fresh = files.map((file) => { const it = { file }; it.li = rowFor(it); items.push(it); return it; });
+  $('all-row').hidden = false;
+  let lib;
+  try { lib = await decoder(); } catch (e) { status(t('failed'), 'bad'); return; }
+  const taken = new Set(items.filter((x) => x.out).map((x) => x.out.name.toLowerCase()));
+  let ok = 0, bad = 0;
+  for (let i = 0; i < fresh.length; i++) {
+    const it = fresh[i];
+    status(t('working', { i: i + 1, n: fresh.length }));
+    await new Promise((r) => setTimeout(r, 0)); // let the status paint between files
+    try {
+      const bytes = new Uint8Array(await it.file.arrayBuffer());
+      if (!H.isHeif(bytes)) throw new Error('not heif');
+      it.exif = H.extractExif(bytes);
+      it.canvas = await decode(lib, bytes);
+      await render(it, await encode(it, taken));
+      ok++;
+    } catch (e) {
+      bad++;
+      const m = it.li.querySelector('.meta');
+      m.classList.add('bad');
+      m.textContent = /heif/.test(e.message) ? t('notHeic') : t('failed');
+    }
+  }
+  status(bad ? t('doneErr', { n: ok, e: bad }) : t('done', { n: ok }), bad ? 'warn' : 'ok');
+  window.__heicDone = (window.__heicDone || 0) + 1;
+}
+
+async function reencode() {
+  const taken = new Set();
+  for (const it of items) if (it.canvas) await render(it, await encode(it, taken));
+}
+
+function syncOptions() {
+  const png = $('fmt').value === 'png';
+  $('q-field').hidden = png;
+  $('strip').disabled = png;
+  if (png) $('strip').checked = true;
+  $('png-note').hidden = !png;
+  $('q-val').textContent = $('q').value;
+}
+
+$('file').addEventListener('change', (e) => { addFiles(e.target.files); e.target.value = ''; });
+const drop = $('drop');
+drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('file').click(); } });
+['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
+['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
+drop.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+$('fmt').addEventListener('change', () => { syncOptions(); reencode(); });
+$('q').addEventListener('input', syncOptions);
+$('q').addEventListener('change', reencode);
+$('strip').addEventListener('change', reencode);
+$('clear').addEventListener('click', () => { items.length = 0; $('files').innerHTML = ''; $('all-row').hidden = true; status(''); });
+$('zip').addEventListener('click', async (e) => {
+  const ready = items.filter((x) => x.out);
+  if (!ready.length) return;
+  if (ready.length === 1) return TK.download(ready[0].out.blob, ready[0].out.name);
+  status(t('zipping'));
+  if (!window.JSZip) await loadScript('/vendor/jszip@3.10.2/jszip.min.js');
+  const zip = new window.JSZip();
+  ready.forEach((x) => zip.file(x.out.name, x.out.blob));
+  TK.download(await zip.generateAsync({ type: 'blob' }), 'converted-photos.zip');
+  status(t('done', { n: ready.length }), 'ok');
+});
+syncOptions();
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

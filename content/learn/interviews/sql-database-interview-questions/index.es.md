@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
-## Inicialización del Sistema
+## Qué buscan los entrevistadores de SQL y bases de datos
 
 SQL es el lenguaje de los datos, y las bases de datos son la columna vertebral de cada aplicación. Las entrevistas de nivel senior evalúan tu capacidad para escribir consultas eficientes, diseñar esquemas normalizados, comprender el aislamiento de transacciones, optimizar el rendimiento con índices y prevenir inyecciones SQL. Ya sea que el rol sea Ingeniero Backend, DBA, Ingeniero de Datos o Analista de Seguridad, estas 20 preguntas cubren los conceptos que los entrevistadores preguntan constantemente — con respuestas que demuestran experiencia en producción.
 

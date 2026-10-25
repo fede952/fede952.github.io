@@ -4,8 +4,8 @@ description: "O clássico jogo de empilhar blocos reinventado. Sobreviva à chuv
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
-keywords: ["tetris online", "puzzle neon", "jogo de blocos", "jogo navegador", "jogo cyberpunk"]
+tags: ["game", "puzzle", "html5", "cyberpunk"]
+keywords: ["puzzle neon", "jogo de blocos", "jogo navegador", "jogo cyberpunk"]
 draft: false
 aliases: ["/games/neon-stacker/"]
 ---

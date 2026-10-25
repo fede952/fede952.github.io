@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
-## System Init
+## What SQL and Database Interviewers Look For
 
 SQL is the language of data, and databases are the backbone of every application. Senior-level interviews test your ability to write efficient queries, design normalized schemas, understand transaction isolation, optimize performance with indexes, and prevent SQL injection. Whether the role is Backend Engineer, DBA, Data Engineer, or Security Analyst, these 20 questions cover the concepts that interviewers consistently ask — with answers that demonstrate production experience.
 

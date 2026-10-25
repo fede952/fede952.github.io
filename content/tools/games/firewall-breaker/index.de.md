@@ -4,8 +4,8 @@ description: "Durchbrich die Unternehmens-Firewall. Lenke das Datenpaket ab, zer
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
-keywords: ["Arkanoid online", "Breakout-Spiel", "Steinbrecher", "Cyberpunk-Arcade"]
+tags: ["game", "arcade", "html5", "cyberpunk"]
+keywords: ["Steinbrecher", "Cyberpunk-Arcade"]
 draft: false
 aliases: ["/games/firewall-breaker/"]
 ---

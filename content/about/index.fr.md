@@ -2,49 +2,48 @@
 title: "À Propos"
 hidemeta: true
 layout: "about"
-description: "Federico Sella - Développeur Sécurité et Analyste SOC. Transition depuis plus de 7 ans en Automatisation CNC (Fanuc/Selca) vers la Sécurité Offensive et le Red Teaming."
-keywords: ["Cybersécurité", "Red Team", "Analyste SOC", "Développeur", "Automatisation Industrielle", "Fanuc", "Selca", "Python", "eJPT", "Bergame"]
-summary: "De la mécanique de précision à la guerre numérique. Mon parcours de la Programmation CNC à la Cybersécurité."
+description: "Federico Sella : Network Security Analyst (L2) sur des plateformes SSE/SASE et Zero Trust, auparavant en SOC Tier 1 et en programmation CNC, certification eJPT."
+keywords: ["Federico Sella", "Network Security Analyst", "SSE", "SASE", "Zero Trust", "secure web gateway", "analyste SOC", "eJPT", "Python"]
+summary: "Network Security Analyst (L2) : SSE/SASE, Zero Trust, secure web gateway. De l'usinage CNC à la cybersécurité. eJPT."
+# TODO(Federico): confirm before these are shown on the page (not rendered):
+#   - further certifications listed on the old page: Cisco Ethical Hacker, ISC2 CC (Certified in
+#     Cybersecurity), Google Cybersecurity Certificate
+#   - years in CNC machining/programming (the old page said "7+ years" in one place and
+#     "over 10 years in the industrial sector" in another)
+# Once confirmed, add them to the "Certifications and skills" list in every language.
 ---
+<img class="about-photo" src="/images/profile.webp" width="220" height="293" alt="Federico Sella">
 
-<img src="/images/profile.webp" width="220" height="293" 
-     style="float: right; margin-left: 20px; margin-bottom: 10px; border-radius: 15px; width: 220px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
-     alt="Federico Sella">
+## Ce que je fais
 
-### Le Pont Entre l'Acier et le Silicium
-Je suis un **Développeur Sécurité** et **Aspirant Red Team** avec un avantage distinctif : je ne comprends pas seulement les réseaux ; je comprends les machines physiques qu'ils contrôlent.
+Je travaille comme **Network Security Analyst (L2)** dans une grande entreprise, sur des **plateformes SSE/SASE** :
+l'accès Zero Trust aux applications privées, la secure web gateway qui inspecte le trafic web et le dépannage de la
+connectivité des postes clients qui relie les deux — quand une application ne se charge pas à travers la passerelle,
+quand le trafic n'est pas acheminé comme le prévoit la politique, quand une connexion fonctionne hors du réseau de
+l'entreprise et échoue à l'intérieur.
 
-Avant de me reconvertir dans la Cybersécurité, j'ai passé **plus de 10 ans dans le Secteur Industriel**, dont 7 ans en tant que **Programmeur CNC** spécialisé.
-Écrire du code pour les systèmes Fanuc et Selca m'a inculqué un esprit procédural rigoureux : dans ce monde, une erreur de syntaxe ne fait pas seulement planter une application - elle cause des dommages physiques.
+Avant ce poste, j'ai travaillé environ un an en **SOC, au niveau Tier 1**.
 
-**J'apporte cette précision "Zéro Erreur" à la Cybersécurité.**
+## Mon parcours vers la sécurité
 
-Actuellement, en tant qu'**Analyste SOC**, j'analyse les vecteurs d'attaque en direct pour déconstruire comment les brèches se produisent.
-Cependant, ma trajectoire est fermement orientée vers la **Sécurité Offensive** : exploiter mes compétences en codage pour construire des outils personnalisés, automatiser la reconnaissance et simuler des menaces sophistiquées.
+J'ai changé de carrière. J'ai travaillé pendant des années dans l'**usinage et la programmation CNC** et le **dessin
+technique**, et j'ai obtenu mon diplôme technique en cours du soir. Mon entrée dans la cybersécurité s'est faite par un
+bootcamp de cybersécurité, puis le SOC, puis la sécurité réseau.
 
-### Pourquoi Mon Parcours Compte
-* **L'Avantage "OT" :** L'écart entre l'IT et l'OT (Technologie Opérationnelle) est un angle mort de sécurité majeur.
-* Je parle le langage des PLCs et des contrôleurs industriels, un atout critique pour la **Sécurité ICS/SCADA**.
-* **Logique de Bas Niveau :** Mon expérience avec le G-Code (langage machine) se traduit naturellement par la compréhension de l'**Assembleur et du Shellcode**.
-* Je construis la logique à partir de zéro.
-* **Mentalité de Bâtisseur :** Je n'exécute pas seulement des scripts ; je les construis.
-* J'utilise **Python, SQL et Bash** pour créer des outils d'automatisation sur mesure plutôt que de me fier uniquement aux solutions prêtes à l'emploi.
+## Certifications et compétences
 
-### Stack Technologique et Arsenal
+- **eJPT** — eLearnSecurity Junior Penetration Tester
+- Bootcamp de cybersécurité (terminé)
+- Développement : **Python** (automatisation et outils), **C#**, **Next.js**
 
-**🛡️ Offensif et Sécurité**
-* **Certifications :** eJPT (Junior Penetration Tester), Cisco Ethical Hacker, ISC2 CC, Google Cybersecurity
-* **Arsenal :** Metasploit, Burp Suite, Wireshark, Nmap, Nessus
-* **Focus :** Énumération Réseau, Exploitation Active Directory, Pentest d'Applications Web
+## Pourquoi ce site existe
 
-**⚙️ Industriel et Logique Centrale**
-* **Systèmes :** Fanuc, Selca (7 Ans d'Exp.), Protocoles IoT Industriels
-* **Compétences :** Programmation G-Code, Débogage Matériel, Analyse de Logique de Processus
+Ce sont des outils respectueux de la vie privée, conçus par une personne qui travaille chaque jour dans la sécurité
+réseau. Ils fonctionnent entièrement dans votre navigateur : rien de ce que vous tapez, collez ou chargez ne quitte
+votre appareil (les rares exceptions, comme la recherche d'IP de NetGuard, sont indiquées dans l'outil et dans la
+[politique de confidentialité](/fr/privacy/)). Les guides et aide-mémoire viennent du même travail et de la pratique en
+laboratoire. Le site est financé par la publicité et quelques liens d'affiliation clairement signalés.
 
-**💻 Développement**
-* **Langages :** Python (Automatisation/Outils), SQL, Bash, PowerShell
-* **Environnement :** Linux (Kali/Debian), GitHub, Docker, Retool
+## Contact
 
----
-> *"Je construis pour comprendre.
-> Je casse pour sécuriser"*
+[LinkedIn](https://linkedin.com/in/federicosella) · [GitHub](https://github.com/fede952) · [Page de contact](/fr/contact/)

@@ -1,5 +1,9 @@
-{{- $.Scratch.Add "index" slice -}}
+{{- /* Search index for the command palette (extend_footer.html). "section"
+     is the localized content type ("Tool", "Guide", ...), shown as the
+     label of each result. */ -}}
+{{- $index := slice -}}
 {{- range .Site.RegularPages -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "permalink" .Permalink "summary" (plainify .Summary | truncate 100) "section" (.Type | humanize | title) "date" (.Date.Format "2006-01-02")) -}}
+  {{- $type := partial "page-type.html" . | default (.Type | humanize | title) -}}
+  {{- $index = $index | append (dict "title" .Title "permalink" .Permalink "summary" (plainify .Summary | truncate 100) "section" $type "date" (.Date.Format "2006-01-02")) -}}
 {{- end -}}
-{{- $.Scratch.Get "index" | jsonify -}}
+{{- $index | jsonify -}}

@@ -7,7 +7,7 @@ hidemeta: true
 
 Leo todos los mensajes. Así puedes localizarme:
 
-- **Consultas generales:** [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+- **Consultas generales:** [contact@federicosella.com](mailto:contact@federicosella.com)
 - **Solicitudes de privacidad** (derechos RGPD, dudas sobre datos): [privacy@federicosella.com](mailto:privacy@federicosella.com)
 - **Problemas de seguridad:** ¿has encontrado una vulnerabilidad en alguna de mis herramientas? Escríbeme con el asunto `[SECURITY]` — la divulgación responsable siempre se agradece.
 

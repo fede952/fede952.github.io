@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
-## Motore di Rendering Online
+## Perché Flexbox e Grid sono importanti
 
 Il layout CSS è la competenza che separa gli sviluppatori che costruiscono da quelli che faticano. Flexbox gestisce il flusso unidimensionale — righe o colonne. Grid gestisce i layout bidimensionali — righe E colonne simultaneamente. Insieme, sostituiscono ogni hack con float, clearfix e trucco di posizionamento dell'ultimo decennio. Questa cheatsheet copre entrambi i sistemi con snippet pronti per la produzione, pattern responsive e le variabili CSS moderne che mantengono il tuo codice manutenibile. Ogni tecnica qui è ciò che gli intervistatori frontend si aspettano che tu sappia. Copia, incolla, pubblica.
 
@@ -716,6 +716,6 @@ ul, ol { list-style: none; }
 
 ---
 
-## Fine della Trasmissione
+## Cheatsheet layout CSS: i punti chiave
 
 Questa cheatsheet copre le tecniche di layout CSS che alimentano ogni sito web moderno — dal centrare un div alla costruzione di dashboard responsive complesse. Flexbox per il flusso unidimensionale, Grid per i layout bidimensionali e le variabili CSS per design system manutenibili. Salvala nei preferiti, consultala durante i colloqui frontend e smetti di lottare con il CSS. Il motore di layout ora lavora per te.

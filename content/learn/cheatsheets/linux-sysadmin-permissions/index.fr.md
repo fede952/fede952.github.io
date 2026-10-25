@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
-## Initialisation du Système
+## Ce que couvre cet aide-mémoire d'administration Linux
 
 Les permissions de fichiers Linux sont la première ligne de défense de tout système. Une permission mal configurée peut exposer des données sensibles à des utilisateurs non autorisés, ou empêcher des services légitimes d'accéder aux fichiers dont ils ont besoin. Au-delà des permissions, la gestion des utilisateurs, des groupes, des services et des processus est le quotidien de tout administrateur système. Ce manuel de terrain couvre les commandes que vous utiliserez chaque jour — de la définition des permissions correctes sur la racine documentaire d'un serveur web à l'élimination d'un processus incontrôlable qui consomme toute la mémoire disponible. Chaque commande est expliquée avec des exemples pratiques pour des scénarios réels.
 

@@ -61,4 +61,4 @@ Un atacante que conozca al detalle este generador, conjunto y longitud incluidos
 - **Redes Wi-Fi.** Genera una clave de 20–30 caracteres para el router: solo la escribes una vez por dispositivo.
 - **Credenciales temporales.** Crea una contraseña de un solo uso para una cuenta de invitado o un documento compartido, y borra la cuenta cuando termines.
 
-Para frases de paso y para comprobar la fuerza de una contraseña que ya usas, prueba [PassFort](/es/tools/pass-fort/).
+Para comprobar la fuerza de una contraseña que ya usas, y si aparece en una filtración de datos conocida, prueba [PassFort](/es/tools/pass-fort/).

@@ -1,10 +1,15 @@
 {{- define "main" }}
 {{- /* Tool page ("money page") template, used by every page in the tools
      section. Structure:
-       breadcrumbs → H1 → intro → [ad tool_top] → TOOL → [ad tool_after]
+       breadcrumbs → H1 → intro → TOOL → [ad tool_after]
        → How to use (front matter `howto`) → long-form markdown body
-         (## How it works, [partner block], ## Use cases …)
-       → [ad article_mid] → FAQ (front matter `faq`) → related guides/tools
+         (## How it works, [ad article_mid], [partner block], ## Use cases …;
+         the ad only when far enough from tool_after) → FAQ (`faq`)
+     Nothing sits between the intro and the tool: the tool's first control is
+     above the fold on phones and desktops (tests/ads.mjs). The tool_top
+     position (and its config key) is kept but no longer placed.
+     and, beside it at >= 1100 px (below it otherwise), partials/sidebar.html:
+     related tools, related guides, sidebar ad.
      The tool itself comes from exactly one of (front matter):
        tool_file     iframe of a self-contained app in static/tools/ (or games/)
                      + tool_height (initial px), tool_sandbox, tool_allow
@@ -15,9 +20,17 @@
 {{- $ads := partial "ads/enabled.html" . }}
 {{- $isTool := or .Params.tool_file .Params.tool_partial .Params.tool_html }}
 
-<article class="post-single tool-page">
+<div class="page-grid">
+<article class="post-single tool-page page-main">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
+    {{- $m := partial "page-meta.html" . }}
+    {{- with $m.icon }}
+    <p class="eyebrow">
+      <span class="eyebrow-icon">{{ partial "icon.html" (dict "name" . "size" 18) }}</span>
+      {{- with $m.category }}<a href="{{ "tools/" | relLangURL }}#{{ . }}">{{ i18n (printf "cat_%s" .) }}</a>{{ else }}{{ partial "page-type.html" $ }}{{ end }}
+    </p>
+    {{- end }}
     <h1 class="post-title">{{ .Title }}</h1>
     {{- with .Params.intro }}
     <p class="tool-intro">{{ . | markdownify }}</p>
@@ -27,8 +40,6 @@
   </header>
 
   {{- if $isTool }}
-  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
-
   <div class="tool-frame">
     {{- with .Params.tool_file }}
     <iframe src="{{ . }}?lang={{ site.Language.Lang }}"
@@ -38,6 +49,7 @@
             height="{{ $.Params.tool_height | default 800 }}"
             sandbox="{{ $.Params.tool_sandbox | default "allow-scripts allow-same-origin" }}"
             {{- with $.Params.tool_allow }} allow="{{ . }}"{{ end }}
+            {{- with $.Params.tool_settle_ms }} data-settle-ms="{{ . }}"{{ end }}
             referrerpolicy="same-origin"></iframe>
     {{- else }}{{ with .Params.tool_partial }}
     <div class="tool-inline">{{ partial (printf "tools/%s.html" .) $ }}</div>
@@ -65,6 +77,12 @@
        long-form section ("How it works"), i.e. before the 2nd <h2>. */}}
   {{- $html := string .Content }}
   {{- if not (.Param "disableAnchoredHeadings") }}{{ $html = string (partial "anchored_headings.html" .Content) }}{{ end }}
+  {{- /* article_mid before the 2nd <h2> (after "How it works"; bodies have 2–3
+       sections, so the 3rd was usually missing and the unit never rendered),
+       at least one screen of text below the tool_after unit (the How-to-use
+       words count towards that gap); otherwise it moves down or is dropped. */}}
+  {{- $howtoWords := countwords (plainify (delimit (.Params.howto | default slice) " ")) }}
+  {{- $html = string (partial "ads/inject-content.html" (dict "page" . "content" $html "at" (slice 2) "wordsBefore" $howtoWords)) }}
   {{- $partner := partial "affiliate/block.html" . }}
   {{- if $partner }}
     {{- $parts := split $html "<h2" }}
@@ -74,12 +92,10 @@
       {{- $html = printf "%s%s" $html $partner }}
     {{- end }}
   {{- end }}
-  <div class="post-content tool-longform">
+  <div class="post-content md-content tool-longform">
     {{ $html | safeHTML }}
   </div>
   {{- end }}
-
-  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "article_mid") }}{{ end }}
 
   {{- with .Params.faq }}
   <section class="tool-section tool-faq" aria-labelledby="faq">
@@ -93,24 +109,24 @@
   </section>
   {{- end }}
 
-  {{ partial "related-guides.html" . }}
-
   {{- else }}
   {{- /* Legacy: the iframe/shortcode lives in the markdown body (games). */}}
-  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
   {{- if .Content }}
   {{- $html := .Content }}
   {{- if not (.Param "disableAnchoredHeadings") }}{{ $html = partial "anchored_headings.html" .Content }}{{ end }}
   {{- if $ads }}
     {{- $afterAd := partial "ads/unit.html" (dict "position" "tool_after") }}
     {{- if strings.Contains $html "</iframe>" }}
-      {{- $html = replaceRE `</iframe>` (printf "</iframe>%s" $afterAd) $html 1 }}
-      {{- $html = partial "ads/inject-content.html" (dict "page" . "content" $html "at" (slice 3)) }}
+      {{- /* tool_after right after the game; article_mid only in the text
+           that follows it, one screen of words below (inject-content.html) */}}
+      {{- $cut := split (string $html) "</iframe>" }}
+      {{- $rest := partial "ads/inject-content.html" (dict "page" . "content" (delimit (after 1 $cut) "</iframe>") "at" (slice 1 2) "wordsBefore" 0) }}
+      {{- $html = printf "%s</iframe>%s%s" (index $cut 0) $afterAd $rest }}
     {{- else }}
       {{- $html = printf "%s%s" $html $afterAd }}
     {{- end }}
   {{- end }}
-  <div class="post-content">
+  <div class="post-content md-content">
     {{ $html | safeHTML }}
   </div>
   {{- end }}
@@ -129,7 +145,7 @@
     </ul>
   </footer>
 </article>
-
-{{ partial "related-tools.html" . }}
+{{ partial "sidebar.html" . }}
+</div>
 
 {{- end }}{{/* end main */}}

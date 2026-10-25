@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/docker-interview-questions/"]
 ---
 
-## System Init
+## What Docker Interviewers Look For
 
 Docker has become a non-negotiable skill for any DevOps, SRE, or backend engineering role. Interviewers at senior level expect you to go beyond `docker run` — they want to see that you understand image layering, networking internals, security hardening, and production-grade orchestration patterns. This guide contains the 20 questions most frequently asked in Senior and Lead-level interviews, with detailed answers that demonstrate depth.
 

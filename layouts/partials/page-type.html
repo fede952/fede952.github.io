@@ -1,0 +1,19 @@
+{{- /* Localized content-type label of a page ("Tool", "Game", "Guide",
+     "Cheatsheet", "Fix", ...), from its place in the tree:
+     tools/games/<x> → game, tools/<x> → tool, learn/<sub>/<x> → <sub>.
+     projects → project, any other regular page → page; "" for lists. Used on mixed listings (home "Latest",
+     search results) and on learn cards. */ -}}
+{{- $segs := split (strings.Trim .Path "/") "/" -}}
+{{- $key := "" -}}
+{{- if eq .Section "tools" -}}
+  {{- $key = cond (in $segs "games") "type_game" "type_tool" -}}
+{{- else if and (eq .Section "learn") (ge (len $segs) 2) -}}
+  {{- $key = printf "type_%s" (index $segs 1) -}}
+{{- else if eq .Section "projects" -}}
+  {{- $key = "type_project" -}}
+{{- else if .IsPage -}}
+  {{- $key = "type_page" -}}
+{{- end -}}
+{{- $label := "" -}}
+{{- if $key }}{{ $label = i18n $key | default "" }}{{ end -}}
+{{- return $label -}}

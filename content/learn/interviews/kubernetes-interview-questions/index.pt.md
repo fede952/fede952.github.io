@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/kubernetes-interview-questions/"]
 ---
 
-## Inicialização do Sistema
+## O que os entrevistadores buscam em Kubernetes
 
 Kubernetes é o sistema operacional da nuvem — e a habilidade mais demandada para funções de DevOps, SRE e Engenharia de Plataforma. Entrevistas de nível sênior são profundas: você será questionado sobre os internos do control plane, modelos de rede, RBAC, gerenciamento de recursos e como depurar incidentes em produção sob pressão. Este guia contém 20 perguntas que aparecem repetidamente em entrevistas nas principais empresas de tecnologia, com respostas que demonstram a profundidade esperada no nível Staff/Sênior.
 

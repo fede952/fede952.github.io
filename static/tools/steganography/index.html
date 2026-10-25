@@ -6,30 +6,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Steganography Lab</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-3);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 
 .app{max-width:900px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
 /* -- Header -- */
 .header{text-align:center;padding:24px 0;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
-.header h1{font-size:clamp(20px,4.5vw,30px);text-transform:uppercase;letter-spacing:5px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:8px;letter-spacing:2px}
+.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:8px;}
 
 /* -- Tabs -- */
 .tabs{display:flex;gap:0;border-bottom:2px solid var(--border)}
-.tab-btn{flex:1;padding:12px 20px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-bottom:none;cursor:pointer;transition:all .2s;border-radius:8px 8px 0 0;position:relative}
+.tab-btn{flex:1;padding:12px 20px;font-family:var(--font-sans);font-size:11px;background:var(--bg2);color:var(--text2);border:1px solid var(--border);border-bottom:none;cursor:pointer;transition:all .2s;border-radius:8px 8px 0 0;position:relative}
 .tab-btn:hover{background:var(--bg3);color:var(--text)}
 .tab-btn.active{background:var(--bg3);color:var(--cyan);border-color:var(--cyan)}
 .tab-btn.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--cyan)}
@@ -40,15 +36,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 
 /* -- Panel -- */
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
-.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.panel-title{font-size:10px;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .panel-title::before{content:'';flex:1;height:1px;background:var(--border)}
 .panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* -- Drop Zone -- */
 .drop-zone{border:2px dashed var(--border2);border-radius:8px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg3);position:relative;overflow:hidden}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--cyan);background:var(--cyan-glow)}
-.drop-zone-icon{font-size:36px;margin-bottom:12px;opacity:0.5}
-.drop-zone-text{font-size:12px;color:var(--text2);letter-spacing:1px}
+.drop-zone-icon{margin-bottom:12px;color:var(--accent)}
+.drop-zone-text{font-size:12px;color:var(--text2);}
 .drop-zone-hint{font-size:10px;color:var(--text3);margin-top:8px}
 .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
 
@@ -56,7 +52,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .preview-container{margin-top:16px;text-align:center;display:none}
 .preview-container.visible{display:block}
 .preview-canvas{max-width:100%;max-height:300px;border:1px solid var(--border);border-radius:4px;background:repeating-conic-gradient(var(--bg3) 0% 25%, var(--bg2) 0% 50%) 50% / 20px 20px}
-.image-info{font-size:10px;color:var(--text3);margin-top:8px;letter-spacing:1px}
+.image-info{font-size:10px;color:var(--text3);margin-top:8px;}
 
 /* -- Textarea -- */
 .secret-input{width:100%;min-height:120px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:8px;resize:vertical;outline:none;margin-top:16px}
@@ -73,19 +69,19 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .capacity-fill.danger{background:var(--red)}
 
 /* -- Buttons -- */
-.btn{padding:12px 28px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
-.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn{padding:12px 28px;font-family:var(--font-sans);font-size:11px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn-primary:hover{}
 .btn-primary:disabled{opacity:0.4;cursor:not-allowed;box-shadow:none}
 .btn-secondary{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
 .btn-secondary:hover{background:var(--cyan-glow)}
 .btn-group{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
 
 /* -- Status Messages -- */
-.status{margin-top:16px;padding:12px 16px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
+.status{margin-top:16px;padding:12px 16px;border-radius:6px;font-size:11px;display:none}
 .status.visible{display:block}
-.status.success{background:rgba(0,255,136,.1);border:1px solid var(--green);color:var(--green)}
-.status.error{background:rgba(255,51,85,.1);border:1px solid var(--red);color:var(--red)}
+.status.success{background:var(--success-soft);border:1px solid var(--green);color:var(--green)}
+.status.error{background:var(--danger-soft);border:1px solid var(--red);color:var(--red)}
 .status.info{background:var(--cyan-glow);border:1px solid var(--cyan);color:var(--cyan)}
 
 /* -- Revealed Text -- */
@@ -122,7 +118,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
       <div class="panel-title" id="hideStepLabel"></div>
 
       <div class="drop-zone" id="hideDropZone">
-        <div class="drop-zone-icon">&#128444;</div>
+        <div class="drop-zone-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19.5H5a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V12"/><path d="M3 15.5l4.5-4.5 4 4"/><circle cx="15.5" cy="8.5" r="1.25"/><path d="M18 21v-6M15.5 17.5 18 15l2.5 2.5"/></svg></div>
         <div class="drop-zone-text" id="hideDropText"></div>
         <div class="drop-zone-hint" id="hideDropHint"></div>
         <input type="file" accept="image/*" id="hideFileInput">
@@ -160,7 +156,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
       <div class="panel-title" id="revealStepLabel"></div>
 
       <div class="drop-zone" id="revealDropZone">
-        <div class="drop-zone-icon">&#128270;</div>
+        <div class="drop-zone-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.75"/><path d="M20.5 20.5l-5.2-5.2"/></svg></div>
         <div class="drop-zone-text" id="revealDropText"></div>
         <div class="drop-zone-hint" id="revealDropHint"></div>
         <input type="file" accept="image/png" id="revealFileInput">

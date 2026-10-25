@@ -2,49 +2,46 @@
 title: "About Me"
 hidemeta: true
 layout: "about"
-description: "Federico Sella - Security Developer and SOC Analyst. Transitioning from 7+ years in CNC Automation (Fanuc/Selca) to Offensive Security and Red Teaming."
-keywords: ["Cybersecurity", "Red Team", "SOC Analyst", "Developer", "Industrial Automation", "Fanuc", "Selca", "Python", "eJPT", "Bergamo"]
-summary: "From precision mechanics to digital warfare. My journey from CNC Programming to Cybersecurity."
+description: "Federico Sella: Network Security Analyst (L2) on SSE/SASE and Zero Trust platforms, former SOC Tier 1 analyst and CNC programmer, eJPT certified."
+keywords: ["Federico Sella", "Network Security Analyst", "SSE", "SASE", "Zero Trust", "secure web gateway", "SOC analyst", "eJPT", "Python"]
+summary: "Network Security Analyst (L2): SSE/SASE, Zero Trust, secure web gateway. Career changer from CNC machining. eJPT."
+# TODO(Federico): confirm before these are shown on the page (not rendered):
+#   - further certifications listed on the old page: Cisco Ethical Hacker, ISC2 CC (Certified in
+#     Cybersecurity), Google Cybersecurity Certificate
+#   - years in CNC machining/programming (the old page said "7+ years" in one place and
+#     "over 10 years in the industrial sector" in another)
+# Once confirmed, add them to the "Certifications and skills" list in every language.
 ---
+<img class="about-photo" src="/images/profile.webp" width="220" height="293" alt="Federico Sella">
 
-<img src="/images/profile.webp" width="220" height="293" 
-     style="float: right; margin-left: 20px; margin-bottom: 10px; border-radius: 15px; width: 220px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" 
-     alt="Federico Sella">
+## What I do
 
-### The Bridge Between Steel and Silicon
-I am a **Security Developer** and **Red Team Aspirant** with a distinctive edge: I don't just understand networks; I understand the physical machines they control
+I'm a **Network Security Analyst (L2)** at a large enterprise. I work on **SSE/SASE platforms**: Zero Trust access to
+private applications, the secure web gateway that inspects web traffic, and troubleshooting the client connectivity
+that ties the two together — when an application doesn't load through the gateway, when traffic isn't steered the way
+the policy says, when a connection works off-network and fails on it.
 
-Before transitioning to Cybersecurity, I spent **over 10 years in the Industrial Sector**, including 7 years as a specialized **CNC Programmer**.
-Writing code for Fanuc and Selca systems instilled in me a strict procedural mindset: in that world, a syntax error doesn't just crash an app-it causes physical damage
+Before this role I worked for about a year as a **SOC Tier 1 analyst**.
 
-**I bring that "Zero-Error" precision to Cybersecurity.**
+## How I got into security
 
-Currently, as a **SOC Analyst**, I analyze live attack vectors to deconstruct how breaches happen
-However, my trajectory is firmly set on **Offensive Security**: leverage my coding skills to build custom tools, automate reconnaissance, and simulate sophisticated threats
+I changed careers. I spent years in **CNC machining and programming** and in **technical drafting**, and earned my
+technical diploma at evening school. I moved into cybersecurity through a cybersecurity bootcamp, then the SOC, then
+network security.
 
-### Why My Background Matters
-* **The "OT" Advantage:** The gap between IT and OT (Operational Technology) is a major security blind spot
-* I speak the language of PLCs and industrial controllers, a critical asset for **ICS/SCADA Security**
-* **Low-Level Logic:** My experience with G-Code (machine language) translates naturally to understanding **Assembly and Shellcode**
-* I construct logic from the ground up
-* **The Builder's Mindset:** I don't just run scripts; I build them
-* I utilize **Python, SQL, and Bash** to create tailored automation tools rather than relying solely on off-the-shelf solutions
+## Certifications and skills
 
-### Tech Stack & Arsenal
+- **eJPT** — eLearnSecurity Junior Penetration Tester
+- Cybersecurity bootcamp (completed)
+- Code: **Python** (automation and tooling), **C#**, **Next.js**
 
-**🛡️ Offensive & Security**
-* **Certifications:** eJPT (Junior Penetration Tester), Cisco Ethical Hacker, ISC2 CC, Google Cybersecurity
-* **Arsenal:** Metasploit, Burp Suite, Wireshark, Nmap, Nessus
-* **Focus:** Network Enumeration, Active Directory Exploitation, Web App Pentesting
+## Why this site exists
 
-**⚙️ Industrial & Core Logic**
-* **Systems:** Fanuc, Selca (7 Years Exp.), Industrial IoT protocols
-* **Skills:** G-Code Programming, Hardware Debugging, Process Logic Analysis
+These are privacy-first tools built by someone who works on network security every day. They run entirely in your
+browser: nothing you type, paste or upload leaves your device (the few exceptions, like NetGuard's IP lookup, are named
+on the tool and in the [privacy policy](/en/privacy/)). The guides and cheatsheets are written from the same work and
+from lab practice. The site is funded by ads and a few clearly labelled affiliate links.
 
-**💻 Development**
-* **Languages:** Python (Automation/Tooling), SQL, Bash, PowerShell
-* **Environment:** Linux (Kali/Debian), GitHub, Docker, Retool
+## Contact
 
----
-> *"I construct to understand.
-> I break to secure"*
+[LinkedIn](https://linkedin.com/in/federicosella) · [GitHub](https://github.com/fede952) · [Contact page](/en/contact/)

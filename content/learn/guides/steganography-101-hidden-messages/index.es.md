@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
-## $ System_Init
+## Ocultar un mensaje a plena vista
 
 Una fotografía de un atardecer. Una foto de perfil. Un meme compartido en redes sociales. Para cualquier observador, son archivos de imagen ordinarios. Pero enterrado dentro de los datos de píxeles — invisible al ojo humano — puede haber un mensaje oculto esperando ser extraído por alguien que sepa dónde buscar.
 
@@ -19,7 +19,7 @@ Esta guía explica la técnica de esteganografía digital más común — **la i
 
 ---
 
-## $ What_Is_Steganography
+## Qué es la esteganografía (y en qué se diferencia del cifrado)
 
 La palabra proviene del griego: *steganos* (cubierto) + *graphein* (escritura). Literalmente, "escritura cubierta."
 
@@ -40,7 +40,7 @@ El enfoque más poderoso combina ambos: cifra el mensaje primero, luego incrusta
 
 ---
 
-## $ How_LSB_Works
+## Cómo la esteganografía LSB oculta datos en los píxeles
 
 Las imágenes digitales están hechas de píxeles. Cada píxel almacena valores de color — típicamente Rojo, Verde y Azul (RGB) — con cada canal usando 8 bits (valores 0-255).
 
@@ -86,7 +86,7 @@ Eso es suficiente para ocultar un documento completo dentro de una sola fotograf
 
 ---
 
-## $ Detection_And_Limits
+## Detectar la esteganografía LSB y sus límites
 
 La esteganografía LSB no es perfecta. Aquí están las vulnerabilidades conocidas:
 
@@ -111,7 +111,7 @@ Redimensionar, recortar, rotar o aplicar filtros (brillo, contraste, etc.) modif
 
 ---
 
-## $ Try_It_Yourself
+## Pruébalo: oculta un mensaje en una imagen
 
 La teoría no es nada sin práctica. Usa nuestro **[Laboratorio de Esteganografía](/es/tools/steganography/)** gratuito del lado del cliente para codificar tus propios mensajes ocultos en imágenes — directamente en tu navegador.
 
@@ -127,7 +127,7 @@ Sin cargas, sin procesamiento en servidor. Tus datos permanecen en tu máquina.
 
 ---
 
-## $ FAQ_Database
+## Preguntas frecuentes sobre esteganografía
 
 **¿Se puede detectar la esteganografía?**
 

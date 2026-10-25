@@ -61,4 +61,4 @@ An attacker who knows exactly how this generator works, pool and length included
 - **Wi-Fi networks.** Generate a 20–30 character key for your router; you only type it once per device.
 - **Temporary credentials.** Create a one-off password for a guest account or a shared document, then delete the account when you are done.
 
-For passphrases and for checking the strength of a password you already use, try [PassFort](/en/tools/pass-fort/).
+To check the strength of a password you already use, and whether it appears in a known data breach, try [PassFort](/en/tools/pass-fort/).

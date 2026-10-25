@@ -19,8 +19,7 @@ Cookies sind kleine Textdateien, die besuchte Websites auf Ihrem Gerät speicher
 
 | Technologie | Zweck | Dauer |
 |---|---|---|
-| `localStorage: menu-scroll-position` | Stellt die horizontale Scrollposition des oberen Menüs wieder her | Bis Sie es löschen |
-| `localStorage`-Schlüssel einzelner Tools und Spiele (z. B. `easycron-theme`, `nb_best`, `st_state`, Highscores) | Merken sich eine Einstellung, Ihren besten Punktestand oder einen Spielstand | Bis Sie sie löschen |
+| `localStorage`-Schlüssel einzelner Tools und Spiele (z. B. `dof_hi`, `nb_best`, `st_state`, Highscores) | Merken sich eine Einstellung, Ihren besten Punktestand oder einen Spielstand | Bis Sie sie löschen |
 
 ### Statistik
 

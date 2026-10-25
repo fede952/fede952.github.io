@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
-## Inicio del Sistema
+## Qué cubre esta cheatsheet de kubectl
 
 Kubernetes es el sistema operativo de la nube. Orquesta contenedores a través de clústeres de máquinas, gestionando escalado, auto-recuperación, balanceo de carga y descubrimiento de servicios de forma automática. Pero toda esa potencia se accede a través de una única herramienta de línea de comandos: `kubectl`. Este manual de campo contiene los comandos kubectl que necesitas para cada fase de la gestión del clúster — desde desplegar tu primer pod hasta depurar incidentes en producción a las 3 de la madrugada. Cada comando está probado en producción y organizado por flujo de trabajo, para que puedas encontrar lo que necesitas en segundos.
 

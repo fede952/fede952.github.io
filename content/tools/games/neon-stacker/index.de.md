@@ -4,8 +4,8 @@ description: "Das klassische Block-Stapelspiel neu erfunden. Überlebe den Neon-
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
-keywords: ["Tetris online", "Neon-Puzzle", "Blockspiel", "Browserspiel", "Cyberpunk-Spiel"]
+tags: ["game", "puzzle", "html5", "cyberpunk"]
+keywords: ["Neon-Puzzle", "Blockspiel", "Browserspiel", "Cyberpunk-Spiel"]
 draft: false
 aliases: ["/games/neon-stacker/"]
 ---

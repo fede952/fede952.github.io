@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/react-hooks-lifecycle/"]
 ---
 
-## Component Online
+## Why React Hooks Matter
 
 React Hooks replaced class components as the standard way to manage state and side effects. Since React 16.8, every production application is built with hooks — and interviewers expect you to know them cold. This cheatsheet gives you copy-paste snippets for every hook and the real-world patterns you will encounter in frontend interviews and daily development. No theory lectures. Just working code you can drop into any component.
 
@@ -675,6 +675,6 @@ function useMyHook() {        // ✅ Custom hook (starts with "use")
 
 ---
 
-## End of Transmission
+## React Hooks Cheatsheet: Key Takeaways
 
 This cheatsheet covers every React Hook pattern you will encounter in production codebases and frontend interviews. From basic state management to custom hooks that encapsulate reusable logic — these are the building blocks of modern React. Bookmark it, copy the patterns, and build.

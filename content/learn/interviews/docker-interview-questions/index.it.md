@@ -9,7 +9,7 @@ proficiency: "Advanced"
 aliases: ["/interviews/docker-interview-questions/"]
 ---
 
-## Inizializzazione del Sistema
+## Cosa cercano i selezionatori nei colloqui Docker
 
 Docker è diventato una competenza imprescindibile per qualsiasi ruolo DevOps, SRE o di ingegneria backend. I selezionatori a livello senior si aspettano che tu vada oltre `docker run` — vogliono vedere che comprendi la stratificazione delle immagini, gli aspetti interni del networking, il rafforzamento della sicurezza e i pattern di orchestrazione per la produzione. Questa guida contiene le 20 domande più frequenti nei colloqui di livello Senior e Lead, con risposte dettagliate che dimostrano profondità.
 

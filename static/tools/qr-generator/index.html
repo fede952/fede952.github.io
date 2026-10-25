@@ -7,47 +7,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QR Code Generator</title>
 <script src="/vendor/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script type="module">import * as Q from '/js/tools/qr-payload.mjs'; window.QRP = Q;</script>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080c;--bg2:#0e0e14;--bg3:#14141e;--bg4:#1a1a28;
-  --cyan:#00e5ff;--cyan-dim:#00b8d4;--cyan-glow:rgba(0,229,255,.12);
-  --magenta:#ff2dce;--magenta-glow:rgba(255,45,206,.1);
-  --green:#00ff88;--red:#ff3355;--orange:#ff9900;--yellow:#ffd700;
-  --text:#c0c0cc;--text2:#666680;--text3:#3a3a50;
-  --border:#1e1e30;--border2:#2a2a40;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--magenta:var(--accent-2);--magenta-glow:var(--accent-2-soft);--green:var(--success);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-3);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 .app{max-width:700px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
 
 .header{text-align:center;padding:20px 0 16px;border-bottom:2px solid var(--cyan);position:relative}
 .header::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),transparent)}
-.header h1{font-size:clamp(18px,4vw,26px);text-transform:uppercase;letter-spacing:4px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header .sub{font-size:11px;color:var(--text2);margin-top:6px;letter-spacing:2px}
+.header h1{font-size:clamp(18px,4vw,26px);color:var(--tool-accent)}
+.header .sub{font-size:11px;color:var(--text2);margin-top:6px;}
 
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
-.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.panel-title{font-size:10px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .panel-title::before,.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
 .input-group{margin-bottom:16px}
-.input-group label{display:block;font-size:11px;color:var(--text2);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}
+.input-group label{display:block;font-size:11px;color:var(--text2);margin-bottom:6px;}
 .input-group textarea,.input-group input[type="text"]{width:100%;padding:12px;font-family:var(--mono);font-size:13px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;resize:vertical;outline:none;transition:border-color .2s}
 .input-group textarea:focus,.input-group input[type="text"]:focus{border-color:var(--cyan)}
 .input-group textarea{min-height:80px}
 
 .options-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
 .option-item{display:flex;flex-direction:column;gap:6px}
-.option-item label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
+.option-item label{font-size:10px;color:var(--text2);}
 .option-item select{padding:8px 10px;font-family:var(--mono);font-size:12px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px;outline:none;cursor:pointer}
 .option-item select:focus{border-color:var(--cyan)}
 .color-picker-wrap{display:flex;align-items:center;gap:8px}
 .color-picker-wrap input[type="color"]{width:36px;height:36px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:var(--bg3);padding:2px}
 .color-picker-wrap .color-hex{font-size:12px;color:var(--text2)}
 
-.btn{padding:10px 24px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--cyan-dim));color:var(--bg);font-weight:700}
-.btn-primary:hover{box-shadow:0 0 20px var(--cyan-glow),0 0 40px var(--cyan-glow)}
+.btn{padding:10px 24px;font-family:var(--font-sans);font-size:11px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn-primary:hover{}
 .btn-secondary{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
 .btn-secondary:hover{background:var(--cyan-glow)}
 .btn-group{display:flex;gap:10px;flex-wrap:wrap}
@@ -55,14 +52,29 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .qr-output{text-align:center;margin-top:16px;display:none}
 .qr-output.visible{display:block}
 .qr-canvas-wrap{display:inline-block;padding:16px;background:#fff;border-radius:8px;border:2px solid var(--border)}
-.qr-canvas-wrap canvas{display:block}
+.qr-canvas-wrap{max-width:100%}
+.qr-canvas-wrap canvas{display:block;max-width:100%;height:auto;image-rendering:pixelated}
 
-.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;letter-spacing:1px;display:none}
-.status.success{display:block;background:rgba(0,255,136,.08);border:1px solid var(--green);color:var(--green)}
-.status.error{display:block;background:rgba(255,51,85,.08);border:1px solid var(--red);color:var(--red)}
+.status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;display:none}
+.status.success{display:block;background:var(--success-soft);border:1px solid var(--green);color:var(--green)}
+.status.error{display:block;background:var(--danger-soft);border:1px solid var(--red);color:var(--red)}
+
+.mode-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.mode-tab{flex:1 1 auto;min-height:40px;padding:8px 14px;font-family:var(--font-sans);font-size:13px;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:6px;cursor:pointer}
+.mode-tab[aria-selected="true"]{color:var(--cyan);border-color:var(--cyan);background:var(--cyan-glow)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:12px}
+.form-grid .span-2{grid-column:1/-1}
+.form-grid .input-group{margin-bottom:12px}
+.input-group select{width:100%;padding:11px 10px;font-family:var(--mono);font-size:13px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:6px}
+.check-row{display:flex;align-items:flex-end}
+.check-row label{display:flex;align-items:center;gap:8px;min-height:44px;font-size:13px;color:var(--text);cursor:pointer;margin:0}
+.check-row input{width:18px;height:18px}
+.hint{font-size:12px;color:var(--text2);line-height:1.5;margin:-4px 0 14px}
+#payload{min-height:60px;color:var(--text2)}
 
 @media(max-width:600px){
   .options-row{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
   .btn-group{flex-direction:column}
   .btn{width:100%;justify-content:center}
 }
@@ -71,15 +83,56 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <body>
 <div class="app">
   <div class="header">
-    <h1 data-i18n="title">$ QuickLinker</h1>
+    <h1 data-i18n="title">QuickLinker</h1>
     <div class="sub" data-i18n="subtitle">QR Code Generator</div>
   </div>
 
   <div class="panel">
     <div class="panel-title" data-i18n="inputSection">Input</div>
-    <div class="input-group">
-      <label data-i18n="inputLabel">URL or Text</label>
-      <textarea id="qr-input" placeholder="https://example.com" data-i18n-placeholder="inputPlaceholder"></textarea>
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab" role="tab" data-mode="text" aria-selected="true" data-i18n="modeText">Text / URL</button>
+      <button type="button" class="mode-tab" role="tab" data-mode="wifi" aria-selected="false" data-i18n="modeWifi">Wi-Fi</button>
+      <button type="button" class="mode-tab" role="tab" data-mode="vcard" aria-selected="false" data-i18n="modeVcard">Contact</button>
+    </div>
+
+    <div class="mode-panel" data-panel="text">
+      <div class="input-group">
+        <label for="qr-input" data-i18n="inputLabel">URL or Text</label>
+        <textarea id="qr-input" placeholder="https://example.com" data-i18n-placeholder="inputPlaceholder"></textarea>
+      </div>
+    </div>
+
+    <div class="mode-panel" data-panel="wifi" hidden>
+      <div class="form-grid">
+        <div class="input-group"><label for="wf-ssid" data-i18n="ssid">Network name (SSID)</label><input type="text" id="wf-ssid" autocomplete="off" spellcheck="false"></div>
+        <div class="input-group"><label for="wf-pass" data-i18n="wifiPass">Password</label><input type="text" id="wf-pass" autocomplete="off" spellcheck="false"></div>
+        <div class="input-group option-item"><label for="wf-auth" data-i18n="security">Security</label>
+          <select id="wf-auth"><option value="WPA" data-i18n="secWpa">WPA / WPA2 / WPA3</option><option value="WEP" data-i18n="secWep">WEP (old)</option><option value="nopass" data-i18n="secNone">None (open network)</option></select></div>
+        <div class="input-group check-row"><label><input type="checkbox" id="wf-hidden"> <span data-i18n="hidden">Hidden network</span></label></div>
+      </div>
+      <p class="hint" data-i18n="wifiTip">Scanning the code joins the network on Android and iPhone. Anyone who sees the code can read the password.</p>
+    </div>
+
+    <div class="mode-panel" data-panel="vcard" hidden>
+      <div class="form-grid">
+        <div class="input-group"><label for="vc-first" data-i18n="first">First name</label><input type="text" id="vc-first" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-last" data-i18n="last">Last name</label><input type="text" id="vc-last" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-org" data-i18n="org">Organization</label><input type="text" id="vc-org" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-title" data-i18n="jobTitle">Job title</label><input type="text" id="vc-title" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-phone" data-i18n="phone">Phone</label><input type="text" id="vc-phone" inputmode="tel" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-email" data-i18n="email">Email</label><input type="text" id="vc-email" inputmode="email" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-url" data-i18n="website">Website</label><input type="text" id="vc-url" inputmode="url" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-street" data-i18n="street">Street</label><input type="text" id="vc-street" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-city" data-i18n="city">City</label><input type="text" id="vc-city" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-zip" data-i18n="zip">Postal code</label><input type="text" id="vc-zip" autocomplete="off"></div>
+        <div class="input-group"><label for="vc-country" data-i18n="country">Country</label><input type="text" id="vc-country" autocomplete="off"></div>
+        <div class="input-group span-2"><label for="vc-note" data-i18n="note">Note</label><textarea id="vc-note" rows="2"></textarea></div>
+      </div>
+    </div>
+
+    <div class="input-group" id="payload-wrap" hidden>
+      <label for="payload" data-i18n="payload">Encoded text</label>
+      <textarea id="payload" readonly rows="3" spellcheck="false"></textarea>
     </div>
 
     <div class="panel-title" data-i18n="optionsSection">Options</div>
@@ -130,7 +183,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <script>
 const T = {
   en: {
-    title: '$ QuickLinker', subtitle: 'QR Code Generator',
+    title: 'QuickLinker', subtitle: 'QR Code Generator',
     inputSection: 'Input', inputLabel: 'URL or Text', inputPlaceholder: 'https://example.com',
     optionsSection: 'Options', fgColor: 'Foreground', bgColor: 'Background',
     errorLevel: 'Error Correction', generateBtn: 'Generate QR', downloadBtn: 'Download .PNG',
@@ -138,7 +191,7 @@ const T = {
     success: 'QR code generated successfully.', errorGenerate: 'Error generating QR code.'
   },
   it: {
-    title: '$ QuickLinker', subtitle: 'Generatore di Codici QR',
+    title: 'QuickLinker', subtitle: 'Generatore di Codici QR',
     inputSection: 'Input', inputLabel: 'URL o Testo', inputPlaceholder: 'https://esempio.com',
     optionsSection: 'Opzioni', fgColor: 'Primo Piano', bgColor: 'Sfondo',
     errorLevel: 'Correzione Errore', generateBtn: 'Genera QR', downloadBtn: 'Scarica .PNG',
@@ -146,7 +199,7 @@ const T = {
     success: 'Codice QR generato con successo.', errorGenerate: 'Errore nella generazione del codice QR.'
   },
   es: {
-    title: '$ QuickLinker', subtitle: 'Generador de Códigos QR',
+    title: 'QuickLinker', subtitle: 'Generador de Códigos QR',
     inputSection: 'Entrada', inputLabel: 'URL o Texto', inputPlaceholder: 'https://ejemplo.com',
     optionsSection: 'Opciones', fgColor: 'Primer Plano', bgColor: 'Fondo',
     errorLevel: 'Corrección de Error', generateBtn: 'Generar QR', downloadBtn: 'Descargar .PNG',
@@ -154,7 +207,7 @@ const T = {
     success: 'Código QR generado exitosamente.', errorGenerate: 'Error al generar el código QR.'
   },
   fr: {
-    title: '$ QuickLinker', subtitle: 'Générateur de Codes QR',
+    title: 'QuickLinker', subtitle: 'Générateur de Codes QR',
     inputSection: 'Entrée', inputLabel: 'URL ou Texte', inputPlaceholder: 'https://exemple.com',
     optionsSection: 'Options', fgColor: 'Premier Plan', bgColor: 'Arrière-plan',
     errorLevel: "Correction d'Erreur", generateBtn: 'Générer QR', downloadBtn: 'Télécharger .PNG',
@@ -162,7 +215,7 @@ const T = {
     success: 'Code QR généré avec succès.', errorGenerate: 'Erreur lors de la génération du code QR.'
   },
   de: {
-    title: '$ QuickLinker', subtitle: 'QR-Code Generator',
+    title: 'QuickLinker', subtitle: 'QR-Code Generator',
     inputSection: 'Eingabe', inputLabel: 'URL oder Text', inputPlaceholder: 'https://beispiel.de',
     optionsSection: 'Optionen', fgColor: 'Vordergrund', bgColor: 'Hintergrund',
     errorLevel: 'Fehlerkorrektur', generateBtn: 'QR Generieren', downloadBtn: '.PNG Herunterladen',
@@ -170,7 +223,7 @@ const T = {
     success: 'QR-Code erfolgreich generiert.', errorGenerate: 'Fehler beim Generieren des QR-Codes.'
   },
   pt: {
-    title: '$ QuickLinker', subtitle: 'Gerador de Códigos QR',
+    title: 'QuickLinker', subtitle: 'Gerador de Códigos QR',
     inputSection: 'Entrada', inputLabel: 'URL ou Texto', inputPlaceholder: 'https://exemplo.com',
     optionsSection: 'Opções', fgColor: 'Primeiro Plano', bgColor: 'Fundo',
     errorLevel: 'Correção de Erro', generateBtn: 'Gerar QR', downloadBtn: 'Baixar .PNG',
@@ -178,6 +231,78 @@ const T = {
     success: 'Código QR gerado com sucesso.', errorGenerate: 'Erro ao gerar o código QR.'
   }
 };
+
+/* Strings for the Wi-Fi and contact modes */
+const T2 = {
+  en: { modeText: 'Text / URL', modeWifi: 'Wi-Fi', modeVcard: 'Contact', ssid: 'Network name (SSID)', wifiPass: 'Password', security: 'Security',
+    secWpa: 'WPA / WPA2 / WPA3', secWep: 'WEP (old)', secNone: 'None (open network)', hidden: 'Hidden network',
+    wifiTip: 'Scanning the code joins the network on Android and iPhone. Anyone who sees the code can read the password.',
+    first: 'First name', last: 'Last name', org: 'Organization', jobTitle: 'Job title', phone: 'Phone', email: 'Email', website: 'Website',
+    street: 'Street', city: 'City', zip: 'Postal code', country: 'Country', note: 'Note', payload: 'Encoded text',
+    errSsid: 'Enter the network name (SSID).', errPass: 'Enter the Wi-Fi password, or choose "None (open network)".', errName: 'Enter a name or an organization.' },
+  it: { modeText: 'Testo / URL', modeWifi: 'Wi-Fi', modeVcard: 'Contatto', ssid: 'Nome della rete (SSID)', wifiPass: 'Password', security: 'Sicurezza',
+    secWpa: 'WPA / WPA2 / WPA3', secWep: 'WEP (vecchio)', secNone: 'Nessuna (rete aperta)', hidden: 'Rete nascosta',
+    wifiTip: 'Inquadrando il codice, Android e iPhone si collegano alla rete. Chiunque veda il codice può leggere la password.',
+    first: 'Nome', last: 'Cognome', org: 'Organizzazione', jobTitle: 'Ruolo', phone: 'Telefono', email: 'Email', website: 'Sito web',
+    street: 'Via', city: 'Città', zip: 'CAP', country: 'Paese', note: 'Nota', payload: 'Testo codificato',
+    errSsid: 'Inserisci il nome della rete (SSID).', errPass: 'Inserisci la password del Wi-Fi o scegli "Nessuna (rete aperta)".', errName: 'Inserisci un nome o un\'organizzazione.' },
+  es: { modeText: 'Texto / URL', modeWifi: 'Wi-Fi', modeVcard: 'Contacto', ssid: 'Nombre de la red (SSID)', wifiPass: 'Contraseña', security: 'Seguridad',
+    secWpa: 'WPA / WPA2 / WPA3', secWep: 'WEP (antiguo)', secNone: 'Ninguna (red abierta)', hidden: 'Red oculta',
+    wifiTip: 'Al escanear el código, Android y iPhone se conectan a la red. Cualquiera que vea el código puede leer la contraseña.',
+    first: 'Nombre', last: 'Apellidos', org: 'Organización', jobTitle: 'Cargo', phone: 'Teléfono', email: 'Correo', website: 'Web',
+    street: 'Calle', city: 'Ciudad', zip: 'Código postal', country: 'País', note: 'Nota', payload: 'Texto codificado',
+    errSsid: 'Introduce el nombre de la red (SSID).', errPass: 'Introduce la contraseña del Wi-Fi o elige "Ninguna (red abierta)".', errName: 'Introduce un nombre o una organización.' },
+  fr: { modeText: 'Texte / URL', modeWifi: 'Wi-Fi', modeVcard: 'Contact', ssid: 'Nom du réseau (SSID)', wifiPass: 'Mot de passe', security: 'Sécurité',
+    secWpa: 'WPA / WPA2 / WPA3', secWep: 'WEP (ancien)', secNone: 'Aucune (réseau ouvert)', hidden: 'Réseau masqué',
+    wifiTip: 'En scannant le code, Android et iPhone se connectent au réseau. Quiconque voit le code peut lire le mot de passe.',
+    first: 'Prénom', last: 'Nom', org: 'Organisation', jobTitle: 'Fonction', phone: 'Téléphone', email: 'E-mail', website: 'Site web',
+    street: 'Rue', city: 'Ville', zip: 'Code postal', country: 'Pays', note: 'Note', payload: 'Texte encodé',
+    errSsid: 'Saisissez le nom du réseau (SSID).', errPass: 'Saisissez le mot de passe Wi-Fi ou choisissez « Aucune (réseau ouvert) ».', errName: 'Saisissez un nom ou une organisation.' },
+  de: { modeText: 'Text / URL', modeWifi: 'WLAN', modeVcard: 'Kontakt', ssid: 'Netzwerkname (SSID)', wifiPass: 'Passwort', security: 'Sicherheit',
+    secWpa: 'WPA / WPA2 / WPA3', secWep: 'WEP (veraltet)', secNone: 'Keine (offenes Netz)', hidden: 'Verstecktes Netzwerk',
+    wifiTip: 'Beim Scannen verbinden sich Android und iPhone mit dem Netz. Wer den Code sieht, kann das Passwort lesen.',
+    first: 'Vorname', last: 'Nachname', org: 'Organisation', jobTitle: 'Position', phone: 'Telefon', email: 'E-Mail', website: 'Website',
+    street: 'Straße', city: 'Ort', zip: 'PLZ', country: 'Land', note: 'Notiz', payload: 'Kodierter Text',
+    errSsid: 'Geben Sie den Netzwerknamen (SSID) ein.', errPass: 'Geben Sie das WLAN-Passwort ein oder wählen Sie „Keine (offenes Netz)“.', errName: 'Geben Sie einen Namen oder eine Organisation ein.' },
+  pt: { modeText: 'Texto / URL', modeWifi: 'Wi-Fi', modeVcard: 'Contato', ssid: 'Nome da rede (SSID)', wifiPass: 'Senha', security: 'Segurança',
+    secWpa: 'WPA / WPA2 / WPA3', secWep: 'WEP (antigo)', secNone: 'Nenhuma (rede aberta)', hidden: 'Rede oculta',
+    wifiTip: 'Ao escanear o código, Android e iPhone entram na rede. Qualquer pessoa que veja o código pode ler a senha.',
+    first: 'Nome', last: 'Sobrenome', org: 'Organização', jobTitle: 'Cargo', phone: 'Telefone', email: 'E-mail', website: 'Site',
+    street: 'Rua', city: 'Cidade', zip: 'CEP', country: 'País', note: 'Observação', payload: 'Texto codificado',
+    errSsid: 'Digite o nome da rede (SSID).', errPass: 'Digite a senha do Wi-Fi ou escolha "Nenhuma (rede aberta)".', errName: 'Digite um nome ou uma organização.' },
+};
+for (const l in T2) Object.assign(T[l], T2[l]);
+
+let MODE = 'text';
+const val = (id) => document.getElementById(id).value;
+/** The text to encode for the current mode, or { error } with a message key. */
+function currentPayload() {
+  if (MODE === 'text') { const s = val('qr-input').trim(); return s ? { payload: s } : { error: 'errorEmpty' }; }
+  if (!window.QRP) return { error: 'errorGenerate' };
+  if (MODE === 'wifi') {
+    const r = QRP.wifiPayload({ ssid: val('wf-ssid'), password: val('wf-pass'), auth: val('wf-auth'), hidden: document.getElementById('wf-hidden').checked });
+    return r.error ? { error: r.error === 'ssid' ? 'errSsid' : 'errPass' } : r;
+  }
+  const f = {};
+  for (const k of ['first', 'last', 'org', 'title', 'phone', 'email', 'url', 'street', 'city', 'zip', 'country', 'note']) f[k] = val('vc-' + k);
+  const r = QRP.vcardPayload(f);
+  return r.error ? { error: 'errName' } : r;
+}
+function updatePayload() {
+  if (MODE === 'text') return;
+  const r = currentPayload();
+  document.getElementById('payload').value = r.payload || '';
+}
+function setMode(m) {
+  MODE = m;
+  document.querySelectorAll('.mode-tab').forEach(b => b.setAttribute('aria-selected', b.dataset.mode === m));
+  document.querySelectorAll('.mode-panel').forEach(p => { p.hidden = p.dataset.panel !== m; });
+  document.getElementById('payload-wrap').hidden = m === 'text';
+  updatePayload();
+}
+document.querySelectorAll('.mode-tab').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+document.querySelectorAll('[data-panel="wifi"] input, [data-panel="wifi"] select, [data-panel="vcard"] input, [data-panel="vcard"] textarea')
+  .forEach(el => el.addEventListener(el.tagName === 'SELECT' || el.type === 'checkbox' ? 'change' : 'input', updatePayload));
 
 function detectLang() {
   const p = new URLSearchParams(window.location.search);
@@ -237,8 +362,10 @@ function drawQR(canvas, qr, cellSize, fg, bg) {
 }
 
 function generateQR() {
-  const text = document.getElementById('qr-input').value.trim();
-  if (!text) { showStatus(t('errorEmpty'), 'error'); return; }
+  const cur = currentPayload();
+  if (cur.error) { showStatus(t(cur.error), 'error'); return; }
+  const text = cur.payload;
+  if (MODE !== 'text') document.getElementById('payload').value = text;
   const ecLevel = document.getElementById('ec-level').value;
   const fg = document.getElementById('fg-color').value;
   const bg = document.getElementById('bg-color').value;
@@ -251,7 +378,7 @@ function generateQR() {
 
     const n = qr.getModuleCount();
     drawQR(document.getElementById('qr-canvas'), qr, Math.max(4, Math.floor(300 / (n + 2 * QUIET))), fg, bg);
-    lastQR = { qr: qr, fg: fg, bg: bg };
+    lastQR = { qr: qr, fg: fg, bg: bg, name: MODE === 'wifi' ? 'wifi-qrcode.png' : MODE === 'vcard' ? 'contact-qrcode.png' : 'qrcode.png' };
 
     document.getElementById('qr-output').classList.add('visible');
     document.getElementById('download-btn').style.display = '';
@@ -269,7 +396,7 @@ function downloadQR() {
   const big = document.createElement('canvas');
   drawQR(big, lastQR.qr, Math.max(8, Math.ceil(1200 / (n + 2 * QUIET))), lastQR.fg, lastQR.bg);
   const link = document.createElement('a');
-  link.download = 'qrcode.png';
+  link.download = lastQR.name;
   link.href = big.toDataURL('image/png');
   link.click();
 }

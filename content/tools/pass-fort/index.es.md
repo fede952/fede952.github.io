@@ -1,27 +1,30 @@
 ---
-title: "Comprobar Contraseña Segura y Generador"
-description: "Comprueba lo segura que es una contraseña (entropía en bits, tiempo para descifrarla) y genera contraseñas o frases de paso aleatorias en tu navegador."
-intro: "**PassFort** genera contraseñas y frases de paso aleatorias con el generador criptográfico de tu navegador, y analiza la entropía y el tiempo de ataque por fuerza bruta de cualquier contraseña. Nada de lo que escribes sale de esta página."
+title: "Comprobador de Contraseñas y Filtraciones"
+description: "Comprueba lo segura que es una contraseña (entropía, tiempo de ataque por fuerza bruta) y si aparece en filtraciones conocidas, con k-anonimato."
+intro: "**PassFort** revisa una contraseña que ya usas: su entropía, cuánto tardaría un ataque por fuerza bruta, los patrones que conviene evitar y, si lo pides, si ha aparecido en una **filtración de datos** conocida. El análisis de seguridad no sale de esta página; la comprobación opcional de filtraciones envía solo 5 caracteres del hash de la contraseña. ¿Necesitas una contraseña nueva? Usa el [Generador de Contraseñas Aleatorias](/es/tools/password-generator/)."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
-keywords: ["comprobar seguridad contraseña", "generador de contraseñas seguras", "generador de frases de paso", "entropía de contraseña", "cuánto se tarda en descifrar mi contraseña", "contraseña aleatoria", "test de contraseña", "contraseña segura"]
+keywords: ["comprobar seguridad contraseña", "comprobador de contraseñas", "contraseña filtrada", "mi contraseña ha sido filtrada", "entropía de contraseña", "cuánto se tarda en descifrar mi contraseña", "test de contraseña", "have i been pwned contraseña"]
 tags: ["seguridad", "contraseñas", "privacidad", "herramienta"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: generador y comprobador de contraseñas"
+tool_title: "PassFort: comprobador de seguridad y filtraciones de contraseñas"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Abre la pestaña **Generator**. Elige la longitud (de 8 a 128 caracteres) y los grupos de caracteres: mayúsculas, minúsculas, dígitos y símbolos."
+  - "Escribe o pega la contraseña que quieres revisar en la pestaña **Auditor**, que se abre primero. El botón del ojo la muestra u oculta."
+  - "Mira el medidor de entropía, el tiempo estimado de descifrado y la lista de comprobaciones: lo que aparezca en rojo conviene corregirlo antes de reutilizar esa contraseña."
+  - "Si quieres, pulsa **Check against known breaches** para saber si esa contraseña exacta ha aparecido en alguna filtración. No se envía nada hasta que lo pulsas."
+  - "Para crear una frase de paso o una contraseña nueva, abre la pestaña **Generator**. Elige la longitud (de 8 a 128 caracteres) y los grupos de caracteres: mayúsculas, minúsculas, dígitos y símbolos."
   - "Para algo que puedas escribir y recordar, marca **Passphrase Mode** y elige de 3 a 8 palabras. Para una contraseña maestra, usa al menos 6."
   - "Pulsa **Generate Password** hasta que te guste el resultado; el botón del portapapeles lo copia. Pégalo directamente en tu gestor de contraseñas."
-  - "Para revisar una contraseña que ya usas, cambia a la pestaña **Auditor** y escríbela o pégala. El botón del ojo la muestra u oculta."
-  - "Mira el medidor de entropía, el tiempo estimado de descifrado y la lista de comprobaciones: lo que aparezca en rojo conviene corregirlo antes de reutilizar esa contraseña."
 faq:
   - q: "¿Es seguro escribir mi contraseña real en este comprobador?"
-    a: "Sí. El auditor es JavaScript que se ejecuta dentro de esta página: nunca envía por la red lo que escribes, y el valor desaparece en cuanto vacías el campo o cierras la pestaña. Puedes confirmarlo en las herramientas de desarrollo del navegador (pestaña Red) mientras escribes. Si lo prefieres, prueba una contraseña que *siga el mismo patrón* que la real."
+    a: "Sí. El auditor es JavaScript que se ejecuta dentro de esta página: nunca envía por la red lo que escribes, y el valor desaparece en cuanto vacías el campo o cierras la pestaña. Puedes confirmarlo en las herramientas de desarrollo del navegador (pestaña Red) mientras escribes. Si lo prefieres, prueba una contraseña que *siga el mismo patrón* que la real. La única excepción es la comprobación opcional de filtraciones, y solo cuando pulsas su botón: envía 5 caracteres del hash SHA-1 de la contraseña, nunca la contraseña (mira la siguiente pregunta)."
+  - q: "¿Cómo funciona la comprobación de filtraciones sin revelar mi contraseña?"
+    a: "Usa el modelo de k-anonimato del servicio Pwned Passwords de Have I Been Pwned. PassFort calcula en tu navegador el hash SHA-1 de la contraseña y envía solo sus 5 primeros caracteres hexadecimales a `api.pwnedpasswords.com`. El servicio responde con las cerca de 1.000 terminaciones de hash que comparten ese prefijo, con su número de filtraciones, y PassFort busca la coincidencia en local. La petición pide además relleno (`Add-Padding: true`), de modo que todas las respuestas tienen un tamaño parecido sea cual sea el resultado. El servicio nunca ve la contraseña ni su hash completo; sí ve tu dirección IP, como en cualquier petición web. La comprobación solo se hace cuando pulsas el botón."
   - q: "¿Cuántos bits de entropía necesita una contraseña segura?"
     a: "Para cuentas protegidas con un hash lento y con sal, 60–70 bits de entropía *aleatoria* resisten mucho tiempo un ataque de fuerza bruta offline. Para la contraseña maestra del gestor o el cifrado de disco, apunta a 80–100 bits. Una contraseña aleatoria de 16 caracteres con los cuatro grupos da unos 103 bits; una frase de paso de PassFort de 7 palabras, unos 72 bits."
   - q: "¿Frase de paso o contraseña aleatoria: cuál es mejor?"
@@ -67,6 +70,10 @@ El auditor estima el tamaño del "alfabeto" del que sale tu contraseña: 26 si c
 El tiempo de descifrado es lo que se tarda en probar las 2^entropía combinaciones a **10¹⁰ intentos por segundo**, mostrado en unidades comprensibles hasta "siglos". El medidor se llena a los 100 bits y pasa de rojo a naranja, amarillo y verde a los 25, 50 y 75 bits. Debajo aparecen ocho comprobaciones: al menos 8 y 12 caracteres, cada clase de caracteres, ningún patrón inicial común y al menos 60 bits.
 
 Es el modelo clásico de "fuerza bruta". Es preciso para contraseñas aleatorias como las del generador y **optimista para las contraseñas que inventa la gente**, porque no detecta palabras de diccionario, nombres ni fechas.
+
+### La comprobación opcional de filtraciones
+
+Una contraseña puede tener mucha entropía y aun así no servir porque se ha filtrado: los atacantes prueban primero las contraseñas filtradas. **Check against known breaches** pregunta a Have I Been Pwned si esa contraseña exacta está en su lista de contraseñas de filtraciones reales, con k-anonimato: solo salen de la página los 5 primeros de los 40 caracteres hexadecimales de su hash SHA-1 (`5BAA6` para `password`), la comparación con los sufijos devueltos se hace en tu navegador y las respuestas llevan relleno para que su tamaño no revele nada. Está desactivada hasta que pulsas el botón, y escribir otra contraseña borra el resultado anterior.
 
 ## Casos de uso
 

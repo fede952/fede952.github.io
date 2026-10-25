@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/react-hooks-lifecycle/"]
 ---
 
-## Komponente Online
+## Warum React Hooks wichtig sind
 
 React Hooks haben Klassenkomponenten als Standardmethode zur Verwaltung von State und Seiteneffekten abgelöst. Seit React 16.8 wird jede Produktionsanwendung mit Hooks gebaut — und Interviewer erwarten, dass du sie perfekt beherrschst. Dieses Cheatsheet bietet dir Copy-Paste-Snippets für jeden Hook und die praxisnahen Muster, die dir in Frontend-Interviews und im täglichen Entwicklungsalltag begegnen werden. Keine Theorie-Vorlesungen. Nur funktionierender Code, den du in jede Komponente einfügen kannst.
 
@@ -675,6 +675,6 @@ function useMyHook() {        // ✅ Benutzerdefinierter Hook (beginnt mit "use"
 
 ---
 
-## Ende der Übertragung
+## React-Hooks-Cheatsheet: das Wichtigste
 
 Dieses Cheatsheet deckt jedes React Hook Muster ab, das dir in Produktions-Codebasen und Frontend-Interviews begegnen wird. Von der grundlegenden State-Verwaltung bis zu benutzerdefinierten Hooks, die wiederverwendbare Logik kapseln — das sind die Bausteine des modernen React. Speichere es als Lesezeichen, kopiere die Muster und baue.

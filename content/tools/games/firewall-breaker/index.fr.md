@@ -4,8 +4,8 @@ description: "Percez le pare-feu corporatif. Déviez le paquet de données, dét
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
-keywords: ["arkanoid en ligne", "jeu breakout", "casse-briques", "arcade cyberpunk"]
+tags: ["game", "arcade", "html5", "cyberpunk"]
+keywords: ["casse-briques", "arcade cyberpunk"]
 draft: false
 aliases: ["/games/firewall-breaker/"]
 ---

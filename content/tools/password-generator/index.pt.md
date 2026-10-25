@@ -61,4 +61,4 @@ Um atacante que conheça este gerador em detalhe, conjunto e tamanho incluídos,
 - **Redes Wi-Fi.** Gere uma chave de 20–30 caracteres para o roteador; você só digita uma vez por aparelho.
 - **Credenciais temporárias.** Crie uma senha descartável para uma conta de convidado ou um documento compartilhado e apague a conta quando terminar.
 
-Para frases-senha e para testar a força de uma senha que você já usa, experimente o [PassFort](/pt/tools/pass-fort/).
+Para testar a força de uma senha que você já usa, e saber se ela aparece em um vazamento de dados conhecido, experimente o [PassFort](/pt/tools/pass-fort/).

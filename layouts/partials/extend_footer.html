@@ -1,42 +1,32 @@
 <script src="/vendor/medium-zoom@1.1.0/medium-zoom.min.js"></script>
 <script>
-    // Applica lo zoom a tutte le immagini dentro il contenuto dei post
-    const images = Array.from(document.querySelectorAll(".post-content img"));
-    
-    mediumZoom(images, {
-        margin: 24,           // Margine dai bordi
-        background: '#1d1e20', // Colore di sfondo scuro (uguale al tema)
-        scrollOffset: 0,      // Disabilita lo scroll quando zoomi
+    // Click-to-zoom for images in articles, on the page background colour
+    mediumZoom(document.querySelectorAll('.post-content img'), {
+        margin: 24,
+        background: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#0b0e12',
+        scrollOffset: 0
     });
 </script>
 
 <!-- Iframe auto-resizer for embedded tools -->
 <script src="{{ "js/iframe-resizer.js" | relURL }}"></script>
 
-<!-- Floating Search Button -->
-<button id="search-fab" title="Search (Ctrl + K)" aria-label="Search">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
-</button>
-
 <!-- Command Palette Modal -->
 <div id="search-modal" class="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title" aria-hidden="true">
     <div class="search-backdrop"></div>
     <div class="search-dialog">
-        <h2 id="search-modal-title" class="visually-hidden">Search</h2>
+        <h2 id="search-modal-title" class="visually-hidden">{{ i18n "nav_search" }}</h2>
         <div class="search-input-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input id="search-input" type="text" placeholder="Search articles, tools, cheatsheets..." aria-label="Search articles, tools, cheatsheets" autocomplete="off" spellcheck="false">
+            {{ partial "icon.html" (dict "name" "search-star" "size" 20) }}
+            <input id="search-input" type="search" placeholder="{{ i18n "hero_search_label" }}" aria-label="{{ i18n "hero_search_label" }}" autocomplete="off" spellcheck="false">
             <kbd class="search-esc">ESC</kbd>
         </div>
-        <ul id="search-results" class="search-results" role="listbox" aria-label="Search results"></ul>
-        <div id="search-empty" class="search-empty" style="display:none;">No results found.</div>
+        <ul id="search-results" class="search-results" role="listbox" aria-label="{{ i18n "search_results" }}"></ul>
+        <div id="search-empty" class="search-empty" style="display:none;">{{ i18n "search_empty" }}</div>
         <div class="search-footer">
-            <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigate</span>
-            <span><kbd>&crarr;</kbd> Open</span>
-            <span><kbd>ESC</kbd> Close</span>
+            <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> {{ i18n "search_navigate" }}</span>
+            <span><kbd>&crarr;</kbd> {{ i18n "search_open" }}</span>
+            <span><kbd>Esc</kbd> {{ i18n "search_close" }}</span>
         </div>
     </div>
 </div>
@@ -49,7 +39,6 @@
     const input = document.getElementById('search-input');
     const resultsList = document.getElementById('search-results');
     const emptyState = document.getElementById('search-empty');
-    const trigger = document.getElementById('search-fab');
     const backdrop = modal.querySelector('.search-backdrop');
     const searchIndexURL = '{{ "index.json" | relLangURL }}';
 
@@ -146,11 +135,8 @@
         }
     }
 
-    // Event: Trigger button
-    trigger.addEventListener('click', openModal);
-
-    // Any element marked data-search-trigger (e.g. the homepage hero
-    // search bar) opens the same command palette.
+    // Every element marked data-search-trigger (the header search button,
+    // the homepage hero search bar) opens the command palette.
     document.querySelectorAll('[data-search-trigger]').forEach(function (el) {
         el.addEventListener('click', openModal);
     });

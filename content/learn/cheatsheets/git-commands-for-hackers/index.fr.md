@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
-## $ System_Init
+## Ce que couvre cet aide-mémoire Git
 
 Chaque opération laisse une trace. Chaque commit est un point de contrôle. Git n'est pas seulement du contrôle de version — c'est l'épine dorsale médico-légale de chaque projet logiciel. Ce manuel de terrain contient les commandes que vous utiliserez quotidiennement et celles qui vous sauveront quand tout s'effondre.
 
@@ -17,7 +17,7 @@ Les commandes sont organisées par type de mission. Exécutez avec précision.
 
 ---
 
-## $ Emergency_Fixes
+## Annuler des commits et récupérer des branches
 
 Quand un déploiement tourne mal et que la chronologie doit être réécrite.
 
@@ -68,7 +68,7 @@ git revert <commit-hash>
 
 ---
 
-## $ Stealth_Mode
+## Signer et vérifier les commits avec GPG
 
 Signature cryptographique et vérification d'identité. Prouvez que vos commits sont authentiques.
 
@@ -114,7 +114,7 @@ git tag -v v1.0.0
 
 ---
 
-## $ Branch_Operations
+## Opérations sur les branches
 
 Gestion tactique des branches pour le développement parallèle.
 
@@ -166,7 +166,7 @@ git rebase -i HEAD~3
 
 ---
 
-## $ Reconnaissance
+## Inspecter l'historique et trouver le commit fautif
 
 Inspectez l'état du dépôt avant de prendre des décisions.
 
@@ -210,7 +210,7 @@ git bisect good abc1234 # Cet ancien commit fonctionnait
 
 ---
 
-## $ Stash_Operations
+## Mettre le travail en cours de côté avec stash
 
 Mettez temporairement de côté le travail sans committer.
 
@@ -247,7 +247,7 @@ git stash branch feature/from-stash stash@{0}
 
 ---
 
-## $ Advanced_Protocols
+## Cherry-pick, patchs et clones superficiels
 
 Commandes puissantes pour des scénarios complexes.
 

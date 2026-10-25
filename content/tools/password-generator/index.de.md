@@ -61,4 +61,4 @@ Ein Angreifer, der diesen Generator samt Zeichenmenge und Länge genau kennt, mu
 - **WLAN.** Erzeugen Sie einen Schlüssel mit 20–30 Zeichen für den Router; Sie tippen ihn nur einmal pro Gerät.
 - **Temporäre Zugangsdaten.** Legen Sie ein Einmalpasswort für ein Gastkonto oder ein geteiltes Dokument an und löschen Sie das Konto danach.
 
-Für Passphrasen und zum Prüfen eines bereits genutzten Passworts gibt es [PassFort](/de/tools/pass-fort/).
+Um ein bereits genutztes Passwort auf Stärke und bekannte Datenlecks zu prüfen, gibt es [PassFort](/de/tools/pass-fort/).

@@ -6,19 +6,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>ReflexGrid - Aim Trainer & Reaction Test</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0e1a;--bg2:#0d1225;--bg3:#111833;
-  --cyan:#00f0ff;--cyan-dim:#00b8c4;--cyan-glow:rgba(0,240,255,.2);
-  --red:#ff2244;--red-glow:rgba(255,34,68,.3);
-  --orange:#ff8800;--yellow:#ffcc00;--green:#00ff88;
-  --text:#c8d0e0;--text2:#667;--text3:#445;
-  --border:#1a2040;--border2:#253060;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--cyan:var(--accent);--cyan-dim:var(--accent-hover);--cyan-glow:var(--accent-soft);--red:var(--danger);--red-glow:var(--danger-soft);--orange:var(--viz-2);--yellow:var(--viz-3);--green:var(--success);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);--sans:var(--font-sans);
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);overflow:hidden;-webkit-font-smoothing:antialiased;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));overflow:hidden;-webkit-font-smoothing:antialiased;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 
 .app{display:flex;flex-direction:column;height:100vh;max-width:100%;overflow:hidden}
 
@@ -27,29 +22,29 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 .canvas-wrap canvas{display:block;width:100%;height:100%}
 
 /* Overlay Screens */
-.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,14,26,.92);z-index:10;padding:20px;text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;background:var(--glass-2);z-index:10;padding:max(20px,10vh) 20px 20px;text-align:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .overlay.hidden{display:none}
 
-.overlay h1{font-size:clamp(28px,6vw,48px);color:var(--cyan);text-transform:uppercase;letter-spacing:6px;text-shadow:0 0 30px var(--cyan-glow),0 0 60px rgba(0,240,255,.1);margin-bottom:8px}
-.overlay .sub{font-size:clamp(12px,2.5vw,16px);color:var(--text2);letter-spacing:2px;margin-bottom:32px}
+.overlay h1{font-size:clamp(28px,6vw,48px);color:var(--cyan);margin-bottom:8px}
+.overlay .sub{font-size:clamp(12px,2.5vw,16px);color:var(--text2);margin-bottom:32px}
 
-.start-btn{padding:16px 48px;font-family:var(--mono);font-size:clamp(14px,3vw,18px);font-weight:700;text-transform:uppercase;letter-spacing:4px;color:var(--bg);background:var(--cyan);border:none;border-radius:6px;cursor:pointer;transition:all .2s;box-shadow:0 0 30px var(--cyan-glow)}
-.start-btn:hover{transform:scale(1.05);box-shadow:0 0 50px var(--cyan-glow),0 0 80px rgba(0,240,255,.15)}
+.start-btn{padding:16px 48px;font-family:var(--font-sans);font-size:clamp(14px,3vw,18px);font-weight:700;color:var(--bg);background:var(--cyan);border:none;border-radius:6px;cursor:pointer;transition:all .2s;}
+.start-btn:hover{transform:scale(1.05);}
 .start-btn:active{transform:scale(.97)}
 
 /* Stats Screen */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;width:min(400px,90vw)}
 .stat-card{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:16px 12px;text-align:center}
-.stat-card .val{font-size:clamp(24px,5vw,36px);font-weight:700;color:var(--cyan);text-shadow:0 0 15px var(--cyan-glow)}
-.stat-card .lbl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+.stat-card .val{font-size:clamp(24px,5vw,36px);font-weight:700;color:var(--cyan);}
+.stat-card .lbl{font-size:11px;color:var(--text2);margin-top:4px}
 .stat-card.full{grid-column:1 / -1}
 
-.rank-badge{font-size:clamp(20px,4vw,32px);font-weight:900;text-transform:uppercase;letter-spacing:6px;padding:14px 32px;border-radius:8px;margin:8px 0 24px}
-.rank-pro{color:#00ff88;border:2px solid #00ff88;background:rgba(0,255,136,.08);text-shadow:0 0 20px rgba(0,255,136,.4)}
-.rank-gamer{color:var(--cyan);border:2px solid var(--cyan);background:rgba(0,240,255,.08);text-shadow:0 0 20px var(--cyan-glow)}
-.rank-casual{color:var(--yellow);border:2px solid var(--yellow);background:rgba(255,204,0,.08);text-shadow:0 0 20px rgba(255,204,0,.3)}
-.rank-novice{color:var(--orange);border:2px solid var(--orange);background:rgba(255,136,0,.08);text-shadow:0 0 20px rgba(255,136,0,.3)}
-.rank-potato{color:var(--red);border:2px solid var(--red);background:rgba(255,34,68,.08);text-shadow:0 0 20px var(--red-glow)}
+.rank-badge{font-size:clamp(20px,4vw,32px);font-weight:900;padding:14px 32px;border-radius:8px;margin:8px 0 24px}
+.rank-pro{color:var(--success);border:2px solid var(--success);background:var(--success-soft);}
+.rank-gamer{color:var(--cyan);border:2px solid var(--cyan);background:var(--accent-soft);}
+.rank-casual{color:var(--yellow);border:2px solid var(--yellow);background:var(--warn-soft);}
+.rank-novice{color:var(--orange);border:2px solid var(--orange);background:var(--warn-soft);}
+.rank-potato{color:var(--red);border:2px solid var(--red);background:var(--danger-soft);}
 
 /* Ad Placeholder */
 
@@ -57,8 +52,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 @media(max-width:640px){
   .stats-grid{grid-template-columns:1fr 1fr;gap:8px}
   .stat-card{padding:12px 8px}
-  .overlay h1{letter-spacing:3px}
+  .overlay h1{}
 }
+
+.header h1 span{color:var(--text)}
 </style>
 </head>
 <body>
@@ -68,7 +65,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 
     <!-- Start Screen -->
     <div class="overlay" id="startScreen">
-      <h1>Reflex<span style="color:#fff">Grid</span></h1>
+      <h1>Reflex<span>Grid</span></h1>
       <div class="sub">Aim Trainer &amp; Reaction Test</div>
       <button class="start-btn" id="startBtn">Start Training</button>
     </div>

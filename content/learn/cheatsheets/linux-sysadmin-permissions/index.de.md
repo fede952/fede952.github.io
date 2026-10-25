@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
-## Systeminitialisierung
+## Was dieses Linux-Sysadmin-Cheatsheet abdeckt
 
 Linux-Dateiberechtigungen sind die erste Verteidigungslinie in jedem System. Eine falsch konfigurierte Berechtigung kann sensible Daten für unbefugte Benutzer zugänglich machen oder legitime Dienste von den benötigten Dateien aussperren. Über Berechtigungen hinaus ist die Verwaltung von Benutzern, Gruppen, Diensten und Prozessen das tägliche Brot jedes Systemadministrators. Dieses Feldhandbuch behandelt die Befehle, die Sie jeden Tag verwenden werden — von der Einstellung der richtigen Berechtigungen im Dokumentenstamm eines Webservers bis zum Beenden eines außer Kontrolle geratenen Prozesses, der den gesamten verfügbaren Speicher verbraucht. Jeder Befehl wird mit praktischen Beispielen für reale Szenarien erklärt.
 

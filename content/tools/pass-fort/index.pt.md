@@ -1,27 +1,30 @@
 ---
-title: "Testar Força da Senha e Gerador de Senhas"
-description: "Descubra se uma senha é forte (entropia em bits, tempo para quebrá-la) e gere senhas ou frases-senha aleatórias. Tudo roda no seu navegador."
-intro: "O **PassFort** gera senhas e frases-senha aleatórias com o gerador criptográfico do seu navegador e avalia a entropia e o tempo de ataque por força bruta de qualquer senha. Nada do que você digita sai desta página."
+title: "Testar Senha: Força e Vazamentos"
+description: "Descubra se uma senha é forte (entropia, tempo de ataque por força bruta) e se aparece em vazamentos de dados conhecidos, com k-anonimato. No navegador."
+intro: "O **PassFort** confere uma senha que você já usa: a entropia, quanto tempo um ataque de força bruta levaria, os padrões a evitar e, se você pedir, se ela já apareceu em um **vazamento de dados** conhecido. A análise de força nunca sai desta página; a verificação opcional de vazamentos envia só 5 caracteres do hash da senha. Precisa de uma senha nova? Use o [Gerador de Senhas Aleatórias](/pt/tools/password-generator/)."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-25
 reviewed: false
-keywords: ["testar força da senha", "gerador de senha forte", "gerador de senhas", "gerador de frase-senha", "entropia de senha", "quanto tempo para quebrar minha senha", "senha aleatória", "verificador de senha"]
+keywords: ["testar força da senha", "verificador de senha", "senha vazada", "minha senha vazou", "entropia de senha", "quanto tempo para quebrar minha senha", "testar senha", "have i been pwned senha"]
 tags: ["segurança", "senhas", "privacidade", "ferramenta"]
 app_category: "SecurityApplication"
 tool_file: "/tools/pass-fort/"
-tool_title: "PassFort: gerador e verificador de senhas"
+tool_title: "PassFort: teste de força e de vazamentos de senhas"
 tool_height: 900
-tool_sandbox: "allow-scripts allow-same-origin"
+tool_sandbox: "allow-scripts allow-same-origin allow-top-navigation-by-user-activation"
 tool_allow: "clipboard-write"
 howto:
-  - "Abra a aba **Generator**. Escolha o tamanho (de 8 a 128 caracteres) e os grupos de caracteres: maiúsculas, minúsculas, números e símbolos."
+  - "Digite ou cole a senha que quer conferir na aba **Auditor**, que abre primeiro. O botão do olho mostra ou esconde o texto."
+  - "Veja o medidor de entropia, o tempo estimado para quebrar e a lista de verificação: o que estiver em vermelho deve ser corrigido antes de reutilizar essa senha."
+  - "Se quiser, clique em **Check against known breaches** para saber se essa senha exata já apareceu em algum vazamento de dados. Nada é enviado até você clicar."
+  - "Para criar uma frase-senha ou uma senha nova, abra a aba **Generator**. Escolha o tamanho (de 8 a 128 caracteres) e os grupos de caracteres: maiúsculas, minúsculas, números e símbolos."
   - "Para algo que você consiga digitar e lembrar, marque **Passphrase Mode** e escolha de 3 a 8 palavras. Para uma senha mestra, use pelo menos 6."
   - "Clique em **Generate Password** até gostar do resultado; o botão da área de transferência copia a senha. Cole direto no seu gerenciador de senhas."
-  - "Para conferir uma senha que você já usa, vá para a aba **Auditor** e digite ou cole a senha. O botão do olho mostra ou esconde o texto."
-  - "Veja o medidor de entropia, o tempo estimado para quebrar e a lista de verificação: o que estiver em vermelho deve ser corrigido antes de reutilizar essa senha."
 faq:
   - q: "É seguro digitar minha senha de verdade neste verificador?"
-    a: "Sim. O auditor é JavaScript rodando dentro desta página: ele nunca envia pela rede o que você digita, e o valor some assim que você limpa o campo ou fecha a aba. Dá para confirmar nas ferramentas de desenvolvedor do navegador (aba Rede) enquanto digita. Se preferir, teste uma senha que *siga o mesmo padrão* da verdadeira."
+    a: "Sim. O auditor é JavaScript rodando dentro desta página: ele nunca envia pela rede o que você digita, e o valor some assim que você limpa o campo ou fecha a aba. Dá para confirmar nas ferramentas de desenvolvedor do navegador (aba Rede) enquanto digita. Se preferir, teste uma senha que *siga o mesmo padrão* da verdadeira. A única exceção é a verificação opcional de vazamentos, e só quando você clica no botão dela: ela envia 5 caracteres do hash SHA-1 da senha, nunca a senha (veja a próxima pergunta)."
+  - q: "Como a verificação de vazamentos funciona sem revelar minha senha?"
+    a: "Ela usa o modelo de k-anonimato do serviço Pwned Passwords do Have I Been Pwned. O PassFort calcula no navegador o hash SHA-1 da senha e envia só os 5 primeiros caracteres hexadecimais para `api.pwnedpasswords.com`. O serviço responde com as cerca de 1.000 terminações de hash que compartilham esse prefixo, com o número de vazamentos de cada uma, e o PassFort procura a correspondência localmente. A requisição também pede preenchimento (`Add-Padding: true`), para que toda resposta tenha tamanho parecido, seja qual for o resultado. O serviço nunca vê a senha nem o hash completo; vê o seu endereço IP, como em qualquer requisição web. A verificação só acontece quando você clica no botão."
   - q: "Quantos bits de entropia uma senha forte precisa ter?"
     a: "Para contas protegidas por um hash lento e com salt, 60–70 bits de entropia *aleatória* resistem por muito tempo a um ataque de força bruta offline. Para a senha mestra do gerenciador ou criptografia de disco, mire em 80–100 bits. Uma senha aleatória de 16 caracteres com os quatro grupos tem cerca de 103 bits; uma frase-senha do PassFort com 7 palavras, cerca de 72 bits."
   - q: "Frase-senha ou senha aleatória: qual é melhor?"
@@ -67,6 +70,10 @@ O auditor estima o tamanho do "alfabeto" de onde vem a sua senha: 26 se houver u
 O tempo para quebrar é o necessário para testar todas as 2^entropia combinações a **10¹⁰ tentativas por segundo**, mostrado em unidades compreensíveis até "séculos". O medidor fica cheio em 100 bits e passa de vermelho para laranja, amarelo e verde em 25, 50 e 75 bits. Abaixo aparecem oito verificações: pelo menos 8 e 12 caracteres, cada classe de caracteres, nenhum padrão inicial comum e pelo menos 60 bits.
 
 É o modelo clássico de "força bruta". É preciso para senhas aleatórias como as do gerador e **otimista para senhas inventadas por pessoas**, porque não enxerga palavras de dicionário, nomes ou datas.
+
+### A verificação opcional de vazamentos
+
+Uma senha pode ter muita entropia e ainda assim não servir, porque vazou: atacantes testam primeiro as senhas vazadas. **Check against known breaches** pergunta ao Have I Been Pwned se essa senha exata está na lista de senhas de vazamentos reais, com k-anonimato: só os 5 primeiros dos 40 caracteres hexadecimais do hash SHA-1 saem da página (`5BAA6` para `password`), a comparação com os sufixos devolvidos acontece no navegador e as respostas são preenchidas para que o tamanho não revele nada. Ela fica desligada até você clicar no botão, e digitar uma nova senha apaga o resultado anterior.
 
 ## Casos de uso
 

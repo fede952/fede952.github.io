@@ -1,0 +1,178 @@
+/* ============================================================
+   HOME (layouts/_default/home.html)
+   ============================================================ */
+
+.home-hero {
+  padding: var(--s-8) 0 var(--s-9);
+  text-align: center;
+}
+
+.home-hero-title {
+  max-width: 18ch;
+  margin: 0 auto var(--s-4);
+  font-size: var(--fs-4xl);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.home-hero-sub {
+  max-width: 600px;
+  margin: 0 auto var(--s-7);
+  color: var(--text-2);
+  font-size: var(--fs-lg);
+}
+
+/* Looks like an input, opens the command palette */
+.home-hero-search {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  max-width: 560px;
+  min-height: 52px;
+  margin: 0 auto;
+  padding: 0 var(--s-3) 0 var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border-input);
+  border-radius: var(--r-lg);
+  color: var(--text-2);
+  font: inherit;
+  font-size: var(--fs-md);
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.home-hero-search:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.home-hero-search .icon {
+  flex: none;
+  color: var(--accent);
+}
+
+.home-hero-search-text {
+  flex: 1;
+  overflow: hidden;
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-hero-search-kbd {
+  flex: none;
+  font-size: var(--fs-xs);
+}
+
+.home-hero-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  margin: var(--s-5) auto 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.home-hero-trust .icon {
+  flex: none;
+  color: var(--success);
+}
+
+.home-section {
+  margin: 0 0 var(--s-10);
+}
+
+.home-cat + .home-cat {
+  margin-top: var(--s-7);
+}
+
+.home-cat-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-cat-title .icon {
+  color: var(--accent);
+}
+
+/* Phones: the category's `top` tools first, the rest behind "Show all N" */
+.home-cat-more { display: none; }
+@media (max-width: 767.98px) {
+  .home-cat .card-grid > li.is-top { order: -1; }
+  .home-cat:has(> .home-cat-more:not([open])) .card-grid > li:not(.is-top) { display: none; }
+  .home-cat-more { display: block; margin-top: var(--s-3); }
+  .home-cat-more > summary {
+    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0 var(--s-4);
+    border: 1px solid var(--border-strong); border-radius: var(--r); color: var(--accent);
+    font-size: var(--fs-sm); font-weight: var(--fw-semibold); cursor: pointer; list-style: none;
+  }
+  .home-cat-more > summary::-webkit-details-marker { display: none; }
+  .home-cat-more > summary::after { content: '▾'; transition: transform .15s; }
+  .home-cat-more[open] > summary::after { transform: rotate(180deg); }
+  .home-cat-more > summary:hover, .home-cat-more > summary:focus-visible { border-color: var(--accent); }
+  .home-cat-more:not([open]) .when-open, .home-cat-more[open] .when-closed { display: none; }
+}
+
+/* "Who builds this" */
+.home-builder {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--s-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.home-builder-photo {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.home-builder-title {
+  margin: 0 0 var(--s-1);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-builder-text {
+  margin: 0;
+  font-size: var(--fs-md);
+}
+
+.home-builder-text a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  color: var(--accent);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .home-hero {
+    padding: var(--s-6) 0 var(--s-8);
+  }
+
+  .home-builder {
+    align-items: flex-start;
+    padding: var(--s-4);
+  }
+}

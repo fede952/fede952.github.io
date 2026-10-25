@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/text-diff/">
+<title>Text Diff Checker</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.io { display: grid; gap: var(--s-3); }
+@media (min-width: 760px) { .io { grid-template-columns: 1fr 1fr; } }
+.tb-textarea { min-height: 220px; }
+.bar { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+.bar .tb-select { width: auto; min-width: 7rem; }
+.bar .grow { flex: 1 1 auto; }
+.diffwrap { border: 1px solid var(--border-input); border-radius: var(--r); background: var(--bg-raised); overflow: hidden; }
+.dt { width: 100%; border-collapse: collapse; table-layout: fixed; font-family: var(--font-mono); font-size: var(--fs-xs); line-height: 1.6; }
+.dt td { padding: 0 var(--s-2); vertical-align: top; }
+.dt .ln { width: 3.6em; padding: 0 var(--s-1); text-align: right; color: var(--text-3); user-select: none; border-right: 1px solid var(--border); }
+.dt .sg { width: 1.4em; padding: 0; text-align: center; color: var(--text-3); user-select: none; }
+.dt .code { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
+.dt .side-r { border-left: 1px solid var(--border-input); }
+.dt .del { background: var(--danger-soft); }
+.dt .add { background: var(--success-soft); }
+.dt .pad { background: repeating-linear-gradient(135deg, transparent 0 6px, var(--border) 6px 7px); }
+.dt del, .dt ins { text-decoration: none; border-radius: 2px; }
+.dt del { background: color-mix(in srgb, var(--danger) 32%, transparent); }
+.dt ins { background: color-mix(in srgb, var(--success) 32%, transparent); }
+.dt .fold td { padding: 0; background: var(--bg); }
+.dt .fold button { display: block; width: 100%; min-height: 32px; padding: var(--s-1) var(--s-2); border: 0; border-block: 1px dashed var(--border-input); background: transparent; color: var(--text-2); font: inherit; cursor: pointer; text-align: center; }
+.dt .fold button:hover, .dt .fold button:focus-visible { color: var(--accent); background: var(--bg-raised); }
+.empty { padding: var(--s-6) var(--s-4); text-align: center; color: var(--text-3); font-size: var(--fs-sm); }
+.stats { margin: 0; font-size: var(--fs-sm); }
+.stats .p { color: var(--success); font-weight: 600; } .stats .m { color: var(--danger); font-weight: 600; }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="7" height="16" rx="1.5"/><rect x="13.5" y="4" width="7" height="16" rx="1.5"/><path d="M5.75 9h2.5M7 7.75v2.5M15.75 14.5h2.5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Text Diff Checker</h1>
+      <p class="tb-sub" data-i18n="subtitle">Compare two texts line by line, with word or character highlights — in your browser</p>
+    </div>
+  </header>
+
+  <div class="io">
+    <div class="tb-field">
+      <div class="tb-row" style="justify-content:space-between">
+        <label class="tb-label" for="a" data-i18n="original">Original</label>
+        <span class="tb-row">
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="open-a" data-i18n="open">Open file</button><input type="file" id="file-a" hidden>
+        </span>
+      </div>
+      <textarea id="a" class="tb-textarea" spellcheck="false" autocomplete="off" wrap="off" data-i18n-placeholder="phA"></textarea>
+    </div>
+    <div class="tb-field">
+      <div class="tb-row" style="justify-content:space-between">
+        <label class="tb-label" for="b" data-i18n="changed">Changed</label>
+        <span class="tb-row">
+          <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="open-b" data-i18n="open">Open file</button><input type="file" id="file-b" hidden>
+        </span>
+      </div>
+      <textarea id="b" class="tb-textarea" spellcheck="false" autocomplete="off" wrap="off" data-i18n-placeholder="phB"></textarea>
+    </div>
+  </div>
+
+  <div class="bar">
+    <button type="button" class="tb-btn tb-btn--sm" id="compare" data-i18n="compare">Compare</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="swap" data-i18n="swap">Swap</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="sample" data-i18n="sample">Sample</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="clear" data-i18n="clear">Clear</button>
+  </div>
+
+  <div class="bar">
+    <div class="tb-tabs" role="tablist" data-i18n-aria="view">
+      <button class="tb-tab" role="tab" id="v-side" aria-selected="true" data-i18n="side">Side by side</button>
+      <button class="tb-tab" role="tab" id="v-inline" aria-selected="false" data-i18n="inline">Inline</button>
+    </div>
+    <label class="tb-check"><span data-i18n="gran">Highlight</span> <select id="gran" class="tb-select"><option value="word" data-i18n="word">Words</option><option value="char" data-i18n="char">Characters</option></select></label>
+    <label class="tb-check"><input type="checkbox" id="ws"> <span data-i18n="ignoreWs">Ignore whitespace</span></label>
+    <label class="tb-check"><input type="checkbox" id="case"> <span data-i18n="ignoreCase">Ignore case</span></label>
+  </div>
+
+  <div class="bar">
+    <p class="stats grow" id="stats" role="status" aria-live="polite"></p>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="copy-diff" data-i18n="copyDiff">Copy unified diff</button>
+    <button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" id="save-diff" data-i18n="saveDiff">Download .diff</button>
+  </div>
+
+  <div class="diffwrap" id="out"><p class="empty" data-i18n="empty">Paste text in both boxes to compare.</p></div>
+</main>
+
+<script type="module">
+import * as K from '/js/tools/diff-kit.mjs';
+
+TK.init({
+  en: { title: 'Text Diff Checker', subtitle: 'Compare two texts line by line, with word or character highlights — in your browser',
+    original: 'Original', changed: 'Changed', open: 'Open file', phA: 'Paste the original text…', phB: 'Paste the changed text…',
+    compare: 'Compare', swap: 'Swap', sample: 'Sample', clear: 'Clear', view: 'View', side: 'Side by side', inline: 'Inline',
+    gran: 'Highlight', word: 'Words', char: 'Characters', ignoreWs: 'Ignore whitespace', ignoreCase: 'Ignore case',
+    copyDiff: 'Copy unified diff', saveDiff: 'Download .diff', copied: 'Copied',
+    empty: 'Paste text in both boxes to compare.', same: 'No differences — the texts are identical.', sameOpts: 'No differences with the current options.',
+    stats: '{added} added · {removed} removed · {same} unchanged lines', fold: '⋯ {n} unchanged lines — show',
+    tooBig: 'These texts are too different to compare line by line in reasonable time. Try smaller pieces.',
+    capped: 'Showing the first {n} rows. Copy or download the unified diff for the complete result.', big: 'Large texts: press Compare to update the result.',
+    removedLine: 'removed', addedLine: 'added' },
+  it: { title: 'Confronto testi (diff)', subtitle: 'Confronta due testi riga per riga, con evidenziazione di parole o caratteri — nel browser',
+    original: 'Originale', changed: 'Modificato', open: 'Apri file', phA: 'Incolla il testo originale…', phB: 'Incolla il testo modificato…',
+    compare: 'Confronta', swap: 'Scambia', sample: 'Esempio', clear: 'Svuota', view: 'Vista', side: 'Affiancata', inline: 'In linea',
+    gran: 'Evidenzia', word: 'Parole', char: 'Caratteri', ignoreWs: 'Ignora spazi', ignoreCase: 'Ignora maiuscole',
+    copyDiff: 'Copia diff unificato', saveDiff: 'Scarica .diff', copied: 'Copiato',
+    empty: 'Incolla un testo in entrambi i riquadri per confrontarli.', same: 'Nessuna differenza: i testi sono identici.', sameOpts: 'Nessuna differenza con le opzioni attuali.',
+    stats: '{added} aggiunte · {removed} rimosse · {same} righe invariate', fold: '⋯ {n} righe invariate — mostra',
+    tooBig: 'I testi sono troppo diversi per un confronto riga per riga in tempi ragionevoli. Prova con parti più piccole.',
+    capped: 'Sono mostrate le prime {n} righe. Copia o scarica il diff unificato per il risultato completo.', big: 'Testi grandi: premi Confronta per aggiornare il risultato.',
+    removedLine: 'rimossa', addedLine: 'aggiunta' },
+  es: { title: 'Comparador de textos (diff)', subtitle: 'Compara dos textos línea a línea, resaltando palabras o caracteres — en tu navegador',
+    original: 'Original', changed: 'Modificado', open: 'Abrir archivo', phA: 'Pega el texto original…', phB: 'Pega el texto modificado…',
+    compare: 'Comparar', swap: 'Intercambiar', sample: 'Ejemplo', clear: 'Vaciar', view: 'Vista', side: 'En paralelo', inline: 'En línea',
+    gran: 'Resaltar', word: 'Palabras', char: 'Caracteres', ignoreWs: 'Ignorar espacios', ignoreCase: 'Ignorar mayúsculas',
+    copyDiff: 'Copiar diff unificado', saveDiff: 'Descargar .diff', copied: 'Copiado',
+    empty: 'Pega texto en los dos cuadros para compararlos.', same: 'Sin diferencias: los textos son idénticos.', sameOpts: 'Sin diferencias con las opciones actuales.',
+    stats: '{added} añadidas · {removed} eliminadas · {same} líneas sin cambios', fold: '⋯ {n} líneas sin cambios — mostrar',
+    tooBig: 'Los textos son demasiado distintos para compararlos línea a línea en un tiempo razonable. Prueba con fragmentos más pequeños.',
+    capped: 'Se muestran las primeras {n} filas. Copia o descarga el diff unificado para ver el resultado completo.', big: 'Textos grandes: pulsa Comparar para actualizar el resultado.',
+    removedLine: 'eliminada', addedLine: 'añadida' },
+  de: { title: 'Textvergleich (Diff)', subtitle: 'Zwei Texte zeilenweise vergleichen, mit Wort- oder Zeichenmarkierung — im Browser',
+    original: 'Original', changed: 'Geändert', open: 'Datei öffnen', phA: 'Originaltext einfügen …', phB: 'Geänderten Text einfügen …',
+    compare: 'Vergleichen', swap: 'Tauschen', sample: 'Beispiel', clear: 'Leeren', view: 'Ansicht', side: 'Nebeneinander', inline: 'Untereinander',
+    gran: 'Markieren', word: 'Wörter', char: 'Zeichen', ignoreWs: 'Leerraum ignorieren', ignoreCase: 'Groß-/Kleinschreibung ignorieren',
+    copyDiff: 'Unified Diff kopieren', saveDiff: '.diff herunterladen', copied: 'Kopiert',
+    empty: 'Fügen Sie in beide Felder Text ein, um sie zu vergleichen.', same: 'Keine Unterschiede – die Texte sind identisch.', sameOpts: 'Keine Unterschiede mit den aktuellen Optionen.',
+    stats: '{added} hinzugefügt · {removed} entfernt · {same} unveränderte Zeilen', fold: '⋯ {n} unveränderte Zeilen – anzeigen',
+    tooBig: 'Die Texte sind zu verschieden, um sie in vertretbarer Zeit zeilenweise zu vergleichen. Versuchen Sie kleinere Abschnitte.',
+    capped: 'Angezeigt werden die ersten {n} Zeilen. Kopieren oder laden Sie den Unified Diff für das vollständige Ergebnis.', big: 'Große Texte: Klicken Sie auf Vergleichen, um das Ergebnis zu aktualisieren.',
+    removedLine: 'entfernt', addedLine: 'hinzugefügt' },
+  fr: { title: 'Comparateur de texte (diff)', subtitle: 'Comparez deux textes ligne par ligne, avec surlignage des mots ou des caractères — dans votre navigateur',
+    original: 'Original', changed: 'Modifié', open: 'Ouvrir un fichier', phA: 'Collez le texte original…', phB: 'Collez le texte modifié…',
+    compare: 'Comparer', swap: 'Inverser', sample: 'Exemple', clear: 'Vider', view: 'Affichage', side: 'Côte à côte', inline: 'En ligne',
+    gran: 'Surligner', word: 'Mots', char: 'Caractères', ignoreWs: 'Ignorer les espaces', ignoreCase: 'Ignorer la casse',
+    copyDiff: 'Copier le diff unifié', saveDiff: 'Télécharger le .diff', copied: 'Copié',
+    empty: 'Collez du texte dans les deux zones pour les comparer.', same: 'Aucune différence : les textes sont identiques.', sameOpts: 'Aucune différence avec les options actuelles.',
+    stats: '{added} ajoutées · {removed} supprimées · {same} lignes inchangées', fold: '⋯ {n} lignes inchangées — afficher',
+    tooBig: 'Les textes sont trop différents pour être comparés ligne par ligne en un temps raisonnable. Essayez des parties plus petites.',
+    capped: 'Seules les {n} premières lignes sont affichées. Copiez ou téléchargez le diff unifié pour le résultat complet.', big: 'Textes volumineux : cliquez sur Comparer pour mettre à jour le résultat.',
+    removedLine: 'supprimée', addedLine: 'ajoutée' },
+  pt: { title: 'Comparador de textos (diff)', subtitle: 'Compare dois textos linha a linha, com destaque de palavras ou caracteres — no navegador',
+    original: 'Original', changed: 'Alterado', open: 'Abrir arquivo', phA: 'Cole o texto original…', phB: 'Cole o texto alterado…',
+    compare: 'Comparar', swap: 'Inverter', sample: 'Exemplo', clear: 'Limpar', view: 'Visualização', side: 'Lado a lado', inline: 'Em linha',
+    gran: 'Destacar', word: 'Palavras', char: 'Caracteres', ignoreWs: 'Ignorar espaços', ignoreCase: 'Ignorar maiúsculas',
+    copyDiff: 'Copiar diff unificado', saveDiff: 'Baixar .diff', copied: 'Copiado',
+    empty: 'Cole um texto nas duas caixas para compará-los.', same: 'Nenhuma diferença: os textos são idênticos.', sameOpts: 'Nenhuma diferença com as opções atuais.',
+    stats: '{added} adicionadas · {removed} removidas · {same} linhas inalteradas', fold: '⋯ {n} linhas inalteradas — mostrar',
+    tooBig: 'Os textos são diferentes demais para comparar linha a linha em tempo razoável. Tente partes menores.',
+    capped: 'Mostrando as primeiras {n} linhas. Copie ou baixe o diff unificado para ver o resultado completo.', big: 'Textos grandes: clique em Comparar para atualizar o resultado.',
+    removedLine: 'removida', addedLine: 'adicionada' },
+});
+
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+const LIVE_LIMIT = 400000;   // characters (both sides); above this, diff only on "Compare"
+const ROW_CAP = 4000;        // rows rendered at most; the unified diff always has everything
+let view = window.innerWidth < 640 ? 'inline' : 'side';
+let result = null, expanded = new Set(), names = { a: 'original.txt', b: 'changed.txt' };
+
+const opts = () => ({ granularity: $('gran').value, ignoreWs: $('ws').checked, ignoreCase: $('case').checked });
+const spans = (list, tag) => list.map((s) => (s.mark ? `<${tag}>${esc(s.text)}</${tag}>` : esc(s.text))).join('');
+
+function lineHtml(row) {
+  // Returns [leftHtml, rightHtml] for a row, with in-line highlights on modified pairs.
+  if (row.type !== 'mod') return [row.a === null ? '' : esc(row.a), row.b === null ? '' : esc(row.b)];
+  const p = K.inlineParts(window.Diff, row.a, row.b, opts());
+  return p ? [spans(p.left, 'del'), spans(p.right, 'ins')] : [`<del>${esc(row.a)}</del>`, `<ins>${esc(row.b)}</ins>`];
+}
+
+function foldHtml(f, cols) {
+  return `<tr class="fold"><td colspan="${cols}"><button type="button" data-from="${f.from}" data-count="${f.count}">${esc(t('fold', { n: TK.num(f.count) }))}</button></td></tr>`;
+}
+
+function render() {
+  const out = $('out');
+  if (!result) { out.innerHTML = `<p class="empty">${esc(t('empty'))}</p>`; return; }
+  if (result.tooBig) { out.innerHTML = `<p class="empty">${esc(t('tooBig'))}</p>`; return; }
+  const { rows, stats } = result;
+  if (!stats.added && !stats.removed) {
+    const exact = $('a').value.replace(/\r\n?/g, '\n') === $('b').value.replace(/\r\n?/g, '\n');
+    out.innerHTML = `<p class="empty">${esc(t(exact ? 'same' : 'sameOpts'))}</p>`;
+    return;
+  }
+  // Unfold the runs the user opened.
+  let list = K.foldRows(rows, 3);
+  if (expanded.size) list = list.flatMap((r) => (r.type === 'fold' && expanded.has(r.from) ? rows.slice(r.from, r.from + r.count) : [r]));
+  const capped = list.length > ROW_CAP;
+  if (capped) list = list.slice(0, ROW_CAP);
+  const html = [];
+  if (view === 'side') {
+    html.push('<table class="dt side"><colgroup><col class="ln"><col><col class="ln"><col></colgroup><tbody>');
+    for (const r of list) {
+      if (r.type === 'fold') { html.push(foldHtml(r, 4)); continue; }
+      const [l, rr] = lineHtml(r);
+      const lc = r.type === 'eq' ? '' : r.a === null ? ' pad' : ' del';
+      const rc = r.type === 'eq' ? '' : r.b === null ? ' pad' : ' add';
+      html.push(`<tr><td class="ln">${r.l ?? ''}</td><td class="code${lc}">${l}</td><td class="ln side-r">${r.r ?? ''}</td><td class="code${rc}">${rr}</td></tr>`);
+    }
+  } else {
+    html.push('<table class="dt inline"><colgroup><col class="ln"><col class="ln"><col class="sg"><col></colgroup><tbody>');
+    for (const r of list) {
+      if (r.type === 'fold') { html.push(foldHtml(r, 4)); continue; }
+      const [l, rr] = lineHtml(r);
+      if (r.type === 'eq') { html.push(`<tr><td class="ln">${r.l}</td><td class="ln">${r.r}</td><td class="sg"></td><td class="code">${l}</td></tr>`); continue; }
+      if (r.a !== null) html.push(`<tr class="del"><td class="ln">${r.l}</td><td class="ln"></td><td class="sg" aria-label="${esc(t('removedLine'))}">−</td><td class="code del">${l}</td></tr>`);
+      if (r.b !== null) html.push(`<tr class="add"><td class="ln"></td><td class="ln">${r.r}</td><td class="sg" aria-label="${esc(t('addedLine'))}">+</td><td class="code add">${rr}</td></tr>`);
+    }
+  }
+  html.push('</tbody></table>');
+  if (capped) html.push(`<p class="tb-note tb-note--warn" style="margin:0">${esc(t('capped', { n: TK.num(ROW_CAP) }))}</p>`);
+  out.innerHTML = html.join('');
+  // Fix the line-number column widths to the widest number.
+  const digits = String(Math.max($('a').value.length ? K.splitLines($('a').value).length : 0, K.splitLines($('b').value).length)).length;
+  out.querySelectorAll('col.ln').forEach((c) => { c.style.width = Math.max(3, digits + 1.6) + 'ch'; });
+}
+
+function showStats() {
+  const s = $('stats');
+  if (!result || result.tooBig || (!result.stats.added && !result.stats.removed)) { s.textContent = ''; return; }
+  const { added, removed, same } = result.stats;
+  s.innerHTML = esc(t('stats', { added: '\u0001', removed: '\u0002', same: TK.num(same) }))
+    .replace('\u0001', `<span class="p">+${TK.num(added)}</span>`).replace('\u0002', `<span class="m">−${TK.num(removed)}</span>`);
+}
+
+function compute() {
+  const a = $('a').value, b = $('b').value;
+  expanded = new Set();
+  if (!a && !b) { result = null; }
+  else result = K.diffTexts(window.Diff, a, b, opts());
+  showStats(); render();
+  window.__diffDone = (window.__diffDone || 0) + 1;
+}
+
+let timer = null;
+function onInput() {
+  clearTimeout(timer);
+  if ($('a').value.length + $('b').value.length > LIVE_LIMIT) { $('stats').textContent = t('big'); return; }
+  timer = setTimeout(compute, 250);
+}
+
+function unified() {
+  return K.unifiedDiff(window.Diff, $('a').value, $('b').value, { oldName: names.a, newName: names.b, ignoreWs: $('ws').checked, ignoreCase: $('case').checked });
+}
+
+function setView(v) {
+  view = v;
+  $('v-side').setAttribute('aria-selected', v === 'side'); $('v-inline').setAttribute('aria-selected', v === 'inline');
+  render();
+}
+
+/* ── wiring ── */
+$('a').addEventListener('input', onInput);
+$('b').addEventListener('input', onInput);
+$('compare').addEventListener('click', compute);
+['gran'].forEach((id) => $(id).addEventListener('change', render));
+['ws', 'case'].forEach((id) => $(id).addEventListener('change', compute));
+$('v-side').addEventListener('click', () => setView('side'));
+$('v-inline').addEventListener('click', () => setView('inline'));
+$('out').addEventListener('click', (e) => {
+  const b = e.target.closest('.fold button');
+  if (!b) return;
+  expanded.add(Number(b.dataset.from));
+  render();
+});
+$('swap').addEventListener('click', () => {
+  [$('a').value, $('b').value] = [$('b').value, $('a').value];
+  [names.a, names.b] = [names.b, names.a];
+  compute();
+});
+$('clear').addEventListener('click', () => { $('a').value = ''; $('b').value = ''; names = { a: 'original.txt', b: 'changed.txt' }; compute(); });
+$('sample').addEventListener('click', () => {
+  $('a').value = [
+    'server {', '    listen 80;', '    server_name example.com www.example.com;', '    root /var/www/html;', '',
+    '    location / {', '        try_files $uri $uri/ =404;', '    }', '', '    location /api/ {', '        proxy_pass http://127.0.0.1:3000;',
+    '        proxy_set_header Host $host;', '    }', '', '    access_log /var/log/nginx/access.log;', '    error_log /var/log/nginx/error.log;', '}', ''].join('\n');
+  $('b').value = [
+    'server {', '    listen 443 ssl;', '    http2 on;', '    server_name example.com www.example.com;', '    root /var/www/html;', '',
+    '    location / {', '        try_files $uri $uri/ =404;', '    }', '', '    location /api/ {', '        proxy_pass http://127.0.0.1:8080;',
+    '        proxy_set_header Host $host;', '        proxy_set_header X-Forwarded-Proto https;', '    }', '', '    access_log /var/log/nginx/access.log;', '}', ''].join('\n');
+  names = { a: 'original.txt', b: 'changed.txt' };
+  compute();
+});
+for (const side of ['a', 'b']) {
+  $('open-' + side).addEventListener('click', () => $('file-' + side).click());
+  $('file-' + side).addEventListener('change', async (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    $(side).value = await f.text();
+    names[side] = f.name;
+    e.target.value = '';
+    compute();
+  });
+}
+$('copy-diff').addEventListener('click', (e) => TK.copy(unified(), e.currentTarget));
+$('save-diff').addEventListener('click', () => TK.download(new Blob([unified()], { type: 'text/x-diff' }), names.b.replace(/\.[^.]*$/, '') + '.diff'));
+setView(view);
+window.__diffReady = true;
+</script>
+<script src="/vendor/diff@9.0.0/diff.min.js"></script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

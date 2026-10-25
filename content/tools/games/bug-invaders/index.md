@@ -5,7 +5,7 @@ layout: "game"
 date: 2026-02-15
 categories: ["Games"]
 tags: ["game", "arcade", "html5", "cyberpunk", "shooter"]
-keywords: ["space invaders", "shooter game", "retro arcade", "cyberpunk shooter"]
+keywords: ["shooter game", "retro arcade", "cyberpunk shooter"]
 draft: false
 aliases: ["/games/bug-invaders/"]
 ---

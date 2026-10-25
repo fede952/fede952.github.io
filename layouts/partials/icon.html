@@ -1,0 +1,8 @@
+{{- /* Inline SVG icon from data/tool_icons.yaml (one stroke style).
+     Usage: partial "icon.html" "shield"  or  (dict "name" "shield" "size" 20 "class" "x")
+     Decorative: aria-hidden; give the surrounding control its own label. */ -}}
+{{- $name := . -}}{{- $size := 20 -}}{{- $class := "" -}}
+{{- if reflect.IsMap . }}{{ $name = .name }}{{ $size = .size | default 20 }}{{ $class = .class | default "" }}{{ end -}}
+{{- with index hugo.Data.tool_icons.icons $name -}}
+<svg class="icon{{ with $class }} {{ . }}{{ end }}" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{{ . | safeHTML }}</svg>
+{{- end -}}

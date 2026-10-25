@@ -7,7 +7,7 @@ hidemeta: true
 
 Je lis chaque message. Voici comment me joindre :
 
-- **Demandes générales :** [fedesella95@gmail.com](mailto:fedesella95@gmail.com)
+- **Demandes générales :** [contact@federicosella.com](mailto:contact@federicosella.com)
 - **Demandes vie privée** (droits RGPD, questions sur les données) : [privacy@federicosella.com](mailto:privacy@federicosella.com)
 - **Problèmes de sécurité :** vous avez trouvé une vulnérabilité dans l'un de mes outils ? Écrivez-moi avec l'objet `[SECURITY]` — la divulgation responsable est toujours appréciée.
 

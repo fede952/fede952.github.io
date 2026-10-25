@@ -9,7 +9,7 @@ proficiency: "Intermediate"
 aliases: ["/cheatsheets/nmap-network-scanning/"]
 ---
 
-## $ System_Init
+## Ce que couvre cet aide-mémoire Nmap
 
 Nmap est le premier outil chargé dans toute activité de reconnaissance. Il cartographie la surface d'attaque, identifie les hôtes actifs, énumère les ports ouverts, identifie les services et détecte les vulnérabilités — le tout depuis un seul binaire. Ce manuel de terrain fournit les commandes exactes pour chaque phase de la reconnaissance réseau.
 
@@ -17,7 +17,7 @@ Toutes les commandes supposent des tests autorisés. Déployer de manière respo
 
 ---
 
-## $ Host_Discovery
+## Découverte des hôtes actifs
 
 Identifier les cibles actives sur le réseau avant l'analyse des ports.
 
@@ -58,7 +58,7 @@ nmap -sL 192.168.1.0/24
 
 ---
 
-## $ Port_Scanning
+## Techniques de scan de ports
 
 Énumérer les ports ouverts pour cartographier la surface d'attaque de la cible.
 
@@ -112,7 +112,7 @@ nmap -F 192.168.1.100
 
 ---
 
-## $ Service_Detection
+## Détection des services et des versions
 
 Identifier quel logiciel s'exécute sur chaque port ouvert.
 
@@ -153,7 +153,7 @@ sudo nmap -A 192.168.1.100
 
 ---
 
-## $ NSE_Scripts
+## Scripts du Nmap Scripting Engine (NSE)
 
 Nmap Scripting Engine — détection automatique des vulnérabilités et énumération.
 
@@ -210,7 +210,7 @@ nmap --script=ssl-cert,ssl-enum-ciphers -p 443 192.168.1.100
 
 ---
 
-## $ Evasion_Techniques
+## Techniques d'évasion de pare-feu et d'IDS
 
 Contourner les pare-feu et IDS lors de tests d'intrusion autorisés.
 
@@ -251,7 +251,7 @@ sudo nmap -sI zombie-host.com 192.168.1.100
 
 ---
 
-## $ Output_Formats
+## Enregistrer les résultats : formats de sortie de Nmap
 
 Sauvegarder les résultats du scan pour la documentation et le post-traitement.
 
@@ -285,7 +285,7 @@ nmap -oA full_scan 192.168.1.100
 
 ---
 
-## $ Mission_Templates
+## Recettes de scan Nmap prêtes à l'emploi
 
 Chaînes de commandes copier-coller pour des scénarios d'engagement courants.
 

@@ -13,3 +13,11 @@ Schiebe die leuchtenden Blöcke über das Spielfeld. Wenn zwei Blöcke mit gleic
 NeonBlocks speichert deinen Fortschritt automatisch.
 
 <iframe src="/games/neon-blocks/index.html?lang=de" width="100%" height="620px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+
+## Spielanleitung
+
+- **Desktop:** Pfeiltasten oder WASD verschieben die Kacheln.
+- **Mobil:** in eine beliebige Richtung wischen.
+- Kacheln mit gleichem Wert verschmelzen, wenn sie aufeinandertreffen.
+- Jede Verschmelzung erhöht den Punktestand.
+- Das Spiel endet, wenn kein Zug mehr möglich ist.

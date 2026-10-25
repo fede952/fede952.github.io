@@ -6,44 +6,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NetGuard - Browser Leak & Fingerprint Detector</title>
+<link rel="stylesheet" href="/css/tool-base.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0a0a;--bg2:#111;--bg3:#171717;--bg4:#1e1e1e;
-  --green:#00ff41;--green-dim:#00cc33;--green-glow:rgba(0,255,65,.15);
-  --red:#ff3333;--orange:#ff9900;--yellow:#ccff00;--cyan:#00e5ff;
-  --text:#b0b0b0;--text2:#666;--text3:#444;
-  --border:#222;--border2:#2a2a2a;
-  --mono:'SF Mono','Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  /* palette mapped onto the site tokens (/css/tool-base.css) */
+  --bg:var(--surface);--bg2:var(--surface-2);--bg3:var(--bg-raised);--bg4:var(--surface-3);--green:var(--accent);--green-dim:var(--accent-hover);--green-glow:var(--accent-soft);--red:var(--danger);--orange:var(--viz-2);--yellow:var(--viz-4);--cyan:var(--accent);--text2:var(--text-2);--text3:var(--text-3);--border2:var(--border-strong);--mono:var(--font-mono);--tool-accent:var(--success);
 }
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--sans,var(--font-sans));-webkit-font-smoothing:antialiased}
 
 .app{max-width:780px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
 
 /* Header */
 .header{text-align:center;padding:18px 0;border-bottom:2px solid var(--green)}
-.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--green);text-transform:uppercase;letter-spacing:5px;text-shadow:0 0 20px var(--green-glow)}
-.header .sub{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:1.5px}
+.header h1{font-size:clamp(20px,4.5vw,30px);color:var(--tool-accent);}
+.header .sub{font-size:12px;color:var(--text2);margin-top:6px;}
 
 /* Scan Button */
-.scan-btn{display:block;width:100%;padding:16px;font-family:var(--mono);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:4px;background:transparent;color:var(--green);border:2px solid var(--green);border-radius:6px;cursor:pointer;transition:all .2s;text-align:center}
-.scan-btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 30px var(--green-glow)}
+.scan-btn{display:block;width:100%;padding:16px;font-family:var(--font-sans);font-size:15px;font-weight:700;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:6px;cursor:pointer;transition:all .2s;text-align:center}
+.scan-btn:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--accent-ink);}
 .scan-btn:disabled{opacity:.5;cursor:not-allowed}
 .scan-btn.scanning{animation:pulse-border 1s infinite}
-@keyframes pulse-border{0%,100%{border-color:var(--green);box-shadow:0 0 10px var(--green-glow)}50%{border-color:var(--green-dim);box-shadow:0 0 30px var(--green-glow)}}
+@keyframes pulse-border{0%,100%{border-color:var(--green);}50%{border-color:var(--green-dim);}}
 
 /* Status Bar */
-.status{text-align:center;font-size:12px;color:var(--green);letter-spacing:1px;min-height:18px;opacity:.8}
+.status{text-align:center;font-size:12px;color:var(--green);min-height:18px;opacity:.8}
 .status .blink{animation:blink .6s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
 /* Grid */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;transition:border-color .3s}
-.card.revealed{border-color:var(--green);box-shadow:0 0 8px rgba(0,255,65,.06)}
-.card.warn{border-color:var(--red);box-shadow:0 0 8px rgba(255,51,51,.1)}
+.card.revealed{border-color:var(--green);}
+.card.warn{border-color:var(--red);}
 .card.full{grid-column:1 / -1}
-.card-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
+.card-label{font-size:10px;color:var(--text3);margin-bottom:8px}
 .card-value{font-size:clamp(14px,3vw,20px);color:var(--green);word-break:break-all;line-height:1.4;min-height:24px}
 .card-value.warn{color:var(--red)}
 .card-value.safe{color:var(--green)}
@@ -51,7 +48,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .card-sub{font-size:11px;color:var(--text2);margin-top:4px}
 
 /* Section */
-.section-title{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--cyan);padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:2px;grid-column:1 / -1}
+.section-title{font-size:11px;color:var(--cyan);padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:2px;grid-column:1 / -1}
 
 /* Privacy Score */
 .score-wrap{text-align:center;padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
@@ -61,7 +58,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .score-ring .bg-ring{stroke:var(--border2)}
 .score-ring .fg-ring{stroke:var(--green);stroke-dasharray:339.292;stroke-dashoffset:339.292;transition:stroke-dashoffset 1.5s ease,stroke 1s ease}
 .score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:var(--green)}
-.score-label{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:2px}
+.score-label{font-size:12px;color:var(--text2);}
 
 /* Ad Placeholder */
 
@@ -80,13 +77,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
   .section-title{grid-column:1}
   .app{padding:10px;gap:10px}
 }
+
+.header h1 span{color:var(--text)}
 </style>
 </head>
 <body>
 <div class="app">
 
   <header class="header">
-    <h1>Net<span style="color:#fff">Guard</span></h1>
+    <h1>Net<span>Guard</span></h1>
     <div class="sub">Browser Leak &amp; Fingerprint Detector</div>
   </header>
 

@@ -9,7 +9,7 @@ proficiency: "Beginner"
 aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
-## $ System_Init
+## Cacher un message à la vue de tous
 
 Une photographie d'un coucher de soleil. Une photo de profil. Un mème partagé sur les réseaux sociaux. Pour tout observateur, ce sont des fichiers image ordinaires. Mais enfoui dans les données de pixels — invisible à l'œil humain — il peut y avoir un message caché attendant d'être extrait par quelqu'un qui sait où chercher.
 
@@ -19,7 +19,7 @@ Ce guide explique la technique de stéganographie numérique la plus courante �
 
 ---
 
-## $ What_Is_Steganography
+## Qu'est-ce que la stéganographie (et en quoi elle diffère du chiffrement)
 
 Le mot vient du grec : *steganos* (couvert) + *graphein* (écriture). Littéralement, "écriture couverte."
 
@@ -40,7 +40,7 @@ L'approche la plus puissante combine les deux : chiffrez d'abord le message, pui
 
 ---
 
-## $ How_LSB_Works
+## Comment la stéganographie LSB cache des données dans les pixels
 
 Les images numériques sont composées de pixels. Chaque pixel stocke des valeurs de couleur — typiquement Rouge, Vert et Bleu (RVB) — avec chaque canal utilisant 8 bits (valeurs 0-255).
 
@@ -86,7 +86,7 @@ C'est suffisant pour cacher un document entier dans une seule photographie.
 
 ---
 
-## $ Detection_And_Limits
+## Détecter la stéganographie LSB et ses limites
 
 La stéganographie LSB n'est pas parfaite. Voici les vulnérabilités connues :
 
@@ -111,7 +111,7 @@ Redimensionner, recadrer, faire pivoter ou appliquer des filtres (luminosité, c
 
 ---
 
-## $ Try_It_Yourself
+## Essayez : cachez un message dans une image
 
 La théorie n'est rien sans pratique. Utilisez notre **[Laboratoire de Stéganographie](/fr/tools/steganography/)** gratuit côté client pour encoder vos propres messages cachés dans des images — directement dans votre navigateur.
 
@@ -127,7 +127,7 @@ Pas de téléchargement, pas de traitement serveur. Vos données restent sur vot
 
 ---
 
-## $ FAQ_Database
+## FAQ sur la stéganographie
 
 **La stéganographie peut-elle être détectée ?**
 
