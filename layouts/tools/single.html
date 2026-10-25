@@ -1,48 +1,121 @@
 {{- define "main" }}
+{{- /* Tool page ("money page") template, used by every page in the tools
+     section. Structure:
+       breadcrumbs → H1 → intro → [ad tool_top] → TOOL → [ad tool_after]
+       → How to use (front matter `howto`) → long-form markdown body
+         (## How it works, [partner block], ## Use cases …)
+       → [ad article_mid] → FAQ (front matter `faq`) → related guides/tools
+     The tool itself comes from exactly one of (front matter):
+       tool_file     iframe of a self-contained app in static/tools/ (or games/)
+                     + tool_height (initial px), tool_sandbox, tool_allow
+       tool_partial  inline markup from layouts/partials/tools/<name>.html
+       tool_html     inline markup from front matter (+ tool_js script)
+     Pages with none of those (games that embed their iframe in markdown)
+     fall back to rendering .Content as before. */ -}}
+{{- $ads := partial "ads/enabled.html" . }}
+{{- $isTool := or .Params.tool_file .Params.tool_partial .Params.tool_html }}
 
-<article class="post-single">
+<article class="post-single tool-page">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
-    <h1 class="post-title entry-hint-parent">
-      {{ .Title }}
-      {{- if .Draft }}
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-      {{- end }}
-    </h1>
-    {{- if .Description }}
-    <div class="post-description">
-      {{ .Description }}
-    </div>
-    {{- end }}
-    {{- if not (.Param "hideMeta") }}
-    <div class="post-meta">
-      {{- partial "post_meta.html" . -}}
-      {{- partial "translation_list.html" . -}}
-      {{- partial "edit_post.html" . -}}
-      {{- partial "post_canonical.html" . -}}
-    </div>
-    {{- end }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- with .Params.intro }}
+    <p class="tool-intro">{{ . | markdownify }}</p>
+    {{- else }}{{ with .Description }}
+    <div class="post-description">{{ . }}</div>
+    {{- end }}{{ end }}
   </header>
-  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
-  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
+
+  {{- if $isTool }}
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
+
+  <div class="tool-frame">
+    {{- with .Params.tool_file }}
+    <iframe src="{{ . }}?lang={{ site.Language.Lang }}"
+            class="tool-iframe"
+            title="{{ $.Params.tool_title | default $.Title }}"
+            width="100%"
+            height="{{ $.Params.tool_height | default 800 }}"
+            sandbox="{{ $.Params.tool_sandbox | default "allow-scripts allow-same-origin" }}"
+            {{- with $.Params.tool_allow }} allow="{{ . }}"{{ end }}
+            referrerpolicy="same-origin"></iframe>
+    {{- else }}{{ with .Params.tool_partial }}
+    <div class="tool-inline">{{ partial (printf "tools/%s.html" .) $ }}</div>
+    {{- else }}
+    <div class="tool-inline">{{ .Params.tool_html | safeHTML }}</div>
+    {{- with .Params.tool_js }}<script src="{{ . | relURL }}"></script>{{ end }}
+    {{- end }}{{ end }}
+  </div>
+
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_after") }}{{ end }}
+
+  {{- with .Params.howto }}
+  <section class="tool-section tool-howto" aria-labelledby="how-to-use">
+    <h2 id="how-to-use">{{ i18n "tool_howto" | default "How to use" }}</h2>
+    <ol>
+      {{- range . }}
+      <li>{{ . | markdownify }}</li>
+      {{- end }}
+    </ol>
+  </section>
   {{- end }}
 
   {{- if .Content }}
-  <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+  {{- /* The affiliate partner block (Phase 7) goes right after the first
+       long-form section ("How it works"), i.e. before the 2nd <h2>. */}}
+  {{- $html := string .Content }}
+  {{- if not (.Param "disableAnchoredHeadings") }}{{ $html = string (partial "anchored_headings.html" .Content) }}{{ end }}
+  {{- $partner := partial "affiliate/block.html" . }}
+  {{- if $partner }}
+    {{- $parts := split $html "<h2" }}
+    {{- if gt (len $parts) 2 }}
+      {{- $html = printf "%s<h2%s%s<h2%s" (index $parts 0) (index $parts 1) $partner (delimit (after 2 $parts) "<h2") }}
+    {{- else }}
+      {{- $html = printf "%s%s" $html $partner }}
+    {{- end }}
+  {{- end }}
+  <div class="post-content tool-longform">
+    {{ $html | safeHTML }}
   </div>
   {{- end }}
 
-  {{/* SOCIAL SHARE BUTTONS - UNIVERSAL INJECTION */}}
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "article_mid") }}{{ end }}
+
+  {{- with .Params.faq }}
+  <section class="tool-section tool-faq" aria-labelledby="faq">
+    <h2 id="faq">{{ i18n "tool_faq" | default "Frequently asked questions" }}</h2>
+    {{- range . }}
+    <div class="tool-faq-item">
+      <h3>{{ .q }}</h3>
+      <div class="tool-faq-answer">{{ .a | markdownify }}</div>
+    </div>
+    {{- end }}
+  </section>
+  {{- end }}
+
+  {{ partial "related-guides.html" . }}
+
+  {{- else }}
+  {{- /* Legacy: the iframe/shortcode lives in the markdown body (games). */}}
+  {{- if $ads }}{{ partial "ads/unit.html" (dict "position" "tool_top") }}{{ end }}
+  {{- if .Content }}
+  {{- $html := .Content }}
+  {{- if not (.Param "disableAnchoredHeadings") }}{{ $html = partial "anchored_headings.html" .Content }}{{ end }}
+  {{- if $ads }}
+    {{- $afterAd := partial "ads/unit.html" (dict "position" "tool_after") }}
+    {{- if strings.Contains $html "</iframe>" }}
+      {{- $html = replaceRE `</iframe>` (printf "</iframe>%s" $afterAd) $html 1 }}
+      {{- $html = partial "ads/inject-content.html" (dict "page" . "content" $html "at" (slice 3)) }}
+    {{- else }}
+      {{- $html = printf "%s%s" $html $afterAd }}
+    {{- end }}
+  {{- end }}
+  <div class="post-content">
+    {{ $html | safeHTML }}
+  </div>
+  {{- end }}
+  {{- end }}
+
   <div class="post-footer-share">
     {{- partial "share-buttons.html" . -}}
   </div>
@@ -54,14 +127,7 @@
       <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
   </footer>
-
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
 </article>
 
 {{ partial "related-tools.html" . }}

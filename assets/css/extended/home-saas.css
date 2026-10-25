@@ -1,6 +1,6 @@
 /* ============================================
    HOMEPAGE — SaaS landing (P4.1)
-   Hero + section scaffolding + news strip
+   Hero + section scaffolding
    ============================================ */
 
 .home-hero {
@@ -69,7 +69,7 @@
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border);
   border-radius: 4px;
-  color: var(--secondary);
+  color: #b8b9ba;
   font-family: 'JetBrains Mono', monospace;
 }
 
@@ -119,51 +119,9 @@
   margin-top: 1.5rem;
 }
 
-/* ── Minimal news strip ── */
-
-.home-news-list {
-  list-style: none;
-  margin: 1rem 0 0;
-  padding: 0;
-}
-
-.home-news-list li {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.65rem 0.25rem;
-  border-bottom: 1px dashed var(--border);
-}
-
-.home-news-list li:last-child {
-  border-bottom: none;
-}
-
-.home-news-list a {
-  color: var(--content);
-  text-decoration: none;
-  line-height: 1.45;
-  transition: color 0.15s ease;
-}
-
-.home-news-list a:hover {
-  color: var(--accent);
-}
-
-.home-news-list time {
-  flex-shrink: 0;
-  font-size: 0.78rem;
-  color: var(--secondary);
-  font-family: 'JetBrains Mono', monospace;
-}
-
 @media (max-width: 520px) {
   .home-hero {
     padding: 2.25rem 0.5rem 2rem;
   }
 
-  .home-news-list time {
-    display: none;
-  }
 }

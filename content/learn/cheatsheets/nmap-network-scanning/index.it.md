@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconnaissance"]
 keywords: ["nmap cheatsheet", "comandi nmap", "guida scansione rete", "nmap scansione porte", "nmap rilevamento servizi", "nmap script NSE", "nmap scansione vulnerabilità", "comandi penetration testing"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Manuale Operativo Nmap: Comandi per la Ricognizione di Rete",
-    "description": "Comandi essenziali Nmap per la scansione di rete, rilevamento host, enumerazione porte e valutazione vulnerabilità.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "it"
-  }
-aliases: ["/it/cheatsheets/nmap-network-scanning/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/nmap-network-scanning/"]
 ---
 
 ## $ System_Init

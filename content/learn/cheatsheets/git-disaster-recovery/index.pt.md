@@ -5,16 +5,8 @@ date: 2026-02-13
 tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git desfazer commit", "git reset hard vs soft", "recuperar branch deletada", "git rebase tutorial", "resolver conflito merge", "git cherry-pick"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Git Disaster Recovery: Desfazendo Erros e Corrigindo o Historico",
-    "description": "O kit de emergencia para desenvolvedores. Aprenda a desfazer commits, resolver conflitos de merge, recuperar branches deletadas e dominar git rebase vs merge.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "pt"
-  }
-aliases: ["/pt/cheatsheets/git-disaster-recovery/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Desfazendo Alteracoes

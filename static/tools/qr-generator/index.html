@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/qr-generator/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QR Code Generator</title>
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="/vendor/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -175,63 +176,15 @@ const T = {
     errorLevel: 'Correção de Erro', generateBtn: 'Gerar QR', downloadBtn: 'Baixar .PNG',
     resultSection: 'Resultado', errorEmpty: 'Insira uma URL ou texto.',
     success: 'Código QR gerado com sucesso.', errorGenerate: 'Erro ao gerar o código QR.'
-  },
-  ru: {
-    title: '$ QuickLinker', subtitle: 'Генератор QR-кодов',
-    inputSection: 'Ввод', inputLabel: 'URL или Текст', inputPlaceholder: 'https://пример.com',
-    optionsSection: 'Настройки', fgColor: 'Передний план', bgColor: 'Фон',
-    errorLevel: 'Коррекция ошибок', generateBtn: 'Создать QR', downloadBtn: 'Скачать .PNG',
-    resultSection: 'Результат', errorEmpty: 'Введите URL или текст.',
-    success: 'QR-код успешно создан.', errorGenerate: 'Ошибка при создании QR-кода.'
-  },
-  ja: {
-    title: '$ QuickLinker', subtitle: 'QRコードジェネレーター',
-    inputSection: '入力', inputLabel: 'URLまたはテキスト', inputPlaceholder: 'https://example.com',
-    optionsSection: 'オプション', fgColor: '前景色', bgColor: '背景色',
-    errorLevel: 'エラー訂正', generateBtn: 'QR生成', downloadBtn: '.PNGダウンロード',
-    resultSection: '結果', errorEmpty: 'URLまたはテキストを入力してください。',
-    success: 'QRコードが正常に生成されました。', errorGenerate: 'QRコードの生成中にエラーが発生しました。'
-  },
-  ko: {
-    title: '$ QuickLinker', subtitle: 'QR 코드 생성기',
-    inputSection: '입력', inputLabel: 'URL 또는 텍스트', inputPlaceholder: 'https://example.com',
-    optionsSection: '옵션', fgColor: '전경색', bgColor: '배경색',
-    errorLevel: '오류 정정', generateBtn: 'QR 생성', downloadBtn: '.PNG 다운로드',
-    resultSection: '결과', errorEmpty: 'URL 또는 텍스트를 입력하세요.',
-    success: 'QR 코드가 성공적으로 생성되었습니다.', errorGenerate: 'QR 코드 생성 중 오류가 발생했습니다.'
-  },
-  'zh-cn': {
-    title: '$ QuickLinker', subtitle: 'QR码生成器',
-    inputSection: '输入', inputLabel: 'URL或文本', inputPlaceholder: 'https://example.com',
-    optionsSection: '选项', fgColor: '前景色', bgColor: '背景色',
-    errorLevel: '纠错等级', generateBtn: '生成QR码', downloadBtn: '下载.PNG',
-    resultSection: '结果', errorEmpty: '请输入URL或文本。',
-    success: 'QR码生成成功。', errorGenerate: '生成QR码时出错。'
-  },
-  ar: {
-    title: '$ QuickLinker', subtitle: 'مولد رمز QR',
-    inputSection: 'إدخال', inputLabel: 'رابط أو نص', inputPlaceholder: 'https://example.com',
-    optionsSection: 'خيارات', fgColor: 'اللون الأمامي', bgColor: 'لون الخلفية',
-    errorLevel: 'تصحيح الأخطاء', generateBtn: 'إنشاء QR', downloadBtn: 'تحميل .PNG',
-    resultSection: 'النتيجة', errorEmpty: 'يرجى إدخال رابط أو نص.',
-    success: 'تم إنشاء رمز QR بنجاح.', errorGenerate: 'خطأ في إنشاء رمز QR.'
-  },
-  hi: {
-    title: '$ QuickLinker', subtitle: 'QR कोड जनरेटर',
-    inputSection: 'इनपुट', inputLabel: 'URL या टेक्स्ट', inputPlaceholder: 'https://example.com',
-    optionsSection: 'विकल्प', fgColor: 'अग्रभूमि', bgColor: 'पृष्ठभूमि',
-    errorLevel: 'त्रुटि सुधार', generateBtn: 'QR बनाएं', downloadBtn: '.PNG डाउनलोड',
-    resultSection: 'परिणाम', errorEmpty: 'कृपया URL या टेक्स्ट दर्ज करें।',
-    success: 'QR कोड सफलतापूर्वक बनाया गया।', errorGenerate: 'QR कोड बनाने में त्रुटि।'
   }
 };
 
 function detectLang() {
-  try { const l = window.parent.document.documentElement.lang; if (l) return l.toLowerCase(); } catch(e) {}
   const p = new URLSearchParams(window.location.search);
   if (p.get('lang')) return p.get('lang').toLowerCase();
+  try { if (window.parent !== window) { const l = window.parent.document.documentElement.lang; if (l) return l.toLowerCase(); } } catch(e) {}
   const path = window.location.pathname;
-  const m = path.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);
+  const m = path.match(/^\/(en|it|es|fr|de|pt)\//);
   if (m) return m[1];
   return navigator.language.split('-')[0].toLowerCase();
 }
@@ -242,7 +195,6 @@ const t = (key) => (T[LANG] || T[LANG.split('-')[0]] || T.en)[key] || T.en[key] 
 function applyI18n() {
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-  if (LANG === 'ar') document.body.style.direction = 'rtl';
 }
 
 document.getElementById('fg-color').addEventListener('input', e => {
@@ -259,6 +211,31 @@ function showStatus(msg, type) {
   setTimeout(() => s.className = 'status', 4000);
 }
 
+/* Byte-mode text must be UTF-8: the library's default keeps only the low
+   byte of each character, which garbles accents and anything non-Latin. */
+qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+
+var QUIET = 4;      /* quiet zone in modules, as required by ISO/IEC 18004 */
+var lastQR = null;  /* { qr, fg, bg } of the code on screen, for the download */
+
+function drawQR(canvas, qr, cellSize, fg, bg) {
+  const n = qr.getModuleCount();
+  const size = (n + 2 * QUIET) * cellSize;
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = fg;
+  for (let row = 0; row < n; row++) {
+    for (let col = 0; col < n; col++) {
+      if (qr.isDark(row, col)) {
+        ctx.fillRect((col + QUIET) * cellSize, (row + QUIET) * cellSize, cellSize, cellSize);
+      }
+    }
+  }
+}
+
 function generateQR() {
   const text = document.getElementById('qr-input').value.trim();
   if (!text) { showStatus(t('errorEmpty'), 'error'); return; }
@@ -267,30 +244,14 @@ function generateQR() {
   const bg = document.getElementById('bg-color').value;
 
   try {
-    const ecMap = { L: 1, M: 0, Q: 3, H: 2 };
-    const qr = qrcode(0, ecMap[ecLevel] !== undefined ? ecLevel : 'M');
+    /* typeNumber 0 = pick the smallest QR version (1-40) that fits */
+    const qr = qrcode(0, ['L', 'M', 'Q', 'H'].indexOf(ecLevel) >= 0 ? ecLevel : 'M');
     qr.addData(text);
     qr.make();
 
-    const moduleCount = qr.getModuleCount();
-    const cellSize = Math.max(4, Math.floor(280 / moduleCount));
-    const size = moduleCount * cellSize;
-    const canvas = document.getElementById('qr-canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, size, size);
-
-    ctx.fillStyle = fg;
-    for (let row = 0; row < moduleCount; row++) {
-      for (let col = 0; col < moduleCount; col++) {
-        if (qr.isDark(row, col)) {
-          ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
-        }
-      }
-    }
+    const n = qr.getModuleCount();
+    drawQR(document.getElementById('qr-canvas'), qr, Math.max(4, Math.floor(300 / (n + 2 * QUIET))), fg, bg);
+    lastQR = { qr: qr, fg: fg, bg: bg };
 
     document.getElementById('qr-output').classList.add('visible');
     document.getElementById('download-btn').style.display = '';
@@ -300,15 +261,21 @@ function generateQR() {
   }
 }
 
+/* The PNG is re-rendered at ~1200 px with whole-pixel modules, sharp
+   enough for print, instead of saving the small on-screen preview. */
 function downloadQR() {
-  const canvas = document.getElementById('qr-canvas');
+  if (!lastQR) return;
+  const n = lastQR.qr.getModuleCount();
+  const big = document.createElement('canvas');
+  drawQR(big, lastQR.qr, Math.max(8, Math.ceil(1200 / (n + 2 * QUIET))), lastQR.fg, lastQR.bg);
   const link = document.createElement('a');
   link.download = 'qrcode.png';
-  link.href = canvas.toDataURL('image/png');
+  link.href = big.toDataURL('image/png');
   link.click();
 }
 
 applyI18n();
 </script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

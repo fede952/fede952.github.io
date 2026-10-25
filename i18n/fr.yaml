@@ -8,27 +8,21 @@ footer_connect:
 cookie_settings:
   other: "Paramètres des Cookies"
 footer_tagline:
-  other: "Tous les outils fonctionnent à 100 % localement dans votre navigateur — vos données ne quittent jamais votre appareil."
+  other: "Tous les outils traitent vos données localement dans le navigateur — rien de ce que vous saisissez n'est envoyé."
 
 related_tools:
   other: "Plus d'outils gratuits"
-adblock_message:
-  other: "Il semble que vous utilisiez un bloqueur de publicités. La publicité permet de garder ces outils gratuits — pensez à ajouter ce site à votre liste blanche. Merci !"
-adblock_dismiss:
-  other: "Fermer"
 
 hero_title:
   other: "Utilitaires Web Gratuits et Privés"
 hero_subtitle:
-  other: "Pas de serveurs. Pas de traçage. Pas de superflu. Tout fonctionne à 100 % dans votre navigateur."
+  other: "Pas d'inscription. Pas d'envoi. Pas de superflu. Tout ce que vous saisissez est traité directement dans votre navigateur."
 hero_search_label:
   other: "Rechercher outils, guides, cheatsheets…"
 home_featured_tools:
   other: "Outils à la Une"
 home_latest_guides:
   other: "Derniers Guides"
-home_recent_news:
-  other: "Actualités Récentes"
 card_use_tool:
   other: "Utiliser l'Outil"
 card_play_now:
@@ -39,5 +33,153 @@ card_read_more:
 ad_label:
   other: "Publicité"
 
-partner_label:
-  other: "Partenaire"
+tool_howto:
+  other: "Mode d’emploi"
+tool_faq:
+  other: "Questions fréquentes"
+related_guides:
+  other: "Guides associés"
+pg_placeholder:
+  other: "Votre mot de passe sécurisé"
+pg_copy:
+  other: "Copier dans le presse-papiers"
+pg_length:
+  other: "Longueur"
+pg_generate:
+  other: "Générer un mot de passe"
+pg_note:
+  other: "Généré localement avec crypto.getRandomValues(). Rien ne quitte votre navigateur."
+pg_weak:
+  other: "Faible"
+pg_good:
+  other: "Correct"
+pg_strong:
+  other: "Fort"
+pg_bits:
+  other: "bits d'entropie"
+pg_copied:
+  other: "Copié !"
+tool_input_text:
+  other: "Texte d’entrée"
+tool_output:
+  other: "Résultat"
+tool_copy:
+  other: "Copier"
+tool_copied:
+  other: "Copié !"
+tool_clear:
+  other: "Effacer"
+tool_clear_all:
+  other: "Tout effacer"
+tool_result_placeholder:
+  other: "Le résultat s’affichera ici…"
+tool_nothing_to_copy:
+  other: "Rien à copier pour l’instant."
+tool_copy_failed:
+  other: "Impossible de copier dans le presse-papiers."
+tool_copied_msg:
+  other: "Copié dans le presse-papiers."
+tool_sample_text:
+  other: "Bonjour, le monde !"
+hash_placeholder:
+  other: "Saisissez ou collez le texte à hacher…"
+hash_note:
+  other: "Les empreintes se mettent à jour pendant la saisie : SHA-1, SHA-256 et SHA-512 utilisent la Web Crypto API, MD5 une implémentation JavaScript. Rien n’est envoyé."
+hash_recommended:
+  other: "Recommandé"
+hash_insecure:
+  other: "Pas pour la sécurité"
+hash_error:
+  other: "Impossible de calculer les empreintes :"
+b64_placeholder:
+  other: "Texte à encoder ou chaîne Base64 à décoder…"
+b64_encode:
+  other: "Encoder en Base64"
+b64_decode:
+  other: "Décoder le Base64"
+b64_need_text:
+  other: "Saisissez un texte à encoder."
+b64_encoded:
+  other: "Encodé en Base64 (UTF-8)."
+b64_need_b64:
+  other: "Saisissez une chaîne Base64 à décoder."
+b64_decoded:
+  other: "Décodé depuis le Base64."
+b64_invalid:
+  other: "Ce n’est pas du Base64 ni du Base64URL valide. Vérifiez qu’il ne manque aucun caractère."
+b64_not_text:
+  other: "Décodé, mais les octets ne forment pas un texte UTF-8 valide (probablement des données binaires)."
+caesar_placeholder:
+  other: "Saisissez votre texte ici…"
+caesar_shift:
+  other: "Décalage"
+caesar_encrypt:
+  other: "Chiffrer"
+caesar_decrypt:
+  other: "Déchiffrer"
+caesar_need_text:
+  other: "Saisissez d’abord un texte."
+caesar_encrypted:
+  other: "Texte chiffré."
+caesar_decrypted:
+  other: "Texte déchiffré."
+chmod_read:
+  other: "Lecture"
+chmod_write:
+  other: "Écriture"
+chmod_execute:
+  other: "Exécution"
+chmod_owner:
+  other: "Propriétaire (u)"
+chmod_group:
+  other: "Groupe (g)"
+chmod_others:
+  other: "Autres (o)"
+chmod_filename:
+  other: "Nom du fichier :"
+chmod_copy:
+  other: "Copier la commande"
+chmod_copied:
+  other: "Copié !"
+chmod_presets:
+  other: "Préréglages :"
+
+# Learn pages: byline + author box (partials/author-box.html)
+byline_by:
+  other: "Par {{ .Name }}"
+byline_updated:
+  other: "Mis à jour le {{ .Date }}"
+author_box_heading:
+  other: "Qui écrit ces guides"
+author_box_bio:
+  other: "Je travaille comme Network Security Analyst en SOC et en sécurité réseau de niveau 2 (L2) : plateformes SSE/SASE, accès Zero Trust, analyse du trafic et tri des incidents. J'ai la certification eJPT (Junior Penetration Tester) et j'écris ces guides à partir du travail de terrain et de la pratique en laboratoire."
+author_box_more:
+  other: "En savoir plus sur moi"
+related_tools_learn:
+  other: "Outils gratuits sur ce sujet"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Lien d'affiliation"
+aff_disclosure:
+  other: "Lien d'affiliation — je peux toucher une commission, sans aucun coût supplémentaire pour vous."
+aff_sharing:
+  other: "Le bouton ouvre le site de {{ .Name }} ; rien de ce que vous avez saisi dans cet outil n'est partagé."
+aff_cta:
+  other: "Aller sur {{ .Name }}"
+aff_password_manager_title:
+  other: "Des mots de passe solides sans les retenir"
+aff_password_manager_text:
+  other: "Un long mot de passe aléatoire n'est pratique que si quelque chose s'en souvient à votre place. Un gestionnaire comme {{ .Name }} stocke chaque mot de passe chiffré, le remplit sur tous vos appareils et signale ceux qui sont réutilisés ou compromis."
+aff_vpn_title:
+  other: "Masquez votre adresse IP aux sites que vous visitez"
+aff_vpn_text:
+  other: "{{ .Name }} fait passer votre trafic dans un tunnel chiffré : les sites voient l'IP et la position du serveur VPN au lieu des vôtres, et votre fournisseur d'accès ne voit pas quels sites vous ouvrez. Un VPN seul n'empêche pas l'empreinte du navigateur."
+aff_privacy_title:
+  other: "Protégez aussi le reste de vos données personnelles"
+aff_privacy_text:
+  other: "Supprimer les données cachées des fichiers n'est qu'une partie de la confidentialité en ligne. {{ .Name }} vous aide pour le reste de vos données personnelles."
+aff_devsec_title:
+  other: "Repérez les secrets exposés avant la mise en production"
+aff_devsec_text:
+  other: "Cette page vérifie un extrait à la fois, dans votre navigateur. {{ .Name }} peut surveiller en continu vos dépôts et pipelines, pour qu'une clé ou un jeton exposé soit signalé avant d'arriver en production."

@@ -5,16 +5,8 @@ date: 2026-02-13
 tags: ["networking", "cheatsheet", "devops", "security", "sysadmin"]
 keywords: ["common ports cheat sheet", "http status codes", "tcp vs udp", "osi model explained", "dns records types", "ssh port forwarding"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Die Internet-Karte: Netzwerk-Ports, Protokolle und Statuscodes",
-    "description": "Visueller Leitfaden zu TCP/IP, OSI-Modell, Gangige Ports (SSH, HTTP, DNS) und HTTP-Statuscodes fur DevOps und Hacker.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
-aliases: ["/de/cheatsheets/networking-ports-protocols/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## Gangige Ports

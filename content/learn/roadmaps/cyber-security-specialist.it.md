@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["security", "roadmap", "career"]
 keywords: ["roadmap cyber security", "percorso carriera penetration testing", "percorso apprendimento infosec", "roadmap ethical hacking 2026", "carriera security engineer"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Percorso di Carriera Cyber Security Specialist",
-    "description": "Roadmap passo dopo passo per diventare un Cyber Security Specialist.",
-    "inLanguage": "it"
-  }
-aliases: ["/it/roadmaps/cyber-security-specialist/"]
+aliases: ["/roadmaps/cyber-security-specialist/"]
 ---
 
 ## Il Tuo Percorso verso la Cyber Security

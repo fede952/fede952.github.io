@@ -1,0 +1,23 @@
+{{- /* Learn-page auto-injection: returns .Content with an article_mid unit
+     inserted right before the 2nd and the 5th <h2> (i.e. at the end of
+     the 1st and 4th sections), when those headings exist. Splitting on
+     "<h2" is safe: headings inside code blocks are HTML-escaped (&lt;h2).
+     Usage: partial "ads/inject-content.html" (dict "page" . "content" $html)
+     Optional "at" (slice of h2 ordinals) overrides the default (slice 2 5);
+     tool pages pass (slice 3) because they already carry two units above. */ -}}
+{{- $content := .content -}}
+{{- $at := .at | default (slice 2 5) -}}
+{{- if partial "ads/enabled.html" .page -}}
+  {{- $parts := split $content "<h2" -}}
+  {{- if gt (len $parts) 2 -}}
+    {{- $ad := partial "ads/unit.html" (dict "position" "article_mid") -}}
+    {{- $out := index $parts 0 -}}
+    {{- range $i, $p := after 1 $parts -}}
+      {{- $n := add $i 1 -}}{{/* $n = ordinal of the h2 this part starts with */}}
+      {{- if in $at $n }}{{ $out = printf "%s%s" $out $ad }}{{ end -}}
+      {{- $out = printf "%s<h2%s" $out $p -}}
+    {{- end -}}
+    {{- $content = $out -}}
+  {{- end -}}
+{{- end -}}
+{{- return ($content | safeHTML) -}}

@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["kubernetes", "cheatsheet", "devops", "kubectl", "cloud-native"]
 keywords: ["kubectl cheat sheet", "k8s commands", "pod management kubernetes", "deployment scaling k8s", "kubernetes debugging", "kubectl get pods", "kubernetes service expose", "configmap secrets k8s", "kubernetes cluster admin", "kubectl logs troubleshoot"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Kubernetes (K8s) & Kubectl: Production Cluster Commands",
-    "description": "Essential kubectl commands for managing Kubernetes clusters: pods, deployments, services, ConfigMaps, and debugging.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "en"
-  }
-aliases: ["/en/cheatsheets/kubernetes-kubectl-cheat-sheet/", "/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## System Init

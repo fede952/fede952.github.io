@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["kubernetes", "interview", "devops", "cloud-native"]
 keywords: ["k8s interview questions", "cka exam prep", "kubernetes architecture questions", "kubernetes interview answers", "pod lifecycle interview", "kubernetes networking questions", "kubernetes rbac", "senior sre interview", "kubernetes troubleshooting", "helm interview questions"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Kubernetes (K8s) Interview Prep: Senior Level Q&A",
-    "description": "20 advanced Kubernetes interview questions covering architecture, networking, storage, security, and production troubleshooting.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "en"
-  }
-aliases: ["/en/interviews/kubernetes-interview-questions/", "/interviews/kubernetes-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/kubernetes-interview-questions/"]
 ---
 
 ## System Init

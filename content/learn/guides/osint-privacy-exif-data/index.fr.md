@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["exif", "privacy", "osint", "metadata", "security", "guide"]
 keywords: ["confidentialité métadonnées exif", "position gps photo", "supprimer données exif", "analyse photo osint", "risques métadonnées images", "guide confidentialité photo", "suivi gps exif", "supprimer métadonnées des photos"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Mode Fantôme : Pourquoi Vos Photos Divulguent Votre Position GPS",
-    "description": "Comment les métadonnées EXIF dans les photos divulguent les coordonnées GPS, les informations sur l'appareil et les horodatages — et comment vous protéger.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/guides/osint-privacy-exif-data/"]
+proficiency: "Beginner"
+aliases: ["/guides/osint-privacy-exif-data/"]
 ---
 
 ## $ System_Init

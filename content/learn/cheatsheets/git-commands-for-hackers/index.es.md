@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["git", "cheatsheet", "version-control", "developer-tools"]
 keywords: ["comandos git cheatsheet", "git deshacer commit", "git firma gpg", "comandos git branch", "guía git reset", "tutorial git rebase", "comandos git avanzados", "git para hackers"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Protocolo Git: La Guía de Referencia Esencial de Comandos",
-    "description": "Hoja de referencia completa de comandos Git que cubre correcciones de emergencia, firma GPG, operaciones de ramas y flujos de trabajo avanzados.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "es"
-  }
-aliases: ["/es/cheatsheets/git-commands-for-hackers/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
 ## $ System_Init

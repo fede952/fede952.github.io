@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["python", "interview", "security", "penetration-testing"]
 keywords: ["python security interview", "infosec python questions", "scripting for hackers", "python pentest interview", "socket programming interview", "scapy interview questions", "python cryptography", "ethical hacking python", "security automation interview", "python exploit development"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Python per la Cyber Security: Domande e Risposte per Pentester",
-    "description": "20 domande di colloquio su Python e sicurezza che coprono programmazione socket, manipolazione pacchetti, exploitation web e automazione.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "it"
-  }
-aliases: ["/it/interviews/python-security-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/python-security-interview-questions/"]
 ---
 
 ## Inizializzazione del Sistema

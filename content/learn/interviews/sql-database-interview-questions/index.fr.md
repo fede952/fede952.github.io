@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["sql", "interview", "database", "backend"]
 keywords: ["questions entretien requêtes sql", "normalisation base de données", "propriétés acid", "prévention injection sql", "entretien index base de données", "questions jointure sql", "entretien postgresql", "questions entretien mysql", "modèles conception base de données", "optimisation performance sql"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Questions d'Entretien SQL et Conception de Bases de Données (Niveau Senior)",
-    "description": "20 questions avancées d'entretien sur SQL et les bases de données couvrant l'optimisation, la normalisation, l'indexation, les transactions et la sécurité.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/interviews/sql-database-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
 ## Initialisation du Système

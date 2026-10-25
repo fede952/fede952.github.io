@@ -2,7 +2,7 @@
 title: "CTF Writeups"
 description: "Soluzioni dettagliate delle sfide CTF"
 draft: false
-aliases: ["/it/writeups/"]
+aliases: ["/writeups/"]
 ---
 
 ⚠️ **Global Content Notice:**

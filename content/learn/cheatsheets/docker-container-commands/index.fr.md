@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["docker", "cheatsheet", "devops", "containers", "docker-compose"]
 keywords: ["cheatsheet commandes docker", "exemples docker run", "tutoriel docker compose", "réseau conteneurs", "syntaxe dockerfile", "outils devops", "montage volumes docker", "build image docker", "gestion conteneurs docker", "docker registry push pull"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Journal de Bord du Capitaine Docker : La Référence Ultime des Commandes de Conteneurs",
-    "description": "Cheatsheet complet des commandes Docker couvrant le cycle de vie des conteneurs, la gestion des images, le réseau, les volumes et Docker Compose.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/cheatsheets/docker-container-commands/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/docker-container-commands/"]
 ---
 
 ## Initialisation du Système

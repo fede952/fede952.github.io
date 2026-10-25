@@ -1,0 +1,114 @@
+# Internal-linking map, language-independent: every page is resolved with
+# site.GetPage in the current language, so one entry links all 6 languages.
+#
+#   tools.<tool-slug>.tools   → "More free tools" cards on a tool page (topped up from .Related)
+#   tools.<tool-slug>.guides  → "Related guides" on a tool page (paths under /learn/)
+#   learn.<path>              → tools linked from a learn page (paths under /tools/)
+#
+# Rule of thumb: every tool links ≥2 guides, every learn page links ≥2 tools.
+# Used by partials/related-guides.html, partials/related-tools.html and
+# partials/learn-related-tools.html.
+
+tools:
+  pass-fort:
+    tools: [password-generator, hash-generator, secrets-scanner, jwt-inspector]
+    guides: [cheatsheets/linux-sysadmin-permissions, interviews/python-security-interview-questions, roadmaps/cyber-security-specialist]
+  password-generator:
+    tools: [pass-fort, hash-generator, secrets-scanner, base64-converter]
+    guides: [cheatsheets/linux-sysadmin-permissions, roadmaps/cyber-security-specialist]
+  pixel-shrink:
+    tools: [exif-cleaner, glitch-forge, steganography, qr-generator]
+    guides: [guides/osint-privacy-exif-data, cheatsheets/css-flexbox-grid-visual-guide]
+  qr-generator:
+    tools: [link-hazmat, pixel-shrink, string-master, neon-palette]
+    guides: [guides/osint-privacy-exif-data, cheatsheets/networking-ports-protocols]
+  exif-cleaner:
+    tools: [pixel-shrink, steganography, ghostprint, netguard]
+    guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
+  netguard:
+    tools: [ghostprint, link-hazmat, exif-cleaner, pass-fort]
+    guides: [cheatsheets/networking-ports-protocols, cheatsheets/nmap-network-scanning, roadmaps/cyber-security-specialist]
+  ghostprint:
+    tools: [netguard, exif-cleaner, link-hazmat, pass-fort]
+    guides: [guides/osint-privacy-exif-data, cheatsheets/networking-ports-protocols]
+  jwt-inspector:
+    tools: [base64-converter, hash-generator, secrets-scanner, json-to-csharp]
+    guides: [cheatsheets/javascript-es6-array-methods, interviews/python-security-interview-questions, cheatsheets/sql-injection-payloads-database]
+  secrets-scanner:
+    tools: [jwt-inspector, pass-fort, hash-generator, base64-converter]
+    guides: [cheatsheets/git-disaster-recovery, cheatsheets/git-commands-for-hackers, cheatsheets/docker-container-commands]
+  freelance-calculator:
+    tools: [chrono-sync, easy-cron, zen-focus, json-to-csharp]
+    guides: [roadmaps/python-fullstack, roadmaps/devops-engineer]
+  hash-generator:
+    tools: [pass-fort, base64-converter, jwt-inspector, caesar-cipher]
+    guides: [cheatsheets/python-security-scripts, cheatsheets/linux-sysadmin-permissions]
+  base64-converter:
+    tools: [jwt-inspector, string-master, hash-generator, steganography]
+    guides: [cheatsheets/kubernetes-kubectl-cheat-sheet, cheatsheets/python-security-scripts]
+  easy-cron:
+    tools: [chrono-sync, chmod-calculator, freelance-calculator, json-to-csharp]
+    guides: [cheatsheets/linux-sysadmin-permissions, interviews/linux-sysadmin-interview-questions, roadmaps/devops-engineer]
+  chmod-calculator:
+    tools: [easy-cron, hash-generator, secrets-scanner, chrono-sync]
+    guides: [cheatsheets/linux-sysadmin-permissions, interviews/linux-sysadmin-interview-questions, debug-sys/docker-cannot-connect-daemon]
+  caesar-cipher:
+    tools: [steganography, hash-generator, base64-converter, string-master]
+    guides: [guides/steganography-101-hidden-messages, cheatsheets/python-security-scripts]
+  chrono-sync:
+    tools: [easy-cron, json-to-csharp, string-master, freelance-calculator]
+    guides: [cheatsheets/javascript-es6-array-methods, cheatsheets/linux-sysadmin-permissions]
+  glitch-forge:
+    tools: [pixel-shrink, neon-palette, steganography, exif-cleaner]
+    guides: [cheatsheets/css-flexbox-grid-visual-guide, guides/steganography-101-hidden-messages]
+  json-to-csharp:
+    tools: [string-master, base64-converter, jwt-inspector, chrono-sync]
+    guides: [cheatsheets/javascript-es6-array-methods, interviews/sql-database-interview-questions]
+  link-hazmat:
+    tools: [netguard, qr-generator, ghostprint, secrets-scanner]
+    guides: [cheatsheets/networking-ports-protocols, cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist]
+  neon-palette:
+    tools: [glitch-forge, pixel-shrink, qr-generator, string-master]
+    guides: [cheatsheets/css-flexbox-grid-visual-guide, cheatsheets/react-hooks-lifecycle]
+  reflex-grid:
+    tools: [zen-focus, glitch-forge, neon-palette, chrono-sync]
+    guides: [cheatsheets/javascript-es6-array-methods, cheatsheets/react-hooks-lifecycle]
+  steganography:
+    tools: [exif-cleaner, caesar-cipher, pixel-shrink, hash-generator]
+    guides: [guides/steganography-101-hidden-messages, guides/osint-privacy-exif-data]
+  string-master:
+    tools: [base64-converter, json-to-csharp, hash-generator, caesar-cipher]
+    guides: [cheatsheets/javascript-es6-array-methods, cheatsheets/python-security-scripts]
+  zen-focus:
+    tools: [reflex-grid, freelance-calculator, chrono-sync, neon-palette]
+    guides: [guides/local-ai-setup-ollama, roadmaps/python-fullstack]
+
+learn:
+  cheatsheets/css-flexbox-grid-visual-guide: [neon-palette, pixel-shrink, glitch-forge]
+  cheatsheets/docker-container-commands: [secrets-scanner, easy-cron, chmod-calculator]
+  cheatsheets/git-commands-for-hackers: [secrets-scanner, hash-generator]
+  cheatsheets/git-disaster-recovery: [secrets-scanner, hash-generator]
+  cheatsheets/javascript-es6-array-methods: [json-to-csharp, string-master, jwt-inspector]
+  cheatsheets/kubernetes-kubectl-cheat-sheet: [base64-converter, secrets-scanner, easy-cron]
+  cheatsheets/linux-sysadmin-permissions: [chmod-calculator, easy-cron, pass-fort]
+  cheatsheets/networking-ports-protocols: [netguard, link-hazmat, ghostprint]
+  cheatsheets/nmap-network-scanning: [netguard, link-hazmat]
+  cheatsheets/python-security-scripts: [hash-generator, base64-converter, secrets-scanner]
+  cheatsheets/react-hooks-lifecycle: [json-to-csharp, neon-palette, jwt-inspector]
+  cheatsheets/sql-injection-payloads-database: [link-hazmat, string-master, hash-generator]
+  debug-sys/docker-cannot-connect-daemon: [chmod-calculator, secrets-scanner]
+  debug-sys/git-refusing-merge-unrelated-histories: [secrets-scanner, hash-generator]
+  debug-sys/python-pip-ssl-cert-verify-failed: [netguard, hash-generator]
+  guides/deepseek-vs-chatgpt: [secrets-scanner, jwt-inspector]
+  guides/local-ai-setup-ollama: [zen-focus, secrets-scanner]
+  guides/osint-privacy-exif-data: [exif-cleaner, ghostprint, pixel-shrink]
+  guides/steganography-101-hidden-messages: [steganography, caesar-cipher, exif-cleaner]
+  interviews/docker-interview-questions: [secrets-scanner, chmod-calculator, easy-cron]
+  interviews/kubernetes-interview-questions: [base64-converter, secrets-scanner, easy-cron]
+  interviews/linux-sysadmin-interview-questions: [chmod-calculator, easy-cron, netguard]
+  interviews/python-security-interview-questions: [hash-generator, jwt-inspector, pass-fort]
+  interviews/sql-database-interview-questions: [json-to-csharp, hash-generator]
+  roadmaps/cyber-security-specialist: [netguard, pass-fort, jwt-inspector, ghostprint]
+  roadmaps/devops-engineer: [easy-cron, chmod-calculator, secrets-scanner]
+  roadmaps/python-fullstack: [json-to-csharp, jwt-inspector, base64-converter]
+  writeups/htb-cap/htb-cap: [netguard, hash-generator, link-hazmat]

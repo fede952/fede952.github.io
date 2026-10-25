@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/json-to-csharp/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JSON to C# Converter</title>
@@ -100,7 +101,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 /* ===================================================
    LANGUAGE DETECTION
    =================================================== */
-var SUPPORTED_LANGS = ['en','it','es','fr','de','pt','ru','ja','zh','hi','ar','ko'];
+var SUPPORTED_LANGS = ['en','it','es','fr','de','pt'];
 
 function detectLang() {
   var params = new URLSearchParams(window.location.search);
@@ -120,7 +121,7 @@ function detectLang() {
 }
 
 /* ===================================================
-   DICTIONARY (12 languages)
+   DICTIONARY (6 languages)
    =================================================== */
 var DICT = {
   en: {
@@ -182,66 +183,6 @@ var DICT = {
     invalidJson: "JSON Inv\u00e1lido",
     emptyHint: "Digite ou cole JSON para gerar classes C#",
     placeholder: "Cole seu JSON aqui..."
-  },
-  ru: {
-    subtitle: "\u0412\u0441\u0442\u0430\u0432\u044c\u0442\u0435 JSON, \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u0435 \u043a\u043b\u0430\u0441\u0441\u044b C#",
-    inputLabel: "\u0412\u0445\u043e\u0434\u043d\u043e\u0439 JSON",
-    outputLabel: "\u0412\u044b\u0432\u043e\u0434 C#",
-    copyBtn: "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
-    copiedBtn: "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!",
-    invalidJson: "\u041d\u0435\u0432\u0430\u043b\u0438\u0434\u043d\u044b\u0439 JSON",
-    emptyHint: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043b\u0438 \u0432\u0441\u0442\u0430\u0432\u044c\u0442\u0435 JSON \u0434\u043b\u044f \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 \u043a\u043b\u0430\u0441\u0441\u043e\u0432 C#",
-    placeholder: "\u0412\u0441\u0442\u0430\u0432\u044c\u0442\u0435 JSON \u0441\u044e\u0434\u0430..."
-  },
-  ja: {
-    subtitle: "JSON\u3092\u8cbc\u308a\u4ed8\u3051\u3066\u3001C#\u30af\u30e9\u30b9\u3092\u5373\u5ea7\u306b\u53d6\u5f97",
-    inputLabel: "\u5165\u529bJSON",
-    outputLabel: "C#\u51fa\u529b",
-    copyBtn: "\u30b3\u30d4\u30fc",
-    copiedBtn: "\u30b3\u30d4\u30fc\u6e08\u307f!",
-    invalidJson: "\u7121\u52b9\u306aJSON",
-    emptyHint: "JSON\u3092\u5165\u529b\u307e\u305f\u306f\u8cbc\u308a\u4ed8\u3051\u3066C#\u30af\u30e9\u30b9\u3092\u751f\u6210",
-    placeholder: "JSON\u3092\u3053\u3053\u306b\u8cbc\u308a\u4ed8\u3051..."
-  },
-  zh: {
-    subtitle: "\u7c98\u8d34JSON\uff0c\u5373\u65f6\u83b7\u53d6C#\u7c7b",
-    inputLabel: "\u8f93\u5165JSON",
-    outputLabel: "C#\u8f93\u51fa",
-    copyBtn: "\u590d\u5236",
-    copiedBtn: "\u5df2\u590d\u5236!",
-    invalidJson: "\u65e0\u6548JSON",
-    emptyHint: "\u8f93\u5165\u6216\u7c98\u8d34JSON\u4ee5\u751f\u6210C#\u7c7b",
-    placeholder: "\u5728\u6b64\u7c98\u8d34JSON..."
-  },
-  hi: {
-    subtitle: "JSON \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902, C# \u0915\u094d\u0932\u093e\u0938 \u0924\u0941\u0930\u0902\u0924 \u092a\u094d\u0930\u093e\u092a\u094d\u0924 \u0915\u0930\u0947\u0902",
-    inputLabel: "\u0907\u0928\u092a\u0941\u091f JSON",
-    outputLabel: "C# \u0906\u0909\u091f\u092a\u0941\u091f",
-    copyBtn: "\u0915\u0949\u092a\u0940",
-    copiedBtn: "\u0915\u0949\u092a\u0940 \u0939\u094b \u0917\u092f\u093e!",
-    invalidJson: "\u0905\u092e\u093e\u0928\u094d\u092f JSON",
-    emptyHint: "C# \u0915\u094d\u0932\u093e\u0938 \u091c\u0928\u0930\u0947\u091f \u0915\u0930\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f JSON \u091f\u093e\u0907\u092a \u092f\u093e \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902",
-    placeholder: "\u092f\u0939\u093e\u0901 JSON \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902..."
-  },
-  ar: {
-    subtitle: "\u0627\u0644\u0635\u0642 JSON\u060c \u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0641\u0626\u0627\u062a C# \u0641\u0648\u0631\u0627\u064b",
-    inputLabel: "\u0625\u062f\u062e\u0627\u0644 JSON",
-    outputLabel: "\u0645\u062e\u0631\u062c\u0627\u062a C#",
-    copyBtn: "\u0646\u0633\u062e",
-    copiedBtn: "\u062a\u0645 \u0627\u0644\u0646\u0633\u062e!",
-    invalidJson: "JSON \u063a\u064a\u0631 \u0635\u0627\u0644\u062d",
-    emptyHint: "\u0627\u0643\u062a\u0628 \u0623\u0648 \u0627\u0644\u0635\u0642 JSON \u0644\u0625\u0646\u0634\u0627\u0621 \u0641\u0626\u0627\u062a C#",
-    placeholder: "\u0627\u0644\u0635\u0642 JSON \u0647\u0646\u0627..."
-  },
-  ko: {
-    subtitle: "JSON\uc744 \ubd99\uc5ec\ub123\uace0 C# \ud074\ub798\uc2a4\ub97c \uc989\uc2dc \uc0dd\uc131",
-    inputLabel: "\uc785\ub825 JSON",
-    outputLabel: "C# \ucd9c\ub825",
-    copyBtn: "\ubcf5\uc0ac",
-    copiedBtn: "\ubcf5\uc0ac\ub428!",
-    invalidJson: "\uc798\ubabb\ub41c JSON",
-    emptyHint: "JSON\uc744 \uc785\ub825\ud558\uac70\ub098 \ubd99\uc5ec\ub123\uc5b4 C# \ud074\ub798\uc2a4\ub97c \uc0dd\uc131\ud558\uc138\uc694",
-    placeholder: "\uc5ec\uae30\uc5d0 JSON\uc744 \ubd99\uc5ec\ub123\uc73c\uc138\uc694..."
   }
 };
 
@@ -425,6 +366,7 @@ function generateCSharp(jsonStr) {
 
   /* Format output */
   var lines = [];
+  if (usesDateTime) lines.push('using System;'); /* DateTime lives in System */
   if (usesLists) lines.push('using System.Collections.Generic;');
   lines.push('using System.Text.Json.Serialization;');
   lines.push('');
@@ -558,20 +500,6 @@ $('copyBtn').addEventListener('click', function () {
 $('jsonInput').value = SAMPLE;
 convert();
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function () {
-  function sendHeight() {
-    var h = document.body.scrollHeight;
-    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
-  }
-  document.documentElement.style.height = 'auto';
-  document.body.style.height = 'auto';
-  document.body.style.minHeight = '0';
-  window.addEventListener('load', sendHeight);
-  window.addEventListener('resize', sendHeight);
-  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

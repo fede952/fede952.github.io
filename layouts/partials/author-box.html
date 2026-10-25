@@ -1,0 +1,18 @@
+{{- /* Author box at the end of learn articles (E-E-A-T): who wrote the
+     page, relevant experience and where to verify it. Data from
+     site.Params.person (same source as the Person JSON-LD). */ -}}
+{{- $p := site.Params.person -}}
+<aside class="author-box" aria-labelledby="author-box-heading">
+  <img class="author-box-photo" src="{{ $p.image | relURL }}" width="72" height="72" alt="{{ $p.name }}" loading="lazy" decoding="async">
+  <div class="author-box-body">
+    <h2 id="author-box-heading" class="author-box-heading">{{ i18n "author_box_heading" }}</h2>
+    <p class="author-box-name"><strong>{{ $p.name }}</strong> · {{ $p.jobTitle }}</p>
+    <p class="author-box-bio">{{ i18n "author_box_bio" }}</p>
+    <p class="author-box-links">
+      {{- with site.GetPage "/about" }}<a href="{{ .RelPermalink }}">{{ i18n "author_box_more" }}</a>{{ end }}
+      {{- range $p.sameAs }}
+      <a href="{{ . }}" rel="me noopener" target="_blank">{{ cond (strings.Contains . "linkedin") "LinkedIn" (cond (strings.Contains . "github") "GitHub" .) }}</a>
+      {{- end }}
+    </p>
+  </div>
+</aside>

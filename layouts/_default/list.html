@@ -6,11 +6,10 @@
   </header>
 
   {{ $currentSection := .Section }}
-  {{ $currentLang := .Lang }}
   {{ $isGaming := or (eq $currentSection "games") (eq $currentSection "tools") (eq $currentSection "learn") (eq $currentSection "cheatsheets") (eq $currentSection "debug-sys") (eq $currentSection "interviews") (eq $currentSection "guides") (eq $currentSection "projects") (eq $currentSection "writeups") (eq $currentSection "roadmaps") }}
 
   {{/* Hub mode: only the top-level /learn/ and /tools/ section pages. Nested
-       sections (/learn/cheatsheets/) and other lists (/news/, taxonomies) keep
+       sections (/learn/cheatsheets/) and other lists (taxonomies) keep
        the flat layout below. */}}
   {{ $isHub := and (eq .Kind "section") (in (slice "learn" "tools") $currentSection) (eq .Parent.Kind "home") }}
 
@@ -62,42 +61,22 @@
       {{ end }}
     {{ end }}
   {{ else }}
-    {{ $items := slice }}
-
-    {{/* NEWS: local-language pages plus, per story, the English page ONLY
-         when no local translation exists. lang.Merge fills untranslated
-         stories from the EN collection via translation-key matching — the
-         old local∪English union listed every translated story twice on
-         non-English lists. */}}
-    {{ if eq $currentSection "news" }}
-       {{ $items = .RegularPagesRecursive }}
-       {{ if ne $currentLang "en" }}
-         {{ range .AllTranslations }}
-           {{ if eq .Lang "en" }}
-             {{ $items = $items | lang.Merge .RegularPagesRecursive }}
-           {{ end }}
-         {{ end }}
-       {{ end }}
-       {{ $items = $items.ByDate.Reverse }}
-    {{ else }}
-       {{/* GAMES/TOOLS/LEARN LOGIC: use current page's descendants so nested
-           sections (e.g. /learn/cheatsheets/) list only their own pages. */}}
-       {{ $rawItems := .RegularPagesRecursive }}
-       {{ if not $rawItems }}
-         {{ $rawItems = where site.RegularPages "Section" $currentSection }}
-       {{ end }}
-
-       {{ $featured := where $rawItems "Params.featured" true }}
-       {{ $regular := where $rawItems "Params.featured" "!=" true }}
-       {{ $regular = $regular.ByDate.Reverse }}
-       {{ $items = $featured | append $regular }}
+    {{/* Use the current page's descendants so nested sections (e.g.
+         /learn/cheatsheets/) list only their own pages. */}}
+    {{ $rawItems := .RegularPagesRecursive }}
+    {{ if not $rawItems }}
+      {{ $rawItems = where site.RegularPages "Section" $currentSection }}
     {{ end }}
+
+    {{ $featured := where $rawItems "Params.featured" true }}
+    {{ $regular := where $rawItems "Params.featured" "!=" true }}
+    {{ $regular = $regular.ByDate.Reverse }}
+    {{ $items := $featured | append $regular }}
 
     {{ $items = where $items "Kind" "page" }}
 
-    {{/* 24/page. Also caps taxonomy/term archives (e.g. /tags/news/ was a
-         1.2 MB single page); lists with ≤24 items render exactly as before,
-         since the pager footer only appears past one page. */}}
+    {{/* 24/page. Also caps taxonomy/term archives; lists with ≤24 items
+         render a single page (the pager only appears past one page). */}}
     {{ $paginator := .Paginate $items 24 }}
 
     <div class="uni-grid">

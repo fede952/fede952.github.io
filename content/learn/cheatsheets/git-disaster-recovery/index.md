@@ -5,16 +5,8 @@ date: 2026-02-13
 tags: ["git", "cheatsheet", "devops", "version-control"]
 keywords: ["git undo commit", "git reset hard vs soft", "recover deleted branch", "git rebase tutorial", "fix merge conflict", "git cherry-pick"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Git Disaster Recovery: Undoing Mistakes & Fixing History",
-    "description": "The emergency kit for developers. Learn how to undo commits, fix merge conflicts, recover deleted branches, and master git rebase vs merge.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "en"
-  }
-aliases: ["/en/cheatsheets/git-disaster-recovery/", "/cheatsheets/git-disaster-recovery/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/git-disaster-recovery/"]
 ---
 
 ## Undoing Changes

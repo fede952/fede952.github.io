@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["git", "cheatsheet", "version-control", "developer-tools"]
 keywords: ["git befehle cheatsheet", "git commit rückgängig", "git gpg signierung", "git branch befehle", "git reset anleitung", "git rebase tutorial", "erweiterte git befehle", "git für hacker"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Git-Protokoll: Die Wesentliche Befehlsreferenz",
-    "description": "Umfassendes Git-Befehls-Cheatsheet über Notfallkorrekturen, GPG-Signierung, Branch-Operationen und erweiterte Workflows.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
-aliases: ["/de/cheatsheets/git-commands-for-hackers/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
 ## $ System_Init

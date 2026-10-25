@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["docker", "debug", "linux", "devops"]
 keywords: ["cannot connect to the docker daemon", "docker daemon not running", "docker.sock permission denied", "var run docker.sock", "is the docker daemon running", "docker service start", "docker permission denied", "docker socket error", "sudo docker fix", "docker usermod group"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "CORRECTIF: Cannot connect to the Docker daemon at unix:///var/run/docker.sock",
-    "description": "Correction étape par étape de l'erreur de connexion au Docker daemon sous Linux.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/debug-sys/docker-cannot-connect-daemon/"]
+proficiency: "Beginner"
+aliases: ["/debug-sys/docker-cannot-connect-daemon/"]
 ---
 
 ## L'Erreur

@@ -1,32 +1,24 @@
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{- /* Per-language sitemap. Only indexable pages: anything with
+     robotsNoIndex (tag/category listings via the cascade in hugo.toml)
+     is left out. changefreq/priority are omitted on purpose: Google
+     ignores both; lastmod and hreflang alternates are what it uses. */}}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  {{- range .Data.Pages }}
-  {{- /* Pages noindexed via robotsNoIndex (all news articles, cascaded from
-       content/news/_index.*) must not be advertised to crawlers here. */}}
-  {{- if not .Params.robotsNoIndex }}
+  {{- range where .Pages "Params.robotsNoIndex" "ne" true }}
   <url>
     <loc>{{ .Permalink }}</loc>
     {{- if not .Lastmod.IsZero }}
     <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastmod>
     {{- end }}
-    {{- with .Sitemap.ChangeFreq | default "weekly" }}
-    <changefreq>{{ . }}</changefreq>
-    {{- end }}
-    {{- if or (eq .Section "cheatsheets") (eq .Section "tools") (eq .Section "debug-sys") (eq .Section "interviews") }}
-    <priority>0.9</priority>
-    {{- else if or (eq .Section "games") (eq .Section "guides") }}
-    <priority>0.7</priority>
-    {{- else }}
-    <priority>{{ .Sitemap.Priority | default 0.5 }}</priority>
-    {{- end }}
+    {{- if .IsTranslated }}
     {{- range .AllTranslations }}
-    <xhtml:link
-      rel="alternate"
-      hreflang="{{ .Language.Lang }}"
-      href="{{ .Permalink }}" />
+    <xhtml:link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+    {{- if eq .Language.Lang "en" }}
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+    {{- end }}
+    {{- end }}
     {{- end }}
   </url>
-  {{- end }}
   {{- end }}
 </urlset>

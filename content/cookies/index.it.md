@@ -1,50 +1,49 @@
 ---
 title: "Cookie Policy"
-description: "Quali cookie e tecnologie simili utilizza federicosella.com, a cosa servono e come gestire o revocare il consenso."
+description: "Quali cookie e tecnologie simili usa federicosella.com, a cosa servono e come gestire o revocare il consenso."
 date: 2026-07-04
+lastmod: 2026-10-24
 hidemeta: true
 showToc: true
 ---
 
-**Ultimo aggiornamento: 4 luglio 2026**
+**Ultimo aggiornamento: 24 ottobre 2026**
 
-## 1. Cosa Sono i Cookie?
+## 1. Cosa sono i cookie?
 
-I cookie sono piccoli file di testo memorizzati sul tuo dispositivo dai siti che visiti. Usiamo anche tecnologie simili come il `localStorage` (memoria del browser che non lascia mai il tuo dispositivo).
+I cookie sono piccoli file di testo che i siti che visiti salvano sul tuo dispositivo. Questo sito usa anche tecnologie simili come il `localStorage`, una memoria del browser che resta sul tuo dispositivo e non viene mai inviata a un server.
 
-## 2. Cosa Utilizziamo
+## 2. Cosa usiamo
 
-### Strettamente Necessari (senza consenso — di prima parte, mai condivisi)
+### Strettamente necessari (senza consenso, di prima parte, mai condivisi)
 
-| Tecnologia | Finalità | Durata |
+| Tecnologia | Scopo | Durata |
 |---|---|---|
-| `localStorage: pref-theme` | Ricorda la tua scelta tema scuro/chiaro | Finché non la cancelli |
-| `localStorage: menu-scroll-position` | Ripristina la posizione di scorrimento del menu | Finché non la cancelli |
-| `sessionStorage: adblock_acknowledged` | Ricorda che hai chiuso l'avviso ad-blocker | Sessione del browser |
-| Cache Service Worker | Velocizza le visite successive (supporto offline) | Gestita dal browser |
+| `localStorage: menu-scroll-position` | Ripristina lo scorrimento orizzontale del menu in alto | Finché non lo cancelli |
+| Chiavi `localStorage` dei singoli strumenti e giochi (es. `easycron-theme`, `nb_best`, `st_state`, record) | Ricordano un'impostazione, il tuo miglior punteggio o una partita salvata | Finché non le cancelli |
 
-### Analytics (solo con il tuo consenso)
+### Statistiche
 
-| Cookie | Fornitore | Finalità | Durata |
-|---|---|---|---|
-| `_ga`, `_ga_*` | Google Analytics 4 | Statistiche aggregate di utilizzo | Fino a 14 mesi |
-
-Il nostro secondo strumento di analytics, **Umami, non usa alcun cookie** — è completamente cookieless e anonimo.
+**Nessuna che usi cookie.** Il nostro strumento di statistiche, Umami, è completamente senza cookie e anonimo. Questo sito non usa Google Analytics.
 
 ### Pubblicità (solo con il tuo consenso)
 
-Google AdSense e i suoi partner certificati possono impostare cookie (es. da `doubleclick.net`) per mostrare e misurare gli annunci e — con il consenso — personalizzarli. Dettagli: [Come Google utilizza i cookie](https://policies.google.com/technologies/cookies).
+Google AdSense e i suoi partner certificati possono impostare cookie (ad esempio su `doubleclick.net`) per mostrare e misurare gli annunci e, con il tuo consenso, personalizzarli. Il banner di consenso di Google salva la tua scelta nei propri cookie (come `FCCDCF` e `FCNEC`). Dettagli: [Come Google utilizza i cookie](https://policies.google.com/technologies/cookies).
 
-## 3. Gestire il Consenso
+### Partner di affiliazione
 
-- **Impostazioni Cookie** — usa il link nel footer di ogni pagina per riaprire il banner e modificare o revocare le tue scelte in qualsiasi momento.
-- **Controlli del browser** — puoi bloccare o eliminare i cookie dalle impostazioni del browser.
-- **Controlli Google** — [adssettings.google.com](https://adssettings.google.com) (personalizzazione annunci) e il [componente di opt-out GA](https://tools.google.com/dlpage/gaoptout).
-- **Opt-out di settore** — [youronlinechoices.eu](https://www.youronlinechoices.eu/).
+Questo sito non imposta cookie di affiliazione. Se clicchi un link indicato come "Link di affiliazione", il sito del partner può impostare i propri cookie sul proprio dominio per attribuire la segnalazione (vedi l'[Informativa sulla Privacy](/it/privacy/#7-link-di-affiliazione)).
 
-## 4. Una Nota Importante
+## 3. Gestire il consenso
 
-Gli strumenti interattivi di questo sito elaborano i tuoi dati **al 100% in locale nel tuo browser** — non impostano cookie di tracciamento e non caricano nulla. Vedi l'[Informativa sulla Privacy](/it/privacy/) per i dettagli.
+- **Impostazioni Cookie**: usa il link nel footer di ogni pagina per riaprire il banner e modificare o revocare le tue scelte in qualsiasi momento.
+- **Impostazioni del browser**: puoi bloccare o cancellare cookie e dati dei siti dalle impostazioni del browser.
+- **Controlli di Google**: [adssettings.google.com](https://adssettings.google.com) per la personalizzazione degli annunci.
+- **Opt-out di settore**: [youronlinechoices.eu](https://www.youronlinechoices.eu/).
+
+## 4. Una nota importante
+
+Gli strumenti interattivi del sito elaborano i tuoi dati **in locale nel browser**. Non impostano cookie di tracciamento e non caricano nulla. Dettagli nell'[Informativa sulla Privacy](/it/privacy/), compreso l'unico strumento (NetGuard) che contatta un servizio di ricerca IP.
 
 ## 5. Contatti
 

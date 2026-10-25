@@ -1,6 +1,6 @@
 baseURL = 'https://federicosella.com/'
 buildFuture = true
-languageCode = 'en-us'
+locale = 'en-US'
 title = 'Federico Sella'
 theme = 'PaperMod'
 defaultContentLanguage = 'en'
@@ -9,21 +9,14 @@ defaultContentLanguageInSubdir = true
 # Fondamentale per evitare conflitti URL
 [permalinks]
   posts = "/:year/:month/:title/"
-  # :slugorcontentbasename — slug front matter if set, else the ASCII English
-  # content filename (shared by all 12 translations). The previous :slug token
-  # fell back to the LOCALIZED TITLE, so Devanagari/Arabic/CJK titles (3 bytes
-  # per char in UTF-8) produced output directories over ext4's 255-byte
-  # filename limit and crashed the Ubuntu CI build ("file name too long").
-  news = "/news/:year/:month/:slugorcontentbasename/"
 
 # Taxonomies per categorizzazione contenuti
 [taxonomies]
   category = "categories"
   tag = "tags"
-  news-category = "news-categories"
 
 # Related-content config: powers Hugo's `.Related` function used by
-# news/single.html's "Related Posts" block.
+# partials/related-tools.html (tool -> tool cards, ranked by shared tags).
 [related]
   threshold = 60
   toLower = true
@@ -32,25 +25,23 @@ defaultContentLanguageInSubdir = true
     name = "tags"
     weight = 100
   [[related.indices]]
-    name = "news-categories"
-    weight = 80
-  [[related.indices]]
     name = "date"
     weight = 10
 
-# Sitemap configuration for SEO
+# Sitemap: layouts/_default/sitemap.xml lists only indexable pages.
 [sitemap]
-  changefreq = "weekly"
-  priority = 0.5
   filename = "sitemap.xml"
 
-# Google Analytics 4
-[services]
-  [services.googleAnalytics]
-    ID = 'G-MDQF90PHTW'
+# Tag/category listings are thin pages: keep them for navigation but
+# noindex them (PaperMod reads robotsNoIndex) and keep them out of the sitemap.
+[[cascade]]
+  [cascade.params]
+    robotsNoIndex = true
+  [cascade.target]
+    kind = '{taxonomy,term}'
 
 [params]
-  mainSections = ["news", "tools", "learn"]
+  mainSections = ["tools", "learn"]
   defaultTheme = "dark"
   # Dark-only platform (P4.2): every custom component (cards, accordions,
   # games, search palette) is designed on dark surfaces; light mode was
@@ -76,6 +67,54 @@ defaultContentLanguageInSubdir = true
     "/tools/exif-cleaner",
     "/tools/netguard",
   ]
+
+  # Site owner, emitted as one schema.org Person (templates/schema_json.html)
+  # and referenced as author/publisher of every page; also feeds the author
+  # box on learn pages.
+  [params.person]
+    name = "Federico Sella"
+    jobTitle = "Network Security Analyst"
+    image = "images/profile.webp"
+    sameAs = ["https://linkedin.com/in/federicosella", "https://github.com/fede952"]
+    knowsAbout = ["Network security", "Security Service Edge (SSE)", "SASE", "Zero Trust", "SOC operations", "Penetration testing"]
+
+  # AdSense (config-driven units: partials/ads/unit.html). An empty
+  # slot_<position> falls back to slot_default. Create one display unit per
+  # position in AdSense → Ads → By ad unit and paste the numeric IDs here.
+  [params.ads]
+    client = "ca-pub-7359888124148067"
+    slot_default = "5511096259"
+    slot_tool_top = ""      # TODO Federico: create unit in AdSense
+    slot_tool_after = ""    # TODO
+    slot_article_mid = ""   # TODO
+
+  # Affiliate partner blocks on tool pages (partials/affiliate/block.html),
+  # placed after the "How it works" section. One partner per category; a
+  # block renders only when both its name and url are set, so an empty
+  # category shows nothing. Links get rel="sponsored noopener" and a
+  # localized "Affiliate link" disclosure.
+  [params.affiliate]
+    password_manager_name = ""  # TODO Federico: partner name, e.g. the password manager you joined
+    password_manager_url = ""   # TODO Federico: your affiliate URL
+    # Pre-filled with the NordVPN link that was hard-coded in NetGuard and
+    # Link Hazmat before the overhaul (moved here, unchanged).
+    vpn_name = "NordVPN"
+    vpn_url = "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=140342&url_id=858"
+    privacy_name = ""           # TODO Federico
+    privacy_url = ""            # TODO Federico
+    devsec_name = ""            # TODO Federico
+    devsec_url = ""             # TODO Federico
+    # Tool (content directory name) -> category
+    [params.affiliate.tools]
+      pass-fort = "password_manager"
+      password-generator = "password_manager"
+      netguard = "vpn"
+      ghostprint = "vpn"
+      link-hazmat = "vpn"
+      exif-cleaner = "privacy"
+      steganography = "privacy"
+      secrets-scanner = "devsec"
+      jwt-inspector = "devsec"
 
   [params.assets]
     favicon = "/favicon.png"
@@ -110,7 +149,8 @@ defaultContentLanguageInSubdir = true
 
 [languages]
   [languages.en]
-    languageName = "English"
+    label = "English"
+    locale = "en-US"
     weight = 1
     contentDir = "content"
     [languages.en.params]
@@ -121,11 +161,6 @@ defaultContentLanguageInSubdir = true
         name = "About Me"
         url = "/about/"
         weight = 10
-      [[languages.en.menu.main]]
-        identifier = "news"
-        name = "Tech News"
-        url = "/news/"
-        weight = 15
       [[languages.en.menu.main]]
         identifier = "learn"
         name = "Learn"
@@ -143,7 +178,8 @@ defaultContentLanguageInSubdir = true
         weight = 30
 
   [languages.it]
-    languageName = "Italiano"
+    label = "Italiano"
+    locale = "it-IT"
     weight = 2
     contentDir = "content"
     [languages.it.params]
@@ -154,11 +190,6 @@ defaultContentLanguageInSubdir = true
         name = "Chi Sono"
         url = "/about/"
         weight = 10
-      [[languages.it.menu.main]]
-        identifier = "news"
-        name = "Tech News"
-        url = "/news/"
-        weight = 15
       [[languages.it.menu.main]]
         identifier = "learn"
         name = "Impara"
@@ -176,7 +207,8 @@ defaultContentLanguageInSubdir = true
         weight = 30
 
   [languages.es]
-    languageName = "Español"
+    label = "Español"
+    locale = "es-ES"
     weight = 3
     contentDir = "content"
     [languages.es.params]
@@ -187,11 +219,6 @@ defaultContentLanguageInSubdir = true
         name = "Sobre Mí"
         url = "/about/"
         weight = 10
-      [[languages.es.menu.main]]
-        identifier = "news"
-        name = "Noticias Tech"
-        url = "/news/"
-        weight = 15
       [[languages.es.menu.main]]
         identifier = "learn"
         name = "Aprender"
@@ -208,109 +235,10 @@ defaultContentLanguageInSubdir = true
         url = "/projects/"
         weight = 30
 
-  [languages.zh-cn]
-    languageName = "简体中文"
-    weight = 4
-    contentDir = "content"
-    [languages.zh-cn.params]
-      description = "免费、注重隐私的网页工具，100% 在浏览器中运行——密码安全、图片压缩、二维码和开发者工具，还有实用指南和速查表。"
-    [languages.zh-cn.menu]
-      [[languages.zh-cn.menu.main]]
-        identifier = "about"
-        name = "关于我"
-        url = "/about/"
-        weight = 10
-      [[languages.zh-cn.menu.main]]
-        identifier = "news"
-        name = "科技新闻"
-        url = "/news/"
-        weight = 15
-      [[languages.zh-cn.menu.main]]
-        identifier = "learn"
-        name = "学习"
-        url = "/learn/"
-        weight = 20
-      [[languages.zh-cn.menu.main]]
-        identifier = "tools"
-        name = "工具"
-        url = "/tools/"
-        weight = 25
-      [[languages.zh-cn.menu.main]]
-        identifier = "projects"
-        name = "项目"
-        url = "/projects/"
-        weight = 30
-
-  [languages.hi]
-    languageName = "हिन्दी"
-    weight = 5
-    contentDir = "content"
-    [languages.hi.params]
-      description = "मुफ़्त, गोपनीयता-प्रथम वेब टूल जो 100% आपके ब्राउज़र में चलते हैं — पासवर्ड सुरक्षा, इमेज संपीड़न, QR कोड और डेवलपर टूल, साथ ही व्यावहारिक गाइड और चीटशीट।"
-    [languages.hi.menu]
-      [[languages.hi.menu.main]]
-        identifier = "about"
-        name = "मेरे बारे में"
-        url = "/about/"
-        weight = 10
-      [[languages.hi.menu.main]]
-        identifier = "news"
-        name = "टेक न्यूज़"
-        url = "/news/"
-        weight = 15
-      [[languages.hi.menu.main]]
-        identifier = "learn"
-        name = "सीखें"
-        url = "/learn/"
-        weight = 20
-      [[languages.hi.menu.main]]
-        identifier = "tools"
-        name = "उपकरण"
-        url = "/tools/"
-        weight = 25
-      [[languages.hi.menu.main]]
-        identifier = "projects"
-        name = "परियोजनाएं"
-        url = "/projects/"
-        weight = 30
-
-  [languages.ar]
-    languageName = "العربية"
-    weight = 6
-    languagedirection = "rtl"
-    contentDir = "content"
-    [languages.ar.params]
-      description = "أدوات ويب مجانية تُعطي الأولوية للخصوصية وتعمل بالكامل في متصفحك — أمان كلمات المرور، ضغط الصور، رموز QR وأدوات المطورين، بالإضافة إلى أدلة عملية وأوراق مرجعية."
-    [languages.ar.menu]
-      [[languages.ar.menu.main]]
-        identifier = "about"
-        name = "عني"
-        url = "/about/"
-        weight = 10
-      [[languages.ar.menu.main]]
-        identifier = "news"
-        name = "أخبار التقنية"
-        url = "/news/"
-        weight = 15
-      [[languages.ar.menu.main]]
-        identifier = "learn"
-        name = "تعلم"
-        url = "/learn/"
-        weight = 20
-      [[languages.ar.menu.main]]
-        identifier = "tools"
-        name = "الأدوات"
-        url = "/tools/"
-        weight = 25
-      [[languages.ar.menu.main]]
-        identifier = "projects"
-        name = "المشاريع"
-        url = "/projects/"
-        weight = 30
-
   [languages.pt]
-    languageName = "Português"
-    weight = 7
+    label = "Português"
+    locale = "pt-BR"
+    weight = 6
     contentDir = "content"
     [languages.pt.params]
       description = "Utilitários web gratuitos e focados em privacidade que funcionam 100% no seu navegador — segurança de senhas, compressão de imagens, códigos QR e ferramentas para desenvolvedores, além de guias práticos."
@@ -320,11 +248,6 @@ defaultContentLanguageInSubdir = true
         name = "Sobre Mim"
         url = "/about/"
         weight = 10
-      [[languages.pt.menu.main]]
-        identifier = "news"
-        name = "Notícias Tech"
-        url = "/news/"
-        weight = 15
       [[languages.pt.menu.main]]
         identifier = "learn"
         name = "Aprender"
@@ -342,8 +265,9 @@ defaultContentLanguageInSubdir = true
         weight = 30
 
   [languages.fr]
-    languageName = "Français"
-    weight = 8
+    label = "Français"
+    locale = "fr-FR"
+    weight = 5
     contentDir = "content"
     [languages.fr.params]
       description = "Des utilitaires web gratuits et respectueux de la vie privée, fonctionnant à 100 % dans votre navigateur — sécurité des mots de passe, compression d'images, codes QR et outils développeurs, avec guides pratiques."
@@ -353,11 +277,6 @@ defaultContentLanguageInSubdir = true
         name = "À Propos"
         url = "/about/"
         weight = 10
-      [[languages.fr.menu.main]]
-        identifier = "news"
-        name = "Actualités Tech"
-        url = "/news/"
-        weight = 15
       [[languages.fr.menu.main]]
         identifier = "learn"
         name = "Apprendre"
@@ -375,8 +294,9 @@ defaultContentLanguageInSubdir = true
         weight = 30
 
   [languages.de]
-    languageName = "Deutsch"
-    weight = 9
+    label = "Deutsch"
+    locale = "de-DE"
+    weight = 4
     contentDir = "content"
     [languages.de.params]
       description = "Kostenlose, datenschutzfreundliche Web-Tools, die zu 100 % im Browser laufen — Passwortsicherheit, Bildkomprimierung, QR-Codes und Entwickler-Tools, dazu praktische Guides und Cheatsheets."
@@ -386,11 +306,6 @@ defaultContentLanguageInSubdir = true
         name = "Über Mich"
         url = "/about/"
         weight = 10
-      [[languages.de.menu.main]]
-        identifier = "news"
-        name = "Tech News"
-        url = "/news/"
-        weight = 15
       [[languages.de.menu.main]]
         identifier = "learn"
         name = "Lernen"
@@ -407,106 +322,21 @@ defaultContentLanguageInSubdir = true
         url = "/projects/"
         weight = 30
 
-  [languages.ja]
-    languageName = "日本語"
-    weight = 10
-    contentDir = "content"
-    [languages.ja.params]
-      description = "無料でプライバシー第一のウェブユーティリティ。100%ブラウザ内で動作 — パスワードセキュリティ、画像圧縮、QRコード、開発者ツール、さらに実践的なガイドとチートシート。"
-    [languages.ja.menu]
-      [[languages.ja.menu.main]]
-        identifier = "about"
-        name = "私について"
-        url = "/about/"
-        weight = 10
-      [[languages.ja.menu.main]]
-        identifier = "news"
-        name = "テックニュース"
-        url = "/news/"
-        weight = 15
-      [[languages.ja.menu.main]]
-        identifier = "learn"
-        name = "学ぶ"
-        url = "/learn/"
-        weight = 20
-      [[languages.ja.menu.main]]
-        identifier = "tools"
-        name = "ツール"
-        url = "/tools/"
-        weight = 25
-      [[languages.ja.menu.main]]
-        identifier = "projects"
-        name = "プロジェクト"
-        url = "/projects/"
-        weight = 30
-
-  [languages.ru]
-    languageName = "Русский"
-    weight = 11
-    contentDir = "content"
-    [languages.ru.params]
-      description = "Бесплатные веб-инструменты с приоритетом приватности, работающие на 100% в вашем браузере — безопасность паролей, сжатие изображений, QR-коды и инструменты разработчика, а также практические руководства."
-    [languages.ru.menu]
-      [[languages.ru.menu.main]]
-        identifier = "about"
-        name = "Обо Мне"
-        url = "/about/"
-        weight = 10
-      [[languages.ru.menu.main]]
-        identifier = "news"
-        name = "Новости"
-        url = "/news/"
-        weight = 15
-      [[languages.ru.menu.main]]
-        identifier = "learn"
-        name = "Учиться"
-        url = "/learn/"
-        weight = 20
-      [[languages.ru.menu.main]]
-        identifier = "tools"
-        name = "Инструменты"
-        url = "/tools/"
-        weight = 25
-      [[languages.ru.menu.main]]
-        identifier = "projects"
-        name = "Проекты"
-        url = "/projects/"
-        weight = 30
-
-  [languages.ko]
-    languageName = "한국어"
-    weight = 12
-    contentDir = "content"
-    [languages.ko.params]
-      description = "무료, 프라이버시 우선 웹 유틸리티 — 100% 브라우저에서 실행됩니다. 비밀번호 보안, 이미지 압축, QR 코드, 개발자 도구, 그리고 실용적인 가이드와 치트시트."
-    [languages.ko.menu]
-      [[languages.ko.menu.main]]
-        identifier = "about"
-        name = "소개"
-        url = "/about/"
-        weight = 10
-      [[languages.ko.menu.main]]
-        identifier = "news"
-        name = "기술 뉴스"
-        url = "/news/"
-        weight = 15
-      [[languages.ko.menu.main]]
-        identifier = "learn"
-        name = "배우기"
-        url = "/learn/"
-        weight = 20
-      [[languages.ko.menu.main]]
-        identifier = "tools"
-        name = "도구"
-        url = "/tools/"
-        weight = 25
-      [[languages.ko.menu.main]]
-        identifier = "projects"
-        name = "프로젝트"
-        url = "/projects/"
-        weight = 30
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON", "redirects"]
+
+# Cloudflare Pages `_redirects` (layouts/home.redirects): 301s for every
+# front-matter alias, removed languages and the old news section. Written to
+# the publish root; every language renders the same full list.
+[mediaTypes."text/redirects"]
+  delimiter = ""
+
+[outputFormats.redirects]
+  mediaType = "text/redirects"
+  baseName = "_redirects"
+  isPlainText = true
+  notAlternative = true
+  root = true
 
 [markup]
   [markup.goldmark]

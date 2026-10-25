@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["git", "cheatsheet", "version-control", "developer-tools"]
 keywords: ["comandi git cheatsheet", "git annullare commit", "git firma gpg", "comandi git branch", "guida git reset", "tutorial git rebase", "comandi git avanzati", "git per hacker"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Protocollo Git: La Guida di Riferimento Essenziale ai Comandi",
-    "description": "Cheatsheet completo dei comandi Git che copre correzioni di emergenza, firma GPG, operazioni sui branch e flussi di lavoro avanzati.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "it"
-  }
-aliases: ["/it/cheatsheets/git-commands-for-hackers/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
 ## $ System_Init

@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["linux", "cheatsheet", "sysadmin", "permissions", "devops"]
 keywords: ["chmod calculator", "chown examples", "linux process kill", "user management linux", "systemd commands", "linux file permissions", "linux sysadmin cheatsheet", "chmod 755 explained", "linux user groups", "systemctl restart service"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Linux SysAdmin: File Permissions, Users & Process Management",
-    "description": "Essential Linux sysadmin commands covering file permissions, user management, systemd services, and process control.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "en"
-  }
-aliases: ["/en/cheatsheets/linux-sysadmin-permissions/", "/cheatsheets/linux-sysadmin-permissions/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/linux-sysadmin-permissions/"]
 ---
 
 ## System Init

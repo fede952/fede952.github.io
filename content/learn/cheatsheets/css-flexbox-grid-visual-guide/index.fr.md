@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["css", "cheatsheet", "frontend", "flexbox", "grid", "web-dev"]
 keywords: ["css flexbox cheatsheet", "css grid tutoriel", "centrer div css", "apprendre web dev", "layout responsive css", "media queries", "variables css", "entretien frontend", "flexbox vs grid", "guide layout css", "exemples css grid", "flexbox align items", "propriété gap css", "css moderne 2026"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Cheatsheet Layouts CSS : Guide Visuel Flexbox & Grid",
-    "description": "Référence visuelle complète pour les layouts CSS Flexbox et Grid avec des patterns de design responsive et des variables CSS modernes.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/cheatsheets/css-flexbox-grid-visual-guide/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/css-flexbox-grid-visual-guide/"]
 ---
 
 ## Moteur de Rendu en Ligne

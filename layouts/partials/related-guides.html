@@ -1,0 +1,21 @@
+{{- /* "Related guides" on a tool page: learn pages listed for this tool in
+     data/related.yaml (tools.<slug>.guides), resolved in the current
+     language so the titles are localized. Untranslated pages are skipped. */ -}}
+{{- $entry := index (hugo.Data.related.tools | default dict) .File.ContentBaseName -}}
+{{- $guides := slice -}}
+{{- with $entry }}{{ range .guides }}{{ with site.GetPage (printf "/learn/%s" .) }}{{ $guides = $guides | append . }}{{ end }}{{ end }}{{ end -}}
+{{- if $guides }}
+<section class="related-tools related-guides" aria-labelledby="related-guides-heading">
+  <h2 id="related-guides-heading" class="related-tools-title">{{ i18n "related_guides" | default "Related guides" }}</h2>
+  <div class="related-tools-grid">
+    {{- range $guides }}
+    <a class="related-tool-card" href="{{ .RelPermalink }}">
+      <span class="related-tool-name">{{ .Title }}</span>
+      {{- with .Description }}
+      <span class="related-tool-desc">{{ . | plainify | truncate 110 }}</span>
+      {{- end }}
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end }}

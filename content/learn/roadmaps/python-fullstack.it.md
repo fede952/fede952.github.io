@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["python", "roadmap", "career"]
 keywords: ["roadmap python fullstack", "carriera sviluppatore python", "imparare python backend", "progettazione database python", "sviluppatore fullstack 2026"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Percorso di Carriera per Sviluppatore Python Full Stack",
-    "description": "Roadmap passo dopo passo per diventare uno Sviluppatore Python Full Stack.",
-    "inLanguage": "it"
-  }
-aliases: ["/it/roadmaps/python-fullstack/"]
+aliases: ["/roadmaps/python-fullstack/"]
 ---
 
 ## Il Tuo Percorso verso Python Full Stack

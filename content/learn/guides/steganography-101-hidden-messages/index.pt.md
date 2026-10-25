@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["steganography", "privacy", "security", "tutorial", "guide"]
 keywords: ["tutorial esteganografia", "esconder mensagem em imagem", "esteganografia LSB explicada", "esteganografia digital", "como esteganografia funciona", "dados ocultos em imagens", "guia esteganografia imagens", "comunicação secreta"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Caixas de Correio Mortas Digitais: Como Esconder Segredos em Imagens",
-    "description": "Um tutorial completo sobre esteganografia LSB: esconder mensagens secretas dentro de imagens comuns.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "pt"
-  }
-aliases: ["/pt/guides/steganography-101-hidden-messages/"]
+proficiency: "Beginner"
+aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
 ## $ System_Init

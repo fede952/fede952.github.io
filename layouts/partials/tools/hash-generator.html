@@ -1,0 +1,41 @@
+{{- /* Hash generator (inline tool). Labels from i18n; logic in
+     static/js/tools/hash.js, which reads its messages from TOOL_STRINGS. */ -}}
+<div class="tool-app">
+  <div class="tool-input-group">
+    <label for="hash-input">{{ i18n "tool_input_text" }}</label>
+    <textarea id="hash-input" rows="4" placeholder="{{ i18n "hash_placeholder" }}" oninput="generateAllHashes()">{{ i18n "tool_sample_text" }}</textarea>
+  </div>
+
+  <div class="tool-message info">{{ i18n "hash_note" }}</div>
+
+  {{- range (slice (dict "id" "md5" "label" "MD5 (128-bit)" "note" "hash_insecure") (dict "id" "sha1" "label" "SHA-1 (160-bit)" "note" "hash_insecure") (dict "id" "sha256" "label" "SHA-256 (256-bit)" "note" "hash_recommended") (dict "id" "sha512" "label" "SHA-512 (512-bit)" "note" "")) }}
+  <div class="tool-output">
+    <label for="hash-{{ .id }}">{{ .label }}{{ with .note }} <span class="hash-note hash-note--{{ . }}">{{ i18n . }}</span>{{ end }}</label>
+    <div class="hash-row">
+      <input type="text" id="hash-{{ .id }}" readonly>
+      <button type="button" class="tool-btn secondary" onclick="copyHash('{{ .id }}')">{{ i18n "tool_copy" }}</button>
+    </div>
+  </div>
+  {{- end }}
+
+  <div class="tool-buttons">
+    <button type="button" class="tool-btn secondary" onclick="clearHash()">{{ i18n "tool_clear_all" }}</button>
+  </div>
+
+  <div id="hash-message"></div>
+</div>
+<style>
+.hash-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.hash-row input { flex: 1; min-width: 0; font-family: monospace; font-size: 0.85rem; }
+.hash-row .tool-btn { padding: 0.5rem 1rem; }
+.hash-note { font-size: 0.75rem; font-weight: 600; }
+.hash-note--hash_recommended { color: #10b981; }
+.hash-note--hash_insecure { color: #f59e0b; }
+</style>
+<script>
+window.TOOL_STRINGS = {
+  nothing: {{ i18n "tool_nothing_to_copy" }}, copied: {{ i18n "tool_copied_msg" }},
+  copyFailed: {{ i18n "tool_copy_failed" }}, error: {{ i18n "hash_error" }}
+};
+</script>
+<script src="{{ "js/tools/hash.js" | relURL }}"></script>

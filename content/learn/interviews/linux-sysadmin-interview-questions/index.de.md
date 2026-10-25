@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["linux", "interview", "sysadmin", "devops"]
 keywords: ["linux interview questions", "red hat interview", "bash scripting questions", "linux permissions interview", "sysadmin interview questions", "linux process management", "systemd interview", "linux networking questions", "senior linux engineer", "rhcsa exam prep"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Linux SysAdmin Interview: Prozesse, Berechtigungen & Netzwerk",
-    "description": "20 wesentliche Interview-Fragen zur Linux-Systemadministration über Berechtigungen, Prozesse, systemd und Netzwerk.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "de"
-  }
-aliases: ["/de/interviews/linux-sysadmin-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## Systeminitialisierung

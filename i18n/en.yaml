@@ -8,27 +8,21 @@ footer_connect:
 cookie_settings:
   other: "Cookie Settings"
 footer_tagline:
-  other: "All tools run 100% locally in your browser — your data never leaves your device."
+  other: "All tools process your data locally in your browser — nothing you enter is uploaded."
 
 related_tools:
   other: "More Free Tools"
-adblock_message:
-  other: "It looks like you're using an ad blocker. Ads keep these free tools running — please consider whitelisting this site. Thank you!"
-adblock_dismiss:
-  other: "Dismiss"
 
 hero_title:
   other: "Free, Privacy-First Web Utilities"
 hero_subtitle:
-  other: "No servers. No tracking. No bloat. Everything runs 100% in your browser."
+  other: "No sign-ups. No uploads. No bloat. Everything you enter is processed right in your browser."
 hero_search_label:
   other: "Search tools, guides, cheatsheets…"
 home_featured_tools:
   other: "Featured Tools"
 home_latest_guides:
   other: "Latest Guides"
-home_recent_news:
-  other: "Recent News"
 card_use_tool:
   other: "Use Tool"
 card_play_now:
@@ -39,5 +33,153 @@ card_read_more:
 ad_label:
   other: "Advertisement"
 
-partner_label:
-  other: "Partner"
+tool_howto:
+  other: "How to use"
+tool_faq:
+  other: "Frequently asked questions"
+related_guides:
+  other: "Related guides"
+pg_placeholder:
+  other: "Your secure password"
+pg_copy:
+  other: "Copy to clipboard"
+pg_length:
+  other: "Length"
+pg_generate:
+  other: "Generate password"
+pg_note:
+  other: "Generated locally with crypto.getRandomValues(). Nothing leaves your browser."
+pg_weak:
+  other: "Weak"
+pg_good:
+  other: "Good"
+pg_strong:
+  other: "Strong"
+pg_bits:
+  other: "bits of entropy"
+pg_copied:
+  other: "Copied!"
+tool_input_text:
+  other: "Input text"
+tool_output:
+  other: "Output"
+tool_copy:
+  other: "Copy"
+tool_copied:
+  other: "Copied!"
+tool_clear:
+  other: "Clear"
+tool_clear_all:
+  other: "Clear all"
+tool_result_placeholder:
+  other: "The result will appear here…"
+tool_nothing_to_copy:
+  other: "Nothing to copy yet."
+tool_copy_failed:
+  other: "Could not copy to the clipboard."
+tool_copied_msg:
+  other: "Copied to the clipboard."
+tool_sample_text:
+  other: "Hello, World!"
+hash_placeholder:
+  other: "Type or paste text to hash…"
+hash_note:
+  other: "Hashes update as you type: SHA-1, SHA-256 and SHA-512 use the Web Crypto API, MD5 a JavaScript implementation. Nothing is uploaded."
+hash_recommended:
+  other: "Recommended"
+hash_insecure:
+  other: "Not for security"
+hash_error:
+  other: "Could not compute the hashes:"
+b64_placeholder:
+  other: "Text to encode, or a Base64 string to decode…"
+b64_encode:
+  other: "Encode to Base64"
+b64_decode:
+  other: "Decode from Base64"
+b64_need_text:
+  other: "Enter some text to encode."
+b64_encoded:
+  other: "Encoded to Base64 (UTF-8)."
+b64_need_b64:
+  other: "Enter a Base64 string to decode."
+b64_decoded:
+  other: "Decoded from Base64."
+b64_invalid:
+  other: "This is not valid Base64 or Base64URL. Check for missing or extra characters."
+b64_not_text:
+  other: "Decoded, but the bytes are not valid UTF-8 text (probably binary data)."
+caesar_placeholder:
+  other: "Enter your text here…"
+caesar_shift:
+  other: "Shift key"
+caesar_encrypt:
+  other: "Encrypt"
+caesar_decrypt:
+  other: "Decrypt"
+caesar_need_text:
+  other: "Enter some text first."
+caesar_encrypted:
+  other: "Text encrypted."
+caesar_decrypted:
+  other: "Text decrypted."
+chmod_read:
+  other: "Read"
+chmod_write:
+  other: "Write"
+chmod_execute:
+  other: "Execute"
+chmod_owner:
+  other: "Owner (u)"
+chmod_group:
+  other: "Group (g)"
+chmod_others:
+  other: "Others (o)"
+chmod_filename:
+  other: "File name:"
+chmod_copy:
+  other: "Copy command"
+chmod_copied:
+  other: "Copied!"
+chmod_presets:
+  other: "Quick presets:"
+
+# Learn pages: byline + author box (partials/author-box.html)
+byline_by:
+  other: "By {{ .Name }}"
+byline_updated:
+  other: "Updated {{ .Date }}"
+author_box_heading:
+  other: "About the author"
+author_box_bio:
+  other: "I'm a Network Security Analyst working in SOC and L2 network security: SSE/SASE platforms, Zero Trust access, traffic and incident triage. I hold the eJPT (Junior Penetration Tester) certification and write these guides from hands-on work and lab practice."
+author_box_more:
+  other: "More about me"
+related_tools_learn:
+  other: "Free tools for this topic"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Affiliate link"
+aff_disclosure:
+  other: "Affiliate link — I may earn a commission at no extra cost to you."
+aff_sharing:
+  other: "The button opens {{ .Name }}'s website; nothing you entered in this tool is shared with them."
+aff_cta:
+  other: "Visit {{ .Name }}"
+aff_password_manager_title:
+  other: "Keep strong passwords without memorising them"
+aff_password_manager_text:
+  other: "A long random password is only practical if something remembers it for you. A password manager such as {{ .Name }} stores every password encrypted, fills it in on all your devices and flags reused or breached ones."
+aff_vpn_title:
+  other: "Hide your IP address from the sites you visit"
+aff_vpn_text:
+  other: "{{ .Name }} sends your traffic through an encrypted tunnel, so websites see the VPN server's IP address and location instead of yours, and your network provider can't see which sites you open. A VPN does not stop browser fingerprinting on its own."
+aff_privacy_title:
+  other: "Protect the rest of your personal data"
+aff_privacy_text:
+  other: "Removing hidden data from files is one part of staying private online. {{ .Name }} helps with the rest of your personal data."
+aff_devsec_title:
+  other: "Catch leaked secrets before they ship"
+aff_devsec_text:
+  other: "This page checks one snippet at a time, in your browser. {{ .Name }} can watch your repositories and pipelines continuously, so a leaked key or token is flagged before it reaches production."

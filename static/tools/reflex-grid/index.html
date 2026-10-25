@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/reflex-grid/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>ReflexGrid - Aim Trainer & Reaction Test</title>
@@ -51,7 +52,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
 .rank-potato{color:var(--red);border:2px solid var(--red);background:rgba(255,34,68,.08);text-shadow:0 0 20px var(--red-glow)}
 
 /* Ad Placeholder */
-.ad-unit{min-height:90px;background:#080c16;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:2px;flex-shrink:0}
 
 /* Responsive */
 @media(max-width:640px){
@@ -87,7 +87,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--m
     </div>
   </div>
 
-  <div class="ad-unit">Advertisement</div>
 </div>
 
 <script>
@@ -413,20 +412,6 @@ function drawIdle(){
   requestAnimationFrame(idleLoop);
 })();
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
-    var h=document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight",height:h},"*");
-  }
-  document.documentElement.style.height="auto";
-  document.body.style.height="auto";
-  document.body.style.minHeight="0";
-  window.addEventListener("load",sendHeight);
-  window.addEventListener("resize",sendHeight);
-  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

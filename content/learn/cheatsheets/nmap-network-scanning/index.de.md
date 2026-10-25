@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["nmap", "cheatsheet", "penetration-testing", "network-security", "reconnaissance"]
 keywords: ["nmap cheatsheet", "nmap befehle", "netzwerk-scan anleitung", "nmap port-scan", "nmap service-erkennung", "nmap scripts NSE", "nmap schwachstellen-scan", "penetration testing befehle"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Nmap Feldhandbuch: Netzwerk-Aufklärungsbefehle",
-    "description": "Wesentliche Nmap-Befehle für Netzwerkscans, Host-Erkennung, Port-Enumeration und Schwachstellenbewertung.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
-aliases: ["/de/cheatsheets/nmap-network-scanning/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/nmap-network-scanning/"]
 ---
 
 ## $ System_Init

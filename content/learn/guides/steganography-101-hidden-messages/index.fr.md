@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["steganography", "privacy", "security", "tutorial", "guide"]
 keywords: ["tutoriel stéganographie", "cacher message dans image", "stéganographie LSB expliquée", "stéganographie numérique", "comment fonctionne la stéganographie", "données cachées dans images", "guide stéganographie images", "communication secrète"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Boîtes aux Lettres Mortes Numériques : Comment Cacher des Secrets dans les Images",
-    "description": "Un tutoriel complet sur la stéganographie LSB : cacher des messages secrets dans des images ordinaires.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/guides/steganography-101-hidden-messages/"]
+proficiency: "Beginner"
+aliases: ["/guides/steganography-101-hidden-messages/"]
 ---
 
 ## $ System_Init

@@ -1,102 +1,66 @@
 ---
-title: "Base64 Encoder/Decoder"
-description: "Encode and decode text to/from Base64 format with UTF-8 support"
+title: "Base64 Encode & Decode Online (UTF-8)"
+description: "Encode text to Base64 or decode Base64 and Base64URL back to text, with full UTF-8 support for accents and emoji. Free, instant, runs in your browser."
+intro: "Convert text to **Base64** and back. Encoding is UTF-8 safe, and decoding also accepts the URL-safe **Base64URL** variant used in JWTs and web APIs, with or without `=` padding. Nothing you paste leaves this page."
 date: 2026-02-03
-tags: ["encoding", "base64", "security", "tool"]
-layout: "tool-split"
-draft: false
-
-code_language: "python"
-algorithm_code: |
-  import base64
-
-  def base64_encode(text):
-      """
-      Encode text to Base64
-      1. Convert text to bytes (UTF-8)
-      2. Apply Base64 encoding
-      3. Convert result to string
-      """
-      # Step 1: Text → Bytes
-      text_bytes = text.encode('utf-8')
-
-      # Step 2: Bytes → Base64 Bytes
-      base64_bytes = base64.b64encode(text_bytes)
-
-      # Step 3: Base64 Bytes → String
-      base64_string = base64_bytes.decode('ascii')
-
-      return base64_string
-
-  def base64_decode(base64_string):
-      """
-      Decode Base64 back to text
-      Reverse process with error handling
-      """
-      try:
-          # Step 1: Base64 String → Bytes
-          base64_bytes = base64_string.encode('ascii')
-
-          # Step 2: Base64 Bytes → Original Bytes
-          text_bytes = base64.b64decode(base64_bytes)
-
-          # Step 3: Bytes → Text
-          text = text_bytes.decode('utf-8')
-
-          return text
-
-      except Exception as e:
-          return f"Error: Invalid Base64 string"
-
-  # Example Usage
-  original = "Hello, 世界!"  # UTF-8 text
-  encoded = base64_encode(original)
-  # Output: "SGVsbG8sIOS4lueVjCE="
-
-  decoded = base64_decode(encoded)
-  # Output: "Hello, 世界!"
-
-explanation: |
-  **Base64** is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's commonly used for:
-
-  - **Email attachments** (MIME encoding)
-  - **Data URLs** in HTML/CSS (`data:image/png;base64,...`)
-  - **JSON Web Tokens (JWT)** encoding
-  - **API authentication** (Basic Auth headers)
-
-  **How it works:**
-  1. Input text is converted to bytes (UTF-8 encoding)
-  2. Every 3 bytes (24 bits) are divided into 4 groups of 6 bits
-  3. Each 6-bit group is mapped to a Base64 character (A-Z, a-z, 0-9, +, /)
-  4. Padding (`=`) is added if needed to make the output length a multiple of 4
-
-  **Important Notes:**
-  - Base64 is **NOT encryption** - it's just encoding
-  - The output is ~33% larger than the input
-  - This tool supports full UTF-8 characters (including emojis and international text)
-
-tool_js: "/js/tools/base64.js"
-tool_html: |
-  <div class="tool-input-group">
-    <label for="base64-input">Input Text</label>
-    <textarea id="base64-input" rows="5" placeholder="Enter text to encode or Base64 string to decode...">Hello, World!</textarea>
-  </div>
-
-  <div class="tool-buttons">
-    <button class="tool-btn" onclick="encodeBase64()">Encode to Base64</button>
-    <button class="tool-btn secondary" onclick="decodeBase64()">Decode from Base64</button>
-    <button class="tool-btn secondary" onclick="clearBase64()">Clear</button>
-  </div>
-
-  <div class="tool-output">
-    <label>Output</label>
-    <textarea id="base64-output" rows="5" readonly placeholder="Result will appear here..."></textarea>
-    <button class="copy-btn" onclick="copyBase64Output()">Copy</button>
-  </div>
-
-  <div id="base64-message"></div>
+lastmod: 2026-10-24
+reviewed: false
+keywords: ["base64 encode", "base64 decode", "base64 decoder", "base64 encoder online", "base64url decode", "decode base64 to text", "utf-8 base64", "base64 converter"]
+tags: ["encoding", "developer-tools", "base64", "tool"]
+app_category: "DeveloperApplication"
+tool_partial: "base64-converter"
+howto:
+  - "Type or paste into **Input text**: plain text to encode, or a Base64 string to decode."
+  - "Press **Encode to Base64** to turn the text into Base64. Accents, non-Latin scripts and emoji are encoded as UTF-8."
+  - "Press **Decode from Base64** to turn Base64 back into text. Standard Base64, Base64URL (`-` and `_`), missing padding and line breaks are all accepted."
+  - "Read the result in **Output** and press **Copy** to put it on the clipboard."
+  - "If the decoded bytes are not valid UTF-8, the tool says so: the data is probably binary (an image, a compressed blob or a key) rather than text."
+faq:
+  - q: "What is Base64 used for?"
+    a: "Base64 represents binary data with 64 printable ASCII characters, so it can travel through systems that only handle text: email attachments (MIME), data URLs in HTML and CSS, JSON payloads, HTTP Basic authentication headers, Kubernetes Secrets and the three parts of a JSON Web Token."
+  - q: "Is Base64 encryption?"
+    a: "No. It is an encoding with no key: anyone can decode it instantly, as this page shows. Never use Base64 to hide passwords or secrets; Kubernetes Secrets, for example, are only Base64-encoded, not encrypted, unless you enable encryption at rest."
+  - q: "What is the difference between Base64 and Base64URL?"
+    a: "Base64URL (RFC 4648, section 5) replaces `+` with `-` and `/` with `_` so the result is safe in URLs and file names, and usually drops the `=` padding. JWTs and many APIs use it. This tool decodes both; when encoding it produces standard Base64."
+  - q: "Why does my decoded text look garbled?"
+    a: "Either the input was not text to begin with (for example an image or a gzip stream), or the original text was encoded with a different character set such as Latin-1 instead of UTF-8. The tool decodes as UTF-8 and warns you when the bytes are not valid UTF-8."
+  - q: "Why is Base64 about a third larger than the original?"
+    a: "Every 3 bytes of input become 4 Base64 characters, because each character carries 6 bits (2⁶ = 64). That is a 33% overhead, plus up to two `=` padding characters at the end. A 30 KB image becomes a 40 KB data URL."
+  - q: "Is the text I paste sent anywhere?"
+    a: "No. Encoding and decoding use the browser's built-in `btoa`, `atob`, `TextEncoder` and `TextDecoder` functions inside this page. Nothing is uploaded or stored."
 ---
 
-Use this tool to encode text to Base64 or decode Base64 strings back to plain text. Fully supports UTF-8 characters including emojis and international alphabets.
+## How it works
 
-**Related Resource:** Base64 encoding is commonly used to obfuscate payloads. See our [SQL Injection Pentester's Cheatsheet](/en/learn/cheatsheets/sql-injection-payloads-database/) for real-world examples.
+### Encoding
+
+JavaScript's built-in `btoa()` only understands characters in the Latin-1 range, so calling it directly on `"Città €"` throws an error. The tool avoids that by encoding properly:
+
+1. `TextEncoder` converts the text to **UTF-8 bytes**: `à` becomes `C3 A0`, `€` becomes `E2 82 AC`.
+2. Each byte is mapped to a one-byte character, and `btoa()` turns that byte string into Base64.
+
+Base64 works on groups of **3 bytes = 24 bits**, split into four 6-bit values, each mapped to one character of the alphabet `A–Z a–z 0–9 + /`. When the input length is not a multiple of 3, the last group is padded with `=`:
+
+| Text | UTF-8 bytes | Base64 |
+|---|---|---|
+| `Man` | `4D 61 6E` | `TWFu` |
+| `Ma` | `4D 61` | `TWE=` |
+| `M` | `4D` | `TQ==` |
+| `é` | `C3 A9` | `w6k=` |
+
+### Decoding
+
+Decoding reverses the process with some tolerance for real-world input:
+
+- All whitespace and line breaks are removed (MIME wraps Base64 at 76 characters per line).
+- The **Base64URL** characters `-` and `_` are mapped back to `+` and `/`, and missing `=` padding is restored, so a JWT segment can be pasted as is.
+- `atob()` turns the Base64 into bytes, and `TextDecoder` with `fatal: true` interprets them as UTF-8. If the bytes are not valid UTF-8, the tool still shows a best-effort decoding but warns that the data is probably binary.
+- A string whose length leaves a remainder of 1 when divided by 4 can never be valid Base64, and it is rejected with a clear message.
+
+## Use cases
+
+- **Reading a JWT by hand.** Paste the middle segment of a token to see its JSON claims (for signature checks, use the JWT Inspector).
+- **Kubernetes and Docker.** Decode the values in a Secret manifest, or encode a value before putting it into `data:`.
+- **HTTP Basic auth.** Decode an `Authorization: Basic …` header to see the `user:password` it carries, or build one for a test request.
+- **Data URLs and email.** Inspect `data:` URIs and MIME parts in raw email sources.
+- **Debugging APIs.** Many APIs Base64-encode binary fields or nested JSON; decode them to see what was actually sent.

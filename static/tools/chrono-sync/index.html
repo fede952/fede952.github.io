@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/chrono-sync/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UNIX Timestamp Converter</title>
@@ -146,53 +147,16 @@ const T = {
     converterSection:'Conversor',timestampToDate:'Timestamp → Data',dateToTimestamp:'Data → Timestamp',
     convertBtn:'Converter',resultPlaceholder:'O resultado aparecerá aqui',tsPlaceholder:'1700000000',
     invalidTs:'Timestamp inválido. Insira um número.',invalidDate:'Selecione uma data.',copied:'Copiado!'
-  },
-  ru: {
-    title:'$ ChronoSync',subtitle:'Конвертер UNIX Timestamp',currentTimestamp:'Текущий UNIX Timestamp',
-    converterSection:'Конвертер',timestampToDate:'Timestamp → Дата',dateToTimestamp:'Дата → Timestamp',
-    convertBtn:'Конвертировать',resultPlaceholder:'Результат появится здесь',tsPlaceholder:'1700000000',
-    invalidTs:'Неверный timestamp. Введите число.',invalidDate:'Выберите дату.',copied:'Скопировано!'
-  },
-  ja: {
-    title:'$ ChronoSync',subtitle:'UNIXタイムスタンプ変換',currentTimestamp:'現在のUNIXタイムスタンプ',
-    converterSection:'変換',timestampToDate:'タイムスタンプ → 日付',dateToTimestamp:'日付 → タイムスタンプ',
-    convertBtn:'変換',resultPlaceholder:'結果がここに表示されます',tsPlaceholder:'1700000000',
-    invalidTs:'無効なタイムスタンプです。数値を入力してください。',invalidDate:'日付を選択してください。',copied:'コピーしました！'
-  },
-  ko: {
-    title:'$ ChronoSync',subtitle:'UNIX 타임스탬프 변환기',currentTimestamp:'현재 UNIX 타임스탬프',
-    converterSection:'변환기',timestampToDate:'타임스탬프 → 날짜',dateToTimestamp:'날짜 → 타임스탬프',
-    convertBtn:'변환',resultPlaceholder:'결과가 여기에 표시됩니다',tsPlaceholder:'1700000000',
-    invalidTs:'잘못된 타임스탬프입니다. 숫자를 입력하세요.',invalidDate:'날짜를 선택하세요.',copied:'복사됨!'
-  },
-  'zh-cn': {
-    title:'$ ChronoSync',subtitle:'UNIX时间戳转换器',currentTimestamp:'当前UNIX时间戳',
-    converterSection:'转换器',timestampToDate:'时间戳 → 日期',dateToTimestamp:'日期 → 时间戳',
-    convertBtn:'转换',resultPlaceholder:'结果将显示在这里',tsPlaceholder:'1700000000',
-    invalidTs:'无效的时间戳。请输入数字。',invalidDate:'请选择日期。',copied:'已复制！'
-  },
-  ar: {
-    title:'$ ChronoSync',subtitle:'محول الطابع الزمني UNIX',currentTimestamp:'الطابع الزمني الحالي',
-    converterSection:'المحول',timestampToDate:'طابع زمني → تاريخ',dateToTimestamp:'تاريخ → طابع زمني',
-    convertBtn:'تحويل',resultPlaceholder:'ستظهر النتيجة هنا',tsPlaceholder:'1700000000',
-    invalidTs:'طابع زمني غير صالح. أدخل رقمًا.',invalidDate:'يرجى تحديد تاريخ.',copied:'تم النسخ!'
-  },
-  hi: {
-    title:'$ ChronoSync',subtitle:'UNIX टाइमस्टैम्प कनवर्टर',currentTimestamp:'वर्तमान UNIX टाइमस्टैम्प',
-    converterSection:'कनवर्टर',timestampToDate:'टाइमस्टैम्प → दिनांक',dateToTimestamp:'दिनांक → टाइमस्टैम्प',
-    convertBtn:'कनवर्ट',resultPlaceholder:'परिणाम यहां दिखेगा',tsPlaceholder:'1700000000',
-    invalidTs:'अमान्य टाइमस्टैम्प। एक संख्या दर्ज करें।',invalidDate:'कृपया एक दिनांक चुनें।',copied:'कॉपी हो गया!'
   }
 };
 
-function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+function detectLang(){const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();try{if(window.parent!==window){const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}}catch(e){}const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
 const LANG=detectLang();
 const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
 
 function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)});
-  if(LANG==='ar')document.body.style.direction='rtl';
 }
 
 function updateClock() {
@@ -208,25 +172,29 @@ function showStatus(msg, type) {
   setTimeout(() => s.className = 'status', 4000);
 }
 
+const COPY_LABEL = ({en:'Copy',it:'Copia',es:'Copiar',fr:'Copier',de:'Kopieren',pt:'Copiar'})[LANG.split('-')[0]] || 'Copy';
 function setResult(containerId, value) {
   const box = document.getElementById(containerId);
-  box.innerHTML = `<span class="result-value">${value}</span><button class="copy-mini" onclick="copyVal(this)">${t('copied').replace('!','').replace('！','')}</button>`;
+  box.innerHTML = `<span class="result-value">${value}</span><button class="copy-mini" onclick="copyVal(this)">${COPY_LABEL}</button>`;
 }
 
 function copyVal(btn) {
   const val = btn.previousElementSibling.textContent;
   navigator.clipboard.writeText(val).then(() => {
     btn.textContent = '✓';
-    setTimeout(() => btn.textContent = t('copied').replace('!','').replace('！',''), 2000);
+    setTimeout(() => btn.textContent = COPY_LABEL, 2000);
   });
 }
 
 function tsToDate() {
   const input = document.getElementById('ts-input').value.trim();
+  if (!/^-?\d+$/.test(input)) { showStatus(t('invalidTs'), 'error'); return; }
   const ts = parseInt(input, 10);
-  if (isNaN(ts)) { showStatus(t('invalidTs'), 'error'); return; }
-  const date = new Date(ts * 1000);
-  const utc = date.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+  // 13+ digits = milliseconds (Date.now(), Java, most JS APIs); fewer = seconds
+  const isMs = input.replace('-', '').length >= 13;
+  const date = new Date(isMs ? ts : ts * 1000);
+  if (isNaN(date.getTime())) { showStatus(t('invalidTs'), 'error'); return; }
+  const utc = date.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, ' UTC') + (isMs ? ' (ms)' : '');
   const local = date.toLocaleString();
   setResult('ts-result', `${utc}\n${local}`);
 }
@@ -247,5 +215,6 @@ setInterval(updateClock, 1000);
 updateClock();
 applyI18n();
 </script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

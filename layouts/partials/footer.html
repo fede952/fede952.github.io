@@ -28,7 +28,6 @@
         {{ with site.GetPage "/learn/guides" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ with site.GetPage "/learn/cheatsheets" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ with site.GetPage "/learn/interviews" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
-        {{ with site.GetPage "/news" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
       </ul>
     </div>
 
@@ -39,9 +38,11 @@
         {{ with site.GetPage "/cookies" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ with site.GetPage "/contact" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{- /* Reopens Google's "Privacy & messaging" consent banner (TCF
-             revocation). Guarded so it is a silent no-op until the CMP is
+             revocation). googlefc is created by adsbygoogle.js's CMP (no gtag
+             needed); the queue is pre-created so a click made before the CMP
+             finishes loading is still honoured. Silent no-op until the CMP is
              activated in the AdSense dashboard. */}}
-        <li><a href="#" class="site-footer-cookie-settings" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);}return false;">{{ i18n "cookie_settings" | default "Cookie Settings" }}</a></li>
+        <li><a href="#" class="site-footer-cookie-settings" onclick="window.googlefc=window.googlefc||{};googlefc.callbackQueue=googlefc.callbackQueue||[];googlefc.callbackQueue.push(function(){googlefc.showRevocationMessage();});return false;">{{ i18n "cookie_settings" | default "Cookie Settings" }}</a></li>
       </ul>
     </div>
 
@@ -62,7 +63,7 @@
   </div>
 
   <div class="site-footer-bottom">
-    <p class="site-footer-tagline">&#128274; {{ i18n "footer_tagline" | default "All tools run 100% locally in your browser — your data never leaves your device." }}</p>
+    <p class="site-footer-tagline">&#128274; {{ i18n "footer_tagline" | default "All tools process your data locally in your browser — nothing you enter is uploaded." }}</p>
     <p class="site-footer-copy">&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a> · Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a></p>
   </div>
 </footer>

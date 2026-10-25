@@ -1,7 +1,14 @@
 /**
  * Caesar Cipher Tool - JavaScript Implementation
  * Federico Sella Tech Portal
+ * Shifts the 26 basic Latin letters (A-Z, a-z); everything else is kept.
+ * UI strings come from window.TOOL_STRINGS (set by the Hugo partial).
  */
+
+function T(key, fallback) {
+    var s = window.TOOL_STRINGS && window.TOOL_STRINGS[key];
+    return s || fallback;
+}
 
 // Update shift value display
 document.getElementById('caesar-shift').addEventListener('input', function() {
@@ -12,34 +19,27 @@ document.getElementById('caesar-shift').addEventListener('input', function() {
  * Encrypt text using Caesar cipher
  */
 function encryptCaesar() {
-    const input = document.getElementById('caesar-input').value;
-    const shift = parseInt(document.getElementById('caesar-shift').value);
-
-    if (!input.trim()) {
-        showMessage('Please enter some text to encrypt', 'error');
-        return;
-    }
-
-    const result = caesarCipher(input, shift, false);
-    document.getElementById('caesar-output').value = result;
-    showMessage('Text encrypted successfully!', 'success');
+    runCaesar(false);
 }
 
 /**
  * Decrypt text using Caesar cipher
  */
 function decryptCaesar() {
+    runCaesar(true);
+}
+
+function runCaesar(decrypt) {
     const input = document.getElementById('caesar-input').value;
-    const shift = parseInt(document.getElementById('caesar-shift').value);
+    const shift = parseInt(document.getElementById('caesar-shift').value, 10);
 
     if (!input.trim()) {
-        showMessage('Please enter some text to decrypt', 'error');
+        showMessage(T('needText', 'Enter some text first.'), 'error');
         return;
     }
 
-    const result = caesarCipher(input, shift, true);
-    document.getElementById('caesar-output').value = result;
-    showMessage('Text decrypted successfully!', 'success');
+    document.getElementById('caesar-output').value = caesarCipher(input, shift, decrypt);
+    showMessage(decrypt ? T('decrypted', 'Text decrypted.') : T('encrypted', 'Text encrypted.'), 'success');
 }
 
 /**
@@ -57,20 +57,18 @@ function caesarCipher(text, shift, decrypt = false) {
     let result = '';
 
     for (let i = 0; i < text.length; i++) {
-        let char = text[i];
+        const code = text.charCodeAt(i);
+        const isUpper = code >= 65 && code <= 90;
+        const isLower = code >= 97 && code <= 122;
 
-        if (char.match(/[a-z]/i)) {
-            // Determine if uppercase or lowercase
-            const code = text.charCodeAt(i);
-            const isUpperCase = (code >= 65 && code <= 90);
-            const base = isUpperCase ? 65 : 97;
-
-            // Shift character
+        if (isUpper || isLower) {
+            const base = isUpper ? 65 : 97;
+            // ((x + k) mod 26 + 26) mod 26 keeps the result positive for negative shifts
             const shifted = ((code - base + shift) % 26 + 26) % 26;
             result += String.fromCharCode(shifted + base);
         } else {
-            // Keep non-alphabetic characters unchanged
-            result += char;
+            // Keep digits, punctuation, spaces and accented letters unchanged
+            result += text[i];
         }
     }
 
@@ -91,29 +89,38 @@ function clearCaesar() {
 /**
  * Copy output to clipboard
  */
-function copyCaesarOutput() {
+function copyCaesarOutput(evt) {
     const output = document.getElementById('caesar-output');
+    const btn = evt && evt.currentTarget;
 
     if (!output.value) {
-        showMessage('Nothing to copy!', 'error');
+        showMessage(T('nothing', 'Nothing to copy yet.'), 'error');
         return;
     }
 
-    output.select();
-    document.execCommand('copy');
+    const done = () => {
+        if (btn) {
+            const originalText = btn.textContent;
+            btn.textContent = T('copiedShort', 'Copied!');
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+        showMessage(T('copied', 'Copied to the clipboard.'), 'success');
+    };
+    const legacy = () => {
+        output.select();
+        try { document.execCommand('copy'); done(); }
+        catch (error) { showMessage(T('copyFailed', 'Could not copy to the clipboard.'), 'error'); }
+    };
 
-    // Visual feedback
-    const btn = event.target;
-    const originalText = btn.textContent;
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
-
-    setTimeout(() => {
-        btn.textContent = originalText;
-        btn.classList.remove('copied');
-    }, 2000);
-
-    showMessage('Copied to clipboard!', 'success');
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(output.value).then(done).catch(legacy);
+    } else {
+        legacy();
+    }
 }
 
 /**
@@ -128,7 +135,8 @@ function showMessage(text, type = 'info') {
     messageDiv.style.display = 'block';
 
     // Auto-hide after 3 seconds
-    setTimeout(() => {
+    clearTimeout(showMessage.timer);
+    showMessage.timer = setTimeout(() => {
         messageDiv.style.display = 'none';
     }, 3000);
 }
@@ -137,6 +145,5 @@ function showMessage(text, type = 'info') {
  * Clear message
  */
 function clearMessage() {
-    const messageDiv = document.getElementById('caesar-message');
-    messageDiv.style.display = 'none';
+    document.getElementById('caesar-message').style.display = 'none';
 }

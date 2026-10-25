@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["exif", "privacy", "osint", "metadata", "security", "guide"]
 keywords: ["exif metadata privacy", "photo gps location", "remove exif data", "osint photo analysis", "image metadata risks", "photo privacy guide", "exif gps tracking", "strip metadata from photos"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Ghost Mode: Why Your Photos Are Leaking Your GPS Location",
-    "description": "How EXIF metadata in photos leaks GPS coordinates, device information, and timestamps — and how to protect yourself.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "en"
-  }
-aliases: ["/en/guides/osint-privacy-exif-data/", "/guides/osint-privacy-exif-data/"]
+proficiency: "Beginner"
+aliases: ["/guides/osint-privacy-exif-data/"]
 ---
 
 ## System Init

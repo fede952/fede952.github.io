@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["linux", "interview", "sysadmin", "devops"]
 keywords: ["linux interview questions", "red hat interview", "bash scripting questions", "linux permissions interview", "sysadmin interview questions", "linux process management", "systemd interview", "linux networking questions", "senior linux engineer", "rhcsa exam prep"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Colloquio Linux SysAdmin: Processi, Permessi e Networking",
-    "description": "20 domande essenziali per colloqui di amministrazione di sistemi Linux su permessi, processi, systemd e networking.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "it"
-  }
-aliases: ["/it/interviews/linux-sysadmin-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## Inizializzazione del Sistema

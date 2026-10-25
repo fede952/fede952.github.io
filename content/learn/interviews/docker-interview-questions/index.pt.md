@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["docker", "interview", "devops", "containers"]
 keywords: ["perguntas entrevista docker", "entrevista senior devops", "perguntas containerização", "respostas entrevista docker", "entrevista docker compose", "boas práticas dockerfile", "entrevista orquestração containers", "perguntas redes docker", "entrevista engenheiro devops", "perguntas docker produção"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Top 20 Perguntas e Respostas de Entrevista sobre Docker (Edição 2026)",
-    "description": "Perguntas avançadas de entrevista sobre Docker para cargos Senior DevOps cobrindo containers, imagens, redes e boas práticas de produção.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "pt"
-  }
-aliases: ["/pt/interviews/docker-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/docker-interview-questions/"]
 ---
 
 ## Inicialização do Sistema

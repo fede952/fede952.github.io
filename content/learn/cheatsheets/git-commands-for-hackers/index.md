@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["git", "cheatsheet", "version-control", "developer-tools"]
 keywords: ["git commands cheatsheet", "git undo commit", "git gpg signing", "git branch commands", "git reset guide", "git rebase tutorial", "advanced git commands", "git for hackers"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Git Protocol: The Essential Command Reference",
-    "description": "Comprehensive Git command cheatsheet covering emergency fixes, GPG signing, branch operations, and advanced workflows.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "en"
-  }
-aliases: ["/en/cheatsheets/git-commands-for-hackers/", "/cheatsheets/git-commands-for-hackers/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/git-commands-for-hackers/"]
 ---
 
 ## System Init

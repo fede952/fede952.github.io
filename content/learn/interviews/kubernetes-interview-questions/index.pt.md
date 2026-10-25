@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["kubernetes", "interview", "devops", "cloud-native"]
 keywords: ["k8s interview questions", "cka exam prep", "kubernetes architecture questions", "kubernetes interview answers", "pod lifecycle interview", "kubernetes networking questions", "kubernetes rbac", "senior sre interview", "kubernetes troubleshooting", "helm interview questions"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Kubernetes (K8s) Preparação para Entrevistas: Perguntas e Respostas Nível Sênior",
-    "description": "20 perguntas avançadas de Kubernetes sobre arquitetura, rede, armazenamento, segurança e troubleshooting em produção.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "pt"
-  }
-aliases: ["/pt/interviews/kubernetes-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/kubernetes-interview-questions/"]
 ---
 
 ## Inicialização do Sistema

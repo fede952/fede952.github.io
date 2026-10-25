@@ -8,27 +8,21 @@ footer_connect:
 cookie_settings:
   other: "Impostazioni Cookie"
 footer_tagline:
-  other: "Tutti gli strumenti funzionano al 100% in locale nel tuo browser — i tuoi dati non lasciano mai il tuo dispositivo."
+  other: "Tutti gli strumenti elaborano i tuoi dati in locale nel browser — nulla di ciò che inserisci viene caricato."
 
 related_tools:
   other: "Altri strumenti gratuiti"
-adblock_message:
-  other: "Sembra che tu stia usando un ad blocker. La pubblicità mantiene gratuiti questi strumenti — considera di aggiungere questo sito alla whitelist. Grazie!"
-adblock_dismiss:
-  other: "Chiudi"
 
 hero_title:
   other: "Utility Web Gratuite e Privacy-First"
 hero_subtitle:
-  other: "Niente server. Niente tracciamento. Niente sprechi. Tutto gira al 100% nel tuo browser."
+  other: "Niente registrazioni. Niente upload. Niente fronzoli. Tutto ciò che inserisci viene elaborato direttamente nel tuo browser."
 hero_search_label:
   other: "Cerca strumenti, guide, cheatsheet…"
 home_featured_tools:
   other: "Strumenti in Evidenza"
 home_latest_guides:
   other: "Ultime Guide"
-home_recent_news:
-  other: "Notizie Recenti"
 card_use_tool:
   other: "Usa Strumento"
 card_play_now:
@@ -39,5 +33,153 @@ card_read_more:
 ad_label:
   other: "Pubblicità"
 
-partner_label:
-  other: "Partner"
+tool_howto:
+  other: "Come si usa"
+tool_faq:
+  other: "Domande frequenti"
+related_guides:
+  other: "Guide correlate"
+pg_placeholder:
+  other: "La tua password sicura"
+pg_copy:
+  other: "Copia negli appunti"
+pg_length:
+  other: "Lunghezza"
+pg_generate:
+  other: "Genera password"
+pg_note:
+  other: "Generata in locale con crypto.getRandomValues(). Nulla lascia il tuo browser."
+pg_weak:
+  other: "Debole"
+pg_good:
+  other: "Buona"
+pg_strong:
+  other: "Forte"
+pg_bits:
+  other: "bit di entropia"
+pg_copied:
+  other: "Copiata!"
+tool_input_text:
+  other: "Testo di input"
+tool_output:
+  other: "Risultato"
+tool_copy:
+  other: "Copia"
+tool_copied:
+  other: "Copiato!"
+tool_clear:
+  other: "Cancella"
+tool_clear_all:
+  other: "Cancella tutto"
+tool_result_placeholder:
+  other: "Il risultato apparirà qui…"
+tool_nothing_to_copy:
+  other: "Ancora niente da copiare."
+tool_copy_failed:
+  other: "Impossibile copiare negli appunti."
+tool_copied_msg:
+  other: "Copiato negli appunti."
+tool_sample_text:
+  other: "Ciao, Mondo!"
+hash_placeholder:
+  other: "Scrivi o incolla il testo da trasformare in hash…"
+hash_note:
+  other: "Gli hash si aggiornano mentre scrivi: SHA-1, SHA-256 e SHA-512 usano la Web Crypto API, MD5 un’implementazione JavaScript. Non viene caricato nulla."
+hash_recommended:
+  other: "Consigliato"
+hash_insecure:
+  other: "Non per la sicurezza"
+hash_error:
+  other: "Impossibile calcolare gli hash:"
+b64_placeholder:
+  other: "Testo da codificare o stringa Base64 da decodificare…"
+b64_encode:
+  other: "Codifica in Base64"
+b64_decode:
+  other: "Decodifica da Base64"
+b64_need_text:
+  other: "Inserisci del testo da codificare."
+b64_encoded:
+  other: "Codificato in Base64 (UTF-8)."
+b64_need_b64:
+  other: "Inserisci una stringa Base64 da decodificare."
+b64_decoded:
+  other: "Decodificato da Base64."
+b64_invalid:
+  other: "Non è Base64 né Base64URL valido. Controlla se mancano o avanzano caratteri."
+b64_not_text:
+  other: "Decodificato, ma i byte non sono testo UTF-8 valido (probabilmente dati binari)."
+caesar_placeholder:
+  other: "Scrivi qui il tuo testo…"
+caesar_shift:
+  other: "Chiave di spostamento"
+caesar_encrypt:
+  other: "Cifra"
+caesar_decrypt:
+  other: "Decifra"
+caesar_need_text:
+  other: "Inserisci prima del testo."
+caesar_encrypted:
+  other: "Testo cifrato."
+caesar_decrypted:
+  other: "Testo decifrato."
+chmod_read:
+  other: "Lettura"
+chmod_write:
+  other: "Scrittura"
+chmod_execute:
+  other: "Esecuzione"
+chmod_owner:
+  other: "Proprietario (u)"
+chmod_group:
+  other: "Gruppo (g)"
+chmod_others:
+  other: "Altri (o)"
+chmod_filename:
+  other: "Nome del file:"
+chmod_copy:
+  other: "Copia comando"
+chmod_copied:
+  other: "Copiato!"
+chmod_presets:
+  other: "Preset rapidi:"
+
+# Learn pages: byline + author box (partials/author-box.html)
+byline_by:
+  other: "Di {{ .Name }}"
+byline_updated:
+  other: "Aggiornato il {{ .Date }}"
+author_box_heading:
+  other: "Chi scrive"
+author_box_bio:
+  other: "Lavoro come Network Security Analyst in ambito SOC e sicurezza di rete di secondo livello (L2): piattaforme SSE/SASE, accesso Zero Trust, analisi del traffico e triage degli incidenti. Ho la certificazione eJPT (Junior Penetration Tester) e scrivo queste guide partendo dal lavoro sul campo e dalla pratica in laboratorio."
+author_box_more:
+  other: "Di più su di me"
+related_tools_learn:
+  other: "Strumenti gratuiti su questo tema"
+
+# Affiliate partner block (partials/affiliate/block.html)
+aff_label:
+  other: "Link di affiliazione"
+aff_disclosure:
+  other: "Link di affiliazione — potrei ricevere una commissione, senza alcun costo aggiuntivo per te."
+aff_sharing:
+  other: "Il pulsante apre il sito di {{ .Name }}; nulla di ciò che hai inserito in questo strumento viene condiviso."
+aff_cta:
+  other: "Vai su {{ .Name }}"
+aff_password_manager_title:
+  other: "Password robuste senza doverle ricordare"
+aff_password_manager_text:
+  other: "Una password lunga e casuale è pratica solo se qualcosa la ricorda al posto tuo. Un password manager come {{ .Name }} salva ogni password cifrata, la compila su tutti i tuoi dispositivi e segnala quelle riutilizzate o compromesse."
+aff_vpn_title:
+  other: "Nascondi il tuo indirizzo IP ai siti che visiti"
+aff_vpn_text:
+  other: "{{ .Name }} fa passare il traffico in un tunnel cifrato: i siti vedono l'IP e la posizione del server VPN invece dei tuoi, e il tuo provider non vede quali siti apri. Da sola, una VPN non impedisce il fingerprinting del browser."
+aff_privacy_title:
+  other: "Proteggi anche il resto dei tuoi dati personali"
+aff_privacy_text:
+  other: "Eliminare i dati nascosti dai file è una parte della privacy online. {{ .Name }} ti aiuta con il resto dei tuoi dati personali."
+aff_devsec_title:
+  other: "Intercetta i segreti esposti prima del rilascio"
+aff_devsec_text:
+  other: "Questa pagina controlla un frammento alla volta, nel browser. {{ .Name }} può sorvegliare di continuo repository e pipeline, così una chiave o un token esposto viene segnalato prima di arrivare in produzione."

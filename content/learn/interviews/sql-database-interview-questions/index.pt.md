@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["sql", "interview", "database", "backend"]
 keywords: ["perguntas entrevista consultas sql", "normalização de banco de dados", "propriedades acid", "prevenção de sql injection", "entrevista índices de banco de dados", "perguntas join sql", "entrevista postgresql", "perguntas entrevista mysql", "padrões design de banco de dados", "otimização performance sql"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Perguntas de Entrevista sobre SQL e Design de Banco de Dados (Nível Sênior)",
-    "description": "20 perguntas avançadas de entrevista sobre SQL e banco de dados cobrindo otimização, normalização, indexação, transações e segurança.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "pt"
-  }
-aliases: ["/pt/interviews/sql-database-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
 ## Inicialização do Sistema

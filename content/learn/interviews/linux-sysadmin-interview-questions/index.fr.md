@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["linux", "interview", "sysadmin", "devops"]
 keywords: ["linux interview questions", "red hat interview", "bash scripting questions", "linux permissions interview", "sysadmin interview questions", "linux process management", "systemd interview", "linux networking questions", "senior linux engineer", "rhcsa exam prep"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Entretien Linux SysAdmin : Processus, Permissions et Réseau",
-    "description": "20 questions essentielles d'entretien en administration de systèmes Linux sur les permissions, les processus, systemd et le réseau.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "fr"
-  }
-aliases: ["/fr/interviews/linux-sysadmin-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/linux-sysadmin-interview-questions/"]
 ---
 
 ## Initialisation du Système

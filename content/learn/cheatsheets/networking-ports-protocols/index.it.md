@@ -5,16 +5,8 @@ date: 2026-02-13
 tags: ["networking", "cheatsheet", "devops", "security", "sysadmin"]
 keywords: ["common ports cheat sheet", "http status codes", "tcp vs udp", "osi model explained", "dns records types", "ssh port forwarding"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "La Mappa di Internet: Porte di Rete, Protocolli e Codici di Stato",
-    "description": "Guida visuale a TCP/IP, Modello OSI, Porte Comuni (SSH, HTTP, DNS) e Codici di Stato HTTP per DevOps e Hacker.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "it"
-  }
-aliases: ["/it/cheatsheets/networking-ports-protocols/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/networking-ports-protocols/"]
 ---
 
 ## Porte Comuni

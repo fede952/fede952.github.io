@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["sql-injection", "cheatsheet", "penetration-testing", "database", "security"]
 keywords: ["SQL-Injection-Payloads", "MySQL-Befehle Cheatsheet", "PostgreSQL Cheat Sheet", "Datenbank-Hacking", "SQLMap-Befehle", "Union SQL Injection", "Blind SQL Injection", "SQL-Injection-Tests", "Datenbank-Enumeration", "SQL-Injection-Prävention"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "SQL Injection & Datenbankabfragen: Referenz für Pentester",
-    "description": "SQL-Injection-Payloads, UNION-Angriffe, Blind SQLi und Datenbankabfragen für MySQL und PostgreSQL.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
-aliases: ["/de/cheatsheets/sql-injection-payloads-database/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/sql-injection-payloads-database/"]
 ---
 
 ## Systeminitialisierung

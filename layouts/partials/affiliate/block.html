@@ -1,0 +1,25 @@
+{{- /* Contextual affiliate partner block for a tool page, inserted by
+     layouts/tools/single.html after the "How it works" section.
+     The tool's category comes from site.Params.affiliate.tools (keyed by
+     the tool's content directory); partner name and URL from
+     site.Params.affiliate.<category>_name / _url. Renders nothing unless
+     both are set, so empty placeholders are safe to ship. */ -}}
+{{- $cfg := site.Params.affiliate | default dict -}}
+{{- with index ($cfg.tools | default dict) .File.ContentBaseName -}}
+  {{- $cat := . -}}
+  {{- $name := index $cfg (printf "%s_name" $cat) -}}
+  {{- $url := index $cfg (printf "%s_url" $cat) -}}
+  {{- if and $name $url -}}
+<aside class="affiliate-block affiliate-{{ $cat }}" aria-labelledby="affiliate-heading">
+  <span class="affiliate-label">{{ i18n "aff_label" }}</span>
+  <h3 id="affiliate-heading" class="affiliate-title">{{ i18n (printf "aff_%s_title" $cat) }}</h3>
+  <p class="affiliate-text">{{ i18n (printf "aff_%s_text" $cat) (dict "Name" $name) }}</p>
+  <a class="affiliate-cta" href="{{ $url }}" rel="sponsored noopener" target="_blank">{{ i18n "aff_cta" (dict "Name" $name) }} ↗</a>
+  <p class="affiliate-disclosure">
+    {{ i18n "aff_disclosure" }}
+    {{ i18n "aff_sharing" (dict "Name" $name) }}
+    {{- with site.GetPage "/privacy" }} <a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
+  </p>
+</aside>
+  {{- end -}}
+{{- end -}}

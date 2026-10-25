@@ -19,6 +19,7 @@
       {{ if or (eq .Section "games") (eq $sub "games") }}{{ i18n "card_play_now" | default "Play Now" }}
       {{ else if eq .Section "tools" }}{{ i18n "card_use_tool" | default "Use Tool" }}
       {{ else }}{{ i18n "card_read_more" | default "Read More" }}{{ end }}
+      <span class="visually-hidden">: {{ .Title }}</span>
     </a>
   </div>
   <a class="entry-link" aria-label="Open {{ .Title }}" href="{{ .Permalink }}"></a>

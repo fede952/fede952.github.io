@@ -47,7 +47,7 @@
 }
 .card-cyber .btn-action:hover { background: #00e5ff; color: #000; box-shadow: 0 0 15px rgba(0,229,255,0.4); }
 
-/* === STYLE B: PROFESSIONAL (News/Projects) === */
+/* === STYLE B: PROFESSIONAL (Projects) === */
 .card-pro {
   background: var(--entry);
   border: 1px solid var(--border);

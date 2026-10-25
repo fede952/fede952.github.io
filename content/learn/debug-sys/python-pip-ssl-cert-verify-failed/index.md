@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["python", "debug", "pip", "ssl"]
 keywords: ["pip ssl certificate verify failed", "pip install ssl error", "certificate verify failed python", "pip trusted host", "pip ssl error fix", "python ssl certificate", "pip corporate proxy", "pip install behind firewall", "pip certificate error windows", "pip ssl module not available"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "FIX: pip install - SSL: CERTIFICATE_VERIFY_FAILED",
-    "description": "How to fix pip's SSL CERTIFICATE_VERIFY_FAILED error on Windows, Linux, and macOS.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "en"
-  }
-aliases: ["/en/debug-sys/python-pip-ssl-cert-verify-failed/", "/debug-sys/python-pip-ssl-cert-verify-failed/"]
+proficiency: "Beginner"
+aliases: ["/debug-sys/python-pip-ssl-cert-verify-failed/"]
 ---
 
 ## The Error

@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["exif", "privacy", "osint", "metadata", "security", "guide"]
 keywords: ["privacidade metadados exif", "localização gps foto", "remover dados exif", "análise foto osint", "riscos metadados imagens", "guia privacidade foto", "rastreamento gps exif", "remover metadados das fotos"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Modo Fantasma: Por Que Suas Fotos Estão Vazando Sua Localização GPS",
-    "description": "Como metadados EXIF nas fotos vazam coordenadas GPS, informações do dispositivo e carimbos de data/hora — e como se proteger.",
-    "proficiencyLevel": "Beginner",
-    "inLanguage": "pt"
-  }
-aliases: ["/pt/guides/osint-privacy-exif-data/"]
+proficiency: "Beginner"
+aliases: ["/guides/osint-privacy-exif-data/"]
 ---
 
 ## $ System_Init

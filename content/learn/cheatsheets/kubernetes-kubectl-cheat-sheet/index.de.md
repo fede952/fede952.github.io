@@ -5,16 +5,8 @@ date: 2026-02-10
 tags: ["kubernetes", "cheatsheet", "devops", "kubectl", "cloud-native"]
 keywords: ["kubectl Spickzettel", "k8s Befehle", "Pod-Management Kubernetes", "Deployment Skalierung k8s", "Kubernetes Debugging", "kubectl get pods", "Kubernetes Service exponieren", "ConfigMap Secrets k8s", "Kubernetes Cluster-Administration", "kubectl logs Fehlerbehebung"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Kubernetes (K8s) & Kubectl: Produktions-Cluster-Befehle",
-    "description": "Essentielle kubectl-Befehle für die Verwaltung von Kubernetes-Clustern: Pods, Deployments, Services, ConfigMaps und Debugging.",
-    "proficiencyLevel": "Intermediate",
-    "inLanguage": "de"
-  }
-aliases: ["/de/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
+proficiency: "Intermediate"
+aliases: ["/cheatsheets/kubernetes-kubectl-cheat-sheet/"]
 ---
 
 ## Systeminitialisierung

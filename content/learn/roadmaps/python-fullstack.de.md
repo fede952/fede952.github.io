@@ -5,15 +5,7 @@ date: 2026-02-11
 tags: ["python", "roadmap", "career"]
 keywords: ["python fullstack roadmap", "python entwickler karrierepfad", "python backend lernen", "python datenbankdesign", "fullstack entwickler 2026"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Karrierepfad zum Python Full Stack Entwickler",
-    "description": "Schritt-für-Schritt-Roadmap zum Python Full Stack Entwickler.",
-    "inLanguage": "de"
-  }
-aliases: ["/de/roadmaps/python-fullstack/"]
+aliases: ["/roadmaps/python-fullstack/"]
 ---
 
 ## Dein Weg zum Python Full Stack Entwickler

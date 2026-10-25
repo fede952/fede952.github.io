@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["sql", "interview", "database", "backend"]
 keywords: ["domande colloquio query sql", "normalizzazione database", "proprietà acid", "prevenzione sql injection", "colloquio indici database", "domande join sql", "colloquio postgresql", "domande colloquio mysql", "pattern progettazione database", "ottimizzazione prestazioni sql"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "Domande di Colloquio su SQL e Progettazione Database (Livello Senior)",
-    "description": "20 domande avanzate di colloquio su SQL e database che coprono ottimizzazione, normalizzazione, indicizzazione, transazioni e sicurezza.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "it"
-  }
-aliases: ["/it/interviews/sql-database-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
 ## Inizializzazione del Sistema

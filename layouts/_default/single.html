@@ -1,49 +1,24 @@
 {{ define "main" }}
 
-<main class="main">
-
+  {{- $learn := eq .Section "learn" }}
   <article class="post-single">
 
     <header class="post-header">
+      {{- if $learn }}{{ partial "breadcrumbs.html" . }}{{ end }}
       <h1 class="post-title">{{ .Title }}</h1>
       {{ if .Description }}<div class="post-description">{{ .Description }}</div>{{ end }}
+      {{- if $learn }}
+      <div class="post-meta article-byline">
+        {{- with site.GetPage "/about" }}<a href="{{ .RelPermalink }}" rel="author">{{ i18n "byline_by" (dict "Name" site.Params.person.name) }}</a>{{ end }}
+        · <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ i18n "byline_updated" (dict "Date" (.Lastmod | time.Format ":date_long")) }}</time>
+      </div>
+      {{- end }}
     </header>
 
-    {{ if or (eq .Section "games") (eq .Section "tools") }}
-    <div style="
-        margin: 30px 0 25px 0;
-        text-align: center;
-        position: relative;
-        z-index: 999;
-        ">
-
-      <a id="fs-btn" href="#" target="_blank" onclick="const iframe = document.querySelector('iframe'); if(iframe) { this.href = iframe.src; } return true;"
-         style="
-          display: block;
-          width: 100%;
-          max-width: 500px;
-          margin: 0 auto;
-          background: #00e5ff;
-          color: #000;
-          padding: 15px;
-          font-weight: 900;
-          text-align: center;
-          text-decoration: none;
-          text-transform: uppercase;
-          border-radius: 4px;
-          border: 2px solid #000;
-          box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
-          font-family: 'Courier New', monospace;
-          font-size: 1.1rem;
-          cursor: pointer;
-          transition: transform 0.2s;">
-        ⛶ OPEN FULL SCREEN MODE
-      </a>
-    </div>
-    {{ end }}
-
     <div class="post-content">
-      {{ .Content }}
+      {{- /* Learn pages get an article_mid unit before the 2nd and 5th <h2>;
+           every other page class passes through untouched. */}}
+      {{ partial "ads/inject-content.html" (dict "page" . "content" .Content) }}
     </div>
 
     <footer class="post-footer">
@@ -56,8 +31,11 @@
       {{ end }}
     </footer>
 
-  </article>
+    {{- if $learn }}
+    {{ partial "author-box.html" . }}
+    {{ partial "related-tools.html" . }}
+    {{- end }}
 
-</main>
+  </article>
 
 {{ end }}

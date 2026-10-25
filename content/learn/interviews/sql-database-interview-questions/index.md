@@ -5,16 +5,8 @@ date: 2026-02-11
 tags: ["sql", "interview", "database", "backend"]
 keywords: ["sql query interview questions", "database normalization", "acid properties", "sql injection prevention", "database index interview", "sql join questions", "postgresql interview", "mysql interview questions", "database design patterns", "sql performance tuning"]
 draft: false
-schema_json: >
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "name": "SQL & Database Design Interview Questions (Senior Level)",
-    "description": "20 advanced SQL and database interview questions covering optimization, normalization, indexing, transactions, and security.",
-    "proficiencyLevel": "Advanced",
-    "inLanguage": "en"
-  }
-aliases: ["/en/interviews/sql-database-interview-questions/", "/interviews/sql-database-interview-questions/"]
+proficiency: "Advanced"
+aliases: ["/interviews/sql-database-interview-questions/"]
 ---
 
 ## System Init

@@ -1,104 +1,66 @@
 ---
-title: "Base64 Encoder/Decoder"
-description: "Encode and decode text to/from Base64 format with UTF-8 support"
+title: "Codificar e Decodificar Base64 (UTF-8)"
+description: "Codifique texto em Base64 ou decodifique Base64 e Base64URL para texto, com suporte completo a UTF-8 para acentos e emoji. Grátis, na hora, no navegador."
+intro: "Converta texto em **Base64** e vice-versa. A codificação é segura para UTF-8, e a decodificação também aceita a variante **Base64URL** usada em JWTs e APIs web, com ou sem preenchimento `=`. Nada do que você cola sai desta página."
 date: 2026-02-03
-tags: ["encoding", "base64", "security", "tool"]
-layout: "tool-split"
-draft: false
-
-code_language: "python"
-algorithm_code: |
-  import base64
-
-  def base64_encode(text):
-      """
-      Encode text to Base64
-      1. Convert text to bytes (UTF-8)
-      2. Apply Base64 encoding
-      3. Convert result to string
-      """
-      # Step 1: Text → Bytes
-      text_bytes = text.encode('utf-8')
-
-      # Step 2: Bytes → Base64 Bytes
-      base64_bytes = base64.b64encode(text_bytes)
-
-      # Step 3: Base64 Bytes → String
-      base64_string = base64_bytes.decode('ascii')
-
-      return base64_string
-
-  def base64_decode(base64_string):
-      """
-      Decode Base64 back to text
-      Reverse process with error handling
-      """
-      try:
-          # Step 1: Base64 String → Bytes
-          base64_bytes = base64_string.encode('ascii')
-
-          # Step 2: Base64 Bytes → Original Bytes
-          text_bytes = base64.b64decode(base64_bytes)
-
-          # Step 3: Bytes → Text
-          text = text_bytes.decode('utf-8')
-
-          return text
-
-      except Exception as e:
-          return f"Error: Invalid Base64 string"
-
-  # Example Usage
-  original = "Hello, 世界!"  # UTF-8 text
-  encoded = base64_encode(original)
-  # Output: "SGVsbG8sIOS4lueVjCE="
-
-  decoded = base64_decode(encoded)
-  # Output: "Hello, 世界!"
-
-explanation: |
-  **Base64** is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's commonly used for:
-
-  - **Email attachments** (MIME encoding)
-  - **Data URLs** in HTML/CSS (`data:image/png;base64,...`)
-  - **JSON Web Tokens (JWT)** encoding
-  - **API authentication** (Basic Auth headers)
-
-  **How it works:**
-  1. Input text is converted to bytes (UTF-8 encoding)
-  2. Every 3 bytes (24 bits) are divided into 4 groups of 6 bits
-  3. Each 6-bit group is mapped to a Base64 character (A-Z, a-z, 0-9, +, /)
-  4. Padding (`=`) is added if needed to make the output length a multiple of 4
-
-  **Important Notes:**
-  - Base64 is **NOT encryption** - it's just encoding
-  - The output is ~33% larger than the input
-  - This tool supports full UTF-8 characters (including emojis and international text)
-
-tool_js: "/js/tools/base64.js"
-tool_html: |
-  <div class="tool-input-group">
-    <label for="base64-input">Input Text</label>
-    <textarea id="base64-input" rows="5" placeholder="Enter text to encode or Base64 string to decode...">Hello, World!</textarea>
-  </div>
-
-  <div class="tool-buttons">
-    <button class="tool-btn" onclick="encodeBase64()">Encode to Base64</button>
-    <button class="tool-btn secondary" onclick="decodeBase64()">Decode from Base64</button>
-    <button class="tool-btn secondary" onclick="clearBase64()">Clear</button>
-  </div>
-
-  <div class="tool-output">
-    <label>Output</label>
-    <textarea id="base64-output" rows="5" readonly placeholder="Result will appear here..."></textarea>
-    <button class="copy-btn" onclick="copyBase64Output()">Copy</button>
-  </div>
-
-  <div id="base64-message"></div>
+lastmod: 2026-10-24
+reviewed: false
+keywords: ["codificar base64", "decodificar base64", "base64 decoder", "base64 online", "decodificar base64url", "base64 para texto", "base64 utf-8", "conversor base64"]
+tags: ["codificação", "ferramentas-dev", "base64", "ferramenta"]
+app_category: "DeveloperApplication"
+tool_partial: "base64-converter"
+howto:
+  - "Digite ou cole em **Texto de entrada**: texto comum para codificar ou uma string Base64 para decodificar."
+  - "Clique em **Codificar em Base64** para transformar o texto em Base64. Acentos, ç, alfabetos não latinos e emoji são codificados em UTF-8."
+  - "Clique em **Decodificar Base64** para voltar ao texto. São aceitos Base64 padrão, Base64URL (`-` e `_`), preenchimento faltando e quebras de linha."
+  - "Leia o resultado em **Resultado** e clique em **Copiar** para mandá-lo para a área de transferência."
+  - "Se os bytes decodificados não forem UTF-8 válido, a ferramenta avisa: provavelmente são dados binários (uma imagem, um arquivo compactado ou uma chave), e não texto."
+faq:
+  - q: "Para que serve o Base64?"
+    a: "O Base64 representa dados binários com 64 caracteres ASCII imprimíveis, para que possam passar por sistemas que só lidam com texto: anexos de e-mail (MIME), data URLs em HTML e CSS, payloads JSON, cabeçalhos de autenticação HTTP Basic, Secrets do Kubernetes e as três partes de um JSON Web Token."
+  - q: "Base64 é criptografia?"
+    a: "Não. É uma codificação sem chave: qualquer um decodifica na hora, como esta página mostra. Nunca use Base64 para esconder senhas ou segredos; os Secrets do Kubernetes, por exemplo, são só codificados em Base64, não criptografados, a menos que você ative a criptografia em repouso."
+  - q: "Qual a diferença entre Base64 e Base64URL?"
+    a: "O Base64URL (RFC 4648, seção 5) troca `+` por `-` e `/` por `_` para que o resultado seja seguro em URLs e nomes de arquivo, e normalmente remove o preenchimento `=`. JWTs e muitas APIs usam essa variante. Esta ferramenta decodifica as duas; ao codificar, gera Base64 padrão."
+  - q: "Por que meu texto decodificado saiu estranho?"
+    a: "Ou a entrada não era texto desde o início (por exemplo, uma imagem ou um fluxo gzip), ou o texto original foi codificado com outro conjunto de caracteres, como Latin-1 em vez de UTF-8. A ferramenta decodifica como UTF-8 e avisa quando os bytes não são UTF-8 válido."
+  - q: "Por que o Base64 fica cerca de um terço maior que o original?"
+    a: "Cada 3 bytes de entrada viram 4 caracteres Base64, porque cada caractere carrega 6 bits (2⁶ = 64). São 33% a mais, além de até dois caracteres `=` de preenchimento no final. Uma imagem de 30 KB vira uma data URL de 40 KB."
+  - q: "O texto que eu colo é enviado para algum lugar?"
+    a: "Não. A codificação e a decodificação usam as funções nativas do navegador `btoa`, `atob`, `TextEncoder` e `TextDecoder` dentro desta página. Nada é enviado nem guardado."
 ---
 
-_Nota: Para preservar a precisão técnica, este conteúdo é exibido em seu idioma original (Inglês)._
+## Como funciona
 
----
+### Codificação
 
-Use this tool to encode text to Base64 or decode Base64 strings back to plain text. Fully supports UTF-8 characters including emojis and international alphabets.
+A função `btoa()` do JavaScript só entende caracteres da faixa Latin-1, então chamá-la direto em `"Ação €"` gera um erro. A ferramenta evita isso codificando do jeito certo:
+
+1. O `TextEncoder` converte o texto em **bytes UTF-8**: `ç` vira `C3 A7`, `€` vira `E2 82 AC`.
+2. Cada byte é transformado em um caractere de um byte, e o `btoa()` converte essa string de bytes em Base64.
+
+O Base64 trabalha em grupos de **3 bytes = 24 bits**, divididos em quatro valores de 6 bits, cada um ligado a um caractere do alfabeto `A–Z a–z 0–9 + /`. Quando o tamanho da entrada não é múltiplo de 3, o último grupo é completado com `=`:
+
+| Texto | Bytes UTF-8 | Base64 |
+|---|---|---|
+| `Man` | `4D 61 6E` | `TWFu` |
+| `Ma` | `4D 61` | `TWE=` |
+| `M` | `4D` | `TQ==` |
+| `é` | `C3 A9` | `w6k=` |
+
+### Decodificação
+
+A decodificação faz o caminho inverso, com alguma tolerância para entradas do mundo real:
+
+- Todos os espaços e quebras de linha são removidos (o MIME quebra o Base64 a cada 76 caracteres).
+- Os caracteres **Base64URL** `-` e `_` voltam a ser `+` e `/`, e o preenchimento `=` que faltar é restaurado, então dá para colar um segmento de JWT do jeito que está.
+- O `atob()` transforma o Base64 em bytes e o `TextDecoder` com `fatal: true` os interpreta como UTF-8. Se os bytes não forem UTF-8 válido, a ferramenta ainda mostra uma decodificação aproximada, mas avisa que provavelmente são dados binários.
+- Uma string cujo tamanho dividido por 4 deixa resto 1 nunca pode ser Base64 válido, e é recusada com uma mensagem clara.
+
+## Casos de uso
+
+- **Ler um JWT na mão.** Cole o segmento do meio de um token para ver os claims em JSON (para verificar a assinatura, use o JWT Inspector).
+- **Kubernetes e Docker.** Decodifique os valores de um manifesto Secret ou codifique um valor antes de colocá-lo em `data:`.
+- **Autenticação HTTP Basic.** Decodifique um cabeçalho `Authorization: Basic …` para ver o `usuario:senha` que ele carrega, ou monte um para uma requisição de teste.
+- **Data URLs e e-mail.** Inspecione URIs `data:` e partes MIME no código-fonte de um e-mail.
+- **Depurar APIs.** Muitas APIs codificam em Base64 campos binários ou JSON aninhado; decodifique para ver o que foi realmente enviado.

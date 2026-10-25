@@ -1,40 +1,50 @@
 /* ============================================
    AD SLOT — AdSense responsive display unit
-   container (P3.1). min-height reserves the
-   space before the ad loads so layout never
-   shifts (CLS = 0 for the slot).
+   (partials/ads/unit.html). The space is reserved
+   by .ad-slot-spacer, a sibling stacked in the
+   same grid cell as the ad, because adsbygoogle.js
+   forces height/min-height:auto on the ad's
+   ancestors. Result: no layout shift whether the
+   slot fills, stays empty or gets a taller ad.
    ============================================ */
 
 .ad-slot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: "label" "ad";
+  row-gap: 6px;
   width: 100%;
-  min-height: 280px;
   margin: 2rem auto;
   padding: 8px 0;
   border-block: 1px dashed var(--border);
 }
 
 .ad-slot-label {
-  align-self: flex-start;
+  grid-area: label;
+  justify-self: start;
   font-size: 0.62rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--secondary);
-  opacity: 0.7;
   font-family: 'JetBrains Mono', monospace;
 }
 
-.ad-slot .adsbygoogle {
-  flex: 1;
+.ad-slot-spacer,
+.ad-slot-inner {
+  grid-area: ad;
+  width: 100%;
+}
+
+.ad-slot-spacer {
+  height: 280px;
 }
 
 @media (max-width: 640px) {
   .ad-slot {
-    min-height: 250px;
     margin: 1.5rem auto;
+  }
+
+  .ad-slot-spacer {
+    height: 250px;
   }
 }

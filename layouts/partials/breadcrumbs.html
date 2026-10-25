@@ -1,0 +1,15 @@
+{{- /* Visible breadcrumbs (site override of PaperMod's, which needed the
+     ShowBreadCrumbs param and omitted the current page). Mirrors the
+     BreadcrumbList JSON-LD in templates/schema_json.html: Home › sections ›
+     current page. Rendered on tool and learn pages. */ -}}
+{{- $ancestors := .Ancestors.Reverse -}}
+{{- if $ancestors }}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {{- range $i, $bc := $ancestors }}
+    <li><a href="{{ $bc.RelPermalink }}">{{ if $bc.IsHome }}{{ i18n "home" | default "Home" }}{{ else }}{{ $bc.LinkTitle }}{{ end }}</a></li>
+    {{- end }}
+    <li aria-current="page">{{ .LinkTitle }}</li>
+  </ol>
+</nav>
+{{- end }}

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/pixel-shrink/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PixelShrink Pro - Privacy-First Image Compressor</title>
-<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+<script src="/vendor/browser-image-compression@2.0.2/browser-image-compression.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -113,7 +114,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 <div class="app">
 
   <header class="header">
-    <img src="/images/pixel-shrink-icon.png" alt="PixelShrink">
+    <img src="/images/pixel-shrink-icon.webp" alt="PixelShrink" width="80" height="119">
     <h1>PixelShrink <span style="font-size:.5em;opacity:.6">PRO</span></h1>
     <div class="sub" id="subtitle"></div>
   </header>
@@ -192,7 +193,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
    3. navigator.language
    4. Default: 'en'
    ═══════════════════════════════════════════ */
-var SUPPORTED_LANGS = ['en','it','es','fr','de','pt','ru','ja','zh'];
+var SUPPORTED_LANGS = ['en','it','es','fr','de','pt'];
 
 function detectLang() {
   /* 1. URL parameter */
@@ -335,63 +336,6 @@ var DICT = {
     done: "Pronto! Sua imagem nunca saiu do navegador.",
     noFile: "Arraste uma imagem primeiro.",
     avifNotSupported: "AVIF n\u00e3o suportado por este navegador"
-  },
-  ru: {
-    subtitle: "\u041a\u043e\u043c\u043f\u0440\u0435\u0441\u0441\u043e\u0440 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0439 \u0441 \u0437\u0430\u0449\u0438\u0442\u043e\u0439 \u043f\u0440\u0438\u0432\u0430\u0442\u043d\u043e\u0441\u0442\u0438",
-    dropLabel: "\u041f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u0441\u044e\u0434\u0430",
-    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430",
-    formatLabel: "\u0424\u043e\u0440\u043c\u0430\u0442 \u0432\u044b\u0432\u043e\u0434\u0430",
-    optKeep: "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u043e\u0440\u0438\u0433\u0438\u043d\u0430\u043b",
-    qualityLabel: "\u041a\u0430\u0447\u0435\u0441\u0442\u0432\u043e",
-    maxSizeLabel: "\u041c\u0430\u043a\u0441. \u0440\u0430\u0437\u043c\u0435\u0440 (MB)",
-    maxWidthLabel: "\u041c\u0430\u043a\u0441. \u0448\u0438\u0440\u0438\u043d\u0430 (px)",
-    compressBtn: "\u0421\u0436\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
-    processing: "\u041e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430",
-    beforeLabel: "\u0414\u043e",
-    afterLabel: "\u041f\u043e\u0441\u043b\u0435",
-    savedLabel: "\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u044f",
-    downloadBtn: "\u0421\u043a\u0430\u0447\u0430\u0442\u044c \u0441\u0436\u0430\u0442\u043e\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
-    done: "\u0413\u043e\u0442\u043e\u0432\u043e! \u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u043d\u0435 \u043f\u043e\u043a\u0438\u0434\u0430\u043b\u043e \u0432\u0430\u0448 \u0431\u0440\u0430\u0443\u0437\u0435\u0440.",
-    noFile: "\u0421\u043d\u0430\u0447\u0430\u043b\u0430 \u043f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435.",
-    avifNotSupported: "AVIF \u043d\u0435 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044f \u044d\u0442\u0438\u043c \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u043e\u043c"
-  },
-  ja: {
-    subtitle: "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc\u512a\u5148\u306e\u753b\u50cf\u5727\u7e2e\u30c4\u30fc\u30eb",
-    dropLabel: "\u753b\u50cf\u3092\u3053\u3053\u306b\u30c9\u30e9\u30c3\u30b0\uff06\u30c9\u30ed\u30c3\u30d7",
-    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 \u30ed\u30fc\u30ab\u30eb\u51e6\u7406",
-    formatLabel: "\u51fa\u529b\u5f62\u5f0f",
-    optKeep: "\u5143\u306e\u5f62\u5f0f\u3092\u4fdd\u6301",
-    qualityLabel: "\u54c1\u8cea",
-    maxSizeLabel: "\u6700\u5927\u30b5\u30a4\u30ba (MB)",
-    maxWidthLabel: "\u6700\u5927\u5e45 (px)",
-    compressBtn: "\u753b\u50cf\u3092\u5727\u7e2e",
-    processing: "\u51e6\u7406\u4e2d",
-    beforeLabel: "\u5727\u7e2e\u524d",
-    afterLabel: "\u5727\u7e2e\u5f8c",
-    savedLabel: "\u7bc0\u7d04\u91cf",
-    downloadBtn: "\u5727\u7e2e\u753b\u50cf\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9",
-    done: "\u5b8c\u4e86\uff01\u753b\u50cf\u306f\u30d6\u30e9\u30a6\u30b6\u306e\u5916\u306b\u51fa\u3066\u3044\u307e\u305b\u3093\u3002",
-    noFile: "\u5148\u306b\u753b\u50cf\u3092\u30c9\u30ed\u30c3\u30d7\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
-    avifNotSupported: "\u3053\u306e\u30d6\u30e9\u30a6\u30b6\u306fAVIF\u306b\u5bfe\u5fdc\u3057\u3066\u3044\u307e\u305b\u3093"
-  },
-  zh: {
-    subtitle: "\u9690\u79c1\u4f18\u5148\u7684\u56fe\u7247\u538b\u7f29\u5de5\u5177",
-    dropLabel: "\u5c06\u56fe\u7247\u62d6\u653e\u5230\u6b64\u5904",
-    dropHint: "PNG \u2022 JPG \u2022 WebP \u2022 AVIF \u2014 \u672c\u5730\u5904\u7406",
-    formatLabel: "\u8f93\u51fa\u683c\u5f0f",
-    optKeep: "\u4fdd\u6301\u539f\u59cb\u683c\u5f0f",
-    qualityLabel: "\u8d28\u91cf",
-    maxSizeLabel: "\u6700\u5927\u5927\u5c0f (MB)",
-    maxWidthLabel: "\u6700\u5927\u5bbd\u5ea6 (px)",
-    compressBtn: "\u538b\u7f29\u56fe\u7247",
-    processing: "\u5904\u7406\u4e2d",
-    beforeLabel: "\u538b\u7f29\u524d",
-    afterLabel: "\u538b\u7f29\u540e",
-    savedLabel: "\u8282\u7701\u7a7a\u95f4",
-    downloadBtn: "\u4e0b\u8f7d\u538b\u7f29\u56fe\u7247",
-    done: "\u5b8c\u6210\uff01\u56fe\u7247\u4ece\u672a\u79bb\u5f00\u60a8\u7684\u6d4f\u89c8\u5668\u3002",
-    noFile: "\u8bf7\u5148\u62d6\u653e\u4e00\u5f20\u56fe\u7247\u3002",
-    avifNotSupported: "\u6b64\u6d4f\u89c8\u5668\u4e0d\u652f\u6301 AVIF"
   }
 };
 
@@ -413,15 +357,23 @@ function formatBytes(b) {
    AVIF SUPPORT CHECK
    ═══════════════════════════════════════════ */
 var avifSupported = false;
+/* AVIF is offered only if this browser can ENCODE it. Output goes through
+   canvas.toBlob(), and browsers that can merely decode AVIF silently fall
+   back to PNG there (the result was a huge PNG named .avif). */
 (function checkAvif() {
-  var img = new Image();
-  img.onload = function () { avifSupported = img.width > 0; buildFormatSelect() };
-  img.onerror = function () { avifSupported = false; buildFormatSelect() };
-  img.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKBDgABokyCRAAAAAP+I9ngw==';
+  try {
+    var c = document.createElement('canvas');
+    c.width = c.height = 2;
+    c.toBlob(function (b) {
+      avifSupported = !!b && b.type === 'image/avif';
+      buildFormatSelect();
+    }, 'image/avif', 0.5);
+  } catch (e) { avifSupported = false; buildFormatSelect(); }
 })();
 
 function buildFormatSelect() {
   var sel = $('formatSelect');
+  var current = sel.value;
   sel.innerHTML = '';
   var formats = [
     { value: 'keep', label: T.optKeep },
@@ -438,6 +390,7 @@ function buildFormatSelect() {
     opt.textContent = f.label;
     sel.appendChild(opt);
   });
+  if (current && sel.querySelector('option[value="' + current + '"]')) sel.value = current;
 }
 
 /* ═══════════════════════════════════════════
@@ -533,6 +486,8 @@ $('compressBtn').addEventListener('click', async function () {
     maxWidthOrHeight: maxW,
     initialQuality: quality,
     useWebWorker: true,
+    // Self-hosted copy for the worker too (the library defaults to jsDelivr).
+    libURL: location.origin + "/vendor/browser-image-compression@2.0.2/browser-image-compression.js",
     preserveExif: false
   };
 
@@ -586,7 +541,20 @@ $('compressBtn').addEventListener('click', async function () {
     dlBtn.download = dlName;
     dlBtn.classList.add('visible');
 
-    setStatus(T.done);
+    if (compSize >= origSize) {
+      /* e.g. a photo re-encoded as lossless PNG: say so instead of "0% saved" */
+      var LARGER = {
+        en: 'The result is not smaller than the original. Keep your original file, or try WebP or JPEG.',
+        it: "Il risultato non è più piccolo dell'originale. Tieni il file originale oppure prova WebP o JPEG.",
+        es: 'El resultado no es más pequeño que el original. Conserva tu archivo original o prueba WebP o JPEG.',
+        fr: "Le résultat n'est pas plus léger que l'original. Gardez votre fichier d'origine ou essayez WebP ou JPEG.",
+        de: 'Das Ergebnis ist nicht kleiner als das Original. Behalten Sie die Originaldatei oder versuchen Sie WebP oder JPEG.',
+        pt: 'O resultado não ficou menor que o original. Mantenha o arquivo original ou tente WebP ou JPEG.'
+      };
+      setStatus(LARGER[curLang] || LARGER.en);
+    } else {
+      setStatus(T.done);
+    }
   } catch (e) {
     setStatus('Error: ' + e.message);
   }
@@ -595,20 +563,6 @@ $('compressBtn').addEventListener('click', async function () {
   btn.disabled = false;
 });
 </script>
-<script>
-/* AUTO-RESIZE SENDER */
-(function () {
-  function sendHeight() {
-    var h = document.body.scrollHeight;
-    window.parent.postMessage({ type: 'setHeight', height: h }, '*');
-  }
-  document.documentElement.style.height = 'auto';
-  document.body.style.height = 'auto';
-  document.body.style.minHeight = '0';
-  window.addEventListener('load', sendHeight);
-  window.addEventListener('resize', sendHeight);
-  new MutationObserver(sendHeight).observe(document.body, { subtree: true, childList: true });
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

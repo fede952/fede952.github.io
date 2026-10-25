@@ -8,7 +8,6 @@
   {{/* Card styles live in assets/css/extended/cyber-cards.css (shared with
        the homepage) — extracted from the inline <style> that was here. */}}
   {{ $currentSection := .Section }}
-  {{ $currentLang := .Lang }}
   {{ $isHub := and (eq .Kind "section") (in (slice "learn" "tools") $currentSection) (eq .Parent.Kind "home") }}
 
   {{ if $isHub }}
@@ -56,34 +55,16 @@
       {{ end }}
     {{ end }}
   {{ else }}
+    {{/* Sub-section pages: pull only this section's pages so e.g.
+         /tools/games/ doesn't list non-game tools. */}}
     {{ $items := .RegularPagesRecursive }}
-
-    {{/* NEWS: local-language pages plus, per story, the English page ONLY
-         when no local translation exists. lang.Merge fills untranslated
-         stories from the EN collection via translation-key matching — the
-         old local∪English union listed every translated story twice on
-         non-English lists. */}}
-    {{ if eq $currentSection "news" }}
-      {{ if ne $currentLang "en" }}
-        {{ range .AllTranslations }}
-          {{ if eq .Lang "en" }}
-            {{ $items = $items | lang.Merge .RegularPagesRecursive }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-      {{ $items = $items.ByDate.Reverse }}
-    {{ else }}
-      {{/* Standard Logic for sub-section pages: pull only this section's
-          pages so e.g. /tools/games/ doesn't list non-game tools. */}}
-      {{ if not $items }}
-        {{ $items = where site.RegularPages "Section" $currentSection }}
-      {{ end }}
+    {{ if not $items }}
+      {{ $items = where site.RegularPages "Section" $currentSection }}
     {{ end }}
 
     {{ $items = where $items "Kind" "page" }}
 
-    {{/* 24/page fills the 3-column cyber-grid evenly; /news/ previously
-         rendered every article on a single page (1.4–3.2 MB of HTML). */}}
+    {{/* 24/page fills the 3-column cyber-grid evenly. */}}
     {{ $paginator := .Paginate $items 24 }}
 
     <div class="cyber-grid">

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/neon-palette/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Color Matrix</title>
@@ -138,46 +139,15 @@ const T = {
     title:'$ NeonPalette',subtitle:'Matriz de Cores',converterSection:'Conversor de Cores',
     generatorSection:'Gerador Cyberpunk',generatePalette:'Gerar Paleta Neon',
     copied:'Copiado!',paletteGenerated:'Paleta neon gerada!'
-  },
-  ru: {
-    title:'$ NeonPalette',subtitle:'Цветовая матрица',converterSection:'Конвертер цветов',
-    generatorSection:'Генератор Cyberpunk',generatePalette:'Сгенерировать неон-палитру',
-    copied:'Скопировано!',paletteGenerated:'Неоновая палитра создана!'
-  },
-  ja: {
-    title:'$ NeonPalette',subtitle:'カラーマトリックス',converterSection:'カラー変換',
-    generatorSection:'サイバーパンクジェネレーター',generatePalette:'ネオンパレット生成',
-    copied:'コピーしました！',paletteGenerated:'ネオンパレットを生成しました！'
-  },
-  ko: {
-    title:'$ NeonPalette',subtitle:'컬러 매트릭스',converterSection:'색상 변환기',
-    generatorSection:'사이버펑크 생성기',generatePalette:'네온 팔레트 생성',
-    copied:'복사됨!',paletteGenerated:'네온 팔레트가 생성되었습니다!'
-  },
-  'zh-cn': {
-    title:'$ NeonPalette',subtitle:'色彩矩阵',converterSection:'颜色转换器',
-    generatorSection:'赛博朋克生成器',generatePalette:'生成霓虹调色板',
-    copied:'已复制！',paletteGenerated:'霓虹调色板已生成！'
-  },
-  ar: {
-    title:'$ NeonPalette',subtitle:'مصفوفة الألوان',converterSection:'محول الألوان',
-    generatorSection:'مولد سايبربانك',generatePalette:'إنشاء لوحة نيون',
-    copied:'تم النسخ!',paletteGenerated:'تم إنشاء لوحة النيون!'
-  },
-  hi: {
-    title:'$ NeonPalette',subtitle:'रंग मैट्रिक्स',converterSection:'रंग कनवर्टर',
-    generatorSection:'साइबरपंक जनरेटर',generatePalette:'नियॉन पैलेट बनाएं',
-    copied:'कॉपी हो गया!',paletteGenerated:'नियॉन पैलेट बनाया गया!'
   }
 };
 
-function detectLang(){try{const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}catch(e){}const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt|ru|ja|ko|zh-cn|ar|hi)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
+function detectLang(){const p=new URLSearchParams(window.location.search);if(p.get('lang'))return p.get('lang').toLowerCase();try{if(window.parent!==window){const l=window.parent.document.documentElement.lang;if(l)return l.toLowerCase()}}catch(e){}const m=window.location.pathname.match(/^\/(en|it|es|fr|de|pt)\//);if(m)return m[1];return navigator.language.split('-')[0].toLowerCase()}
 const LANG=detectLang();
 const t=(k)=>(T[LANG]||T[LANG.split('-')[0]]||T.en)[k]||T.en[k]||k;
 
 function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
-  if(LANG==='ar')document.body.style.direction='rtl';
 }
 
 function hexToRgb(hex) {
@@ -289,5 +259,6 @@ function generatePalette() {
 applyI18n();
 generatePalette();
 </script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>

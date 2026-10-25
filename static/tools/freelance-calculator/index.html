@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/freelance-calculator/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RateMate - Freelance Rate Calculator</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="/vendor/chart.js@4.4.7/chart.umd.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -73,7 +74,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 .chart-title{text-align:center;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:12px}
 
 /* Ad Placeholder */
-.ad-unit{margin-top:24px;min-height:100px;background:#f1f5f9;border:1px dashed var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;text-transform:uppercase;letter-spacing:2px}
 
 /* Responsive */
 @media(max-width:700px){
@@ -168,7 +168,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
 
   </div>
 
-  <div class="ad-unit">Advertisement</div>
 
 </div>
 
@@ -255,21 +254,6 @@ document.querySelectorAll('input, select').forEach(function(el){
 calculate();
 </script>
 
-<script>
-/* AUTO-RESIZE SENDER */
-(function(){
-  function sendHeight(){
-    var h=document.body.scrollHeight;
-    window.parent.postMessage({type:"setHeight",height:h},"*");
-  }
-  document.documentElement.style.height="auto";
-  document.body.style.height="auto";
-  document.body.style.minHeight="0";
-  window.addEventListener("load",sendHeight);
-  window.addEventListener("resize",sendHeight);
-  window.addEventListener("input",sendHeight);
-  new MutationObserver(sendHeight).observe(document.body,{subtree:true,childList:true});
-})();
-</script>
+<script src="/js/embed-resize.js"></script>
 </body>
 </html>
