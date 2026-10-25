@@ -13,3 +13,11 @@ Desliza los bloques brillantes por la cuadrícula. Cuando dos bloques con el mis
 NeonBlocks guarda tu progreso automáticamente.
 
 <iframe src="/games/neon-blocks/index.html?lang=es" width="100%" height="620px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+
+## Cómo Jugar
+
+- **Escritorio:** flechas o WASD para deslizar las fichas.
+- **Móvil:** desliza el dedo en cualquier dirección.
+- Las fichas con el mismo valor se fusionan al chocar.
+- Cada fusión suma puntos.
+- La partida termina cuando no quedan movimientos.

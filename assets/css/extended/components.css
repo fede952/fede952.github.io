@@ -215,3 +215,21 @@ body.links-page {
 .stack-grid .stack-tool-card {
   margin: 0;
 }
+
+/* ── About page photo ── */
+.md-content img.about-photo {
+  display: block;
+  width: 160px;
+  height: auto;
+  margin: 0 0 var(--s-5);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+}
+
+@media (min-width: 600px) {
+  .md-content img.about-photo {
+    float: right;
+    width: 200px;
+    margin: 0 0 var(--s-5) var(--s-6);
+  }
+}

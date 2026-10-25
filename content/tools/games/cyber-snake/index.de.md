@@ -1,11 +1,11 @@
 ---
-title: "Cyber Snake: Datenfresser"
+title: "Data Eater: Retro-Jagd im Raster"
 description: "Navigiere durch das Raster. Konsumiere Datenpakete. Lass deinen Schwanz wachsen. Triff nicht die Firewall."
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "retro", "html5", "cyberpunk", "snake"]
-keywords: ["Snake-Spiel", "Retro-Spiel", "Cyberpunk Snake", "Browserspiel"]
+tags: ["game", "retro", "html5", "cyberpunk"]
+keywords: ["Retro-Spiel", "Browserspiel"]
 draft: false
 aliases: ["/games/cyber-snake/"]
 ---

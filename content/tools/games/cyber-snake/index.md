@@ -1,11 +1,11 @@
 ---
-title: "Cyber Snake: Data Eater"
+title: "Data Eater: Retro Grid Chase"
 description: "Navigate the grid. Consume data packets. Grow your tail. Don't hit the firewall."
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "retro", "html5", "cyberpunk", "snake"]
-keywords: ["snake game", "retro game", "cyberpunk snake", "browser game"]
+tags: ["game", "retro", "html5", "cyberpunk"]
+keywords: ["retro game", "browser game"]
 draft: false
 aliases: ["/games/cyber-snake/"]
 ---

@@ -2,24 +2,9 @@
 # Everything public may be crawled. Thin tag/category listings carry
 # <meta name="robots" content="noindex"> instead of a Disallow, so crawlers
 # can still read that directive and follow their links.
+# AI-crawler policy is managed at the edge (Cloudflare), not here.
 
 User-agent: *
-Allow: /
-
-# AI crawlers: allowed for visibility
-User-agent: GPTBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
 Allow: /
 
 # Sitemap index (one sitemap per language, indexable pages only)

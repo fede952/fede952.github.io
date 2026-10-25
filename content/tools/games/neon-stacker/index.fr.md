@@ -4,8 +4,8 @@ description: "Le classique jeu d'empilement de blocs réinventé. Survivez à la
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "puzzle", "html5", "cyberpunk", "tetris"]
-keywords: ["tetris en ligne", "puzzle néon", "jeu de blocs", "jeu navigateur", "jeu cyberpunk"]
+tags: ["game", "puzzle", "html5", "cyberpunk"]
+keywords: ["puzzle néon", "jeu de blocs", "jeu navigateur", "jeu cyberpunk"]
 draft: false
 aliases: ["/games/neon-stacker/"]
 ---

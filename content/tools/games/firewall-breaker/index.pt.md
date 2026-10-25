@@ -4,8 +4,8 @@ description: "Quebre o firewall corporativo. Desvie o pacote de dados, destrua o
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
-keywords: ["arkanoid online", "jogo breakout", "quebra tijolos", "arcade cyberpunk"]
+tags: ["game", "arcade", "html5", "cyberpunk"]
+keywords: ["quebra tijolos", "arcade cyberpunk"]
 draft: false
 aliases: ["/games/firewall-breaker/"]
 ---

@@ -152,7 +152,7 @@ byline_updated:
 author_box_heading:
   other: "About the author"
 author_box_bio:
-  other: "I'm a Network Security Analyst working in SOC and L2 network security: SSE/SASE platforms, Zero Trust access, traffic and incident triage. I hold the eJPT (Junior Penetration Tester) certification and write these guides from hands-on work and lab practice."
+  other: "I'm a Network Security Analyst (L2) working on SSE/SASE platforms: Zero Trust access, the secure web gateway and client connectivity troubleshooting. Before that I spent about a year as a SOC Tier 1 analyst. I hold the eJPT certification and write these guides from that work and from lab practice."
 author_box_more:
   other: "More about me"
 related_tools_learn:

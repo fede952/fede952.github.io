@@ -196,3 +196,32 @@ Screens reviewed at 390 / 1440 px: home, /tools/, /learn/, a tool page (EN/IT), 
 - **New test, `tests/ads.mjs`:** one ad per screen, first control visible without scrolling, 150 px rule, CLS.
   - Tool pages, 6 languages at 390×844 and 1440×900: **420 runs, 0 problems; max CLS 0.002**; the sidebar unit was placed on 144 of 210 desktop runs.
   - Learn pages at all 3 viewports (390×844, 768×1024, 1440×900): last full run was EN+IT, with only button-distance failures, since fixed. Re-run in Phase 6.
+
+## Phase 4 — Content fixes
+
+1. **About page (6 languages)** rewritten from the confirmed facts only:
+   - Network Security Analyst (L2) at a large enterprise, on SSE/SASE platforms: Zero Trust access, the secure web gateway, and client connectivity troubleshooting. No employer or client is named.
+   - About a year as SOC Tier 1 before that.
+   - Career changer: CNC machining/programming and technical drafting, then a technical diploma at evening school.
+   - eJPT; cybersecurity bootcamp; Python, C#, Next.js.
+   - Why the site exists, plus contact links.
+
+   Removed: "Security Developer", "Red Team Aspirant", the contradictory "7+ years" and "over 10 years", "Zero-Error precision", "Arsenal", "digital warfare", and the Bergamo keyword.
+
+   The other certifications (Cisco Ethical Hacker, ISC2 CC, Google Cybersecurity) and the years of CNC work are kept only in a `TODO(Federico): confirm` YAML comment in each file's front matter. They are not rendered.
+
+   Photo kept, now styled by CSS (`.about-photo`) instead of inline styles. The translations use gender-neutral phrasing.
+2. **Consistency:**
+   - Person `jobTitle` is "Network Security Analyst", matching the About page; "Secure web gateway" added to `knowsAbout`.
+   - Author-box bio rewritten in 6 languages to the same facts. It used to say "working in SOC and L2 network security".
+   - `/links/` bio "Cyber Security & DevOps Engineer" now reads `jobTitle`.
+   - The unused `profileMode.subtitle` ("Software Developer (.NET / C#) | AI Integration Specialist…") aligned.
+3. **`robots.txt`:** only `User-agent: * / Allow: /` and the sitemap. The GPTBot, Google-Extended, CCBot, ClaudeBot and anthropic-ai blocks are removed, since AI-crawler policy is handled at Cloudflare.
+4. **`static/.well-known/security.txt`** (RFC 9116): Contact, Expires 2027-10-25, Preferred-Languages en, it, Canonical.
+5. **Games:**
+   - Every game page now has a "How to play" section. Added in 6 languages for SysAdmin Tycoon (none before; written from the game's code: tabs, power/heat limits, DDOS and power-surge events, sell mode, 8-hour offline earnings) and in 5 languages for NeonBlocks.
+   - Trademarked names removed from titles, descriptions, keywords and tags: Space Invaders, Tetris, Arkanoid, Breakout, Snake. "Cyber Snake: Data Eater" is now "Data Eater: Retro Grid Chase" in 6 languages; its URL is unchanged.
+   - Generic genre words stay (brick breaker, Sudoku, 2048, Minesweeper/Campo Minato as the genre name).
+   - Found, not fixed: SysAdmin Tycoon's built-in UI strings have lost their accents in ES/DE/FR/PT ("Kuhlung", "Energie", "fur").
+
+Checks: build clean, 0 broken links, visual suite on About and games clean.

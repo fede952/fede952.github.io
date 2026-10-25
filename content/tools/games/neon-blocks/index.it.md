@@ -8,8 +8,16 @@ draft: false
 aliases: ["/games/neon-blocks/"]
 ---
 
-Fai scorrere i blocchi luminosi sulla griglia. Quando due blocchi con lo stesso numero si scontrano, si fondono in uno. Raggiungi **2048** per vincere, oppure continua per un punteggio ancora pi alto.
+Fai scorrere i blocchi luminosi sulla griglia. Quando due blocchi con lo stesso numero si scontrano, si fondono in uno. Raggiungi **2048** per vincere, oppure continua per un punteggio ancora più alto.
 
 NeonBlocks salva i tuoi progressi automaticamente. Chiudi la scheda e torna quando vuoi.
 
 <iframe src="/games/neon-blocks/index.html?lang=it" width="100%" height="620px" style="border:none; border-radius: 8px; overflow: hidden;"></iframe>
+
+## Come Giocare
+
+- **Desktop:** frecce o WASD per far scorrere le tessere.
+- **Mobile:** scorri con il dito in qualsiasi direzione.
+- Le tessere con lo stesso valore si fondono quando si scontrano.
+- Ogni fusione aumenta il punteggio.
+- La partita finisce quando non ci sono più mosse possibili.

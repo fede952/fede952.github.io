@@ -74,10 +74,10 @@ defaultContentLanguageInSubdir = true
   # box on learn pages.
   [params.person]
     name = "Federico Sella"
-    jobTitle = "Network Security Analyst"
+    jobTitle = "Network Security Analyst"   # = About page and author box (L2 level described there)
     image = "images/profile.webp"
     sameAs = ["https://linkedin.com/in/federicosella", "https://github.com/fede952"]
-    knowsAbout = ["Network security", "Security Service Edge (SSE)", "SASE", "Zero Trust", "SOC operations", "Penetration testing"]
+    knowsAbout = ["Network security", "Security Service Edge (SSE)", "SASE", "Zero Trust", "Secure web gateway", "SOC operations", "Penetration testing"]
 
   # AdSense (config-driven units: partials/ads/unit.html). An empty
   # slot_<position> falls back to slot_default. Create one display unit per
@@ -136,7 +136,7 @@ defaultContentLanguageInSubdir = true
   [params.profileMode]
     enabled = false # P4.1: the homepage is a SaaS-style landing; the bio lives on /about/
     title = "Federico Sella"
-    subtitle = "Software Developer (.NET / C#) | AI Integration Specialist | Cybersecurity Enthusiast (eJPT) | Full Stack Experimenter"
+    subtitle = "Network Security Analyst (L2) · SSE/SASE · Zero Trust · eJPT"
     imageUrl = "images/logo.webp"
     imageTitle = "Federico Sella"
     buttons = [

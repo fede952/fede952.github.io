@@ -4,8 +4,8 @@ description: "Smash through the corporate firewall. Deflect the data packet, des
 layout: "game"
 date: 2026-02-15
 categories: ["Games"]
-tags: ["game", "arcade", "html5", "cyberpunk", "arkanoid"]
-keywords: ["arkanoid online", "breakout game", "brick breaker", "cyberpunk arcade"]
+tags: ["game", "arcade", "html5", "cyberpunk"]
+keywords: ["brick breaker", "cyberpunk arcade"]
 draft: false
 aliases: ["/games/firewall-breaker/"]
 ---
