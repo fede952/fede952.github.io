@@ -44,11 +44,11 @@ Vingt expressions régulières reconnaissent des formats que les fournisseurs do
 
 | Règle | Signature reconnue | Gravité |
 |---|---|---|
-| Bloc de clé privée | `-----BEGIN … PRIVATE KEY-----` (RSA, EC, DSA, OpenSSH, PGP, chiffrée) | Critique |
+| Bloc de clé privée | `-----BEGIN … PRIVATE KEY` (RSA, EC, DSA, OpenSSH, PGP, chiffrée) | Critique |
 | Access key ID AWS | `AKIA`, `ASIA`, `ABIA` ou `ACCA` suivis de 16 majuscules ou chiffres | Critique |
 | Secret access key AWS | Une valeur Base64 de 40 caractères affectée à un nom comme `aws_secret_access_key` | Critique |
 | Token GitHub | Préfixes `ghp_`, `gho_`, `ghu_`, `ghs_`, `ghr_` ou `github_pat_` | Critique |
-| Clé Stripe live | Préfixes `sk_live_` / `rk_live_` | Critique |
+| Clé Stripe live | Préfixes `sk_live` / `rk_live` | Critique |
 | Clé OpenAI / Anthropic | Préfixes `sk-proj-`, `sk-svcacct-`, `sk-ant-` | Critique |
 | Clé d'API Google | `AIza` suivi de 35 caractères | Élevée |
 | Token / webhook Slack | Tokens `xox[baprs]-`, URL `hooks.slack.com/services/…` | Élevée |

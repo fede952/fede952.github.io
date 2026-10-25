@@ -44,11 +44,11 @@ Twenty regular expressions match formats that providers document publicly, mostl
 
 | Rule | Signature it matches | Severity |
 |---|---|---|
-| Private key block | `-----BEGIN … PRIVATE KEY-----` (RSA, EC, DSA, OpenSSH, PGP, encrypted) | Critical |
+| Private key block | `-----BEGIN … PRIVATE KEY` (RSA, EC, DSA, OpenSSH, PGP, encrypted) | Critical |
 | AWS access key ID | `AKIA`, `ASIA`, `ABIA` or `ACCA` followed by 16 uppercase letters or digits | Critical |
 | AWS secret access key | A 40-character Base64 value assigned to a name like `aws_secret_access_key` | Critical |
 | GitHub token | `ghp_`, `gho_`, `ghu_`, `ghs_`, `ghr_` or `github_pat_` prefixes | Critical |
-| Stripe live key | `sk_live_` / `rk_live_` prefixes | Critical |
+| Stripe live key | `sk_live` / `rk_live` prefixes | Critical |
 | OpenAI / Anthropic key | `sk-proj-`, `sk-svcacct-`, `sk-ant-` prefixes | Critical |
 | Google API key | `AIza` followed by 35 characters | High |
 | Slack token / webhook | `xox[baprs]-` tokens, `hooks.slack.com/services/…` URLs | High |

@@ -128,9 +128,26 @@ export const TESTS = {
     const ta = await p.$('textarea'); await ta.fill(tok); await ta.dispatchEvent('input');
     await p.waitForFunction(() => document.body.innerText.includes('John Doe')); return 'sample JWT decoded'; } },
   'secrets-scanner': { url: '/tools/secrets-scanner/', async run(p) {
-    const ta = await p.$('textarea'); await ta.fill('const k = "AKIAIOSFODNN7EXAMPLE";\npassword = "hunter2hunter2"'); await ta.dispatchEvent('input');
+    // the key is assembled so no complete AWS key pattern appears in this file
+    const ta = await p.$('textarea'); await ta.fill('const k = "' + 'AKIA' + 'IOSFODNN7EXAMPLE";\npassword = "hunter2hunter2"'); await ta.dispatchEvent('input');
     const btn = await p.$('button:has-text("Scan")'); if (btn) await btn.click();
     await p.waitForFunction(() => /AWS|AKIA/i.test(document.body.innerText)); return 'AWS key pattern detected'; } },
+  'secrets-scanner-sample': { url: '/tools/secrets-scanner/?lang=en', async run(p) {
+    // "Load sample": every fake secret (built at runtime in the app) is still found
+    await p.click('#btn-sample');
+    await p.waitForFunction(() => /Findings/.test(document.getElementById('results-card').innerText));
+    const out = await p.evaluate(() => document.getElementById('results-card').innerText);
+    assert(/4 critical\s+3 high\s+2 medium\s+1 info/.test(out), 'severity counts: ' + out.slice(0, 160));
+    const expected = [
+      ['AWS Access Key ID', 3, 'AKIA…'], ['AWS Secret Access Key', 4, 'wJal…'], ['GitHub token', 5, 'ghp_…'], ['Stripe live secret key', 6, 'sk_l…'],
+      ['Credentials in connection URI', 2, 'post…'], ['Google API key', 7, 'AIza…'], ['High-entropy value (secret-like key)', 9, 'q7Zp…'],
+      ['JSON Web Token', 8, 'eyJh…'], ['Hardcoded password', 10, 'hunt…'],
+    ];
+    for (const [name, line, preview] of expected) {
+      const re = new RegExp(name.replace(/[()]/g, '\\$&') + '\\s+line ' + line + '\\s+' + preview.replace('…', '…'));
+      assert(re.test(out), `missing ${name} on line ${line}`);
+    }
+    return '10 findings from the sample (4 critical, 3 high, 2 medium, 1 info), each on its line'; } },
   ghostprint: { url: '/tools/ghostprint/', async run(p) {
     await p.waitForTimeout(1000); const b = await p.$('button'); if (b) await b.click().catch(() => {});
     await p.waitForFunction(() => /\d+\s*(bits|%)/i.test(document.body.innerText), null, { timeout: 30000 }); return 'fingerprint scan produced a score'; } },

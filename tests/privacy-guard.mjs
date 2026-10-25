@@ -1,7 +1,11 @@
 // Source-tree privacy guard, run before `hugo` (CI) and in `npm test`. Fails when
 //   1. a tracked (or new, not ignored) file outside static/vendor/ contains the owner's old home town or
 //      personal mailbox (patterns assembled from fragments so this file never matches), or
-//   2. an image under static/, assets/ or content/ carries EXIF GPS data
+//   2. such a file contains a literal secret-token pattern (Google API key, AWS
+//      access key ID, GitHub token, Stripe live key, Slack token, PEM private
+//      key): even fake demo values trigger GitHub secret scanning, so samples
+//      must be assembled at runtime (see static/tools/secrets-scanner/), or
+//   3. an image under static/, assets/ or content/ carries EXIF GPS data
 //      (a GPS IFD pointer in its EXIF block, or GPS fields in an XMP packet).
 // No dependencies: needs only Node and git.
 //   node tests/privacy-guard.mjs
@@ -9,26 +13,38 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 
 const FORBIDDEN = new RegExp([['sui', 'sio'], ['fedesella', '95@', 'gmail']].map((p) => p.join('')).join('|'), 'i');
+// Secret-token shapes, also assembled from fragments so this file never matches itself.
+const SECRETS = [
+  ['Google API key', ['AI', 'za[0-9A-Za-z_-]{35}']],
+  ['AWS access key ID', ['AK', 'IA[0-9A-Z]{16}']],
+  ['GitHub token', ['gh', 'p_[0-9A-Za-z]{36}']],
+  ['Stripe live key', ['sk', '_live_']],
+  ['Slack token', ['xo', 'x[baprs]-']],
+  ['private key block', ['-----BEG', 'IN .*PRIVATE KEY-----']],
+].map(([name, parts]) => [name, new RegExp(parts.join(''))]);
 const IMAGE_ROOTS = ['static/', 'assets/', 'content/'];
 const IMAGE_EXT = /\.(jpe?g|png|webp|gif|avif|heic|heif|tiff?)$/i;
 
 const files = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { encoding: 'utf8', maxBuffer: 64 << 20 }).split('\0').filter(Boolean);
 const problems = [];
 
-/* ── 1. forbidden personal strings ── */
+/* ── 1. forbidden personal strings, 2. literal secret-token patterns ── */
 for (const f of files) {
   if (f.startsWith('static/vendor/')) continue;
   let buf;
   try { buf = fs.readFileSync(f); } catch { continue; } // deleted in the working tree
   // latin1 keeps a 1:1 byte mapping, so binary files are searched too
   const m = buf.toString('latin1').match(FORBIDDEN);
-  if (m) {
-    const line = buf.toString('latin1').slice(0, m.index).split('\n').length;
-    problems.push(`${f}:${line}: personal string`);
+  const text = buf.toString('latin1');
+  const lineOf = (i) => text.slice(0, i).split('\n').length;
+  if (m) problems.push(`${f}:${lineOf(m.index)}: personal string`);
+  for (const [name, re] of SECRETS) {
+    const s = text.match(re);
+    if (s) problems.push(`${f}:${lineOf(s.index)}: literal ${name} pattern`);
   }
 }
 
-/* ── 2. EXIF GPS in published images ── */
+/* ── 3. EXIF GPS in published images ── */
 
 /** Does this TIFF (EXIF payload) have a GPS IFD pointer in IFD0? */
 function tiffHasGps(b, o) {

@@ -44,11 +44,11 @@ Zwanzig reguläre Ausdrücke erkennen Formate, die Anbieter öffentlich dokument
 
 | Regel | Erkannte Signatur | Schweregrad |
 |---|---|---|
-| Privater Schlüsselblock | `-----BEGIN … PRIVATE KEY-----` (RSA, EC, DSA, OpenSSH, PGP, verschlüsselt) | Kritisch |
+| Privater Schlüsselblock | `-----BEGIN … PRIVATE KEY` (RSA, EC, DSA, OpenSSH, PGP, verschlüsselt) | Kritisch |
 | AWS Access Key ID | `AKIA`, `ASIA`, `ABIA` oder `ACCA` gefolgt von 16 Großbuchstaben oder Ziffern | Kritisch |
 | AWS Secret Access Key | Ein 40-stelliger Base64-Wert, zugewiesen an einen Namen wie `aws_secret_access_key` | Kritisch |
 | GitHub-Token | Präfixe `ghp_`, `gho_`, `ghu_`, `ghs_`, `ghr_` oder `github_pat_` | Kritisch |
-| Stripe-Live-Key | Präfixe `sk_live_` / `rk_live_` | Kritisch |
+| Stripe-Live-Key | Präfixe `sk_live` / `rk_live` | Kritisch |
 | OpenAI- / Anthropic-Key | Präfixe `sk-proj-`, `sk-svcacct-`, `sk-ant-` | Kritisch |
 | Google-API-Key | `AIza` gefolgt von 35 Zeichen | Hoch |
 | Slack-Token / -Webhook | Tokens `xox[baprs]-`, URLs `hooks.slack.com/services/…` | Hoch |
