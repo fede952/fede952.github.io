@@ -13,11 +13,14 @@ tools:
     tools: [exif-cleaner, pixel-shrink, images-to-pdf, steganography]
     guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
   phishing-quiz:
-    tools: [link-hazmat, email-header-analyzer, pass-fort, security-headers]
+    tools: [link-hazmat, email-header-analyzer, spf-dmarc-checker, pass-fort]
     guides: [roadmaps/cyber-security-specialist, guides/osint-privacy-exif-data, interviews/python-security-interview-questions]
   email-header-analyzer:
-    tools: [phishing-quiz, link-hazmat, security-headers, secrets-scanner]
+    tools: [spf-dmarc-checker, phishing-quiz, link-hazmat, security-headers]
     guides: [cheatsheets/networking-ports-protocols, roadmaps/cyber-security-specialist]
+  spf-dmarc-checker:
+    tools: [email-header-analyzer, phishing-quiz, security-headers, link-hazmat]
+    guides: [cheatsheets/networking-ports-protocols, roadmaps/cyber-security-specialist, roadmaps/devops-engineer]
   security-headers:
     tools: [link-hazmat, jwt-inspector, subnet-calculator, secrets-scanner]
     guides: [cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist, interviews/python-security-interview-questions]

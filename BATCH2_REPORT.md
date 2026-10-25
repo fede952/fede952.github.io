@@ -138,3 +138,25 @@ The tool trusts the receiving provider's `Authentication-Results` and does no DN
 - **Functional (`email-header-analyzer`):** phishing sample → danger with the spoofing signals and hop delays, no unfilled placeholders; a pasted fixture → ok with 3 hops; Clear; German UI; zero external requests.
 
 **Found and fixed.** On phones the auth table broke "DMARC" mid-word (`overflow-wrap: anywhere`); header cells are now `nowrap`.
+
+## Phase 5 — SPF, DKIM & DMARC Checker (`/tools/spf-dmarc-checker/`)
+
+**Network.** DNS-over-HTTPS GET to `https://cloudflare-dns.com/dns-query?name=…&type=…` with `accept: application/dns-json`, **only on Check** (`?domain=` only pre-fills the box). Disclosed on the tool (visible note, FAQ, intro), on all 6 privacy pages as a third exception next to ipwho.is and api.pwnedpasswords.com, and in the 6 `/tools/` intros ("Three tools contact an outside service"). Privacy pages' `lastmod` → 2026-10-26.
+
+**Privacy guard extended.** It now fails if any of the three disclosed hosts is missing from a privacy page, or if a tool script `fetch()`es (or defines a `*_URL`) on any other absolute host.
+
+**Checks** (`js/tools/mail-auth.mjs`, DOM-free, resolver injected):
+- **SPF** — single `v=spf1` record; lookups counted per RFC 7208 §4.6.4 (include, a, mx, ptr, exists, redirect) **recursively through every include**, repeated includes counted again as receivers do; loops (on the evaluation path), includes/redirects to domains without SPF (permerror), void lookups > 2, `ptr`, macros (counted, not resolved), invalid terms, `+all` / `?all` / missing `all` / `~all` / `-all`; include tree with per-node counts.
+- **DMARC** — `_dmarc` record with org-domain fallback and `sp=` for subdomains; policy, `pct`, `sp=none`, `rua`/`ruf`, external report authorization (`<domain>._report._dmarc.<rua-domain>`, RFC 7489 §7.1), strict `adkim`/`aspf`; tag table with meanings.
+- **DKIM** — user selectors or 12 common names; RSA modulus size read from the SPKI/RSAPublicKey DER in `p=` (< 1024 high per RFC 8301, 1024 low, ≥ 2048 good), Ed25519, revoked (`p=`), `t=y`.
+- **MX** (incl. RFC 7505 null MX) and **BIMI** (`default._bimi`, needs enforcing DMARC at pct=100).
+- **Grade** A–F from a 100-point score (high −30, medium −12, low −4).
+- **Fixes** — example records built from the current ones (merged duplicate SPF, `~all`, `ptr` removed, DMARC monitoring → enforcement, missing `rua`, the external-report authorization record, 2048-bit DKIM rotation) with copy buttons and an explicit "check with your provider" note; placeholders in `<angle brackets>`.
+
+UI strings live in `js/tools/mail-auth/{en,it,es,de,fr,pt}.mjs` (only EN + the page language are loaded).
+
+**Tests.**
+- **Unit (12):** offline DNS fixtures in `tests/fixtures/mail-auth/zones.json` (fictional domains; DKIM public keys generated at test time so no key material is committed): TXT chunk unescaping and the DoH request shape/header, input normalisation (email, URL, IDN), SPF parsing, recursive count (24 on the broken fixture), redirect/loop/multiple, DMARC fallback/authorization, key sizes, null MX, A and F grades with exact fix values, and a completeness check that every finding/fix has strings with matching placeholders in all 6 languages.
+- **Functional (`spf-dmarc-checker`):** DoH mocked from the same fixtures; asserts zero queries before Check, the dns-json accept header on every query, F on the broken domain (24/10, tree, fixes, copy), A on the good one with guessed selectors, invalid-input message, Italian UI, no other external request.
+
+**Found and fixed.** My first copy handler clashed with tool-kit's delegated `[data-copy="#id"]` handler, which copied an empty string; the page now uses the shared handler.

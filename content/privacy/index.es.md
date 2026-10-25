@@ -2,7 +2,7 @@
 title: "Política de Privacidad"
 description: "Cómo trata tus datos federicosella.com: herramientas que procesan todo localmente en el navegador sin subidas, analítica sin cookies, anuncios con consentimiento y enlaces de afiliado declarados."
 date: 2026-07-04
-lastmod: 2026-10-25
+lastmod: 2026-10-26
 hidemeta: true
 showToc: true
 ---
@@ -34,6 +34,8 @@ Todas las herramientas interactivas del sitio (generador y auditor de contraseñ
 **Una excepción, intencionada:** **NetGuard** te muestra tu dirección IP pública y su ubicación aproximada. Para ello, tu navegador envía una petición al servicio de consulta de IP [ipwho.is](https://ipwho.is/). Como cualquier petición web, revela a ese servicio tu dirección IP (y el user-agent del navegador). No se envía nada más, y la petición solo se hace cuando pulsas Scan en NetGuard.
 
 **Una segunda excepción, opcional:** el auditor de **PassFort** puede comprobar si una contraseña aparece en filtraciones de datos conocidas. Solo ocurre cuando pulsas **Check against known breaches**. Tu navegador calcula entonces el hash SHA-1 de la contraseña y envía solo sus 5 primeros caracteres al servicio Pwned Passwords de Have I Been Pwned en [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-anonimato); la contraseña y el resto del hash nunca se envían y la comparación se hace en tu dispositivo. Como cualquier petición web, revela a ese servicio tu dirección IP y el user-agent del navegador.
+
+**Una tercera excepción, a petición:** el **Comprobador de SPF, DKIM y DMARC** consulta los registros DNS públicos de un dominio. Al pulsar **Comprobar**, tu navegador envía consultas DNS del dominio que escribiste (registros TXT de SPF, DMARC, selectores DKIM y BIMI, y registros MX) al resolver público DNS-over-HTTPS de Cloudflare, [cloudflare-dns.com](https://developers.cloudflare.com/1.1.1.1/privacy/public-dns-resolver/). No se envía nada más, y nada sale antes de pulsar el botón. Como cualquier petición web, revela a Cloudflare tu dirección IP y el user-agent del navegador.
 
 Algunas herramientas ofrecen además enlaces a servicios externos (por ejemplo "comprobar esta URL en VirusTotal" en Link Hazmat, o los botones para compartir). Son enlaces normales: no se envía nada hasta que haces clic.
 

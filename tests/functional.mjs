@@ -489,6 +489,57 @@ export const TESTS = {
     assert(/Weg \(/.test(await p.textContent('#out')), 'German route heading');
     assert(external.length === 0, 'external requests: ' + external.join(', '));
     return 'phishing sample → danger with spoofing signals + hop delays, pasted fixture → ok with 3 hops, clear, German UI, no network'; } },
+  'spf-dmarc-checker': { url: '/tools/spf-dmarc-checker/?lang=en&domain=badmail.test', async run(p, { origin, context }) {
+    // DNS-over-HTTPS is mocked from the offline fixtures used by the unit tests
+    const Z = JSON.parse(fs.readFileSync('tests/fixtures/mail-auth/zones.json', 'utf8'));
+    const { generateKeyPairSync } = await import('node:crypto');
+    const key = generateKeyPairSync('rsa', { modulusLength: 1024 }).publicKey.export({ type: 'spki', format: 'der' }).toString('base64');
+    const zone = Object.assign({}, Z.good, Z.bad);
+    const TYPES = { TXT: 16, MX: 15 };
+    const doh = [], external = [];
+    p.on('request', (r) => { const u = r.url(); if (!u.startsWith(origin) && !u.startsWith('data:') && !u.startsWith('https://cloudflare-dns.com/dns-query')) external.push(u); });
+    await context.route('https://cloudflare-dns.com/dns-query*', (r) => {
+      const u = new URL(r.request().url());
+      doh.push({ name: u.searchParams.get('name'), type: u.searchParams.get('type'), accept: r.request().headers().accept });
+      const v = zone[u.searchParams.get('name') + '|' + u.searchParams.get('type')];
+      const Answer = (v || []).map((s) => ({ name: u.searchParams.get('name'), type: TYPES[u.searchParams.get('type')], TTL: 300, data: u.searchParams.get('type') === 'TXT' ? '"' + s.replace(/\{\{RSA\d+\}\}/g, key).replace(/"/g, '\\"') + '"' : s }));
+      return r.fulfill({ json: { Status: v ? 0 : 3, Answer }, headers: { 'access-control-allow-origin': '*' } });
+    });
+    await p.waitForFunction(() => window.__mailReady);
+    assert(await p.inputValue('#domain') === 'badmail.test', '?domain= pre-fills the box');
+    await p.waitForTimeout(400);
+    assert(doh.length === 0, 'no DNS query before Check: ' + doh.length);
+    assert(/cloudflare-dns\.com/.test(await p.textContent('#privacy')), 'resolver disclosed on the tool');
+    await p.fill('#sel', 's1, old');
+    await p.click('#go');
+    await p.waitForSelector('.summary');
+    assert((await p.textContent('.letter')).trim() === 'F', 'broken domain → F');
+    assert(doh.every((d) => d.accept === 'application/dns-json'), 'dns-json accept header');
+    const ids = await p.$$eval('.sig', (els) => els.map((e) => e.dataset.id));
+    for (const id of ['spf-too-many', 'spf-plus-all', 'spf-ptr', 'spf-include-missing', 'dmarc-pct', 'dkim-1024', 'dkim-revoked']) assert(ids.includes(id), id + ' in ' + ids);
+    assert(/24 of 10/.test(await p.textContent('[data-area="spf"]')), 'lookup count shown');
+    assert(await p.locator('.tree li').count() > 5, 'include tree');
+    assert(!/\{\w+\}/.test(await p.textContent('#out')), 'no unfilled placeholders');
+    assert(await p.locator('.fix').count() >= 4, 'fixes listed');
+    const clip = await p.evaluate(async () => { let txt = ''; navigator.clipboard.writeText = async (s) => { txt = s; }; document.querySelector('.fix [data-copy]').click(); await new Promise((r) => setTimeout(r, 50)); return txt; });
+    assert(/^(v=spf1 |v=DMARC1)/.test(clip), 'copy example record: ' + JSON.stringify(clip.slice(0, 60)));
+    assert((await p.textContent('.fix [data-copy]')) === 'Copied', 'copy button feedback');
+    // a good domain, auto-selectors
+    await p.fill('#domain', 'alex@GoodMail.example'); await p.fill('#sel', '');
+    await p.click('#go');
+    await p.waitForFunction(() => document.querySelector('.summary h2')?.textContent.includes('goodmail.example'));
+    assert((await p.textContent('.letter')).trim() === 'A', 'good domain → A');
+    assert(doh.some((d) => d.name === 'selector1._domainkey.goodmail.example'), 'common selectors tried');
+    await p.fill('#domain', 'not a domain'); await p.click('#go');
+    assert(await p.locator('.tb-note--warn').count() === 1, 'invalid input message');
+    await p.goto(origin + '/tools/spf-dmarc-checker/?lang=it');
+    await p.waitForFunction(() => window.__mailReady);
+    await p.fill('#domain', 'goodmail.example'); await p.click('#go');
+    await p.waitForSelector('.summary');
+    assert(/Risultati per goodmail\.example/.test(await p.textContent('.summary')), 'Italian UI');
+    await context.unroute('https://cloudflare-dns.com/dns-query*');
+    assert(external.length === 0, 'other external requests: ' + external.join(', '));
+    return `no query before Check, ${doh.length} mocked DoH queries with dns-json, broken domain → F (24/10 lookups, tree, fixes, copy), good domain → A with guessed selectors, invalid input, Italian`; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

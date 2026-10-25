@@ -1,0 +1,52 @@
+{
+  "_comment": "Offline DNS fixtures for tests/unit/mail-auth.test.mjs. Fictional domains only. Keys are 'name|TYPE'; a missing name is NXDOMAIN. DKIM p= values marked {{RSA1024}} / {{RSA2048}} are replaced with keys generated at test time.",
+  "good": {
+    "goodmail.example|TXT": ["v=spf1 include:_spf.mailhost.example -all", "some-verification=abc123"],
+    "_spf.mailhost.example|TXT": ["v=spf1 ip4:192.0.2.0/24 ip6:2001:db8::/32 -all"],
+    "goodmail.example|MX": ["10 mx1.mailhost.example.", "20 mx2.mailhost.example."],
+    "_dmarc.goodmail.example|TXT": ["v=DMARC1; p=reject; rua=mailto:dmarc@goodmail.example; adkim=s"],
+    "selector1._domainkey.goodmail.example|TXT": ["v=DKIM1; k=rsa; p={{RSA2048}}"],
+    "default._bimi.goodmail.example|TXT": ["v=BIMI1; l=https://goodmail.example/logo.svg; a="]
+  },
+  "bad": {
+    "badmail.test|TXT": ["v=spf1 ptr include:a.spf.test include:b.spf.test include:gone.spf.test mx a +all"],
+    "a.spf.test|TXT": ["v=spf1 include:c.spf.test include:d.spf.test a mx"],
+    "b.spf.test|TXT": ["v=spf1 include:e.spf.test exists:%{i}.rbl.spf.test a"],
+    "c.spf.test|TXT": ["v=spf1 a mx ip4:198.51.100.0/24"],
+    "d.spf.test|TXT": ["v=spf1 a"],
+    "e.spf.test|TXT": ["v=spf1 include:a.spf.test"],
+    "_dmarc.badmail.test|TXT": ["v=DMARC1; p=quarantine; pct=25; rua=mailto:reports@dmarc-vendor.test; ruf=mailto:forensic@badmail.test"],
+    "s1._domainkey.badmail.test|TXT": ["v=DKIM1; k=rsa; t=y; p={{RSA1024}}"],
+    "old._domainkey.badmail.test|TXT": ["v=DKIM1; p="]
+  },
+  "none": {
+    "bare.invalid|A": ["192.0.2.80"]
+  },
+  "nullmx": {
+    "parked.example|TXT": ["v=spf1 -all"],
+    "parked.example|MX": ["0 ."],
+    "_dmarc.parked.example|TXT": ["v=DMARC1; p=reject;"]
+  },
+  "sub": {
+    "news.shop.example|TXT": ["v=spf1 include:_spf.shop.example include:_spf.shop.example ~all", "v=spf1 ip4:192.0.2.9 -all"],
+    "_spf.shop.example|TXT": ["v=spf1 redirect=_spf2.shop.example"],
+    "_spf2.shop.example|TXT": ["v=spf1 ip4:203.0.113.0/24 -all"],
+    "_dmarc.shop.example|TXT": ["v=DMARC1; p=none; sp=quarantine; rua=mailto:d@vendor.example", "v=DMARC1; p=reject"],
+    "shop.example._report._dmarc.vendor.example|TXT": ["v=DMARC1"]
+  },
+  "inherit": {
+    "eu.brand.example|TXT": ["v=spf1 redirect=brand.example"],
+    "brand.example|TXT": ["v=spf1 include:brand.example ip4:192.0.2.1 -all"],
+    "eu.brand.example|MX": ["10 mx.brand.example."],
+    "_dmarc.brand.example|TXT": ["v=DMARC1; p=reject; sp=none; rua=mailto:d@vendor.example"],
+    "brand.example._report._dmarc.vendor.example|TXT": ["v=DMARC1"]
+  },
+  "doh-sample": {
+    "Status": 0,
+    "Answer": [
+      { "name": "goodmail.example", "type": 5, "TTL": 300, "data": "alias.goodmail.example." },
+      { "name": "alias.goodmail.example", "type": 16, "TTL": 300, "data": "\"v=spf1 include:_spf.mailhost.example \" \"-all\"" },
+      { "name": "alias.goodmail.example", "type": 16, "TTL": 300, "data": "\"quote \\\" and \\059 semicolon\"" }
+    ]
+  }
+}
