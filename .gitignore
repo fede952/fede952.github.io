@@ -35,3 +35,7 @@ desktop.ini
 # ---- Claude Code (machine-specific local overrides only) ----
 # settings.json (shared) stays tracked; settings.local.json is per-machine.
 .claude/settings.local.json
+
+# ---- Test harness output (screenshots are for review, not committed) ----
+docs/screenshots/
+test-results/
