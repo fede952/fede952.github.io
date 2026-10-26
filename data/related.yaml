@@ -61,7 +61,7 @@ tools:
     tools: [link-hazmat, pixel-shrink, string-master, neon-palette]
     guides: [guides/osint-privacy-exif-data, cheatsheets/networking-ports-protocols]
   exif-cleaner:
-    tools: [pixel-shrink, steganography, ghostprint, netguard]
+    tools: [screenshot-redactor, pixel-shrink, steganography, ghostprint]
     guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
   netguard:
     tools: [ghostprint, link-hazmat, security-headers, pass-fort]

@@ -352,3 +352,74 @@ The strength line shows the exact entropy; the info line shows bits per word, li
   - switching back to password mode.
 
 **Found and fixed.** In both partials, the site CSS (`display: flex` on `.pg-checkbox` and `.hash-file-progress`) overrode the `hidden` attribute, so a finished progress bar and an irrelevant checkbox stayed visible. Both now have explicit `[hidden]` rules, and the tests assert it.
+
+## Phase 9 — Integration and verification
+
+**Integration.**
+- **Catalogue:** all six new tools are in the security category in `data/tool_icons.yaml`, each with an original icon: `phish`, `redact`, `mail-search`, `mail-shield`, `lock-link` and `gauge-bars`. The OG icon tiles were regenerated.
+- **Cross-links** in `data/related.yaml`:
+  - Phishing Quiz ↔ Link Hazmat ↔ Email Header Analyzer ↔ SPF/DMARC Checker;
+  - Screenshot Redactor ↔ EXIF Cleaner;
+  - Encrypted Message ↔ PassFort / Password Generator;
+  - CVSS ↔ Security Headers.
+- **Sitemap and search:** all pages in 6 languages are in the sitemap (573 URLs) and in the per-language search indexes.
+- **Ads:** layout v2 is unchanged. The quiz questions live inside the iframe, so no unit can sit between them. The CVSS app gained a scoring-credit footer (FIRST attribution, "not affiliated"), translated in 6 languages.
+- **ARCHITECTURE.md** is updated:
+  - the disclosed network exceptions and the privacy-guard fetch rule;
+  - DOM-free modules and lazy vendored libraries;
+  - parent-URL deep links;
+  - the encrypted-link standalone target;
+  - `article_mid` before the **2nd** `<h2>` on tool pages;
+  - a new **Share cards (Open Graph)** section.
+
+**Test harness fixes.**
+- `tests/ads.mjs` counted controls inside a **closed `<details>`** as "tool controls". Chromium still lays them out, here 1,200 px below the iframe's end. That flagged the after-tool unit on the CVSS page at a random 92–148 px. The check now skips the content of closed `<details>`.
+- `tests/visual.mjs` now also covers the eight new or changed tool pages.
+
+**Full suites on the final build.**
+- **Visual:** 152 page/viewport runs (19 pages × 4 viewports × EN/IT), 0 problems.
+- **Functional:** all pass. That includes the 11 new tests from this batch:
+  - `phishing-quiz` and `phishing-quiz-it`;
+  - `screenshot-redactor`;
+  - `email-header-analyzer`;
+  - `spf-dmarc-checker`;
+  - `encrypted-message`;
+  - `cvss-calculator`;
+  - `hash-file`;
+  - `passphrase`;
+  - plus the existing `hash-generator` test.
+- **Unit:** 111/111.
+- **Tool pages:** 222 runs, 0 problems.
+- **Ads:** 456 runs, 0 problems, max CLS 0.033.
+- **Static:** 3,020 HTML files, 0 broken internal links; 1,297 JSON-LD blocks, 0 errors; sitemap 573 URLs; 452 per-page share cards, all 1200×630.
+- **Privacy guard:** 1,121 files, 71 images, 0 problems.
+
+**Lighthouse 12.6.1, mobile** (Moto G Power emulation, simulated slow 4G, 4× CPU). Local production build, ad and analytics hosts blocked:
+
+| Page | Perf | A11y | BP | SEO | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|
+| Phishing Quiz | 93 | 100 | 100 | 100 | 2.85 s | 0 ms | 0.000 |
+| Screenshot Redactor | 95 | 100 | 100 | 100 | 2.55 s | 17 ms | 0.000 |
+| SPF/DKIM/DMARC Checker | 94 | 100 | 100 | 100 | 2.70 s | 0 ms | 0.001 |
+
+All targets are met: Perf ≥ 90, A11y/BP/SEO 100, CLS < 0.05. Runs with third parties allowed were **not** made, because they would send requests to live ad servers.
+
+## Federico TODO
+
+1. **Review and merge `batch2`.** Nothing is pushed. Merge into `main` when happy, then deploy.
+2. **After deploy, smoke-test the one network-dependent tool on the real domain.** The SPF/DKIM/DMARC Checker calls `cloudflare-dns.com` from `federicosella.com`; CORS was only exercised with a mocked resolver locally. Check one real domain of your own.
+3. **Native-speaker pass over the new copy.** This covers the 6 new tools × 6 languages, plus the updated Hash and Password Generator pages; all are `reviewed: false`. In particular:
+   - the localized **menu names** in "How to get the headers" (Outlook "Internet headers", Apple Mail "All Headers"/"Raw Source", Thunderbird "Message Source"). They differ by version and locale; English UI labels are FIRST-hand, the translations are best effort;
+   - the **CVSS metric-name translations**: FIRST publishes the metrics in English only, so these are unofficial;
+   - the 32 Phishing Quiz scenarios in IT/ES/DE/FR/PT.
+4. **Privacy policy.** The privacy pages now name `cloudflare-dns.com` as a third exception, in 6 languages, with `lastmod` 2026-10-26. If a lawyer reviews the policy, include this change.
+5. **Share cards.** After deploy, paste a tool URL and a quiz score URL (`/en/tools/phishing-quiz/score/7/`) into the LinkedIn Post Inspector, the Facebook Sharing Debugger and an X post preview to confirm the cards are picked up. Platforms cache them.
+6. **Quiz promotion.** The score pages are `noindex` by design. Share them from your socials; there's a "Use it for team training" section to point teams at.
+7. **AdSense.** The new pages use the existing slots (`tool_top`, `article_mid`, `tool_after`, sidebar). Watch the first weeks of RPM on the quiz and the checkers. The quiz has no units inside the questions; the policy-safe choice is to keep it that way.
+8. **Optional follow-ups**, not done:
+   - an Argon2id option for the encrypted link (PBKDF2-SHA-256 at 600k iterations is used now; an Argon2 WASM build would be about 30 KB more to vendor);
+   - a German BIP-39-style 2,048-word list, if you want equal list sizes across languages (German uses dys2p's 7,776-word list now);
+   - OCR models for languages other than English in the Screenshot Redactor (each `traineddata` is 1–4 MB).
+9. **Keep the vendored references current:**
+   - CVSS: if FIRST updates `cvss-v4-calculator`, re-vendor it and run `node scripts/cvss-v4-data.mjs`; the unit tests compare against the vendored official code;
+   - Hash Generator: if a newer `hash-wasm` is vendored, change the path in `js/tools/hash-worker.mjs`.
