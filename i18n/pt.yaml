@@ -91,6 +91,42 @@ hash_insecure:
   other: "Não serve para segurança"
 hash_error:
   other: "Não foi possível calcular os hashes:"
+hash_file_title:
+  other: "Verificar o checksum de um arquivo"
+hash_file_intro:
+  other: "Escolha ou arraste um arquivo para calcular o checksum e cole o checksum publicado na página de download para comparar. O arquivo é lido no seu navegador e nunca é enviado, seja qual for o tamanho."
+hash_file_choose:
+  other: "Escolher um arquivo"
+hash_file_drop:
+  other: "ou arraste para cá"
+hash_file_expected:
+  other: "Checksum esperado (opcional)"
+hash_file_expected_ph:
+  other: "Cole um hash, ou a linha do SHA256SUMS…"
+hash_file_algo:
+  other: "Algoritmo"
+hash_file_auto:
+  other: "Definido pelo checksum esperado: {algo}"
+hash_file_hashing:
+  other: "Calculando… {done} de {total}"
+hash_file_cancel:
+  other: "Cancelar"
+hash_file_result:
+  other: "Checksum"
+hash_file_meta:
+  other: "{name} · {size} · {s} s"
+hash_file_match:
+  other: "Confere: este arquivo é idêntico ao que gerou o checksum."
+hash_file_mismatch:
+  other: "Não confere: este arquivo não é o que gerou o checksum. Ele pode estar incompleto, corrompido ou ter sido substituído. Não abra; baixe de novo no site oficial."
+hash_file_bad_expected:
+  other: "Isso não parece um checksum MD5, SHA-1, SHA-256 ou SHA-512."
+hash_file_ambiguous:
+  other: "A lista colada tem {n} checksums e nenhum é de {name}. Cole só a linha deste arquivo."
+hash_file_weak:
+  other: "Colisões de MD5 e SHA-1 podem ser criadas de propósito, então uma correspondência só descarta danos acidentais. Prefira SHA-256 quando o autor publicar."
+hash_file_failed:
+  other: "Não foi possível ler o arquivo: {e}"
 b64_placeholder:
   other: "Texto para codificar ou string Base64 para decodificar…"
 b64_encode:
@@ -299,3 +335,37 @@ home_show_all:
   other: "Ver todas as {{ . }}"
 home_show_fewer:
   other: "Ver menos"
+pg_mode:
+  other: "Tipo"
+pg_mode_password:
+  other: "Senha"
+pg_mode_passphrase:
+  other: "Frase-senha"
+pg_generate_phrase:
+  other: "Gerar frase-senha"
+pg_words:
+  other: "Palavras"
+pg_wordlist:
+  other: "Lista de palavras"
+pg_separator:
+  other: "Separador"
+pg_sep_hyphen:
+  other: "Hífen"
+pg_sep_space:
+  other: "Espaço"
+pg_sep_dot:
+  other: "Ponto"
+pg_sep_none:
+  other: "Nenhum"
+pg_capitalize:
+  other: "Iniciais maiúsculas"
+pg_add_digit:
+  other: "Adicionar um dígito"
+pg_strip_accents:
+  other: "Remover acentos"
+pg_per_word:
+  other: "{bits} bits por palavra · lista de {n} palavras ({source})"
+pg_list_loading:
+  other: "Carregando a lista de palavras…"
+pg_list_failed:
+  other: "Não foi possível carregar a lista de palavras. Verifique sua conexão e tente de novo."

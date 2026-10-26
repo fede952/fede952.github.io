@@ -106,6 +106,21 @@ for (const f of files) {
   if (/exif:GPS(Latitude|Longitude)|<exif:GPS/i.test(b.toString('latin1'))) problems.push(`${f}: GPS in XMP`);
 }
 
+// Every third-party API a tool calls must be disclosed on all 6 privacy pages,
+// and a tool script may only fetch() an absolute URL on one of these hosts.
+const DISCLOSED = ['ipwho.is', 'api.pwnedpasswords.com', 'cloudflare-dns.com'];
+for (const l of ['', '.it', '.es', '.de', '.fr', '.pt']) {
+  const t = fs.readFileSync(`content/privacy/index${l}.md`, 'utf8');
+  for (const h of DISCLOSED) if (!t.includes(h)) problems.push(`content/privacy/index${l}.md: ${h} not disclosed`);
+}
+for (const f of files) {
+  if (!/^static\/(tools|js)\/.*\.(html|m?js)$/.test(f) || f.startsWith('static/vendor/')) continue;
+  let t;
+  try { t = fs.readFileSync(f, 'utf8'); } catch { continue; }
+  for (const m of t.matchAll(/(?:fetch\(\s*|_URL\s*=\s*)[`'"]https?:\/\/([^/`'"?]+)/g))
+    if (!DISCLOSED.includes(m[1])) problems.push(`${f}: fetches undisclosed host ${m[1]}`);
+}
+
 console.log(`privacy guard: ${files.length} tracked files, ${images} images checked, ${problems.length} problems`);
 for (const p of problems) console.log('  ' + p);
 process.exit(problems.length ? 1 : 0);

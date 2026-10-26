@@ -45,7 +45,8 @@ async function inspect(page, vp, isTool) {
     const controls = [];
     const frame = document.querySelector('iframe.tool-iframe');
     const SEL = 'button, input:not([type=hidden]), select, textarea, [role=button], label[for], .dropzone, .drop-zone, [class*=drop]';
-    const vis = (el, win) => { const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return false; const cs = win.getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none' && cs.opacity !== '0'; };
+    // content of a closed <details> still has layout boxes in Chromium, but is not on screen
+    const vis = (el, win) => { if (el.closest('details:not([open])') && !el.closest('summary')) return false; const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return false; const cs = win.getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none' && cs.opacity !== '0'; };
     if (frame && frame.contentDocument) {
       const fr = frame.getBoundingClientRect();
       for (const el of frame.contentDocument.querySelectorAll(SEL)) {

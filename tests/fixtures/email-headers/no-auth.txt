@@ -1,0 +1,11 @@
+Received: from relay.old-host.test (relay.old-host.test [192.0.2.200])
+	by mail.parcelux.example with SMTP id 555;
+	Thu, 23 Oct 2025 08:00:00 +0000
+Received: from desktop (unknown [192.0.2.201])
+	by relay.old-host.test with SMTP id 444;
+	Thu, 23 Oct 2025 10:30:00 +0000
+From: Parcelux <noreply@parcelux.example>
+To: alex@mail.example
+Subject: Delivery update
+Date: Thu, 23 Oct 2025 07:59:50 +0000
+Message-ID: <x99@parcelux.example>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/email-header-analyzer/">
+<title>Email Header Analyzer</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.bar { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+.tb-textarea { min-height: 220px; font-family: var(--font-mono); font-size: var(--fs-xs); }
+.verdict-box { display: flex; gap: var(--s-3); align-items: center; padding: var(--s-4); border-radius: var(--r); border: 1px solid var(--border-input); background: var(--bg-raised); }
+.verdict-box b { font-size: var(--fs-lg); }
+.v-ok { border-color: var(--success); } .v-ok b { color: var(--success); }
+.v-caution { border-color: var(--warn); } .v-caution b { color: var(--warn); }
+.v-danger { border-color: var(--danger); } .v-danger b { color: var(--danger); }
+h2.sec { margin: var(--s-4) 0 var(--s-2); font-size: var(--fs-md); }
+.kv { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.kv th, .kv td { padding: var(--s-2) var(--s-3); border-top: 1px solid var(--border); text-align: left; vertical-align: top; }
+.kv th { width: 9rem; color: var(--text-2); font-weight: 600; }
+.kv tbody th, .kv thead th { white-space: nowrap; }
+.kv td { overflow-wrap: break-word; word-break: break-word; }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--border-input); border-radius: var(--r-sm); }
+.res { display: inline-block; min-width: 4.5rem; padding: 1px var(--s-2); border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; text-align: center; }
+.r-pass { background: var(--success-soft); color: var(--success); } .r-fail { background: var(--danger-soft); color: var(--danger); }
+.r-warn { background: var(--warn-soft); color: var(--warn); } .r-none { background: var(--bg); color: var(--text-3); border: 1px solid var(--border-input); }
+.signals { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+.sig { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); padding: var(--s-3); border: 1px solid var(--border); border-left: 4px solid var(--border-input); border-radius: var(--r-sm); background: var(--bg-raised); }
+.sig p { margin: var(--s-1) 0 0; color: var(--text-2); font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.pill { display: inline-block; min-width: 4.5rem; padding: 2px var(--s-2); border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; text-align: center; white-space: nowrap; }
+.s-high { border-left-color: var(--danger); } .s-high .pill { background: var(--danger-soft); color: var(--danger); }
+.s-medium { border-left-color: var(--warn); } .s-medium .pill { background: var(--warn-soft); color: var(--warn); }
+.s-low { border-left-color: var(--accent); } .s-low .pill { background: var(--accent-soft); color: var(--accent); }
+.s-info .pill { border: 1px solid var(--border-input); color: var(--text-2); }
+.s-good { border-left-color: var(--success); } .s-good .pill { background: var(--success-soft); color: var(--success); }
+.hops { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+.hop { display: grid; grid-template-columns: 2rem 1fr; gap: var(--s-2); }
+.hop-n { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--surface-3); font-weight: 700; font-size: var(--fs-sm); }
+.hop-body { padding: var(--s-2) var(--s-3); border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg-raised); font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.hop-body code { font-size: var(--fs-xs); }
+.delay { color: var(--text-3); font-size: var(--fs-xs); }
+.delay.slow { color: var(--warn); }
+@media (max-width: 560px) { .sig { grid-template-columns: 1fr; } .pill { justify-self: start; } .kv th { width: auto; } }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 6 8.5-6"/><path d="M7 15h5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Email Header Analyzer</h1>
+      <p class="tb-sub" data-i18n="subtitle">Trace the route, check SPF/DKIM/DMARC and spot spoofing — in your browser</p>
+    </div>
+  </header>
+
+  <div class="tb-field">
+    <label class="tb-label" for="in" data-i18n="input">Raw email headers</label>
+    <textarea id="in" class="tb-textarea" spellcheck="false" autocomplete="off" data-i18n-placeholder="placeholder"></textarea>
+    <p class="tb-hint" data-i18n="hint">Paste the full headers (or the whole message source). Nothing is sent anywhere.</p>
+  </div>
+  <div class="bar">
+    <button type="button" class="tb-btn" id="go" data-i18n="analyze">Analyze</button>
+    <button type="button" class="tb-btn tb-btn--ghost" id="s-legit" data-i18n="sampleLegit">Sample: genuine</button>
+    <button type="button" class="tb-btn tb-btn--ghost" id="s-phish" data-i18n="samplePhish">Sample: phishing</button>
+    <button type="button" class="tb-btn tb-btn--ghost" id="clear" data-i18n="clear">Clear</button>
+  </div>
+  <div id="out" aria-live="polite"></div>
+</main>
+
+<script type="module">
+import { analyze, verdict, formatDelay } from '/js/tools/email-headers.mjs';
+const SAMPLES = {"legit":"Delivered-To: alex@mail.example\nReceived: by 2001:db8::5 with SMTP id k20csp1234567lfb;\n        Tue, 21 Oct 2025 09:14:07 -0700 (PDT)\nReceived: from mta-17.esp-mail.example (mta-17.esp-mail.example. [198.51.100.17])\n        by mx.mail.example with ESMTPS id x12-20020a0566001b0c00b003b1;\n        Tue, 21 Oct 2025 09:14:06 -0700 (PDT)\nReceived: from app-03.internal.streamora.example (app-03.internal.streamora.example [10.20.30.40])\n        by mta-17.esp-mail.example (Postfix) with ESMTP id 4F3A21C0;\n        Tue, 21 Oct 2025 16:14:04 +0000 (UTC)\nAuthentication-Results: mx.mail.example;\n       dkim=pass header.i=@streamora.example header.s=s1 header.b=AbCdEf12;\n       spf=pass (mx.mail.example: domain of bounces+812@em.streamora.example designates 198.51.100.17 as permitted sender) smtp.mailfrom=bounces+812@em.streamora.example;\n       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=streamora.example\nReturn-Path: <bounces+812@em.streamora.example>\nFrom: Streamora <billing@streamora.example>\nTo: alex@mail.example\nSubject: Your receipt\nDate: Tue, 21 Oct 2025 16:14:03 +0000\nMessage-ID: <20251021161403.4F3A21C0@em.streamora.example>\nMIME-Version: 1.0\nContent-Type: text/html; charset=utf-8","phish":"Delivered-To: alex@mail.example\nReceived: from mail.bulk-sender.test (unknown [203.0.113.66])\n        by mx.mail.example with ESMTP id 9f8e7d6c5b;\n        Mon, 20 Oct 2025 03:02:11 +0000\nReceived: from [192.0.2.10] (helo=localhost)\n        by mail.bulk-sender.test with esmtpa id 1q2w3e;\n        Mon, 20 Oct 2025 02:58:40 +0000\nAuthentication-Results: mx.mail.example;\n       spf=fail (mx.mail.example: domain of security@velorabank.example does not designate 203.0.113.66 as permitted sender) smtp.mailfrom=security@velorabank.example;\n       dkim=none;\n       dmarc=fail (p=REJECT sp=REJECT dis=QUARANTINE) header.from=velorabank.example\nReturn-Path: <security@velorabank.example>\nFrom: \"security@velorabank.example\" <alerts@velorabank-alerts.test>\nReply-To: Velorabank Support <recovery-desk@freemail.test>\nTo: alex@mail.example\nSubject: URGENT: your account will be suspended\nDate: Mon, 20 Oct 2025 02:58:39 +0000\nMessage-ID: <a1b2c3@localhost.localdomain>\nX-Mailer: PHPMailer 6.8.0\nMIME-Version: 1.0\n"};
+
+const SIG = {
+  en: {
+    empty: ['No headers found', 'Paste lines like "From: …" and "Received: …".'],
+    'no-from': ['No From address', 'A message without a valid From header is very unusual.'],
+    'display-name-address': ['The display name shows a different address', 'The name says {shown}, but the message really comes from {real}. A classic disguise: many apps show only the name.'],
+    'reply-to-mismatch': ['Replies go to another domain', 'Answers would go to {replyTo}, not to {from}. Phishers use this to receive your reply.'],
+    'return-path-mismatch': ['Return-Path is on another domain', 'Bounces go to {returnPath}. Normal for mailing services and lists; suspicious only together with other signals.'],
+    'message-id-mismatch': ['Message-ID from another domain', 'The ID was generated by {domain}. Common with mailing services; a "localhost" ID points to a script or a misconfigured server.'],
+    'no-auth-results': ['No authentication results', 'No Authentication-Results header: the receiving server recorded no SPF/DKIM/DMARC checks, or the headers are incomplete.'],
+    'spf-pass': ['SPF passed', 'The sending server is allowed to send for the envelope domain.'],
+    'spf-not-aligned': ['SPF passed for another domain', 'SPF passed for {domain}, which is not the From domain. DMARC then relies on DKIM.'],
+    'spf-fail': ['SPF failed', 'The sending server is not allowed to send for this domain: a strong sign of spoofing.'],
+    'spf-softfail': ['SPF soft fail', 'The domain says this server is probably not allowed to send for it.'],
+    'spf-other': ['SPF: {result}', 'SPF could not confirm the sender ({result}).'],
+    'spf-missing': ['No SPF result', 'The receiving server did not record an SPF check.'],
+    'dkim-aligned': ['DKIM signature valid for the From domain', 'Signed by {domain}: the message was not altered and comes from that domain.'],
+    'dkim-not-aligned': ['DKIM valid, but for another domain', 'Signed by {domain}, not by the From domain. Normal for mailing lists and some services.'],
+    'dkim-fail': ['DKIM signature failed', 'The signature does not match: the message was altered or the signature is forged.'],
+    'dkim-none': ['No DKIM signature', 'The message is not signed, so its origin cannot be confirmed cryptographically.'],
+    'dmarc-pass': ['DMARC passed', 'SPF or DKIM passed and matches the From domain.'],
+    'dmarc-fail': ['DMARC failed (policy: {policy})', 'Neither SPF nor DKIM confirms the From domain. The domain owner asks receivers to handle such mail as "{policy}".'],
+    'dmarc-other': ['DMARC: {result}', 'DMARC could not be evaluated ({result}).'],
+    'dmarc-missing': ['No DMARC result', 'The receiving server did not record a DMARC check.'],
+    'arc-present': ['ARC chain present ({n})', 'The message passed through an intermediary (a mailing list or forwarder) that recorded the original checks.'],
+    'bulk-mailer': ['Sent with a mass-mailing tool', 'X-Mailer: {mailer}. Normal for newsletters; unexpected for a personal or bank message.'],
+    'date-future': ['Date in the future', 'The Date header is later than now: forged or a badly set clock.'],
+    'clock-skew': ['Hop times go backwards', 'A server along the way has a wrong clock. Usually harmless; delays below may look odd.'],
+    'slow-hop': ['Long delay along the route', '{n} hop(s) took more than an hour: queued, retried or held for inspection.'],
+    'no-received': ['No Received headers', 'There is no route information: the headers are incomplete.'],
+  },
+};
+const UI = {
+  en: { title: 'Email Header Analyzer', subtitle: 'Trace the route, check SPF/DKIM/DMARC and spot spoofing — in your browser',
+    input: 'Raw email headers', placeholder: 'Delivered-To: …\nReceived: from …\nAuthentication-Results: …\nFrom: …', hint: 'Paste the full headers (or the whole message source). Nothing is sent anywhere.',
+    analyze: 'Analyze', sampleLegit: 'Sample: genuine', samplePhish: 'Sample: phishing', clear: 'Clear',
+    v_ok: 'No warning signs', v_caution: 'Some warning signs', v_danger: 'Likely spoofed or phishing',
+    vd_ok: 'The checks below are consistent with a genuine message. Still judge the content.', vd_caution: 'Look at the signals before trusting this message.', vd_danger: 'Do not click links or reply. Report it.',
+    identity: 'Sender identity', auth: 'Authentication', route: 'Route ({n} hops, oldest first)', signals: 'Signals',
+    from: 'From', replyTo: 'Reply-To', returnPath: 'Return-Path', sender: 'Sender', msgid: 'Message-ID domain', mailer: 'Mailer', none: '—',
+    method: 'Check', result: 'Result', detail: 'Details', by: 'by', with: 'with', ip: 'IP', delay: 'after {d}', firstHop: 'first hop',
+    s: 's', min: 'min', h: 'h', high: 'High', medium: 'Medium', low: 'Low', info: 'Info', good: 'OK', authserv: 'Checked by {s}' },
+};
+
+/* translations (UI + signals) */
+Object.assign(UI, {
+  it: { title: 'Analizzatore di header email', subtitle: 'Ricostruisci il percorso, controlla SPF/DKIM/DMARC e scopri lo spoofing — nel browser',
+    input: 'Header email grezzi', placeholder: 'Delivered-To: …\nReceived: from …\nAuthentication-Results: …\nFrom: …', hint: 'Incolla gli header completi (o tutto il sorgente del messaggio). Non viene inviato nulla.',
+    analyze: 'Analizza', sampleLegit: 'Esempio: autentica', samplePhish: 'Esempio: phishing', clear: 'Svuota',
+    v_ok: 'Nessun segnale d\'allarme', v_caution: 'Alcuni segnali d\'allarme', v_danger: 'Probabile spoofing o phishing',
+    vd_ok: 'I controlli qui sotto sono coerenti con un messaggio autentico. Valuta comunque il contenuto.', vd_caution: 'Guarda i segnali prima di fidarti di questo messaggio.', vd_danger: 'Non cliccare i link e non rispondere. Segnalalo.',
+    identity: 'Identità del mittente', auth: 'Autenticazione', route: 'Percorso ({n} passaggi, dal più vecchio)', signals: 'Segnali',
+    from: 'Da', replyTo: 'Rispondi a', returnPath: 'Return-Path', sender: 'Sender', msgid: 'Dominio del Message-ID', mailer: 'Programma di invio', none: '—',
+    method: 'Controllo', result: 'Esito', detail: 'Dettagli', by: 'da', with: 'con', ip: 'IP', delay: 'dopo {d}', firstHop: 'primo passaggio',
+    s: 's', min: 'min', h: 'h', high: 'Grave', medium: 'Medio', low: 'Lieve', info: 'Info', good: 'OK', authserv: 'Verificato da {s}' },
+  es: { title: 'Analizador de cabeceras de correo', subtitle: 'Sigue la ruta, comprueba SPF/DKIM/DMARC y detecta suplantaciones — en tu navegador',
+    input: 'Cabeceras del correo', placeholder: 'Delivered-To: …\nReceived: from …\nAuthentication-Results: …\nFrom: …', hint: 'Pega las cabeceras completas (o todo el código fuente del mensaje). No se envía nada.',
+    analyze: 'Analizar', sampleLegit: 'Ejemplo: auténtico', samplePhish: 'Ejemplo: phishing', clear: 'Vaciar',
+    v_ok: 'Sin señales de alarma', v_caution: 'Algunas señales de alarma', v_danger: 'Probable suplantación o phishing',
+    vd_ok: 'Las comprobaciones de abajo encajan con un mensaje auténtico. Valora igualmente el contenido.', vd_caution: 'Mira las señales antes de fiarte de este mensaje.', vd_danger: 'No pulses enlaces ni respondas. Denúncialo.',
+    identity: 'Identidad del remitente', auth: 'Autenticación', route: 'Ruta ({n} saltos, del más antiguo)', signals: 'Señales',
+    from: 'De', replyTo: 'Responder a', returnPath: 'Return-Path', sender: 'Sender', msgid: 'Dominio del Message-ID', mailer: 'Programa de envío', none: '—',
+    method: 'Comprobación', result: 'Resultado', detail: 'Detalles', by: 'por', with: 'con', ip: 'IP', delay: 'tras {d}', firstHop: 'primer salto',
+    s: 's', min: 'min', h: 'h', high: 'Grave', medium: 'Medio', low: 'Leve', info: 'Info', good: 'OK', authserv: 'Comprobado por {s}' },
+  de: { title: 'E-Mail-Header-Analyse', subtitle: 'Weg nachverfolgen, SPF/DKIM/DMARC prüfen und Spoofing erkennen – im Browser',
+    input: 'Rohe E-Mail-Header', placeholder: 'Delivered-To: …\nReceived: from …\nAuthentication-Results: …\nFrom: …', hint: 'Fügen Sie die vollständigen Header (oder den ganzen Quelltext der Nachricht) ein. Nichts wird gesendet.',
+    analyze: 'Analysieren', sampleLegit: 'Beispiel: echt', samplePhish: 'Beispiel: Phishing', clear: 'Leeren',
+    v_ok: 'Keine Warnsignale', v_caution: 'Einige Warnsignale', v_danger: 'Wahrscheinlich gefälscht oder Phishing',
+    vd_ok: 'Die Prüfungen unten passen zu einer echten Nachricht. Beurteilen Sie trotzdem den Inhalt.', vd_caution: 'Sehen Sie sich die Signale an, bevor Sie der Nachricht vertrauen.', vd_danger: 'Keine Links anklicken und nicht antworten. Melden Sie die Nachricht.',
+    identity: 'Absender-Identität', auth: 'Authentifizierung', route: 'Weg ({n} Stationen, älteste zuerst)', signals: 'Signale',
+    from: 'Von', replyTo: 'Antwort an', returnPath: 'Return-Path', sender: 'Sender', msgid: 'Domain der Message-ID', mailer: 'Versandprogramm', none: '—',
+    method: 'Prüfung', result: 'Ergebnis', detail: 'Details', by: 'durch', with: 'mit', ip: 'IP', delay: 'nach {d}', firstHop: 'erste Station',
+    s: 's', min: 'min', h: 'h', high: 'Hoch', medium: 'Mittel', low: 'Gering', info: 'Info', good: 'OK', authserv: 'Geprüft von {s}' },
+  fr: { title: 'Analyseur d\'en-têtes d\'e-mail', subtitle: 'Retracez le parcours, vérifiez SPF/DKIM/DMARC et repérez l\'usurpation — dans le navigateur',
+    input: 'En-têtes bruts de l\'e-mail', placeholder: 'Delivered-To: …\nReceived: from …\nAuthentication-Results: …\nFrom: …', hint: 'Collez les en-têtes complets (ou toute la source du message). Rien n\'est envoyé.',
+    analyze: 'Analyser', sampleLegit: 'Exemple : authentique', samplePhish: 'Exemple : hameçonnage', clear: 'Vider',
+    v_ok: 'Aucun signal d\'alerte', v_caution: 'Quelques signaux d\'alerte', v_danger: 'Probablement usurpé ou frauduleux',
+    vd_ok: 'Les vérifications ci-dessous correspondent à un message authentique. Jugez quand même le contenu.', vd_caution: 'Regardez les signaux avant de faire confiance à ce message.', vd_danger: 'Ne cliquez sur aucun lien et ne répondez pas. Signalez-le.',
+    identity: 'Identité de l\'expéditeur', auth: 'Authentification', route: 'Parcours ({n} étapes, de la plus ancienne)', signals: 'Signaux',
+    from: 'De', replyTo: 'Répondre à', returnPath: 'Return-Path', sender: 'Sender', msgid: 'Domaine du Message-ID', mailer: 'Logiciel d\'envoi', none: '—',
+    method: 'Contrôle', result: 'Résultat', detail: 'Détails', by: 'par', with: 'avec', ip: 'IP', delay: 'après {d}', firstHop: 'première étape',
+    s: 's', min: 'min', h: 'h', high: 'Élevé', medium: 'Moyen', low: 'Faible', info: 'Info', good: 'OK', authserv: 'Vérifié par {s}' },
+  pt: { title: 'Analisador de cabeçalhos de e-mail', subtitle: 'Rastreie o caminho, confira SPF/DKIM/DMARC e detecte falsificação — no navegador',
+    input: 'Cabeçalhos brutos do e-mail', placeholder: 'Delivered-To: …\nReceived: from …\nAuthentication-Results: …\nFrom: …', hint: 'Cole os cabeçalhos completos (ou todo o código-fonte da mensagem). Nada é enviado.',
+    analyze: 'Analisar', sampleLegit: 'Exemplo: autêntico', samplePhish: 'Exemplo: phishing', clear: 'Limpar',
+    v_ok: 'Nenhum sinal de alerta', v_caution: 'Alguns sinais de alerta', v_danger: 'Provável falsificação ou phishing',
+    vd_ok: 'As verificações abaixo batem com uma mensagem autêntica. Mesmo assim, avalie o conteúdo.', vd_caution: 'Veja os sinais antes de confiar nesta mensagem.', vd_danger: 'Não clique em links nem responda. Denuncie.',
+    identity: 'Identidade do remetente', auth: 'Autenticação', route: 'Caminho ({n} saltos, do mais antigo)', signals: 'Sinais',
+    from: 'De', replyTo: 'Responder para', returnPath: 'Return-Path', sender: 'Sender', msgid: 'Domínio do Message-ID', mailer: 'Programa de envio', none: '—',
+    method: 'Verificação', result: 'Resultado', detail: 'Detalhes', by: 'por', with: 'com', ip: 'IP', delay: 'depois de {d}', firstHop: 'primeiro salto',
+    s: 's', min: 'min', h: 'h', high: 'Grave', medium: 'Médio', low: 'Leve', info: 'Info', good: 'OK', authserv: 'Verificado por {s}' },
+});
+Object.assign(SIG, {
+  it: {
+    empty: ['Nessun header trovato', 'Incolla righe come "From: …" e "Received: …".'],
+    'no-from': ['Nessun indirizzo From', 'Un messaggio senza un header From valido è molto insolito.'],
+    'display-name-address': ['Il nome visualizzato mostra un altro indirizzo', 'Il nome dice {shown}, ma il messaggio arriva davvero da {real}. Un travestimento classico: molte app mostrano solo il nome.'],
+    'reply-to-mismatch': ['Le risposte vanno a un altro dominio', 'Le risposte andrebbero a {replyTo}, non a {from}. I truffatori lo usano per ricevere la tua risposta.'],
+    'return-path-mismatch': ['Return-Path su un altro dominio', 'I messaggi di errore vanno a {returnPath}. Normale per i servizi di invio e le liste; sospetto solo insieme ad altri segnali.'],
+    'message-id-mismatch': ['Message-ID di un altro dominio', 'L\'ID è stato generato da {domain}. Comune con i servizi di invio; un ID "localhost" indica uno script o un server mal configurato.'],
+    'no-auth-results': ['Nessun risultato di autenticazione', 'Manca l\'header Authentication-Results: il server di ricezione non ha registrato controlli SPF/DKIM/DMARC, oppure gli header sono incompleti.'],
+    'spf-pass': ['SPF superato', 'Il server mittente è autorizzato a inviare per il dominio della busta.'],
+    'spf-not-aligned': ['SPF superato per un altro dominio', 'SPF è passato per {domain}, che non è il dominio del From. DMARC si basa allora su DKIM.'],
+    'spf-fail': ['SPF fallito', 'Il server mittente non è autorizzato a inviare per questo dominio: un forte indizio di spoofing.'],
+    'spf-softfail': ['SPF soft fail', 'Il dominio dichiara che questo server probabilmente non è autorizzato a inviare per lui.'],
+    'spf-other': ['SPF: {result}', 'SPF non ha potuto confermare il mittente ({result}).'],
+    'spf-missing': ['Nessun risultato SPF', 'Il server di ricezione non ha registrato un controllo SPF.'],
+    'dkim-aligned': ['Firma DKIM valida per il dominio del From', 'Firmato da {domain}: il messaggio non è stato alterato e arriva da quel dominio.'],
+    'dkim-not-aligned': ['DKIM valida, ma per un altro dominio', 'Firmato da {domain}, non dal dominio del From. Normale per mailing list e alcuni servizi.'],
+    'dkim-fail': ['Firma DKIM non valida', 'La firma non corrisponde: il messaggio è stato alterato o la firma è falsa.'],
+    'dkim-none': ['Nessuna firma DKIM', 'Il messaggio non è firmato, quindi la sua origine non si può confermare crittograficamente.'],
+    'dmarc-pass': ['DMARC superato', 'SPF o DKIM è passato e corrisponde al dominio del From.'],
+    'dmarc-fail': ['DMARC fallito (policy: {policy})', 'Né SPF né DKIM confermano il dominio del From. Il titolare del dominio chiede di trattare questi messaggi come "{policy}".'],
+    'dmarc-other': ['DMARC: {result}', 'DMARC non è stato valutato ({result}).'],
+    'dmarc-missing': ['Nessun risultato DMARC', 'Il server di ricezione non ha registrato un controllo DMARC.'],
+    'arc-present': ['Catena ARC presente ({n})', 'Il messaggio è passato da un intermediario (una mailing list o un inoltro) che ha registrato i controlli originali.'],
+    'bulk-mailer': ['Inviato con uno strumento di invio massivo', 'X-Mailer: {mailer}. Normale per le newsletter; strano per un messaggio personale o della banca.'],
+    'date-future': ['Data nel futuro', 'L\'header Date è successivo a ora: falsificato o con un orologio sbagliato.'],
+    'clock-skew': ['Gli orari dei passaggi tornano indietro', 'Un server lungo il percorso ha l\'orologio sbagliato. Di solito innocuo; i ritardi qui sotto possono sembrare strani.'],
+    'slow-hop': ['Lungo ritardo lungo il percorso', '{n} passaggi hanno richiesto più di un\'ora: messaggio in coda, ritentato o trattenuto per un controllo.'],
+    'no-received': ['Nessun header Received', 'Mancano le informazioni sul percorso: gli header sono incompleti.'],
+  },
+  es: {
+    empty: ['No se han encontrado cabeceras', 'Pega líneas como "From: …" y "Received: …".'],
+    'no-from': ['Sin dirección From', 'Un mensaje sin una cabecera From válida es muy raro.'],
+    'display-name-address': ['El nombre visible muestra otra dirección', 'El nombre dice {shown}, pero el mensaje viene en realidad de {real}. Un disfraz clásico: muchas apps solo muestran el nombre.'],
+    'reply-to-mismatch': ['Las respuestas van a otro dominio', 'Las respuestas irían a {replyTo}, no a {from}. Los estafadores lo usan para recibir tu respuesta.'],
+    'return-path-mismatch': ['Return-Path en otro dominio', 'Los rebotes van a {returnPath}. Normal en servicios de envío y listas; sospechoso solo junto a otras señales.'],
+    'message-id-mismatch': ['Message-ID de otro dominio', 'El ID lo generó {domain}. Habitual con servicios de envío; un ID "localhost" apunta a un script o a un servidor mal configurado.'],
+    'no-auth-results': ['Sin resultados de autenticación', 'Falta la cabecera Authentication-Results: el servidor receptor no registró comprobaciones SPF/DKIM/DMARC o las cabeceras están incompletas.'],
+    'spf-pass': ['SPF superado', 'El servidor emisor está autorizado a enviar por el dominio del sobre.'],
+    'spf-not-aligned': ['SPF superado para otro dominio', 'SPF pasó para {domain}, que no es el dominio del From. DMARC depende entonces de DKIM.'],
+    'spf-fail': ['SPF fallido', 'El servidor emisor no está autorizado a enviar por este dominio: un indicio fuerte de suplantación.'],
+    'spf-softfail': ['SPF soft fail', 'El dominio indica que este servidor probablemente no está autorizado a enviar por él.'],
+    'spf-other': ['SPF: {result}', 'SPF no pudo confirmar el remitente ({result}).'],
+    'spf-missing': ['Sin resultado SPF', 'El servidor receptor no registró una comprobación SPF.'],
+    'dkim-aligned': ['Firma DKIM válida para el dominio del From', 'Firmado por {domain}: el mensaje no se alteró y viene de ese dominio.'],
+    'dkim-not-aligned': ['DKIM válida, pero de otro dominio', 'Firmado por {domain}, no por el dominio del From. Normal en listas de correo y algunos servicios.'],
+    'dkim-fail': ['Firma DKIM fallida', 'La firma no coincide: el mensaje se alteró o la firma es falsa.'],
+    'dkim-none': ['Sin firma DKIM', 'El mensaje no está firmado, así que su origen no se puede confirmar criptográficamente.'],
+    'dmarc-pass': ['DMARC superado', 'SPF o DKIM pasó y coincide con el dominio del From.'],
+    'dmarc-fail': ['DMARC fallido (política: {policy})', 'Ni SPF ni DKIM confirman el dominio del From. El dueño del dominio pide tratar este correo como "{policy}".'],
+    'dmarc-other': ['DMARC: {result}', 'DMARC no se pudo evaluar ({result}).'],
+    'dmarc-missing': ['Sin resultado DMARC', 'El servidor receptor no registró una comprobación DMARC.'],
+    'arc-present': ['Cadena ARC presente ({n})', 'El mensaje pasó por un intermediario (una lista o un reenvío) que registró las comprobaciones originales.'],
+    'bulk-mailer': ['Enviado con una herramienta de envío masivo', 'X-Mailer: {mailer}. Normal en boletines; extraño en un mensaje personal o del banco.'],
+    'date-future': ['Fecha en el futuro', 'La cabecera Date es posterior a ahora: falsificada o con un reloj mal ajustado.'],
+    'clock-skew': ['Las horas de los saltos van hacia atrás', 'Un servidor del camino tiene mal el reloj. Suele ser inofensivo; los retrasos de abajo pueden parecer raros.'],
+    'slow-hop': ['Retraso largo en la ruta', '{n} salto(s) tardaron más de una hora: en cola, reintentado o retenido para revisión.'],
+    'no-received': ['Sin cabeceras Received', 'No hay información de la ruta: las cabeceras están incompletas.'],
+  },
+  de: {
+    empty: ['Keine Header gefunden', 'Fügen Sie Zeilen wie „From: …“ und „Received: …“ ein.'],
+    'no-from': ['Keine From-Adresse', 'Eine Nachricht ohne gültigen From-Header ist sehr ungewöhnlich.'],
+    'display-name-address': ['Der Anzeigename zeigt eine andere Adresse', 'Der Name lautet {shown}, die Nachricht kommt aber tatsächlich von {real}. Eine klassische Tarnung: Viele Apps zeigen nur den Namen.'],
+    'reply-to-mismatch': ['Antworten gehen an eine andere Domain', 'Antworten gingen an {replyTo}, nicht an {from}. Betrüger nutzen das, um Ihre Antwort zu erhalten.'],
+    'return-path-mismatch': ['Return-Path auf einer anderen Domain', 'Unzustellbarkeitsmeldungen gehen an {returnPath}. Normal bei Versanddiensten und Listen; verdächtig nur zusammen mit anderen Signalen.'],
+    'message-id-mismatch': ['Message-ID von einer anderen Domain', 'Die ID wurde von {domain} erzeugt. Üblich bei Versanddiensten; eine „localhost“-ID deutet auf ein Skript oder einen falsch konfigurierten Server.'],
+    'no-auth-results': ['Keine Authentifizierungsergebnisse', 'Es fehlt der Header Authentication-Results: Der empfangende Server hat keine SPF/DKIM/DMARC-Prüfung vermerkt, oder die Header sind unvollständig.'],
+    'spf-pass': ['SPF bestanden', 'Der sendende Server darf für die Envelope-Domain senden.'],
+    'spf-not-aligned': ['SPF für eine andere Domain bestanden', 'SPF ist für {domain} bestanden, nicht für die From-Domain. DMARC hängt dann von DKIM ab.'],
+    'spf-fail': ['SPF fehlgeschlagen', 'Der sendende Server darf für diese Domain nicht senden: ein starkes Zeichen für Spoofing.'],
+    'spf-softfail': ['SPF Softfail', 'Die Domain gibt an, dass dieser Server wahrscheinlich nicht für sie senden darf.'],
+    'spf-other': ['SPF: {result}', 'SPF konnte den Absender nicht bestätigen ({result}).'],
+    'spf-missing': ['Kein SPF-Ergebnis', 'Der empfangende Server hat keine SPF-Prüfung vermerkt.'],
+    'dkim-aligned': ['DKIM-Signatur gültig für die From-Domain', 'Signiert von {domain}: Die Nachricht wurde nicht verändert und kommt von dieser Domain.'],
+    'dkim-not-aligned': ['DKIM gültig, aber für eine andere Domain', 'Signiert von {domain}, nicht von der From-Domain. Normal bei Mailinglisten und manchen Diensten.'],
+    'dkim-fail': ['DKIM-Signatur ungültig', 'Die Signatur passt nicht: Die Nachricht wurde verändert oder die Signatur ist gefälscht.'],
+    'dkim-none': ['Keine DKIM-Signatur', 'Die Nachricht ist nicht signiert, ihre Herkunft lässt sich also nicht kryptografisch bestätigen.'],
+    'dmarc-pass': ['DMARC bestanden', 'SPF oder DKIM ist bestanden und passt zur From-Domain.'],
+    'dmarc-fail': ['DMARC fehlgeschlagen (Richtlinie: {policy})', 'Weder SPF noch DKIM bestätigen die From-Domain. Der Domaininhaber bittet, solche Mails als „{policy}“ zu behandeln.'],
+    'dmarc-other': ['DMARC: {result}', 'DMARC konnte nicht ausgewertet werden ({result}).'],
+    'dmarc-missing': ['Kein DMARC-Ergebnis', 'Der empfangende Server hat keine DMARC-Prüfung vermerkt.'],
+    'arc-present': ['ARC-Kette vorhanden ({n})', 'Die Nachricht lief über einen Zwischenschritt (eine Mailingliste oder Weiterleitung), der die ursprünglichen Prüfungen festgehalten hat.'],
+    'bulk-mailer': ['Mit einem Massenversand-Tool gesendet', 'X-Mailer: {mailer}. Normal für Newsletter; unerwartet für eine persönliche oder Bank-Nachricht.'],
+    'date-future': ['Datum in der Zukunft', 'Der Date-Header liegt nach jetzt: gefälscht oder falsch gestellte Uhr.'],
+    'clock-skew': ['Stationszeiten laufen rückwärts', 'Ein Server unterwegs hat eine falsche Uhr. Meist harmlos; die Verzögerungen unten können seltsam aussehen.'],
+    'slow-hop': ['Lange Verzögerung unterwegs', '{n} Station(en) brauchten über eine Stunde: in der Warteschlange, erneut versucht oder zur Prüfung zurückgehalten.'],
+    'no-received': ['Keine Received-Header', 'Es gibt keine Weginformationen: Die Header sind unvollständig.'],
+  },
+  fr: {
+    empty: ['Aucun en-tête trouvé', 'Collez des lignes comme « From: … » et « Received: … ».'],
+    'no-from': ['Pas d\'adresse From', 'Un message sans en-tête From valide est très inhabituel.'],
+    'display-name-address': ['Le nom affiché montre une autre adresse', 'Le nom indique {shown}, mais le message vient en réalité de {real}. Un déguisement classique : beaucoup d\'applications n\'affichent que le nom.'],
+    'reply-to-mismatch': ['Les réponses partent vers un autre domaine', 'Les réponses iraient à {replyTo}, pas à {from}. Les escrocs s\'en servent pour recevoir votre réponse.'],
+    'return-path-mismatch': ['Return-Path sur un autre domaine', 'Les retours d\'erreur vont à {returnPath}. Normal pour les services d\'envoi et les listes ; suspect seulement avec d\'autres signaux.'],
+    'message-id-mismatch': ['Message-ID d\'un autre domaine', 'L\'identifiant a été créé par {domain}. Courant avec les services d\'envoi ; un identifiant « localhost » trahit un script ou un serveur mal configuré.'],
+    'no-auth-results': ['Aucun résultat d\'authentification', 'Pas d\'en-tête Authentication-Results : le serveur de réception n\'a noté aucun contrôle SPF/DKIM/DMARC, ou les en-têtes sont incomplets.'],
+    'spf-pass': ['SPF réussi', 'Le serveur d\'envoi est autorisé à envoyer pour le domaine de l\'enveloppe.'],
+    'spf-not-aligned': ['SPF réussi pour un autre domaine', 'SPF est passé pour {domain}, qui n\'est pas le domaine du From. DMARC repose alors sur DKIM.'],
+    'spf-fail': ['SPF en échec', 'Le serveur d\'envoi n\'est pas autorisé à envoyer pour ce domaine : un fort indice d\'usurpation.'],
+    'spf-softfail': ['SPF soft fail', 'Le domaine indique que ce serveur n\'est probablement pas autorisé à envoyer pour lui.'],
+    'spf-other': ['SPF : {result}', 'SPF n\'a pas pu confirmer l\'expéditeur ({result}).'],
+    'spf-missing': ['Aucun résultat SPF', 'Le serveur de réception n\'a pas noté de contrôle SPF.'],
+    'dkim-aligned': ['Signature DKIM valide pour le domaine du From', 'Signé par {domain} : le message n\'a pas été modifié et vient de ce domaine.'],
+    'dkim-not-aligned': ['DKIM valide, mais pour un autre domaine', 'Signé par {domain}, pas par le domaine du From. Normal pour les listes de diffusion et certains services.'],
+    'dkim-fail': ['Signature DKIM en échec', 'La signature ne correspond pas : le message a été modifié ou la signature est falsifiée.'],
+    'dkim-none': ['Pas de signature DKIM', 'Le message n\'est pas signé : son origine ne peut pas être confirmée cryptographiquement.'],
+    'dmarc-pass': ['DMARC réussi', 'SPF ou DKIM est passé et correspond au domaine du From.'],
+    'dmarc-fail': ['DMARC en échec (politique : {policy})', 'Ni SPF ni DKIM ne confirment le domaine du From. Le titulaire du domaine demande de traiter ce courrier en « {policy} ».'],
+    'dmarc-other': ['DMARC : {result}', 'DMARC n\'a pas pu être évalué ({result}).'],
+    'dmarc-missing': ['Aucun résultat DMARC', 'Le serveur de réception n\'a pas noté de contrôle DMARC.'],
+    'arc-present': ['Chaîne ARC présente ({n})', 'Le message est passé par un intermédiaire (liste de diffusion ou transfert) qui a noté les contrôles d\'origine.'],
+    'bulk-mailer': ['Envoyé avec un outil d\'envoi en masse', 'X-Mailer : {mailer}. Normal pour une lettre d\'information ; inattendu pour un message personnel ou bancaire.'],
+    'date-future': ['Date dans le futur', 'L\'en-tête Date est postérieur à maintenant : falsifié ou horloge mal réglée.'],
+    'clock-skew': ['Les heures des étapes reculent', 'Un serveur du parcours a une horloge fausse. Généralement sans gravité ; les délais ci-dessous peuvent sembler étranges.'],
+    'slow-hop': ['Long délai sur le parcours', '{n} étape(s) ont pris plus d\'une heure : file d\'attente, nouvel essai ou retenue pour contrôle.'],
+    'no-received': ['Aucun en-tête Received', 'Il n\'y a aucune information de parcours : les en-têtes sont incomplets.'],
+  },
+  pt: {
+    empty: ['Nenhum cabeçalho encontrado', 'Cole linhas como "From: …" e "Received: …".'],
+    'no-from': ['Sem endereço From', 'Uma mensagem sem um cabeçalho From válido é muito incomum.'],
+    'display-name-address': ['O nome exibido mostra outro endereço', 'O nome diz {shown}, mas a mensagem vem na verdade de {real}. Um disfarce clássico: muitos apps mostram só o nome.'],
+    'reply-to-mismatch': ['As respostas vão para outro domínio', 'As respostas iriam para {replyTo}, não para {from}. Golpistas usam isso para receber sua resposta.'],
+    'return-path-mismatch': ['Return-Path em outro domínio', 'As devoluções vão para {returnPath}. Normal em serviços de envio e listas; suspeito só junto com outros sinais.'],
+    'message-id-mismatch': ['Message-ID de outro domínio', 'O ID foi gerado por {domain}. Comum em serviços de envio; um ID "localhost" indica um script ou um servidor mal configurado.'],
+    'no-auth-results': ['Sem resultados de autenticação', 'Não há cabeçalho Authentication-Results: o servidor de recebimento não registrou verificações SPF/DKIM/DMARC, ou os cabeçalhos estão incompletos.'],
+    'spf-pass': ['SPF aprovado', 'O servidor de envio tem permissão para enviar pelo domínio do envelope.'],
+    'spf-not-aligned': ['SPF aprovado para outro domínio', 'O SPF passou para {domain}, que não é o domínio do From. O DMARC então depende do DKIM.'],
+    'spf-fail': ['SPF reprovado', 'O servidor de envio não tem permissão para enviar por este domínio: um forte indício de falsificação.'],
+    'spf-softfail': ['SPF soft fail', 'O domínio indica que este servidor provavelmente não tem permissão para enviar por ele.'],
+    'spf-other': ['SPF: {result}', 'O SPF não conseguiu confirmar o remetente ({result}).'],
+    'spf-missing': ['Sem resultado SPF', 'O servidor de recebimento não registrou uma verificação SPF.'],
+    'dkim-aligned': ['Assinatura DKIM válida para o domínio do From', 'Assinado por {domain}: a mensagem não foi alterada e vem desse domínio.'],
+    'dkim-not-aligned': ['DKIM válido, mas de outro domínio', 'Assinado por {domain}, não pelo domínio do From. Normal em listas de e-mail e alguns serviços.'],
+    'dkim-fail': ['Assinatura DKIM inválida', 'A assinatura não confere: a mensagem foi alterada ou a assinatura é falsa.'],
+    'dkim-none': ['Sem assinatura DKIM', 'A mensagem não é assinada, então a origem não pode ser confirmada criptograficamente.'],
+    'dmarc-pass': ['DMARC aprovado', 'SPF ou DKIM passou e corresponde ao domínio do From.'],
+    'dmarc-fail': ['DMARC reprovado (política: {policy})', 'Nem SPF nem DKIM confirmam o domínio do From. O dono do domínio pede para tratar esse e-mail como "{policy}".'],
+    'dmarc-other': ['DMARC: {result}', 'O DMARC não pôde ser avaliado ({result}).'],
+    'dmarc-missing': ['Sem resultado DMARC', 'O servidor de recebimento não registrou uma verificação DMARC.'],
+    'arc-present': ['Cadeia ARC presente ({n})', 'A mensagem passou por um intermediário (uma lista ou um encaminhamento) que registrou as verificações originais.'],
+    'bulk-mailer': ['Enviado com ferramenta de envio em massa', 'X-Mailer: {mailer}. Normal em newsletters; estranho numa mensagem pessoal ou do banco.'],
+    'date-future': ['Data no futuro', 'O cabeçalho Date é posterior a agora: falsificado ou com relógio errado.'],
+    'clock-skew': ['Os horários dos saltos voltam no tempo', 'Um servidor no caminho está com o relógio errado. Normalmente inofensivo; os atrasos abaixo podem parecer estranhos.'],
+    'slow-hop': ['Atraso longo no caminho', '{n} salto(s) levaram mais de uma hora: em fila, reenviados ou retidos para inspeção.'],
+    'no-received': ['Sem cabeçalhos Received', 'Não há informação de caminho: os cabeçalhos estão incompletos.'],
+  },
+});
+
+TK.init(UI);
+const S = Object.assign({}, SIG.en, SIG[TK.lang] || {});
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+const fill = (s, p) => s.replace(/\{(\w+)\}/g, (m, k) => (p[k] !== undefined ? p[k] : m));
+const resClass = (r) => !r ? 'r-none' : r === 'pass' ? 'r-pass' : /fail/.test(r) && r !== 'softfail' ? 'r-fail' : r === 'none' ? 'r-none' : 'r-warn';
+
+function run() {
+  const r = analyze($('in').value);
+  if (r.signals.length === 1 && r.signals[0].id === 'empty') { $('out').innerHTML = $('in').value.trim() ? `<p class="tb-note tb-note--warn">${esc(S.empty[0])}. ${esc(S.empty[1])}</p>` : ''; return; }
+  const v = verdict(r.signals);
+  const addr = (a) => (a ? esc(a.name ? `${a.name} <${a.address}>` : a.address) : t('none'));
+  const html = [];
+  html.push(`<div class="verdict-box v-${v}" role="status"><div><b>${esc(t('v_' + v))}</b><p class="tb-hint" style="margin:0">${esc(t('vd_' + v))}</p></div></div>`);
+  html.push(`<h2 class="sec">${esc(t('signals'))}</h2><ul class="signals">`);
+  for (const s of r.signals) {
+    const [title, text] = (S[s.id] || [s.id, '']).map((x) => fill(x, s.p));
+    html.push(`<li class="sig s-${s.sev}" data-id="${s.id}"><span class="pill">${esc(t(s.sev))}</span><div><strong>${esc(title)}</strong><p>${esc(text)}</p></div></li>`);
+  }
+  html.push('</ul>');
+  html.push(`<h2 class="sec">${esc(t('identity'))}</h2><div class="tbl-wrap"><table class="kv"><tbody>
+    <tr><th scope="row">${esc(t('from'))}</th><td>${addr(r.from)}</td></tr>
+    <tr><th scope="row">${esc(t('replyTo'))}</th><td>${addr(r.replyTo)}</td></tr>
+    <tr><th scope="row">${esc(t('returnPath'))}</th><td>${addr(r.returnPath)}</td></tr>
+    ${r.sender ? `<tr><th scope="row">${esc(t('sender'))}</th><td>${addr(r.sender)}</td></tr>` : ''}
+    <tr><th scope="row">${esc(t('msgid'))}</th><td>${esc(r.messageIdDomain || t('none'))}</td></tr>
+    <tr><th scope="row">${esc(t('mailer'))}</th><td>${esc(r.mailer || t('none'))}</td></tr></tbody></table></div>`);
+  if (r.auth) {
+    const rows = [['SPF', r.auth.spf, r.auth.spf ? r.auth.spf.props['smtp.mailfrom'] : ''],
+      ...r.auth.dkim.map((d) => ['DKIM', d, [d.props['header.d'] || d.props['header.i'], d.props['header.s'] && `s=${d.props['header.s']}`].filter(Boolean).join(' ')]),
+      ['DMARC', r.auth.dmarc, r.auth.dmarc ? [r.auth.dmarc.props['header.from'], r.auth.dmarc.policy && `p=${r.auth.dmarc.policy}`].filter(Boolean).join(' ') : ''],
+      ...(r.auth.arc ? [['ARC', r.auth.arc, '']] : [])];
+    if (!r.auth.dkim.length) rows.splice(1, 0, ['DKIM', null, '']);
+    html.push(`<h2 class="sec">${esc(t('auth'))}</h2><p class="tb-hint">${esc(t('authserv', { s: r.auth.authserv }))}</p><div class="tbl-wrap"><table class="kv"><thead><tr><th scope="col">${esc(t('method'))}</th><th scope="col">${esc(t('result'))}</th><th scope="col">${esc(t('detail'))}</th></tr></thead><tbody>`
+      + rows.map(([m, x, d]) => `<tr><th scope="row">${m}</th><td><span class="res ${resClass(x && x.result)}">${esc(x ? x.result : 'none')}</span></td><td>${esc(d || '')}</td></tr>`).join('') + '</tbody></table></div>');
+  }
+  if (r.hops.length) {
+    const u = { s: t('s'), min: t('min'), h: t('h') };
+    html.push(`<h2 class="sec">${esc(t('route', { n: r.hops.length }))}</h2><ol class="hops">` + r.hops.map((h, i) => `<li class="hop"><span class="hop-n" aria-hidden="true">${i + 1}</span><div class="hop-body">
+      <div><code>${esc(h.from || '?')}</code>${h.fromIp ? ` <span class="delay">${esc(t('ip'))} ${esc(h.fromIp)}</span>` : ''}</div>
+      <div>→ ${esc(t('by'))} <code>${esc(h.by || '?')}</code>${h.with ? ` ${esc(t('with'))} ${esc(h.with)}` : ''}</div>
+      <div class="delay${h.delay > 3600 ? ' slow' : ''}">${h.date ? esc(h.date.toISOString().replace('T', ' ').slice(0, 19) + ' UTC') : ''}${h.delay !== null ? ' · ' + esc(t('delay', { d: formatDelay(h.delay, u) })) : (i === 0 ? ' · ' + esc(t('firstHop')) : '')}</div></div></li>`).join('') + '</ol>');
+  }
+  $('out').innerHTML = html.join('');
+  window.__headersAnalyzed = (window.__headersAnalyzed || 0) + 1;
+}
+let timer;
+$('in').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 250); });
+$('go').addEventListener('click', run);
+$('s-legit').addEventListener('click', () => { $('in').value = SAMPLES.legit; run(); });
+$('s-phish').addEventListener('click', () => { $('in').value = SAMPLES.phish; run(); });
+$('clear').addEventListener('click', () => { $('in').value = ''; run(); $('in').focus(); });
+window.__emailReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

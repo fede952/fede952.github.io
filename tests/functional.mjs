@@ -7,6 +7,7 @@
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
@@ -23,7 +24,10 @@ const assert = (cond, msg) => { if (!cond) throw new Error(msg); };
 const innerHeightGuess = () => 844 * 1.5 + 50;
 
 // name -> { url, run(page, ctx) => summary string }. New tools add an entry here.
-export const TESTS = {
+export const CVSS31CTX = vm.createContext({});
+vm.runInContext(fs.readFileSync('tests/reference/first-cvsscalc31.js', 'utf8'), CVSS31CTX);
+
+const TESTS = {
   'pixel-shrink': { url: '/tools/pixel-shrink/', async run(p) {
     await p.setInputFiles('#fileInput', PHOTO); await p.waitForSelector('#compressBtn:not([disabled])'); await p.click('#compressBtn');
     await blobHref(p, '#downloadBtn'); return 'compressed (Web Worker, self-hosted lib)'; } },
@@ -345,6 +349,375 @@ export const TESTS = {
     assert((await p.textContent('.fd.s-high strong')).includes('in script-src') && (await p.textContent('#out')).includes('Manca Referrer-Policy'), 'Italian findings');
     assert(external.length === 0, 'external requests: ' + external.join(', '));
     return 'weak sample → F with CSP issues, CSP-only paste, strong sample → A+, copy report, Italian, no network'; } },
+  'phishing-quiz': { url: '/tools/phishing-quiz/?lang=en', async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    await p.waitForFunction(() => window.__quizReady);
+    let copied = '';
+    await p.exposeFunction('__captureCopy', (s) => { copied = s; });
+    await p.evaluate(() => { Object.defineProperty(navigator, 'share', { value: undefined }); navigator.clipboard.writeText = (s) => { window.__captureCopy(s); return Promise.resolve(); }; });
+    await p.click('#start');
+    const round = await p.evaluate(() => window.__quizRound());
+    assert(round.length === 10 && new Set(round.map((s) => s.id)).size === 10, 'round of 10 distinct scenarios');
+    // question 1 with the keyboard only: from the focused heading, Tab to the right answer button and press Enter
+    assert(await p.evaluate(() => document.activeElement.id) === 'q-heading', 'focus starts on the question heading');
+    const target = round[0].phish ? 'a-phish' : 'a-legit';
+    for (let i = 0; i < 12 && (await p.evaluate(() => document.activeElement.id)) !== target; i++) await p.keyboard.press('Tab');
+    assert(await p.evaluate(() => document.activeElement.id) === target, 'answer button reachable with Tab');
+    await p.keyboard.press('Enter');
+    assert(await p.evaluate(() => document.activeElement.id) === 'verdict', 'focus moves to the verdict');
+    assert((await p.textContent('#verdict')).trim() === 'Correct!', 'keyboard answer counted');
+    const hl = await p.locator('#mockup .hl').count();
+    assert(hl > 0 && hl === await p.locator('#flags li').count(), `red flags highlighted (${hl}) and explained`);
+    await p.keyboard.press('Tab'); assert(await p.evaluate(() => document.activeElement.id) === 'next', 'Tab reaches Next');
+    await p.keyboard.press('Enter');
+    // the rest with the mouse: all right except question 6
+    for (let i = 1; i < 10; i++) {
+      const right = round[i].phish ? '#a-phish' : '#a-legit', wrong = round[i].phish ? '#a-legit' : '#a-phish';
+      await p.click(i === 5 ? wrong : right);
+      assert(await p.locator('#mockup .hl').count() > 0, `highlights on question ${i + 1}`);
+      await p.click('#next');
+    }
+    assert((await p.textContent('#score')).trim() === '9/10', 'score ' + await p.textContent('#score'));
+    assert(/Phish hunter/.test(await p.textContent('#rank')), 'rank for 9/10');
+    const review = await p.locator('#review li').count();
+    assert(review >= 1, 'topics to review for the missed question');
+    assert(await p.locator('#review a[target=_top]').first().getAttribute('href').then((h) => /^\/en\/tools\/[a-z-]+\/$/.test(h)), 'review links to a tool');
+    await p.click('#share');
+    await p.waitForFunction(() => !document.getElementById('share-status').hidden);
+    assert(copied === 'I scored 9/10 on the Phishing Quiz. Can you spot the phish? https://federicosella.com/en/tools/phishing-quiz/score/9/', 'share text: ' + copied);
+    // the share page: own card, noindex, forwards to the quiz with ?score=
+    const share = await (await fetch(origin + '/en/tools/phishing-quiz/score/9/')).text();
+    const img = share.match(/og:image" content="https:\/\/federicosella\.com([^"]+)"/)[1];
+    assert(img === '/og/en/tools/phishing-quiz-score-9.png' && (await fetch(origin + img)).ok, 'score card ' + img);
+    assert(/noindex/.test(share) && /url=\/en\/tools\/phishing-quiz\/\?score=9/.test(share), 'share page meta');
+    // the quiz app itself makes no request (the host page loaded next has the site's ad and analytics scripts)
+    assert(external.length === 0, 'external requests from the quiz: ' + external.join(', '));
+    await p.goto(origin + '/en/tools/phishing-quiz/?score=9');
+    const f = p.frameLocator('iframe.tool-iframe');
+    await f.locator('#challenge').waitFor({ state: 'visible' });
+    assert(/scored 9\/10/.test(await f.locator('#challenge').textContent()), 'challenge banner');
+    return 'keyboard-only answer, highlights + explanations, 9/10 scoring and rank, topics to review, share text, score page card + challenge banner, no network'; } },
+  'phishing-quiz-it': { url: '/tools/phishing-quiz/?lang=it', async run(p) {
+    await p.waitForFunction(() => window.__quizReady);
+    await p.click('#start');
+    assert(/Domanda 1 di 10/.test(await p.textContent('#q-heading')), 'Italian UI');
+    const id = (await p.evaluate(() => window.__quizRound()))[0].id;
+    const ctx = await p.textContent('#ctx');
+    const it = (await p.evaluate(async (k) => (await import('/js/tools/phish/it.mjs')).default[k].ctx, id));
+    assert(ctx === it, 'scenario text is Italian');
+    return 'scenarios localized (Italian)'; } },
+  'screenshot-redactor': { url: '/tools/screenshot-redactor/?lang=en', async run(p, { tmp }) {
+    await p.waitForFunction(() => window.__redactReady);
+    // a synthetic screenshot with sensitive text (reserved domain, ISO example IBAN, documentation IP)
+    const png = await p.evaluate(() => {
+      const c = Object.assign(document.createElement('canvas'), { width: 900, height: 300 });
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 900, 300); x.fillStyle = '#111'; x.font = '28px Arial, sans-serif';
+      x.fillText('Contact: alex.rivera@example.com', 30, 60);
+      x.fillText('IBAN: GB82 WEST 1234 5698 7654 32', 30, 130);
+      x.fillText('Server IP: 192.0.2.44', 30, 200);
+      x.fillText('Nothing secret on this line', 30, 270);
+      return c.toDataURL('image/png').split(',')[1];
+    });
+    const file = path.join(tmp, 'shot.png'); fs.writeFileSync(file, Buffer.from(png, 'base64'));
+    await p.setInputFiles('#file', file);
+    await p.waitForFunction(() => window.__redactLoaded === 1);
+    // draw one box with the mouse (top-left corner of the image)
+    const box = await p.locator('#canvas').boundingBox();
+    const zoom = await p.evaluate(() => document.getElementById('canvas').width / 900);
+    await p.mouse.move(box.x + 5 * zoom, box.y + 5 * zoom); await p.mouse.down();
+    await p.mouse.move(box.x + 120 * zoom, box.y + 40 * zoom, { steps: 4 }); await p.mouse.up();
+    assert(await p.evaluate(() => window.__redactCount()) === 1, 'box drawn');
+    // a touch drag (pointer events with pointerType touch) draws a second box
+    const pe = (type, x, y) => p.locator('#canvas').dispatchEvent(type, { pointerId: 7, pointerType: 'touch', isPrimary: true, clientX: box.x + x * zoom, clientY: box.y + y * zoom });
+    await pe('pointerdown', 700, 200); await pe('pointermove', 850, 280); await pe('pointerup', 850, 280);
+    assert(await p.evaluate(() => window.__redactCount()) === 2, 'touch drag draws a box');
+    await p.click('#undo'); assert(await p.evaluate(() => window.__redactCount()) === 1, 'undo touch box');
+    await p.click('#undo'); assert(await p.evaluate(() => window.__redactCount()) === 0, 'undo');
+    await p.click('#redo'); assert(await p.evaluate(() => window.__redactCount()) === 1, 'redo');
+    // soft modes show the warning
+    await p.click('[data-mode=pixelate]'); assert(await p.isVisible('#warn'), 'warning for pixelate');
+    await p.click('[data-mode=box]'); assert(!(await p.isVisible('#warn')), 'no warning for solid box');
+    // real OCR (self-hosted Tesseract, opt-in) suggests the email, IBAN and IP
+    await p.click('#ocr');
+    await p.waitForFunction(() => window.__redactSuggestions, null, { timeout: 120000 });
+    const sugg = await p.evaluate(() => window.__redactSuggestions);
+    assert(JSON.stringify(sugg.map((s) => s.type)) === '["email","iban","ip"]', 'OCR suggestions ' + JSON.stringify(sugg));
+    await p.click('#apply-all');
+    assert(await p.evaluate(() => window.__redactCount()) === 4, 'suggestions applied as solid boxes');
+    // PNG export: redactions burned in (black where the email was), no metadata chunks
+    const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#download')]);
+    assert(dl.suggestedFilename() === 'shot-redacted.png', 'file name ' + dl.suggestedFilename());
+    const out = PNG.sync.read(fs.readFileSync(await dl.path()));
+    const at = (x, y) => [...out.data.slice((y * out.width + x) * 4, (y * out.width + x) * 4 + 3)];
+    assert(at(300, 50).join() === '0,0,0' && at(60, 20).join() === '0,0,0', 'redacted pixels are black: ' + at(300, 50));
+    assert(at(600, 280).join() === '255,255,255', 'untouched area unchanged');
+    const raw = fs.readFileSync(await dl.path()).toString('latin1');
+    assert(!/tEXt|iTXt|zTXt|eXIf/.test(raw), 'PNG has metadata chunks');
+    // JPEG export of a photo with EXIF + GPS: the output has no EXIF at all
+    await p.click('#new');
+    await p.setInputFiles('#file', PHOTO);
+    await p.waitForFunction(() => window.__redactLoaded === 2);
+    await p.selectOption('#fmt', 'jpeg');
+    const [dj] = await Promise.all([p.waitForEvent('download'), p.click('#download')]);
+    const jpg = fs.readFileSync(await dj.path());
+    assert(jpg[0] === 0xff && jpg[1] === 0xd8, 'not a JPEG');
+    assert(!jpg.includes(Buffer.from('Exif')) && !jpg.includes(Buffer.from('FixtureCam')), 'JPEG still has EXIF');
+    return 'draw + undo/redo, blur/pixelate warning, real OCR suggests email/IBAN/IP, burned-in PNG without metadata, EXIF/GPS dropped from JPEG'; } },
+  'email-header-analyzer': { url: '/tools/email-header-analyzer/?lang=en', async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    await p.waitForFunction(() => window.__emailReady);
+    await p.click('#s-phish');
+    await p.waitForSelector('.verdict-box');
+    assert(await p.locator('.verdict-box.v-danger').count() === 1, 'phishing sample → danger verdict');
+    const sigs = await p.$$eval('.sig', (els) => els.map((e) => e.dataset.id));
+    for (const id of ['display-name-address', 'reply-to-mismatch', 'spf-fail', 'dmarc-fail']) assert(sigs.includes(id), 'signal ' + id + ' in ' + sigs);
+    assert(await p.locator('.sig.s-high').first().isVisible(), 'high-severity signal shown');
+    assert(!/\{\w+\}/.test(await p.textContent('#out')), 'no unfilled placeholders');
+    const hops = await p.locator('.hop').count();
+    assert(hops >= 2, 'hop timeline rendered: ' + hops);
+    assert(/after /.test(await p.locator('.hop').nth(1).textContent()), 'delay shown on the second hop');
+    // paste a fixture by typing into the box: the input handler re-analyses
+    const legit = fs.readFileSync(path.join('tests/fixtures/email-headers/legit-esp.txt'), 'utf8');
+    await p.fill('#in', legit);
+    await p.waitForSelector('.verdict-box.v-ok');
+    assert(await p.locator('.hop').count() === 3, 'three hops for the legit fixture');
+    await p.click('#clear');
+    assert(await p.locator('.verdict-box').count() === 0, 'cleared');
+    await p.goto(origin + '/tools/email-header-analyzer/?lang=de');
+    await p.waitForFunction(() => window.__emailReady);
+    await p.click('#s-phish');
+    await p.waitForSelector('.verdict-box');
+    assert(/Wahrscheinlich gefälscht/.test(await p.textContent('.verdict-box')), 'German verdict');
+    assert(/Weg \(/.test(await p.textContent('#out')), 'German route heading');
+    assert(external.length === 0, 'external requests: ' + external.join(', '));
+    return 'phishing sample → danger with spoofing signals + hop delays, pasted fixture → ok with 3 hops, clear, German UI, no network'; } },
+  'spf-dmarc-checker': { url: '/tools/spf-dmarc-checker/?lang=en&domain=badmail.test', async run(p, { origin, context }) {
+    // DNS-over-HTTPS is mocked from the offline fixtures used by the unit tests
+    const Z = JSON.parse(fs.readFileSync('tests/fixtures/mail-auth/zones.json', 'utf8'));
+    const { generateKeyPairSync } = await import('node:crypto');
+    const key = generateKeyPairSync('rsa', { modulusLength: 1024 }).publicKey.export({ type: 'spki', format: 'der' }).toString('base64');
+    const zone = Object.assign({}, Z.good, Z.bad);
+    const TYPES = { TXT: 16, MX: 15 };
+    const doh = [], external = [];
+    p.on('request', (r) => { const u = r.url(); if (!u.startsWith(origin) && !u.startsWith('data:') && !u.startsWith('https://cloudflare-dns.com/dns-query')) external.push(u); });
+    await context.route('https://cloudflare-dns.com/dns-query*', (r) => {
+      const u = new URL(r.request().url());
+      doh.push({ name: u.searchParams.get('name'), type: u.searchParams.get('type'), accept: r.request().headers().accept });
+      const v = zone[u.searchParams.get('name') + '|' + u.searchParams.get('type')];
+      const Answer = (v || []).map((s) => ({ name: u.searchParams.get('name'), type: TYPES[u.searchParams.get('type')], TTL: 300, data: u.searchParams.get('type') === 'TXT' ? '"' + s.replace(/\{\{RSA\d+\}\}/g, key).replace(/"/g, '\\"') + '"' : s }));
+      return r.fulfill({ json: { Status: v ? 0 : 3, Answer }, headers: { 'access-control-allow-origin': '*' } });
+    });
+    await p.waitForFunction(() => window.__mailReady);
+    assert(await p.inputValue('#domain') === 'badmail.test', '?domain= pre-fills the box');
+    await p.waitForTimeout(400);
+    assert(doh.length === 0, 'no DNS query before Check: ' + doh.length);
+    assert(/cloudflare-dns\.com/.test(await p.textContent('#privacy')), 'resolver disclosed on the tool');
+    await p.fill('#sel', 's1, old');
+    await p.click('#go');
+    await p.waitForSelector('.summary');
+    assert((await p.textContent('.letter')).trim() === 'F', 'broken domain → F');
+    assert(doh.every((d) => d.accept === 'application/dns-json'), 'dns-json accept header');
+    const ids = await p.$$eval('.sig', (els) => els.map((e) => e.dataset.id));
+    for (const id of ['spf-too-many', 'spf-plus-all', 'spf-ptr', 'spf-include-missing', 'dmarc-pct', 'dkim-1024', 'dkim-revoked']) assert(ids.includes(id), id + ' in ' + ids);
+    assert(/24 of 10/.test(await p.textContent('[data-area="spf"]')), 'lookup count shown');
+    assert(await p.locator('.tree li').count() > 5, 'include tree');
+    assert(!/\{\w+\}/.test(await p.textContent('#out')), 'no unfilled placeholders');
+    assert(await p.locator('.fix').count() >= 4, 'fixes listed');
+    const clip = await p.evaluate(async () => { let txt = ''; navigator.clipboard.writeText = async (s) => { txt = s; }; document.querySelector('.fix [data-copy]').click(); await new Promise((r) => setTimeout(r, 50)); return txt; });
+    assert(/^(v=spf1 |v=DMARC1)/.test(clip), 'copy example record: ' + JSON.stringify(clip.slice(0, 60)));
+    assert((await p.textContent('.fix [data-copy]')) === 'Copied', 'copy button feedback');
+    // a good domain, auto-selectors
+    await p.fill('#domain', 'alex@GoodMail.example'); await p.fill('#sel', '');
+    await p.click('#go');
+    await p.waitForFunction(() => document.querySelector('.summary h2')?.textContent.includes('goodmail.example'));
+    assert((await p.textContent('.letter')).trim() === 'A', 'good domain → A');
+    assert(doh.some((d) => d.name === 'selector1._domainkey.goodmail.example'), 'common selectors tried');
+    await p.fill('#domain', 'not a domain'); await p.click('#go');
+    assert(await p.locator('.tb-note--warn').count() === 1, 'invalid input message');
+    await p.goto(origin + '/tools/spf-dmarc-checker/?lang=it');
+    await p.waitForFunction(() => window.__mailReady);
+    await p.fill('#domain', 'goodmail.example'); await p.click('#go');
+    await p.waitForSelector('.summary');
+    assert(/Risultati per goodmail\.example/.test(await p.textContent('.summary')), 'Italian UI');
+    await context.unroute('https://cloudflare-dns.com/dns-query*');
+    assert(external.length === 0, 'other external requests: ' + external.join(', '));
+    return `no query before Check, ${doh.length} mocked DoH queries with dns-json, broken domain → F (24/10 lookups, tree, fixes, copy), good domain → A with guessed selectors, invalid input, Italian`; } },
+  'encrypted-message': { url: '/tools/encrypted-message/?lang=en', async run(p, { origin }) {
+    const requests = [];
+    p.on('request', (r) => requests.push(r.url()));
+    await p.waitForFunction(() => window.__msgReady);
+    const MSG = 'Door code 4711 🔑 — façade ½';
+    await p.fill('#message', MSG);
+    await p.click('#encrypt');
+    assert(/Enter or generate/.test(await p.textContent('#c-err')), 'passphrase required');
+    await p.click('#gen');
+    const pass = await p.inputValue('#pass');
+    assert(/^([A-Za-z2-9]{4}-){4}[A-Za-z2-9]{4}$/.test(pass), 'generated passphrase ' + pass);
+    await p.click('#encrypt');
+    await p.waitForSelector('#result:not([hidden])');
+    const link = await p.inputValue('#link');
+    assert(link.startsWith(origin + '/tools/encrypted-message/#v1.'), 'link targets the standalone page with a #fragment: ' + link.slice(0, 80));
+    assert(!link.includes('4711') && !link.includes(encodeURIComponent('🔑')), 'plaintext not in the link');
+    assert(await p.isHidden('#long'), 'no length warning for a short message');
+    const token = link.split('#')[1];
+    // open the link: the fragment must never appear in any request URL
+    await p.goto(link);
+    await p.waitForFunction(() => window.__msgReady);
+    assert(await p.isVisible('#open') && await p.isHidden('#compose'), 'open mode');
+    assert(!p.url().includes('#'), 'fragment removed from the address bar: ' + p.url());
+    await p.fill('#opass', pass + 'x');
+    await p.click('#decrypt');
+    await p.waitForSelector('#o-err:not([hidden])');
+    assert(/passphrase is wrong/.test(await p.textContent('#o-err')), 'wrong passphrase message');
+    await p.fill('#opass', pass);
+    await p.click('#decrypt');
+    await p.waitForSelector('#plain:not([hidden])');
+    assert((await p.textContent('#msg')) === MSG, 'decrypted message round-trips Unicode');
+    // a tampered link (one character of the ciphertext changed) fails on the tag
+    const i = token.length - 30;
+    const bad = token.slice(0, i) + (token[i] === 'A' ? 'B' : 'A') + token.slice(i + 1);
+    await p.goto(origin + '/tools/encrypted-message/#' + bad);
+    await p.waitForFunction(() => window.__msgReady);
+    await p.fill('#opass', pass); await p.click('#decrypt');
+    await p.waitForSelector('#o-err:not([hidden])');
+    assert(/changed or cut off/.test(await p.textContent('#o-err')), 'tampered link rejected');
+    await p.goto(origin + '/tools/encrypted-message/#v1.abc');
+    await p.waitForFunction(() => window.__msgReady);
+    await p.fill('#opass', 'whatever'); await p.click('#decrypt');
+    await p.waitForSelector('#o-err:not([hidden])');
+    assert(/incomplete/.test(await p.textContent('#o-err')), 'truncated link message');
+    // a long message warns about link length
+    await p.goto(origin + '/tools/encrypted-message/?lang=it');
+    await p.waitForFunction(() => window.__msgReady);
+    await p.fill('#message', 'x'.repeat(1600)); await p.fill('#pass', 'una passphrase lunga');
+    await p.click('#encrypt');
+    await p.waitForSelector('#result:not([hidden])');
+    assert(await p.isVisible('#long') && /circa 2\.000 caratteri/.test(await p.textContent('#long')), 'Italian long-link warning');
+    assert(requests.every((u) => u.startsWith(origin) && !u.includes('#') && !u.includes(token.slice(3, 40))), 'no external request and no token in any request: ' + requests.filter((u) => !u.startsWith(origin)).join(', '));
+    return 'passphrase required + generator, link to standalone page with #fragment only, fragment stripped and never requested, wrong passphrase / tampered / truncated rejected, Unicode round trip, long-link warning (Italian), no network'; } },
+  'cvss-calculator': { url: '/en/tools/cvss-calculator/?vector=' + encodeURIComponent('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:A/CR:H/IR:H/AR:H/MAV:L/MAT:P'), async run(p, { origin }) {
+    const external = [];
+    p.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
+    const ex = JSON.parse(fs.readFileSync('tests/fixtures/cvss-first-examples.json', 'utf8'));
+    const f = p.frameLocator('iframe.tool-iframe');
+    const fr = () => p.frames().find((x) => x.url().includes('/tools/cvss-calculator/?lang='));
+    await p.waitForFunction(() => document.querySelector('iframe.tool-iframe')?.contentWindow?.__cvssReady);
+    // ?vector= deep link on the tool page (FIRST example CVE-2024-23897 BTE = 8.9)
+    assert((await f.locator('#score').textContent()) === '8.9', 'deep-linked vector scores 8.9');
+    assert((await f.locator('#nom').textContent()) === 'CVSS-BTE', 'nomenclature');
+    assert((await f.locator('#vector').inputValue()) === 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:A/CR:H/IR:H/AR:H/MAV:L/MAT:P', 'deep-linked vector shown in the box');
+    assert(await f.locator('details[data-group="envmod"][open]').count() === 1, 'group with set metrics opens');
+    // every FIRST v4.0 example, typed into the vector box
+    for (const [vec, score] of ex.v4) {
+      await f.locator('#vector').fill(vec);
+      assert((await f.locator('#score').textContent()) === score.toFixed(1), `${vec} → ${score}`);
+    }
+    // click metrics: base 9.3 vector, then E:U lowers it
+    await f.locator('#vector').fill('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N');
+    assert((await f.locator('#score').textContent()) === '9.3', 'base 9.3');
+    await f.locator('summary', { hasText: 'Threat Metrics' }).click();
+    await f.locator('label[for="m-4-E-U"]').click();
+    assert(/\/E:U$/.test(await f.locator('#vector').inputValue()), 'click updates the vector');
+    assert((await f.locator('#nom').textContent()) === 'CVSS-BT', 'BT after setting E');
+    assert(parseFloat(await f.locator('#score').textContent()) < 9.3, 'Unreported exploit lowers the score');
+    // keyboard: arrow keys move within a radio group
+    await f.locator('#m-4-AV-N').focus(); await p.keyboard.press('ArrowRight');
+    assert(/AV:A/.test(await f.locator('#vector').inputValue()), 'arrow key selects the next value');
+    // invalid vector message
+    await f.locator('#vector').fill('CVSS:4.0/AV:N/AC:Q');
+    assert(/Not a valid CVSS 4.0 vector/.test(await f.locator('#vec-msg').textContent()), 'invalid vector message');
+    // 3.1 tab and a pasted 3.1 vector switches tabs
+    await f.locator('#vector').fill('CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N');
+    assert((await f.locator('#tab-31').getAttribute('aria-selected')) === 'true', 'pasting a 3.1 vector switches tab');
+    assert((await f.locator('#score').textContent()) === '6.1', '3.1 base 6.1');
+    await f.locator('#vector').fill('CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N/E:P/RL:O/RC:C/CR:H/MAV:A');
+    const ref = vm.runInContext(`CVSS31.calculateCVSSFromVector('CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N/E:P/RL:O/RC:C/CR:H/MAV:A')`, CVSS31CTX);
+    assert((await f.locator('#score-t').textContent()) === ref.temporalMetricScore && (await f.locator('#score-e').textContent()) === ref.environmentalMetricScore, 'temporal/environmental match FIRST cvsscalc31.js');
+    // copy link
+    const link = await fr().evaluate(async () => { let txt = ''; navigator.clipboard.writeText = async (s) => { txt = s; }; document.getElementById('copy-link').click(); await new Promise((r) => setTimeout(r, 50)); return txt; });
+    assert(link.startsWith(origin + '/en/tools/cvss-calculator/?vector=CVSS%3A3.1%2F'), 'copy link: ' + link);
+    // Italian labels
+    await p.goto(origin + '/it/tools/cvss-calculator/');
+    await p.waitForFunction(() => document.querySelector('iframe.tool-iframe')?.contentWindow?.__cvssReady);
+    assert(await f.locator('legend', { hasText: 'Vettore di attacco' }).count() === 2 && (await f.locator('#tab-4').textContent()) === 'CVSS 4.0', 'Italian metric names (AV and MAV)');
+    assert(external.filter((u) => !/googlesyndication|umami|doubleclick|google/.test(u)).length === 0, 'tool requests: ' + external.join(', '));
+    return `deep link → 8.9 CVSS-BTE, all ${ex.v4.length} FIRST v4 examples in the UI, clicks + keyboard update vector/score, invalid message, 3.1 auto-tab with base/temporal/env equal to FIRST's calculator, copy link, Italian`; } },
+  'hash-file': { url: '/en/tools/hash-generator/', async run(p, { origin, tmp }) {
+    const { createHash, randomBytes } = await import('node:crypto');
+    const own = [];
+    p.on('request', (r) => { if (r.url().startsWith(origin) && /\/(js\/tools\/hash|vendor\/hash-wasm)/.test(r.url())) own.push(r.url().slice(origin.length)); });
+    await p.waitForFunction(() => window.__hashFileReady);
+    assert(!own.some((u) => u.includes('hash-wasm')), 'hash-wasm is not loaded before a file is chosen');
+    const buf = randomBytes(24 * 1024 * 1024 + 5); // 24 MB: several chunks, progress events
+    const file = path.join(tmp, 'release-1.0.iso');
+    fs.writeFileSync(file, buf);
+    const sha256 = createHash('sha256').update(buf).digest('hex');
+    await p.setInputFiles('#hash-file-input', file);
+    await p.waitForFunction(() => window.__hashFileResult);
+    assert((await p.inputValue('#hash-file-digest')) === sha256, 'SHA-256 of the file equals node:crypto');
+    assert(await p.isHidden('#hash-file-progress'), 'progress hidden when done');
+    assert(/release-1\.0\.iso · 24 MB/.test(await p.textContent('#hash-file-meta')), 'file name and size: ' + await p.textContent('#hash-file-meta'));
+    // paste the matching line of a SHA256SUMS file
+    await p.fill('#hash-file-expected', `${'0'.repeat(64)}  other.tar.gz\n${sha256.toUpperCase()}  release-1.0.iso\n`);
+    await p.waitForFunction(() => window.__hashFileVerdict === 'match');
+    assert(/^Match/.test(await p.textContent('#hash-file-verdict')), 'match verdict');
+    assert(await p.isDisabled('#hash-file-algo') && /SHA-256/.test(await p.textContent('#hash-file-auto')), 'algorithm set from the expected checksum');
+    // one character off → mismatch
+    await p.fill('#hash-file-expected', sha256.slice(0, -1) + (sha256.endsWith('0') ? '1' : '0'));
+    await p.waitForFunction(() => window.__hashFileVerdict === 'mismatch');
+    assert(/^Mismatch/.test(await p.textContent('#hash-file-verdict')), 'mismatch verdict');
+    // an MD5 checksum re-hashes with MD5 and warns that MD5 only rules out accidents
+    const md5 = createHash('md5').update(buf).digest('hex');
+    await p.evaluate(() => { window.__hashFileResult = null; window.__hashFileVerdict = null; });
+    await p.fill('#hash-file-expected', md5);
+    await p.waitForFunction(() => window.__hashFileVerdict === 'match', null, { timeout: 60000 });
+    assert((await p.inputValue('#hash-file-digest')) === md5 && /accidental damage/.test(await p.textContent('#hash-file-verdict')), 'MD5 auto-detected, weak-hash note');
+    // a listing without this file, and garbage
+    await p.fill('#hash-file-expected', `${'a'.repeat(64)}  x.zip\n${'b'.repeat(64)}  y.zip`);
+    assert(/has 2 checksums and none is for release-1\.0\.iso/.test(await p.textContent('#hash-file-verdict')), 'ambiguous listing message');
+    await p.fill('#hash-file-expected', 'not a hash');
+    assert(/does not look like/.test(await p.textContent('#hash-file-verdict')), 'bad checksum message');
+    // the text hashes still work
+    await p.fill('#hash-input', 'abc'); await p.dispatchEvent('#hash-input', 'input');
+    await p.waitForFunction(() => document.getElementById('hash-sha256').value === 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');
+    assert(own.some((u) => u.includes('/vendor/hash-wasm@4.12.0/sha256.umd.min.js')) && own.some((u) => u.includes('/js/tools/hash-worker.mjs')), 'worker + self-hosted hash-wasm loaded on demand');
+    return '24 MB file streamed in a worker: SHA-256 = node:crypto, SHA256SUMS line → match, 1-char change → mismatch, MD5 auto-detect + weak note, ambiguous/bad input, text hashes intact, hash-wasm self-hosted and lazy'; } },
+  'passphrase': { url: '/it/tools/password-generator/', async run(p, { origin }) {
+    const lists = [];
+    p.on('request', (r) => { if (r.url().includes('/vendor/') && r.url().endsWith('.txt')) lists.push(r.url().slice(origin.length)); });
+    await p.waitForFunction(() => window.__pgPhraseReady);
+    assert(/^.{16}$/.test(await p.inputValue('#pg-password')), 'password mode by default');
+    assert(lists.length === 0, 'no word list loaded in password mode');
+    await p.click('label:has(#pg-mode-phrase)');
+    await p.waitForFunction(() => window.__pgPhrase);
+    let r = await p.evaluate(() => window.__pgPhrase);
+    assert(r.list === 'it' && r.size === 2048, 'default list follows the page language (Italian)');
+    assert(r.text.split('-').length === 6 && r.bits === 66, '6 words, 66 bits: ' + JSON.stringify(r));
+    assert(/66 bit/.test(await p.textContent('#pg-strength-text')) && /11 bit per parola/.test(await p.textContent('#pg-list-info')), 'entropy shown');
+    assert((await p.textContent('#pg-generate-btn')).trim() === 'Genera passphrase', 'button label');
+    assert(await p.isHidden('#pg-strip-wrap'), 'no accent option for a list without accents');
+    // French with accents, then stripped
+    await p.selectOption('#pg-list', 'fr');
+    await p.waitForFunction(() => window.__pgPhrase.list === 'fr');
+    assert(await p.isVisible('#pg-strip-wrap'), 'accent option for French');
+    await p.check('#pg-strip');
+    for (let i = 0; i < 15; i++) { await p.click('#pg-generate-btn'); assert(/^[a-z-]+$/.test(await p.inputValue('#pg-password')), 'accents removed: ' + await p.inputValue('#pg-password')); }
+    // English EFF, 7 words, spaces, capitals and a digit
+    await p.selectOption('#pg-list', 'en'); await p.selectOption('#pg-sep', ' ');
+    await p.check('#pg-cap'); await p.check('#pg-digit');
+    await p.fill('#pg-words', '7'); await p.dispatchEvent('#pg-words', 'input');
+    await p.waitForFunction(() => window.__pgPhrase.list === 'en' && window.__pgPhrase.text.split(' ').length === 7);
+    r = await p.evaluate(() => window.__pgPhrase);
+    const words = r.text.split(' ');
+    assert(words.every((w) => /^[A-Z]/.test(w)) && words.filter((w) => /\d$/.test(w)).length === 1, 'capitals + one digit: ' + r.text);
+    assert(Math.abs(r.bits - (7 * Math.log2(7776) + Math.log2(70))) < 1e-9, 'entropy with digit');
+    assert(lists.length === 3 && lists.every((u) => u.startsWith('/vendor/')), 'lists fetched lazily from this site: ' + lists.join(', '));
+    // back to password mode
+    await p.click('label:has(#pg-mode-pass)');
+    assert(/^.{16}$/.test(await p.inputValue('#pg-password')) && await p.isVisible('#pg-pass-controls'), 'password mode restored');
+    return 'password default, Italian list by page language (66 bits/6 words), French accents stripped, EFF 7 words + caps + digit with exact entropy, lists lazy and self-hosted, mode switch back'; } },
   search: { url: '/en/', async run(p) {
     await p.keyboard.press('Control+k'); await p.fill('#search-input', 'password');
     await p.waitForSelector('#search-results li', { timeout: 10000 }); return 'palette returns results for "password"'; } },

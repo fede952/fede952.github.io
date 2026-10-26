@@ -1,0 +1,19 @@
+Received: from list.lists.example (list.lists.example [198.51.100.80])
+        by mx.mail.example with ESMTPS id 77aa88bb;
+        Wed, 22 Oct 2025 10:05:30 +0000
+ARC-Seal: i=1; a=rsa-sha256; t=1761127520; cv=none; d=lists.example; s=arc-2025; b=Zm9vYmFy
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=lists.example; s=arc-2025; h=from:to:subject:date; bh=YmFy; b=YmF6
+ARC-Authentication-Results: i=1; list.lists.example; spf=pass smtp.mailfrom=marco@codehaven.example; dkim=pass header.d=codehaven.example; dmarc=pass header.from=codehaven.example
+Authentication-Results: mx.mail.example;
+       arc=pass (i=1 spf=pass dkim=pass dmarc=pass);
+       dkim=pass header.d=lists.example header.s=list;
+       spf=pass smtp.mailfrom=bounce@lists.example;
+       dmarc=pass (p=NONE) header.from=codehaven.example
+Received: from mail.codehaven.example (mail.codehaven.example [198.51.100.25])
+        by list.lists.example with ESMTPS id 11cc22dd;
+        Wed, 22 Oct 2025 10:05:20 +0000
+From: Marco Rossi <marco@codehaven.example>
+To: team@lists.example
+Subject: Meeting notes
+Date: Wed, 22 Oct 2025 10:05:18 +0000
+Message-ID: <CAF9x0@mail.codehaven.example>

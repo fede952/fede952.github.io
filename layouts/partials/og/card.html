@@ -1,0 +1,62 @@
+{{- /* Per-page share card (1200×630 PNG) for tool, game and learn pages.
+     Returns (dict "url" "width" "height" "type" "alt") or nil for other pages
+     (they keep the default card from params.images).
+
+     Layers: assets/og/bg.png (accent bar, raven mark, domain) and
+     assets/og/icons/<icon>.png, both rendered by scripts/og-assets.mjs, plus
+     the localized category and title drawn here with the static JetBrains
+     Mono instances in assets/og/fonts/ (Hugo's images.Text needs TTF).
+
+     JetBrains Mono is monospaced (every glyph is 0.6 em wide), so the title is
+     wrapped here to an exact character budget: 60 px → 28 chars per line,
+     falling back to 50 px / 34 and 42 px / 41 chars to stay within 3 lines.
+     Hugo encodes PNGs without metadata.
+
+     Optional second argument via dict: (dict "page" . "title" "…" "name" "…")
+     overrides the title and the output name (quiz result variants). */ -}}
+{{- $p := . -}}{{- $title := "" -}}{{- $name := "" -}}
+{{- if reflect.IsMap . }}{{ $p = .page }}{{ $title = .title | default "" }}{{ $name = .name | default "" }}{{ end -}}
+{{- $out := false -}}
+{{- if and (eq $p.Kind "page") (in (slice "tools" "learn") $p.Section) -}}
+  {{- $meta := partial "page-meta.html" $p -}}
+  {{- $label := "" -}}
+  {{- if eq $p.Section "learn" }}{{ $label = i18n (printf "type_%s" $meta.category) }}
+  {{- else if $meta.category }}{{ $label = i18n (printf "cat_%s" $meta.category) }}
+  {{- else }}{{ $label = i18n "type_game" }}{{ end -}}
+  {{- $title = $title | default ($p.Title | plainify | htmlUnescape) -}}
+  {{- $bg := resources.Get "og/bg.png" -}}
+  {{- $icon := resources.Get (printf "og/icons/%s.png" ($meta.icon | default "book")) -}}
+  {{- $bold := resources.Get "og/fonts/JetBrainsMono-Bold.ttf" -}}
+  {{- $regular := resources.Get "og/fonts/JetBrainsMono-Regular.ttf" -}}
+  {{- if and $bg $icon $bold $regular -}}
+    {{- /* wrap: try the largest size whose wrapped title fits in 3 lines */ -}}
+    {{- $lines := slice -}}{{- $size := 42 -}}
+    {{- range $s := slice 60 50 42 -}}
+      {{- if not $lines -}}
+        {{- $max := int (math.Floor (div 1040.0 (mul $s 0.6))) -}}
+        {{- $ls := slice -}}{{- $cur := "" -}}
+        {{- range split $title " " -}}
+          {{- $try := . -}}{{- if $cur }}{{ $try = printf "%s %s" $cur . }}{{ end -}}
+          {{- if and $cur (gt (strings.RuneCount $try) $max) }}{{ $ls = $ls | append $cur }}{{ $cur = . }}{{ else }}{{ $cur = $try }}{{ end -}}
+        {{- end -}}
+        {{- $ls = $ls | append $cur -}}
+        {{- if or (le (len $ls) 3) (eq $s 42) -}}
+          {{- if gt (len $ls) 3 }}{{ $ls = slice (index $ls 0) (index $ls 1) (printf "%s…" (index $ls 2)) }}{{ end -}}
+          {{- $lines = $ls }}{{ $size = $s -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $filters := slice (images.Overlay $icon 80 72) -}}
+    {{- $filters = $filters | append (images.Text (upper $label) (dict "font" $regular "size" 30 "x" 272 "y" 132 "color" "#2fd5ee")) -}}
+    {{- $lh := int (mul $size 1.18) -}}
+    {{- range $i, $l := $lines -}}
+      {{- $filters = $filters | append (images.Text $l (dict "font" $bold "size" $size "x" 80 "y" (add 268 (mul $i $lh)) "color" "#e8ecf1")) -}}
+    {{- end -}}
+    {{- $img := $bg | images.Filter $filters -}}
+    {{- $target := printf "og/%s%s.png" $p.Lang (strings.TrimSuffix "/" (strings.TrimPrefix (printf "/%s" $p.Lang) $p.RelPermalink)) -}}
+    {{- with $name }}{{ $target = printf "og/%s/%s.png" $p.Lang . }}{{ end -}}
+    {{- $img = $img | resources.Copy $target -}}
+    {{- $out = dict "url" $img.Permalink "width" $img.Width "height" $img.Height "type" $img.MediaType.Type "alt" $title -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

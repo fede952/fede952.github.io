@@ -1,0 +1,20 @@
+{{- /* Result share pages for a quiz tool (front matter `share_scores: 10` and a
+     localized `share_card_title` with a {score} placeholder).
+
+     A static site cannot change Open Graph tags per ?score= query (crawlers
+     get the same HTML for every query string), so one tiny page per score is
+     published at <tool>/score/<n>/ with its own share card. It carries no user
+     data, is noindex with a canonical to the quiz, and sends people on to the
+     quiz with ?score=<n> (the app shows a "can you beat it?" banner). */ -}}
+{{- $p := . -}}
+{{- $max := int $p.Params.share_scores -}}
+{{- $quiz := $p.Permalink -}}
+{{- range $n := seq 0 $max -}}
+  {{- $title := replace ($p.Params.share_card_title | default "{score}/10") "{score}" (string $n) -}}
+  {{- $card := partial "og/card.html" (dict "page" $p "title" $title "name" (printf "%s-score-%d" (strings.TrimSuffix "/" (strings.TrimPrefix (printf "/%s/" $p.Lang) $p.RelPermalink)) $n)) -}}
+  {{- $to := printf "%s?score=%d" $p.RelPermalink $n -}}
+  {{- $desc := $p.Description | plainify -}}
+  {{- $html := printf `<!doctype html><html lang="%s"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>%s</title><meta name="robots" content="noindex, follow"><link rel="canonical" href="%s"><meta property="og:type" content="website"><meta property="og:site_name" content="%s"><meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:url" content="%sscore/%d/"><meta property="og:image" content="%s"><meta property="og:image:width" content="%d"><meta property="og:image:height" content="%d"><meta property="og:image:type" content="%s"><meta property="og:image:alt" content="%s"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s"><meta name="twitter:image" content="%s"><meta http-equiv="refresh" content="0; url=%s"></head><body><p><a href="%s">%s</a></p></body></html>`
+      $p.Lang ($title | htmlEscape) $quiz (site.Title | htmlEscape) ($title | htmlEscape) ($desc | htmlEscape) $quiz $n $card.url $card.width $card.height $card.type ($title | htmlEscape) ($title | htmlEscape) $card.url $to $to ($p.Title | htmlEscape) -}}
+  {{- $_ := (resources.FromString (printf "%s/%sscore/%d/index.html" $p.Lang (strings.TrimPrefix (printf "/%s/" $p.Lang) $p.RelPermalink) $n) $html).Publish -}}
+{{- end -}}

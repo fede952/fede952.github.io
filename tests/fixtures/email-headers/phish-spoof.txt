@@ -1,0 +1,20 @@
+Delivered-To: alex@mail.example
+Received: from mail.bulk-sender.test (unknown [203.0.113.66])
+        by mx.mail.example with ESMTP id 9f8e7d6c5b;
+        Mon, 20 Oct 2025 03:02:11 +0000
+Received: from [192.0.2.10] (helo=localhost)
+        by mail.bulk-sender.test with esmtpa id 1q2w3e;
+        Mon, 20 Oct 2025 02:58:40 +0000
+Authentication-Results: mx.mail.example;
+       spf=fail (mx.mail.example: domain of security@velorabank.example does not designate 203.0.113.66 as permitted sender) smtp.mailfrom=security@velorabank.example;
+       dkim=none;
+       dmarc=fail (p=REJECT sp=REJECT dis=QUARANTINE) header.from=velorabank.example
+Return-Path: <security@velorabank.example>
+From: "security@velorabank.example" <alerts@velorabank-alerts.test>
+Reply-To: Velorabank Support <recovery-desk@freemail.test>
+To: alex@mail.example
+Subject: URGENT: your account will be suspended
+Date: Mon, 20 Oct 2025 02:58:39 +0000
+Message-ID: <a1b2c3@localhost.localdomain>
+X-Mailer: PHPMailer 6.8.0
+MIME-Version: 1.0

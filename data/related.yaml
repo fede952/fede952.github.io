@@ -9,8 +9,26 @@
 # Used by partials/sidebar.html (via partials/related-tool-pages.html).
 
 tools:
+  screenshot-redactor:
+    tools: [exif-cleaner, pixel-shrink, images-to-pdf, steganography]
+    guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
+  phishing-quiz:
+    tools: [link-hazmat, email-header-analyzer, spf-dmarc-checker, pass-fort]
+    guides: [roadmaps/cyber-security-specialist, guides/osint-privacy-exif-data, interviews/python-security-interview-questions]
+  email-header-analyzer:
+    tools: [spf-dmarc-checker, phishing-quiz, link-hazmat, security-headers]
+    guides: [cheatsheets/networking-ports-protocols, roadmaps/cyber-security-specialist]
+  spf-dmarc-checker:
+    tools: [email-header-analyzer, phishing-quiz, security-headers, link-hazmat]
+    guides: [cheatsheets/networking-ports-protocols, roadmaps/cyber-security-specialist, roadmaps/devops-engineer]
+  encrypted-message:
+    tools: [pass-fort, password-generator, hash-generator, steganography]
+    guides: [cheatsheets/python-security-scripts, roadmaps/cyber-security-specialist]
+  cvss-calculator:
+    tools: [security-headers, secrets-scanner, jwt-inspector, link-hazmat]
+    guides: [roadmaps/cyber-security-specialist, cheatsheets/nmap-network-scanning, cheatsheets/sql-injection-payloads-database]
   security-headers:
-    tools: [link-hazmat, jwt-inspector, subnet-calculator, secrets-scanner]
+    tools: [link-hazmat, cvss-calculator, jwt-inspector, secrets-scanner]
     guides: [cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist, interviews/python-security-interview-questions]
   text-diff:
     tools: [json-formatter, string-master, secrets-scanner, hash-generator]
@@ -31,7 +49,7 @@ tools:
     tools: [netguard, chmod-calculator, link-hazmat, security-headers]
     guides: [cheatsheets/networking-ports-protocols, cheatsheets/nmap-network-scanning, interviews/linux-sysadmin-interview-questions]
   pass-fort:
-    tools: [password-generator, hash-generator, secrets-scanner, jwt-inspector]
+    tools: [password-generator, encrypted-message, hash-generator, secrets-scanner]
     guides: [cheatsheets/linux-sysadmin-permissions, interviews/python-security-interview-questions, roadmaps/cyber-security-specialist]
   password-generator:
     tools: [pass-fort, hash-generator, secrets-scanner, base64-converter]
@@ -43,7 +61,7 @@ tools:
     tools: [link-hazmat, pixel-shrink, string-master, neon-palette]
     guides: [guides/osint-privacy-exif-data, cheatsheets/networking-ports-protocols]
   exif-cleaner:
-    tools: [pixel-shrink, steganography, ghostprint, netguard]
+    tools: [screenshot-redactor, pixel-shrink, steganography, ghostprint]
     guides: [guides/osint-privacy-exif-data, guides/steganography-101-hidden-messages]
   netguard:
     tools: [ghostprint, link-hazmat, security-headers, pass-fort]
@@ -85,7 +103,7 @@ tools:
     tools: [string-master, base64-converter, jwt-inspector, chrono-sync]
     guides: [cheatsheets/javascript-es6-array-methods, interviews/sql-database-interview-questions]
   link-hazmat:
-    tools: [netguard, qr-generator, ghostprint, secrets-scanner]
+    tools: [phishing-quiz, email-header-analyzer, netguard, qr-generator]
     guides: [cheatsheets/networking-ports-protocols, cheatsheets/sql-injection-payloads-database, roadmaps/cyber-security-specialist]
   neon-palette:
     tools: [glitch-forge, pixel-shrink, qr-generator, string-master]
@@ -128,7 +146,7 @@ learn:
   interviews/linux-sysadmin-interview-questions: [chmod-calculator, easy-cron, netguard]
   interviews/python-security-interview-questions: [hash-generator, jwt-inspector, pass-fort]
   interviews/sql-database-interview-questions: [json-to-csharp, hash-generator]
-  roadmaps/cyber-security-specialist: [security-headers, netguard, pass-fort, jwt-inspector, ghostprint]
+  roadmaps/cyber-security-specialist: [phishing-quiz, security-headers, netguard, pass-fort, jwt-inspector, ghostprint]
   roadmaps/devops-engineer: [easy-cron, chmod-calculator, secrets-scanner]
   roadmaps/python-fullstack: [json-to-csharp, jwt-inspector, base64-converter]
   writeups/htb-cap/htb-cap: [netguard, hash-generator, link-hazmat]

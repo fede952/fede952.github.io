@@ -2,7 +2,7 @@
 title: "Datenschutzerklärung"
 description: "Wie federicosella.com mit Ihren Daten umgeht: Tools, die alles lokal im Browser ohne Uploads verarbeiten, cookiefreie Statistik, einwilligungsbasierte Werbung und gekennzeichnete Affiliate-Links."
 date: 2026-07-04
-lastmod: 2026-10-25
+lastmod: 2026-10-26
 hidemeta: true
 showToc: true
 ---
@@ -34,6 +34,8 @@ Jedes interaktive Tool dieser Website (Passwortgenerator und -prüfer, EXIF-Clea
 **Eine bewusste Ausnahme:** **NetGuard** zeigt Ihnen Ihre öffentliche IP-Adresse und deren ungefähren Standort. Dazu sendet Ihr Browser eine Anfrage an den IP-Abfragedienst [ipwho.is](https://ipwho.is/). Wie jede Web-Anfrage übermittelt sie diesem Dienst Ihre IP-Adresse (und den User-Agent Ihres Browsers). Sonst wird nichts gesendet, und die Anfrage erfolgt nur, wenn Sie in NetGuard auf Scan klicken.
 
 **Eine zweite Ausnahme, nur auf Wunsch:** Der Auditor von **PassFort** kann prüfen, ob ein Passwort in bekannten Datenlecks vorkommt. Das geschieht nur, wenn Sie auf **Check against known breaches** klicken. Ihr Browser berechnet dann den SHA-1-Hash des Passworts und sendet nur dessen erste 5 Zeichen an den Dienst Pwned Passwords von Have I Been Pwned unter [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-Anonymität); das Passwort und der Rest des Hashes werden nie gesendet, der Abgleich erfolgt auf Ihrem Gerät. Wie jede Web-Anfrage übermittelt sie diesem Dienst Ihre IP-Adresse und den User-Agent Ihres Browsers.
+
+**Eine dritte Ausnahme, auf Anforderung:** Der **SPF-, DKIM- und DMARC-Check** liest die öffentlichen DNS-Einträge einer Domain. Wenn Sie auf **Prüfen** klicken, sendet Ihr Browser DNS-Abfragen für die eingegebene Domain (TXT-Einträge für SPF, DMARC, DKIM-Selektoren und BIMI sowie MX-Einträge) an den öffentlichen DNS-over-HTTPS-Resolver von Cloudflare, [cloudflare-dns.com](https://developers.cloudflare.com/1.1.1.1/privacy/public-dns-resolver/). Sonst wird nichts gesendet, und vor dem Klick geht nichts hinaus. Wie jede Web-Anfrage übermittelt das Cloudflare Ihre IP-Adresse und den User-Agent Ihres Browsers.
 
 Einige Tools bieten außerdem Links zu externen Diensten an (zum Beispiel „diese URL bei VirusTotal prüfen" in Link Hazmat oder Teilen-Schaltflächen). Das sind gewöhnliche Links: Es wird nichts übertragen, bevor Sie darauf klicken.
 

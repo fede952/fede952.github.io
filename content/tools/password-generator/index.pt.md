@@ -1,9 +1,9 @@
 ---
-title: "Gerador de Senhas Fortes e Aleatórias"
-description: "Gere senhas aleatórias fortes de até 64 caracteres com o gerador criptográfico do navegador. Entropia ao vivo e cópia com um clique, sem servidor."
-intro: "Um **gerador de senhas fortes** com um clique: escolha o tamanho e os tipos de caracteres e receba uma senha aleatória tirada do gerador criptográfico do seu navegador, com a força indicada em bits."
+title: "Gerador de senhas e frases-senha"
+description: "Gere senhas aleatórias fortes de até 64 caracteres, ou frases-senha diceware com listas de palavras em 6 idiomas. Entropia exata e nada é enviado."
+intro: "Um **gerador de senhas fortes** com um clique: escolha o tamanho e os tipos de caracteres para uma senha aleatória, ou mude para **Frase-senha** para uma sequência de palavras aleatórias (em português, inglês, alemão, italiano, espanhol ou francês). Tudo vem do gerador criptográfico do seu navegador, com a força exata mostrada em bits."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["gerador de senhas", "gerador de senha forte", "gerador de senha aleatória", "criar senha segura", "gerar senha online", "senha de 16 caracteres", "senha forte"]
 tags: ["segurança", "senhas", "ferramenta"]
@@ -15,6 +15,7 @@ howto:
   - "Confira a linha abaixo da senha: ela mostra a entropia em bits e uma classificação (Fraca, Boa, Forte)."
   - "Clique em **Gerar senha** para obter outra; o botão de copiar ao lado do campo manda a senha para a área de transferência."
   - "Cole no seu gerenciador de senhas *antes* de fechar a página: o gerador não guarda histórico."
+  - "Para algo que você precisa digitar ou lembrar, escolha **Frase-senha**: defina o número de palavras, a lista (segue o idioma da página) e o separador. Seis palavras em português dão 66 bits; sete, 77."
 faq:
   - q: "Este gerador de senhas é realmente aleatório?"
     a: "Sim. Cada caractere é escolhido com `crypto.getRandomValues()`, o gerador de números aleatórios criptograficamente seguro do navegador, com amostragem por rejeição para que todos os caracteres do conjunto tenham exatamente a mesma probabilidade. Ele não usa `Math.random()`, que é previsível e não serve para segredos."
@@ -27,7 +28,9 @@ faq:
   - q: "O que significam Fraca, Boa e Forte?"
     a: "São faixas de entropia: abaixo de 60 bits é Fraca, de 60 a 90 bits é Boa e de 90 bits para cima é Forte. Como a senha é gerada ao acaso, o número é exato, ao contrário dos medidores que tentam adivinhar a entropia de uma senha que você mesmo criou."
   - q: "Preciso decorar essas senhas?"
-    a: "Não: guarde-as em um gerenciador de senhas e deixe que ele preencha. Para a uma ou duas senhas que você precisa mesmo decorar, como a senha mestra do gerenciador, uma frase-senha longa e aleatória é mais prática; o PassFort, neste site, gera uma."
+    a: "Não, guarde-as num gerenciador de senhas e deixe que ele preencha. Para um ou dois segredos que você precisa decorar, como a senha mestra do gerenciador, use o modo **Frase-senha**: seis ou sete palavras aleatórias são muito mais fáceis de digitar e lembrar do que 16 caracteres aleatórios, com força parecida."
+  - q: "Quais listas de palavras o modo frase-senha usa?"
+    a: "O inglês usa a EFF Large Wordlist (7.776 palavras, cerca de 12,9 bits por palavra, CC BY 4.0). O alemão usa a lista de-7776 da dys2p (7.776 palavras, publicada sob CC0 e licenças equivalentes ao domínio público). Italiano, espanhol, francês e português usam as listas BIP-39 (2.048 palavras, 11 bits por palavra) como publicadas na biblioteca python-mnemonic da Trezor, sob licença MIT. Todas são servidas por este site; Remover acentos nunca reduz a entropia, porque as palavras BIP-39 continuam distintas sem acentos."
 ---
 
 ## Como funciona
@@ -52,6 +55,20 @@ A cópia usa a Clipboard API assíncrona quando a página é servida por HTTPS, 
 ### Por que a entropia é a medida certa
 
 Um atacante que conheça este gerador em detalhe, conjunto e tamanho incluídos, ainda precisa testar em média metade das 2^bits combinações. Com 104 bits, são cerca de 10³¹ tentativas: mesmo a 10 bilhões por segundo levaria muito mais que a idade do universo. É por isso que uma senha de um bom gerador é forte *por construção*, enquanto uma senha inventada só é forte se o dicionário do atacante for pequeno.
+
+## Frases-senha: palavras aleatórias em vez de caracteres aleatórios
+
+Uma frase-senha é formada por algumas palavras escolhidas **ao acaso** de uma lista fixa, o método conhecido como *diceware*. A força depende só do tamanho da lista e do número de palavras, nunca de quão criativas as palavras pareçam: cada palavra de uma lista de 7.776 acrescenta log₂(7776) ≈ **12,9 bits**, e cada palavra de uma lista de 2.048, exatamente **11 bits**.
+
+| Palavras | Lista EFF / alemã (7.776) | Listas BIP-39 (2.048) |
+|---|---|---|
+| 4 | 51,7 bits | 44 bits |
+| 5 | 64,6 bits | 55 bits |
+| 6 | 77,5 bits | 66 bits |
+| 7 | 90,5 bits | 77 bits |
+| 8 | 103,4 bits | 88 bits |
+
+As palavras são escolhidas com a mesma amostragem sem viés de `crypto.getRandomValues()` usada nas senhas. **Iniciais maiúsculas** é determinístico e não acrescenta entropia; **Adicionar um dígito** coloca um dígito aleatório depois de uma palavra aleatória e acrescenta log₂(10 × palavras) bits. A lista padrão segue o idioma da página, e qualquer lista pode ser usada em qualquer página.
 
 ## Casos de uso
 

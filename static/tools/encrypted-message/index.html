@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="canonical" href="https://federicosella.com/en/tools/encrypted-message/">
+<title>Encrypted Message Link</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.row { display: flex; gap: var(--s-2); flex-wrap: wrap; align-items: center; }
+.row .tb-input { flex: 1 1 14rem; font-family: var(--font-mono); }
+.meta { display: flex; justify-content: space-between; gap: var(--s-2); flex-wrap: wrap; color: var(--text-3); font-size: var(--fs-xs); margin-top: var(--s-1); }
+.out { margin-top: var(--s-4); display: grid; gap: var(--s-3); }
+.link { min-height: 6rem; font-family: var(--font-mono); font-size: var(--fs-xs); word-break: break-all; }
+.steps { margin: 0; padding-left: 1.25rem; font-size: var(--fs-sm); color: var(--text-2); }
+.steps li { margin: var(--s-1) 0; }
+.msg { white-space: pre-wrap; overflow-wrap: anywhere; padding: var(--s-3); border: 1px solid var(--border-input); border-radius: var(--r-sm); background: var(--bg-raised); font-size: var(--fs-md); }
+.back { font-size: var(--fs-sm); }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="12" height="10" rx="2"/><path d="M7 10V7a3 3 0 0 1 6 0v3"/><path d="M16 15h2.5a2.5 2.5 0 0 0 0-5H18"/><path d="M20 19h-1.5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">Encrypted Message Link</h1>
+      <p class="tb-sub" data-i18n="subtitle">Encrypt a note in your browser and share it as a link</p>
+    </div>
+  </header>
+
+  <!-- compose -->
+  <section id="compose">
+    <div class="tb-field">
+      <label class="tb-label" for="message" data-i18n="message">Message</label>
+      <textarea id="message" class="tb-textarea" rows="6" spellcheck="false" data-i18n-placeholder="messagePh"></textarea>
+    </div>
+    <div class="tb-field">
+      <label class="tb-label" for="pass" data-i18n="passphrase">Passphrase</label>
+      <div class="row">
+        <input id="pass" class="tb-input" type="password" autocomplete="new-password" spellcheck="false">
+        <button type="button" class="tb-btn tb-btn--ghost" id="show" data-i18n="show" aria-pressed="false">Show</button>
+        <button type="button" class="tb-btn tb-btn--ghost" id="gen" data-i18n="generate">Generate</button>
+      </div>
+      <p class="tb-hint" data-i18n="passHint">Use a long passphrase. Anyone who has both the link and the passphrase can read the message.</p>
+    </div>
+    <button type="button" class="tb-btn" id="encrypt" data-i18n="encrypt">Create encrypted link</button>
+    <p id="c-err" class="tb-note tb-note--warn" hidden></p>
+
+    <div class="out" id="result" hidden>
+      <div class="tb-field">
+        <label class="tb-label" for="link" data-i18n="link">Encrypted link</label>
+        <textarea id="link" class="tb-textarea link" readonly></textarea>
+        <div class="meta"><span id="len"></span></div>
+      </div>
+      <p id="long" class="tb-note tb-note--warn" hidden></p>
+      <div class="row">
+        <button type="button" class="tb-btn" data-copy="#link" data-i18n="copyLink">Copy link</button>
+        <button type="button" class="tb-btn tb-btn--ghost" id="copy-pass" data-i18n="copyPass">Copy passphrase</button>
+      </div>
+      <div class="tb-note">
+        <strong data-i18n="howSend">How to send it safely</strong>
+        <ol class="steps">
+          <li data-i18n="step1">Send the link over one channel (for example email).</li>
+          <li data-i18n="step2">Send the passphrase over a different one (for example a phone call or another messenger) — never in the same message.</li>
+          <li data-i18n="step3">The link does not expire or self-destruct: anyone with the link and the passphrase can open it for as long as they keep the link. Nothing is stored on any server, so there is nothing to delete.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- open -->
+  <section id="open" hidden>
+    <p class="tb-note" data-i18n="openIntro">Someone sent you an encrypted message. Enter the passphrase they gave you separately.</p>
+    <form id="open-form" class="tb-field" novalidate>
+      <label class="tb-label" for="opass" data-i18n="passphrase">Passphrase</label>
+      <div class="row">
+        <input id="opass" class="tb-input" type="password" autocomplete="off" spellcheck="false">
+        <button type="submit" class="tb-btn" id="decrypt" data-i18n="decrypt">Decrypt</button>
+      </div>
+    </form>
+    <p id="o-err" class="tb-note tb-note--warn" hidden></p>
+    <div id="plain" hidden>
+      <div class="tb-label" data-i18n="decrypted">Message</div>
+      <div class="msg" id="msg"></div>
+      <div class="row" style="margin-top: var(--s-2)">
+        <button type="button" class="tb-btn tb-btn--ghost" data-copy="#msg" data-i18n="copyMsg">Copy message</button>
+        <button type="button" class="tb-btn tb-btn--ghost" id="forget" data-i18n="forget">Close and forget</button>
+      </div>
+      <p class="tb-hint" data-i18n="openNote">The message was decrypted in this browser. Opening it did not notify anyone and did not delete anything.</p>
+    </div>
+    <p class="back"><a id="back" href="/en/tools/encrypted-message/" target="_top" data-i18n="back">Write your own encrypted message</a></p>
+  </section>
+</main>
+
+<script type="module">
+import { encrypt, decrypt, buildLink, randomPassphrase, LINK_WARN_CHARS } from '/js/tools/secret-link.mjs';
+
+TK.init({
+  en: { title: 'Encrypted Message Link', subtitle: 'Encrypt a note in your browser and share it as a link',
+    message: 'Message', messagePh: 'Wi-Fi password, door code, a private note…', passphrase: 'Passphrase', show: 'Show', hide: 'Hide', generate: 'Generate',
+    passHint: 'Use a long passphrase. Anyone who has both the link and the passphrase can read the message.',
+    encrypt: 'Create encrypted link', encrypting: 'Encrypting…', link: 'Encrypted link', chars: '{n} characters', copyLink: 'Copy link', copyPass: 'Copy passphrase',
+    long: 'This link is {n} characters long. Some email programs, chat apps and URL shorteners cut links longer than about 2,000 characters. Shorten the message or send it as a file instead.',
+    howSend: 'How to send it safely', step1: 'Send the link over one channel (for example email).',
+    step2: 'Send the passphrase over a different one (for example a phone call or another messenger) — never in the same message.',
+    step3: 'The link does not expire or self-destruct: anyone with the link and the passphrase can open it for as long as they keep the link. Nothing is stored on any server, so there is nothing to delete.',
+    noMessage: 'Write a message first.', noPass: 'Enter or generate a passphrase.', shortPass: 'Use a passphrase of at least 8 characters.',
+    openIntro: 'Someone sent you an encrypted message. Enter the passphrase they gave you separately.', decrypt: 'Decrypt', decrypting: 'Decrypting…', decrypted: 'Message', copyMsg: 'Copy message', forget: 'Close and forget',
+    openNote: 'The message was decrypted in this browser. Opening it did not notify anyone and did not delete anything.',
+    errAuth: 'Could not decrypt. The passphrase is wrong, or the link was changed or cut off when it was copied.', errFormat: 'This link is incomplete or not an encrypted message link. Ask the sender to copy it again in full.',
+    back: 'Write your own encrypted message', copied: 'Copied' },
+  it: { title: 'Link con messaggio cifrato', subtitle: 'Cifra una nota nel browser e condividila come link',
+    message: 'Messaggio', messagePh: 'Password del Wi-Fi, codice del portone, una nota privata…', passphrase: 'Passphrase', show: 'Mostra', hide: 'Nascondi', generate: 'Genera',
+    passHint: 'Usa una passphrase lunga. Chiunque abbia sia il link sia la passphrase può leggere il messaggio.',
+    encrypt: 'Crea link cifrato', encrypting: 'Cifratura…', link: 'Link cifrato', chars: '{n} caratteri', copyLink: 'Copia link', copyPass: 'Copia passphrase',
+    long: 'Questo link è lungo {n} caratteri. Alcuni programmi di posta, app di chat e accorciatori di URL tagliano i link più lunghi di circa 2.000 caratteri. Accorcia il messaggio o invialo come file.',
+    howSend: 'Come inviarlo in sicurezza', step1: 'Invia il link su un canale (per esempio l\'email).',
+    step2: 'Invia la passphrase su un canale diverso (per esempio una telefonata o un\'altra app di messaggi) — mai nello stesso messaggio.',
+    step3: 'Il link non scade e non si autodistrugge: chiunque abbia link e passphrase può aprirlo finché conserva il link. Non viene salvato nulla su nessun server, quindi non c\'è niente da cancellare.',
+    noMessage: 'Scrivi prima un messaggio.', noPass: 'Inserisci o genera una passphrase.', shortPass: 'Usa una passphrase di almeno 8 caratteri.',
+    openIntro: 'Qualcuno ti ha inviato un messaggio cifrato. Inserisci la passphrase che ti ha dato a parte.', decrypt: 'Decifra', decrypting: 'Decifratura…', decrypted: 'Messaggio', copyMsg: 'Copia messaggio', forget: 'Chiudi e dimentica',
+    openNote: 'Il messaggio è stato decifrato in questo browser. Aprirlo non ha avvisato nessuno e non ha cancellato nulla.',
+    errAuth: 'Impossibile decifrare. La passphrase è sbagliata, oppure il link è stato modificato o tagliato durante la copia.', errFormat: 'Questo link è incompleto o non è un link con messaggio cifrato. Chiedi a chi te l\'ha inviato di copiarlo di nuovo per intero.',
+    back: 'Scrivi il tuo messaggio cifrato', copied: 'Copiato' },
+  es: { title: 'Enlace con mensaje cifrado', subtitle: 'Cifra una nota en tu navegador y compártela como enlace',
+    message: 'Mensaje', messagePh: 'Contraseña del wifi, código del portal, una nota privada…', passphrase: 'Frase de contraseña', show: 'Mostrar', hide: 'Ocultar', generate: 'Generar',
+    passHint: 'Usa una frase de contraseña larga. Cualquiera que tenga el enlace y la frase puede leer el mensaje.',
+    encrypt: 'Crear enlace cifrado', encrypting: 'Cifrando…', link: 'Enlace cifrado', chars: '{n} caracteres', copyLink: 'Copiar enlace', copyPass: 'Copiar frase',
+    long: 'Este enlace tiene {n} caracteres. Algunos programas de correo, apps de chat y acortadores cortan los enlaces de más de unos 2000 caracteres. Acorta el mensaje o envíalo como archivo.',
+    howSend: 'Cómo enviarlo con seguridad', step1: 'Envía el enlace por un canal (por ejemplo, el correo).',
+    step2: 'Envía la frase de contraseña por otro distinto (por ejemplo, una llamada u otra app de mensajería), nunca en el mismo mensaje.',
+    step3: 'El enlace no caduca ni se autodestruye: quien tenga el enlace y la frase puede abrirlo mientras conserve el enlace. No se guarda nada en ningún servidor, así que no hay nada que borrar.',
+    noMessage: 'Escribe primero un mensaje.', noPass: 'Escribe o genera una frase de contraseña.', shortPass: 'Usa una frase de al menos 8 caracteres.',
+    openIntro: 'Alguien te ha enviado un mensaje cifrado. Escribe la frase de contraseña que te dio por separado.', decrypt: 'Descifrar', decrypting: 'Descifrando…', decrypted: 'Mensaje', copyMsg: 'Copiar mensaje', forget: 'Cerrar y olvidar',
+    openNote: 'El mensaje se ha descifrado en este navegador. Abrirlo no ha avisado a nadie ni ha borrado nada.',
+    errAuth: 'No se ha podido descifrar. La frase es incorrecta, o el enlace se modificó o se cortó al copiarlo.', errFormat: 'Este enlace está incompleto o no es un enlace con mensaje cifrado. Pide a quien te lo envió que lo copie de nuevo entero.',
+    back: 'Escribe tu propio mensaje cifrado', copied: 'Copiado' },
+  de: { title: 'Verschlüsselter Nachrichtenlink', subtitle: 'Eine Notiz im Browser verschlüsseln und als Link teilen',
+    message: 'Nachricht', messagePh: 'WLAN-Passwort, Türcode, eine private Notiz…', passphrase: 'Passphrase', show: 'Anzeigen', hide: 'Verbergen', generate: 'Erzeugen',
+    passHint: 'Verwenden Sie eine lange Passphrase. Wer Link und Passphrase hat, kann die Nachricht lesen.',
+    encrypt: 'Verschlüsselten Link erstellen', encrypting: 'Wird verschlüsselt…', link: 'Verschlüsselter Link', chars: '{n} Zeichen', copyLink: 'Link kopieren', copyPass: 'Passphrase kopieren',
+    long: 'Dieser Link ist {n} Zeichen lang. Manche Mailprogramme, Chat-Apps und URL-Kürzer schneiden Links ab etwa 2.000 Zeichen ab. Kürzen Sie die Nachricht oder senden Sie sie als Datei.',
+    howSend: 'So senden Sie ihn sicher', step1: 'Senden Sie den Link über einen Kanal (zum Beispiel E-Mail).',
+    step2: 'Senden Sie die Passphrase über einen anderen (zum Beispiel per Anruf oder über einen anderen Messenger) – nie in derselben Nachricht.',
+    step3: 'Der Link läuft nicht ab und zerstört sich nicht selbst: Wer Link und Passphrase hat, kann ihn öffnen, solange der Link aufbewahrt wird. Auf keinem Server wird etwas gespeichert, es gibt also nichts zu löschen.',
+    noMessage: 'Schreiben Sie zuerst eine Nachricht.', noPass: 'Geben Sie eine Passphrase ein oder erzeugen Sie eine.', shortPass: 'Verwenden Sie eine Passphrase mit mindestens 8 Zeichen.',
+    openIntro: 'Jemand hat Ihnen eine verschlüsselte Nachricht geschickt. Geben Sie die Passphrase ein, die Sie getrennt erhalten haben.', decrypt: 'Entschlüsseln', decrypting: 'Wird entschlüsselt…', decrypted: 'Nachricht', copyMsg: 'Nachricht kopieren', forget: 'Schließen und vergessen',
+    openNote: 'Die Nachricht wurde in diesem Browser entschlüsselt. Das Öffnen hat niemanden benachrichtigt und nichts gelöscht.',
+    errAuth: 'Entschlüsseln nicht möglich. Die Passphrase ist falsch, oder der Link wurde beim Kopieren verändert oder abgeschnitten.', errFormat: 'Dieser Link ist unvollständig oder kein Link mit verschlüsselter Nachricht. Bitten Sie den Absender, ihn vollständig neu zu kopieren.',
+    back: 'Eigene verschlüsselte Nachricht schreiben', copied: 'Kopiert' },
+  fr: { title: 'Lien de message chiffré', subtitle: 'Chiffrez une note dans le navigateur et partagez-la sous forme de lien',
+    message: 'Message', messagePh: 'Mot de passe Wi-Fi, code de la porte, une note privée…', passphrase: 'Phrase secrète', show: 'Afficher', hide: 'Masquer', generate: 'Générer',
+    passHint: 'Utilisez une phrase secrète longue. Toute personne qui a le lien et la phrase peut lire le message.',
+    encrypt: 'Créer le lien chiffré', encrypting: 'Chiffrement…', link: 'Lien chiffré', chars: '{n} caractères', copyLink: 'Copier le lien', copyPass: 'Copier la phrase',
+    long: 'Ce lien fait {n} caractères. Certains logiciels de messagerie, applications de discussion et raccourcisseurs coupent les liens de plus d\'environ 2 000 caractères. Raccourcissez le message ou envoyez-le sous forme de fichier.',
+    howSend: 'Comment l\'envoyer en sécurité', step1: 'Envoyez le lien par un canal (par exemple un e-mail).',
+    step2: 'Envoyez la phrase secrète par un autre (par exemple un appel ou une autre messagerie) — jamais dans le même message.',
+    step3: 'Le lien n\'expire pas et ne s\'autodétruit pas : toute personne qui a le lien et la phrase peut l\'ouvrir tant qu\'elle garde le lien. Rien n\'est stocké sur un serveur, il n\'y a donc rien à supprimer.',
+    noMessage: 'Écrivez d\'abord un message.', noPass: 'Saisissez ou générez une phrase secrète.', shortPass: 'Utilisez une phrase secrète d\'au moins 8 caractères.',
+    openIntro: 'Quelqu\'un vous a envoyé un message chiffré. Saisissez la phrase secrète reçue séparément.', decrypt: 'Déchiffrer', decrypting: 'Déchiffrement…', decrypted: 'Message', copyMsg: 'Copier le message', forget: 'Fermer et oublier',
+    openNote: 'Le message a été déchiffré dans ce navigateur. L\'ouvrir n\'a prévenu personne et n\'a rien supprimé.',
+    errAuth: 'Déchiffrement impossible. La phrase secrète est fausse, ou le lien a été modifié ou coupé lors de la copie.', errFormat: 'Ce lien est incomplet ou n\'est pas un lien de message chiffré. Demandez à l\'expéditeur de le recopier en entier.',
+    back: 'Écrire votre propre message chiffré', copied: 'Copié' },
+  pt: { title: 'Link de mensagem criptografada', subtitle: 'Criptografe uma nota no navegador e compartilhe como link',
+    message: 'Mensagem', messagePh: 'Senha do Wi-Fi, código do portão, uma nota privada…', passphrase: 'Frase-senha', show: 'Mostrar', hide: 'Ocultar', generate: 'Gerar',
+    passHint: 'Use uma frase-senha longa. Quem tiver o link e a frase-senha pode ler a mensagem.',
+    encrypt: 'Criar link criptografado', encrypting: 'Criptografando…', link: 'Link criptografado', chars: '{n} caracteres', copyLink: 'Copiar link', copyPass: 'Copiar frase-senha',
+    long: 'Este link tem {n} caracteres. Alguns programas de e-mail, apps de conversa e encurtadores cortam links com mais de uns 2.000 caracteres. Encurte a mensagem ou envie como arquivo.',
+    howSend: 'Como enviar com segurança', step1: 'Envie o link por um canal (por exemplo, e-mail).',
+    step2: 'Envie a frase-senha por outro (por exemplo, uma ligação ou outro app de mensagens) — nunca na mesma mensagem.',
+    step3: 'O link não expira nem se autodestrói: quem tiver o link e a frase-senha pode abri-lo enquanto guardar o link. Nada fica salvo em servidor nenhum, então não há nada para apagar.',
+    noMessage: 'Escreva uma mensagem primeiro.', noPass: 'Digite ou gere uma frase-senha.', shortPass: 'Use uma frase-senha com pelo menos 8 caracteres.',
+    openIntro: 'Alguém te enviou uma mensagem criptografada. Digite a frase-senha que essa pessoa te passou separadamente.', decrypt: 'Descriptografar', decrypting: 'Descriptografando…', decrypted: 'Mensagem', copyMsg: 'Copiar mensagem', forget: 'Fechar e esquecer',
+    openNote: 'A mensagem foi descriptografada neste navegador. Abri-la não avisou ninguém e não apagou nada.',
+    errAuth: 'Não foi possível descriptografar. A frase-senha está errada, ou o link foi alterado ou cortado ao ser copiado.', errFormat: 'Este link está incompleto ou não é um link de mensagem criptografada. Peça a quem enviou para copiá-lo de novo, inteiro.',
+    back: 'Escreva sua própria mensagem criptografada', copied: 'Copiado' },
+});
+const $ = (id) => document.getElementById(id);
+const t = TK.t;
+const err = (id, msg) => { $(id).textContent = msg || ''; $(id).hidden = !msg; };
+
+/* ---------- open mode: the token is in this page's own #fragment ---------- */
+let token = null;
+if (/^#v1\./.test(location.hash)) {
+  token = location.hash.slice(1);
+  // keep the token in memory only, and take it out of the address bar so it
+  // is not copied or bookmarked by accident (it stays in this tab's history)
+  history.replaceState(null, '', location.pathname + location.search);
+  $('compose').hidden = true; $('open').hidden = false;
+  $('back').href = `/${TK.lang}/tools/encrypted-message/`;
+  $('opass').focus();
+}
+// opening another link in this tab only changes the fragment: start over with it
+addEventListener('hashchange', () => { if (/^#v1\./.test(location.hash)) location.reload(); });
+$('open-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  err('o-err');
+  const btn = $('decrypt'); btn.disabled = true; btn.textContent = t('decrypting');
+  try {
+    $('msg').textContent = await decrypt(token, $('opass').value);
+    $('plain').hidden = false; $('open-form').hidden = true;
+  } catch (x) { err('o-err', t(x.message === 'auth' ? 'errAuth' : 'errFormat')); }
+  finally { btn.disabled = false; btn.textContent = t('decrypt'); }
+  window.__msgDone = (window.__msgDone || 0) + 1;
+});
+$('forget').addEventListener('click', () => { $('msg').textContent = ''; $('opass').value = ''; token = null; $('plain').hidden = true; location.replace(`/${TK.lang}/tools/encrypted-message/`); });
+
+/* ---------- compose mode ---------- */
+$('show').addEventListener('click', () => {
+  const on = $('pass').type === 'password';
+  $('pass').type = on ? 'text' : 'password'; $('show').textContent = t(on ? 'hide' : 'show'); $('show').setAttribute('aria-pressed', String(on));
+});
+$('gen').addEventListener('click', () => { $('pass').value = randomPassphrase(); $('pass').type = 'text'; $('show').textContent = t('hide'); $('show').setAttribute('aria-pressed', 'true'); });
+$('copy-pass').addEventListener('click', (e) => TK.copy($('pass').value, e.currentTarget));
+for (const id of ['message', 'pass']) $(id).addEventListener('input', () => { $('result').hidden = true; });
+$('encrypt').addEventListener('click', async () => {
+  err('c-err');
+  const msg = $('message').value, pass = $('pass').value;
+  if (!msg.trim()) return err('c-err', t('noMessage'));
+  if (!pass) return err('c-err', t('noPass'));
+  if ([...pass].length < 8) return err('c-err', t('shortPass'));
+  const btn = $('encrypt'); btn.disabled = true; btn.textContent = t('encrypting');
+  try {
+    const link = buildLink(location.origin, TK.lang, await encrypt(msg, pass));
+    $('link').value = link;
+    $('len').textContent = t('chars', { n: TK.num(link.length) });
+    $('long').textContent = t('long', { n: TK.num(link.length) });
+    $('long').hidden = link.length <= LINK_WARN_CHARS;
+    $('result').hidden = false;
+  } finally { btn.disabled = false; btn.textContent = t('encrypt'); }
+  window.__msgDone = (window.__msgDone || 0) + 1;
+});
+window.__msgReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 ---
-title: "Passwort-Generator für sichere Passwörter"
-description: "Erzeugen Sie starke Zufallspasswörter bis 64 Zeichen mit dem Krypto-Zufallsgenerator Ihres Browsers. Live-Entropie, Kopieren per Klick, kein Server."
-intro: "Ein **Passwort-Generator** mit einem Klick: Länge und Zeichengruppen wählen und ein Zufallspasswort aus dem kryptografischen Zufallsgenerator Ihres Browsers erhalten – mit der Stärke in Bit."
+title: "Passwort- und Passphrase-Generator"
+description: "Erzeugen Sie starke Zufallspasswörter bis 64 Zeichen oder Diceware-Passphrasen aus Wortlisten in 6 Sprachen. Exakte Entropie, nichts wird gesendet."
+intro: "Ein **Passwort-Generator** mit einem Klick: Länge und Zeichengruppen für ein Zufallspasswort wählen, oder auf **Passphrase** umschalten für eine Folge zufälliger Wörter (auf Deutsch, Englisch, Italienisch, Spanisch, Französisch oder Portugiesisch). Alles stammt aus dem kryptografischen Zufallsgenerator Ihres Browsers, die genaue Stärke wird in Bit angezeigt."
 date: 2026-02-03
-lastmod: 2026-10-24
+lastmod: 2026-10-26
 reviewed: false
 keywords: ["passwort generator", "sicheres passwort generieren", "zufallspasswort generator", "starkes passwort erstellen", "passwort erstellen online", "16 stelliges passwort", "passwort generieren"]
 tags: ["sicherheit", "passwörter", "tool"]
@@ -15,6 +15,7 @@ howto:
   - "Prüfen Sie die Zeile unter dem Passwort: Sie zeigt die Entropie in Bit und eine Einstufung (Schwach, Gut, Stark)."
   - "Klicken Sie auf **Passwort generieren** für ein neues; die Kopier-Schaltfläche neben dem Feld legt es in die Zwischenablage."
   - "Fügen Sie es in Ihren Passwortmanager ein, *bevor* Sie die Seite schließen. Der Generator speichert keinen Verlauf."
+  - "Für etwas, das Sie tippen oder sich merken müssen, wählen Sie **Passphrase**: Anzahl der Wörter, Wortliste (folgt der Sprache der Seite) und Trennzeichen einstellen. Sechs Wörter aus der deutschen Liste ergeben etwa 77 Bit."
 faq:
   - q: "Ist dieser Passwort-Generator wirklich zufällig?"
     a: "Ja. Jedes Zeichen wird mit `crypto.getRandomValues()` gewählt, dem kryptografisch sicheren Zufallszahlengenerator des Browsers, und zwar mit Rejection Sampling, sodass jedes Zeichen der Menge exakt gleich wahrscheinlich ist. `Math.random()` wird nicht verwendet; es ist vorhersagbar und nicht für Geheimnisse gedacht."
@@ -27,7 +28,9 @@ faq:
   - q: "Was bedeuten Schwach, Gut und Stark?"
     a: "Es sind Entropie-Stufen: unter 60 Bit Schwach, 60 bis 90 Bit Gut, ab 90 Bit Stark. Da das Passwort zufällig erzeugt wird, ist dieser Wert exakt – anders als bei Stärke-Anzeigen, die die Entropie eines selbst ausgedachten Passworts schätzen müssen."
   - q: "Muss ich mir diese Passwörter merken?"
-    a: "Nein. Speichern Sie sie in einem Passwortmanager und lassen Sie ihn ausfüllen. Für die ein, zwei Passwörter, die Sie wirklich auswendig wissen müssen, etwa das Master-Passwort, ist eine lange zufällige Passphrase angenehmer – die erzeugt PassFort auf dieser Website."
+    a: "Nein, speichern Sie sie in einem Passwortmanager und lassen Sie sie automatisch ausfüllen. Für die ein, zwei Geheimnisse, die Sie sich merken müssen, etwa das Master-Passwort des Managers, nutzen Sie den Modus **Passphrase**: Sechs oder sieben zufällige Wörter sind viel leichter zu tippen und zu merken als 16 zufällige Zeichen, bei ähnlicher Stärke."
+  - q: "Welche Wortlisten nutzt der Passphrase-Modus?"
+    a: "Deutsch nutzt die Liste de-7776 von dys2p (7.776 Wörter, etwa 12,9 Bit pro Wort, unter CC0 und gleichwertigen Gemeinfreiheits-Lizenzen veröffentlicht). Englisch nutzt die EFF Large Wordlist (7.776 Wörter, CC BY 4.0). Italienisch, Spanisch, Französisch und Portugiesisch nutzen die BIP-39-Listen (2.048 Wörter, 11 Bit pro Wort), wie sie in Trezors Bibliothek python-mnemonic unter MIT-Lizenz veröffentlicht sind. Alle werden von dieser Website ausgeliefert; Akzente entfernen senkt die Entropie nie, weil die BIP-39-Wörter auch ohne Akzente verschieden bleiben."
 ---
 
 ## So funktioniert es
@@ -52,6 +55,20 @@ Kopiert wird über die asynchrone Clipboard API, wenn die Seite per HTTPS ausgel
 ### Warum Entropie das richtige Maß ist
 
 Ein Angreifer, der diesen Generator samt Zeichenmenge und Länge genau kennt, muss trotzdem im Schnitt die Hälfte aller 2^Bit Kombinationen durchprobieren. Bei 104 Bit sind das rund 10³¹ Versuche: Selbst mit 10 Milliarden pro Sekunde bräuchte er weit länger als das Alter des Universums. Deshalb ist ein Passwort aus einem guten Generator *konstruktionsbedingt* stark, während ein ausgedachtes nur so stark ist, wie das Wörterbuch des Angreifers klein ist.
+
+## Passphrasen: zufällige Wörter statt zufälliger Zeichen
+
+Eine Passphrase besteht aus einigen Wörtern, die **zufällig** aus einer festen Liste gezogen werden — das sogenannte *Diceware*-Verfahren. Die Stärke hängt nur von der Größe der Liste und der Zahl der Wörter ab, nie davon, wie originell die Wörter wirken: Jedes Wort aus einer Liste mit 7.776 Wörtern bringt log₂(7776) ≈ **12,9 Bit**, jedes Wort aus einer Liste mit 2.048 Wörtern genau **11 Bit**.
+
+| Wörter | EFF- / deutsche Liste (7.776) | BIP-39-Listen (2.048) |
+|---|---|---|
+| 4 | 51,7 Bit | 44 Bit |
+| 5 | 64,6 Bit | 55 Bit |
+| 6 | 77,5 Bit | 66 Bit |
+| 7 | 90,5 Bit | 77 Bit |
+| 8 | 103,4 Bit | 88 Bit |
+
+Die Wörter werden mit derselben verzerrungsfreien Auswahl über `crypto.getRandomValues()` gezogen wie die Passwörter. **Großer Anfangsbuchstabe** ist deterministisch und bringt keine Entropie; **Eine Ziffer anhängen** setzt eine zufällige Ziffer hinter ein zufälliges Wort und bringt log₂(10 × Wörter) Bit. Die Standardliste folgt der Sprache der Seite, jede Liste lässt sich aber auf jeder Seite wählen.
 
 ## Anwendungsfälle
 

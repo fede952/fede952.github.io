@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://federicosella.com/en/tools/spf-dmarc-checker/">
+<title>SPF, DKIM & DMARC Checker</title>
+<link rel="stylesheet" href="/css/tool-base.css">
+<style>
+.form { display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--s-3); align-items: end; }
+.form .tb-field { margin: 0; }
+@media (max-width: 640px) { .form { grid-template-columns: 1fr; } }
+.summary { display: flex; gap: var(--s-4); align-items: center; padding: var(--s-4); border: 1px solid var(--border-input); border-radius: var(--r); background: var(--bg-raised); margin-top: var(--s-4); }
+.letter { display: grid; place-items: center; width: 4rem; height: 4rem; flex: none; border-radius: var(--r); font-size: 2.25rem; font-weight: 800; color: #fff; }
+.g-A { background: var(--success); } .g-B { background: color-mix(in srgb, var(--success) 70%, var(--warn)); } .g-C { background: var(--warn); } .g-D { background: color-mix(in srgb, var(--warn) 50%, var(--danger)); } .g-F { background: var(--danger); }
+.summary h2 { margin: 0; font-size: var(--fs-md); overflow-wrap: anywhere; }
+.summary p { margin: var(--s-1) 0 0; color: var(--text-2); font-size: var(--fs-sm); }
+.area { margin-top: var(--s-4); }
+.area > h2 { margin: 0 0 var(--s-2); font-size: var(--fs-md); }
+.rec { display: block; padding: var(--s-2) var(--s-3); border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg); font-family: var(--font-mono); font-size: var(--fs-xs); overflow-wrap: anywhere; white-space: pre-wrap; margin-bottom: var(--s-2); }
+.muted { color: var(--text-3); font-size: var(--fs-sm); }
+.meter { height: 8px; border-radius: 4px; background: var(--surface-3); overflow: hidden; margin: var(--s-1) 0 var(--s-2); }
+.meter span { display: block; height: 100%; background: var(--success); }
+.meter.over span { background: var(--danger); } .meter.near span { background: var(--warn); }
+.tree { list-style: none; margin: 0 0 var(--s-2); padding: 0; font-family: var(--font-mono); font-size: var(--fs-xs); }
+.tree ul { list-style: none; margin: 0; padding-left: var(--s-4); border-left: 1px dashed var(--border-input); }
+.tree li { padding: 2px 0; overflow-wrap: anywhere; }
+.tree .n { color: var(--text-3); }
+.tree .err { color: var(--danger); }
+.kv { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.kv th, .kv td { padding: var(--s-2) var(--s-3); border-top: 1px solid var(--border); text-align: left; vertical-align: top; }
+.kv th { color: var(--text-2); font-weight: 600; white-space: nowrap; }
+.kv td { overflow-wrap: break-word; word-break: break-word; }
+.kv code { font-size: var(--fs-xs); }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--border-input); border-radius: var(--r-sm); margin-bottom: var(--s-2); }
+.signals { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+.sig { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); padding: var(--s-3); border: 1px solid var(--border); border-left: 4px solid var(--border-input); border-radius: var(--r-sm); background: var(--bg-raised); }
+.sig p { margin: var(--s-1) 0 0; color: var(--text-2); font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.pill { display: inline-block; min-width: 4.5rem; padding: 2px var(--s-2); border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; text-align: center; white-space: nowrap; align-self: start; }
+.s-high { border-left-color: var(--danger); } .s-high .pill { background: var(--danger-soft); color: var(--danger); }
+.s-medium { border-left-color: var(--warn); } .s-medium .pill { background: var(--warn-soft); color: var(--warn); }
+.s-low { border-left-color: var(--accent); } .s-low .pill { background: var(--accent-soft); color: var(--accent); }
+.s-info .pill { border: 1px solid var(--border-input); color: var(--text-2); }
+.s-good { border-left-color: var(--success); } .s-good .pill { background: var(--success-soft); color: var(--success); }
+.fix { padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg-raised); }
+.fix p { margin: 0 0 var(--s-2); font-size: var(--fs-sm); }
+.fix-row { display: grid; grid-template-columns: 1fr auto; gap: var(--s-2); align-items: start; }
+.fix .rec { margin: 0; }
+.fix-host { font-size: var(--fs-xs); color: var(--text-2); margin-bottom: var(--s-1); overflow-wrap: anywhere; }
+@media (max-width: 560px) { .sig { grid-template-columns: 1fr; } .fix-row { grid-template-columns: 1fr; } .summary { align-items: flex-start; } }
+</style>
+</head>
+<body>
+<main class="tb-app">
+  <header class="tb-head">
+    <span class="tb-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M8.5 9.5h7v5h-7z"/><path d="M8.5 9.5l3.5 2.5 3.5-2.5"/></svg></span>
+    <div>
+      <h1 class="tb-title" data-i18n="title">SPF, DKIM &amp; DMARC Checker</h1>
+      <p class="tb-sub" data-i18n="subtitle">Grade a domain's email authentication and get example fixes</p>
+    </div>
+  </header>
+
+  <form id="form" class="form" novalidate>
+    <div class="tb-field">
+      <label class="tb-label" for="domain" data-i18n="domain">Domain</label>
+      <input id="domain" class="tb-input" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" data-i18n-placeholder="domainPh" placeholder="example.com or you@example.com">
+    </div>
+    <div class="tb-field">
+      <label class="tb-label" for="sel" data-i18n="selectors">DKIM selectors (optional)</label>
+      <input id="sel" class="tb-input" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" data-i18n-placeholder="selectorsPh" placeholder="selector1, google" aria-describedby="sel-hint">
+    </div>
+    <button type="submit" class="tb-btn" id="go" data-i18n="check">Check</button>
+  </form>
+  <p class="tb-hint" id="sel-hint" data-i18n="selectorsHint">Leave empty to try common selector names.</p>
+  <p class="tb-note" id="privacy" data-i18n="privacy">Pressing Check sends DNS queries for this domain to Cloudflare's public DNS-over-HTTPS resolver (cloudflare-dns.com).</p>
+  <div id="out" aria-live="polite"></div>
+</main>
+
+<script type="module">
+import { checkDomain, dohResolver, normalizeDomain, SPF_LOOKUP_LIMIT } from '/js/tools/mail-auth.mjs';
+import EN from '/js/tools/mail-auth/en.mjs';
+
+const LANGS = ['it', 'es', 'de', 'fr', 'pt'];
+const L = LANGS.includes(TK.lang) ? (await import(`/js/tools/mail-auth/${TK.lang}.mjs`)).default : EN;
+TK.init({ en: EN.ui, [TK.lang]: L.ui });
+const F = Object.assign({}, EN.f, L.f), FIX = Object.assign({}, EN.fix, L.fix);
+const $ = (id) => document.getElementById(id);
+const t = TK.t, esc = TK.esc;
+const fill = (s, p) => s.replace(/\{(\w+)\}/g, (m, k) => (p[k] !== undefined ? p[k] : m));
+
+// ?domain= only pre-fills the box: nothing is looked up until Check is pressed
+const qd = new URLSearchParams(location.search).get('domain');
+if (qd) $('domain').value = qd;
+
+function findings(r, area) {
+  const list = r.findings.filter((f) => f.area === area);
+  if (!list.length) return '';
+  return '<ul class="signals">' + list.map((f) => {
+    const [title, text] = (F[f.id] || [f.id, '']).map((x) => fill(x, f.p));
+    return `<li class="sig s-${f.sev}" data-id="${f.id}"><span class="pill">${esc(t(f.sev))}</span><div><strong>${esc(title)}</strong><p>${esc(text)}</p></div></li>`;
+  }).join('') + '</ul>';
+}
+function tree(n) {
+  const label = n.error === 'loop' ? `<span class="err">${esc(t('loop'))}</span>` : n.error === 'none' ? `<span class="err">${esc(t('missing'))}</span>` : `<span class="n">+${n.lookups}</span>`;
+  return `<li>${n.redirect ? esc(t('redirect')) + '=' : ''}${esc(n.domain)} ${label}${n.children.length ? '<ul>' + n.children.map(tree).join('') + '</ul>' : ''}</li>`;
+}
+function spfBlock(r) {
+  const s = r.spf;
+  let h = s.record ? `<code class="rec">${esc(s.record)}</code>` : `<p class="muted">${esc(t('none'))}</p>`;
+  if (s.record && !s.error) {
+    const pct = Math.min(100, (s.lookups / SPF_LOOKUP_LIMIT) * 100);
+    h += `<div class="muted">${esc(t('lookups', { n: s.lookups }))}</div><div class="meter${s.lookups > SPF_LOOKUP_LIMIT ? ' over' : s.lookups >= 8 ? ' near' : ''}" role="img" aria-label="${esc(t('lookups', { n: s.lookups }))}"><span style="width:${pct}%"></span></div>`;
+    if (s.tree.children.length) h += `<div class="muted">${esc(t('tree'))}</div><ul class="tree">${tree(s.tree)}</ul>`;
+  }
+  return h;
+}
+function dmarcBlock(r) {
+  const d = r.dmarc;
+  if (!d.record) return `<p class="muted">${esc(t('none'))}</p>`;
+  let h = `<code class="rec">${esc(d.record)}</code>`;
+  if (d.tags) {
+    h += `<div class="tbl-wrap"><table class="kv"><thead><tr><th scope="col">${esc(t('tag'))}</th><th scope="col">${esc(t('value'))}</th><th scope="col">${esc(t('meaning'))}</th></tr></thead><tbody>`
+      + Object.entries(d.tags).map(([k, v]) => `<tr><th scope="row"><code>${esc(k)}</code></th><td><code>${esc(v)}</code></td><td>${esc(TK.dict['t_' + k] || '')}</td></tr>`).join('') + '</tbody></table></div>';
+  }
+  return h;
+}
+function dkimBlock(r) {
+  const k = r.dkim.found;
+  if (!k.length) return '';
+  return `<div class="tbl-wrap"><table class="kv"><thead><tr><th scope="col">${esc(t('selector'))}</th><th scope="col">${esc(t('keyType'))}</th><th scope="col">${esc(t('keySize'))}</th></tr></thead><tbody>`
+    + k.map((x) => `<tr><th scope="row"><code>${esc(x.selector)}</code></th><td>${esc(x.k)}</td><td>${x.revoked ? esc(t('revoked')) : x.bits ? esc(t('bits', { n: x.bits })) : '—'}</td></tr>`).join('') + '</tbody></table></div>';
+}
+function mxBlock(r) {
+  if (!r.mx.mx.length || r.mx.nullMx) return '';
+  return `<div class="tbl-wrap"><table class="kv"><thead><tr><th scope="col">${esc(t('pref'))}</th><th scope="col">${esc(t('host'))}</th></tr></thead><tbody>`
+    + r.mx.mx.map((m) => `<tr><th scope="row">${m.pref}</th><td><code>${esc(m.host)}</code></td></tr>`).join('') + '</tbody></table></div>';
+}
+function bimiBlock(r) { return r.bimi.record ? `<code class="rec">${esc(r.bimi.record)}</code>` : ''; }
+
+function render(r, queries) {
+  const area = (id, block) => `<section class="area" data-area="${id}"><h2>${esc(t(id))}</h2>${block}${findings(r, id)}</section>`;
+  let fixes = `<section class="area" id="fixes"><h2>${esc(t('fixes'))}</h2>`;
+  if (!r.fixes.length) fixes += `<p class="muted">${esc(t('noFixes'))}</p>`;
+  else fixes += `<p class="tb-hint">${esc(t('fixesIntro'))}</p><div class="signals">` + r.fixes.map((x, i) => `<div class="fix" data-id="${x.id}"><p>${esc(FIX[x.id] || '')}</p>${x.value ? `<div class="fix-host">${esc(t('host'))}: <code>${esc(x.host)}</code> · ${esc(t('type'))}: ${x.type}</div><div class="fix-row"><code class="rec" id="fx${i}">${esc(x.value)}</code><button type="button" class="tb-btn tb-btn--ghost tb-btn--sm" data-copy="#fx${i}">${esc(t('copy'))}</button></div>` : ''}</div>`).join('') + '</div>';
+  fixes += '</section>';
+  $('out').innerHTML = `<div class="summary" role="status"><span class="letter g-${r.letter}" aria-label="${esc(t('grade'))} ${r.letter}">${r.letter}</span><div><h2>${esc(t('summaryFor', { d: r.domain }))}</h2><p>${esc(t('score', { s: r.score }))} · ${esc(t('queries', { n: queries }))}</p></div></div>`
+    + area('spf', spfBlock(r)) + area('dmarc', dmarcBlock(r)) + area('dkim', dkimBlock(r)) + area('mx', mxBlock(r)) + area('bimi', bimiBlock(r)) + fixes;
+}
+
+// copy buttons use the delegated [data-copy] handler in tool-kit.js
+
+$('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const domain = normalizeDomain($('domain').value);
+  if (!domain) { $('out').innerHTML = `<p class="tb-note tb-note--warn">${esc(t('invalid'))}</p>`; return; }
+  const selectors = $('sel').value.split(/[\s,;]+/).map((s) => s.trim().toLowerCase()).filter((s) => /^[a-z0-9._-]{1,63}$/.test(s));
+  const btn = $('go');
+  btn.disabled = true; btn.textContent = t('checking');
+  try {
+    const resolve = dohResolver();
+    const r = await checkDomain(domain, resolve, selectors);
+    render(r, resolve.queries);
+    window.__mailResult = r;
+  } catch (err) {
+    $('out').innerHTML = `<p class="tb-note tb-note--warn">${esc(t('failed', { e: err.message }))}</p>`;
+  } finally { btn.disabled = false; btn.textContent = t('check'); }
+});
+window.__mailReady = true;
+</script>
+<script src="/js/tool-kit.js"></script>
+<script src="/js/embed-resize.js"></script>
+</body>
+</html>

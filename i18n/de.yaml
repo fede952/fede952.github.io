@@ -91,6 +91,42 @@ hash_insecure:
   other: "Nicht für Sicherheit"
 hash_error:
   other: "Hashes konnten nicht berechnet werden:"
+hash_file_title:
+  other: "Prüfsumme einer Datei prüfen"
+hash_file_intro:
+  other: "Wählen Sie eine Datei oder ziehen Sie sie hierher, um ihre Prüfsumme zu berechnen, und fügen Sie dann die auf der Download-Seite veröffentlichte Prüfsumme zum Vergleich ein. Die Datei wird im Browser gelesen und nie hochgeladen, egal wie groß sie ist."
+hash_file_choose:
+  other: "Datei wählen"
+hash_file_drop:
+  other: "oder hierher ziehen"
+hash_file_expected:
+  other: "Erwartete Prüfsumme (optional)"
+hash_file_expected_ph:
+  other: "Hash oder die Zeile aus SHA256SUMS einfügen…"
+hash_file_algo:
+  other: "Algorithmus"
+hash_file_auto:
+  other: "Aus der erwarteten Prüfsumme: {algo}"
+hash_file_hashing:
+  other: "Berechnung… {done} von {total}"
+hash_file_cancel:
+  other: "Abbrechen"
+hash_file_result:
+  other: "Prüfsumme"
+hash_file_meta:
+  other: "{name} · {size} · {s} s"
+hash_file_match:
+  other: "Stimmt überein: Diese Datei ist identisch mit der, aus der die Prüfsumme berechnet wurde."
+hash_file_mismatch:
+  other: "Stimmt nicht überein: Diese Datei ist nicht die, aus der die Prüfsumme berechnet wurde. Sie kann unvollständig, beschädigt oder ausgetauscht sein. Nicht öffnen; laden Sie sie erneut von der offiziellen Website."
+hash_file_bad_expected:
+  other: "Das sieht nicht nach einer MD5-, SHA-1-, SHA-256- oder SHA-512-Prüfsumme aus."
+hash_file_ambiguous:
+  other: "Die eingefügte Liste enthält {n} Prüfsummen, keine davon für {name}. Fügen Sie nur die Zeile dieser Datei ein."
+hash_file_weak:
+  other: "Kollisionen bei MD5 und SHA-1 lassen sich gezielt erzeugen, eine Übereinstimmung schließt also nur versehentliche Schäden aus. Nutzen Sie SHA-256, wenn der Anbieter es veröffentlicht."
+hash_file_failed:
+  other: "Die Datei konnte nicht gelesen werden: {e}"
 b64_placeholder:
   other: "Text zum Kodieren oder Base64-String zum Dekodieren…"
 b64_encode:
@@ -299,3 +335,37 @@ home_show_all:
   other: "Alle {{ . }} anzeigen"
 home_show_fewer:
   other: "Weniger anzeigen"
+pg_mode:
+  other: "Art"
+pg_mode_password:
+  other: "Passwort"
+pg_mode_passphrase:
+  other: "Passphrase"
+pg_generate_phrase:
+  other: "Passphrase erzeugen"
+pg_words:
+  other: "Wörter"
+pg_wordlist:
+  other: "Wortliste"
+pg_separator:
+  other: "Trennzeichen"
+pg_sep_hyphen:
+  other: "Bindestrich"
+pg_sep_space:
+  other: "Leerzeichen"
+pg_sep_dot:
+  other: "Punkt"
+pg_sep_none:
+  other: "Keins"
+pg_capitalize:
+  other: "Großer Anfangsbuchstabe"
+pg_add_digit:
+  other: "Eine Ziffer anhängen"
+pg_strip_accents:
+  other: "Akzente entfernen"
+pg_per_word:
+  other: "{bits} Bit pro Wort · Liste mit {n} Wörtern ({source})"
+pg_list_loading:
+  other: "Wortliste wird geladen…"
+pg_list_failed:
+  other: "Die Wortliste konnte nicht geladen werden. Prüfen Sie die Verbindung und versuchen Sie es erneut."

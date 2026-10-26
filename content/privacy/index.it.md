@@ -2,7 +2,7 @@
 title: "Informativa sulla Privacy"
 description: "Come federicosella.com tratta i tuoi dati: strumenti che elaborano tutto in locale nel browser senza upload, statistiche senza cookie, pubblicità su consenso e link di affiliazione dichiarati."
 date: 2026-07-04
-lastmod: 2026-10-25
+lastmod: 2026-10-26
 hidemeta: true
 showToc: true
 ---
@@ -34,6 +34,8 @@ Ogni strumento interattivo del sito (generatore e verificatore di password, EXIF
 **Un'eccezione, voluta:** **NetGuard** ti mostra il tuo indirizzo IP pubblico e la sua posizione approssimativa. Per farlo, il tuo browser invia una richiesta al servizio di geolocalizzazione IP [ipwho.is](https://ipwho.is/). Come ogni richiesta web, questa rivela a quel servizio il tuo indirizzo IP (e lo user-agent del browser). Non viene inviato nient'altro, e la richiesta parte solo quando clicchi Scan in NetGuard.
 
 **Una seconda eccezione, facoltativa:** l'auditor di **PassFort** può verificare se una password compare in violazioni di dati note. Succede solo quando premi **Check against known breaches**. Il browser calcola allora l'hash SHA-1 della password e invia solo i primi 5 caratteri al servizio Pwned Passwords di Have I Been Pwned su [api.pwnedpasswords.com](https://haveibeenpwned.com/Passwords) (k-anonimato); la password e il resto dell'hash non vengono mai inviati e il confronto avviene sul tuo dispositivo. Come ogni richiesta web, rivela a quel servizio il tuo indirizzo IP e lo user-agent del browser.
+
+**Una terza eccezione, su richiesta:** la **Verifica SPF, DKIM e DMARC** legge i record DNS pubblici di un dominio. Quando premi **Verifica**, il tuo browser invia richieste DNS per il dominio inserito (record TXT per SPF, DMARC, selettori DKIM e BIMI, e record MX) al resolver pubblico DNS-over-HTTPS di Cloudflare, [cloudflare-dns.com](https://developers.cloudflare.com/1.1.1.1/privacy/public-dns-resolver/). Non viene inviato nient'altro, e nulla parte prima che tu prema il pulsante. Come ogni richiesta web, rivela a Cloudflare il tuo indirizzo IP e lo user-agent del browser.
 
 Alcuni strumenti offrono anche link a servizi esterni (ad esempio "controlla questo URL su VirusTotal" in Link Hazmat, o i pulsanti di condivisione). Sono normali link: non viene inviato nulla finché non ci clicchi.
 

@@ -21,8 +21,14 @@ as translations automatically.
 The interactive part of a tool is either a self-contained HTML app in `static/tools/<tool>/index.html` (or
 `static/games/<game>/`), embedded with an `<iframe>` (`tool_file` front matter), or an inline partial in
 `layouts/partials/tools/` (`tool_partial`). Apps are `noindex` with a canonical pointing to the parent tool page, take
-their UI language from `?lang=`, and never send user data anywhere (NetGuard's ipwho.is lookup is the disclosed
-exception). Templates: `layouts/tools/single.html` (every tool page) and `layouts/_default/game.html` (`layout: game`).
+their UI language from `?lang=`, and never send user data anywhere. The disclosed exceptions, each triggered only by an
+explicit button and named on the tool and on the 6 privacy pages, are NetGuard (ipwho.is), PassFort's breach check
+(api.pwnedpasswords.com) and the SPF/DKIM/DMARC Checker (DNS-over-HTTPS to cloudflare-dns.com);
+`tests/privacy-guard.mjs` fails on any other `fetch()` host. Tool logic that can be tested without a DOM lives in
+`static/js/tools/*.mjs` with unit tests in `tests/unit/`; heavy libraries (Tesseract, hash-wasm, pdf.js…) are
+self-hosted in `static/vendor/` and loaded only when used. Apps that read the parent page (quiz `?score=`, CVSS
+`?vector=`) do so through `window.parent.location` (same origin). The Encrypted Message Link targets the standalone
+app URL, not the tool page, so its `#fragment` never shares a page with ads or analytics. Templates: `layouts/tools/single.html` (every tool page) and `layouts/_default/game.html` (`layout: game`).
 
 Tool, game and learn pages use `.page-grid`: the article plus `partials/sidebar.html` (related tools from
 `partials/related-tool-pages.html` — `data/related.yaml` picks, then `.Related` on tags, then the newest; related guides
@@ -56,7 +62,9 @@ banner, which the footer "Cookie Settings" link reopens). Manual units are confi
   back to `slot_default`.
 - `partials/ads/enabled.html`: the allowlist. Only single pages in `tools` and `learn` get units; `noads: true` opts out.
 - `partials/ads/unit.html`: one responsive unit in a CLS-safe reserved-height container (`ad-slot.css`).
-- `partials/ads/inject-content.html`: learn pages get `article_mid` before the 2nd and 5th `<h2>`; tool pages before the 3rd.
+- `partials/ads/inject-content.html`: learn pages get `article_mid` before the 2nd and 5th `<h2>`; tool pages before the 2nd
+  (after the how-to, when enough text precedes it). The quiz's questions live inside its iframe, so no unit can land
+  between them. `tests/ads.mjs` enforces ≥ 150 px between any unit and a tool control.
 - Tool templates place `tool_top` under the intro and `tool_after` after the tool (max 3 units per page).
 - `{{< ad-banner position="…" >}}` places a unit manually in markdown.
 
@@ -77,6 +85,16 @@ set. Links are `rel="sponsored noopener"` with a visible localized disclosure (`
   from `[params.person]` is author/publisher everywhere; tools get WebApplication + FAQPage (from front matter `faq`),
   learn pages TechArticle, About a ProfilePage, home WebSite + SearchAction (`/<lang>/?q=`). Learn pages also render
   breadcrumbs, a byline and `partials/author-box.html` from the same params.
+
+## Share cards (Open Graph)
+
+Tool, game and learn pages get a per-page 1200×630 PNG built at build time by `partials/og/card.html` with Hugo's
+`images.Text` / `images.Overlay` over `assets/og/bg.png` and the page's icon tile from `assets/og/icons/` (fonts in
+`assets/og/fonts/`), published at `/og/<lang>/<path>.png`. `partials/templates/opengraph.html` and
+`twitter_cards.html` override PaperMod's to use it. Run `node scripts/og-assets.mjs` after adding an icon to
+`data/tool_icons.yaml` (it renders the background and icon tiles with Playwright). The Phishing Quiz also publishes
+`/<lang>/tools/phishing-quiz/score/<n>/` pages (`partials/quiz/score-pages.html`), one share card per score, which
+redirect to the quiz with `?score=n`. `tests/static-checks.mjs` checks every card exists and is 1200×630.
 
 ## Search, sitemap, redirects
 
