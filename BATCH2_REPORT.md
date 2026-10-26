@@ -394,7 +394,7 @@ The strength line shows the exact entropy; the info line shows bits per word, li
 - **Static:** 3,020 HTML files, 0 broken internal links; 1,297 JSON-LD blocks, 0 errors; sitemap 573 URLs; 452 per-page share cards, all 1200×630.
 - **Privacy guard:** 1,121 files, 71 images, 0 problems.
 
-**Lighthouse 12.6.1, mobile** (Moto G Power emulation, simulated slow 4G, 4× CPU). Local production build, ad and analytics hosts blocked:
+**Lighthouse 13.5.0, mobile** (default emulation, simulated throttling). Local production build, ad and analytics hosts blocked:
 
 | Page | Perf | A11y | BP | SEO | LCP | TBT | CLS |
 |---|---|---|---|---|---|---|---|
@@ -409,7 +409,7 @@ All targets are met: Perf ≥ 90, A11y/BP/SEO 100, CLS < 0.05. Runs with third p
 1. **Review and merge `batch2`.** Nothing is pushed. Merge into `main` when happy, then deploy.
 2. **After deploy, smoke-test the one network-dependent tool on the real domain.** The SPF/DKIM/DMARC Checker calls `cloudflare-dns.com` from `federicosella.com`; CORS was only exercised with a mocked resolver locally. Check one real domain of your own.
 3. **Native-speaker pass over the new copy.** This covers the 6 new tools × 6 languages, plus the updated Hash and Password Generator pages; all are `reviewed: false`. In particular:
-   - the localized **menu names** in "How to get the headers" (Outlook "Internet headers", Apple Mail "All Headers"/"Raw Source", Thunderbird "Message Source"). They differ by version and locale; English UI labels are FIRST-hand, the translations are best effort;
+   - the localized **menu names** in "How to get the headers" (Outlook "Internet headers", Apple Mail "All Headers"/"Raw Source", Thunderbird "Message Source"). They differ by version and locale; the English labels match current versions, the translated labels are best effort and should be checked in each client;
    - the **CVSS metric-name translations**: FIRST publishes the metrics in English only, so these are unofficial;
    - the 32 Phishing Quiz scenarios in IT/ES/DE/FR/PT.
 4. **Privacy policy.** The privacy pages now name `cloudflare-dns.com` as a third exception, in 6 languages, with `lastmod` 2026-10-26. If a lawyer reviews the policy, include this change.
